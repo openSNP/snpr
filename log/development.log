@@ -27,3 +27,189 @@ Migrating to CreateUsers (20110608000645)
  WHERE type = 'table' AND NOT name = 'sqlite_sequence'
 [0m
   [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("users")
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:39:02 +0200 2011
+
+ActionController::RoutingError (No route matches "/users/new"):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/user/new" for 127.0.0.1 at Wed Jun 08 20:39:05 +0200 2011
+
+ActionController::RoutingError (No route matches "/user/new"):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/user" for 127.0.0.1 at Wed Jun 08 20:39:08 +0200 2011
+
+ActionController::RoutingError (No route matches "/user"):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at Wed Jun 08 20:39:09 +0200 2011
+
+ActionController::RoutingError (No route matches "/users"):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at Wed Jun 08 20:39:34 +0200 2011
+
+ActionController::RoutingError (No route matches "/users"):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at Wed Jun 08 20:40:35 +0200 2011
+
+ActionController::RoutingError (uninitialized constant UsersController):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at Wed Jun 08 20:40:36 +0200 2011
+
+ActionController::RoutingError (uninitialized constant UsersController):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:40:40 +0200 2011
+
+ActionController::RoutingError (uninitialized constant UsersController):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:41:36 +0200 2011
+
+ActionController::RoutingError (uninitialized constant UsersController):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:42:34 +0200 2011
+
+LoadError (Expected /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb to define UsersController):
+  
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (8.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (16.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:42:56 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 39ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.3ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (127.9ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:43:34 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 4ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (11.1ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:43:36 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 4ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:43:47 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 5ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:43:51 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 4ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:43:52 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 4ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:44:16 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 5ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.6ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 20:46:47 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 4ms
+
+LoadError (no such file to load -- email_veracity):
+  app/models/user.rb:1
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.6ms)

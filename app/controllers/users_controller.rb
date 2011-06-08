@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
     # let non-authenticated users only see show, new, create
 	before_filter :authenticate, :except => [:index, :show, :new, :create]
 	# let only the corret user use edit and update
