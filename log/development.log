@@ -213,3 +213,1067 @@ LoadError (no such file to load -- email_veracity):
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.1ms)
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.6ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:43:29 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/new.html.erb within layouts/application (19.4ms)
+Completed   in 103ms
+
+ActionView::Template::Error (Missing partial users/fields with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <h1>Sign up</h1>
+    2: 
+    3: <%= form_for(@user) do |f| %>
+    4: 	<%= render 'fields', :f => f %>
+    5: 	<div class="actions">
+    6: 		<%= f.submit "Sign up" %>
+    7: 	</div>
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179899700_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179899700_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.5ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:44:11 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/new.html.erb within layouts/application (13.0ms)
+Completed   in 26ms
+
+ActionView::Template::Error (Missing partial users/fields with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <h1>Sign up</h1>
+    2: 
+    3: <%= form_for(@user) do |f| %>
+    4: 	<%= render 'fields', :f => f %>
+    5: 	<div class="actions">
+    6: 		<%= f.submit "Sign up" %>
+    7: 	</div>
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2180189120_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2180189120_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.7ms)
+
+
+Started GET "/users/" for 127.0.0.1 at Wed Jun 08 21:44:13 +0200 2011
+  Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+Completed   in 158ms
+
+ActionView::MissingTemplate (Missing template users/index with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+  app/controllers/users_controller.rb:29:in `index'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.9ms)
+
+
+Started GET "/users/" for 127.0.0.1 at Wed Jun 08 21:45:18 +0200 2011
+  Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+Completed   in 12ms
+
+ActionView::MissingTemplate (Missing template users/index with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+  app/controllers/users_controller.rb:29:in `index'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.5ms)
+
+
+Started GET "/users/" for 127.0.0.1 at Wed Jun 08 21:45:20 +0200 2011
+  Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+Completed   in 12ms
+
+ActionView::MissingTemplate (Missing template users/index with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+  app/controllers/users_controller.rb:29:in `index'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.5ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:01 +0200 2011
+  Processing by UsersController#new as HTML
+ERROR: compiling _app_views_users__fields_html_erb__1181619379_2180380360_995884 RAISED compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: syntax error, unexpected tSTRING_BEG, expecting ')'
+..._field :password_confirmation" );@output_buffer.safe_concat(...
+                              ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: unterminated string meets end of file
+Function body:           def _app_views_users__fields_html_erb__1181619379_2180380360_995884(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "users/_fields";_old_output_buffer = @output_buffer;f = local_assigns[:f];fields = local_assigns[:fields];;@output_buffer = ActionView::OutputBuffer.new; # helper thing so we don't have to put up fields into every page 
+@output_buffer.append= ( render 'shared/error_messages', :object => f.object );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('<div class="field">
+	');@output_buffer.append= ( f.label :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password_confirmation, "Confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password_confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>');@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:134:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:333:in `render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:262:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:378:in `_render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:31:in `render'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2177556160_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:172:in `with_output_buffer'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:545:in `fields_for'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:320:in `form_for'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2177556160_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:59:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:56:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:26:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:93:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:17:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:14:in `default_render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:6:in `send_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:150:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:18:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:436:in `_run__434435962__process_action__943997142__callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `_run_process_action_callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `run_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:119:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:41:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:138:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:178:in `action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:148:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:93:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:75:in `optimized_each'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:92:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:139:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:493:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/head.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:32:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:12:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:416:in `_run_call_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/sendfile.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/logger.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/runtime.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/static.rb:30:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:168:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `send'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `method_missing'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/log_tailer.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:13:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/server.rb:213:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands/server.rb:65:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:30
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27:in `tap'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27
+script/rails:6:in `require'
+script/rails:6
+Rendered users/_fields.html.erb (1.0ms)
+Rendered users/new.html.erb within layouts/application (82.0ms)
+Completed   in 96ms
+
+ActionView::Template::Error (compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: syntax error, unexpected tSTRING_BEG, expecting ')'
+..._field :password_confirmation" );@output_buffer.safe_concat(...
+                              ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: unterminated string meets end of file):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation" %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `compile'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2177556160_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2177556160_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.7ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (9.9ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:02 +0200 2011
+  Processing by UsersController#new as HTML
+ERROR: compiling _app_views_users__fields_html_erb__1181619379_2180377660_995884 RAISED compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: syntax error, unexpected tSTRING_BEG, expecting ')'
+..._field :password_confirmation" );@output_buffer.safe_concat(...
+                              ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: unterminated string meets end of file
+Function body:           def _app_views_users__fields_html_erb__1181619379_2180377660_995884(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "users/_fields";_old_output_buffer = @output_buffer;f = local_assigns[:f];fields = local_assigns[:fields];;@output_buffer = ActionView::OutputBuffer.new; # helper thing so we don't have to put up fields into every page 
+@output_buffer.append= ( render 'shared/error_messages', :object => f.object );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('<div class="field">
+	');@output_buffer.append= ( f.label :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password_confirmation, "Confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password_confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>');@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:134:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:333:in `render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:262:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:378:in `_render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:31:in `render'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179341760_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:172:in `with_output_buffer'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:545:in `fields_for'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:320:in `form_for'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179341760_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:59:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:56:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:26:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:93:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:17:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:14:in `default_render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:6:in `send_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:150:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:18:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:436:in `_run__434435962__process_action__943997142__callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `_run_process_action_callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `run_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:119:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:41:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:138:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:178:in `action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:148:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:93:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:75:in `optimized_each'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:92:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:139:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:493:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/head.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:32:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:12:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:416:in `_run_call_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/sendfile.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/logger.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/runtime.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/static.rb:30:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:168:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `send'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `method_missing'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/log_tailer.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:13:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/server.rb:213:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands/server.rb:65:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:30
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27:in `tap'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27
+script/rails:6:in `require'
+script/rails:6
+Rendered users/_fields.html.erb (1.5ms)
+Rendered users/new.html.erb within layouts/application (63.2ms)
+Completed   in 77ms
+
+ActionView::Template::Error (compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: syntax error, unexpected tSTRING_BEG, expecting ')'
+..._field :password_confirmation" );@output_buffer.safe_concat(...
+                              ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: unterminated string meets end of file):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation" %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `compile'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179341760_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179341760_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.7ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.1ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:04 +0200 2011
+  Processing by UsersController#new as HTML
+ERROR: compiling _app_views_users__fields_html_erb__1181619379_2180498100_995884 RAISED compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: syntax error, unexpected tSTRING_BEG, expecting ')'
+..._field :password_confirmation" );@output_buffer.safe_concat(...
+                              ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: unterminated string meets end of file
+Function body:           def _app_views_users__fields_html_erb__1181619379_2180498100_995884(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "users/_fields";_old_output_buffer = @output_buffer;f = local_assigns[:f];fields = local_assigns[:fields];;@output_buffer = ActionView::OutputBuffer.new; # helper thing so we don't have to put up fields into every page 
+@output_buffer.append= ( render 'shared/error_messages', :object => f.object );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('<div class="field">
+	');@output_buffer.append= ( f.label :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password_confirmation, "Confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password_confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>');@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:134:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:333:in `render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:262:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:378:in `_render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:31:in `render'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179135680_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:172:in `with_output_buffer'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:545:in `fields_for'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:320:in `form_for'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179135680_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:59:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:56:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:26:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:93:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:17:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:14:in `default_render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:6:in `send_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:150:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:18:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:436:in `_run__434435962__process_action__943997142__callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `_run_process_action_callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `run_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:119:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:41:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:138:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:178:in `action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:148:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:93:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:75:in `optimized_each'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:92:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:139:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:493:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/head.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:32:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:12:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:416:in `_run_call_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/sendfile.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/logger.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/runtime.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/static.rb:30:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:168:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `send'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `method_missing'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/log_tailer.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:13:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/server.rb:213:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands/server.rb:65:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:30
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27:in `tap'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27
+script/rails:6:in `require'
+script/rails:6
+Rendered users/_fields.html.erb (1.0ms)
+Rendered users/new.html.erb within layouts/application (71.0ms)
+Completed   in 84ms
+
+ActionView::Template::Error (compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: syntax error, unexpected tSTRING_BEG, expecting ')'
+..._field :password_confirmation" );@output_buffer.safe_concat(...
+                              ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:17: unterminated string meets end of file):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation" %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `compile'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179135680_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179135680_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.9ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:25 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (14.1ms)
+Completed   in 27ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2178903380_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179204300_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179204300_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (71.9ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (77.4ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:26 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (14.0ms)
+Completed   in 27ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2179804760_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179949480_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179949480_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.7ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:27 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (2.0ms)
+Rendered users/new.html.erb within layouts/application (14.4ms)
+Completed   in 90ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180083300_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2180241640_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2180241640_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.9ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:27 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (73.7ms)
+Completed   in 87ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180319020_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178772040_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178772040_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.5ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (9.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:28 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.9ms)
+Rendered users/new.html.erb within layouts/application (72.0ms)
+Completed   in 86ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180320300_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179034860_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179034860_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.8ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.1ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:30 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (70.8ms)
+Completed   in 84ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180433800_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179061060_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179061060_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.8ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.1ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:30 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (14.3ms)
+Completed   in 28ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2178853760_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179159440_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179159440_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.8ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.3ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:31 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (13.5ms)
+Completed   in 26ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2179672660_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179821920_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179821920_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.9ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.3ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:46:32 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (13.6ms)
+Completed   in 27ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2179903020_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2180034340_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2180034340_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.5ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:48:15 +0200 2011
+  Processing by UsersController#new as HTML
+ERROR: compiling _app_views_users__fields_html_erb__1181619379_2180247620_995884 RAISED compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:3: syntax error, unexpected kCLASS, expecting kDO or '{' or '('
+');@output_buffer.safe_concat('<div class="field">
+                                         ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:10: unknown regexp options - dv
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:10: unmatched ): /div>
+<div class="field">
+	');@output_buffer.append= ( f.label :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:11: syntax error, unexpected '<'
+<div class="field">
+ ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: unknown regexp options - dv
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: unmatched ): /div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password_confirmation, "Confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password_confirmation );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: unterminated string meets end of file
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: syntax error, unexpected $end, expecting ')'
+Function body:           def _app_views_users__fields_html_erb__1181619379_2180247620_995884(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "users/_fields";_old_output_buffer = @output_buffer;f = local_assigns[:f];fields = local_assigns[:fields];;@output_buffer = ActionView::OutputBuffer.new; # helper thing so we don't have to put up fields into every page 
+@output_buffer.append= (# render 'shared/error_messages', :object => f.object );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('<div class="field">
+	');@output_buffer.append= ( f.label :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :name );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password_confirmation, "Confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password_confirmation );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</div>');@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:134:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:333:in `render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:262:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/partials.rb:378:in `_render_partial'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:31:in `render'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2180454940_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:172:in `with_output_buffer'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/capture_helper.rb:40:in `capture'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:545:in `fields_for'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/helpers/form_helper.rb:320:in `form_for'
+/Users/bastian/Documents/rails/snpr/app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2180454940_0'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:135:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:54:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/template.rb:127:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:59:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:56:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_view/render/rendering.rb:26:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:93:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:17:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:40:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:14:in `default_render'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/implicit_render.rb:6:in `send_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:150:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:18:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:436:in `_run__434435962__process_action__943997142__callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:410:in `_run_process_action_callbacks'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `send'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:94:in `run_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/notifications.rb:52:in `instrument'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/base.rb:119:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/abstract_controller/rendering.rb:41:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:138:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_controller/metal.rb:178:in `action'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:148:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:93:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:75:in `optimized_each'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/code_generation.rb:92:in `recognize'
+/Library/Ruby/Gems/1.8/gems/rack-mount-0.6.14/lib/rack/mount/route_set.rb:139:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/routing/route_set.rb:493:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/head.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:32:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:12:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/query_cache.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-3.0.7/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/callbacks.rb:416:in `_run_call_callbacks'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/sendfile.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/logger.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/runtime.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/activesupport-3.0.7/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/static.rb:30:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:168:in `call'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `send'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/application.rb:77:in `method_missing'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/rack/log_tailer.rb:14:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/handler/webrick.rb:13:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.2.2/lib/rack/server.rb:213:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands/server.rb:65:in `start'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:30
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27:in `tap'
+/Library/Ruby/Gems/1.8/gems/railties-3.0.7/lib/rails/commands.rb:27
+script/rails:6:in `require'
+script/rails:6
+Rendered users/_fields.html.erb (4.0ms)
+Rendered users/new.html.erb within layouts/application (18.8ms)
+Completed   in 90ms
+
+ActionView::Template::Error (compile error
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:3: syntax error, unexpected kCLASS, expecting kDO or '{' or '('
+');@output_buffer.safe_concat('<div class="field">
+                                         ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:10: unknown regexp options - dv
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:10: unmatched ): /div>
+<div class="field">
+	');@output_buffer.append= ( f.label :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.text_field :email );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:11: syntax error, unexpected '<'
+<div class="field">
+ ^
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: unknown regexp options - dv
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: unmatched ): /div>
+<div class="field">
+	');@output_buffer.append= ( f.label :password_confirmation, "Confirmation" );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('	');@output_buffer.append= ( f.password_field :password_confirmation );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: unterminated string meets end of file
+/Users/bastian/Documents/rails/snpr/app/views/users/_fields.html.erb:18: syntax error, unexpected $end, expecting ')'):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%=# render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+    6: </div>
+  app/views/users/_fields.html.erb:18:in `compile'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2180454940_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2180454940_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.7ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:48:37 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.9ms)
+Rendered users/new.html.erb within layouts/application (73.0ms)
+Completed   in 86ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180273960_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179014400_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179014400_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.8ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.1ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:48:39 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.7ms)
+Rendered users/new.html.erb within layouts/application (70.1ms)
+Completed   in 84ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180387000_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179048460_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179048460_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.8ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Wed Jun 08 21:48:40 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered users/_fields.html.erb (1.8ms)
+Rendered users/new.html.erb within layouts/application (70.3ms)
+Completed   in 83ms
+
+ActionView::Template::Error (Missing partial shared/error_messages with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+    1: <% # helper thing so we don't have to put up fields into every page %>
+    2: <%= render 'shared/error_messages', :object => f.object %>
+    3: <div class="field">
+    4: 	<%= f.label :name %>
+    5: 	<%= f.text_field :name %>
+  app/views/users/_fields.html.erb:2:in `_app_views_users__fields_html_erb__1181619379_2180491340_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179082720_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179082720_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.6ms)
