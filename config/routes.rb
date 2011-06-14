@@ -1,5 +1,15 @@
 Snpr::Application.routes.draw do
   resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :static
+  
+  match '/signup', :to => 'users#new'
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+  match '/faq', :to => 'static#faq'
+
+  root :to => 'static#index' # change this
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

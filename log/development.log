@@ -2598,3 +2598,379 @@ Rendered shared/_error_messages.html.erb (1.0ms)
 Rendered users/_form.html.erb (30.2ms)
 Rendered users/new.html.erb within layouts/application (35.7ms)
 Completed 200 OK in 59ms (Views: 42.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at Tue Jun 14 19:58:41 +1000 2011
+
+ActionController::RoutingError (No route matches "/sessions/new"):
+  
+
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (2.8ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at Tue Jun 14 20:00:33 +1000 2011
+  Processing by SessionsController#new as HTML
+Rendered sessions/new.html.erb within layouts/application (28.3ms)
+Completed 200 OK in 66ms (Views: 65.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Tue Jun 14 20:00:37 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (145.1ms)
+Rendered users/new.html.erb within layouts/application (154.5ms)
+Completed 200 OK in 252ms (Views: 204.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Tue Jun 14 20:00:44 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"LY+zIn25aiE5t3n/eEKXeJWCtqDVt4TVZ1H64S22BU4=", "utf8"=>"✓", "user"=>{"name"=>"abc", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"abc@def.com"}}
+  [1m[36mSQL (1.2ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('abc@def.com')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:15)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:41)
+  [1m[35mSQL (0.5ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mAREL (40.0ms)[0m  [1mINSERT INTO "users" ("sequence_link", "created_at", "updated_at", "name", "email", "has_sequence", "salt", "encrypted_password") VALUES (NULL, '2011-06-14 10:00:46.654033', '2011-06-14 10:00:46.654033', 'abc', 'abc@def.com', NULL, 'b9a04bc2feccf8ad3eed0385de6f1b84bee17e07149a8b0fb088fe7ee21ca431', '872eb968bfb9315b7d4534c164e4c3d6aaba93441f970a1c36be974ed242e0d2')[0m
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 1992ms
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:00:46 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 75ms (Views: 45.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at Tue Jun 14 20:00:53 +1000 2011
+  Processing by SessionsController#new as HTML
+Rendered sessions/new.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 23ms (Views: 20.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at Tue Jun 14 20:00:57 +1000 2011
+  Processing by SessionsController#create as HTML
+  Parameters: {"commit"=>"Sign in", "session"=>{"password"=>"[FILTERED]", "email"=>"abc@def.com"}, "authenticity_token"=>"LY+zIn25aiE5t3n/eEKXeJWCtqDVt4TVZ1H64S22BU4=", "utf8"=>"✓"}
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."email" = 'abc@def.com' LIMIT 1[0m
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 93ms
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:00:57 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 36ms (Views: 11.2ms | ActiveRecord: 42.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:02:46 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 48ms (Views: 15.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/users" for 127.0.0.1 at Tue Jun 14 20:02:50 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"users"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 0 LIMIT 1[0m
+Completed   in 20ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with ID=users):
+  app/controllers/users_controller.rb:38:in `show'
+
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.6ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (8.6ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (22.8ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:03:35 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (7.0ms)
+Completed 200 OK in 50ms (Views: 15.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:03:38 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (7.4ms)
+Completed 200 OK in 42ms (Views: 14.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:04:05 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (8.4ms)
+Completed 200 OK in 50ms (Views: 16.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:04:16 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (7.1ms)
+Completed 200 OK in 43ms (Views: 15.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/signout" for 127.0.0.1 at Tue Jun 14 20:04:19 +1000 2011
+  Processing by SessionsController#destroy as HTML
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:04:42 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.5ms)
+Rendered users/_form.html.erb (40.4ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered users/new.html.erb within layouts/application (50.0ms)
+Completed 200 OK in 81ms (Views: 59.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/sessions" for 127.0.0.1 at Tue Jun 14 20:04:48 +1000 2011
+
+ActionController::RoutingError (No route matches "/sessions"):
+  
+
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:05:17 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (33.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (42.6ms)
+Completed 200 OK in 184ms (Views: 50.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signin" for 127.0.0.1 at Tue Jun 14 20:05:19 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (26.4ms)
+Completed 200 OK in 34ms (Views: 33.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:06:49 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.3ms)
+Rendered users/_form.html.erb (43.1ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (53.2ms)
+Completed 200 OK in 83ms (Views: 61.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:07:12 +1000 2011
+
+LoadError (Expected /home/drsnuggles/Rails/snpr/app/controllers/static_controller.rb to define StaticController):
+  
+
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.0ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (3.7ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (13.1ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:07:29 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (25.3ms)
+Completed 200 OK in 36ms (Views: 33.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:07:47 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/index.html.erb within layouts/application (25.7ms)
+Completed 200 OK in 35ms (Views: 33.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:07:54 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (27.5ms)
+Completed 200 OK in 45ms (Views: 43.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:07:58 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/index.html.erb within layouts/application (26.8ms)
+Completed 200 OK in 37ms (Views: 35.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:08:39 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (31.2ms)
+Completed 200 OK in 40ms (Views: 38.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:08:41 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/index.html.erb within layouts/application (27.3ms)
+Completed 200 OK in 37ms (Views: 35.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:09:02 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (154.8ms)
+Completed 200 OK in 165ms (Views: 163.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/static" for 127.0.0.1 at Tue Jun 14 20:09:03 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/index.html.erb within layouts/application (31.3ms)
+Completed 200 OK in 40ms (Views: 38.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/static" for 127.0.0.1 at Tue Jun 14 20:12:00 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (492.8ms)
+Completed 200 OK in 606ms (Views: 593.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/static" for 127.0.0.1 at Tue Jun 14 20:12:39 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/index.html.erb within layouts/application (21.7ms)
+Completed 200 OK in 29ms (Views: 27.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:12:41 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/faq.html.erb within layouts/application (24.1ms)
+Completed 200 OK in 45ms (Views: 44.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:14:13 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/faq.html.erb within layouts/application (23.9ms)
+Completed 200 OK in 33ms (Views: 31.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:14:40 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/faq.html.erb within layouts/application (22.1ms)
+Completed 200 OK in 30ms (Views: 29.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:14:51 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/faq.html.erb within layouts/application (26.1ms)
+Completed 200 OK in 36ms (Views: 34.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:14:54 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/faq.html.erb within layouts/application (23.0ms)
+Completed 200 OK in 31ms (Views: 29.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:15:19 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/faq.html.erb within layouts/application (125.6ms)
+Completed 200 OK in 134ms (Views: 132.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:15:38 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/faq.html.erb within layouts/application (23.8ms)
+Completed 200 OK in 32ms (Views: 30.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:16:42 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/faq.html.erb within layouts/application (41.3ms)
+Completed 200 OK in 49ms (Views: 47.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:17:15 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/faq.html.erb within layouts/application (23.2ms)
+Completed 200 OK in 32ms (Views: 30.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:17:27 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/faq.html.erb within layouts/application (21.9ms)
+Completed 200 OK in 30ms (Views: 28.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at Tue Jun 14 20:17:28 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (36.0ms)
+Completed 200 OK in 96ms (Views: 62.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Tue Jun 14 20:17:30 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/faq.html.erb within layouts/application (21.1ms)
+Completed 200 OK in 28ms (Views: 27.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signin" for 127.0.0.1 at Tue Jun 14 20:17:32 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (132.3ms)
+Completed 200 OK in 163ms (Views: 162.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signin" for 127.0.0.1 at Tue Jun 14 20:18:00 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered sessions/new.html.erb within layouts/application (26.2ms)
+Completed 200 OK in 34ms (Views: 33.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/signin" for 127.0.0.1 at Tue Jun 14 20:18:27 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (23.8ms)
+Completed 200 OK in 31ms (Views: 30.3ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at Tue Jun 14 20:18:30 +1000 2011
+  Processing by SessionsController#create as HTML
+  Parameters: {"commit"=>"Sign in", "session"=>{"password"=>"[FILTERED]", "email"=>"abc@def.com"}, "authenticity_token"=>"vD42YgqkDxnCV9o/+sFpSn/KVDvL6wGCdjec/+jw6es=", "utf8"=>"✓"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."email" = 'abc@def.com' LIMIT 1[0m
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 48ms
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 20:18:31 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (7.3ms)
+Completed 200 OK in 55ms (Views: 30.9ms | ActiveRecord: 0.3ms)

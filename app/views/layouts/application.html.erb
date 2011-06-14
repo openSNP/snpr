@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="header" >
-	Logo | Link to FAQ | Link to News | Link to user's home 
+	<%= link_to("Logo", root_path) %> | <%= link_to("FAQ", '/faq') %> | Link to News | <% if signed_in? %><%= link_to("User's home", :controller => "users", :action => "show")%> | <%= link_to("Sign out", "/signout") %><% else %><%= link_to("Sign in", '/signin') %><% end %>
 </div>
 
 <%= yield %>
