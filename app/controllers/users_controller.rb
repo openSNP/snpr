@@ -1,30 +1,31 @@
 class UsersController < ApplicationController
-    # let non-authenticated users only see show, new, create
-	before_filter :authenticate, :except => [:index, :show, :new, :create]
-	# let only the corret user use edit and update
-	before_filter :correct_user, :only => [:edit, :update]
-
 	def new
 		@user = User.new
 		@title = "Sign up"
+
+		respond_to do |format|
+			format.html
+			format.xml { render :xml => @user }
+		end
 	end
 
 	def create
-		@user = User.new(params[:id])
-		if @user.save
-			sign_in @user
-			flash[:success] = "Welcome to SNPR!"
-			redirect_to @user
-		else
-			@title = "Sign up"
-			render 'new'
+		@user = User.new(params[:user])
+		respond_to do |format|
+		  if @user.save
+			format.html { redirect_to(@user, :notice => 'User was successfully created.') }
+			format.xml { render :xml => @user, :status => :created, :location => @user }
+		  else
+			format.html { render :action => "new" }
+			format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
+		  end
 		end
 	end
 
 
 	def index
 		# showing all users
-		@users = User.find(:all)
+		@users = User.all
 
 		respond_to do |format|
 			format.html
@@ -40,16 +41,4 @@ class UsersController < ApplicationController
 			format.html
 		end
 	end
-
-	private
-
-	def correct_user
-		@user = User.find(params[:id])
-		redirect_to(root_path) unless current_user?(@user)
-	end
-
-	def admin_user
-		redirect_to(root_path) unless current_user.admin?
-	end
-
 end

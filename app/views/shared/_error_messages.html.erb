@@ -1,9 +1,9 @@
-<% if object.errors.any? %>
+<% if target.errors.any? %>
 	<div id="error_explanation">
-		<h2><%= pluralize object.errors.count, "error" %> prohibited this <%= object.class.to_s.underscore.humanize.downcase %> from being saved:</h2>
+		<h2><%= pluralize( target.errors.count, "error") %> prohibited this record from being saved:</h2>
 		<p>There were problems with the following fields:</p>
 		<ul>
-			<% object.errors.full_messages.each do |msg| %>
+			<% target.errors.full_messages.each do |msg| %>
 				<li><%= msg %></li>
 			<% end %>
 		</ul>
