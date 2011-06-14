@@ -36,6 +36,7 @@ class UsersController < ApplicationController
 	def show
 		# showing a single user's page
 		@user = User.find(params[:id])
+		@title = @user.name + "'s page"
 
 		respond_to do |format|
 			format.html
