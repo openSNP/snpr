@@ -2356,6 +2356,7 @@ ActiveRecord::RecordNotFound (Couldn't find User with ID=create):
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.7ms)
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.8ms)
+<<<<<<< HEAD
 
 
 Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:20:02 +0200 2011
@@ -2994,3 +2995,247 @@ Started GET "/users/3" for 127.0.0.1 at Tue Jun 14 10:16:11 +0200 2011
   [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 3 LIMIT 1
 Rendered users/show.html.erb within layouts/application (2.0ms)
 Completed 200 OK in 30ms (Views: 8.2ms | ActiveRecord: 0.2ms)
+=======
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mSQL (0.6ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1[0m
+  [1m[36mSQL (0.6ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (114.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36mSQL (82.5ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mSQL (0.5ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+Migrating to CreateUsers (20110608000645)
+  [1m[36mSQL (0.7ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "salt" varchar(255), "encrypted_password" varchar(255), "has_sequence" boolean, "sequence_link" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110608000645')
+  [1m[36mSQL (0.5ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("users")
+  [1m[36mSQL (0.8ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+  [1m[36mSQL (1.1ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+WARNING: Can't mass-assign protected attributes: id, has_sequence
+  [1m[35mSQL (0.3ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('abc@def.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from /home/drsnuggles/Rails/snpr/db/seeds.rb:9)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:41)
+  [1m[36mAREL (1.2ms)[0m  [1mINSERT INTO "users" ("salt", "encrypted_password", "email", "updated_at", "has_sequence", "created_at", "sequence_link", "name") VALUES ('2ab720def7c75ebb2de8ba2c44da5c5b87b279cb79ecf490d3682e7024b4c5b5', '96fb31a93e8ab371ec2e8c8a89d84a85e6ad05100a4501bf799b688941791c5f', 'abc@def.com', '2011-06-14 08:21:37.529947', NULL, '2011-06-14 08:21:37.529947', NULL, 'bla')[0m
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mSQL (0.6ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (128.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36mSQL (67.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mSQL (0.5ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+Migrating to CreateUsers (20110608000645)
+  [1m[36mSQL (1.1ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "salt" varchar(255), "encrypted_password" varchar(255), "has_sequence" boolean, "sequence_link" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110608000645')
+  [1m[36mSQL (0.5ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("users")
+  [1m[36mSQL (0.8ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+WARNING: Can't mass-assign protected attributes: has_sequence
+  [1m[35mSQL (0.3ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('abc@def.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from /home/drsnuggles/Rails/snpr/db/seeds.rb:9)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:41)
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users"[0m
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:45:55 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.1ms)
+Rendered users/_form.html.erb (224.0ms)
+Rendered users/new.html.erb within layouts/application (243.8ms)
+Completed 200 OK in 364ms (Views: 276.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:46:37 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.1ms)
+Rendered users/_form.html.erb (36.1ms)
+Rendered users/new.html.erb within layouts/application (42.1ms)
+Completed 200 OK in 70ms (Views: 50.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:47:20 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.1ms)
+Rendered users/_form.html.erb (35.8ms)
+Rendered users/new.html.erb within layouts/application (41.4ms)
+Completed 200 OK in 66ms (Views: 48.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:48:00 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.9ms)
+Rendered users/_form.html.erb (30.1ms)
+Rendered users/new.html.erb within layouts/application (35.4ms)
+Completed 200 OK in 60ms (Views: 42.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:50:20 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.9ms)
+Rendered users/_form.html.erb (140.1ms)
+Rendered users/new.html.erb within layouts/application (145.8ms)
+Completed 200 OK in 169ms (Views: 152.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:50:30 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (135.6ms)
+Rendered users/new.html.erb within layouts/application (140.6ms)
+Completed 200 OK in 164ms (Views: 147.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:52:19 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (141.2ms)
+Rendered users/new.html.erb within layouts/application (146.7ms)
+Completed 200 OK in 170ms (Views: 153.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:53:42 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (30.9ms)
+Rendered users/new.html.erb within layouts/application (36.7ms)
+Completed 200 OK in 63ms (Views: 43.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:54:29 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.3ms)
+Rendered users/_form.html.erb (35.9ms)
+Rendered users/new.html.erb within layouts/application (41.6ms)
+Completed 200 OK in 67ms (Views: 50.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:57:13 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.1ms)
+Rendered users/_form.html.erb (44.2ms)
+Rendered users/new.html.erb within layouts/application (62.9ms)
+Completed 200 OK in 94ms (Views: 70.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:57:19 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.3ms)
+Rendered users/_form.html.erb (43.7ms)
+Rendered users/new.html.erb within layouts/application (51.1ms)
+Completed 200 OK in 176ms (Views: 160.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:57:56 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.9ms)
+Rendered users/_form.html.erb (140.9ms)
+Rendered users/new.html.erb within layouts/application (146.3ms)
+Completed 200 OK in 171ms (Views: 153.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:58:15 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.9ms)
+Rendered users/_form.html.erb (148.9ms)
+Rendered users/new.html.erb within layouts/application (154.7ms)
+Completed 200 OK in 179ms (Views: 161.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:59:07 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (28.2ms)
+Rendered users/new.html.erb within layouts/application (59.2ms)
+Completed   in 83ms
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"user"}):
+    8: </head>
+    9: <body>
+    10: <div class="header" >
+    11: 	Logo | Link to FAQ | Link to News | <%= link_to("Home", :controller => "user", :action => "show") %>
+    12: </div>
+    13: 
+    14: <%= yield %>
+  app/views/layouts/application.html.erb:11:in `_app_views_layouts_application_html_erb___1065660017__617387638_0'
+  app/controllers/users_controller.rb:6:in `new'
+
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.9ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (16.3ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (34.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 18:59:13 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.0ms)
+Rendered users/_form.html.erb (30.2ms)
+Rendered users/new.html.erb within layouts/application (35.7ms)
+Completed 200 OK in 59ms (Views: 42.6ms | ActiveRecord: 0.0ms)
+>>>>>>> fa7b45407e39438da208b15695e881563895535d

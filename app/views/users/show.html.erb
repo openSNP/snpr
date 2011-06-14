@@ -1,3 +1,7 @@
-moin!
+<% if @user.has_sequence == true %>
+	<p>Insert stuff for analysis here</p>
 
-<%= @user.name %>
+
+<% else %>
+<p>You haven't uploaded your SNP-set. Please do so: INSERT BUTTONS etc.</p>
+<% end %>
