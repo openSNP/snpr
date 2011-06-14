@@ -2356,3 +2356,641 @@ ActiveRecord::RecordNotFound (Couldn't find User with ID=create):
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.7ms)
 Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:20:02 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.6ms)
+Rendered users/_fields.html.erb (30.5ms)
+Rendered users/new.html.erb within layouts/application (63.2ms)
+Completed 200 OK in 93ms (Views: 69.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:20:04 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}}
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:14)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:41)
+Rendered shared/_error_messages.html.erb (3.9ms)
+Rendered users/_fields.html.erb (8.3ms)
+Rendered users/new.html.erb within layouts/application (12.6ms)
+Completed 200 OK in 121ms (Views: 18.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:32:16 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"klfj", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"jlk"}}
+  [1m[35mSQL (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:14)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:41)
+Rendered shared/_error_messages.html.erb (5.5ms)
+Rendered users/_fields.html.erb (21.6ms)
+Rendered users/new.html.erb within layouts/application (33.6ms)
+Completed 200 OK in 355ms (Views: 66.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:33:50 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (27.7ms)
+Rendered users/new.html.erb within layouts/application (40.0ms)
+Completed   in 112ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103bf62e8>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2178679120_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178895680_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178895680_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:20 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.1ms)
+Rendered users/new.html.erb within layouts/application (20.4ms)
+Completed 200 OK in 35ms (Views: 25.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:21 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (5.3ms)
+Rendered users/new.html.erb within layouts/application (18.7ms)
+Completed 200 OK in 32ms (Views: 24.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:24 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.4ms)
+Rendered users/new.html.erb within layouts/application (16.9ms)
+Completed   in 30ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103d29110>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179362560_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179512560_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179512560_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.3ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.5ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:25 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.7ms)
+Rendered users/new.html.erb within layouts/application (17.8ms)
+Completed   in 31ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103d41e68>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179292420_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179562280_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179562280_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:25 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.2ms)
+Rendered users/new.html.erb within layouts/application (16.6ms)
+Completed   in 88ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103dd5708>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179694240_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179868880_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179868880_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.4ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:26 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.6ms)
+Rendered users/new.html.erb within layouts/application (75.6ms)
+Completed   in 89ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a37b00>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179798560_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2177981680_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2177981680_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.5ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.9ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:26 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (5.2ms)
+Rendered users/new.html.erb within layouts/application (78.5ms)
+Completed   in 91ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a811d8>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179816080_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178109100_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178109100_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (18.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:27 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.8ms)
+Rendered users/_fields.html.erb (5.6ms)
+Rendered users/new.html.erb within layouts/application (75.8ms)
+Completed   in 89ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a8c3a8>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179890420_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178142200_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178142200_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.3ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.6ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:28 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (5.0ms)
+Rendered users/new.html.erb within layouts/application (77.5ms)
+Completed   in 91ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103aa7888>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179935880_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178184540_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178184540_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.3ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:41 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 6ms
+
+ArgumentError (You need to supply at least one attribute):
+  app/models/user.rb:15
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.9ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.4ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:42 +0200 2011
+  Processing by UsersController#new as HTML
+Completed   in 7ms
+
+ArgumentError (You need to supply at least one attribute):
+  app/models/user.rb:15
+  app/controllers/users_controller.rb:8:in `new'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.8ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (94.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:54 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.2ms)
+Rendered users/new.html.erb within layouts/application (16.9ms)
+Completed   in 30ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103d11d80>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179284600_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179470320_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179470320_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.4ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:35:55 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.2ms)
+Rendered users/new.html.erb within layouts/application (16.8ms)
+Completed   in 30ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103d82648>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179541760_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179704080_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179704080_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.4ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:36:00 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.4ms)
+Rendered users/new.html.erb within layouts/application (17.8ms)
+Completed   in 90ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a00c40>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179797140_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2179975480_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2179975480_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.4ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:36:00 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.8ms)
+Rendered users/_fields.html.erb (8.4ms)
+Rendered users/new.html.erb within layouts/application (88.7ms)
+Completed   in 106ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a7e668>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179790700_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178103240_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178103240_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.5ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:36:01 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (5.1ms)
+Rendered users/new.html.erb within layouts/application (73.6ms)
+Completed   in 87ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a8e810>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179868280_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178151820_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178151820_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.7ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:36:09 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (5.2ms)
+Rendered users/new.html.erb within layouts/application (77.1ms)
+Completed   in 91ms
+
+ActionView::Template::Error (undefined method `password_confirmation' for #<User:0x103a99dc8>):
+    14: </div>
+    15: <div class="field">
+    16: 	<%= f.label :password_confirmation, "Confirmation" %>
+    17: 	<%= f.password_field :password_confirmation %>
+    18: </div>
+  app/views/users/_fields.html.erb:17:in `_app_views_users__fields_html_erb__1181619379_2179914960_995884'
+  app/views/users/new.html.erb:4:in `_app_views_users_new_html_erb__746579711_2178173540_0'
+  app/views/users/new.html.erb:3:in `_app_views_users_new_html_erb__746579711_2178173540_0'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.5ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:36:58 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_fields.html.erb (5.1ms)
+Rendered users/new.html.erb within layouts/application (75.9ms)
+Completed 200 OK in 89ms (Views: 81.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:37:11 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}}
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:14)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:41)
+Rendered shared/_error_messages.html.erb (7.1ms)
+Rendered users/_fields.html.erb (13.0ms)
+Rendered users/new.html.erb within layouts/application (19.2ms)
+Completed 200 OK in 310ms (Views: 273.0ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:38:46 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}}
+  [1m[35mSQL (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:14)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (3.8ms)
+Rendered users/_fields.html.erb (8.1ms)
+Rendered users/new.html.erb within layouts/application (12.2ms)
+Completed 200 OK in 132ms (Views: 17.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:38:48 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (5.1ms)
+Rendered users/new.html.erb within layouts/application (81.0ms)
+Completed 200 OK in 100ms (Views: 86.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:38:54 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"foo", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"jklj"}}
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:14)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (3.8ms)
+Rendered users/_fields.html.erb (8.1ms)
+Rendered users/new.html.erb within layouts/application (12.4ms)
+Completed 200 OK in 39ms (Views: 17.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:50:08 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.6ms)
+Rendered users/_fields.html.erb (15.3ms)
+Rendered users/new.html.erb within layouts/application (33.5ms)
+Completed 200 OK in 271ms (Views: 60.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:50:10 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}}
+  [1m[35mSQL (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1
+Rendered shared/_error_messages.html.erb (129.0ms)
+Rendered users/_fields.html.erb (134.1ms)
+Rendered users/new.html.erb within layouts/application (138.9ms)
+Completed 200 OK in 166ms (Views: 144.2ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:50:13 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"jkljl", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}}
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1[0m
+Rendered shared/_error_messages.html.erb (4.0ms)
+Rendered users/_fields.html.erb (8.8ms)
+Rendered users/new.html.erb within layouts/application (13.5ms)
+Completed 200 OK in 40ms (Views: 18.9ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:50:20 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"Name", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"Password"}}
+  [1m[35mSQL (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1
+Rendered shared/_error_messages.html.erb (3.8ms)
+Rendered users/_fields.html.erb (8.3ms)
+Rendered users/new.html.erb within layouts/application (12.6ms)
+Completed 200 OK in 107ms (Views: 86.5ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:50:35 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"Name", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"bgreshake@googlemail.com"}}
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1[0m
+Rendered shared/_error_messages.html.erb (3.9ms)
+Rendered users/_fields.html.erb (8.1ms)
+Rendered users/new.html.erb within layouts/application (12.1ms)
+Completed 200 OK in 37ms (Views: 17.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:52:10 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (4.9ms)
+Rendered users/new.html.erb within layouts/application (76.1ms)
+Completed 200 OK in 89ms (Views: 81.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:52:12 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}}
+  [1m[35mSQL (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:14)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:41)
+Rendered shared/_error_messages.html.erb (3.7ms)
+Rendered users/_fields.html.erb (8.0ms)
+Rendered users/new.html.erb within layouts/application (12.0ms)
+Completed 200 OK in 38ms (Views: 17.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:52:32 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (4.8ms)
+Rendered users/new.html.erb within layouts/application (17.9ms)
+Completed 200 OK in 95ms (Views: 23.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:52:43 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"foo", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"bar"}}
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1[0m
+Rendered shared/_error_messages.html.erb (64.4ms)
+Rendered users/_fields.html.erb (69.7ms)
+Rendered users/new.html.erb within layouts/application (74.7ms)
+Completed 200 OK in 144ms (Views: 80.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Mon Jun 13 14:53:00 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Sign up", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"Bastian", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"bgreshake@googlemail.com"}}
+  [1m[35mSQL (0.2ms)[0m  SELECT 1 FROM "users" WHERE ("users"."email" IS NULL) LIMIT 1
+Rendered shared/_error_messages.html.erb (4.0ms)
+Rendered users/_fields.html.erb (8.2ms)
+Rendered users/new.html.erb within layouts/application (12.5ms)
+Completed 200 OK in 192ms (Views: 17.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Mon Jun 13 14:53:07 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.4ms)
+Rendered users/_fields.html.erb (4.8ms)
+Rendered users/new.html.erb within layouts/application (83.1ms)
+Completed 200 OK in 96ms (Views: 88.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at Tue Jun 14 10:15:33 +0200 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.5ms)
+Rendered users/_form.html.erb (94.7ms)
+Rendered users/new.html.erb within layouts/application (98.9ms)
+Completed 200 OK in 119ms (Views: 107.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at Tue Jun 14 10:15:48 +0200 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"FVnHcGVPCb/xTpQAc1m+7BsjUpEEPuThZbz98z2wb0A=", "utf8"=>"✓", "user"=>{"name"=>"gedankenstuecke", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"bastian@gedankenstuecke.de"}}
+  [1m[36mSQL (0.2ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('bastian@gedankenstuecke.de')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /Users/bastian/Documents/rails/snpr/app/controllers/users_controller.rb:15)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /Users/bastian/Documents/rails/snpr/app/models/user.rb:41)
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mAREL (25.2ms)[0m  [1mINSERT INTO "users" ("email", "created_at", "salt", "sequence_link", "encrypted_password", "name", "has_sequence", "updated_at") VALUES ('bastian@gedankenstuecke.de', '2011-06-14 08:15:49.255051', '0e31a4c2f783a8740bd3e861910afe5400d99fdd36469c74003499eb6179c65d', NULL, '9e4fdde51a618f777c22279b80f1f0d15f6cb4538597ce4af7cd7a6ff4ccada3', 'gedankenstuecke', NULL, '2011-06-14 08:15:49.255051')[0m
+Redirected to http://localhost:3000/users/3
+Completed 302 Found in 1190ms
+
+
+Started GET "/users/3" for 127.0.0.1 at Tue Jun 14 10:15:49 +0200 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 3 LIMIT 1
+Rendered users/show.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 30ms (Views: 9.1ms | ActiveRecord: 25.8ms)
+
+
+Started GET "/users/show" for 127.0.0.1 at Tue Jun 14 10:15:56 +0200 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"show"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 0 LIMIT 1[0m
+Completed   in 13ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with ID=show):
+  app/controllers/users_controller.rb:38:in `show'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (16.0ms)
+
+
+Started GET "/users/" for 127.0.0.1 at Tue Jun 14 10:16:00 +0200 2011
+  Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users"
+Completed   in 77ms
+
+ActionView::MissingTemplate (Missing template users/index with {:handlers=>[:builder, :rjs, :erb, :rhtml, :rxml], :locale=>[:en, :en], :formats=>[:html]} in view paths "/Users/bastian/Documents/rails/snpr/app/views"):
+  app/controllers/users_controller.rb:30:in `index'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.5ms)
+
+
+Started GET "/users/show" for 127.0.0.1 at Tue Jun 14 10:16:05 +0200 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"show"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 0 LIMIT 1[0m
+Completed   in 13ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with ID=show):
+  app/controllers/users_controller.rb:38:in `show'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.3ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (14.2ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Tue Jun 14 10:16:07 +0200 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 27ms (Views: 8.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/2" for 127.0.0.1 at Tue Jun 14 10:16:09 +0200 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 24ms (Views: 7.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/3" for 127.0.0.1 at Tue Jun 14 10:16:11 +0200 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 3 LIMIT 1
+Rendered users/show.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 30ms (Views: 8.2ms | ActiveRecord: 0.2ms)
