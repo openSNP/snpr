@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Snpr</title>
+	<title>Snpr <% if @title %>| <%= @title %><% end %></title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
+<div class="header" >
+	Logo | Link to FAQ | Link to News | Link to user's home 
+</div>
 
 <%= yield %>
 
+<div class="footer">
+	A project from <%= link_to("Bastian Greshake", "http://www.twitter.com/gedankenstuecke") %> and <%= link_to("Philipp Bayer", "http://www.twitter.com/PhilippBayer") %>
+</div>
 </body>
 </html>
