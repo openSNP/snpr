@@ -3001,3 +3001,493 @@ Started GET "/phenotypes/3" for 127.0.0.1 at Wed Jun 15 16:10:49 +1000 2011
   [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
 Rendered phenotypes/show.html.erb within layouts/application (34.1ms)
 Completed 200 OK in 185ms (Views: 44.0ms | ActiveRecord: 1.5ms)
+  [1m[36mUser Load (1.6ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mSQL (0.5ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('test@testing.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from irb_binding at (irb):2)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[36mSQL (0.5ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mAREL (1.1ms)[0m  INSERT INTO "users" ("email", "salt", "created_at", "updated_at", "sequence_link", "name", "has_sequence", "encrypted_password") VALUES ('test@testing.com', 'c507c1045ba4dcdfc8797d30290cf4c074970d380eaa47105d75a73d3e28417d', '2011-06-15 06:15:16.197099', '2011-06-15 06:15:16.197099', NULL, 'fortesting', NULL, '3b94b00bae2d61af3c24d8ebecbd394235ce9f864622cd9422b11b717a514421')
+  [1m[36mPhenotype Load (0.6ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 3 LIMIT 1
+  [1m[36mAREL (111.0ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = 3[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mSQL (0.3ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('test@testing.com')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from irb_binding at (irb):6)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[35mAREL (0.7ms)[0m  INSERT INTO "users" ("email", "salt", "created_at", "updated_at", "sequence_link", "name", "has_sequence", "encrypted_password") VALUES ('test@testing.com', '3328ad6e39c768bbe23c653f55d949e1cccddca70ceaa22b03802116c8b0daff', '2011-06-15 06:16:12.844447', '2011-06-15 06:16:12.844447', NULL, 'fortesting', NULL, 'd64e5fc0356bb6fd9ac20b078d9ae0785cf41b64f3ee229211ec13dfe809f988')
+  [1m[36mPhenotype Load (0.6ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:16:32 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (38.8ms)
+Completed 200 OK in 52ms (Views: 50.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:16:33 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.1ms)
+Rendered users/_form.html.erb (58.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (82.0ms)
+Completed 200 OK in 124ms (Views: 104.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:16:41 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"6EsiUqhA5sPPIOVxMXkiYbC5dQHb2w4JKzpsuvV9nbI=", "utf8"=>"✓", "user"=>{"name"=>"def", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"heise@tp.com"}}
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "phenotypes" ("variations", "user_id") VALUES ('--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+', NULL)
+  [1m[36mSQL (0.4ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('heise@tp.com')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (3.5ms)
+Rendered users/_form.html.erb (12.6ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/new.html.erb within layouts/application (20.8ms)
+Completed 200 OK in 414ms (Views: 32.2ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:16:45 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"6EsiUqhA5sPPIOVxMXkiYbC5dQHb2w4JKzpsuvV9nbI=", "utf8"=>"✓", "user"=>{"name"=>"def", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"heise@tdadap.com"}}
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "phenotypes" ("variations", "user_id") VALUES ('--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+', NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('heise@tdadap.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (3.2ms)
+Rendered users/_form.html.erb (14.0ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (25.6ms)
+Completed 200 OK in 928ms (Views: 38.9ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:16:53 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"6EsiUqhA5sPPIOVxMXkiYbC5dQHb2w4JKzpsuvV9nbI=", "utf8"=>"✓", "user"=>{"name"=>"def", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"philippbay@gmail.com"}}
+  [1m[35mAREL (0.5ms)[0m  INSERT INTO "phenotypes" ("user_id", "variations") VALUES (NULL, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')
+  [1m[36mSQL (0.5ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('philippbay@gmail.com')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("sequence_link", "salt", "created_at", "encrypted_password", "name", "email", "has_sequence", "updated_at") VALUES (NULL, '0942c3e3be26f51ac1a316fac04aa0f6ea773eb70212ab8aca8f3459c80b13db', '2011-06-15 06:16:53.540910', '1e7f878f8e6c08c7b473833a5fcfeff7cc8bb3ccbdff57fe69ecd24958c21d06', 'def', 'philippbay@gmail.com', NULL, '2011-06-15 06:16:53.540910')
+Redirected to http://localhost:3000/users/5
+Completed 302 Found in 225ms
+
+
+Started GET "/users/5" for 127.0.0.1 at Wed Jun 15 16:16:53 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 5 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.3ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 5 LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (24.3ms)
+Completed 200 OK in 171ms (Views: 142.9ms | ActiveRecord: 1.0ms)
+  [1m[35mPhenotype Load (0.7ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:17:41 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (42.1ms)
+Completed 200 OK in 50ms (Views: 49.0ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at Wed Jun 15 16:17:42 +1000 2011
+  Processing by SessionsController#create as HTML
+  Parameters: {"commit"=>"Sign in", "session"=>{"password"=>"[FILTERED]", "email"=>""}, "authenticity_token"=>"6EsiUqhA5sPPIOVxMXkiYbC5dQHb2w4JKzpsuvV9nbI=", "utf8"=>"✓"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."email" = '' LIMIT 1[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (23.7ms)
+Completed 200 OK in 51ms (Views: 30.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:17:43 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.2ms)
+Rendered users/_form.html.erb (137.0ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (146.8ms)
+Completed 200 OK in 173ms (Views: 153.5ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:17:51 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"philihij", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"gedankenstuecke@msn.com"}}
+  [1m[35mSQL (0.4ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('gedankenstuecke@msn.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:17)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "users" ("encrypted_password", "has_sequence", "sequence_link", "updated_at", "salt", "name", "created_at", "email") VALUES ('262c0ce925d79d6d883e4a280d62a86ddf072593c80cf13425df6e0cb6e37ae8', NULL, NULL, '2011-06-15 06:17:51.398207', '4727c50f499b1231db052eba640a6c808d4c85cc2c947847f8eb286ebe9e853e', 'philihij', '2011-06-15 06:17:51.398207', 'gedankenstuecke@msn.com')[0m
+Redirected to http://localhost:3000/users/6
+Completed 302 Found in 147ms
+
+
+Started GET "/users/6" for 127.0.0.1 at Wed Jun 15 16:17:51 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 6 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 6 LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (24.5ms)
+Completed 200 OK in 191ms (Views: 30.8ms | ActiveRecord: 1.0ms)
+  [1m[35mUser Load (1.2ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mPhenotype Load (0.7ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:18:25 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered sessions/new.html.erb within layouts/application (42.3ms)
+Completed 200 OK in 50ms (Views: 48.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:18:26 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.2ms)
+Rendered users/_form.html.erb (36.2ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/new.html.erb within layouts/application (46.2ms)
+Completed 200 OK in 75ms (Views: 54.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:18:35 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"dasjkda", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"heise@wirklichkeit.com"}}
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "phenotypes" ("variations", "user_id") VALUES ('--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+', NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('heise@wirklichkeit.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[36mAREL (0.6ms)[0m  [1mINSERT INTO "users" ("salt", "name", "sequence_link", "updated_at", "encrypted_password", "email", "has_sequence", "created_at") VALUES ('bf2f4003d392d5189d7ccc82d5130f139bc9535ff648117650c3ed4d19f70e0d', 'dasjkda', NULL, '2011-06-15 06:18:38.120192', '3cf12ba7e3aa60148855a06a6667acef8f3b566653036a7a7dead7bbfa957dc7', 'heise@wirklichkeit.com', NULL, '2011-06-15 06:18:38.120192')[0m
+Redirected to http://localhost:3000/users/7
+Completed 302 Found in 2651ms
+
+
+Started GET "/users/7" for 127.0.0.1 at Wed Jun 15 16:18:38 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 7 LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (24.7ms)
+Completed 200 OK in 60ms (Views: 31.1ms | ActiveRecord: 1.0ms)
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+
+
+Started GET "/users/7" for 127.0.0.1 at Wed Jun 15 16:18:52 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.3ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 7 LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (23.5ms)
+Completed 200 OK in 176ms (Views: 29.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users/7" for 127.0.0.1 at Wed Jun 15 16:18:55 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 7 LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (20.7ms)
+Completed 200 OK in 55ms (Views: 27.1ms | ActiveRecord: 1.0ms)
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[35mPhenotype Load (0.8ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+
+
+Started GET "/users/7" for 127.0.0.1 at Wed Jun 15 16:19:22 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.3ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 7 LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (23.2ms)
+Completed 200 OK in 64ms (Views: 31.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/users/7" for 127.0.0.1 at Wed Jun 15 16:19:24 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 7 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 7 LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (121.7ms)
+Completed 200 OK in 158ms (Views: 129.3ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:19:25 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered sessions/new.html.erb within layouts/application (43.4ms)
+Completed 200 OK in 52ms (Views: 50.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:19:26 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.2ms)
+Rendered users/_form.html.erb (32.5ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/new.html.erb within layouts/application (42.1ms)
+Completed 200 OK in 69ms (Views: 49.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:19:33 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"abc", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"def@def.com"}}
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "phenotypes" ("user_id", "variations") VALUES (NULL, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')[0m
+  [1m[35mSQL (0.5ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('def@def.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (3.0ms)
+Rendered users/_form.html.erb (12.5ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (21.4ms)
+Completed 200 OK in 4296ms (Views: 33.8ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:19:43 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"abc", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"boss@def.com"}}
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "phenotypes" ("user_id", "variations") VALUES (NULL, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')
+  [1m[36mSQL (0.3ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('boss@def.com')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (2.9ms)
+Rendered users/_form.html.erb (12.0ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/new.html.erb within layouts/application (20.4ms)
+Completed 200 OK in 2633ms (Views: 26.8ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:19:51 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"abc", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"boss@gmail.com"}}
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "phenotypes" ("user_id", "variations") VALUES (NULL, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')[0m
+  [1m[35mSQL (0.5ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('boss@gmail.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:18)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "users" ("has_sequence", "sequence_link", "salt", "email", "name", "encrypted_password", "created_at", "updated_at") VALUES (NULL, NULL, '71ab41640f6aef5ff88ce857559287fd714fea65123b7fd9402dc87540798a5e', 'boss@gmail.com', 'abc', 'db0fcc766aa62cb65bfe4e7fc0394fdff23b4a07a044b90fcd26a36dc5ad0b17', '2011-06-15 06:19:51.996013', '2011-06-15 06:19:51.996013')[0m
+Redirected to http://localhost:3000/users/8
+Completed 302 Found in 258ms
+
+
+Started GET "/users/8" for 127.0.0.1 at Wed Jun 15 16:19:52 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"8"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 8 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 8 LIMIT 1[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (26.9ms)
+Completed 200 OK in 62ms (Views: 33.2ms | ActiveRecord: 2.8ms)
+  [1m[35mPhenotype Load (1.0ms)[0m  SELECT "phenotypes".* FROM "phenotypes"
+
+
+Started GET "/users/8" for 127.0.0.1 at Wed Jun 15 16:21:51 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"8"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 8 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.4ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 8 LIMIT 1
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (32.5ms)
+Completed 200 OK in 75ms (Views: 40.7ms | ActiveRecord: 1.4ms)
+  [1m[36mPhenotype Load (0.9ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[36mSQL (0.7ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (151.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36mSQL (87.4ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mSQL (0.4ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+Migrating to CreateUsers (20110608000645)
+  [1m[36mSQL (0.9ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "salt" varchar(255), "encrypted_password" varchar(255), "has_sequence" boolean, "sequence_link" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110608000645')
+Migrating to CreatePhenotypes (20110615045458)
+  [1m[36mSQL (0.6ms)[0m  [1mCREATE TABLE "phenotypes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "variations" varchar(255), "user_id" integer) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110615045458')
+  [1m[36mSQL (0.6ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("phenotypes")
+  [1m[36mSQL (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:23:38 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (33.4ms)
+Completed 200 OK in 41ms (Views: 39.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:23:40 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.3ms)
+Rendered users/_form.html.erb (36.4ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (49.3ms)
+Completed 200 OK in 89ms (Views: 57.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:23:46 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"def", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"abc@def.com"}}
+  [1m[35mAREL (0.5ms)[0m  INSERT INTO "phenotypes" ("variations", "user_id") VALUES ('--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+', NULL)
+  [1m[36mSQL (0.4ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('abc@def.com')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:16)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+Rendered shared/_error_messages.html.erb (3.1ms)
+Rendered users/_form.html.erb (14.5ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/new.html.erb within layouts/application (26.0ms)
+Completed 200 OK in 2608ms (Views: 31.8ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:23:52 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"def", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"abc@gmail.com"}}
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "phenotypes" ("user_id", "variations") VALUES (NULL, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')[0m
+  [1m[35mSQL (0.5ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('abc@gmail.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:16)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("name", "salt", "encrypted_password", "email", "has_sequence", "sequence_link", "updated_at", "created_at") VALUES ('def', '9eea0e07e40e6b9aca172fbbce5a6200afcc446184127af2341758ae3f8b2994', 'b127a85a8e363e25ee423804485b811e1137f5b6bbf43982a920ad1a991c1406', 'abc@gmail.com', NULL, NULL, '2011-06-15 06:23:52.961968', '2011-06-15 06:23:52.961968')[0m
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 341ms
+
+
+Started GET "/users/1" for 127.0.0.1 at Wed Jun 15 16:23:53 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (20.9ms)
+Completed 200 OK in 60ms (Views: 27.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Wed Jun 15 16:23:59 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.4ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (198.5ms)
+Completed 200 OK in 283ms (Views: 212.8ms | ActiveRecord: 0.7ms)
+  [1m[36mPhenotype Load (1.2ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+  [1m[36mSQL (0.8ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (146.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36mSQL (78.4ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mSQL (0.4ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+Migrating to CreateUsers (20110608000645)
+  [1m[36mSQL (1.2ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "salt" varchar(255), "encrypted_password" varchar(255), "has_sequence" boolean, "sequence_link" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110608000645')
+Migrating to CreatePhenotypes (20110615045458)
+  [1m[36mSQL (0.8ms)[0m  [1mCREATE TABLE "phenotypes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "variations" varchar(255), "user_id" integer) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110615045458')
+  [1m[36mSQL (0.4ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("phenotypes")
+  [1m[36mSQL (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
