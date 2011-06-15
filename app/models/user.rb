@@ -3,13 +3,14 @@ require 'digest' # for password encryption
 
 class User < ActiveRecord::Base
 
+	has_one :phenotype
+
 	attr_accessor :password
 	attr_accessible :name, :email, :password, :password_confirmation
 
 	validates :name, :presence => true
 	validates :email, :presence => true,
 		:uniqueness => { :case_sensitive => false }
-	#validates :description, :presence => true
 
 	validates :password, :presence => true, :confirmation => true
 	before_save :encrypt_password

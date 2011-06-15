@@ -1,10 +1,13 @@
 body {
+	padding: 1em;
+	float: left;
     color: #333333;
 	background-color: #F9F9F9;
 }
 
 .header{
 	position:absolute;
+	padding: 0.5em;
 	top:0;
 	left:0;
 	width:100%;
@@ -16,6 +19,7 @@ body {
 .footer{
 	position:absolute;
 	text-align: center;
+	padding: 0.5em;
 	bottom:0;
 	left:0;
 	width:100%;
