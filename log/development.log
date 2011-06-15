@@ -3491,3 +3491,195 @@ Migrating to CreatePhenotypes (20110615045458)
 [0m
   [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("phenotypes")
   [1m[36mSQL (0.1ms)[0m  [1mPRAGMA index_list("users")[0m
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:26:22 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered sessions/new.html.erb within layouts/application (32.5ms)
+Completed 200 OK in 41ms (Views: 39.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:26:24 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (0.9ms)
+Rendered users/_form.html.erb (154.3ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/new.html.erb within layouts/application (163.8ms)
+Completed 200 OK in 189ms (Views: 170.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:26:33 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"akjdnaskjdn", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"philipp@yahoo.com"}}
+  [1m[35mSQL (0.3ms)[0m  SELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('philipp@yahoo.com')) LIMIT 1
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:16)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "users" ("sequence_link", "email", "salt", "encrypted_password", "has_sequence", "name", "updated_at", "created_at") VALUES (NULL, 'philipp@yahoo.com', '7d3905c4f3351ca279c8ad0ba05c6d6fc7e045bfd45f01dded6ca5eecc40fa18', '246ae7e2ec1b387ef9146d6ff6c0be0f2aee430ba6ea35a268877e4c34a09606', NULL, 'akjdnaskjdn', '2011-06-15 06:26:33.201720', '2011-06-15 06:26:33.201720')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "phenotypes" ("user_id", "variations") VALUES (1, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 248ms
+
+
+Started GET "/users/1" for 127.0.0.1 at Wed Jun 15 16:26:33 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.3ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (28.7ms)
+Completed 200 OK in 66ms (Views: 35.0ms | ActiveRecord: 0.7ms)
+  [1m[36mPhenotype Load (0.8ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes"[0m
+
+
+Started GET "/phenotypes/1" for 127.0.0.1 at Wed Jun 15 16:26:44 +1000 2011
+  Processing by PhenotypesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPhenotype Load (0.3ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."id" = 1 LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered phenotypes/show.html.erb within layouts/application (128.7ms)
+Completed 200 OK in 173ms (Views: 136.0ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Wed Jun 15 16:27:19 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mPhenotype Load (0.3ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+Rendered users/show.html.erb within layouts/application (26.7ms)
+Completed 200 OK in 64ms (Views: 33.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Wed Jun 15 16:27:21 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.3ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (28.9ms)
+Completed 200 OK in 69ms (Views: 36.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/signout" for 127.0.0.1 at Wed Jun 15 16:27:28 +1000 2011
+  Processing by SessionsController#destroy as HTML
+Redirected to http://localhost:3000/
+Completed 302 Found in 3ms
+
+
+Started GET "/" for 127.0.0.1 at Wed Jun 15 16:27:28 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/index.html.erb within layouts/application (128.0ms)
+Completed 200 OK in 136ms (Views: 134.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at Wed Jun 15 16:27:32 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPhenotype Load (0.4ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 1 LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered users/show.html.erb within layouts/application (30.5ms)
+Completed 200 OK in 73ms (Views: 37.9ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/users/2" for 127.0.0.1 at Wed Jun 15 16:27:35 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1
+Completed   in 28ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with ID=2):
+  app/controllers/users_controller.rb:42:in `show'
+
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.0ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (12.8ms)
+Rendered /var/lib/gems/1.8/gems/actionpack-3.0.7/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (22.4ms)
+
+
+Started GET "/phenotypes/1" for 127.0.0.1 at Wed Jun 15 16:29:01 +1000 2011
+  Processing by PhenotypesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPhenotype Load (0.2ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."id" = 1 LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered phenotypes/show.html.erb within layouts/application (21.0ms)
+Completed 200 OK in 64ms (Views: 27.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at Wed Jun 15 16:30:27 +1000 2011
+  Processing by StaticController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered static/index.html.erb within layouts/application (32.2ms)
+Completed 200 OK in 41ms (Views: 39.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/faq" for 127.0.0.1 at Wed Jun 15 16:30:28 +1000 2011
+  Processing by StaticController#faq as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered static/faq.html.erb within layouts/application (29.4ms)
+Completed 200 OK in 51ms (Views: 50.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/signin" for 127.0.0.1 at Wed Jun 15 16:31:16 +1000 2011
+  Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered sessions/new.html.erb within layouts/application (30.7ms)
+Completed 200 OK in 39ms (Views: 37.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/signup" for 127.0.0.1 at Wed Jun 15 16:31:18 +1000 2011
+  Processing by UsersController#new as HTML
+Rendered shared/_error_messages.html.erb (1.2ms)
+Rendered users/_form.html.erb (128.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered users/new.html.erb within layouts/application (137.3ms)
+Completed 200 OK in 163ms (Views: 144.7ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at Wed Jun 15 16:31:24 +1000 2011
+  Processing by UsersController#create as HTML
+  Parameters: {"commit"=>"Create User", "authenticity_token"=>"ldSunDz01DsglxyoI0jDcTXer0hj8wOTbpzsqVd/lbQ=", "utf8"=>"✓", "user"=>{"name"=>"dasijd", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>"heise@golem.de"}}
+  [1m[36mSQL (0.4ms)[0m  [1mSELECT 1 FROM "users" WHERE (LOWER("users"."email") = LOWER('heise@golem.de')) LIMIT 1[0m
+DEPRECATION WARNING: Overwriting validate in your models has been deprecated, please use Base#validate :method_name instead. (called from create at /home/drsnuggles/Rails/snpr/app/controllers/users_controller.rb:16)
+DEPRECATION WARNING: Errors#on have been deprecated, use Errors#[] instead.
+Also note that the behaviour of Errors#[] has changed. Errors#[] now always returns an Array. An empty Array is returned when there are no errors on the specified attribute. (called from validate at /home/drsnuggles/Rails/snpr/app/models/user.rb:42)
+  [1m[35mAREL (0.5ms)[0m  INSERT INTO "users" ("created_at", "sequence_link", "name", "has_sequence", "salt", "encrypted_password", "updated_at", "email") VALUES ('2011-06-15 06:31:26.068239', NULL, 'dasijd', NULL, '46e8391468bcc16f98d9a12f2a752f0de11bc844d02a6c3d450835db0265f074', 'bf6cc9b047698b8011d8e479bfd0210769acf8ad11c0e35b7fa013397cac44ea', '2011-06-15 06:31:26.068239', 'heise@golem.de')
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "phenotypes" ("user_id", "variations") VALUES (2, '--- 
+:haircolor: ""
+:eyecolor: ""
+:skincolor: ""
+:bloodtype: ""
+')[0m
+Redirected to http://localhost:3000/users/2
+Completed 302 Found in 1934ms
+
+
+Started GET "/users/2" for 127.0.0.1 at Wed Jun 15 16:31:26 +1000 2011
+  Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1
+  [1m[36mPhenotype Load (0.4ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."user_id" = 2 LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+Rendered users/show.html.erb within layouts/application (163.2ms)
+Completed 200 OK in 197ms (Views: 169.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/phenotypes/2" for 127.0.0.1 at Wed Jun 15 16:31:28 +1000 2011
+  Processing by PhenotypesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPhenotype Load (0.2ms)[0m  [1mSELECT "phenotypes".* FROM "phenotypes" WHERE "phenotypes"."id" = 2 LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 2 LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+Rendered phenotypes/show.html.erb within layouts/application (23.6ms)
+Completed 200 OK in 70ms (Views: 30.4ms | ActiveRecord: 1.1ms)
