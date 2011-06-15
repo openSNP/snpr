@@ -1,7 +1,12 @@
+<h1>Hello <%= @user.name %>!</h1>
+
 <% if @user.has_sequence == true %>
 	<p>Insert stuff for analysis here</p>
 
 
 <% else %>
-<p>You haven't uploaded your SNP-set. Please do so: INSERT BUTTONS etc.</p>
+<p>You haven't uploaded your SNP-set. Please do so: (Here be buttons arrr)</p>
 <% end %>
+
+
+Here are your variations: <%= link_to("Click", Phenotype.find_by_user_id(@user.id)) %>
