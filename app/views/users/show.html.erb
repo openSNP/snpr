@@ -4,9 +4,10 @@
 	<p>Insert stuff for analysis here</p>
 
 
-<% else %>
-<p>You haven't uploaded your SNP-set. Please do so: (Here be buttons arrr)</p>
-<% end %>
 
+<% else %>
+<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
+<% end %>
+<%=@current_user%>
 
 Here are your variations: <%= link_to("Click", Phenotype.find_by_user_id(@user.id)) %>

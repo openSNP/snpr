@@ -3,7 +3,8 @@ require 'digest' # for password encryption
 
 class User < ActiveRecord::Base
 
-	has_one :phenotype
+	has_one :phenotypes
+	has_many :genotypes
 
 	attr_accessor :password
 	attr_accessible :name, :email, :password, :password_confirmation

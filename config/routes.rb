@@ -3,6 +3,7 @@ Snpr::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :static
   resources :phenotypes
+  resources :genotypes
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'sessions#new'

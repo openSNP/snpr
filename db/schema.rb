@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615045458) do
+ActiveRecord::Schema.define(:version => 20110615173154) do
+
+  create_table "genotypes", :force => true do |t|
+    t.datetime "uploadtime",                              :null => false
+    t.string   "filetype",         :default => "23andme"
+    t.string   "originalfilename",                        :null => false
+    t.integer  "user_id",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "phenotypes", :force => true do |t|
     t.string  "variations"

@@ -1,0 +1,15 @@
+<% # helper thing so we don't have to put up fields into every page %>
+<%= form_for(@genotype) do |f| %>
+<%= render 'shared/error_messages', :target => @genotype %>
+<div class="field">
+	<%= f.label :originalfilename %><br/>
+	<%= f.file_field :originalfilename %>
+</div>
+<div class="field">
+	<%= f.label :filetype %><br/>
+	<%= f.radio_button :filetype,"23andme" %>
+	<%= f.radio_button :filetype, "other" %>
+<div class="actions">
+	<%= f.submit %>
+</div>
+<% end %>
