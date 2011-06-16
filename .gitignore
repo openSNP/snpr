@@ -1,3 +1,7 @@
 .bundle
 db/*.sqlite3
 log/*.log
+development.log
+server.pid
+*.swp
+
