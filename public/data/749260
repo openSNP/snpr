@@ -1,0 +1,54 @@
+No mispriming library specified
+Using 1-based sequence positions
+OLIGO            start  len      tm     gc%   any    3' seq 
+LEFT_PRIMER        441   20   57.97   50.00  5.00  2.00 TAACTACATGGCCCACCCTA
+SEQUENCE SIZE: 597
+INCLUDED REGION SIZE: 597
+
+    1 TTCCTAGGGTCCCCCGTGTCCCACACATACCCGGAACTTACGTCGTTAAGTCTGATACTA
+                                                                  
+
+   61 AAGGCGGCCCTCTTCTCAGTCCTTTTCCTATGAATCCGGGCATCTTACCCCCGATTTCGA
+                                                                  
+
+  121 TACGACCAGTTAATGCACTTGATCTGAAAAAACTTTCTCCCCCTAACCCTTGCCCTAGTA
+                                                                  
+
+  181 ATCTGACACTTGGCCACCCCCCTGGCATTAGCTGGCCTGCCCCCGCACCTGTAAAGAGGA
+                                                                  
+
+  241 GCTGTGCCTGAATAAAGGGCCACTTTGATAGAGTGAATCATGAGGGTTAAAGCCCCTCCA
+                                                                  
+
+  301 CCTCCTTTAGGAAAAGGGGGCTTGAACCCCGCCCTAAGAGATCAAAACTCTTCGTGCTTC
+                                                                  
+
+  361 CACTACACCATTTCCTAGTTAGGTAAGCTAGATTAAGCTCTCGGGCCCATGCCCCGAACA
+                                                                  
+
+  421 CGCAGGTTAGACCCCTGCTCTAACTACATGGCCCACCCTAAATTGGTTTTCTGCATGTTC
+                          >>>>>>>>>>>>>>>>>>>>                    
+
+  481 ACTTTTATTGGTCTTGGGACCCTGTTGGTCTTTGCAAGCTCTAATTGACTGCTGGCTTGG
+                                                                  
+
+  541 GCAGGGGCTTGAGTTGAATACATTAGCGATTCTCCCGCTTATGGCGCAACTCCCCCA
+                                                               
+
+KEYS (in order of precedence):
+>>>>>> left primer
+
+
+ADDITIONAL OLIGOS
+                    start  len      tm     gc%   any    3' seq 
+ 1 LEFT_PRIMER        236   20   58.05   50.00  4.00  1.00 GAGGAGCTGTGCCTGAATAA
+ 2 LEFT_PRIMER        342   20   58.08   45.00  3.00  0.00 TCAAAACTCTTCGTGCTTCC
+ 3 LEFT_PRIMER        161   20   58.21   55.00  4.00  3.00 CCCTAACCCTTGCCCTAGTA
+ 4 LEFT_PRIMER        295   20   58.24   50.00  6.00  3.00 CCTCCACCTCCTTTAGGAAA
+
+Statistics
+         con   too    in    in          no    tm    tm  high  high        high      
+         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
+        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
+Left    4611     0     0     0     5     0  1233  2202    17   307    39   107   701
+primer3 release 1.1.4

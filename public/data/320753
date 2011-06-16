@@ -1,0 +1,48 @@
+No mispriming library specified
+Using 1-based sequence positions
+OLIGO            start  len      tm     gc%   any    3' seq 
+RIGHT_PRIMER       126   20   57.97   55.00  4.00  2.00 CTCTCTATCACCAGCCCTGA
+SEQUENCE SIZE: 414
+INCLUDED REGION SIZE: 414
+
+    1 CTTAGGAAACATAAAAGCCCGGGGGGGGCATTAATAGTCTTGGGTTTAAGCCTCGGCAGG
+                                                                  
+
+   61 GGTCTATCCTGCTACTCAGGATTTGCAATCCCACATGTAATACACCTCAGGGCTGGTGAT
+                                                    <<<<<<<<<<<<<<
+
+  121 AGAGAGAGGAGTTTAACCTCTGTTCATGGAGCTACAAACCACCGCTTGGCACTCAGCCAC
+      <<<<<<                                                      
+
+  181 TCTACCAACGATCGAGCTTCCTTTAGCAGGTCTACCTATGGCAATCACACGCTGATTCTT
+                                                                  
+
+  241 CTCAACGAACCACAAAGACATTGGCACCCTCTATCTTATATTTGGTGCCTGAGCAGGCAT
+                                                                  
+
+  301 GGTGGGGACGGCGTTAAGCCTTCTTATTCGGGCTGAATTAAATCAGCCTGGTACTCTTCT
+                                                                  
+
+  361 AGGAGACGATCAGATTTATAACGTGATCGTCACCGCTCATGCTTTTGTAATAAT
+                                                            
+
+KEYS (in order of precedence):
+<<<<<< right primer
+
+
+ADDITIONAL OLIGOS
+                    start  len      tm     gc%   any    3' seq 
+ 1 RIGHT_PRIMER       125   20   57.97   55.00  4.00  3.00 TCTCTATCACCAGCCCTGAG
+ 2 RIGHT_PRIMER       190   20   57.96   55.00  3.00  1.00 CGTTGGTAGAGTGGCTGAGT
+ 3 RIGHT_PRIMER       200   20   58.05   50.00  6.00  1.00 GAAGCTCGATCGTTGGTAGA
+ 4 RIGHT_PRIMER       244   20   58.05   45.00  3.00  2.00 TGAGAAGAATCAGCGTGTGA
+
+Statistics
+         con   too    in    in          no    tm    tm  high  high        high      
+         sid  many   tar  excl   bad    GC   too   too   any    3'  poly   end      
+        ered    Ns   get   reg   GC% clamp   low  high compl compl     X  stab    ok
+Right   3374     0     0     0     0     0  1049  1865     7   147    23    55   228
+primer3 release 1.1.4
+
+
+

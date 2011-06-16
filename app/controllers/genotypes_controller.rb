@@ -19,11 +19,13 @@ class GenotypesController < ApplicationController
 		@genotype.uploadtime = Time.new 
 		@genotype.user_id = current_user.id
 		@genotype.filetype=params[:genotype][:filetype]
-    	@genotype.originalfilename=params[:genotype][:originalfilename] if params[:genotype][:originalfilename]
+    	@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename].original_filename
+    	@genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
 
 		respond_to do |format|
 		  if @genotype.save
             current_user.toggle!(:has_sequence)
+            @genotype.move_file
 			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded') }
 			format.xml { render :xml => current_user, :status => :created, :location => @user }
 		  else

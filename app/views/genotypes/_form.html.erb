@@ -1,8 +1,8 @@
-<%= form_for(@genotype) do |f| %>
+<%= form_for(@genotype,:html => {:multipart => true}) do |f| %>
 <%= render 'shared/error_messages', :target => @genotype %>
 <div class="field">
-	<%= f.label :originalfilename %><br/>
-	<%= f.file_field :originalfilename %>
+	<%= f.label :filename %><br/>
+	<%= f.file_field :filename %>
 </div>
 <div class="field">
 	<%= f.label :filetype %><br/>
