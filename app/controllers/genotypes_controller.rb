@@ -2,7 +2,9 @@ class GenotypesController < ApplicationController
   
   def new
 		@genotype = Genotype.new
-		@genotype.user=@current_user
+		# current user is always stored in the method 'current_user',
+		# not in the variable '@current_user'
+		@genotype.user = current_user
     	@genotype.uploadtime=Time.new
 		@title = "Add Genotype-File"
 
