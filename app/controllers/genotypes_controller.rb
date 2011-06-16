@@ -16,13 +16,14 @@ class GenotypesController < ApplicationController
 	
 	def create
 		@genotype = Genotype.new()
+		@genotype.uploadtime = Time.new 
 		@genotype.filetype=params[:genotype][:filetype]
-    @genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
+    	@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
 
 		respond_to do |format|
-		  if @user.save
+		  if @genotype.save
 
-			format.html { redirect_to(@user, :notice => 'User was successfully created.') }
+			format.html { redirect_to(@user, :notice => 'Genotype was successfully uploaded') }
 			format.xml { render :xml => @user, :status => :created, :location => @user }
 		  else
 			format.html { render :action => "new" }
@@ -42,20 +43,22 @@ class GenotypesController < ApplicationController
 		end
 	end
 	
-  def do_upload_genotype
-   @genotype=Genotype.new()
-   @genotype.user=@current_user
-   @genotype.uploadtime=Time.new
-   @genotype.filetype=params[:genotype][:filetype]
-   @genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
-   if @genotype.save
-     @genotype.move_file
-    flash[:notice]="File upload successful!"
-    redirect_to :action => :info_page
-   else
-    render :action=>"upload_genotype"
-   end
-   	respond_to do |format|
+	def do_upload_genotype
+		@genotype=Genotype.new()
+		@genotype.user=current_user
+		@genotype.uploadtime=Time.new
+		@genotype.filetype=params[:genotype][:filetype]
+		@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
+   
+		if @genotype.save
+     		@genotype.move_file
+			flash[:notice]="File upload successful!"
+			redirect_to :action => :info_page
+		else
+			render :action=>"upload_genotype"
+		end
+
+		respond_to do |format|
 			format.html
 		end
   end

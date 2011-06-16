@@ -1,7 +1,7 @@
 class Genotype < ActiveRecord::Base
  belongs_to  :user
  
-validates_presence_of :originalfilename, :message => "Please provide file"
+#validates_presence_of :originalfilename, :message => "Please provide file"
 
 def fs_filename
  return user.id.to_s+"."+filetype.to_s+"."+id.to_s
