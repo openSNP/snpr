@@ -1,6 +1,13 @@
 .bundle
 db/*.sqlite3
 log/*.log
+<<<<<<< HEAD
 tmp/pids/server.pid
 public/data/*
 Gemfile.*
+=======
+development.log
+server.pid
+*.swp
+
+>>>>>>> 89700fa869ebc4bb7179c554cea7bb99e655de90
