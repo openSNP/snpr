@@ -17,14 +17,15 @@ class GenotypesController < ApplicationController
 	def create
 		@genotype = Genotype.new()
 		@genotype.uploadtime = Time.new 
+		@genotype.user_id = current_user.id
 		@genotype.filetype=params[:genotype][:filetype]
-    	@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
+    	@genotype.originalfilename=params[:genotype][:originalfilename] if params[:genotype][:originalfilename]
 
 		respond_to do |format|
 		  if @genotype.save
-
-			format.html { redirect_to(@user, :notice => 'Genotype was successfully uploaded') }
-			format.xml { render :xml => @user, :status => :created, :location => @user }
+            current_user.toggle!(:has_sequence)
+			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded') }
+			format.xml { render :xml => current_user, :status => :created, :location => @user }
 		  else
 			format.html { render :action => "new" }
 			format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
