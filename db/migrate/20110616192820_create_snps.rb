@@ -3,8 +3,9 @@ class CreateSnps < ActiveRecord::Migration
 	  create_table :snps do |t|
 		  t.string :name
 		  t.string :position
-		  t.string :genotype
-		  t.belongs_to :user
+		  t.string :chromosome
+		  t.string :local_genotype
+		  t.belongs_to :genotype
 		  
 		  t.timestamps
 	  end

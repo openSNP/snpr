@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20110616192820) do
   create_table "snps", :force => true do |t|
     t.string   "name"
     t.string   "position"
+    t.string   "chromosome"
     t.string   "genotype"
     t.integer  "user_id"
     t.datetime "created_at"

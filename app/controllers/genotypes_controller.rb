@@ -55,6 +55,21 @@ class GenotypesController < ApplicationController
    
 		if @genotype.save
      		@genotype.move_file
+     	  genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
+     	  new_snps = genotype_file.readlines
+     	  new_snps.each do |single_snp|
+     	    if single_snp[0] != "#"
+       	    snp_array = single_snp.split("\t")
+       	    @snp = Snp.new()
+       	    @snp.genotype = @genotype
+       	    @snp.name = snp_array[0]
+       	    @snp.chromosome = snp_array[1]
+       	    @snp.position = snp_array[2]
+       	    @snp.local_genotype = snp_array[3]
+       	    @snp.save
+     	    end
+   	    end
+     	    
 			flash[:notice]="File upload successful!"
 			redirect_to :action => :info_page
 		else

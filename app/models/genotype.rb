@@ -15,25 +15,24 @@ def fs_filename
  return user.id.to_s+"."+filetype.to_s+"."+id.to_s
 end
 
-
 def data
  if @tmp_file_name
-  return File.open(RAILS_ROOT+"/public/data/"+@tmp_file_name).read
+  return File.open(::Rails.root.to_s+"/public/data/"+@tmp_file_name).read
  else
-  File.open(RAILS_ROOT+"/public/data/"+id.to_s).read
+  File.open(::Rails.root.to_s+"/public/data/"+id.to_s).read
  end
 end
 
 def data=(filedata)
  if @tmp_file_name
-  File.open(RAILS_ROOT+"/public/data/"+@tmp_file_name, "w") {|f| f.write(filedata)}
+  File.open(::Rails.root.to_s+"/public/data/"+@tmp_file_name, "w") {|f| f.write(filedata)}
  else
-  File.open(RAILS_ROOT+"/public/data/", "w") {|f| f.write(filedata)}
+  File.open(::Rails.root.to_s+"/public/data/", "w") {|f| f.write(filedata)}
  end
 end
  
 def move_file
-     FileUtils.move(RAILS_ROOT+"/public/data/"+@tmp_file_name, RAILS_ROOT+"/public/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s)
+     FileUtils.move(::Rails.root.to_s+"/public/data/"+@tmp_file_name, ::Rails.root.to_s+"/public/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s)
 end
  
 end
