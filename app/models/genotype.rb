@@ -1,8 +1,15 @@
 require 'fileutils'
+
 class Genotype < ActiveRecord::Base
  belongs_to  :user
+ has_many :snps
  
 validates_presence_of :originalfilename, :message => "Please provide file"
+
+def initialize
+ super
+ @tmp_file_name=rand(999999).to_s
+end
 
 def fs_filename
  return user.id.to_s+"."+filetype.to_s+"."+id.to_s
@@ -23,12 +30,6 @@ def data=(filedata)
  else
   File.open(RAILS_ROOT+"/public/data/", "w") {|f| f.write(filedata)}
  end
-end
-
-
-def initialize
- super
- @tmp_file_name=rand(999999).to_s
 end
  
 def move_file

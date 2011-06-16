@@ -3,7 +3,7 @@ db/*.sqlite3
 log/*.log
 <<<<<<< HEAD
 tmp/pids/server.pid
-public/data/*
+public/data/*23andme*
 Gemfile.*
 =======
 development.log
