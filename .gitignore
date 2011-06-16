@@ -1,3 +1,6 @@
 .bundle
 db/*.sqlite3
 log/*.log
+tmp/pids/server.pid
+public/data/*
+Gemfile.*
