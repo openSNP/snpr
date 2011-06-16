@@ -3,7 +3,7 @@ class GenotypesController < ApplicationController
   def new
 		@genotype = Genotype.new
 		@genotype.user=@current_user
-    @genotype.uploadtime=Time.new
+    	@genotype.uploadtime=Time.new
 		@title = "Add Genotype-File"
 
 		respond_to do |format|
