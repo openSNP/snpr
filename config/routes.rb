@@ -1,12 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource :user_sessions
-  map.resources :password_resets
   map.resource :account, :controller => "users"
+  map.resources :password_resets
 end
 
 Snpr::Application.routes.draw do
-
   resources :static
   resources :phenotypes
   resources :genotypes
