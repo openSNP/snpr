@@ -1,4 +1,5 @@
 class PhenotypesController < ApplicationController
+    before_filter :require_user
 
 	def show
 		@phenotype = Phenotype.find(params[:id])

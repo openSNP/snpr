@@ -39,12 +39,18 @@ ActiveRecord::Schema.define(:version => 20110616192820) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "salt"
-    t.string   "encrypted_password"
+    t.string   "password_salt"
+    t.string   "crypted_password"
+    t.string   "persistence_token"
+    t.string   "perishable_token"
     t.boolean  "has_sequence"
     t.string   "sequence_link"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["name"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
 
 end

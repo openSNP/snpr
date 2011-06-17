@@ -29,6 +29,9 @@ GEM
       activesupport (= 3.0.9)
     activesupport (3.0.9)
     arel (2.0.10)
+    authlogic (3.0.3)
+      activerecord (>= 3.0.7)
+      activerecord (>= 3.0.7)
     builder (2.1.2)
     email_veracity (0.6.0)
     erubis (2.6.6)
@@ -54,6 +57,8 @@ GEM
       activesupport (= 3.0.9)
       bundler (~> 1.0)
       railties (= 3.0.9)
+    rails3-generators (0.17.4)
+      railties (>= 3.0.0)
     railties (3.0.9)
       actionpack (= 3.0.9)
       activesupport (= 3.0.9)
@@ -72,6 +77,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  authlogic
   email_veracity
   rails (= 3.0.9)
+  rails3-generators
   sqlite3

@@ -1,13 +1,14 @@
 Snpr::Application.routes.draw do
+
   resources :users
-  resources :sessions, :only => [:new, :create, :destroy]
   resources :static
   resources :phenotypes
   resources :genotypes
+  resources :user_sessions
   
   match '/signup', :to => 'users#new'
-  match '/signin', :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
+  match '/signin', :to => 'user_sessions#new'
+  match '/signout', :to => 'user_sessions#destroy'
   match '/faq', :to => 'static#faq'
 
   root :to => 'static#index' # change this

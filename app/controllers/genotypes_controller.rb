@@ -1,4 +1,5 @@
 class GenotypesController < ApplicationController
+  before_filter :require_user
   
   def new
 		@genotype = Genotype.new

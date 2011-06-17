@@ -17,8 +17,6 @@ class UsersController < ApplicationController
 		  if @user.save
 			# create the new phenotype
 			@phenotype = Phenotype.create(:user_id => @user.id)
-			sign_in @user
-			# redirect to user's page
 			format.html { redirect_to(@user, :notice => 'User was successfully created.') }
 			format.xml { render :xml => @user, :status => :created, :location => @user }
 		  else
