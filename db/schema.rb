@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20110616192820) do
     t.string   "name"
     t.string   "position"
     t.string   "chromosome"
-    t.string   "genotype"
-    t.integer  "user_id"
+    t.string   "local_genotype"
+    t.integer  "genotype_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
