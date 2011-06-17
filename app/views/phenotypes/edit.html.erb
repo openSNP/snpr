@@ -1,0 +1,9 @@
+<h2>Please edit or add new phenotypes.</h2>
+
+<% @variations.each do |v| %>
+	<% form_for(v[1]) do |f| %>
+		Variation: <%= v[0] %>
+		| Enter new: <%= f.text_field v[1] %>
+		<%= f.submit "Save" %>
+<% end %>
+<% end %>

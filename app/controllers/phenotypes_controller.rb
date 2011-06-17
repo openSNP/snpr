@@ -4,9 +4,19 @@ class PhenotypesController < ApplicationController
 	def show
 		@phenotype = Phenotype.find(params[:id])
 		@variations = @phenotype.variations
-		@user = User.find_by_id(@phenotype.user_id)
+		@user = current_user
 	
 		@title = "Phenotypes"
+		respond_to do |format|
+			format.html
+			format.xml
+		end
+	end
+
+	def edit
+		@variations = Phenotype.find(params[:id]).variations
+		@title = "Edit your Phenotypes"
+
 		respond_to do |format|
 			format.html
 			format.xml

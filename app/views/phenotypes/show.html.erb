@@ -4,5 +4,5 @@
 	<%=  v[0].to_s.capitalize  %> : <% if v[1] == "" %>You entered nothing!<% else %> <%= v[1] %><% end%> <br/>
 <% end%>
 
-<p><%= link_to("Click here to change phenotypes or assign new ones", "#placeholder") %></p>
+<p><%= link_to("Click here to change phenotypes or assign new ones", :controller => "phenotypes", :action => "edit") %></p>
 <p><%= link_to("Back to user-page", @user) %></p>

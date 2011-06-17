@@ -4,10 +4,12 @@ class PasswordResetsController < ApplicationController
 	before_filter :require_no_user
 
 	def new
+		@title = "password reset"
 		render
 	end
 
 	def edit
+		@title = "editing your password"
 		render
 	end
 
