@@ -1,3 +1,3 @@
 class Snp < ActiveRecord::Base
-   belongs_to :genotype
+   has_many :user_snps
 end

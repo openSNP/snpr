@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
 	has_one :phenotypes
 	has_many :genotypes
+	has_many :user_snps
 
 
 	def deliver_password_reset_instructions!
