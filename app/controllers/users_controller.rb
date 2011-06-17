@@ -15,10 +15,10 @@ class UsersController < ApplicationController
 
 		respond_to do |format|
 		  if @user.save
+			flash[:notice] = "Account registered!"
 			# create the new phenotype
 			@phenotype = Phenotype.create(:user_id => @user.id)
-			format.html { redirect_to(@user, :notice => 'User was successfully created.') }
-			format.xml { render :xml => @user, :status => :created, :location => @user }
+			redirect_to_or_default account_url
 		  else
 			format.html { render :action => "new" }
 			format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
@@ -39,19 +39,11 @@ class UsersController < ApplicationController
 
 	def show
 		# showing a single user's page
-		@user = User.find(params[:id])
+		@user = current_user
 		@title = @user.name + "'s page"
 
 		respond_to do |format|
 			format.html
 		end
 	end
-
-	private
-
-		def correct_user
-			@user = User.find(params[:id])
-			redirect_to(root_path) unless current_user?(@user)
-		end
-
 end

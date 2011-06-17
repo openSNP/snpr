@@ -8,8 +8,10 @@
 </head>
 <body>
 <div class="header" >
-	<%= link_to("Logo", root_path) %> | <%= link_to("FAQ", '/faq') %> | Link to News | <% if current_user %><%= link_to("User's home", current_user)%> | <%= link_to("Sign out", "/signout") %><% else %><%= link_to("Sign in", '/signin') %><% end %>
+	<%= link_to("Logo", root_path) %> | <%= link_to("FAQ", '/faq') %> | Link to News | <% if current_user %><%= link_to("User's home", account_path)%> | <%= link_to("Sign out", user_sessions_path, :method => :delete) %><% else %><%= link_to("Sign in", '/signin') %><% end %>
 </div>
+
+<p style="color: green"><%= flash[:notice] %></p>
 
 <%= yield %>
 

@@ -1,10 +1,15 @@
+ActionController::Routing::Routes.draw do |map|
+  map.resources :users
+  map.resource :user_sessions
+  map.resources :password_resets
+  map.resource :account, :controller => "users"
+end
+
 Snpr::Application.routes.draw do
 
-  resources :users
   resources :static
   resources :phenotypes
   resources :genotypes
-  resources :user_sessions
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new'
@@ -12,7 +17,6 @@ Snpr::Application.routes.draw do
   match '/faq', :to => 'static#faq'
 
   root :to => 'static#index' # change this
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
