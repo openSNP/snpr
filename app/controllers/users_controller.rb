@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 			flash[:notice] = "Account registered!"
 			# create the new phenotype
 			@phenotype = Phenotype.create(:user_id => @user.id)
-			redirect_to_or_default account_url
+			redirect_back_or_default root_path
 		  else
 			format.html { render :action => "new" }
 			format.xml { render :xml => @user.errors, :status => :unprocessable_entity }

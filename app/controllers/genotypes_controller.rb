@@ -20,13 +20,13 @@ class GenotypesController < ApplicationController
 		@genotype.uploadtime = Time.new 
 		@genotype.user_id = current_user.id
 		@genotype.filetype=params[:genotype][:filetype]
-    	@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename].original_filename
-    	@genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
+    		@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename].original_filename
+    		@genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
 
 		respond_to do |format|
 		  if @genotype.save
-            current_user.toggle!(:has_sequence)
-            @genotype.move_file
+         	   	current_user.toggle!(:has_sequence)
+         	   	@genotype.move_file
 			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded') }
 			format.xml { render :xml => current_user, :status => :created, :location => @user }
 		  else
@@ -56,20 +56,7 @@ class GenotypesController < ApplicationController
    
 		if @genotype.save
      		@genotype.move_file
-     	  genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
-     	  new_snps = genotype_file.readlines
-     	  new_snps.each do |single_snp|
-     	    if single_snp[0] != "#"
-       	    snp_array = single_snp.split("\t")
-       	    @snp = Snp.new()
-       	    @snp.genotype = @genotype
-       	    @snp.name = snp_array[0]
-       	    @snp.chromosome = snp_array[1]
-       	    @snp.position = snp_array[2]
-       	    @snp.local_genotype = snp_array[3]
-       	    @snp.save
-     	    end
-   	    end
+     	    parse_snps(@genotype)
      	    
 			flash[:notice]="File upload successful!"
 			redirect_to :action => :info_page
@@ -81,5 +68,21 @@ class GenotypesController < ApplicationController
 			format.html
 		end
   end
-
+  
+  def parse_snps(@genotype)
+		genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
+		new_snps = genotype_file.readlines
+		new_snps.each do |single_snp|
+			if single_snp[0] != "#"
+				snp_array = single_snp.split("\t")
+				@snp = Snp.new()
+				@snp.genotype = @genotype
+				@snp.name = snp_array[0]
+				@snp.chromosome = snp_array[1]
+				@snp.position = snp_array[2]
+				@snp.local_genotype = snp_array[3]
+				@snp.save
+			end
+   	    end
+  end	
 end
