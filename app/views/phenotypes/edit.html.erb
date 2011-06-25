@@ -2,8 +2,8 @@
 
 <% @variations.each do |v| %>
 	<% form_for(v[1]) do |f| %>
-		Variation: <%= v[0] %>
-		| Enter new: <%= f.text_field v[1] %>
+		Variation: <%= v[0] %> <%= v[1]%>
+		| Enter new: <%= text_field f, :value => "hi" %>
 		<%= f.submit "Save" %>
 <% end %>
 <% end %>

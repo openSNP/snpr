@@ -30,6 +30,10 @@ ActiveRecord::Schema.define(:version => 20110617144145) do
     t.string   "name"
     t.string   "position"
     t.string   "chromosome"
+<<<<<<< HEAD
+=======
+    t.integer  "genotype_id"
+>>>>>>> c5fa6a0848d56a142d2e77c739be787384508a7e
     t.datetime "created_at"
     t.datetime "updated_at"
   end
