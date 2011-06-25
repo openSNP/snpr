@@ -57,6 +57,7 @@ class GenotypesController < ApplicationController
 		if @genotype.save
      		@genotype.move_file
      	  genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
+     	  current_user.sequence_link = "/data/"+@genotype.fs_filename
      	  new_snps = genotype_file.readlines
      	  new_snps.each do |single_snp|
      	    if single_snp[0] != "#"

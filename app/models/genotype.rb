@@ -34,5 +34,5 @@ end
 def move_file
      FileUtils.move(::Rails.root.to_s+"/public/data/"+@tmp_file_name, ::Rails.root.to_s+"/public/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s)
 end
- 
+
 end

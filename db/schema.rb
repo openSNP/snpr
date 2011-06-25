@@ -10,6 +10,54 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20110617144145) do
+
+  create_table "genotypes", :force => true do |t|
+    t.datetime "uploadtime",                              :null => false
+    t.string   "filetype",         :default => "23andme"
+    t.string   "originalfilename",                        :null => false
+    t.integer  "user_id",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phenotypes", :force => true do |t|
+    t.string  "variations"
+    t.integer "user_id"
+  end
+
+  create_table "snps", :force => true do |t|
+    t.string   "name"
+    t.string   "position"
+    t.string   "chromosome"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_snps", :force => true do |t|
+    t.string   "local_genotype"
+    t.integer  "genotype_id"
+    t.integer  "user_id"
+    t.integer  "snp_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_salt"
+    t.string   "crypted_password"
+    t.string   "persistence_token"
+    t.string   "perishable_token"
+    t.boolean  "has_sequence"
+    t.string   "sequence_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["name"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
 
 end

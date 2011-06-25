@@ -4,8 +4,6 @@ class CreateSnps < ActiveRecord::Migration
 		  t.string :name
 		  t.string :position
 		  t.string :chromosome
-		  t.belongs_to :genotype
-		  
 		  t.timestamps
 	  end
   end
