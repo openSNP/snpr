@@ -10,6 +10,7 @@ gem 'rails3-generators'
 
 gem 'sqlite3'
 gem 'email_veracity'
+gem 'resque'
 # Use unicorn as the web server
 # gem 'unicorn'
 

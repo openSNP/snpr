@@ -20,6 +20,7 @@ class PhenotypesController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.xml
+			end
 		end
 	end
 
