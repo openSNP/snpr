@@ -29,7 +29,7 @@ class GenotypesController < ApplicationController
          	   	@genotype.move_file
 				#parse_snps(@genotype)
 				# we want to enqueue the job instead
-				Resque.enqueue(Parse, @genotype)
+				Resque.enqueue(Parsing, @genotype)
 			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded') }
 			format.xml { render :xml => current_user, :status => :created, :location => @user }
 		  else
