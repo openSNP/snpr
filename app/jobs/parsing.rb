@@ -9,7 +9,9 @@ class Parsing
 		genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
 		new_snps = genotype_file.readlines
 		new_snps.each do |single_snp|
-			if single_snp[0][0].chr != "#"
+		  puts single_snp[0]
+		  puts single_snp[0].chr
+			if single_snp[0].chr != "#"
 				snp_array = single_snp.split("\t")
 				puts snp_array[0]
 				  if snp_array.length == (4)
@@ -19,12 +21,14 @@ class Parsing
 				      @snp.chromosome = snp_array[1]
 				      @snp.position = snp_array[2]
 				      @snp.save
+				    else 
+				      @snp = Snp.find_by_name(snp_array[0])
 			      end
 			      @user_snp = UserSnp.new()
 			      @user_snp.genotype_id = @genotype.id
 			      @user_snp.user_id = @genotype.user_id
 			      @user_snp.snp_id = @snp.id
-			      @user_snp.local_genotype = snp_array[3]
+			      @user_snp.local_genotype = snp_array[3].rstrip
 			      @user_snp.save
 			    end
 		  end

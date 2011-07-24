@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(:version => 20110617144145) do
     t.string   "name"
     t.string   "position"
     t.string   "chromosome"
+    t.string   "genotype_frequency"
+    t.string   "allele_frequency"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
