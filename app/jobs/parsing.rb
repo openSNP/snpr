@@ -30,6 +30,27 @@ class Parsing
 			      @user_snp.snp_id = @snp.id
 			      @user_snp.local_genotype = snp_array[3].rstrip
 			      @user_snp.save
+			      
+			      if @snp.allele_frequency.has_key?(snp_array[3][0].chr)
+			        @snp.allele_frequency[snp_array[3][0].chr] += 1
+		        else
+		          @snp.allele_frequency[snp_array[3][0].chr] = 1
+	          end
+	          
+		        if @snp.allele_frequency.has_key?(snp_array[3][1].chr)
+		          @snp.allele_frequency[snp_array[3][1].chr] += 1
+	          else
+	            @snp.allele_frequency[snp_array[3][1].chr] = 1
+            end
+
+			      if @snp.genotype_frequency.has_key?(snp_array[3].rstrip)
+			        @snp.genotype_frequency[snp_array[3].rstrip] += 1
+			      elsif @snp.genotype_frequency.has_key?(snp_array[3][1].chr+snp_array[3][0].chr)
+			        @snp.genotype_frequency[snp_array[3][1].chr+snp_array[3][0].chr] += 1
+		        else
+		          @snp.genotype_frequency[snp_array[3].rstrip] = 1
+		        end
+		        @snp.save
 			    end
 		  end
 		end
