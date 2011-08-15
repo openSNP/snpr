@@ -22,7 +22,8 @@ ActiveRecord::Schema.define(:version => 20110617144145) do
   end
 
   create_table "phenotypes", :force => true do |t|
-    t.string  "variations"
+    t.string  "characteristic"
+    t.string  "variation"
     t.integer "user_id"
   end
 

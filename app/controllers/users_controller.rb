@@ -16,8 +16,7 @@ class UsersController < ApplicationController
 		respond_to do |format|
 		  if @user.save
 			flash[:notice] = "Account registered!"
-			# create the new phenotype
-			@phenotype = Phenotype.create(:user_id => @user.id)
+            create_phenotypes
 			redirect_back_or_default root_path
 		  else
 			format.html { render :action => "new" }
@@ -46,4 +45,13 @@ class UsersController < ApplicationController
 			format.html
 		end
 	end
+
+
+	def create_phenotypes
+		Phenotype.create(:characteristic => "haircolor", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "eyecolor", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "skincolor", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "bloodtype", :variation => "", :user_id => @user.id ).save
+	end
+
 end
