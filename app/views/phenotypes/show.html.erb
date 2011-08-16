@@ -1,6 +1,6 @@
 <p>Hello! Here are your phenotypes:</p>
-<% @all_phenotypes.each do |p| %>
-	<p><% if current_user.id == p.user_id  %><%=p.characteristic%> | <%= p.variation%> <% end %></p>
+<% @phenotypes.each do |p| %>
+	<p><%=p.characteristic%> | <%= p.variation%></p>
 <% end %>
 
 <p><%= link_to("Click here to change phenotypes or assign new ones", :controller => "phenotypes", :action => "edit") %></p>
