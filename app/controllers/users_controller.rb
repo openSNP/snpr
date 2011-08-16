@@ -13,16 +13,20 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(params[:user])
 
-		  if @user.save
+		  if not params[:read]
+			  flash[:notice] = "You must tick the box to proceed!"
+		  end
+
+		  if params[:read] and @user.save
             create_phenotypes
 			flash[:notice] = "Account registered!"
-			redirect_to account_url
+			redirect_to @user
 		  else
 			respond_to do |format|
 				format.html { render :action => "new" }
 				format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
 		  	end
-		end
+		  end
 	end
 
 
