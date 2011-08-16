@@ -13,15 +13,15 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(params[:user])
 
-		respond_to do |format|
 		  if @user.save
-			flash[:notice] = "Account registered!"
             create_phenotypes
-			redirect_back_or_default root_path
+			flash[:notice] = "Account registered!"
+			redirect_to account_url
 		  else
-			format.html { render :action => "new" }
-			format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
-		  end
+			respond_to do |format|
+				format.html { render :action => "new" }
+				format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
+		  	end
 		end
 	end
 
