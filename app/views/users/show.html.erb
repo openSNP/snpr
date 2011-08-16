@@ -2,11 +2,10 @@
 
 <% if @user.has_sequence == true %>
 	<p>Insert stuff for analysis here</p>
-
-
-
+	<p>Draft:</p>
+	<p>Here is what we could gather for your SNP-set.</p>
 <% else %>
 	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
 <% end %>
 
-Here are your variations: <%= link_to("Click", Phenotype.find_by_user_id(@user.id)) %>
+Here are your variations: <%= link_to("Click",  :controller => "phenotypes", :action => "show") %>

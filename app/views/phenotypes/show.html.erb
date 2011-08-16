@@ -1,8 +1,6 @@
 <p>Hello! Here are your phenotypes:</p>
-
-<%  @variations.each do |v| %>
-	<%=  v[0].to_s.capitalize  %> : <% if v[1] == "" %>You entered nothing!<% else %> <%= v[1] %><% end%> <br/>
-<% end%>
-
+<% @all_phenotypes.each do |p| %>
+	<p><% if current_user.id == p.user_id  %><%=p.characteristic%> | <%= p.variation%> <% end %></p>
+<% end %>
 <p><%= link_to("Click here to change phenotypes or assign new ones", :controller => "phenotypes", :action => "edit") %></p>
-<p><%= link_to("Back to user-page", @user) %></p>
+<p><%= link_to("Back to user-page", current_user) %></p>
