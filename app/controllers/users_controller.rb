@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 		@user = User.new(params[:user])
 
 		  if not params[:read]
-			  flash[:notice] = "You must tick the box to proceed!"
+			  flash[:warning] = "You must tick the box to proceed!"
 		  end
 
 		  if params[:read] and @user.save

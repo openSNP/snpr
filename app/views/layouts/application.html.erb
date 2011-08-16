@@ -11,7 +11,8 @@
 	<%= link_to("Logo", root_path) %> | <%= link_to("FAQ", '/faq') %> | Link to News | <% if current_user %><%= link_to("User's home", account_path)%> | <%= link_to("Sign out", user_sessions_path, :method => :delete) %><% else %><%= link_to("Sign in", '/signin') %><% end %>
 </div>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<% if flash[:notice] %> <p style="color: green"><%= flash[:notice] %></p> <% end %>
+<% if flash[:warning] %> <p style="color: red"><%= flash[:warning] %></p> <% end %>
 
 <%= yield %>
 
