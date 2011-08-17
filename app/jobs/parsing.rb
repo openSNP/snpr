@@ -9,8 +9,8 @@ class Parsing
   		genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
   		new_snps = genotype_file.readlines
   		new_snps.each do |single_snp|
-  		  puts single_snp[0]
-  		  puts single_snp[0].chr
+  		  #puts single_snp[0]
+  		  #puts single_snp[0].chr
   			if single_snp[0].chr != "#"
 			  
   			  if @genotype.filetype == "23andme"

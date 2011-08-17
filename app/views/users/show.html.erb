@@ -1,3 +1,4 @@
+<% if current_user.id == @user.id %>
 <h1>Hello <%= @user.name %>!</h1>
 
 <% if @user.has_sequence == true %>
@@ -9,3 +10,9 @@
 <% end %>
 
 Here are your variations: <%= link_to("Click",  :controller => "phenotypes", :action => "show") %>
+
+<% else %>
+<h1><%= @user.name %>'s page</h1>
+<p>Insert text on user</p>
+<% end %>
+

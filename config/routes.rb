@@ -15,6 +15,7 @@ Snpr::Application.routes.draw do
   match '/signin', :to => 'user_sessions#new'
   match '/signout', :to => 'user_sessions#destroy'
   match '/faq', :to => 'static#faq'
+  match '/users', :to => 'users#index'
 
   root :to => 'static#index' # change this
   # The priority is based upon order of creation:

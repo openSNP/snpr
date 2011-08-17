@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
 	def show
 		# showing a single user's page
-		@user = current_user
+		@user = User.find_by_id(params[:id])
 		@title = @user.name + "'s page"
 
 		respond_to do |format|
@@ -50,12 +50,10 @@ class UsersController < ApplicationController
 		end
 	end
 
-
 	def create_phenotypes
 		Phenotype.create(:characteristic => "haircolor", :variation => "", :user_id => @user.id ).save
 		Phenotype.create(:characteristic => "eyecolor", :variation => "", :user_id => @user.id ).save
 		Phenotype.create(:characteristic => "skincolor", :variation => "", :user_id => @user.id ).save
 		Phenotype.create(:characteristic => "bloodtype", :variation => "", :user_id => @user.id ).save
 	end
-
 end
