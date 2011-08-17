@@ -9,6 +9,7 @@ Snpr::Application.routes.draw do
   resources :static
   resource :phenotypes
   resources :genotypes
+  resources :snps
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new'

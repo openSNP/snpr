@@ -20,17 +20,15 @@ class GenotypesController < ApplicationController
 		@genotype.uploadtime = Time.new 
 		@genotype.user_id = current_user.id
 		@genotype.filetype=params[:genotype][:filetype]
-    		@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename].original_filename
-    		@genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
+		@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename].original_filename
+		@genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
 
 		respond_to do |format|
 		  if @genotype.save
-         	   	current_user.toggle!(:has_sequence)
-         	   	@genotype.move_file
-				#parse_snps(@genotype)
-				# we want to enqueue the job instead
-				Resque.enqueue(Parsing, @genotype)
-			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded') }
+			current_user.toggle!(:has_sequence)
+			@genotype.move_file
+			Resque.enqueue(Parsing, @genotype)
+			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing might take a couple of minutes.') }
 			format.xml { render :xml => current_user, :status => :created, :location => @user }
 		  else
 			format.html { render :action => "new" }
