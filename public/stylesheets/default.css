@@ -7,6 +7,16 @@ body {
 	background-color: #F9F9F9;
 }
 
+table, tr, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+table th{
+	background-color: #EAF2D3;
+}
+
 .header{
 	position:absolute;
 	padding: 0.5em;

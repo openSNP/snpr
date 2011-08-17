@@ -1,5 +1,16 @@
 <h1>Listing all users</h1>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>SNPs</th>
+		<th></th>
+	</tr>	
 <% @users.each do |u| %>
-	<%= link_to(u.name, u) %><br/>
+	<tr>
+		<td><%= u.name %></td>
+		<td><% if u.has_sequence %>Yes<% else %>No<% end %></td>
+		<td><%= link_to("Profile", u) %></td>
+	</td>
 <% end %>
+</table>
 <%= will_paginate(@users) %>
