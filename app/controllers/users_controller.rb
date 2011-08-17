@@ -46,6 +46,9 @@ class UsersController < ApplicationController
 		# showing a single user's page
 		@user = User.find_by_id(params[:id])
 		@title = @user.name + "'s page"
+		# split the user's name if there are more than two strings
+		# for possible reference by first name
+		@first_name = @user.name.split()[0]
 
 		respond_to do |format|
 			format.html

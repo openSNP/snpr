@@ -1,5 +1,5 @@
 <% if current_user and current_user.id == @user.id %>
-<h1>Hello <%= @user.name %>!</h1>
+<h1>Hello <%= @first_name %>!</h1>
 
 <% if @user.has_sequence == true %>
 	<p>Insert stuff for analysis here</p>
@@ -13,6 +13,10 @@ Here are your variations: <%= link_to("Click",  :controller => "phenotypes", :ac
 
 <% else %>
 <h1><%= @user.name %>'s page</h1>
-<p>Insert text on user</p>
+<% if @user.has_sequence == true %>
+	<p><%= @first_name %> has uploaded a SNP-set. Here are the results:</p>
+	<p>Lorem ipsum wagilö</p>
+<% else %>
+	<p><%= @first_name %> has not uploaded any sequences.</p>
 <% end %>
-
+<% end %>

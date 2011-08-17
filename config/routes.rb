@@ -17,7 +17,7 @@ Snpr::Application.routes.draw do
   match '/faq', :to => 'static#faq'
   match '/users', :to => 'users#index'
 
-  root :to => 'static#index' # change this
+  root :to => 'static#index' # change thisi, maybe
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
