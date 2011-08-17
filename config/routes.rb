@@ -8,10 +8,10 @@ Snpr::Application.routes.draw do
   resources :password_resets
   
   match '/signup', :to => 'users#new'
-  match '/signin', :to => 'user_sessions#new'
-  match '/signout', :to => 'user_sessions#destroy'
+  match '/signin', :to => 'user_sessions#new', :as => :login
+  match '/signout', :to => 'user_sessions#destroy', :as => :logout
   match '/faq', :to => 'static#faq'
-  match '/users', :to => 'users#index'
+  match '/user_index', :to => 'users#index'
 
   root :to => 'static#index' # change thisi, maybe
   # The priority is based upon order of creation:

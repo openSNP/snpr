@@ -12,7 +12,7 @@
 	<%= link_to("FAQ", '/faq') %> | 
     News | 
 	<%= link_to("SNPs", :controller => "snps", :action => "index") %> |
-	<%= link_to("All users", '/users') %> |
+	<%= link_to("All users", '/user_index') %> |
 	<% if current_user %>
 		<%= link_to("User's home", current_user)%> | 
 		<%= link_to("Sign out", user_sessions_path, :method => :delete) %>

@@ -11,10 +11,7 @@ class UserSessionsController < ApplicationController
 		@user_session = UserSession.new(params[:user_session])
 		if @user_session.save
 			flash[:notice] = "Login successful!"
-			# actually log in
-			@user = User.create(params[:user])
-			# without it, i get "cannot redirect to nil"
-			redirect_to @user
+			redirect_back_or_default users_url
 		else
 			render :action => :new
 		end
