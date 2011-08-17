@@ -16,8 +16,9 @@
 <div class="field">
 	<%= f.label :password_confirmation, "Confirmation" %><br/>
 	<%= f.password_field :password_confirmation %>
-</div>     
+</div>               
+<%= check_box_tag(:read) %><%= label_tag(:read, "I understand what I am doing here") %>
 <div class="actions">
-	<%= f.submit %> <%= check_box_tag(:read) %><%= label_tag(:read, "I understand what I am doing here") %>
+	<%= f.submit %>
 </div>
 <% end %> 
