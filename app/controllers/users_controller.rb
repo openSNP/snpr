@@ -33,9 +33,12 @@ class UsersController < ApplicationController
 	def index
 		# showing all users
 		@users = User.paginate(:page => params[:page])
+		# paginate because at some point, we might have more than 30 users!
+		# a man can dream...
+		@title = "Listing all users"
 		respond_to do |format|
 			format.html
-			format.xml # just for the hell of it
+			format.xml 
 		end
 	end
 

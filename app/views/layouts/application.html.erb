@@ -8,7 +8,17 @@
 </head>
 <body>
 <div class="header" >
-	<%= link_to("Logo", root_path) %> | <%= link_to("FAQ", '/faq') %> | Link to News | <%= link_to("SNPs", :controller => "snps", :action => "index") %> | <%= link_to("All users", '/users') %> | <% if current_user %><%= link_to("User's home", account_path)%> | <%= link_to("Sign out", user_sessions_path, :method => :delete) %><% else %><%= link_to("Sign in", '/signin') %><% end %>
+	<%= link_to("Logo", root_path) %> |
+	<%= link_to("FAQ", '/faq') %> | 
+    News | 
+	<%= link_to("SNPs", :controller => "snps", :action => "index") %> |
+	<%= link_to("All users", '/users') %> |
+	<% if current_user %>
+		<%= link_to("User's home", current_user)%> | 
+		<%= link_to("Sign out", user_sessions_path, :method => :delete) %>
+	<% else %>
+		<%= link_to("Sign in", '/signin') %>
+	<% end %>
 </div>
 
 <% if flash[:notice] %> <p style="color: green"><%= flash[:notice] %></p> <% end %>

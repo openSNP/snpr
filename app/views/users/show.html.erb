@@ -1,4 +1,4 @@
-<% if current_user.id == @user.id %>
+<% if current_user and current_user.id == @user.id %>
 <h1>Hello <%= @user.name %>!</h1>
 
 <% if @user.has_sequence == true %>
