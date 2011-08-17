@@ -1,15 +1,11 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :users
-  map.resource :user_sessions
-  map.resources :password_resets
-end
-
 Snpr::Application.routes.draw do
   resources :static
   resource :phenotypes
   resources :genotypes
   resources :snps
-  resource :users
+  resources :users
+  resource :user_sessions
+  resources :password_resets
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new'
