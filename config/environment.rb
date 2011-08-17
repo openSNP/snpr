@@ -5,8 +5,6 @@ require File.expand_path('../application', __FILE__)
 Snpr::Application.initialize!
 
 # ActionMailer logic so we can send out stuff
-
-
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "utf-8"
@@ -19,3 +17,4 @@ ActionMailer::Base.smtp_settings = {
    :user_name => "login",
    :password => "password"
  }
+

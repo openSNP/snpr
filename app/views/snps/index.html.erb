@@ -1,3 +1,22 @@
+<h1>Listing all SNPs</h1>
+<table border="1">
+<tr>
+	<th>SNP-ID</th>
+	<th>Name</th>
+	<th>Position</th>
+	<th>Chromosome</th>
+	<th>Genotype-Frequency</th>
+	<th>Allele-Frequency</th>
+</tr>
 <% @snps.each do |s| %>
-	<%= s %>
+	<td><%= s.id %></td>
+	<td><%= s.name %></td>
+	<td><%= s.position %></td>
+	<td><%= s.chromosome %></td>
+	<td><%= s.genotype_frequency %></td>
+	<td><%= s.allele_frequency %></td>
+</tr>
 <% end %>
+</table>
+
+<%= will_paginate(@snps) %>

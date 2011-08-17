@@ -88,6 +88,7 @@ GEM
     tzinfo (0.3.28)
     vegas (0.1.8)
       rack (>= 1.0.0)
+    will_paginate (3.0.0)
 
 PLATFORMS
   ruby
@@ -100,3 +101,4 @@ DEPENDENCIES
   rails3-generators
   resque
   sqlite3
+  will_paginate (~> 3.0.pre2)
