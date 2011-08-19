@@ -8,6 +8,8 @@ class CreateSnps < ActiveRecord::Migration
 		  t.string :allele_frequency
 		  t.timestamps
 	  end
+
+	  add_index :snps, [:id], :name => "index_snps_on_id", :unique => true
   end
 
   def self.down

@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20110617144145) do
     t.datetime "updated_at"
   end
 
+  add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
+
   create_table "user_snps", :force => true do |t|
     t.string   "local_genotype"
     t.integer  "genotype_id"
