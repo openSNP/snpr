@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
-gem 'authlogic'
+gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
 
 
@@ -9,10 +9,16 @@ gem 'rails3-generators'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'email_veracity'
-gem 'resque'
+gem 'email_veracity' # to check whether user-mails are OK
+
+gem 'resque' # for jobs
 gem 'SystemTimer'
-gem "will_paginate", "~> 3.0.pre2" # needed for Rails 3
+
+gem "will_paginate", "~> 3.0.pre2" # needed for Rails 3, pagination
+gem 'nested_form'
+
+
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

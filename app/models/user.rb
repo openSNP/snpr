@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+    attr_accessible :phenotypes_attributes
 
 	acts_as_authentic # call on authlogic
 
