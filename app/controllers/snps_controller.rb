@@ -10,7 +10,9 @@ class SnpsController < ApplicationController
 	
 	def show
 		@snp = Snp.find_by_id(params[:id])
-		@users = User.where(:id => UserSnp.where(:snp_id => @snp.id)) #works without returning a specific user_id! huh
+		@users = User.where(:id => UserSnp.where(:snp_id => @snp.id).all) #works without returning a specific user_id! huh
+		# @users sometimes returns the correct results, sometimes doesn't
+		# weird
 
 		respond_to do |format|
 			format.html
