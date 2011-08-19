@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
 		  t.string :perishable_token   # for password-reset
 		  t.boolean :has_sequence
 		  t.string :sequence_link
+		  t.text :description
 		  
 		  t.timestamps
 	  end

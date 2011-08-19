@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20110617144145) do
     t.string   "perishable_token"
     t.boolean  "has_sequence"
     t.string   "sequence_link"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

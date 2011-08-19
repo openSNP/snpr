@@ -1,0 +1,12 @@
+<table>
+	<tr>
+		<th>Characteristic</th>
+		<th>Variation</th>
+	</tr>
+<% @phenotypes.each do |p| %>
+	<tr>
+		<td><%=p.characteristic%></td>
+		<td><%= p.variation%></td>
+	</tr>
+<% end %>
+</table>

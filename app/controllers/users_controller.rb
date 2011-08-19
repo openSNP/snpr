@@ -49,6 +49,7 @@ class UsersController < ApplicationController
 		# split the user's name if there are more than two strings
 		# for possible reference by first name
 		@first_name = @user.name.split()[0]
+		@phenotypes = @user.phenotypes
 
 		respond_to do |format|
 			format.html

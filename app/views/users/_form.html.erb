@@ -1,5 +1,5 @@
 <% # helper thing so we don't have to put up fields into every page %>
-<%= form_for(@user) do |f| %>
+<%= form_for @user do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
 <div class="field">
 	<%= f.label :name %><br/>

@@ -9,9 +9,8 @@
 	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
 <% end %>
 
-<p>Edit your variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
-<p>Here are your variations: <%= link_to("Click",  :controller => "phenotypes", :action => "show") %></p>
-
+<p>Here are your variations: <%= render "variations" %></p>
+<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
 <% else %>
 <h1><%= @user.name %>'s page</h1>
 <% if @user.has_sequence == true %>
@@ -20,4 +19,5 @@
 <% else %>
 	<p><%= @first_name %> has not uploaded any sequences.</p>
 <% end %>
+<p><%= @first_name %>'s variations: <%= render "variations" %></p>
 <% end %>
