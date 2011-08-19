@@ -5,6 +5,7 @@ Snpr::Application.routes.draw do
   resources :snps
   resources :users
   resource :user_sessions
+  resources :user_snps
   resources :password_resets
   
   match '/signup', :to => 'users#new'

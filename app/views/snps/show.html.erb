@@ -1,0 +1,28 @@
+<h2>SNP <%= @snp.name %></h2>
+
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Position</th>
+		<th>Chromosome</th>
+		<th>Genotype-Frequency</th>
+		<th>Allele-Frequency</th>
+	</tr>
+	<tr>
+		<td><%= @snp.id %></td>
+		<td><%= @snp.name %></td>
+		<td><%= @snp.position %></td>
+		<td><%= @snp.chromosome %></td>
+		<td><%= @snp.genotype_frequency %></td>
+		<td><%= @snp.allele_frequency %></td>
+	</tr>
+</table>
+<p>Associated with the following:<br/>
+Insert parsing results
+</p>
+
+<p>Users who share this SNP:<br/>
+<% @users.each do |u| %>
+	<%= link_to( u.name, u ) %><br/>
+<% end %></p>

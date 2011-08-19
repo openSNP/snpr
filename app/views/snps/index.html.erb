@@ -10,7 +10,7 @@
 </tr>
 <% @snps.each do |s| %>
 	<td><%= s.id %></td>
-	<td><%= s.name %></td>
+	<td><%= link_to(s.name, s) %></td>
 	<td><%= s.position %></td>
 	<td><%= s.chromosome %></td>
 	<td><%= s.genotype_frequency %></td>

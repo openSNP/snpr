@@ -1,0 +1,7 @@
+<h2>Your SNPs</h2>
+
+<% @user_snps.each do |u| %>
+	<%= link_to(u.id, Snp.find_by_id(u.snp_id)) %><br/>
+<% end %>
+
+<%= will_paginate(@user_snps) %>
