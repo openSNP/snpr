@@ -22,8 +22,9 @@
 		<p><%= @first_name %> has not uploaded any sequences.</p>
 	<% end %>
 
-	<p>On <%= @first_name %></p>
-	<p><% if @user.description %><%= @user.description %><% else %>@first_name has not entered a description yet.<% end %> </p>
-	<p><%= @first_name %>'s variations: <%= render "variations" %></p>
+	<h3>On <%= @first_name %>:</h3>
+	<p><% if @user.description %><%= @user.description %><% else %><%=@first_name%> has not entered a description yet.<% end %> </p>
+	<h3><%= @first_name %>'s variations:</h3>
+	<p><%= render "variations" %></p>
 	
 <% end %>

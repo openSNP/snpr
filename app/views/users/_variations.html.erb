@@ -6,7 +6,7 @@
 <% @phenotypes.each do |p| %>
 	<tr>
 		<td><%=p.characteristic%></td>
-		<td><%= p.variation%></td>
+		<td><% if not p.variation.empty? %><%= p.variation%><% else %>Undescribed.<% end %></td>
 	</tr>
 <% end %>
 </table>

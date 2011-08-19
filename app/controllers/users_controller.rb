@@ -76,9 +76,9 @@ class UsersController < ApplicationController
 	end
 
 	def create_phenotypes
-		Phenotype.create(:characteristic => "haircolor", :variation => "", :user_id => @user.id ).save
-		Phenotype.create(:characteristic => "eyecolor", :variation => "", :user_id => @user.id ).save
-		Phenotype.create(:characteristic => "skincolor", :variation => "", :user_id => @user.id ).save
-		Phenotype.create(:characteristic => "bloodtype", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "Hair color", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "Eye color", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "Skin color", :variation => "", :user_id => @user.id ).save
+		Phenotype.create(:characteristic => "Blood type", :variation => "", :user_id => @user.id ).save
 	end
 end
