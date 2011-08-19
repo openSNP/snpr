@@ -2,8 +2,8 @@ class PhenotypesController < ApplicationController
     before_filter :require_user
 
 	def show
-		@phenotypes = Phenotype.where(:user_id => current_user.id).all
 	
+		@phenotypes = Phenotype.where(:user_id => current_user.id).all
 		@title = "Phenotypes"
 		respond_to do |format|
 			format.html
@@ -13,8 +13,7 @@ class PhenotypesController < ApplicationController
 
 	def edit
 		@title = "Edit your Phenotypes"
-		@phenotype = Phenotype.find_by_id(params[:phenotype])
-
+		@phenotypes = Phenotype.where(:user_id => current_user.id).all
 		respond_to do |format|
 			format.html
 			format.xml

@@ -1,6 +1,15 @@
 <p>Hello! Here are your phenotypes:</p>
-<% @phenotypes.each do |p| %>
-	<p><%=p.characteristic%> | <%= p.variation%><%= link_to("Edit", :controller => "phenotypes", :action => "edit", :phenotype => p.id) %></p>
-<% end %>
 
+<table>
+	<tr>
+		<th>Characteristic</th>
+		<th>Variation</th>
+	</tr>
+<% @phenotypes.each do |p| %>
+	<tr>
+		<td><%=p.characteristic%></td>
+		<td><%= p.variation%></td>
+	</tr>
+<% end %>
+</table>
 <p><%= link_to("Back to user-page", current_user) %></p>

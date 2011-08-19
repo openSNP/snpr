@@ -2,10 +2,15 @@ class User < ActiveRecord::Base
 
 	acts_as_authentic # call on authlogic
 
-	has_many :phenotypes
-	has_many :genotypes
-	has_many :user_snps
+	# dependent so stuff gets destroyed on delete
+	# so we don't have any useless junk in the db
+	has_many :phenotypes, :dependent => :destroy
+	has_many :genotypes, :dependent => :destroy
+	# user_snps needs some extra-logic to decrease the counters
+	has_many :user_snps, :dependent => :destroy
 
+	# needed for edit several phenotypes at once
+	accepts_nested_attributes_for :phenotypes
 
 	def deliver_password_reset_instructions!
 		reset_perishable_token!

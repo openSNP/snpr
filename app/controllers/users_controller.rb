@@ -55,6 +55,31 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def edit
+	   @user = User.find(params[:id])
+	   @phenotypes = @user.phenotypes
+
+       respond_to do |format|
+		   format.html
+		   format.xml
+	   end
+	end
+
+	def update
+		@user = User.find(params[:id])
+		respond_to do |format|
+			if @user.update_attributes(params[:user])
+				format.html{redirect_to(@user,
+										flash[:notice] => "Successfully updated.")}
+				format.xml { head :ok }
+			else
+				format.html { render :action => 'edit' }
+				format.xml { render :xml => @user.errors, 
+					:status => :unprocessable_entity }
+			end
+		end
+	end
+
 	def create_phenotypes
 		Phenotype.create(:characteristic => "haircolor", :variation => "", :user_id => @user.id ).save
 		Phenotype.create(:characteristic => "eyecolor", :variation => "", :user_id => @user.id ).save

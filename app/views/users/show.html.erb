@@ -9,7 +9,8 @@
 	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
 <% end %>
 
-Here are your variations: <%= link_to("Click",  :controller => "phenotypes", :action => "show") %>
+<p>Edit your variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
+<p>Here are your variations: <%= link_to("Click",  :controller => "phenotypes", :action => "show") %></p>
 
 <% else %>
 <h1><%= @user.name %>'s page</h1>
