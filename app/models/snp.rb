@@ -1,5 +1,6 @@
 class Snp < ActiveRecord::Base
    has_many :user_snps
+   has_many :plos_paper
    serialize :allele_frequency
    serialize :genotype_frequency
    
