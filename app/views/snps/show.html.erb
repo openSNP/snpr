@@ -1,4 +1,6 @@
 <h2>SNP <%= @snp.name %></h2>
+<script type="text/javascript" src="javascripts/PLoSLib.js"></script> 
+<script type="text/javascript" src="javascripts/PLoSSearch.js"></script>
 
 <table>
 	<tr>
@@ -31,3 +33,5 @@ Insert parsing results
 <% @users.each do |u| %>
 	<%= link_to( u.name, u ) %><br/>
 <% end %></p>
+
+ <p>Publications on this SNP on the Public Library of Science:</p>

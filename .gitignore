@@ -1,3 +1,4 @@
+api_key.txt
 .bundle
 db/*.sqlite3
 log/*.log
