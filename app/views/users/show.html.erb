@@ -1,23 +1,29 @@
 <% if current_user and current_user.id == @user.id %>
-<h1>Hello <%= @first_name %>!</h1>
+	<h1>Hello <%= @first_name %>!</h1>
 
-<% if @user.has_sequence == true %>
-	<p>Insert stuff for analysis here</p>
-	<p>Draft:</p>
-	<p>Here is what we could gather for your SNP-set.</p>
-<% else %>
-	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
-<% end %>
+	<% if @user.has_sequence == true %>
+		<p>Insert stuff for analysis here</p>
+		<p>Draft:</p>
+		<p>Here is what we could gather for your SNP-set.</p>
+	<% else %>
+		<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
+	<% end %>
 
-<p>Here are your variations: <%= render "variations" %></p>
-<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
+	<p>Here are your variations: <%= render "variations" %></p>
+	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
+
 <% else %>
-<h1><%= @user.name %>'s page</h1>
-<% if @user.has_sequence == true %>
-	<p><%= @first_name %> has uploaded a SNP-set. Here are the results:</p>
-	<p>Lorem ipsum wagilö</p>
-<% else %>
-	<p><%= @first_name %> has not uploaded any sequences.</p>
-<% end %>
-<p><%= @first_name %>'s variations: <%= render "variations" %></p>
+	
+	<h1><%= @user.name %>'s page</h1>
+	<% if @user.has_sequence == true %>
+		<p><%= @first_name %> has uploaded a SNP-set. Here are the results:</p>
+		<p>Lorem ipsum wagilö</p>
+	<% else %>
+		<p><%= @first_name %> has not uploaded any sequences.</p>
+	<% end %>
+
+	<p>On <%= @first_name %></p>
+	<p><% if @user.description %><%= @user.description %><% else %>@first_name has not entered a description yet.<% end %> </p>
+	<p><%= @first_name %>'s variations: <%= render "variations" %></p>
+	
 <% end %>
