@@ -11,7 +11,16 @@ class SnpsController < ApplicationController
 	def show
 		@snp = Snp.find_by_id(params[:id])
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
-
+    @total_genotypes = 0
+    @snp.genotype_frequency.each do |key,value|
+      @total_genotypes += value
+    end
+    
+    @total_alleles = 0
+    @snp.allele_frequency.each do |key,value|
+      @total_alleles += value
+    end
+    
 		respond_to do |format|
 			format.html
 			format.xml

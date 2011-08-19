@@ -14,8 +14,13 @@
 		<td><%= @snp.name %></td>
 		<td><%= @snp.position %></td>
 		<td><%= @snp.chromosome %></td>
-		<td><%= @snp.genotype_frequency %></td>
-		<td><%= @snp.allele_frequency %></td>
+		<td><%@snp.genotype_frequency.each do |key,value|%>
+			<%=key+" = "+(value.to_f/@total_genotypes).to_s+"\t"%>
+			<%end%>
+			</td>
+		<td><% @snp.allele_frequency.each do |key,value| %>
+			<%=key+" = "+(value.to_f/@total_alleles).to_s+"\t"%>
+			<%end%></td>
 	</tr>
 </table>
 <p>Associated with the following:<br/>
