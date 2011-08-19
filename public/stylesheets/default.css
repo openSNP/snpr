@@ -7,6 +7,12 @@ body {
 	background-color: #F9F9F9;
 }
 
+label {
+	float: left;
+	width: 6em;
+	margin-right: 0.5em;
+	text-align: right;
+}
 table, tr, td{
 	border: 1px solid black;
 	border-collapse: collapse;
