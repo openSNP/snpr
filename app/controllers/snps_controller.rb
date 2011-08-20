@@ -21,6 +21,8 @@ class SnpsController < ApplicationController
       @total_alleles += value
     end
     
+    Resque.enqueue(Plos,@snp)
+    
 		respond_to do |format|
 			format.html
 			format.xml
