@@ -1,6 +1,4 @@
 <h2>SNP <%= @snp.name %></h2>
-<script type="text/javascript" src="javascripts/PLoSLib.js"></script> 
-<script type="text/javascript" src="javascripts/PLoSSearch.js"></script>
 
 <table>
 	<tr>
@@ -34,7 +32,7 @@ Insert parsing results
 	<%= link_to( u.name, u ) %><br/>
 <% end %></p>
 
- <p>Publications on this SNP on the Public Library of Science:</p>
+ <p><h3>Publications on this SNP on the Public Library of Science:</h3></p>
 <table>
 	<tr>
 		<th>First Author</th>
@@ -51,3 +49,22 @@ Insert parsing results
 			<td><%=p.doi%></td>
 		</tr>
 	<%end%>
+	</table>
+
+  <p><h3>Publications on this SNP on Mendeley</h3></p>
+	<table>
+		<tr>
+			<th>First Author</th>
+			<th>Title</th>
+			<th>Publication Year</th>
+			<th>DOI</th>
+		</tr>
+	<% @snp.mendeley_paper.each do |p|%>
+		<tr>
+			<td><%=p.first_author%></td>
+			<td><%=link_to( p.title, p.mendeley_url)%></td>
+			<td><%=p.pub_year%></td>
+			<td><%=p.doi%></td>
+		</tr>
+		<%end%>
+		</table>

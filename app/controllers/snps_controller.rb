@@ -22,7 +22,7 @@ class SnpsController < ApplicationController
     end
     
     Resque.enqueue(Plos,@snp)
-    
+    Resque.enqueue(Mendeley,@snp)
 		respond_to do |format|
 			format.html
 			format.xml
