@@ -2,21 +2,21 @@
 
 <%= form_for @user_session, :url => {:action => "create"} do |f| %>
   <%= f.error_messages %>
-  <div>
+  <div class="clearfix">
     <%= f.label :email %>
+	<div class="input">
     <%= f.text_field :email %>
-    </div>
-  <div>
+	</div>
     <%= f.label :password %>
+	<div class="input">
     <%= f.password_field :password %>
-    </div>
-  <div>
+	</div>
+	<div class="input">
     <%= f.check_box :remember_me %>
+	</div>
     <%= f.label :remember_me %>
-    </div>
-  <div>
-	  <center><%= f.submit "Login" %></center>
-</div>
+	</div>
+	<div class="actions"><%= f.submit "Login", :class => "button" %></div>
 <% end %>
 
 <%= link_to("Not registered? Click here!", '/signup') %> | <%= link_to("Forgot password? Click here!", :controller => "password_resets", :action => "new") %>

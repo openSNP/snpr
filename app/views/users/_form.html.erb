@@ -1,24 +1,29 @@
 <% # helper thing so we don't have to put up fields into every page %>
 <%= form_for @user do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
-<div class="field">
-	<%= f.label :name %><br/>
+<div class="clearfix">
+	<%= f.label :name %>
+<div class="input">
 	<%= f.text_field :name %>
 </div>
-<div class="field">
-	<%= f.label :email %><br/>
+	<%= f.label :email %>
+<div class="input">
 	<%= f.text_field :email %>
 </div>
-<div class="field">
-	<%= f.label :password %><br/>
+	<%= f.label :password %>
+<div class="input">
 	<%= f.password_field :password %>
 </div>
-<div class="field">
-	<%= f.label :password_confirmation, "Confirmation" %><br/>
+	<%= f.label :password_confirmation, "Confirmation" %>
+<div class="input">
 	<%= f.password_field :password_confirmation %>
-</div>               
-<%= check_box_tag(:read) %><%= label_tag(:read, "I understand what I am doing here") %>
-<div class="actions">
+</div>
+<%= label_tag(:read, "I understand the warning") %>
+<div class="input">
+<%= check_box_tag(:read) %>
+</div>
+<div class="well">
 	<%= f.submit %>
+</div>
 </div>
 <% end %> 
