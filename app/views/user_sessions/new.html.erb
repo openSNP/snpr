@@ -1,4 +1,5 @@
 <h1>Login</h1>
+<div class="well">
 <%= form_for @user_session, :html => {:class => "form-stacked"}, :url => {:action => "create"} do |f| %>
 	<% if f.error_messages.length != 0 %><div class="alert-message block-message error"><%= f.error_messages %></div><% end %>
   <div class="clearfix">
@@ -27,6 +28,7 @@
 	<%= f.submit "Login", :class => "primary btn" %>
 </div>
 <% end %>
+</div>
 
 
 	<div class="row">
