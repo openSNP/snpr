@@ -1,15 +1,37 @@
-<%= form_for(@genotype,:html => {:multipart => true}) do |f| %>
+<%= form_for(@genotype,:html => {:class => "form-stacked", :multipart => true}) do |f| %>
 <%= render 'shared/error_messages', :target => @genotype %>
-<div class="field">
-	<%= f.label :filename %><br/>
+<div class="well">
+<div class="clearfix">
+	<%= f.label :filename %>
 	<%= f.file_field :filename %>
 </div>
-<div class="field">
-	<%= f.label :filetype %><br/>
-	<%= f.radio_button :filetype,"23andme" %>23andme-format <br/>
-	<%= f.radio_button :filetype,"decodeme"%>deCODEme-format </br>
-	<%= f.radio_button :filetype, "other" %>other format
+<div class="clearfix">
+	<%= f.label :filetype %>
+	<div class="input">
+		<ul class="inputs-list">
+			<li>
+			<label>
+				<%= f.radio_button :filetype,"23andme" %>
+				<span>23andme-format</span>
+			</label>
+			</li>
+			<li>
+			<label>
+				<%= f.radio_button :filetype,"decodeme"%>
+				<span>deCODEme-format</span>
+			</label>
+			</li>
+			<li>
+			<label>
+				<%= f.radio_button :filetype, "other" %>
+				<span>other format</span>
+			</label>
+			</li>
+		</ul>
+	</div>
+</div>
 <div class="actions">
-	<%= f.submit %>
+	<%= f.submit "Upload", :class => "primary btn"  %>
 </div>
 <% end %>
+</div>
