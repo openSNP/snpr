@@ -1,5 +1,6 @@
 <h1>Listing all SNPs</h1>
-<table class="common-table zebra-striped">
+<table class="zebra-striped" id="snp_overview">
+<thead>
 <tr>
 	<th>SNP-ID</th>
 	<th>Name</th>
@@ -8,6 +9,8 @@
 	<th>Genotype-Frequency</th>
 	<th>Allele-Frequency</th>
 </tr>
+</thead>
+<tbody>
 <% @snps.each do |s| %>
 	<td><%= s.id %></td>
 	<td><%= link_to(s.name, s) %></td>
@@ -17,6 +20,7 @@
 	<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " "  %><% end %></td>
 </tr>
 <% end %>
+</tbody>
 </table>
 <%= will_paginate(@snps) %>
 

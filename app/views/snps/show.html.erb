@@ -33,14 +33,16 @@ Insert parsing results
 <% end %></p>
 
  <p><h3>Publications on this SNP on the Public Library of Science:</h3></p>
-<table>
+<table class="zebra-striped" id="PaperPlos">
+	<thead>
 	<tr>
 		<th>First Author</th>
 		<th>Title</th>
 		<th>Publication Date</th>
 		<th>DOI</th>
 	</tr>
-	
+	</thead>
+	<tbody>
 	<% @snp.plos_paper.each do |p|%>
 		<tr>
 			<td><%=p.first_author%></td> 
@@ -49,16 +51,20 @@ Insert parsing results
 			<td><%=p.doi%></td>
 		</tr>
 	<%end%>
+	</tbody>
 	</table>
 
   <p><h3>Publications on this SNP on Mendeley</h3></p>
-	<table>
+	<table class="zebra-striped" id="PaperMendeley">
+		<thead>
 		<tr>
 			<th>First Author</th>
 			<th>Title</th>
 			<th>Publication Year</th>
 			<th>DOI</th>
 		</tr>
+		</thead>
+		<tbody>
 	<% @snp.mendeley_paper.each do |p|%>
 		<tr>
 			<td><%=p.first_author%></td>
@@ -67,4 +73,5 @@ Insert parsing results
 			<td><%=p.doi%></td>
 		</tr>
 		<%end%>
-		</table>
+		</tbody>
+	</table>
