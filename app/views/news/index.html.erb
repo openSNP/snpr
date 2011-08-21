@@ -1,0 +1,36 @@
+<h1>News</h1>
+
+<h2>Genotypes</h2>
+<table class="common-table zebra-striped">
+<tr>
+	<th>Genotype-ID</th>
+	<th>Uploaded by</th>
+	<th>Uploaded on</th>
+	<th>Link</th>
+</tr>
+<% @new_genotypes.each do |ng| %>
+	<tr>
+	<td><%= ng.id %></td>
+	<td><%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
+	<td><%= ng.created_at %></td>
+	<td><%= link_to "Click here", ng %></td>
+</tr>
+<% end %>
+</table>
+<h2>Users</h2>
+<table class="common-table zebra-striped">
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Joined on</th>
+		<th>Link</th>
+	</tr>
+<% @new_users.each do |nu| %>
+	<tr>
+		<td><%= nu.id %></td>
+		<td><%= nu.name %></td>
+		<td><%= nu.created_at %></td>
+		<td><%= link_to "Profile", nu %></td>
+	</tr>
+<% end %>
+</table>
