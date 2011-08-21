@@ -1,5 +1,6 @@
 <% # helper thing so we don't have to put up fields into every page %>
-<%= form_for @user do |f| %>
+<div class="well">
+<%= form_for @user, :html => {:class => "form-stacked"} do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
 <div class="clearfix">
 	<%= f.label :name %>
@@ -18,11 +19,17 @@
 <div class="input">
 	<%= f.password_field :password_confirmation %>
 </div>
-<%= label_tag(:read, "I understand the warning") %>
-<div class="input">
-<%= check_box_tag(:read) %>
+<br/>
+<div class="clearfix">
+	<div class="input">
+		<ul class="inputs-list">
+			<li><label>
+				<%= check_box_tag(:read) %>
+				<span>I understand the warning and I am willing to take these risks.</span>
+			</label></li>
+	</ul>
+	</div>
 </div>
-<div class="well">
 	<%= f.submit %>
 </div>
 </div>
