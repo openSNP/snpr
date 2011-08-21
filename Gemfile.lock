@@ -1,7 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    SystemTimer (1.2.3)
     abstract (1.0.0)
     actionmailer (3.0.9)
       actionpack (= 3.0.9)
@@ -97,7 +96,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  SystemTimer
   authlogic
   email_veracity
   json

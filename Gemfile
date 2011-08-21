@@ -12,7 +12,6 @@ gem 'sqlite3'
 gem 'email_veracity' # to check whether user-mails are OK
 
 gem 'resque' # for jobs
-gem 'SystemTimer'
 
 gem "will_paginate", "~> 3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form'
