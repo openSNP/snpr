@@ -9,7 +9,7 @@ class Mendeley
   def self.perform(snp)
     @snp = Snp.find_by_id(snp["snp"]["id"].to_i)
     
-    key_handle = File.open(::Rails.root.to_s+"key_mendeley.txt")
+    key_handle = File.open(::Rails.root.to_s+"/key_mendeley.txt")
     api_key = key_handle.readline.rstrip
     
     url = "http://api.mendeley.com/oapi/documents/search/"+@snp.name+"/?consumer_key="+api_key
