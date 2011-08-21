@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820195410) do
+ActiveRecord::Schema.define(:version => 20110821112909) do
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(:version => 20110820195410) do
   end
 
   add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
+
+  create_table "user_phenotypes", :force => true do |t|
+    t.string   "local_phenotype"
+    t.integer  "user_id"
+    t.integer  "phenotype_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_snps", :force => true do |t|
     t.string   "local_genotype"

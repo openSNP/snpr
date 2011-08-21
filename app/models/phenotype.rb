@@ -1,4 +1,4 @@
 class Phenotype < ActiveRecord::Base
-   belongs_to :user
+   has_many :user_phenotypes
 
 end
