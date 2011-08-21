@@ -2,7 +2,8 @@ require "rubygems"
 require "net/http"
 require "json"
 
-api_key = "6ff805d8029f65f25841fe7d4fb91a5004e4fd1fd"
+key_handle = File.open(::Rails.root.to_s+"key_mendeley.txt")
+api_key = key_handle.readline.rstrip
 
 begin
   url = "http://api.mendeley.com/oapi/documents/search/"+ARGV[0]+"/?consumer_key="+api_key
