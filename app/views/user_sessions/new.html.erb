@@ -1,22 +1,35 @@
 <h1>Login</h1>
-
-<%= form_for @user_session, :url => {:action => "create"} do |f| %>
-  <%= f.error_messages %>
+<%= form_for @user_session, :html => {:class => "form-stacked"}, :url => {:action => "create"} do |f| %>
+	<% if f.error_messages.length != 0 %><div class="alert-message block-message error"><%= f.error_messages %></div><% end %>
   <div class="clearfix">
     <%= f.label :email %>
 	<div class="input">
     <%= f.text_field :email %>
 	</div>
+	</div>
+  <div class="clearfix">
     <%= f.label :password %>
 	<div class="input">
     <%= f.password_field :password %>
 	</div>
-	<div class="input">
-    <%= f.check_box :remember_me %>
 	</div>
-    <%= f.label :remember_me %>
-	</div>
-	<div class="actions"><%= f.submit "Login", :class => "button" %></div>
+  <div class="clearfix">
+	  <div class="input">
+	  <ul class="inputs-list">
+		  <li><label>
+			  <%= f.check_box :remember_me %>
+			  <span>Remember me</span>
+		</label></li>
+		</ul>                   
+	 </div>
+  </div>
+  <div class="clearfix">
+	<%= f.submit "Login", :class => "primary btn" %>
+</div>
 <% end %>
 
-<%= link_to("Not registered? Click here!", '/signup') %> | <%= link_to("Forgot password? Click here!", :controller => "password_resets", :action => "new") %>
+
+	<div class="row">
+	<div class="span8 columns"><%= link_to("Not registered? Click here!", '/signup') %></div>  
+	<div class="span8 columns"><%= link_to("Forgot password? Click here!", :controller => "password_resets", :action => "new") %></div>
+</div>

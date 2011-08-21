@@ -3,17 +3,18 @@
 <head>
 	<title>SNPr <% if @title %>| <%= @title %><% end %></title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults, "nested_form" %>
+  <%= javascript_include_tag :defaults, "nested_form"%>
   <%= csrf_meta_tag %>
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.0.0.min.css">
 </head>
 <body>
+
 <div class="topbar-wrapper" style="z-index: 5;" >
 	<div class="topbar">
 		<div class="container fixed">
 			<h3><%= link_to("SNPr", root_path, :class =>"logo") %></h3>
 			<ul>
-				<li class="active"><%= link_to("FAQ", '/faq') %></li> 
+				<li><%= link_to("FAQ", '/faq') %></li> 
 				<li><%= link_to( "News", "#")%></li>
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
 				<li><%= link_to("All users", '/user_index') %></li>
