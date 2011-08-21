@@ -7,6 +7,7 @@ Snpr::Application.routes.draw do
   resource :user_sessions
   resources :user_snps
   resources :password_resets
+  resources :news
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login
