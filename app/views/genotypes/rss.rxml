@@ -1,0 +1,17 @@
+xml.instruct! :xml, :version => "1.0"
+xml.rss :version => "2.0" do
+	xml.channel do
+		xml.title "SNPr Genotypes"
+		xml.description "An RSS-feed which contains newest SNP-sets uploaded by SNPr's users"
+		xml.link "bla"
+
+		for genotype in @genotypes
+			xml.item do
+               xml.title User.find_by_id(genotype.user_id).name + "'s Genotype"
+			   xml.pubDate genotype.created_at.to_s(:rfc822)
+			   xml.link genotype_url(genotype)
+			   xml.guid genotype_url(genotype)
+			end
+		end
+	end
+end

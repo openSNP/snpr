@@ -14,7 +14,7 @@
 			<h3><%= link_to("SNPr", root_path, :class =>"logo") %></h3>
 			<ul>
 				<li><%= link_to("FAQ", '/faq') %></li> 
-				<li><%= link_to( "News", "#")%></li>
+				<li><%= link_to("RSS", '/rss')%></li>
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
 				<li><%= link_to("All users", '/user_index') %></li>
 				<% if current_user %>
