@@ -13,8 +13,8 @@
 	<td><%= link_to(s.name, s) %></td>
 	<td><%= s.position %></td>
 	<td><%= s.chromosome %></td>
-	<td><%= s.genotype_frequency %></td>
-	<td><%= s.allele_frequency %></td>
+	<td><%= s.genotype_frequency.keys()[0] + " = " + s.genotype_frequency.values()[0].to_s %></td>
+	<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " "  %><% end %></td>
 </tr>
 <% end %>
 </table>
