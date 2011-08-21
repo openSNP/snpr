@@ -2,7 +2,6 @@ class PhenotypesController < ApplicationController
     before_filter :require_user
 
 	def show
-	
 		@phenotypes = Phenotype.where(:user_id => current_user.id).all
 		@title = "Phenotypes"
 		respond_to do |format|

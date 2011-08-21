@@ -1,1 +1,9 @@
 cmng soon
+SNPr - a repository to which users can upload their SNP-sets from 23andme and decodeme. SNPs are annotated using the PLoS and Mendeley-APIs to show users the newest results on their SNPs. etc.
+
+
+You need to have the following running to ensure that everything works:
+
+1. redis-server
+2. rake environment resque:work QUEUE=*
+3. and of course rails s(erver)
