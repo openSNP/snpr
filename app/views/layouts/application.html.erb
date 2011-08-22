@@ -3,7 +3,12 @@
 <head>
 	<title>SNPr <% if @title %>| <%= @title %><% end %></title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults, "nested_form","jquery-1.6.2.min.js","jquery.tablesorter.min.js"%>
+  <%= javascript_include_tag :defaults, "nested_form","jquery-1.6.2.min.js","jquery.tablesorter.min.js", "jquery.ba-hashchange.min.js","jquery.easytabs.js"%>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#tab-container').easytabs();
+  });
+</script>
   <%= csrf_meta_tag %>
 </head>
 <body>
