@@ -28,19 +28,13 @@
 		<td><%= @snp.ranking %></td>
 	</tr>
 </table>
-<p>Associated with the following:<br/>
-Insert parsing results
-</p>
 
-<p>Users who share this SNP:<br/>
-<% @users.each do |u| %>
-	<%= link_to( u.name, u ) %><br/>
-<% end %></p>
 <div id="tab-container">
   <ul class="tabs">
+    <li><a href="#snpedia">SNPedia</a></li>
     <li><a href="#plos">PLoS</a></li>
     <li><a href="#mendeley">Mendeley</a></li>
-    <li><a href="#snpedia">SNPedia</a></li>
+    <li><a href="#users">Other users</a></li>
   </ul>
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>
@@ -102,5 +96,11 @@ Insert parsing results
 		</tr>
 	<% end %>
 	</table>
+</div>
+<div id="users">
+<h3>Users who share this SNP:</h3>
+<% @users.each do |u| %>
+	<%= link_to( u.name, u ) %><br/>
+<% end %>
 </div>
 </div>
