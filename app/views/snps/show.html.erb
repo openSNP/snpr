@@ -35,17 +35,17 @@
   </ul>
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>
-<table class="zebra-striped" id="PaperPlos">
+<table class="zebra-striped" id="noPaperPlos">
 	<thead>
 	<tr>
-		<th>First Author</th>
-		<th>Title</th>
-		<th>Publication Date</th>
-		<th>DOI</th>
+		<th><%= sortable "first_author", "First Author"%></th>
+		<th><%= sortable "title"%></th>
+		<th><%= sortable "pub_date","Publication Date"%></th>
+		<th><%= sortable "doi", "DOI"%></th>
 	</tr>
 	</thead>
 	<tbody>
-	<% @snp.plos_paper.each do |p|%>
+	<% @page_plos_papers.each do |p|%>
 		<tr>
 			<td><%=p.first_author%></td> 
 			<td><%=link_to( p.title, "http://dx.doi.org/"+p.doi)%></td>
@@ -55,6 +55,7 @@
 	<%end%>
 	</tbody>
 	</table>
+	<%= will_paginate @page_plos_papers %>
 </div>
 <div id="mendeley">
 <h3>Publications on this SNP on Mendeley</h3>
