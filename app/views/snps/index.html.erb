@@ -8,6 +8,7 @@
 	<th>Chromosome</th>
 	<th>Genotype-Frequency</th>
 	<th>Allele-Frequency</th>
+	<th>Ranking</th>
 </tr>
 </thead>
 <tbody>
@@ -18,6 +19,7 @@
 	<td><%= s.chromosome %></td>
 	<td><%= s.genotype_frequency.keys()[0] + " = " + s.genotype_frequency.values()[0].to_s %></td>
 	<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " "  %><% end %></td>
+	<td><%= s.ranking %></td>
 </tr>
 <% end %>
 </tbody>

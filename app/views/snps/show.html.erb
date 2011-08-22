@@ -8,6 +8,7 @@
 		<th>Chromosome</th>
 		<th>Genotype-Frequency</th>
 		<th>Allele-Frequency</th>
+		<th>Ranking</th>
 	</tr>
 	<tr>
 		<td><%= @snp.id %></td>
@@ -21,6 +22,7 @@
 		<td><% @snp.allele_frequency.each do |key,value| %>
 			<%=key+" = "+(value.to_f/@total_alleles).to_s+"\t"%>
 			<%end%></td>
+		<td><%= @snp.ranking %>
 	</tr>
 </table>
 <p>Associated with the following:<br/>

@@ -13,4 +13,8 @@ class Snp < ActiveRecord::Base
 	   self.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
 	   self.genotype_frequency ||= {}
    end
+
+   def ranking
+	   return mendeley_paper.count + plos_paper.count + snpedia_paper.count
+   end
 end
