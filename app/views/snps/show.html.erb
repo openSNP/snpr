@@ -85,7 +85,7 @@ Insert parsing results
 		</tr>
 		<% @snp.snpedia_paper.each do |p| %>
 		<tr>
-			<td><%= p.summary %>
+			<td><%= p.summary.capitalize %>
 			<td><%= link_to p.url, p.url %></td>
 		</tr>
 	<% end %>

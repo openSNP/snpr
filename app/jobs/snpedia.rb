@@ -18,7 +18,7 @@ class Snpedia
 			url = "http://www.snpedia.com/index.php/" + p.to_s
 			if SnpediaPaper.find_all_by_url(url)  == []
 				puts "Parsing single site"
-				toparse = mw.get[p]
+				toparse = mw.get(p)
 				summary = toparse.split("|")[4].delete("}\n")
 				summary = summary[8,summary.length]
 				@snpedia_link = SnpediaPaper.new()
