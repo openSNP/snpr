@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(:version => 20110821112909) do
   end
 
   create_table "phenotypes", :force => true do |t|
-    t.string  "characteristic"
-    t.string  "variation"
-    t.integer "user_id"
+    t.string   "characteristic"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "plos_papers", :force => true do |t|
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20110821112909) do
   add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
 
   create_table "user_phenotypes", :force => true do |t|
-    t.string   "local_phenotype"
     t.integer  "user_id"
     t.integer  "phenotype_id"
+    t.string   "variation"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

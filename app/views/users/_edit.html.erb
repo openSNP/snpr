@@ -1,31 +1,30 @@
 <% # helper thing so we don't have to put up fields into every page %>
-<%= nested_form_for(@user) do |f| %>
+<%= nested_form_for(@user, :html => { :class => "form-stacked" } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
-<div class="field">
-	<%= f.label :name %><br/>
+<div class="clearfix">
+	<%= f.label :name %>
 	<%= f.text_field :name %>
 </div>
-<div class="field">
-	<%= f.label :email %><br/>
+<div class="clearfix">
+	<%= f.label :email %>
 	<%= f.text_field :email %>
 </div>
 <div class="field">
-	<%= f.label :password %><br/>
+	<%= f.label :password %>
 	<%= f.password_field :password %>
 </div>
 <div class="field">
-	<%= f.label :password_confirmation, "Confirmation" %><br/>
+	<%= f.label :password_confirmation, "Confirmation" %>
 	<%= f.password_field :password_confirmation %>
 </div>               
 
 <h2>Phenotypes</h2>
-	<%= f.fields_for :phenotypes do |p| %>
+	<%= f.fields_for :user_phenotypes do |p| %>
 	 <div class="field">
-		 Characteristic: <%= p.text_field :characteristic %>
 		 Variation: <%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
 	 </div>
  <% end %>
- <%= f.link_to_add "Add a phenotype", :phenotypes %>
+ <%= f.link_to_add "Add a phenotype", :user_phenotypes %>
 
 <h2>Details</h2>
 <div class="field">

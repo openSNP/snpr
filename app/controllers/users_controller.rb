@@ -18,7 +18,6 @@ class UsersController < ApplicationController
 		  end
 
 		  if params[:read] and @user.save
-            create_phenotypes
 			flash[:notice] = "Account registered!"
 			redirect_to @user
 		  else
@@ -49,7 +48,7 @@ class UsersController < ApplicationController
 		# split the user's name if there are more than two strings
 		# for possible reference by first name
 		@first_name = @user.name.split()[0]
-		@phenotypes = @user.phenotypes
+		@phenotypes = @user.user_phenotypes
 
 		respond_to do |format|
 			format.html
@@ -58,7 +57,7 @@ class UsersController < ApplicationController
 
 	def edit
 	   @user = User.find(params[:id])
-	   @phenotypes = @user.phenotypes
+	   @phenotypes = @user.user_phenotypes
 
        respond_to do |format|
 		   format.html
@@ -73,12 +72,5 @@ class UsersController < ApplicationController
 		else
 			render :action => 'edit' 
 		end
-	end
-
-	def create_phenotypes
-		Phenotype.create(:characteristic => "Hair color", :variation => "", :user_id => @user.id ).save
-		Phenotype.create(:characteristic => "Eye color", :variation => "", :user_id => @user.id ).save
-		Phenotype.create(:characteristic => "Skin color", :variation => "", :user_id => @user.id ).save
-		Phenotype.create(:characteristic => "Blood type", :variation => "", :user_id => @user.id ).save
 	end
 end

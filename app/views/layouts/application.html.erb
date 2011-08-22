@@ -20,7 +20,7 @@
 				<li><%= link_to("All users", '/user_index') %></li>
 				<% if current_user %>
 					<li><%= link_to("User's home", current_user)%></li>
-					<li><%= link_to("Sign out", user_sessions_path, :method => :delete) %></li>
+					<li><%= link_to("Sign out", '/signout') %></li>
 				<% else %>
 					<li><%= link_to("Sign in", '/signin') %></li>
 				<% end %>
