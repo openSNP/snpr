@@ -10,4 +10,13 @@ class NewsController < ApplicationController
 			format.html
 		end
 	end
+	
+	def test
+	  @title = "foo"
+	  @new_genotypes = Genotype.all(:order => "created_at DESC", :limit => 20)
+	  
+	  respond_to do |format|
+	    format.html
+    end 
+  end
 end
