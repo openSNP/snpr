@@ -1,0 +1,45 @@
+<h1>Hello <%= @first_name %>!</h1>
+
+<p>Here should be some kind of message-center.</p>
+<div id="tab-container">
+	<ul class="tabs">
+		<li><a href="#snps">Your SNPs</a></li>
+		<li><a href="#variations">Your variations</a></li>
+	</ul>
+	<div id="snps">
+
+<% if @user.has_sequence == true %>
+	<table>
+	<tr>
+		<th>SNP-ID</th>
+		<th>Name</th>
+		<th>Position</th>
+		<th>Chromosome</th>
+		<th>Genotype-Frequency</th>
+		<th>Allele-Frequency</th>
+		<th>Ranking</th>
+	</tr>
+	<% @snps.each do |s| %>
+		<tr>
+			<td><%= s.id%></td>
+			<td><%= s.name%></td>
+			<td><%= s.position %></td>
+			<td><%= s.chromosome %></td>
+			<td><%= s.genotype_frequency.keys()[0] + " = " + s.genotype_frequency.values()[0].to_s%></td>
+			<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " " %><% end %> </td>
+			<td><%= s.ranking %></td>
+	</tr>
+<% end %>
+</table>
+<%= will_paginate(@snps) %>
+<% else %>
+	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
+<% end %>
+</div>
+
+<div id="variations">
+	<h3>Variations:</h3> <%= render "variations" %>
+	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
+</div>
+</div>
+

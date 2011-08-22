@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 	has_many :genotypes, :dependent => :destroy
 	# user_snps needs some extra-logic to decrease the counters
 	has_many :user_snps, :dependent => :destroy
+	has_many :snps, :through => :user_snps
 
 	# needed to edit several user_phenotypes at once, add and delete, and not empty
 	accepts_nested_attributes_for :user_phenotypes, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true

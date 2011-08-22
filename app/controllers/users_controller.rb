@@ -49,6 +49,7 @@ class UsersController < ApplicationController
 		# for possible reference by first name
 		@first_name = @user.name.split()[0]
 		@phenotypes = @user.user_phenotypes
+		@snps = @user.snps.paginate(:page => params[:page])
 
 		respond_to do |format|
 			format.html

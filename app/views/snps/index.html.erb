@@ -13,6 +13,7 @@
 </thead>
 <tbody>
 <% @snps.each do |s| %>
+	<tr>
 	<td><%= s.id %></td>
 	<td><%= link_to(s.name, s) %></td>
 	<td><%= s.position %></td>

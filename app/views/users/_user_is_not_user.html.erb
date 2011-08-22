@@ -1,0 +1,13 @@
+<h1><%= @user.name %>'s page</h1>
+<% if @user.has_sequence == true %>
+	<p><%= @first_name %> has uploaded a SNP-set. Here are the results:</p>
+	<p>Lorem ipsum wagilö</p>
+<% else %>
+	<p><%= @first_name %> has not uploaded any sequences.</p>
+<% end %>
+
+<h3>On <%= @first_name %>:</h3>
+<p><% if @user.description %><%= @user.description %><% else %><%=@first_name%> has not entered a description yet.<% end %> </p>
+<h3><%= @first_name %>'s variations:</h3>
+<p><%= render "variations" %></p>
+
