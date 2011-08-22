@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20110822071221) do
 
   create_table "snpedia_papers", :force => true do |t|
     t.string   "url"
+    t.string   "summary"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "snp_id"

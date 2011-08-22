@@ -15,6 +15,6 @@ class Snp < ActiveRecord::Base
    end
 
    def ranking
-	   return mendeley_paper.count + plos_paper.count + snpedia_paper.count
+	   return mendeley_paper.count + 2*plos_paper.count + 5*snpedia_paper.count
    end
 end
