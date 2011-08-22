@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110821112909) do
+ActiveRecord::Schema.define(:version => 20110822071221) do
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20110821112909) do
     t.string   "title"
     t.string   "doi"
     t.datetime "pub_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "snp_id"
+  end
+
+  create_table "snpedia_papers", :force => true do |t|
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "snp_id"

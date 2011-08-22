@@ -5,10 +5,10 @@
 		<p>Insert stuff for analysis here</p>
 		<p>Draft:</p>
 		<p>Here is what we could gather for your SNP-set.</p>
+		<p>Access your SNPs: <%= link_to("Show", :controller => "user_snps", :action => "show") %></p>
 	<% else %>
 		<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
 	<% end %>
-	<p>Access your SNPs: <%= link_to("Show", :controller => "user_snps", :action => "show") %></p>
 	<p>Here are your variations: <%= render "variations" %></p>
 	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
 

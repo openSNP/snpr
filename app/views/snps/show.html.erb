@@ -75,3 +75,16 @@ Insert parsing results
 		<%end%>
 		</tbody>
 	</table>
+	<h3>Links to SNPedia</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Link</th>
+		</tr>
+		<% @snp.snpedia_paper.each do |p| %>
+		<tr>
+			<td><%= link_to p.url, p.url %></td>
+		</tr>
+	<% end %>
+	</table>
+
+	</table>

@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
     attr_accessible :phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description
 	
-
 	acts_as_authentic # call on authlogic
     after_create :make_standard_phenotypes
 

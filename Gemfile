@@ -16,6 +16,7 @@ gem 'resque' # for jobs
 gem "will_paginate", "~> 3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form'
 gem 'json'
+gem 'mediawiki-gateway'
 
 
 # Use unicorn as the web server
