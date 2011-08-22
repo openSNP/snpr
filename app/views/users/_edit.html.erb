@@ -9,27 +9,29 @@
 	<%= f.label :email %>
 	<%= f.text_field :email %>
 </div>
-<div class="field">
+<div class="clearfix">
 	<%= f.label :password %>
 	<%= f.password_field :password %>
 </div>
-<div class="field">
+<div class="clearfix">
 	<%= f.label :password_confirmation, "Confirmation" %>
 	<%= f.password_field :password_confirmation %>
 </div>               
 
-<h2>Phenotypes</h2>
-	<%= f.fields_for :user_phenotypes do |p| %>
-	 <div class="field">
-		 Variation: <%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
-	 </div>
- <% end %>
- <%= f.link_to_add "Add a phenotype", :user_phenotypes %>
+<!--For now, Phenotype-editing is in _edit_phenotypes-->
 
 <h2>Details</h2>
-<div class="field">
-	<p>Description of yourself:<br/><%= f.text_area  :description, :size => "30x10" %></p>
+<div class="clearfix">
+	<p>Description of yourself:<br/><%= f.text_area  :description, :size => "1x10" %></p>
 </div>
+<%= f.fields_for :homepages do |h| %>
+	<div class="clearfix">
+		Description <%= h.text_field :description %>
+		URL <%= h.text_field :url %><%= h.link_to_remove "Remove"%>
+	</div>
+<% end %>
+<%= f.link_to_add "Add another homepage", :homepages %>
+
 <div class="actions">
 	<%= f.submit %>
 </div>

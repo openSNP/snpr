@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110822071221) do
+ActiveRecord::Schema.define(:version => 20110822110806) do
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20110822071221) do
     t.integer  "user_id",                                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "homepages", :force => true do |t|
+    t.string   "url"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "mendeley_papers", :force => true do |t|

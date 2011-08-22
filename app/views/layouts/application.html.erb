@@ -35,13 +35,10 @@
 </div>
 
 <div class="container">
-<% if flash[:notice] %><div class="alert-message success"> <p><%= flash[:notice] %></p></div> <% end %>
-<% if flash[:warning] %><div class="alert-message error"><p><%= flash[:warning] %></p></div> <% end %>
-<%= yield %>
+	<% if flash[:notice] %><div class="alert-message success"> <p><%= flash[:notice] %></p></div> <% end %>
+	<% if flash[:warning] %><div class="alert-message error"><p><%= flash[:warning] %></p></div> <% end %>
+	<%= yield %>
 </div>
-
-<!--<div class="footer">
-	A project from <%= link_to("Bastian Greshake", "http://www.twitter.com/gedankenstuecke") %> and <%= link_to("Philipp Bayer", "http://www.twitter.com/PhilippBayer") %>-->
 </div>
 </body>
 </html>
