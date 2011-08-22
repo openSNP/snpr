@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails','3.0.10'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
 
@@ -13,11 +13,11 @@ gem 'email_veracity' # to check whether user-mails are OK
 
 gem 'resque' # for jobs
 
-gem "will_paginate", "~> 3.0.pre2" # needed for Rails 3, pagination
+gem "will_paginate" # needed for Rails 3, pagination
 gem 'nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
-
+#gem 'searchlogic','2.5.8'
 
 # Use unicorn as the web server
 # gem 'unicorn'
