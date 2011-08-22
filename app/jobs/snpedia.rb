@@ -14,10 +14,10 @@ class Snpedia
 	
 	pages.each do |p|
 		if p.index("(") != nil
-			puts "Parsing SNPedia"
+			puts "Parsing SNPedia\n"
 			url = "http://www.snpedia.com/index.php/" + p.to_s
 			if SnpediaPaper.find_all_by_url(url)  == []
-				puts "Parsing single site"
+				puts "Parsing single site\n"
 				toparse = mw.get(p)
 				summary = toparse.split("|")[4].delete("}\n")
 				summary = summary[8,summary.length]
@@ -29,7 +29,7 @@ class Snpedia
 			end
 		end
 	end
-	print "sleep for 5 seconds"
+	print "sleep for 5 seconds\n"
 	sleep(5)
   end
 end
