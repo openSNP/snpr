@@ -18,7 +18,6 @@ gem 'nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
 
-
 # Use unicorn as the web server
 # gem 'unicorn'
 
