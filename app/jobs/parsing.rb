@@ -33,6 +33,9 @@ class Parsing
   				      @snp.chromosome = snp_array[1]
   				      @snp.position = snp_array[2]
   				      @snp.save
+  				      Resque.enqueue(Plos,@snp)
+                Resque.enqueue(Mendeley,@snp)
+              	Resque.enqueue(Snpedia,@snp)
   				    else 
   				      @snp = Snp.find_by_name(snp_array[0])
   			      end
@@ -63,9 +66,6 @@ class Parsing
   		          @snp.genotype_frequency[snp_array[3].rstrip] = 1
   		        end
   		        @snp.save
-  		        Resque.enqueue(Plos,@snp)
-              Resque.enqueue(Mendeley,@snp)
-            	Resque.enqueue(Snpedia,@snp)
   			    end
   		  end
   		end
