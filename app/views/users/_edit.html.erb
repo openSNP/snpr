@@ -24,13 +24,14 @@
 <div class="clearfix">
 	<p>Description of yourself:<br/><%= f.text_area  :description, :size => "1x10" %></p>
 </div>
+<p>Please provide at least one homepage (or Twitter, Blog etc.) </p>
 <%= f.fields_for :homepages do |h| %>
 	<div class="clearfix">
 		Description <%= h.text_field :description %>
 		URL <%= h.text_field :url %><%= h.link_to_remove "Remove"%>
 	</div>
 <% end %>
-<%= f.link_to_add "Add another homepage", :homepages %>
+<%= f.link_to_add "Add a page", :homepages %>
 
 <div class="actions">
 	<%= f.submit %>

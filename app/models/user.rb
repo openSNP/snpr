@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
     attr_accessible :phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes
 	
 	acts_as_authentic # call on authlogic
-    after_create :make_standard_phenotypes, :make_empty_homepage
+    after_create :make_standard_phenotypes
 
 	# dependent so stuff gets destroyed on delete
 	has_many :user_phenotypes, :dependent => :destroy
@@ -47,7 +47,4 @@ class User < ActiveRecord::Base
 	   check_and_make_standard_phenotypes('Blood type')
    end
 
-   def make_empty_homepage
-	   Homepage.create(:user_id => id, :url => "Enter your URL", :description => "Enter your description")
-   end
 end
