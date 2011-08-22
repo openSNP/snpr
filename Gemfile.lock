@@ -102,6 +102,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   authlogic
   email_veracity
   json
