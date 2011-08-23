@@ -50,6 +50,8 @@ class UsersController < ApplicationController
 		@first_name = @user.name.split()[0]
 		@phenotypes = @user.user_phenotypes
 		@snps = @user.snps.paginate(:page => params[:page])
+		@received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
+		@sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
 
 		respond_to do |format|
 			format.html

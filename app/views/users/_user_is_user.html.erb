@@ -1,13 +1,16 @@
 <h1>Hello <%= @first_name %>!</h1>
+	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
 
-<p>Here should be some kind of message-center.</p>
+<!-- Message-center ended. Now come SNPs/Variations-->
+
 <div id="tab-container">
 	<ul class="tabs">
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
+		<li><a href="#messages">Your messages</a></li>
 	</ul>
-	<div id="snps">
 
+<div id="snps">
 <% if @user.has_sequence == true %>
 	<table>
 	<tr>
@@ -39,7 +42,38 @@
 
 <div id="variations">
 	<h3>Variations:</h3> <%= render "variations" %>
-	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
-</div>
 </div>
 
+<div id="messages">
+<h3>Messages</h3>
+<% if @user.messages != [] %>
+	<h4>Received</h4>
+	<table>
+		<tr>
+		<th>From</th>
+		<th>Subject</th>
+		</tr>
+	<% @received_messages.each do |m| %>
+		<tr>
+		<td><%= User.find_by_id(m.from_id).name %></td>
+		<td><%= link_to( m.subject, m ) %></td>
+		</tr>
+	<% end %>
+	</table>
+	<h3>Sent</h3>
+	<table>
+		<tr>
+		<th>To</th>
+		<th>Subject</th>
+		</tr>
+	<% @sent_messages.each do |m| %>
+		<tr>
+		<td><%= User.find_by_id(m.to_id).name %></td>
+		<td><%= link_to( m.subject, m ) %></td>
+		</tr>
+	<% end %>
+	</table>
+<% else %>
+	<p>You don't have any messages.</p>
+<% end %>
+</div>
