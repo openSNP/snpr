@@ -5,6 +5,7 @@ class CreateMessages < ActiveRecord::Migration
 	  t.integer :user_id
       t.text :body
       t.boolean :sent
+	  t.boolean :user_has_seen
 	  t.integer :from_id
 	  t.integer :to_id
 

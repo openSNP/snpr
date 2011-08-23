@@ -1,6 +1,7 @@
-<h1>Message from <%= link_to @from.name, @from %></h1>
+<h1>Message</h1>
+<p>From: <%= link_to @from.name, @from %></p>
+<p>To: <%= link_to @to.name, @to %></p>
 <p>Received on: <%= @message.created_at %></p>
-
 <h3>Subject: <%=@message.subject %></h3>
 <div class="well">
 <p><%= @message.body %></p>

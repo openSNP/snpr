@@ -17,4 +17,3 @@ ActionMailer::Base.smtp_settings = {
    :user_name => "login",
    :password => "password"
  }
-

@@ -46,34 +46,33 @@
 
 <div id="messages">
 <h3>Messages</h3>
-<% if @user.messages != [] %>
-	<h4>Received</h4>
-	<table>
-		<tr>
-		<th>From</th>
-		<th>Subject</th>
-		</tr>
-	<% @received_messages.each do |m| %>
-		<tr>
-		<td><%= User.find_by_id(m.from_id).name %></td>
-		<td><%= link_to( m.subject, m ) %></td>
-		</tr>
-	<% end %>
-	</table>
-	<h3>Sent</h3>
-	<table>
-		<tr>
-		<th>To</th>
-		<th>Subject</th>
-		</tr>
-	<% @sent_messages.each do |m| %>
-		<tr>
-		<td><%= User.find_by_id(m.to_id).name %></td>
-		<td><%= link_to( m.subject, m ) %></td>
-		</tr>
-	<% end %>
-	</table>
-<% else %>
-	<p>You don't have any messages.</p>
+<p><%= link_to "Write a new message", :controller => "messages", :action => "new" %></p>
+<h4>Received</h4>
+<table>
+	<tr>
+	<th></th>
+	<th>From</th>
+	<th>Subject</th>
+	</tr>
+<% @received_messages.each do |m| %>
+	<tr>
+	<td><% if m.user_has_seen == false %>New!<% end %></td>
+	<td><%= User.find_by_id(m.from_id).name %></td>
+	<td><%= link_to( m.subject, m ) %></td>
+	</tr>
 <% end %>
+</table>
+<h3>Sent</h3>
+<table>
+	<tr>
+	<th>To</th>
+	<th>Subject</th>
+	</tr>
+<% @sent_messages.each do |m| %>
+	<tr>
+	<td><%= User.find_by_id(m.to_id).name %></td>
+	<td><%= link_to( m.subject, m ) %></td>
+	</tr>
+<% end %>
+</table>
 </div>

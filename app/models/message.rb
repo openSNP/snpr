@@ -14,8 +14,9 @@ class Message < ActiveRecord::Base
 		msg.sent = false
 		msg.to_id = recipient.id
 		msg.from_id = from.id
+		msg.user_has_seen = false
 		msg.save
 
-		self.update_attributes :from_id => from.id, :sent => true, :to_id => recipient.id
+		self.update_attributes :from_id => from.id, :sent => true, :to_id => recipient.id, :user_has_seen => true
 	end
 end

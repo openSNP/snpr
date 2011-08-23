@@ -1,2 +1,22 @@
-<h1>Message#new</h1>
-<p>Find me in app/views/message/new.html.erb</p>
+<h1>Compose Message</h1>
+<%= form_for @message, :html => {:class => "form-stacked"} do |f| %>
+	<%= render 'shared/error_messages', :target => @message %>
+	<div class="clearfix">
+		<%= f.label :to_id%> <%= collection_select(:user, :id, @users, :id, :name) %>
+	</div>
+	<div class="clearfix">
+	 	<%= f.label :subject %>
+		<div class="input">
+			<%= f.text_field :subject %>
+		</div>
+	</div>
+	<div class="clearfix">
+		<%= f.label "body"%>
+		<div class="input">
+			<%= f.text_area :body, :cols => 100, :rows => 10 %>
+		</div>
+	</div>
+	<div class="actions">
+		<%= f.submit "Send", :class => "primary btn"%>
+</div>
+<% end %>
