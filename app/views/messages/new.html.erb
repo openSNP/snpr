@@ -2,7 +2,7 @@
 <%= form_for @message, :html => {:class => "form-stacked"} do |f| %>
 	<%= render 'shared/error_messages', :target => @message %>
 	<div class="clearfix">
-		<%= f.label :to_id%> <%= collection_select(:user, :id, @users, :id, :name) %>
+		<%= f.label :to_id%> <%= collection_select(:user, :id, @users, :id, :name, :class =>"user") %>
 	</div>
 	<div class="clearfix">
 	 	<%= f.label :subject %>

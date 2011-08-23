@@ -6,7 +6,6 @@ class MessagesController < ApplicationController
 	  @users = User.all # .delete(current_user) 
 	  # ideally, we would kick out the current_user however, this generates crashes when there are only two users (function "map" doesn't work on a single object)
 	  
-
 	  respond_to do |format|
 		  format.html
 		  format.xml { render :xml => @message }
@@ -19,14 +18,12 @@ class MessagesController < ApplicationController
 	  @message.user_has_seen = true
 	  @message.from_id = current_user.id
       @message.sent = true
-	  @message.to_id = params[:user][:to_id]
+	  @message.to_id = params[:user][:id]
 
-	  puts "PARAMS"
-	  puts params
 
-	  if @message.save and @message.send_message(@from, @to)
+	  if @message.save and @message.send_message(@message.from_id, @message.to_id)
 		  flash[:notice] = "Message sent!"
-		  redirect_to @user
+		  redirect_to current_user
 	  else
 		  respond_to do |format|
 			  format.html { render :action => "new" }
