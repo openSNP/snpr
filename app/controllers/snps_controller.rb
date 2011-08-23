@@ -38,7 +38,7 @@ class SnpsController < ApplicationController
 	private
 	
 	def sort_column
-    PlosPaper.column_names.include?(params[:sort]) ? params[:sort] : "pub_date"
+		PlosPaper.column_names.include?(params[:sort]) ? params[:sort] : "pub_date"
   end
   
   def sort_direction

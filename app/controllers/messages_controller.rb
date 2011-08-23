@@ -39,4 +39,12 @@ class MessagesController < ApplicationController
 	  @message.update_attributes :user_has_seen => true
   end
 
+  def destroy
+	  message = Message.find_by_id(params[:id])
+	  if message.destroy
+		  flash[:notice] = "Message deleted."
+		  redirect_to current_user
+	  end
+  end
+
 end
