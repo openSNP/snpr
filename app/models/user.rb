@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 	has_many :user_snps, :dependent => :destroy
 	has_many :snps, :through => :user_snps
 	has_many :homepages, :dependent => :destroy
+	has_many :messages
 
 	# needed to edit several user_phenotypes at once, add and delete, and not empty
 	accepts_nested_attributes_for :homepages, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
