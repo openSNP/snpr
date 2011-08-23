@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+
+  before_filter :require_user
+  
   def new
 	  #create the message
 	  @message = Message.new
