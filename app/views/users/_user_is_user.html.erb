@@ -1,7 +1,8 @@
 <h1>Hello <%= @first_name %>!</h1>
+<% if current_user.messages.where(:user_has_seen => false) != [] %>
+	<p>You have messages!</p>
+<% end %>
 	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
-
-<!-- Message-center ended. Now come SNPs/Variations-->
 
 <div id="tab-container">
 	<ul class="tabs">
