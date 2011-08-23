@@ -1,18 +1,18 @@
 <h1>Listing all SNPs</h1>
-<table class="zebra-striped" id="snp_overview">
+<table class="zebra-striped" id="no_snp_overview">
 <thead>
 <tr>
-	<th>SNP-ID</th>
-	<th>Name</th>
-	<th>Position</th>
-	<th>Chromosome</th>
-	<th>Genotype-Frequency</th>
-	<th>Allele-Frequency</th>
-	<th>Ranking</th>
+	<th><%= sortable "id", "SNP-ID"%></th>
+	<th><%= sortable "name","Name"%></th>
+	<th><%= sortable "position","Position"%></th>
+	<th><%= sortable "chromosome","Chromosome"%></th>
+	<th><%= sortable "genotype_frequency","Genotype-Frequency"%></th>
+	<th><%= sortable "allele_frequency","Allele-Frequency"%></th>
+	<th><%= sortable "ranking","Ranking"%></th>
 </tr>
 </thead>
 <tbody>
-<% @snps.each do |s| %>
+<% @snps_paginate.each do |s| %>
 	<tr>
 	<td><%= s.id %></td>
 	<td><%= link_to(s.name, s) %></td>
@@ -25,5 +25,5 @@
 <% end %>
 </tbody>
 </table>
-<%= will_paginate(@snps) %>
+<%= will_paginate(@snps_paginate) %>
 

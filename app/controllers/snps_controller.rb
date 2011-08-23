@@ -1,7 +1,8 @@
 class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
 	def index
-		@snps = Snp.paginate(:page => params[:page])
+		@snps = Snp.order(sort_column + " "+ sort_direction)
+		@snps_paginate = @snps.paginate(:page => params[:page],:per_page => 10)
 
 		respond_to do |format|
 			format.html
@@ -38,7 +39,7 @@ class SnpsController < ApplicationController
 	private
 	
 	def sort_column
-		PlosPaper.column_names.include?(params[:sort]) ? params[:sort] : "pub_date"
+		Snp.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
   
   def sort_direction
