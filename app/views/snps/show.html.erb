@@ -35,6 +35,7 @@
   </ul>
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>
+<% if @page_plos_papers != [] %>
 <table class="zebra-striped" id="noPaperPlos">
 	<thead>
 	<tr>
@@ -56,9 +57,13 @@
 	</tbody>
 	</table>
 	<%= will_paginate @page_plos_papers %>
+<% else %>
+	There are no PLoS-results yet. Please come back again later.
+<% end %>
 </div>
 <div id="mendeley">
 <h3>Publications on this SNP on Mendeley</h3>
+<% if @snp.mendeley_paper != [] %>
 	<table class="zebra-striped" id="PaperMendeley">
 		<thead>
 		<tr>
@@ -79,9 +84,13 @@
 		<%end%>
 		</tbody>
 	</table>
+<% else %>
+	There are no Mendeley-results yet. Please come back again later.
+<% end %>
 </div>
 <div id="snpedia">
 <h3>Links to SNPedia</h3>
+<% if @snp.snpedia_paper != [] %>
 	<table class="zebra-striped">
 		<tr>
 			<th>Summary</th>
@@ -92,13 +101,20 @@
 			<td><%= p.summary.capitalize %></td>
 			<td><%= link_to p.url, p.url %></td>
 		</tr>
-	<% end %>
+		<% end %>
 	</table>
+<% else %>
+	There are no SNPedia-links yet. Please come back later.
+<% end %>
 </div>
 <div id="users">
 <h3>Users who share this SNP:</h3>
+<% if @users != [] %>
 <% @users.each do |u| %>
 	<%= link_to( u.name, u ) %><br/>
 <% end %>
+<% else %>
+	No user shares this SNP.
+<%end %>
 </div>
 </div>

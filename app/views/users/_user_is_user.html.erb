@@ -26,7 +26,7 @@
 	<% @snps.each do |s| %>
 		<tr>
 			<td><%= s.id%></td>
-			<td><%= s.name%></td>
+			<td><%= link_to s.name, s%></td>
 			<td><%= s.position %></td>
 			<td><%= s.chromosome %></td>
 			<td><%= s.genotype_frequency.keys()[0] + " = " + s.genotype_frequency.values()[0].to_s%></td>
@@ -59,7 +59,6 @@
 	<tr>
 	<td><%= User.find_by_id(m.from_id).name %></td>
 	<td><%= link_to( m.subject, m ) %></td>
-	<td><% if m.user_has_seen == false %>New!<% end %></td>
 	<td><% if m.user_has_seen == false %>New!<% end %></td>
 	</tr>
 <% end %>
