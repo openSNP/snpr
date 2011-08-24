@@ -26,6 +26,8 @@ class Snpedia
 				@snpedia_link.snp_id = @snp.id
 				@snpedia_link.summary = summary
 				@snpedia_link.save
+				@snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
+        @snp.save
 			end
 		end
 	end

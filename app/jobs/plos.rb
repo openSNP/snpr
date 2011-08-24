@@ -42,6 +42,8 @@ class Plos
           @plos_paper.snp_id = @snp.id
           @plos_paper.save
           print "written new paper\n"
+          @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
+          @snp.save
         end
       end
       else

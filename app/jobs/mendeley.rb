@@ -46,6 +46,8 @@ class Mendeley
           end
           @mendeley_paper.snp_id = @snp.id
           @mendeley_paper.save
+          @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
+          @snp.save
           print "Written paper\n"
         end
       end

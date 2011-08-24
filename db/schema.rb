@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20110823032055) do
     t.string   "chromosome"
     t.string   "genotype_frequency"
     t.string   "allele_frequency"
+    t.string   "ranking"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
