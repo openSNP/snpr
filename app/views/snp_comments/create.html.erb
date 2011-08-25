@@ -1,6 +1,6 @@
 <h2>Write a comment</h2>
 
-<%= form_for(@snp_comment) do |f| %>
+<%= form_for :snp_comment, :url => {:action => "new"}, :html => {:class => "form-stacked"} do |f| %>
 	<%= render 'fields', :f => f %>
 	<div class="actions">
 		<%= f.submit "Send" %>

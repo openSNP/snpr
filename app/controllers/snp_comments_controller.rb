@@ -14,7 +14,7 @@ class SnpCommentsController < ApplicationController
 		end
 	end
 		def create
-  		@snp_comment = SnpComment.new()
+  		@snp_comment = SnpComment.new(params[:user_session])
   		@snp_comment.user_id = current_user.id
   		if @snp_comment.save
         format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing might take a couple of minutes.') }
