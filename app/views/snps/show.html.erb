@@ -55,11 +55,12 @@
 		</tr>
 	<%end%>
 	</tbody>
-	</table>
+</table>
 <% else %>
 	There are no PLoS-results yet. Please come back again later.
 <% end %>
 </div>
+
 <div id="mendeley">
 <h3>Publications on this SNP on Mendeley</h3>
 <% if @snp.mendeley_paper != [] %>
@@ -117,3 +118,4 @@
 <%end %>
 </div>
 </div>
+<%= render 'snp_comments/form' %>

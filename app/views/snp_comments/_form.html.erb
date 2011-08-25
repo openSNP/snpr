@@ -1,0 +1,13 @@
+<%= form_for(@snp_comment,:html => {:class => "form-stacked"}) do |f| %>
+<%= render 'shared/error_messages', :target => @snp %>
+<div class="well">
+<div class="clearfix">
+	<%= f.label :comment_text %>
+	<%= f.text_field :comment_text %>
+</div>
+
+<div class="actions">
+	<%= f.submit "Send", :class => "primary btn"  %>
+</div>
+<% end %>
+</div>

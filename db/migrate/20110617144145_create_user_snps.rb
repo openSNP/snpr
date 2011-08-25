@@ -12,4 +12,5 @@ class CreateUserSnps < ActiveRecord::Migration
   def self.down
   	drop_table :user_snps
   end
+  
 end

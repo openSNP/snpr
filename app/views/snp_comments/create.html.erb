@@ -1,0 +1,8 @@
+<h2>Write a comment</h2>
+
+<%= form_for(@snp_comment) do |f| %>
+	<%= render 'fields', :f => f %>
+	<div class="actions">
+		<%= f.submit "Send" %>
+	</div>
+<% end %>

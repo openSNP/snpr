@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823032055) do
+ActiveRecord::Schema.define(:version => 20110824164934) do
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(:version => 20110823032055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "snp_id"
+  end
+
+  create_table "snp_comments", :force => true do |t|
+    t.string   "comment_text"
+    t.integer  "user_id"
+    t.integer  "snp_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reply_to_id"
   end
 
   create_table "snpedia_papers", :force => true do |t|

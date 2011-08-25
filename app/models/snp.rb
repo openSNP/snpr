@@ -3,6 +3,7 @@ class Snp < ActiveRecord::Base
    has_many :plos_paper
    has_many :mendeley_paper
    has_many :snpedia_paper
+   has_many :snp_comments
    serialize :allele_frequency
    serialize :genotype_frequency
    

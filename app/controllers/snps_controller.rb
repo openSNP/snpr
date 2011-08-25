@@ -27,9 +27,8 @@ class SnpsController < ApplicationController
     Resque.enqueue(Mendeley,@snp)
 	  Resque.enqueue(Snpedia,@snp)
 	  
-	  @plos_papers = @snp.plos_paper.order(sort_column + " " + sort_direction)
-	  @page_plos_papers = @plos_papers.paginate(:page => params[:page],:per_page => 4)
-	  
+	  @snp_comment = SnpComment.new
+	  	  
 		respond_to do |format|
 			format.html
 			format.xml
