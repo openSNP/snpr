@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 	def new
 		@user = User.new
 		@title = "Sign up"
+		homepage = @user.homepages.build()
 
 		respond_to do |format|
 			format.html
@@ -45,8 +46,6 @@ class UsersController < ApplicationController
 		# showing a single user's page
 		@user = User.find_by_id(params[:id])
 		@title = @user.name + "'s page"
-		# split the user's name if there are more than two strings
-		# for possible reference by first name
 		@first_name = @user.name.split()[0]
 		@phenotypes = @user.user_phenotypes
 		@snps = @user.snps.paginate(:page => params[:page])
@@ -61,6 +60,7 @@ class UsersController < ApplicationController
 	def edit
 	   @user = User.find(params[:id])
 	   @phenotypes = @user.user_phenotypes
+	   @homepages = @user.homepages
 
        respond_to do |format|
 		   format.html
@@ -70,6 +70,7 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
+		
 		if @user.update_attributes(params[:user])
 			redirect_to @user, :notice => "Successfully updated."
 		else

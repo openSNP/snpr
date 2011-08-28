@@ -28,7 +28,7 @@
 <%= f.fields_for :homepages do |h| %>
 	<div class="clearfix">
 		Description <%= h.text_field :description %>
-		URL <%= h.text_field :url %><%= h.link_to_remove "Remove"%>
+		URL <%= h.url_field :url, :value => "http://www." %><%= h.link_to_remove "Remove"%>
 	</div>
 <% end %>
 <%= f.link_to_add "Add a page", :homepages %>

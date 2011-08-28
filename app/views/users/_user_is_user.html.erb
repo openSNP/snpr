@@ -49,6 +49,7 @@
 <h3>Messages</h3>
 <p><%= link_to "Write a new message", :controller => "messages", :action => "new" %></p>
 <h4>Received</h4>
+<% if @received_messages != [] %>
 <table>
 	<tr>
 	<th>From</th>
@@ -63,7 +64,11 @@
 	</tr>
 <% end %>
 </table>
+<% else %>
+	There are no messages to display here.
+<% end %>
 <h3>Sent</h3>
+<% if @sent_messages != [] %>
 <table>
 	<tr>
 	<th>To</th>
@@ -76,4 +81,7 @@
 	</tr>
 <% end %>
 </table>
+<% else %>
+	There are no messages to display here.
+<% end %>
 </div>
