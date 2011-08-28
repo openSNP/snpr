@@ -1,5 +1,6 @@
 <%= form_for(@snp_comment, :html => {:class => "form-stacked"}) do |f| %>
 <%= render 'shared/error_messages', :target => @snp %>
+<%= f.hidden_field :snp_id, :value => @snp.id %>
 <div class="well">
 <div class="clearfix">
 	<%= f.label :comment_text %>

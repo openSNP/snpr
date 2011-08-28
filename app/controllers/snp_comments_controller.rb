@@ -16,7 +16,7 @@ class SnpCommentsController < ApplicationController
 	def create
 		@snp_comment = SnpComment.new(params[:snp_comment])
 		@snp_comment.user_id = current_user.id
-		@snp_comment.snp_id = params[:snp_id]
+		@snp_comment.snp_id = params[:snp_comment][:snp_id]
   		if @snp_comment.save
 			format.html { redirect_to(current_user, :notice => 'Comment succesfully created.') }
 			format.xml { render :xml => @snp, :status => :created, :location => @snp }
