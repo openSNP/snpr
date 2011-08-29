@@ -21,7 +21,10 @@ class MessagesController < ApplicationController
 	  @message.user_has_seen = true
 	  @message.from_id = current_user.id
       @message.sent = true
-	  @message.to_id = params[:user][:id]
+
+	  if params[:user] != nil
+		  @message.to_id = params[:user][:id]
+	  end
 
 
 	  if @message.save and @message.send_message(@message.from_id, @message.to_id)

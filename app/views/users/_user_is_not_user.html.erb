@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span6 columns"><h1><%= @user.name %>'s page</h1></div>
-	<div class="span6 columns"><%= link_to("Send "+ @first_name + " a message", "#") %></div>
+	<div class="span6 columns"><%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></div>
 </div>
 <% if @user.has_sequence == true %>
 	<p><%= @first_name %> has uploaded a SNP-set. Here are the results:</p>

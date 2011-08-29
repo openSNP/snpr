@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 	def new
 		@user = User.new
 		@title = "Sign up"
-		homepage = @user.homepages.build()
 
 		respond_to do |format|
 			format.html
@@ -19,6 +18,7 @@ class UsersController < ApplicationController
 		  end
 
 		  if params[:read] and @user.save
+			homepage = @user.homepages.build(:user_id => current_user.id)
 			flash[:notice] = "Account registered!"
 			redirect_to @user
 		  else

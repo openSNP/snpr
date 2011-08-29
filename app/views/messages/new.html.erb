@@ -2,7 +2,9 @@
 <%= form_for @message, :html => {:class => "form-stacked"} do |f| %>
 	<%= render 'shared/error_messages', :target => @message %>
 	<div class="clearfix">
-		<%= f.label :to_id%> <%= collection_select(:user, :id, @users, :id, :name, :class =>"user") %>
+		<% if params[:user_to_send] %> <%= f.label :to_id %><%= User.find_by_id(params[:user_to_send]).name %><%= f.hidden_field :to_id, :value => params[:user_to_send] %>
+		<% else %><%= f.label :to_id%> <%= collection_select(:user, :id, @users, :id, :name, :class =>"user") %>
+		<% end %>
 	</div>
 	<div class="clearfix">
 	 	<%= f.label :subject %>
