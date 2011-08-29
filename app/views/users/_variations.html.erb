@@ -3,10 +3,10 @@
 		<th>Characteristic</th>
 		<th>Variation</th>
 	</tr>
-<% @phenotypes.each do |p| %>
+<% @user_phenotypes.each do |p| %>
 	<tr>
 		<td><%= Phenotype.find_by_id(p.phenotype_id).characteristic %></td>
-		<td><% if not p.variation.empty? %><%= p.variation%><% else %>Undescribed.<% end %></td>
+		<td><% if p.variation %><%= p.variation%><% else if p.variation == nil %>NIL<% else %>Undescribed.<% end %><% end %></td>
 	</tr>
 <% end %>
 </table>

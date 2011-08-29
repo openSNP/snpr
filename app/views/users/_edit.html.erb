@@ -18,7 +18,13 @@
 	<%= f.password_field :password_confirmation %>
 </div>               
 
-<!--For now, Phenotype-editing is in _edit_phenotypes-->
+<h2>Phenotypes</h2>
+	<%= f.fields_for :user_phenotypes do |p| %>
+	 <div class="field">
+		 Variation: <%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
+	 </div>
+ <% end %>
+ <%= f.link_to_add "Add a phenotype", :user_phenotypes %>
 
 <h2>Details</h2>
 <div class="clearfix">
