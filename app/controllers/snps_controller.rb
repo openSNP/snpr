@@ -12,6 +12,7 @@ class SnpsController < ApplicationController
 	
 	def show
 		@snp = Snp.find_by_id(params[:id])
+		@comments = SnpComment.where(:snp_id => params[:id]).all(:order => "created_at DESC")
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
     @total_genotypes = 0
     @snp.genotype_frequency.each do |key,value|

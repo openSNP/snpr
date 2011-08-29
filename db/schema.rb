@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20110824164934) do
 
   create_table "snp_comments", :force => true do |t|
     t.string   "comment_text"
+    t.string   "subject"
     t.integer  "user_id"
     t.integer  "snp_id"
     t.datetime "created_at"

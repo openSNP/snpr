@@ -25,4 +25,5 @@ class SnpCommentsController < ApplicationController
   			format.xml { render :xml => @snp_comment.errors, :status => :unprocessable_entity }
   		end
   	end
+
 end

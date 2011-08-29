@@ -32,6 +32,7 @@
     <li><a href="#plos">PLoS</a></li>
     <li><a href="#mendeley">Mendeley</a></li>
     <li><a href="#users">Other users</a></li>
+    <li><a href="#comments">Comments</a></li>
   </ul>
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>
@@ -117,5 +118,8 @@
 	No user shares this SNP.
 <%end %>
 </div>
-</div>
+<div id="comments">
+<%= render 'snp_comments/show' %>
 <%= render 'snp_comments/form' %>
+</div>
+</div>
