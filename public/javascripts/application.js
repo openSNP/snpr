@@ -4,7 +4,8 @@
 $(document).ready(function() 
     { 
         $("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
-		$("#PaperPlos").tablesorter({sortList: [[2,1]]});
-		$("#snp_overview").tablesorter();
+	$("#PaperPlos").tablesorter({sortList: [[2,1]]});
+	$("#snp_overview").tablesorter();
+	
     } 
 );

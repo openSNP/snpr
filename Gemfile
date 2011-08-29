@@ -13,7 +13,7 @@ gem 'email_veracity' # to check whether user-mails are OK
 
 gem 'resque' # for jobs
 
-gem "will_paginate" # needed for Rails 3, pagination
+gem "will_paginate", "3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
