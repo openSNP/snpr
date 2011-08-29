@@ -35,7 +35,9 @@
 	</tr>
 <% end %>
 </table>
+<div class="pagination">
 <%= will_paginate(@snps) %>
+</div>
 <% else %>
 	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
 <% end %>
