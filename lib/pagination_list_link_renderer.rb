@@ -20,19 +20,18 @@ class PaginationListLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
 		text = "Next &rarr;"
 	  end
 
+	  if classname == "previous_page"
+		  classname = "prev"
+	  end
+
+	  if classname == "next_page"
+		  classname = "next"
+	  end
+
       if page
-		  if classname == "previous"
-			tag(:li, link(text, page), :class => "prev")
-		  else
-			tag(:li, link(text, page), :class => "next")
-		  end
+			tag(:li, link(text, page), :class => classname)
       else
-		  if classname == "Previous"
-        	tag(:li, text, :class => 'prev disabled')
-		  else if classname == "Next"
-			tag(:li, text, :class => 'next disabled')
-		  end
-		  end
+        	tag(:li, link(text, '#'), :class => classname + ' disabled')
       end
     end
 
