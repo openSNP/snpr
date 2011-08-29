@@ -59,9 +59,6 @@ class UsersController < ApplicationController
 
 	def edit
 	   @user = User.find(params[:id])
-	   @phenotypes = @user.user_phenotypes
-	   @homepages = @user.homepages
-
        respond_to do |format|
 		   format.html
 		   format.xml

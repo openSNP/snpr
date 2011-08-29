@@ -5,15 +5,13 @@ require File.expand_path('../application', __FILE__)
 Snpr::Application.initialize!
 
 # ActionMailer logic so we can send out stuff
-ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.raise_delivery_errors = true
-ActionMailer::Base.default_charset = "utf-8"
-ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
-   :address => "servername.domain.com",
-   :port => 25,
-   :domain => "domain.com",
-   :authentication => :login,
-   :user_name => "login",
-   :password => "password"
- }
+# following is example for gmail, change later
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :domain               => 'baci.lindsaar.net',
+  :user_name            => '<username>',
+  :password             => '<password>',
+  :authentication       => 'plain',
+  :enable_starttls_auto => true  }

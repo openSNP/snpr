@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
 	accepts_nested_attributes_for :homepages, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
 	accepts_nested_attributes_for :user_phenotypes, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
 
-
 	def deliver_password_reset_instructions!
 		reset_perishable_token!
 		Notifier.deliver_password_reset_instructions(self)
