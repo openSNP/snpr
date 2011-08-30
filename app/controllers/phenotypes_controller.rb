@@ -28,8 +28,9 @@ class PhenotypesController < ApplicationController
 	end
 
 	def show
-		@phenotypes = Phenotype.where(:user_id => current_user.id).all
-		@title = "Phenotypes"
+		#@phenotypes = Phenotype.where(:user_id => current_user.id).all
+		#@title = "Phenotypes"
+		@phenotype = Phenotype.find(params[:id])
 		respond_to do |format|
 			format.html
 			format.xml

@@ -5,7 +5,7 @@
 	</tr>
 <% @user_phenotypes.each do |p| %>
 	<tr>
-		<td><%= Phenotype.find_by_id(p.phenotype_id).characteristic %></td>
+		<td><%= link_to Phenotype.find_by_id(p.phenotype_id).characteristic, Phenotype.find_by_id(p.phenotype.id) %></td>
 		<td><% if p.variation %><%= p.variation%><% else %>Undescribed.<% end %></td>
 	</tr>
 <% end %>

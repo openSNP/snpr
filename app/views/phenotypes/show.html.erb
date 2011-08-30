@@ -1,0 +1,16 @@
+<h1>Phenotype: <%= @phenotype.characteristic %></h1>
+
+<h3>The following users share this phenotype</h3>
+<table class="zebra-striped">
+	<tr>
+		<th>User</th>
+		<th>Variation</th>
+	</tr>
+<% @phenotype.user_phenotypes.each do |up| %>
+	<tr>
+		<td><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id)%></td>
+		<td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
+	</tr>
+<% end %>
+</table>
+  
