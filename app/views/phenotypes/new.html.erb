@@ -1,0 +1,14 @@
+<h3>Create a new phenotype</h3>
+<%= form_for @phenotype, :html => {:class => "form-stacked"} do |f| %>
+<%= render 'shared/error_messages', :target => @phenotype %>
+
+
+<div class="clearfix">
+	<div class="inline-inputs">
+		<%= f.label :characteristic %> <%= f.text_field :characteristic %>
+		<br/><span class ="help-inline">Hair colour, Blood type, Skin colour etc.</span>
+	</div>
+</div>
+
+<%= f.submit %>
+<% end %>

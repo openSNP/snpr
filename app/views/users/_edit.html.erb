@@ -27,7 +27,7 @@
 		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
 	 </div>
  <% end %>
- ADD A NEW PHENOTYPE
+ <%= link_to "Add a new phenotype", :controller => "phenotypes", :action => "new" %>
  </div>
 
 <div class="well">
