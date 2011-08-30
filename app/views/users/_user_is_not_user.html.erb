@@ -1,16 +1,23 @@
 <div class="row">
 	<div class="span6 columns"><h1><%= @user.name %>'s page</h1></div>
-	<div class="span6 columns"><%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></div>
+	<div class="span6 columns"><h5><%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div>
 </div>
 <% if @user.has_sequence == true %>
-	<p><%= @first_name %> has uploaded a SNP-set. Here are the results:</p>
+	<p><%= @first_name %> has uploaded a SNP-set.</p>
 <% else %>
 	<p><%= @first_name %> has not uploaded any sequences.</p>
 <% end %>
 
 <h3>On <%= @first_name %>:</h3>
-<p><% if @user.description %><%= @user.description %><% else %><%=@first_name%> has not entered a description yet.<% end %> </p>
-<p><%= @user.homepages.inspect %></p>
+<p><% if @user.description != "" %><%= @user.description %><% else %><%=@first_name%> has not entered a description yet.<% end %> </p>
+<% if @user.homepages != [] %>
+	<p>
+	<h3>Homepages</h3>
+	<% @user.homepages.each do |uh| %>
+		<strong><%= uh.description %>:</strong> 
+		<%= link_to uh.url, uh.url %><br/>
+	<% end %>
+<% end %>
+</p>
 <h3><%= @first_name %>'s variations:</h3>
 <p><%= render "variations" %></p>
-
