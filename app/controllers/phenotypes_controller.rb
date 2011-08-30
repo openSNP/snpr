@@ -3,6 +3,7 @@ class PhenotypesController < ApplicationController
 	
 	def new
 		@phenotype = Phenotype.new
+		@user_phenotype = UserPhenotype.new
 		@title = "Create a new phenotype"
 
 		respond_to do |format|
@@ -18,7 +19,7 @@ class PhenotypesController < ApplicationController
 			@phenotype.save
 		end
         
-		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => "")
+		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
 		if @user_phenotype.save
 			redirect_to current_user
 		else

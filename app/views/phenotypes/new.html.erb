@@ -9,6 +9,14 @@
 		<br/><span class ="help-inline">Hair colour, Blood type, Skin colour etc.</span>
 	</div>
 </div>
+<div class="clearfix">
+	<div class="inline-inputs">
+<%= fields_for @user_phenotype do |up| %>
+	<%= up.label :variation %> <%= up.text_field :variation %>
+	<br/><span class="help-inline">Blonde, 00, Caucasian etc.</span>
+<% end %>
+	</div>
+</div>
 
 <%= f.submit %>
 <% end %>
