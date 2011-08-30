@@ -1,6 +1,7 @@
 <% # helper thing so we don't have to put up fields into every page %>
 <%= nested_form_for(@user, :html => { :class => "form-stacked" } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
+<div class="well">
 <div class="clearfix">
 	<%= f.label :name %>
 	<%= f.text_field :name %>
@@ -17,16 +18,20 @@
 	<%= f.label :password_confirmation, "Confirmation" %>
 	<%= f.password_field :password_confirmation %>
 </div>               
+</div>
 
+<div class="well">
 <h2>Phenotypes</h2>
 	<%= f.fields_for :user_phenotypes do |p| %>
 	 <div class="field">
-		 <%= p.label :variation %><%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
+		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
 	 </div>
  <% end %>
- <%= f.link_to_add "Add a phenotype", :user_phenotypes %>
+ ADD A NEW PHENOTYPE
+ </div>
 
-<h2>Details</h2>
+<div class="well">
+<h2>Other details</h2>
 <div class="clearfix">
 	<p>Description of yourself:<br/><%= f.text_area  :description, :size => "1x10" %></p>
 </div>
@@ -38,6 +43,7 @@
 	</div>
 <% end %>
 <%= f.link_to_add "Add a page", :homepages %>
+</div>
 
 <div class="actions">
 	<%= f.submit %>
