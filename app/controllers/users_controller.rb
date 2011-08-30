@@ -59,6 +59,7 @@ class UsersController < ApplicationController
 
 	def edit
 	   @user = User.find(params[:id])
+
        respond_to do |format|
 		   format.html
 		   format.xml
@@ -66,7 +67,7 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		@user = User.find(params[:user])
+		@user = User.find(params[:id])
 		
 		if @user.update_attributes(params[:user])
 			redirect_to @user, :notice => "Successfully updated."

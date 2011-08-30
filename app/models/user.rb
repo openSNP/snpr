@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
 	has_many :messages
 
 	# needed to edit several user_phenotypes at once, add and delete, and not empty
-	accepts_nested_attributes_for :homepages, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
-	accepts_nested_attributes_for :user_phenotypes, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
+	accepts_nested_attributes_for :homepages, :allow_destroy => true
+	accepts_nested_attributes_for :user_phenotypes, :allow_destroy => true
 
 	def deliver_password_reset_instructions!
 		reset_perishable_token!
