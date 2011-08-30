@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824164934) do
+ActiveRecord::Schema.define(:version => 20110830134100) do
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(:version => 20110824164934) do
     t.boolean  "user_has_seen"
     t.integer  "from_id"
     t.integer  "to_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phenotype_comments", :force => true do |t|
+    t.string   "comment_text"
+    t.string   "subject"
+    t.integer  "user_id"
+    t.integer  "phenotype_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

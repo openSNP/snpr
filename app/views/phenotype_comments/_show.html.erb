@@ -1,0 +1,6 @@
+<% @phenotype_comments.each do |c|%>
+	<b><%= c.subject %></b> by user <%= link_to User.find_by_id(1).name, User.find_by_id(1)%> on <%= c.created_at %><br/>
+	<div class="well">
+	<%= c.comment_text %>
+	</div>
+<% end %>

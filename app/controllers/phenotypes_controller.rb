@@ -31,6 +31,7 @@ class PhenotypesController < ApplicationController
 		#@phenotypes = Phenotype.where(:user_id => current_user.id).all
 		#@title = "Phenotypes"
 		@phenotype = Phenotype.find(params[:id])
+		@phenotype_comments = PhenotypeComment.where(:phenotype_id => params[:id]).all(:order => "created_at DESC")
 		respond_to do |format|
 			format.html
 			format.xml
