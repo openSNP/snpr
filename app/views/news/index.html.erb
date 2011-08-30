@@ -34,3 +34,18 @@
 	</tr>
 <% end %>
 </table>
+<h2>Phenotypes</h2>
+<table class="common-table zebra-striped">
+	<tr>
+		<th>Characteristic</th>
+		<th>Variation</th>
+		<th>Entered by</th>
+	</tr>
+<% @new_phenotypes.each do |nu| %>
+	<tr>
+		<td><%= Phenotype.find_by_id(nu.phenotype_id).characteristic %></td>
+		<td><%= nu.variation %></td>
+		<td><%= link_to User.find_by_id(nu.user_id).name, User.find_by_id(nu.user_id) %></td>
+	</tr>
+<% end %>
+</table>
