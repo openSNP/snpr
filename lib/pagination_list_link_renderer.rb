@@ -1,6 +1,10 @@
 class PaginationListLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
 
   protected
+	def gap
+	  #tag(:li, link("…","#"), :class => "disabled")
+	  '<li class="disabled"><a href="#">...</a></li>'
+	end
 
     def page_number(page)
       unless page == current_page
@@ -11,7 +15,6 @@ class PaginationListLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
     end
 
     def previous_or_next_page(page, text, classname)
-
 	  if text == "&#8592; Previous"  
 		text = "&larr; Previous"
 	  end
@@ -34,6 +37,7 @@ class PaginationListLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
         	tag(:li, link(text, '#'), :class => classname + ' disabled')
       end
     end
+
 
     def html_container(html)
       tag(:ul, html, container_attributes)
