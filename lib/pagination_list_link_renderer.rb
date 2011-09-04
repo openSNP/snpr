@@ -32,7 +32,7 @@ class PaginationListLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
 	  end
 
       if page
-			tag(:li, link(text, page), :class => classname)
+		tag(:li, link(text, page), :class => classname)
       else
         	tag(:li, link(text, '#'), :class => classname + ' disabled')
       end
