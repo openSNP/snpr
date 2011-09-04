@@ -4,10 +4,6 @@ gem 'rails', '3.0.10'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
 gem "jquery-rails"
-gem 'thinking-sphinx',
-	:git     => 'git://github.com/freelancing-god/thinking-sphinx.git',
-	:branch  => 'rails3'
-
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -15,6 +11,9 @@ gem 'thinking-sphinx',
 # gem 'sqlite3'
 # use postgresql instead:
 gem 'pg', :require => 'pg'
+
+# for solr (indexing, searching)
+gem 'sunspot_rails', '~> 1.2.1'
 
 gem 'email_veracity' # to check whether user-mails are OK
 
@@ -24,7 +23,6 @@ gem "will_paginate", "3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
-#gem 'searchlogic','2.5.8'
 
 # Use unicorn as the web server
 # gem 'unicorn'

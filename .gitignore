@@ -11,3 +11,4 @@ Gemfile.*
 development.log
 server.pid
 *.swp
+solr/data
