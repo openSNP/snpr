@@ -14,10 +14,10 @@ class Snpedia
 	
 	pages.each do |p|
 		if p.index("(") != nil
-			puts "Parsing SNPedia\n"
+			puts "SNPedia: Got page\n"
 			url = "http://www.snpedia.com/index.php/" + p.to_s
 			if SnpediaPaper.find_all_by_url(url)  == []
-				puts "Parsing single site\n"
+				puts "-> Parsing new site\n"
 				toparse = mw.get(p)
 				summary = toparse.split("|")[4].delete("}\n")
 				summary = summary[8,summary.length]
@@ -28,7 +28,11 @@ class Snpedia
 				@snpedia_link.save
 				@snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
         @snp.save
+      else
+        puts "-> old site"
 			end
+		else
+		  puts "No pages"
 		end
 	end
 	print "sleep for 5 seconds\n"

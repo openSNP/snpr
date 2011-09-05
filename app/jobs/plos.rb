@@ -23,16 +23,13 @@ class Plos
 
     all_elements = doc.elements.to_a
     if all_elements[0][2].index("numFound='0'") != -1     # check if there are any papers to add...
+      puts "plos: got papers"
       all_elements[0][2].each do |singleton|
         first_author = singleton[2][0].to_s.gsub!(/<\/?str>/,"")
-        print "first author:" +first_author+"\n"
         doi = singleton[4].to_s.gsub!(/<\/?str( name='id')?>/,"")
-        print "doi: "+doi+"\n"
         pub_date = singleton[6].to_s.gsub!(/<\/?date( name='publication_date')?>/,"")
-        print "pub. date: "+pub_date+"\n"
         title = singleton[7].to_s.gsub!(/<\/?str( name='title')?>/,"")
-        print "title: "+title+"\n"
-        
+
         if PlosPaper.find_all_by_doi(doi) == []
           @plos_paper = PlosPaper.new()
           @plos_paper.first_author = first_author
@@ -41,15 +38,17 @@ class Plos
           @plos_paper.pub_date = pub_date
           @plos_paper.snp_id = @snp.id
           @plos_paper.save
-          print "written new paper\n"
+          print "-> written new paper\n"
           @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
           @snp.save
+        else
+          print "-> paper is old"
         end
       end
       else
-        print "none found\n"
+        print "plos: none found\n"
     end
-  print "sleep for 5 secs\n\n"
+  print "plos: sleep for 5 secs\n\n"
   sleep(5)
   end
 end

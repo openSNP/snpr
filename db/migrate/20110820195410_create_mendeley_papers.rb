@@ -6,6 +6,9 @@ class CreateMendeleyPapers < ActiveRecord::Migration
       t.string :mendeley_url
       t.string :doi
       t.integer :pub_year
+      t.string :uuid
+      t.boolean :open_access
+      t.integer :reader
       t.timestamps 
       t.belongs_to :snp
     end
