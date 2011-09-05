@@ -4,7 +4,7 @@
 	<ul>
 <% for p in @phenotypes.results %>
 	<li><%= p.inspect %></li>
-	<li><%= link_to "Download all relevant genotypes!", bundle(p) %>
+	<li><%= link_to "Download all relevant genotypes! bundle(p)", "#" %></li>
 	<li><%= UserPhenotype.where(:phenotype_id => p.id).inspect %></li>
 <% end %>
 </ul>
