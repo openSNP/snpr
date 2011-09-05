@@ -22,5 +22,44 @@
 <% for p in @user_phenotypes.results %>
 	<%= p.inspect %>
 <% end %>
-
 <% end %>
+
+<% if @snp_comments.results == [] %>
+	<p>No results for SNP-comments.</p>
+<% else %>
+<% for p in @snp_comments.results %>
+	<%= p.inspect %>
+<% end %>
+<% end %>
+                         
+<% if @phenotype_comments.results == [] %>
+	<p>No results for Phenotype-comments.</p>
+<% else %>
+<% for p in @phenotype_comments.results %>
+	<%= p.inspect %>
+<% end %>
+<% end %>
+                         
+<% if @mendeley_papers.results == [] %>
+	<p>No results for Mendeley-papers.</p>
+<% else %>
+<% for p in @mendeley_papers.results %>
+	<%= p.inspect %>
+<% end %>
+<% end %>
+
+<% if @plos_papers.results == [] %>
+	<p>No results for PLoS-papers.</p>
+<% else %>
+<% for p in @plos_papers.results %>
+	<%= p.inspect %>
+<% end %>
+<% end %>        
+
+<% if @snpedia_papers.results == [] %>
+	<p>No results for SNPedia.</p>
+<% else %>
+<% for p in @snpedia_papers.results %>
+	<%= p.inspect %>
+<% end %>
+<% end %>        

@@ -1,6 +1,7 @@
 class SearchResultsController < ApplicationController
 
   def search
+	  # butt-ugly
 	  @phenotypes = Phenotype.solr_search do |p|
 		  p.keywords params[:search]
 	  end
