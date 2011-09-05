@@ -1,3 +1,5 @@
+require "file_sender"
+
 class SearchResultsController < ApplicationController
 
   def search_type(type)
@@ -5,6 +7,7 @@ class SearchResultsController < ApplicationController
   end
 
   def search
+	  @title = "Search results"
 	  @snps = search_type Snp
 	  @phenotypes = search_type Phenotype
 	  @users  = search_type User
@@ -15,5 +18,6 @@ class SearchResultsController < ApplicationController
 	  @plos_papers  = search_type PlosPaper
 	  @snpedia_papers   = search_type SnpediaPaper
   end
+ 
 
 end

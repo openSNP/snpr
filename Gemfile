@@ -16,7 +16,7 @@ gem 'pg', :require => 'pg'
 gem 'sunspot_rails', '~> 1.2.1'
 
 # so we can create zip-files for genotypes
-gem 'rubyzip'
+gem 'rubyzip', :require => 'zip/zip'
 
 # for jobs
 gem 'resque' 
