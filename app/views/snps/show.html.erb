@@ -70,7 +70,8 @@
 		<tr>
 			<th>First Author</th>
 			<th>Title</th>
-			<th>Publication Year</th>
+			<th>Pub. Year</th>
+			<th># of Readers</th>
 			<th>DOI</th>
 		</tr>
 		</thead>
@@ -80,7 +81,16 @@
 			<td><%=p.first_author%></td>
 			<td><%=link_to( p.title, p.mendeley_url)%></td>
 			<td><%=p.pub_year%></td>
-			<td><%=p.doi%></td>
+			<td><%=p.reader%></td>
+			<% if p.open_access == true and p.doi != nil%>
+			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%><img src="/images/oa_logo.png"></td>
+			<%elsif p.doi != nil%>
+			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%></td>
+			<%elsif p.open_access == true%>
+			<td><%=p.doi%><img src="/images/oa_logo.png"></td>
+			<%else%>
+			<td>-</td>
+			<%end%>
 		</tr>
 		<%end%>
 		</tbody>

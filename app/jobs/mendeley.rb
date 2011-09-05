@@ -56,8 +56,8 @@ class Mendeley
         end
         Resque.enqueue(MendeleyDetails,@mendeley_paper)
       end
-    end
     else
       print "mendeley: No papers found\n"
+    end
   end
 end
