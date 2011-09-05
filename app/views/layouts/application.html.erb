@@ -29,6 +29,11 @@
 				<li><%= link_to("FAQ", '/faq') %></li> 
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
 				<li><%= link_to("All users", '/user_index') %></li>
+			</ul>
+			<%= form_tag "/search", :method => "get" do %>
+			<%= text_field_tag :search %>
+			<% end %>
+			<ul>
 				<% if current_user %>
 					<li><%= link_to("User's home", current_user)%></li>
 					<li><%= link_to("Sign out", '/signout') %></li>

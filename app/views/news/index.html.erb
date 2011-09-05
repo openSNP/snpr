@@ -13,7 +13,8 @@
 	<th>Genotype-ID</th>
 	<th>Uploaded by</th>
 	<th>Uploaded on</th>
-	<th>Link</th>
+	<th>Description</th>
+	<th>Download</th>
 </tr>
 <% @new_genotypes.each do |ng| %>
 	<tr>
@@ -21,6 +22,7 @@
 	<td><%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
 	<td><%= ng.created_at %></td>
 	<td><%= link_to "Click here", ng %></td>
+	<td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
 </tr>
 <% end %>
 </table>

@@ -1,0 +1,26 @@
+<% if @phenotypes.results == [] %>
+	<p>No results for phenotypes.</p>
+<% else %>
+<% for p in @phenotypes.results %>
+	<%= p.inspect %>
+<% end %>
+<% end %>
+
+<% if @users.results == [] %>
+	<p>
+	No results for users.
+	</p>
+<% else %>
+<% for u in @users.results %>
+	<%= u.inspect %>
+<% end %>
+<% end %>
+
+<% if @user_phenotypes.results == [] %>
+	<p>No results for user_phenotypes.</p>
+<% else %>
+<% for p in @user_phenotypes.results %>
+	<%= p.inspect %>
+<% end %>
+
+<% end %>

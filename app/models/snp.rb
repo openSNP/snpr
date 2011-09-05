@@ -7,7 +7,7 @@ class Snp < ActiveRecord::Base
    serialize :allele_frequency
    serialize :genotype_frequency
    
-   after_initialize :default_frequencies
+   after_create :default_frequencies
 
    def default_frequencies
 	   # if variations is empty, put in our default array

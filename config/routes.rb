@@ -10,6 +10,7 @@ Snpr::Application.routes.draw do
   resources :news
   resources :messages
   resources :snp_comments
+  resources :search_results
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login
@@ -17,6 +18,7 @@ Snpr::Application.routes.draw do
   match '/faq', :to => 'static#faq'
   match '/user_index', :to => 'users#index'
   match '/rss', :to => 'genotypes#feed'
+  match '/search', :to => 'search_results#search'
 
   root :to => 'static#index' # change thisi, maybe
   # The priority is based upon order of creation:
