@@ -59,14 +59,30 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
-    <fieldType name="text" class="solr.TextField" omitNorms="false">
+	<!-- OLD <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
-    </fieldType>
+	</fieldType>-->
+	<!-- NEW ours - here: https://github.com/outoftime/sunspot/wiki/Wildcard-searching-with-ngrams -->
+	<fieldType name="text" class="solr.TextField" omitNorms="false">
+	  <analyzer type="index">
+		<tokenizer class="solr.StandardTokenizerFactory"/>
+		<filter class="solr.StandardFilterFactory"/>
+		<filter class="solr.LowerCaseFilterFactory"/>
+		<filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
+	  </analyzer>
+	  <analyzer type="query">
+		<tokenizer class="solr.StandardTokenizerFactory"/>
+		<filter class="solr.StandardFilterFactory"/>
+		<filter class="solr.LowerCaseFilterFactory"/>
+	  </analyzer>
+	</fieldType>
+
     <!-- *** This fieldType is used by Sunspot! *** -->
+	<dynamicField name="*_textp" stored="false" type="text_pre" multiValued="true" indexed="true"/>
     <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="date" class="solr.DateField" omitNorms="true"/>

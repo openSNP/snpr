@@ -6,6 +6,10 @@ class Snp < ActiveRecord::Base
    has_many :snp_comments
    serialize :allele_frequency
    serialize :genotype_frequency
+	
+   searchable do
+    	text :name
+   end
    
    after_create :default_frequencies
 

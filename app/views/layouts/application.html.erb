@@ -30,8 +30,8 @@
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
 				<li><%= link_to("All users", '/user_index') %></li>
 			</ul>
-			<%= form_tag "/search", :method => "get" do %>
-			<%= text_field_tag :search %>
+			<%= form_tag "/search", :method => "get", :authenticity_token => true do %>
+				<%= text_field_tag :search, "Search" %>
 			<% end %>
 			<ul>
 				<% if current_user %>
