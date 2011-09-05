@@ -1,48 +1,76 @@
+<h3>Search results</h3>
+
 <% if not @phenotypes.results == [] %>
+	<ul>
 <% for p in @phenotypes.results %>
-	<%= p.inspect %>
+	<li><%= p.inspect %></li>
+	<li><%= UserPhenotype.where(:phenotype_id => p.id).inspect %></li>
 <% end %>
+</ul>
+<% end %>
+
+<% if not @snps.results == [] %>
+	<ul>
+<% for p in @snps.results %>
+	<li><%= p.inspect %></li>
+<% end %>
+</ul>
 <% end %>
 
 <% if not @users.results == [] %>
+	<ul>
 <% for u in @users.results %>
-	<%= u.inspect %>
+	<li><%= u.inspect %></li>
 <% end %>
+</ul>
 <% end %>
 
 <% if not @user_phenotypes.results == [] %>
+	<ul>
 <% for p in @user_phenotypes.results %>
-	<%= p.inspect %>
+	<li><%= Phenotype.where(:id => p.phenotype_id)%></li>
+	<li><%= p.inspect %></li>
 <% end %>
+</ul>
 <% end %>
 
 <% if not @snp_comments.results == [] %>
+	<ul>
 <% for p in @snp_comments.results %>
-	<%= p.inspect %>
+	<li><%= p.inspect %></li>
 <% end %>
+</ul>
 <% end %>
                          
 <% if not @phenotype_comments.results == [] %>
+	<ul>
 <% for p in @phenotype_comments.results %>
-	<%= p.inspect %>
+	<li><%= p.inspect %></li>
 <% end %>
+</ul>
 <% end %>
                          
 <% if not @mendeley_papers.results == [] %>
+<ul>
 <% for p in @mendeley_papers.results %>
-	<%= p.inspect %>
+	<li><%= p.inspect %></li>
 <% end %>
+</ul>
 <% end %>
 
 <% if not @plos_papers.results == [] %>
+	<ul>
 <% for p in @plos_papers.results %>
-	<%= p.inspect %>
+	<li><%= p.inspect %></li>
 <% end %>
+</ul>
 <% end %>        
 
 <% if not @snpedia_papers.results == [] %>
+	<ul>
 <% for p in @snpedia_papers.results %>
-	<%= p.inspect %>
+	<li><%= p.inspect %></li>
 <% end %>
+</ul>
 <% end %>        
 
