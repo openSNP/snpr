@@ -1,27 +1,29 @@
-<h3>Search results</h3>
+<h2>Search results</h2>
 
 <% if not @phenotypes.results == [] %>
+	<h5>Phenotypes</h5>
 	<ul>
 <% for p in @phenotypes.results %>
-	<li><%= p.inspect %></li>
-	<li><%= link_to "Download all relevant genotypes! bundle(p)", "#" %></li>
+	<li><%= link_to p.characteristic, p %> | <%= link_to "Download all relevant genotypes! bundle(p)", "#" %></li>
 	<li><%= UserPhenotype.where(:phenotype_id => p.id).inspect %></li>
 <% end %>
 </ul>
 <% end %>
 
 <% if not @snps.results == [] %>
+	<h5>Snps</h5>
 	<ul>
 <% for p in @snps.results %>
-	<li><%= p.inspect %></li>
+	<li><%= link_to p.name, p %></li>
 <% end %>
 </ul>
 <% end %>
 
 <% if not @users.results == [] %>
+	<h5>Users</h5>
 	<ul>
 <% for u in @users.results %>
-	<li><%= u.inspect %></li>
+	<li><%= link_to p.name p %></li>
 <% end %>
 </ul>
 <% end %>
@@ -30,7 +32,7 @@
 	<ul>
 <% for p in @user_phenotypes.results %>
 	<li><%= Phenotype.where(:id => p.phenotype_id)%></li>
-	<li><%= p.inspect %></li>
+	<li><%= link_to p.name p %></li>
 <% end %>
 </ul>
 <% end %>
@@ -52,14 +54,16 @@
 <% end %>
                          
 <% if not @mendeley_papers.results == [] %>
+	<h5>Mendeley</h5>
 <ul>
 <% for p in @mendeley_papers.results %>
-	<li><%= p.inspect %></li>
+	<li><%= link_to p.title, p.mendeley_url %></li>
 <% end %>
 </ul>
 <% end %>
 
 <% if not @plos_papers.results == [] %>
+	<h5>PLoS</h5>
 	<ul>
 <% for p in @plos_papers.results %>
 	<li><%= p.inspect %></li>
@@ -68,9 +72,10 @@
 <% end %>        
 
 <% if not @snpedia_papers.results == [] %>
+	<h5>SNPedia</h5>
 	<ul>
 <% for p in @snpedia_papers.results %>
-	<li><%= p.inspect %></li>
+	<li><%= link_to p.summary, p.url %></li>
 <% end %>
 </ul>
 <% end %>        
