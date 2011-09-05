@@ -1,5 +1,3 @@
-require "file_sender"
-
 class SearchResultsController < ApplicationController
 
   def search_type(type)

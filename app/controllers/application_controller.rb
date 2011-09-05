@@ -3,46 +3,46 @@ class ApplicationController < ActionController::Base
   helper :all
   helper_method :current_user_session, :current_user
 
-  def create_genotype_hash(phenotypes)
+  #def create_genotype_hash(phenotypes)
 	# returns hash containing all genotypes 
 	# linked to a certain phenotype
-	genotypes = []
-	phenotypes = [] << phenotypes
-	phenotypes.each do |p|
+	#genotypes = []
+	#phenotypes = [] << phenotypes
+	#phenotypes.each do |p|
 		# get all associated users
-		users = []
-		p.user_phenotypes.each do |up|
-			users <<  User.find_by_id(up.user_id)
-		end
+		#users = []
+		#p.user_phenotypes.each do |up|
+			#users <<  User.find_by_id(up.user_id)
+		#end
 		# get associated genotypes
-		users.each do |u|
-			genotypes << u.genotypes
-		end
-	end
-	return genotypes
-  end
+		#users.each do |u|
+			#genotypes << u.genotypes
+		#end
+	#end
+	#return genotypes
+  #end
 
-	def bundle(phenotypes)
+	#def bundle(phenotypes)
 		# uses above hash to create zip-file on-the-fly
 		# and sends it to the user
-		genotypes = create_genotype_hash(phenotypes)
-		genotypes = genotypes[0]
-		if not genotypes.empty?
-			file_name = "genotypes.zip"
+		#genotypes = create_genotype_hash(phenotypes)
+		#genotypes = genotypes[0]
+		#if not genotypes.empty?
+			#file_name = "genotypes.zip"
 			# put a temporary random file into /tmp
-			t = Tempfile.new('temp_genotypes-#{Time.now.to_s + rand(9999).to_s}') 
-			Zip::ZipOutputStream.open(t.path) do |z|
-				genotypes.each do |gen|
-						title = gen.user_id.to_s + "."  + gen.filetype + "."+ gen.id.to_s
-						z.put_next_entry(title)
-						z.print IO.read("#{RAILS_ROOT}/public/data/" + title)
-					end
-				end
-			send_file t.path, :type => 'application/zip',
-				:disposition => 'attachment',
-				:filename => file_name
-			end
-	end 
+			#t = Tempfile.new('temp_genotypes-#{Time.now.to_s + rand(9999).to_s}') 
+			#Zip::ZipOutputStream.open(t.path) do |z|
+			#	genotypes.each do |gen|
+			#			title = gen.user_id.to_s + "."  + gen.filetype + "."+ gen.id.to_s
+			#			z.put_next_entry(title)
+			#			z.print IO.read("#{RAILS_ROOT}/public/data/" + title)
+			#		end
+			#	end
+			#send_file t.path, :type => 'application/zip',
+			 #   :disposition => 'attachment',
+			  #  :filename => file_name
+			#end
+	#end 
   private
 
   def current_user_session
