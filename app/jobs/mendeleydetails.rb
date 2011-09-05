@@ -31,5 +31,7 @@ class MendeleyDetails
     print "mendeley details: updated oa- and reader-status\n"
     @mendeley_paper.reader = detail_result["stats"]["readers"]
     @mendeley_paper.save
+    print "-> sleep for 5 secs\n\n"
+    sleep(5)
   end
 end
