@@ -2,10 +2,6 @@ require "file_sender"
 
 class SearchResultsController < ApplicationController
 
-  def search_type(type)
-	  type.solr_search { |p| p.keywords params[:search] }
-  end
-
   def search
 	  @title = "Search results"
 
@@ -16,5 +12,10 @@ class SearchResultsController < ApplicationController
           end
   end
  
+  private
+
+  def search_type(type)
+	  type.solr_search { |p| p.keywords params[:search] }
+  end
 
 end
