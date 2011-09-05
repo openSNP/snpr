@@ -12,7 +12,7 @@ class SearchResultsController < ApplicationController
           [ Snp, Phenotype, User, UserPhenotype, SnpComment, PhenotypeComment,
             MendeleyPaper, PlosPaper, SnpediaPaper
           ].each do |klass|
-            instance_variable_set("@#{thing.to_s.underscore.pluralize}", klass)
+            instance_variable_set("@#{klass.to_s.underscore.pluralize}", klass)
           end
   end
  
