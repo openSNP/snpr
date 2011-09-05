@@ -15,14 +15,19 @@ gem 'pg', :require => 'pg'
 # for solr (indexing, searching)
 gem 'sunspot_rails', '~> 1.2.1'
 
-gem 'email_veracity' # to check whether user-mails are OK
+# so we can create zip-files for genotypes
+gem 'rubyzip'
 
-gem 'resque' # for jobs
+# for jobs
+gem 'resque' 
 
 gem "will_paginate", "3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
+
+# gem 'email_veracity' # to check whether user-mails are OK
+# authlogic does that anyway
 
 # Use unicorn as the web server
 # gem 'unicorn'
