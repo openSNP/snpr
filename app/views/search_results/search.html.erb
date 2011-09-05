@@ -1,65 +1,48 @@
-<% if @phenotypes.results == [] %>
-	<p>No results for phenotypes.</p>
-<% else %>
+<% if not @phenotypes.results == [] %>
 <% for p in @phenotypes.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>
 
-<% if @users.results == [] %>
-	<p>
-	No results for users.
-	</p>
-<% else %>
+<% if not @users.results == [] %>
 <% for u in @users.results %>
 	<%= u.inspect %>
 <% end %>
 <% end %>
 
-<% if @user_phenotypes.results == [] %>
-	<p>No results for user_phenotypes.</p>
-<% else %>
+<% if not @user_phenotypes.results == [] %>
 <% for p in @user_phenotypes.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>
 
-<% if @snp_comments.results == [] %>
-	<p>No results for SNP-comments.</p>
-<% else %>
+<% if not @snp_comments.results == [] %>
 <% for p in @snp_comments.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>
                          
-<% if @phenotype_comments.results == [] %>
-	<p>No results for Phenotype-comments.</p>
-<% else %>
+<% if not @phenotype_comments.results == [] %>
 <% for p in @phenotype_comments.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>
                          
-<% if @mendeley_papers.results == [] %>
-	<p>No results for Mendeley-papers.</p>
-<% else %>
+<% if not @mendeley_papers.results == [] %>
 <% for p in @mendeley_papers.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>
 
-<% if @plos_papers.results == [] %>
-	<p>No results for PLoS-papers.</p>
-<% else %>
+<% if not @plos_papers.results == [] %>
 <% for p in @plos_papers.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>        
 
-<% if @snpedia_papers.results == [] %>
-	<p>No results for SNPedia.</p>
-<% else %>
+<% if not @snpedia_papers.results == [] %>
 <% for p in @snpedia_papers.results %>
 	<%= p.inspect %>
 <% end %>
 <% end %>        
+
