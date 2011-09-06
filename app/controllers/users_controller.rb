@@ -87,6 +87,13 @@ class UsersController < ApplicationController
 			Resque.enqueue(Deletegenotype, @genotype)
 			@genotype.delete
 		end
+		@user.user_phenotypes.each do |up|
+			@phenotype = Phenotype.find_by_id(up.phenotype_id)
+			if @phenotype.user_phenotypes.length == 1
+				Phenotype.delete(@phenotype)
+			end
+			UserPhenotype.delete(up)
+		end
 		flash[:notice] = "Thank you for using SNPr. Goodbye!"
         User.delete(@user)
 		redirect_to root_url
