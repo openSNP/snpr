@@ -8,6 +8,8 @@ Reminder: When new search-indexes are defined on models please run
 
   rake sunspot:reindex
 
+Reminder 2: You can monitor the resque-server on localhost:3000/resque (useful in killing leftover tasks)
+
 = Usage
 
 You need to have the following running to ensure that everything works:
@@ -19,6 +21,8 @@ You need to have the following running to ensure that everything works:
   rake sunspot:solr:run OR rake sunspot:solr:start
 
   rails s(erver)
+
+Note: "serverscript" starts all these in detached screen-sessions.
 
 = to-do
 
