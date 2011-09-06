@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
     t.datetime "pub_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "reader"
     t.integer  "snp_id"
   end
 

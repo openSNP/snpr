@@ -6,6 +6,7 @@ class CreatePlosPapers < ActiveRecord::Migration
       t.string :doi
       t.timestamp :pub_date
       t.timestamps 
+      t.integer :reader
       t.belongs_to :snp
     end
   end

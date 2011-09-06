@@ -39,6 +39,7 @@ class Plos
         else
           print "-> paper is old"
         end
+        Resque.enqueue(PlosDetails,@plos_paper)
       end
       else
         print "plos: none found\n"
