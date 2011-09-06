@@ -21,7 +21,8 @@ class Snpedia
                toparse = mw.get(p)
                summary = toparse.split("|")[4].delete("}\n")
                summary = summary[8,summary.length]
-               @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary).save
+               @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
+			   @snpedia_link.save
                @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
                @snp.save
             else

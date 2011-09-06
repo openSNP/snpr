@@ -30,7 +30,8 @@ class Parsing
                if snp_array.length == (4)
                   # if we do not have the fitting SNP, make one and parse all paper-types for it
                   if Snp.find_by_name(snp_array[0]) == nil
-                     @snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2]).save
+                     @snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2])
+					 @snp.save
                      Resque.enqueue(Plos,@snp)
                      Resque.enqueue(Mendeley,@snp)
                      Resque.enqueue(Snpedia,@snp)
@@ -39,7 +40,8 @@ class Parsing
                   end
 
                   # make a new user_snp
-                  @user_snp = UserSnp.new(:genotype_id => @genotype.id, :user_id => @genotype.user_id, :snp_id => @snp.id, :local_genotype => snp_array[3].rstrip).save
+                  @user_snp = UserSnp.new(:genotype_id => @genotype.id, :user_id => @genotype.user_id, :snp_id => @snp.id, :local_genotype => snp_array[3].rstrip)
+				  @user_snp.save
                   # change allele-frequency and genotype-frequency for each SNP,
                   # start with 1 if there is no frequency else just add
                   if @snp.allele_frequency.has_key?(snp_array[3][0].chr)

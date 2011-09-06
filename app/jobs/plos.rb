@@ -31,7 +31,8 @@ class Plos
         title = singleton[7].to_s.gsub!(/<\/?str( name='title')?>/,"")
 
         if PlosPaper.find_all_by_doi(doi) == []
-          @plos_paper = PlosPaper.new(:first_author => first_author, :doi => doi, :title => title, :pub_date => pub_date, :snp_id => @snp.id).save
+          @plos_paper = PlosPaper.new(:first_author => first_author, :doi => doi, :title => title, :pub_date => pub_date, :snp_id => @snp.id)
+		  @plos_paper.save
           print "-> written new paper\n"
           @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
           @snp.save
