@@ -1,0 +1,7 @@
+#/bin/bash
+
+screen -d -m -S "Server" rails s
+screen -d -m -S "Solr" rake sunspot:solr:run
+screen -d -m -S "Redis" redis-server
+screen -d -m -S "Resque-worker"  rake environment resque:work QUEUE=*
+
