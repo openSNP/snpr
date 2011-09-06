@@ -1,0 +1,8 @@
+#/bin/bash
+screen -X -S Server quit
+screen -X -S Solr quit
+screen -X -S Redis kill
+screen -X -S Redis kill
+screen -X -S Resque-worker quit
+
+  

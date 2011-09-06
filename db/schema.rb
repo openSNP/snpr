@@ -136,9 +136,10 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
     t.string   "crypted_password"
     t.string   "persistence_token"
     t.string   "perishable_token"
-    t.boolean  "has_sequence"
+    t.boolean  "has_sequence",         :default => false
     t.string   "sequence_link"
     t.text     "description"
+    t.boolean  "finished_snp_parsing", :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
