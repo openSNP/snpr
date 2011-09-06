@@ -51,6 +51,8 @@ class UsersController < ApplicationController
 		@snps = @user.snps.paginate(:page => params[:page])
 		@received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
 		@sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
+		@phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
+		@snp_comments = SnpComment.where(:user_id => @user.id).paginate(:page => params[:page])
 
 		respond_to do |format|
 			format.html

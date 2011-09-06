@@ -9,6 +9,7 @@
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
+		<li><a href="#comments">Your comments</a></li>
 	</ul>
 
 <div id="snps">
@@ -86,4 +87,39 @@
 <% else %>
 	There are no messages to display here.
 <% end %>
+</div>
+<div id="comments">
+<% if @phenotype_comments != [] %>
+	<table>
+		<tr>
+		<td>Phenotype</td>
+		<td>Subject</td>
+		<td>Text</td>
+	<% @phenotype_comments.each do |pc|%>
+		<tr>
+			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, Phenotype.find_by_id(pc.phenotype_id)%></td>
+			<td><%= pc.subject %></td>
+			<td><%= pc.comment_text %></td>
+		</tr>
+	<% end %>
+</table>
+<% end %>
+<%= will_paginate(@phenotype_comments)%>
+<% if @snp_comments != [] %>
+	<table>
+		<tr>
+			<td>SNP</td>
+			<td>Subject</td>
+			<td>Text</td>
+		</tr>
+	<% @snp_comments.each do |snp|%>
+		<tr>
+			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).id.to_s+"/#comments" %></td>
+			<td><%= snp.subject %></td>
+			<td><%= snp.comment_text %></td>
+		</tr>
+	<% end %>
+</table>
+<% end %>
+<%= will_paginate(@snp_comments)%>
 </div>
