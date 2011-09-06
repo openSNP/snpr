@@ -74,5 +74,17 @@ class GenotypesController < ApplicationController
 		@genotypes = Genotype.all(:order => "created_at DESC", :limit => 20)
         render :action => "rss", :layout => false
 	end
+
+	def destroy
+		@user = current_user
+		@genotype = Genotype.find_by_user_id(@user.id)
+		Resque.enqueue(Deletegenotype, @genotype)
+        if @genotype.delete
+          flash[:notice] = "Genotyping was successfully deleted."
+		  @user.toggle!(:has_sequence)
+		  @user.update_attributes(:sequence_link => nil)
+		  redirect_to current_user
+		end
+	end
   
 end

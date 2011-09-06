@@ -45,6 +45,14 @@
 <%= f.link_to_add "Add a page", :homepages %>
 </div>
 
+<div class="well">
+	<h2>Deleting</h2>
+	<% if not @user.genotypes.empty? %>
+	<p><%= link_to "Delete your genotype", @user.genotypes, :method => "delete", :confirm => "Are you sure you want to delete your genotype?" %></p>
+	<% end %>
+	<p>Delete this user</p>
+</div>
+
 <div class="actions">
 	<%= f.submit %>
 </div>
