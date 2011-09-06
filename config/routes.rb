@@ -10,6 +10,7 @@ Snpr::Application.routes.draw do
   resources :news
   resources :messages
   resources :snp_comments
+  resources :phenotype_comments
   resources :search_results
   
   match '/signup', :to => 'users#new'

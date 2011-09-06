@@ -15,7 +15,6 @@ class SnpCommentsController < ApplicationController
 
 	def create
 		@snp_comment = SnpComment.new(params[:snp_comment])
-		logger.debug @snp_comment
 		if @snp_comment.comment_text.index("@") == nil
 			@snp_comment.reply_to_id = -1
 		else
@@ -27,10 +26,9 @@ class SnpCommentsController < ApplicationController
 			@snp_comment.reply_to_id =  User.find_by_name(@referred_to).id
 		end
 		@snp_comment.user_id = current_user.id
-		logger.debug current_user.inspect
 		@snp_comment.snp_id = params[:snp_comment][:snp_id]
   		if @snp_comment.save
-			redirect_to "/snps/"+Snp.find_by_id(@snp_comment.snp_id).id.to_s + "#comments", :notice => 'Comment succesfully created.'
+			redirect_to "/snps/"+@snp_comment.snp_id.to_s + "#comments", :notice => 'Comment succesfully created.'
 		else
 			render :action => "new"
   		end

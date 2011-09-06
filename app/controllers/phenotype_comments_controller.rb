@@ -13,14 +13,19 @@ class PhenotypeCommentsController < ApplicationController
 
 	def create
 		@phenotype_comment = PhenotypeComment.new(params[:phenotype_comment])
+		if @phenotype_comment.comment_text.index("@") == nil
+			@phenotype_comment.reply_to_id = -1
+		else
+			@all_comments = Phenotype.find_by_id(@phenotype_comment.snp_id).phenotype_comments
+			@referred_to = @phenotype_comment.comment_text.split()[0].chomp(":").gsub("@","")
+			@phenotype_comment.reply_to_id = User.find_by_name(@referred_to).id
+		end
 		@phenotype_comment.user_id = current_user.id
 		@phenotype_comment.phenotype_id = params[:phenotype_comment][:phenotype_id]
   		if @phenotype_comment.save
-			format.html { redirect_to(current_user, :notice => 'Comment succesfully created.') }
-			format.xml { render :xml => @phenotype, :status => :created, :location => @phenotype }
+			redirect_to "/phenotypes/"+@phenotype_comment.phenotype_id.to_s+"#comments", :notice => 'Comment succesfully created.'
 		else
-			format.html { render :action => "new" }
-  			format.xml { render :xml => @phenotype_comment.errors, :status => :unprocessable_entity }
+			render :action => "new" 
   		end
   	end
 

@@ -72,7 +72,8 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		
 		if @user.update_attributes(params[:user])
-			redirect_to @user, :notice => "Successfully updated."
+			flash[:notice] =  "Successfully updated."
+			redirect_to :controller => "users", :id => @user.id, :action => "edit"
 		else
 			render :action => 'edit' 
 		end

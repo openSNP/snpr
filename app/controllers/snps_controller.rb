@@ -12,38 +12,40 @@ class SnpsController < ApplicationController
 	
 	def show
 		@snp = Snp.find_by_id(params[:id])
+		@title = @snp.name
 		@comments = SnpComment.where(:snp_id => params[:id]).all(:order => "created_at DESC")
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
-    @total_genotypes = 0
-    @snp.genotype_frequency.each do |key,value|
-      @total_genotypes += value
-    end
+		@total_genotypes = 0
+		
+		@snp.genotype_frequency.each do |key,value|
+		  @total_genotypes += value
+		end
     
-    @total_alleles = 0
-    @snp.allele_frequency.each do |key,value|
-      @total_alleles += value
-    end
-    
-    Resque.enqueue(Plos,@snp)
-    Resque.enqueue(Mendeley,@snp)
-	  Resque.enqueue(Snpedia,@snp)
-	  
-	  @snp_comment = SnpComment.new
-	  	  
+		@total_alleles = 0
+		@snp.allele_frequency.each do |key,value|
+		  @total_alleles += value
+		end
+		
+		Resque.enqueue(Plos,@snp)
+		Resque.enqueue(Mendeley,@snp)
+		Resque.enqueue(Snpedia,@snp)
+		  
+	    @snp_comment = SnpComment.new
+			  
 		respond_to do |format|
 			format.html
 			format.xml
 		end
-	end
-	
-	private
-	
-	def sort_column
-		Snp.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+		end
+		
+		private
+		
+		def sort_column
+			Snp.column_names.include?(params[:sort]) ? params[:sort] : "name"
+	  end
+	  
+	  def sort_direction
+		%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+	  end
 
-end
+	end
