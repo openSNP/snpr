@@ -15,14 +15,25 @@ class SnpCommentsController < ApplicationController
 
 	def create
 		@snp_comment = SnpComment.new(params[:snp_comment])
+		logger.debug @snp_comment
+		if @snp_comment.comment_text.index("@") == nil
+			@snp_comment.reply_to_id = -1
+		else
+			# find the comment this post links to
+			# all comments
+			@all_comments = Snp.find_by_id(@snp_comment.snp_id).snp_comments
+			# user to which we're talking
+			@referred_to = @snp_comment.comment_text.split()[0].chomp(":").gsub("@","")
+			@referred_to_id = User.find_by_name(@referred_to).id
+			@snp_comment.reply_to_id = @all_comments.find_by_user_id(@referred_to_id)
+		end
 		@snp_comment.user_id = current_user.id
+		logger.debug current_user.inspect
 		@snp_comment.snp_id = params[:snp_comment][:snp_id]
   		if @snp_comment.save
-			format.html { redirect_to(current_user, :notice => 'Comment succesfully created.') }
-			format.xml { render :xml => @snp, :status => :created, :location => @snp }
+			redirect_to "/snps/"+Snp.find_by_id(@snp_comment.snp_id).id.to_s + "#comments", :notice => 'Comment succesfully created.'
 		else
-			format.html { render :action => "new" }
-  			format.xml { render :xml => @snp_comment.errors, :status => :unprocessable_entity }
+			render :action => "new"
   		end
   	end
 
