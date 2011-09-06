@@ -18,7 +18,7 @@ class PhenotypeCommentsController < ApplicationController
 		else
 			@all_comments = Phenotype.find_by_id(@phenotype_comment.snp_id).phenotype_comments
 			@referred_to = @phenotype_comment.comment_text.split()[0].chomp(":").gsub("@","")
-			@phenotype_comment.reply_to_id = User.find_by_name(@referred_to).id
+			@phenotype_comment.reply_to_id = @all_comments.find_by_user_id(User.find_by_name(@referred_to).id).id
 		end
 		@phenotype_comment.user_id = current_user.id
 		@phenotype_comment.phenotype_id = params[:phenotype_comment][:phenotype_id]

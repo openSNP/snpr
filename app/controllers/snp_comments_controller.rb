@@ -23,7 +23,7 @@ class SnpCommentsController < ApplicationController
 			@all_comments = Snp.find_by_id(@snp_comment.snp_id).snp_comments
 			# user to which we're talking
 			@referred_to = @snp_comment.comment_text.split()[0].chomp(":").gsub("@","")
-			@snp_comment.reply_to_id =  User.find_by_name(@referred_to).id
+			@snp_comment.reply_to_id = @all_comments.find_by_user_id(User.find_by_name(@referred_to).id).id
 		end
 		@snp_comment.user_id = current_user.id
 		@snp_comment.snp_id = params[:snp_comment][:snp_id]
