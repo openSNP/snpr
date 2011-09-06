@@ -78,4 +78,17 @@ class UsersController < ApplicationController
 			render :action => 'edit' 
 		end
 	end
+
+	def destroy
+		@user = User.find(params[:id])
+		# delete the genotype
+		@genotype = @user.genotypes[0]
+		if @genotype
+			Resque.enqueue(Deletegenotype, @genotype)
+			@genotype.delete
+		end
+		flash[:notice] = "Thank you for using SNPr. Goodbye!"
+        User.delete(@user)
+		redirect_to root_url
+	end
 end

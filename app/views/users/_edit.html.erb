@@ -50,7 +50,7 @@
 	<% if not @user.genotypes.empty? %>
 	<p><%= link_to "Delete your genotype", @user.genotypes, :method => "delete", :confirm => "Are you sure you want to delete your genotype?" %></p>
 	<% end %>
-	<p>Delete this user</p>
+	<p><%= link_to "Delete this account", @user, :method => "delete", :confirm => "Are you sure you want to delete your account?" %></p>
 </div>
 
 <div class="actions">

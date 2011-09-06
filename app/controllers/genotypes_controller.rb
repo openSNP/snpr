@@ -53,7 +53,7 @@ class GenotypesController < ApplicationController
 		@genotype.user=current_user
 		@genotype.uploadtime=Time.new
 		@genotype.filetype=params[:genotype][:filetype]
-		@genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
+		@genotype.originalfilename=params[:genotype][:filename].ofindriginal_filename if params[:genotype][:filename]
    
 		if @genotype.save
      		@genotype.move_file
@@ -72,15 +72,15 @@ class GenotypesController < ApplicationController
 	def feed
 		# for rss-feeds
 		@genotypes = Genotype.all(:order => "created_at DESC", :limit => 20)
-        render :action => "rss", :layout => false
+        	render :action => "rss", :layout => false
 	end
 
 	def destroy
 		@user = current_user
 		@genotype = Genotype.find_by_user_id(@user.id)
 		Resque.enqueue(Deletegenotype, @genotype)
-        if @genotype.delete
-          flash[:notice] = "Genotyping was successfully deleted."
+        	if @genotype.delete
+          	  flash[:notice] = "Genotyping was successfully deleted."
 		  @user.toggle!(:has_sequence)
 		  @user.update_attributes(:sequence_link => nil)
 		  redirect_to current_user
