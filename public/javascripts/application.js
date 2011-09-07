@@ -9,3 +9,9 @@ $(document).ready(function()
 	
     } 
 );
+
+
+function AddItem(ItemId)
+{
+document.Form.new_comment.snp_comment[comment_text] = document.Form.new_comment.snp_comment[comment_text] + '@#' + ItemId+':';
+} 

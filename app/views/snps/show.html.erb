@@ -1,5 +1,4 @@
 <h2>SNP <%= @snp.name %></h2>
-
 <table>
 	<tr>
 		<th>ID</th>
@@ -42,7 +41,7 @@
 	<tr>
 		<th>First Author</th>
 		<th>Title</th>
-		<th>Publication Date</th>
+		<th>Year of Publication</th>
 		<th># of readers</th>
 	</tr>
 	</thead>
@@ -51,7 +50,7 @@
 		<tr>
 			<td><%=p.first_author%></td> 
 			<td><%=link_to( p.title, "http://dx.doi.org/"+p.doi)%></td>
-			<td><%=p.pub_date.to_s[0,10]%></td>
+			<td><%=p.pub_date.to_s[6,4]%></td>
 			<td><%=p.reader%></td>
 		</tr>
 	<%end%>
