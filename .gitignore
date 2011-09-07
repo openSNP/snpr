@@ -1,4 +1,5 @@
 dump.rdb
+sunspot-solr-development.log.*
 key_mendeley.txt
 key_plos.txt
 api_key.txt
