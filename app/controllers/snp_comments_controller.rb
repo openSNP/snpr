@@ -15,15 +15,13 @@ class SnpCommentsController < ApplicationController
 
 	def create
 		@snp_comment = SnpComment.new(params[:snp_comment])
-		if @snp_comment.comment_text.index("@") == nil
+		if @snp_comment.comment_text.index(/\A(\@\#\d*\:)/) == nil
 			@snp_comment.reply_to_id = -1
 		else
 			# find the comment this post links to
-			# all comments
-			@all_comments = Snp.find_by_id(@snp_comment.snp_id).snp_comments
 			# user to which we're talking
-			@referred_to = @snp_comment.comment_text.split()[0].chomp(":").gsub("@","")
-			@snp_comment.reply_to_id = @all_comments.find_by_user_id(User.find_by_name(@referred_to).id).id
+			@snp_comment.reply_to_id = @snp_comment.comment_text.split()[0].chomp(":").gsub("@#","").to_i
+			@snp_comment.comment_text.gsub(/\A(\@\#\d*\:)/,"")
 		end
 		@snp_comment.user_id = current_user.id
 		@snp_comment.snp_id = params[:snp_comment][:snp_id]

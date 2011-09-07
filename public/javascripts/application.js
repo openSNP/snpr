@@ -9,9 +9,3 @@ $(document).ready(function()
 	
     } 
 );
-
-
-function AddCommentId(ItemId)
-{
-document.Form.new_comment.snp_comment[comment_text].value = document.Form.new_comment.snp_comment[comment_text].value + '@#' + ItemId+':';
-} 
