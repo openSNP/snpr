@@ -39,4 +39,7 @@ def delete_file
 	FileUtils.rm(::Rails.root.to_s+"/public/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s)
 end
 
+def download
+	return "/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s
+end
 end
