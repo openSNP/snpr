@@ -5,6 +5,7 @@ class CreatePhenotypeComments < ActiveRecord::Migration
 		  t.string :subject
 		  t.belongs_to :user
 		  t.belongs_to :phenotype
+		  t.integer :reply_to_id
 		  t.timestamps
 	  end
   end
