@@ -26,6 +26,12 @@ gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
 
+group :test do
+  gem 'shoulda-context'
+  gem 'shoulda-matchers'
+  gem 'factory_girl'
+end
+
 # gem 'email_veracity' # to check whether user-mails are OK
 # authlogic does that anyway
 
