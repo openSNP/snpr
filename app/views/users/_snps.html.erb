@@ -1,0 +1,25 @@
+<table>
+	<tr>
+		<th>SNP-ID</th>
+		<th>Name</th>
+		<th>Position</th>
+		<th>Chromosome</th>
+		<th>Genotype-Frequency</th>
+		<th>Allele-Frequency</th>
+		<th>Ranking</th>
+	</tr>
+	<% @snps.each do |s| %>
+		<tr>
+			<td><%= s.id%></td>
+			<td><%= link_to s.name, s%></td>
+			<td><%= s.position %></td>
+			<td><%= s.chromosome %></td>
+			<td><%= s.genotype_frequency.keys()[0] + " = " + s.genotype_frequency.values()[0].to_s%></td>
+			<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " " %><% end %> </td>
+			<td><%= s.ranking %></td>
+	</tr>
+<% end %>
+</table>
+<div class="pagination">
+<%= will_paginate(@snps) %>
+</div>

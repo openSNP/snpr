@@ -1,5 +1,4 @@
 class GenotypesController < ApplicationController
-  before_filter :require_user,:except => [:feed,:show] 
   
   def new
 		@genotype = Genotype.new

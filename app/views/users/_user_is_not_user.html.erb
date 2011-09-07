@@ -3,12 +3,12 @@
 	<div class="span6 columns"><h5><%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div>
 </div>
 <% if @user.has_sequence == true %>
-	<p><%= @first_name %> has uploaded a SNP-set.</p>
+	<p><%= @first_name %> has uploaded a SNP-set. <%= link_to "Download this set", @user.genotypes[0].download%></p>
 <% else %>
 	<p><%= @first_name %> has not uploaded any sequences.</p>
 <% end %>
 
-<h3>On <%= @first_name %>:</h3>
+<% if @user.description != "" and not @user.homepages.empty?%><h3>On <%= @first_name %>:</h3><%end %>
 <p><% if @user.description != "" %><%= @user.description %><% else %><%=@first_name%> has not entered a description yet.<% end %> </p>
 <% if @user.homepages != [] %>
 	<p>
@@ -19,5 +19,17 @@
 	<% end %>
 <% end %>
 </p>
-<h3><%= @first_name %>'s variations:</h3>
-<p><%= render "variations" %></p>
+
+<div id="tab-container">
+	<ul class="tabs">
+		<% if @user.has_sequence %><li><a href="#snps"><%=@first_name%>'s SNPs</a></li><% end %>
+		<li><a href="#variations"><%= @first_name %>'s variations</a></li>
+	</ul>
+	<div id="variations">
+		<%= render "variations" %>
+	</div>
+	<% if @user.has_sequence %>
+	<div id="snps">
+		<%= render "snps" %>
+	</div>
+<%end%>
