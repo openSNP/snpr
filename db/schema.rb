@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
     t.string   "subject"
     t.integer  "user_id"
     t.integer  "phenotype_id"
+    t.integer  "reply_to_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
