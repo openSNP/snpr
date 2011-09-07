@@ -41,9 +41,9 @@
 	<thead>
 	<tr>
 		<th>First Author</th>
-		<th>Title<th>
+		<th>Title</th>
 		<th>Publication Date</th>
-		<th>DOI</th>
+		<th># of readers</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -51,8 +51,8 @@
 		<tr>
 			<td><%=p.first_author%></td> 
 			<td><%=link_to( p.title, "http://dx.doi.org/"+p.doi)%></td>
-			<td><%=p.pub_date%></td>
-			<td><%=p.doi%></td>
+			<td><%=p.pub_date.to_s[0,10]%></td>
+			<td><%=p.reader%></td>
 		</tr>
 	<%end%>
 	</tbody>
