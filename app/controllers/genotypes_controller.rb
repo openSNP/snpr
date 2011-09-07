@@ -78,6 +78,7 @@ class GenotypesController < ApplicationController
 	def destroy
 		@user = current_user
 		@genotype = Genotype.find_by_user_id(@user.id)
+		File.delete(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename)
 		Resque.enqueue(Deletegenotype, @genotype)
         	if @genotype.delete
           	  flash[:notice] = "Genotyping was successfully deleted."
