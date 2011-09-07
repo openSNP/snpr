@@ -21,7 +21,7 @@ class SnpCommentsController < ApplicationController
 			# find the comment this post links to
 			# user to which we're talking
 			@snp_comment.reply_to_id = @snp_comment.comment_text.split()[0].chomp(":").gsub("@#","").to_i
-			@snp_comment.comment_text.gsub(/\A(\@\#\d*\:)/,"")
+			@snp_comment.comment_text = @snp_comment.comment_text.gsub(/\A(\@\#\d*\:)/,"")
 		end
 		@snp_comment.user_id = current_user.id
 		@snp_comment.snp_id = params[:snp_comment][:snp_id]
