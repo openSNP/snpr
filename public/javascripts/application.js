@@ -11,7 +11,7 @@ $(document).ready(function()
 );
 
 
-function AddItem(ItemId)
+function AddCommentId(ItemId)
 {
-document.Form.new_comment.snp_comment[comment_text] = document.Form.new_comment.snp_comment[comment_text] + '@#' + ItemId+':';
+document.Form.new_comment.snp_comment[comment_text].value = document.Form.new_comment.snp_comment[comment_text].value + '@#' + ItemId+':';
 } 
