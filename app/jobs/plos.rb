@@ -38,6 +38,7 @@ class Plos
           @snp.save
         else
           print "-> paper is old"
+          @plos_paper = PlosPaper.find_by_doi(doi)
         end
         Resque.enqueue(PlosDetails,@plos_paper)
       end

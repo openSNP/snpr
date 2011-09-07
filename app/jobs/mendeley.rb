@@ -47,6 +47,7 @@ class Mendeley
                print "-> Written paper\n"
             else
                print "-> paper is old\n"
+               @mendeley_paper = MendeleyPaper.find_by_uuid(uuid)
             end
             Resque.enqueue(MendeleyDetails,@mendeley_paper)
          end
