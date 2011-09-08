@@ -30,7 +30,7 @@ class Parsing
                if snp_array.length == (4)
                   # if we do not have the fitting SNP, make one and parse all paper-types for it
                   if Snp.find_by_name(snp_array[0]) == nil
-                     @snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking = 0)
+                     @snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
 					 @snp.save
                      Resque.enqueue(Plos,@snp)
                      Resque.enqueue(Mendeley,@snp)
