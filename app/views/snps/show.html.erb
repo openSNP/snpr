@@ -1,37 +1,72 @@
 <h2>SNP <%= @snp.name %></h2>
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Position</th>
-		<th>Chromosome</th>
-		<th>Genotype-Frequency</th>
-		<th>Allele-Frequency</th>
-		<th>Ranking</th>
-	</tr>
-	<tr>
-		<td><%= @snp.id %></td>
-		<td><%= @snp.name %></td>
-		<td><%= @snp.position %></td>
-		<td><%= @snp.chromosome %></td>
-		<td><%@snp.genotype_frequency.each do |key,value|%>
-			<%=key+" = "+(value.to_f/@total_genotypes).to_s+"\t"%>
-			<%end%>
-			</td>
-		<td><% @snp.allele_frequency.each do |key,value| %>
-			<%=key+" = "+(value.to_f/@total_alleles).to_s+"\t"%>
-			<%end%></td>
-		<td><%= @snp.ranking %></td>
-	</tr>
-</table>
-
+<div class="row">
+	<div class="span5 columns">
+		<table>
+			<tr>
+				<th> </th>
+				<th> </th>
+			</tr>
+			<tr>
+				<td><b>Name</b></td>
+				<td><%=@snp.name%></td>
+			</tr>
+			<tr>
+				<td><b>Chromosome</b></td>
+				<td><%=@snp.chromosome%></td>
+			</tr>
+			<tr>
+				<td><b>Position</b></td>
+				<td><%=@snp.position%></td>
+			</tr>
+			<tr>
+				<td><b>Weight of evidence</b></td>
+				<td><%=@snp.ranking%></td>
+				</tr>
+		</table>
+	</div>
+	<div class="span2 offset5 columns">
+		<table>
+			<thead>
+				<tr>
+					<th>Genotype</th>
+					<th>Frequency</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%@snp.genotype_frequency.each do |key,value|%>
+				<tr>
+					<td><%=key%></td>
+					<td><%=value.to_f/@total_genotypes%></td>
+				</tr>
+				<%end%>
+			</tbody>
+			</table>
+	</div>
+	<div class="span2 offset2 columns">
+		<table>
+			<thead>
+				<tr>
+					<th>Allele</th>
+					<th>Frequency</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%@snp.allele_frequency.each do |key,value|%>
+				<tr>
+					<td><%=key%></td>
+					<td><%=value.to_f/@total_alleles%></td>
+				</tr>
+				<%end%>
+			</tbody>
+			</table>
+	</div>
 <div id="tab-container">
   <ul class="tabs">
     <li><a href="#snpedia">SNPedia</a></li>
     <li><a href="#plos">PLoS</a></li>
     <li><a href="#mendeley">Mendeley</a></li>
     <li><a href="#users">Other users</a></li>
-    <li><a href="#comments">Comments</a></li>
+    <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
   </ul>
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>

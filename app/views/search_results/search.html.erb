@@ -23,7 +23,7 @@
 	<h5>Users</h5>
 	<ul>
 <% for u in @users.results %>
-	<li><%= link_to p.name p %></li>
+	<li><%= link_to u.name %></li>
 <% end %>
 </ul>
 <% end %>
@@ -32,7 +32,7 @@
 	<ul>
 <% for p in @user_phenotypes.results %>
 	<li><%= Phenotype.where(:id => p.phenotype_id)%></li>
-	<li><%= link_to p.name p %></li>
+	<li><%= link_to p.user.name %></li>
 <% end %>
 </ul>
 <% end %>
