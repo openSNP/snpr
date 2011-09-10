@@ -1,6 +1,6 @@
 <h1>Hello <%= @first_name %>!</h1>
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
-	<p>You have messages!</p>
+	<p><a href="#messages">You have messages!</a></p>
 <% end %>
 	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
 
@@ -16,7 +16,7 @@
 <% if @user.has_sequence == true %>
 	<%= render "snps" %>
 <% else %>
-	<p>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></p>
+	<h2>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h2>
 <% end %>
 </div>
 
@@ -37,7 +37,7 @@
 	</tr>
 <% @received_messages.each do |m| %>
 	<tr>
-	<td><%= User.find_by_id(m.from_id).name %></td>
+	<td><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	<td><% if m.user_has_seen == false %>New!<% end %></td>
 	</tr>

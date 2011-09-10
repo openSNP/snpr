@@ -3,13 +3,13 @@
 	<tr>
 		<th>Name</th>
 		<th>SNPs</th>
-		<th></th>
+		<th># of Phenotypes</th>
 	</tr>	
 <% @users.each do |u| %>
 	<tr>
-		<td><%= u.name %></td>
+		<td><%= link_to(u.name,u) %></td>
 		<td><% if u.has_sequence %>Yes<% else %>No<% end %></td>
-		<td><%= link_to("Profile", u) %></td>
+		<td><%=u.phenotypes.length%></td>
 	</td>
 <% end %>
 </table>

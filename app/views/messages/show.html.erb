@@ -1,11 +1,12 @@
 <h1>Message</h1>
-<p>From: <%= link_to @from.name, @from %></p>
-<p>To: <%= link_to @to.name, @to %></p>
-<p>Received on: <%= @message.created_at %></p>
+<h4>From: <%= link_to @from.name, @from %>, received on <%= @message.created_at %></h4>
 <h3>Subject: <%=@message.subject %></h3>
+
 <div class="well">
 <p><%= @message.body %></p>
 </div>
-<%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "primary btn"%>
+<p><%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id}, :class => "btn primary" %></p>
+<p><%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "danger btn"%></p>
+
 
 <%= link_to "Back to your homepage", current_user %>
