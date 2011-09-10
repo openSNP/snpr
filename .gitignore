@@ -13,3 +13,6 @@ development.log
 server.pid
 *.swp
 solr/data
+config/database.yml
+vendor/bundle
+public/data
