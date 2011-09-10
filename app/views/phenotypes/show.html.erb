@@ -1,6 +1,11 @@
 <h1>Phenotype: <%= @phenotype.characteristic %></h1>
+<div id="tab-container">
+	<ul class="tabs">
+		<li><a href="#users">Users sharing this phenotype</a></li>
+		<li><a href="#comments">Comments</a></li>
+	</ul>
 
-<h3>The following users share this phenotype</h3>
+	<div id="users">
 <table class="zebra-striped">
 	<tr>
 		<th>User</th>
@@ -13,6 +18,7 @@
 	</tr>
 <% end %>
 </table>
+</div>
   
 <div id="comments">
 <%= render 'phenotype_comments/show' %>
