@@ -1,4 +1,7 @@
 <h1>Phenotype: <%= @phenotype.characteristic %></h1>
+<%@phenotype.known_phenotypes.each do |p|%>
+<%=p%>
+<%end%>
 <div id="tab-container">
 	<ul class="tabs">
 		<li><a href="#users">Users sharing this phenotype</a></li>

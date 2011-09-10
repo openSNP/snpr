@@ -2,6 +2,7 @@ class CreatePhenotypes < ActiveRecord::Migration
   def self.up
 	  create_table :phenotypes do |p|
 		  p.string :characteristic  # e.g. haircolor
+		  p.string :known_phenotypes
 		  p.timestamps
 	  end
   end
