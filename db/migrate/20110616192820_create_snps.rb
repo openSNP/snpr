@@ -6,7 +6,7 @@ class CreateSnps < ActiveRecord::Migration
 		  t.string :chromosome
 		  t.string :genotype_frequency
 		  t.string :allele_frequency
-		  t.string :ranking
+		  t.integer :ranking
 		  t.timestamps
 	  end
 
