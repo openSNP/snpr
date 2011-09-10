@@ -7,6 +7,9 @@ class CreateSnps < ActiveRecord::Migration
 		  t.string :genotype_frequency
 		  t.string :allele_frequency
 		  t.integer :ranking
+		  t.timestamp :mendeley_updated, :default => Time.zone.now-3000000
+		  t.timestamp :plos_updated, :default => Time.zone.now-3000000
+		  t.timestamp :snpedia_updated, :default => Time.zone.now-3000000
 		  t.timestamps
 	  end
 
