@@ -1,3 +1,11 @@
+<script>
+	$(function autoComp(data,id) {
+		var availableTags = data;
+		$(id).autocomplete({
+			source: availableTags
+		});
+	});
+</script>
 <% # helper thing so we don't have to put up fields into every page %>
 <%= nested_form_for(@user, :html => { :class => "form-stacked" } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
@@ -22,11 +30,12 @@
 
 <div class="well">
 <h2>Phenotypes</h2>
-	<%= f.fields_for :user_phenotypes do |p| %>
+<%= f.fields_for :user_phenotypes do |p| %>
 	 <div class="field">
-		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation%> <%= p.link_to_remove "Remove"%><br/>
+		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => p.object.phenotype_id%> <%= p.link_to_remove "Remove"%><br/>
 	 </div>
- <% end %>
+<%end %>
+
  <%= link_to "Add a new phenotype", :controller => "phenotypes", :action => "new" %>
  </div>
 
