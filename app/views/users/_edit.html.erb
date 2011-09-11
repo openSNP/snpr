@@ -32,6 +32,11 @@
 <h2>Phenotypes</h2>
 <%= f.fields_for :user_phenotypes do |p| %>
 	 <div class="field">
+		
+		<script type="text/javascript">
+		$(document).ready(autoComp(<%=Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json%>,<%=p.object.phenotype_id.to_json%>));
+		</script>
+		
 		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => p.object.phenotype_id%> <%= p.link_to_remove "Remove"%><br/>
 	 </div>
 <%end %>
