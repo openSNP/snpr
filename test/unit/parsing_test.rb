@@ -14,7 +14,6 @@ class ParsingTest < ActiveSupport::TestCase
     should "parse 23andMe data" do
       @genotype = Factory :genotype,
         originalfilename: @file_23andMe.split('/').last, filetype: '23andme'
-      assert_equal '23andme', @genotype.filetype
       FileUtils.cp @file_23andMe, 
         "#{Rails.root}/public/data/#{@genotype.user.id}.#{@genotype.filetype}.#{@genotype.id}"
       Parsing.perform('genotype' => @genotype.attributes)
@@ -49,7 +48,6 @@ class ParsingTest < ActiveSupport::TestCase
     should "parse deCODEme data" do
       @genotype = Factory :genotype,
         originalfilename: @file_deCODEme.split('/').last, filetype: 'decodeme'
-      assert_equal 'decodeme', @genotype.filetype
       FileUtils.cp @file_deCODEme, 
         "#{Rails.root}/public/data/#{@genotype.user.id}.#{@genotype.filetype}.#{@genotype.id}"
       Parsing.perform('genotype' => @genotype.attributes)

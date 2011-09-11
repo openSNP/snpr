@@ -25,6 +25,7 @@ gem "will_paginate", "3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
+gem 'activerecord-import'
 
 group :test do
   gem 'shoulda-context'
