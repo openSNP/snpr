@@ -30,6 +30,9 @@ GEM
       activesupport (= 3.0.10)
       arel (~> 2.0.10)
       tzinfo (~> 0.3.23)
+    activerecord-import (0.2.8)
+      activerecord (~> 3.0pre)
+      activerecord (~> 3.0pre)
     activeresource (3.0.10)
       activemodel (= 3.0.10)
       activesupport (= 3.0.10)
@@ -127,6 +130,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   authlogic
   factory_girl
   jquery-rails
