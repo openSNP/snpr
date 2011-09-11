@@ -72,7 +72,16 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		
 		if @user.update_attributes(params[:user])
-			flash[:notice] =  "Successfully updated."
+			
+			params["user"]["user_phenotypes_attributes"].each do |p|
+			  @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
+			  if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
+			    @phenotype.known_phenotypes << p[1]["variation"]
+			    @phenotype.save
+		    end
+		  end
+		  
+			flash[:notice] =  "Successfully updated"
 			redirect_to :controller => "users", :id => @user.id, :action => "edit"
 		else
 			render :action => 'edit' 

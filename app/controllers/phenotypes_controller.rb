@@ -14,25 +14,26 @@ class PhenotypesController < ApplicationController
 
 	def create
 		@phenotype = Phenotype.create(params[:phenotype])
+				
 		# check if phenotype exists
 		if Phenotype.find_by_characteristic(@phenotype.characteristic) == nil
 			@phenotype.save
-		end
-        
-		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
-		
+    end
+
 		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
 		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
 		  @phenotype.save
 	  end
-		
+        
+		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
+	
 		if @user_phenotype.save
 			redirect_to current_user
 		else
 			redirect_to :action => "new", :notice => "Something went wrong in creating the phenotype"
 		end
 	end
-
+  
 	def show
 		#@phenotypes = Phenotype.where(:user_id => current_user.id).all
 		#@title = "Phenotypes"

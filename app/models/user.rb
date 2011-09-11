@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 		   @phen_id = Phenotype.find_by_characteristic(charact).id
 		   UserPhenotype.create(:phenotype_id => @phen_id, :variation => '', :user_id => id)
 	   else
-		   @phen_id = Phenotype.create(:characteristic => charact).id
+		   @phen_id = Phenotype.create(:characteristic => charact,:known_phenotypes => []).id
      	   UserPhenotype.create(:phenotype_id => @phen_id, :variation => '', :user_id => id)
 	   end
    end
