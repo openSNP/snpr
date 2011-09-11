@@ -1,11 +1,3 @@
-<script>
-	$(function autoComp(data,id) {
-		var availableTags = data;
-		$(id).autocomplete({
-			source: availableTags
-		});
-	});
-</script>
 <% # helper thing so we don't have to put up fields into every page %>
 <%= nested_form_for(@user, :html => { :class => "form-stacked" } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
@@ -34,10 +26,14 @@
 	 <div class="field">
 		
 		<script type="text/javascript">
-		$(document).ready(autoComp(<%=Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json%>,<%=p.object.phenotype_id.to_json%>));
+		  $(function () {
+		    $("#phenotype_<%=p.object.phenotype_id.to_json%>").autocomplete({
+		      source: <%=raw(Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json)%>
+		    });
+		  });
 		</script>
 		
-		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => p.object.phenotype_id%> <%= p.link_to_remove "Remove"%><br/>
+		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
 	 </div>
 <%end %>
 
