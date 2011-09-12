@@ -1,6 +1,16 @@
 class PhenotypesController < ApplicationController
     before_filter :require_user
+	  helper_method :sort_column, :sort_direction
 	
+	def index
+	  @phenotypes = Phenotype.order(sort_column + " " + sort_direction)
+	  @phenotypes_paginate = @phenotypes.paginate(:page => params[:page],:per_page => 10)
+    respond_to do |format|
+			format.html
+			format.xml 
+		end
+  end
+  
 	def new
 		@phenotype = Phenotype.new
 		@user_phenotype = UserPhenotype.new
@@ -58,4 +68,14 @@ class PhenotypesController < ApplicationController
 			format.xml
 		end
 	end
+	
+	  private
+	  
+		def sort_column
+			Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "characteristic"
+	  end
+	  
+	  def sort_direction
+		%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+	  end
 end

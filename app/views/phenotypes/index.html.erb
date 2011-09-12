@@ -1,0 +1,23 @@
+<h1>Listing all Phenotypes</h1>
+<table class="zebra-striped" id="no_snp_overview">
+<thead>
+<tr>
+	<th><%= sortable "id", "ID"%></th>
+	<th><%= sortable "characteristic","Phenotype"%></th>
+	<th>Number of Variations</th>
+</tr>
+</thead>
+<tbody>
+<% @phenotypes_paginate.each do |s| %>
+	<tr>
+	<td><%= s.id %></td>
+	<td><%= link_to(s.characteristic, s) %></td>
+	<td><%=s.known_phenotypes.length.to_i%></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<div class="pagination">
+<%= will_paginate(@phenotypes_paginate) %>
+</div>
+
