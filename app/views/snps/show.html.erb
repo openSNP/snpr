@@ -25,7 +25,22 @@
 				</tr>
 		</table>
 	</div>
-	<div class="span4 offset3 columns">
+	
+	<div class="span3 columns">
+		<%if current_user != nil%>
+			<h6><center>Your Genotype</center></h6>
+			<table>
+				<tr>
+				<th> </th>
+				</tr>
+				<tr>
+			<td><center><b><%=@user_snp.local_genotype%></b></center></td>
+			</tr>
+			</table>
+		<%end%>
+		</div>
+	
+	<div class="span4 columns">
 		<h6><center>Genotype Frequency</center></h6>
 		<table>
 			<thead>
@@ -36,10 +51,24 @@
 			</thead>
 			<tbody>
 				<%@snp.genotype_frequency.each do |key,value|%>
+				<%if current_user != nil%>
+					<%if key == @user_snp.local_genotype%>
+					<tr>
+						<td><b><%=key%></b></td>
+						<td><b><%=(value.to_f/@total_genotypes).to_s[0,4]%></b></td>
+					</tr>
+					<%else%>
+					<tr>
+						<td><%=key%></td>
+						<td><%=(value.to_f/@total_genotypes).to_s[0,4]%></td>
+					</tr>
+					<%end%>
+				<%else%>
 				<tr>
 					<td><%=key%></td>
-					<td><%=value.to_f/@total_genotypes%></td>
+					<td><%=(value.to_f/@total_genotypes).to_s[0,4]%></td>
 				</tr>
+				<%end%>
 				<%end%>
 			</tbody>
 			</table>
@@ -57,7 +86,7 @@
 				<%@snp.allele_frequency.each do |key,value|%>
 				<tr>
 					<td><%=key%></td>
-					<td><%=value.to_f/@total_alleles%></td>
+					<td><%=(value.to_f/@total_alleles).to_s[0,4]%></td>
 				</tr>
 				<%end%>
 			</tbody>
@@ -147,10 +176,17 @@
 			<th>Link</th>
 		</tr>
 		<% @snp.snpedia_paper.each do |p| %>
+		<%if current_user != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
+		<tr>
+			<td><b><%= p.summary.capitalize %></b></td>
+			<td><b><%= link_to p.url, p.url %></b></td>
+		</b></tr>
+		<%else%>
 		<tr>
 			<td><%= p.summary.capitalize %></td>
 			<td><%= link_to p.url, p.url %></td>
 		</tr>
+		<% end%>
 		<% end %>
 	</table>
 <% else %>
