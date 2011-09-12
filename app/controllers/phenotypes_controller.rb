@@ -38,10 +38,13 @@ class PhenotypesController < ApplicationController
 		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
 	  end
 	  @phenotype.save
-        
+	  @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
+    
 		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
 	
 		if @user_phenotype.save
+		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
+      @phenotype.save
 			redirect_to current_user
 		else
 			redirect_to :action => "new", :notice => "Something went wrong in creating the phenotype"

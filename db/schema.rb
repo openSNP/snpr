@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
   create_table "phenotypes", :force => true do |t|
     t.string   "characteristic"
     t.string   "known_phenotypes"
+    t.integer  "number_of_users"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -109,9 +110,10 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
     t.string   "genotype_frequency"
     t.string   "allele_frequency"
     t.integer  "ranking"
-    t.datetime "mendeley_updated",   :default => '2011-08-08 01:33:04'
-    t.datetime "plos_updated",       :default => '2011-08-08 01:33:04'
-    t.datetime "snpedia_updated",    :default => '2011-08-08 01:33:04'
+    t.integer  "number_of_users"
+    t.datetime "mendeley_updated",   :default => '2011-08-09 03:37:41'
+    t.datetime "plos_updated",       :default => '2011-08-09 03:37:41'
+    t.datetime "snpedia_updated",    :default => '2011-08-09 03:37:41'
     t.datetime "created_at"
     t.datetime "updated_at"
   end

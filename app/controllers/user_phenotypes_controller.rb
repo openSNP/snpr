@@ -20,10 +20,11 @@ class UserPhenotypesController < ApplicationController
 		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
 		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
 	  end
-	  @phenotype.save
 		
   		if @user_phenotype.save
-			redirect_to "/phenotypes/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
+  		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
+    	  @phenotype.save
+			  redirect_to "/phenotypes/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
 		else
 			render :action => "new" 
   		end
