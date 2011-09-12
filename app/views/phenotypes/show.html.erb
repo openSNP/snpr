@@ -1,6 +1,7 @@
 <h1>Phenotype: <%= @phenotype.characteristic %></h1>
 <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
-<h3><%= link_to("Add this phenotype",:action => "new") %></h3>
+
+<%= render 'user_phenotypes/form' %>
 <%end%>
 
 <h6>Known Phenotypes:</h6>
