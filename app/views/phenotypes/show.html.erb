@@ -7,7 +7,9 @@
 <h6>Known Phenotypes:</h6>
 <ul>
 <%@phenotype.known_phenotypes.each do |p|%>
+<%if p != ""%>
 <li><%=p%></li>
+<%end%>
 <%end%>
 </ul>
 
