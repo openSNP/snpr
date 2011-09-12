@@ -1,6 +1,7 @@
 <h2>SNP <%= @snp.name %></h2>
 <div class="row">
 	<div class="span5 columns">
+		<h6><center>Basic Information</center></h6>
 		<table>
 			<tr>
 				<th> </th>
@@ -24,12 +25,13 @@
 				</tr>
 		</table>
 	</div>
-	<div class="span2 offset5 columns">
+	<div class="span4 offset3 columns">
+		<h6><center>Genotype Frequency</center></h6>
 		<table>
 			<thead>
 				<tr>
-					<th>Genotype</th>
-					<th>Frequency</th>
+					<th> </th>
+					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,12 +44,13 @@
 			</tbody>
 			</table>
 	</div>
-	<div class="span2 offset2 columns">
+	<div class="span4 columns">
+		<h6><center>Allele Frequency</center></h6>
 		<table>
 			<thead>
 				<tr>
-					<th>Allele</th>
-					<th>Frequency</th>
+					<th> </th>
+					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,6 +63,8 @@
 			</tbody>
 			</table>
 	</div>
+	</div>
+	<h6>Additional Information</h6>
 <div id="tab-container">
   <ul class="tabs">
     <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>

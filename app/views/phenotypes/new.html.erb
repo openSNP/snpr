@@ -2,9 +2,19 @@
 <%= form_for @phenotype, :html => {:class => "form-stacked"} do |f| %>
 <%= render 'shared/error_messages', :target => @phenotype %>
 
+<%phenotype_array = []%>
+<%Phenotype.find(:all).each do |p| phenotype_array << p.characteristic end%>
 
 <div class="clearfix">
 	<div class="inline-inputs">
+		<script type="text/javascript">
+		  $(function () {
+		    $("#phenotype_characteristic").autocomplete({
+		      source: <%=raw(phenotype_array.to_json)%>
+		    });
+		  });
+		</script>
+		
 		<%= f.label :characteristic %> <%= f.text_field :characteristic %>
 		<br/><span class ="help-inline">Hair colour, Blood type, Skin colour etc.</span>
 	</div>

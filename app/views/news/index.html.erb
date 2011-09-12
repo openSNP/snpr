@@ -56,7 +56,7 @@
 	</tr>
 <% @new_phenotypes.each do |nu| %>
 	<tr>
-		<td><%= Phenotype.find_by_id(nu.phenotype_id).characteristic %></td>
+		<td><%= link_to Phenotype.find_by_id(nu.phenotype_id).characteristic, Phenotype.find_by_id(nu.phenotype_id) %></td>
 		<td><%= nu.variation %></td>
 		<td><%= link_to User.find_by_id(nu.user_id).name, User.find_by_id(nu.user_id) %></td>
 	</tr>
