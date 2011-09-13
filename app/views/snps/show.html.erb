@@ -196,8 +196,21 @@
 <div id="users">
 <h3>Users who share this SNP:</h3>
 <% if @users != [] %>
+<table>
+	<tr>
+		<th>User</th>
+		<th>Genotype</th>
+	</tr>
 <% @users.each do |u| %>
-	<%= link_to( u.name, u ) %><br/>
+	<tr>
+	<%if current_user != nil and u.user_snps.find_by_snp_id(@snp.id).local_genotype == @user_snp.local_genotype%>
+		<td><b><%= link_to( u.name, u ) %></b></td>
+		<td><b><%= u.user_snps.find_by_snp_id(@snp.id).local_genotype%></b></td>
+	<%else%>
+		<td><%= link_to( u.name, u ) %></td>
+		<td><%= u.user_snps.find_by_snp_id(@snp.id).local_genotype%></td>
+	<%end%>
+	</tr>
 <% end %>
 <% else %>
 	No user shares this SNP.
