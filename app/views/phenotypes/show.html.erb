@@ -30,7 +30,7 @@
 	</tr>
 <% @phenotype.user_phenotypes.each do |up| %>
 	<tr>
-		<%if current_user!= nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
+		<%if current_user!= nil and UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id) != nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
 		<td><b><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id)%></b></td>
 		<td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
 		<%else%>
