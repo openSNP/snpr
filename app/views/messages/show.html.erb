@@ -9,4 +9,4 @@
 <p><%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "danger btn"%></p>
 
 
-<%= link_to "Back to your homepage", current_user %>
+<%= link_to "Back to your homepage", current_user %> | <%= link_to "Back to your messages", "/users/" + current_user.id.to_s + "#messages" %>

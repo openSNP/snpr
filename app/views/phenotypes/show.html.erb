@@ -13,6 +13,9 @@
 <%end%>
 </ul>
 
+<% if current_user %>
+	<%= link_to "Back to your homepage", current_user %> | <%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %>
+<% end %>
 <div id="tab-container">
 	<ul class="tabs">
 		<li><a href="#users">Users sharing this phenotype</a></li>
