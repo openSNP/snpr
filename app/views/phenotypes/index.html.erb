@@ -4,7 +4,7 @@
 <tr>
 	<th><%= sortable "id", "ID"%></th>
 	<th><%= sortable "characteristic","Phenotype"%></th>
-	<th>Number of Variations</th>
+	<th><%= sortable "number_of_users","Number of Variations"%></th>
 </tr>
 </thead>
 <tbody>
@@ -12,7 +12,7 @@
 	<tr>
 	<td><%= s.id %></td>
 	<td><%= link_to(s.characteristic, s) %></td>
-	<td><%=s.known_phenotypes.length.to_i%></td>
+	<td><%=s.number_of_users%></td>
 </tr>
 <% end %>
 </tbody>

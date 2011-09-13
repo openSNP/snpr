@@ -3,6 +3,10 @@
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
 	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
+	<% if @user.description  %>
+	<h3>Description of yourself</h3>
+	<p><%= @user.description %></p>
+	<% end %>
 
 <div id="tab-container">
 	<ul class="tabs">

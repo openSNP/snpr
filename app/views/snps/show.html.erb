@@ -172,19 +172,19 @@
 <% if @snp.snpedia_paper != [] %>
 	<table class="zebra-striped">
 		<tr>
+			<th>Title</th>
 			<th>Summary</th>
-			<th>Link</th>
 		</tr>
 		<% @snp.snpedia_paper.each do |p| %>
 		<%if current_user != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
 		<tr>
+			<td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
 			<td><b><%= p.summary.capitalize %></b></td>
-			<td><b><%= link_to p.url, p.url %></b></td>
 		</b></tr>
 		<%else%>
 		<tr>
+			<td><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></td>
 			<td><%= p.summary.capitalize %></td>
-			<td><%= link_to p.url, p.url %></td>
 		</tr>
 		<% end%>
 		<% end %>

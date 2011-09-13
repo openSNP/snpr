@@ -1,15 +1,21 @@
 <h1>Phenotype: <%= @phenotype.characteristic %></h1>
 <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
-<h3><%= link_to("Add this phenotype",:action => "new") %></h3>
+
+<%= render 'user_phenotypes/form' %>
 <%end%>
 
 <h6>Known Phenotypes:</h6>
 <ul>
 <%@phenotype.known_phenotypes.each do |p|%>
+<%if p != ""%>
 <li><%=p%></li>
+<%end%>
 <%end%>
 </ul>
 
+<% if current_user %>
+	<%= link_to "Back to your homepage", current_user %> | <%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %>
+<% end %>
 <div id="tab-container">
 	<ul class="tabs">
 		<li><a href="#users">Users sharing this phenotype</a></li>

@@ -1,7 +1,6 @@
 <% if target.errors.any? %>
 	<div class="alert-message block-message error">
-		<h2><%= pluralize( target.errors.count, "error") %> prohibited this action:</h2>
-		<p>There were problems with the following fields:</p>
+		<p>Error:</p>
 		<ul>
 			<% target.errors.full_messages.each do |msg| %>
 				<li><%= msg %></li>
