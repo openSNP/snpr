@@ -27,7 +27,7 @@
 	</div>
 	
 	<div class="span3 columns">
-		<%if current_user != nil%>
+		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
 			<h6><center>Your Genotype</center></h6>
 			<table>
 				<tr>
@@ -51,7 +51,7 @@
 			</thead>
 			<tbody>
 				<%@snp.genotype_frequency.each do |key,value|%>
-				<%if current_user != nil%>
+				<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
 					<%if key == @user_snp.local_genotype%>
 					<tr>
 						<td><b><%=key%></b></td>
@@ -176,7 +176,7 @@
 			<th>Summary</th>
 		</tr>
 		<% @snp.snpedia_paper.each do |p| %>
-		<%if current_user != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
+		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
 		<tr>
 			<td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
 			<td><b><%= p.summary.capitalize %></b></td>

@@ -6,8 +6,9 @@
 	<th><%= sortable "name","Name"%></th>
 	<th><%= sortable "position","Position"%></th>
 	<th><%= sortable "chromosome","Chromosome"%></th>
-	<th><%= sortable "genotype_frequency","Genotype-Frequency"%></th>
-	<th><%= sortable "allele_frequency","Allele-Frequency"%></th>
+	<%if current_user != nil%>
+	<th>Your Genotype</th>
+	<%end%>
 	<th><%= sortable "ranking","Ranking"%></th>
 </tr>
 </thead>
@@ -18,8 +19,11 @@
 	<td><%= link_to(s.name, s) %></td>
 	<td><%= s.position %></td>
 	<td><%= s.chromosome %></td>
-	<td><% s.genotype_frequency.each do |k,v|%><%= k+ " = "+ v.to_s + " " %><%end%></td>
-	<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " "  %><% end %></td>
+	<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,s.id) != nil%>
+	<td><%=UserSnp.find_by_user_id_and_snp_id(current_user.id,s.id).local_genotype%></td>
+	<%else%>
+	<td>-</td>
+	<%end%>
 	<td><%= s.ranking %></td>
 </tr>
 <% end %>

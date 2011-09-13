@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  
+  helper_method :sort_column, :sort_direction
 
 	def new
 		@user = User.new
@@ -48,7 +50,8 @@ class UsersController < ApplicationController
 		@title = @user.name + "'s page"
 		@first_name = @user.name.split()[0]
 		@user_phenotypes = @user.user_phenotypes
-		@snps = @user.snps.paginate(:page => params[:page])
+		@temp_snps = @user.snps.order(sort_column + " "+ sort_direction)
+		@snps = @temp_snps.paginate(:page => params[:page])
 		@received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
 		@sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
 		@phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
@@ -77,6 +80,7 @@ class UsersController < ApplicationController
 			  @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
 			  if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
 			    @phenotype.known_phenotypes << p[1]["variation"]
+			    @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
 			    @phenotype.save
 		    end
 		  end
@@ -107,4 +111,15 @@ class UsersController < ApplicationController
         User.delete(@user)
 		redirect_to root_url
 	end
+	
+	private
+	
+	def sort_column
+		Snp.column_names.include?(params[:sort]) ? params[:sort] : "ranking"
+  end
+  
+  def sort_direction
+	%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+	
 end

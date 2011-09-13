@@ -73,10 +73,10 @@ class PhenotypesController < ApplicationController
 	  private
 	  
 		def sort_column
-			Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "characteristic"
+			Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
 	  end
 	  
 	  def sort_direction
-		%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+		%w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
 	  end
 end
