@@ -9,6 +9,7 @@ class Parsing
     if @genotype.filetype != "other"
       genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
       known_snps = Snp.all.index_by(&:name)
+      new_snps = []
       new_user_snps = []
 
       # open that file, go through each line
@@ -35,7 +36,11 @@ class Parsing
           if snp.nil?
             snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
             snp.default_frequencies
-            new_record = true
+            new_snps << snp
+            # TODO: put these in a rake task to be called by a cron job or so...
+            #Resque.enqueue(Plos,     snp)
+            #Resque.enqueue(Mendeley, snp)
+            #Resque.enqueue(Snpedia,  snp)
           end
 
           # change allele-frequency and genotype-frequency for each SNP,
@@ -59,19 +64,18 @@ class Parsing
           else
             snp.genotype_frequency[snp_array[3].rstrip] = 1
           end
-          snp.save
-
-          if new_record
-            Resque.enqueue(Plos,     snp)
-            Resque.enqueue(Mendeley, snp)
-            Resque.enqueue(Snpedia,  snp)
-          end
 
           # make a new user_snp
-          new_user_snps << UserSnp.new(genotype_id: @genotype.id, user_id: @genotype.user_id, snp_id: snp.id, local_genotype: snp_array[3].rstrip)
+          new_user_snps << [ @genotype.id, @genotype.user_id, snp.name, snp_array[3].rstrip ]
         end
       end
-      UserSnp.import new_user_snps
+      puts "importing new Snps"
+      Snp.import new_snps
+      puts "updating knonw Snps"
+      Snp.update_em_all known_snps
+      puts "importing new UserSnps"
+      user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
+      UserSnp.import user_snp_columns, new_user_snps, validate: false
     end
   end
 end

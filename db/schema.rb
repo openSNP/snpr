@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110830134100) do
+ActiveRecord::Schema.define(:version => 20110912190409) do
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -109,9 +109,9 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
     t.string   "genotype_frequency"
     t.string   "allele_frequency"
     t.integer  "ranking"
-    t.datetime "mendeley_updated",   :default => '2011-08-08 01:33:04'
-    t.datetime "plos_updated",       :default => '2011-08-08 01:33:04'
-    t.datetime "snpedia_updated",    :default => '2011-08-08 01:33:04'
+    t.datetime "mendeley_updated",   :default => '2011-08-07 03:49:04'
+    t.datetime "plos_updated",       :default => '2011-08-07 03:49:04'
+    t.datetime "snpedia_updated",    :default => '2011-08-07 03:49:04'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20110830134100) do
     t.integer  "snp_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "snp_name"
   end
 
   create_table "users", :force => true do |t|
