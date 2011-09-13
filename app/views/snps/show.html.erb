@@ -28,7 +28,12 @@
 	
 	<div class="span3 columns">
 		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
-			<h6><center>Your Genotype</center></h6>
+		
+		<div id="your_genotype" class="tooltip">
+			Your genetic variation at <em><%=@snp.name%></em>.
+		</div>
+		
+			<h6><center><a onmouseover="showWMTT('your_genotype')" onmouseout="hideWMTT()" href="#">Your Genotype</a></center></h6>
 			<table>
 				<tr>
 				<th> </th>
@@ -39,9 +44,13 @@
 			</table>
 		<%end%>
 		</div>
-	
+		
+		<div id="geno_frequency" class="tooltip">
+			How the different genetic variation at this position is distributed over all <em>openSNP</em> users.
+		</div>
+		
 	<div class="span4 columns">
-		<h6><center>Genotype Frequency</center></h6>
+		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Genotype Frequency</a></center></h6>
 		<table>
 			<thead>
 				<tr>
@@ -73,8 +82,13 @@
 			</tbody>
 			</table>
 	</div>
+	
+	<div id="allele_frequency" class="tooltip">
+		How the single nucleotides on this position are distributed over all <em>openSNP</em> users.
+	</div>
+	
 	<div class="span4 columns">
-		<h6><center>Allele Frequency</center></h6>
+		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Allele Frequency</a></center></h6>
 		<table>
 			<thead>
 				<tr>
