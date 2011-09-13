@@ -99,7 +99,7 @@
     <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>
     <li><a href="#plos">PLoS (<%=@snp.plos_paper.length%>)</a></li>
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
-    <li><a href="#users">Other users</a></li>
+    <li><a href="#users">Other users (<%=@users.length%>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
   </ul>
 <div id="plos">
@@ -212,6 +212,7 @@
 	<%end%>
 	</tr>
 <% end %>
+</table>
 <% else %>
 	No user shares this SNP.
 <%end %>

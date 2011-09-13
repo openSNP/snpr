@@ -18,8 +18,8 @@
 <% end %>
 <div id="tab-container">
 	<ul class="tabs">
-		<li><a href="#users">Users sharing this phenotype</a></li>
-		<li><a href="#comments">Comments</a></li>
+		<li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
+		<li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
 	</ul>
 
 	<div id="users">
@@ -30,8 +30,13 @@
 	</tr>
 <% @phenotype.user_phenotypes.each do |up| %>
 	<tr>
+		<%if current_user!= nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
+		<td><b><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id)%></b></td>
+		<td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
+		<%else%>
 		<td><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id)%></td>
 		<td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
+		<%end%>
 	</tr>
 <% end %>
 </table>
