@@ -1,8 +1,16 @@
-<h1>Phenotype: <%= @phenotype.characteristic %></h1>
+<div class="row">
+	<div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
+	<% if current_user %><div class="span6 columns"><%= link_to "Back to your homepage", current_user %></div>
+	<div class="span6 columns"><%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %></div>
+<% end %>
+</div>
+
+<% if current_user %>
 <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
 
 <%= render 'user_phenotypes/form' %>
 <%end%>
+<% end %>
 
 <h6>Known Phenotypes:</h6>
 <ul>
@@ -13,9 +21,6 @@
 <%end%>
 </ul>
 
-<% if current_user %>
-	<%= link_to "Back to your homepage", current_user %> | <%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %>
-<% end %>
 <div id="tab-container">
 	<ul class="tabs">
 		<li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>

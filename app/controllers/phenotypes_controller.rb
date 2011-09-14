@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-    before_filter :require_user
+    #before_filter :require_user
 	  helper_method :sort_column, :sort_direction
 	
 	def index

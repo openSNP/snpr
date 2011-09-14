@@ -1,4 +1,11 @@
-<h2>SNP <%= @snp.name %></h2>
+<div class="row">
+	<div class="span6 columns"><h2>SNP <%= @snp.name %></h2></div>
+	<% if current_user %>
+	<div class="span6 columns"><%= link_to "Back to your homepage", current_user %></div>
+	<div class="span6 columns"><%= link_to "Back to your SNPs", "/users/"+current_user.id.to_s + "#variations" %></div>
+<% end %>
+</div>
+
 <div class="row">
 	<div class="span5 columns">
 		<h6><center>Basic Information</center></h6>

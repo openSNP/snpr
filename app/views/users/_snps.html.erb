@@ -4,7 +4,7 @@
 		<th><%= sortable "name", "Name"%></th>
 		<th><%= sortable "position","Position"%></th>
 		<th><%= sortable "chromosome","Chromosome"%></th>
-		<th>Your Genotype</th>
+		<% if current_user %><th>Your Genotype</th><% end %>
 		<th><%= sortable "ranking", "Ranking"%></th>
 	</tr>
 	<% @snps.each do |s| %>
@@ -13,7 +13,7 @@
 			<td><%= link_to s.name, s%></td>
 			<td><%= s.position %></td>
 			<td><%= s.chromosome %></td>
-			<td><%=UserSnp.find_by_user_id_and_snp_id(current_user.id,s.id).local_genotype%></td>
+			<% if current_user %><td><%=UserSnp.find_by_user_id_and_snp_id(current_user.id,s.id).local_genotype%></td><% end %>
 			<td><%= s.ranking %></td>
 	</tr>
 <% end %>
