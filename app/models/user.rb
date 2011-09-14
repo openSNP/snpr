@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 	has_many :snps, :through => :user_snps
 	has_many :homepages, :dependent => :destroy
 	has_many :messages
+	has_many :user_achievements, :dependent => :destroy
+	has_many :achievements, :through => :user_achievements
 
 	# needed to edit several user_phenotypes at once, add and delete, and not empty
 	accepts_nested_attributes_for :homepages, :allow_destroy => true
