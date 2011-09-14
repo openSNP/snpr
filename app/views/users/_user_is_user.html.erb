@@ -13,11 +13,34 @@
 
 <div id="tab-container">
 	<ul class="tabs">
+		<li><a href="#unentered_variations">Variations you did not enter yet</a></li>
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
 		<li><a href="#comments">Your comments</a></li>
 	</ul>
+
+<div id="unentered_variations">
+<%if @unentered_phenotype_ids != []%>
+	<table>
+		<thead>
+			<tr>
+				<th>Name of Phenotype</th>
+				<th>Created at</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%@unentered_phenotype_ids.each do |i|%>
+			<tr>
+				<td><%=link_to Phenotype.find_by_id(i).characteristic, Phenotype.find_by_id(i)%></td>
+				<td><%=link_to Phenotype.find_by_id(i).created_at,Phenotype.find_by_id(i)%></td>
+			</tr>
+			<%end%>
+			</table>
+<%else%>
+	<h5>There are currently no phenotypes which you did not enter yet</h5>
+<%end%>
+</div>
 
 <div id="snps">
 <% if @user.has_sequence == true %>

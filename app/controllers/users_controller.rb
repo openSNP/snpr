@@ -56,7 +56,17 @@ class UsersController < ApplicationController
 		@sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
 		@phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
 		@snp_comments = SnpComment.where(:user_id => @user.id).paginate(:page => params[:page])
-
+		
+		@all_phenotype_ids = []
+		Phenotype.find(:all).each do |p| @all_phenotype_ids << p.id 
+		end
+		
+		@all_user_phenotype_ids = []
+		UserPhenotype.find_all_by_user_id(@user.id).each do |up| @all_user_phenotype_ids << up.phenotype_id 
+		end
+    
+    @unentered_phenotype_ids = (@all_phenotype_ids | @all_user_phenotype_ids) - (@all_phenotype_ids & @all_user_phenotype_ids)
+		
 		respond_to do |format|
 			format.html
 		end
