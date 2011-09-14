@@ -5,7 +5,12 @@
 	<ul>
 <% for p in @phenotypes.results %>
 	<li><%= link_to p.characteristic, p %> | <%= link_to "Download all relevant genotypes! bundle(p)", "#" %></li>
-	<li><%= UserPhenotype.where(:phenotype_id => p.id).inspect %></li>
+	<li>The following users share this phenotype:
+	<ul>
+		<% for up in UserPhenotype.where(:phenotype_id => p.id) %>
+			<li><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id) %> | <%= up.variation %></li>
+		<% end %>
+	</ul>
 <% end %>
 </ul>
 <% end %>
@@ -29,10 +34,16 @@
 <% end %>
 
 <% if not @user_phenotypes.results == [] %>
+	<h5>Phenotype variations:</h5>
 	<ul>
 <% for p in @user_phenotypes.results %>
-	<li><%= Phenotype.where(:id => p.phenotype_id)%></li>
-	<li><%= link_to p.user.name, User.find_by_name(p.user_name) %></li>
+	<li><%= p.variation%></li>
+	<li>Linked to the following phenotypes:</li>
+	<ul>
+	<% for p in Phenotype.where(:id => p.phenotype_id) %>
+		<li><%= link_to p.characteristic, p %>
+	<% end %>
+</ul>
 <% end %>
 </ul>
 <% end %>

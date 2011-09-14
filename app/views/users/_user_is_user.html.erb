@@ -1,8 +1,11 @@
-<h1>Hello <%= @first_name %>!</h1>
+<div class="row">
+	<div class="span6 columns"><h1>Hello <%= @first_name %>!</h1></div>
+	<div class="span6 columns offset4"><h3><%= link_to("Edit your details and variations ",  :controller => "users", :action => "edit") %></h3></div>
+</div>
+
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
-	<p>Edit your details and variations: <%= link_to("Click",  :controller => "users", :action => "edit") %></p<>
 	<% if @user.description  %>
 	<h3>Description of yourself</h3>
 	<p><%= @user.description %></p>
@@ -47,7 +50,7 @@
 	</tr>
 <% end %>
 </table>
-<% else %>
+/<% else %>
 	There are no messages to display here.
 <% end %>
 <h3>Sent</h3>

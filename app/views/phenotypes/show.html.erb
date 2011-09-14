@@ -1,7 +1,8 @@
 <div class="row">
 	<div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
-	<% if current_user %><div class="span6 columns"><%= link_to "Back to your homepage", current_user %></div>
-	<div class="span6 columns"><%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %></div>
+	<% if current_user %>
+		<div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
+		<div class="span6 columns offset4"><%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %></div>
 <% end %>
 </div>
 
