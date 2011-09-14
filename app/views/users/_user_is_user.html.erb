@@ -1,4 +1,8 @@
 <div class="row">
+	<%if @user.avatar_file_name != nil%>
+	<div class="span0 columns">
+	<%= image_tag @user.avatar.url(:thumb) %>
+	</div><%end%>
 	<div class="span6 columns"><h1>Hello <%= @first_name %>!</h1></div>
 	<div class="span6 columns offset4"><h3><%= link_to("Edit your details and variations ",  :controller => "users", :action => "edit") %></h3></div>
 </div>
@@ -13,15 +17,18 @@
 
 <div id="tab-container">
 	<ul class="tabs">
+		<%if @unentered_phenotype_ids != []%>
 		<li><a href="#unentered_variations">Variations you did not enter yet</a></li>
+		<%end%>
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
 		<li><a href="#comments">Your comments</a></li>
 	</ul>
 
-<div id="unentered_variations">
+
 <%if @unentered_phenotype_ids != []%>
+	<div id="unentered_variations">
 	<table>
 		<thead>
 			<tr>
@@ -37,10 +44,9 @@
 			</tr>
 			<%end%>
 			</table>
-<%else%>
-	<h5>There are currently no phenotypes which you did not enter yet</h5>
+			</div>
 <%end%>
-</div>
+
 
 <div id="snps">
 <% if @user.has_sequence == true %>

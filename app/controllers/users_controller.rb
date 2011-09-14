@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.new(params[:user])
+		@user = User.create(params[:user])
 
 		  if not params[:read]
 			  flash[:warning] = "You must tick the box to proceed!"
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
 		   format.html
 		   format.xml
 	   end
-	end
+  end
 
 	def update
 		@user = User.find(params[:id])
@@ -121,6 +121,18 @@ class UsersController < ApplicationController
         User.delete(@user)
 		redirect_to root_url
 	end
+
+  def removeavatar
+    @user = User.find(params[:id])
+    @user.avatar = nil
+    @user.save
+    puts "Fafjklfjf"
+    flash[:notice] = "Your avatar was successfully deleted"
+    
+    respond_to do |format|
+			format.html
+		end
+  end
 	
 	private
 	

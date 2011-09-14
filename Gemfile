@@ -26,6 +26,7 @@ gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import'
+gem 'paperclip', '~> 2.4'
 
 group :test do
   gem 'shoulda-context'

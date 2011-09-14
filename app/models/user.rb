@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-    attr_accessible :user_phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  attr_accessible :user_phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes,:avatar
+	
 	
 	acts_as_authentic # call on authlogic
     after_create :make_standard_phenotypes
