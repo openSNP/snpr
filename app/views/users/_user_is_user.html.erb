@@ -6,7 +6,7 @@
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
-	<% if @user.description  %>
+	<% if @user.description != ""  %>
 	<h3>Description of yourself</h3>
 	<p><%= @user.description %></p>
 	<% end %>
