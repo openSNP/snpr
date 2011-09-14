@@ -72,7 +72,9 @@ class Parsing
       puts "importing new Snps"
       Snp.import new_snps
       puts "updating knonw Snps"
-      Snp.update_em_all known_snps
+      ActiveRecord::Base.transaction do
+        known_snps.each_value(&:save)
+      end
       puts "importing new UserSnps"
       user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
       UserSnp.import user_snp_columns, new_user_snps, validate: false

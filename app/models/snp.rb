@@ -7,6 +7,8 @@ class Snp < ActiveRecord::Base
   serialize :allele_frequency
   serialize :genotype_frequency
 
+  validates_uniqueness_of :name
+
   searchable do
     text :name
   end
@@ -17,12 +19,5 @@ class Snp < ActiveRecord::Base
     # if variations is empty, put in our default array
     self.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
     self.genotype_frequency ||= {}
-  end
-
-  def self.update_em_all snps
-    return 0 if snps.empty?
-    ActiveRecord::Base.connection.execute(snps.map do |snp|
-      "update snps set (#{snp.changed.join(',')}) = (#{snp.changed.map {|a| snp.send(a.to_sym) }.join(',') }) where id = #{snp.id} limit 1; "
-    end.join)
   end
 end
