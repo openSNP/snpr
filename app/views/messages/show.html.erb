@@ -1,5 +1,5 @@
 <h1>Message</h1>
-<h4>From: <%= link_to @from.name, @from %>, received on <%= @message.created_at %></h4>
+<h4>From: <%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %>, received on <%= @message.created_at %></h4>
 <h3>Subject: <%=@message.subject %></h3>
 
 <div class="well">

@@ -74,13 +74,13 @@
 	</tr>
 <% @received_messages.each do |m| %>
 	<tr>
-	<td><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
+	<td><%=image_tag User.find_by_id(m.from_id).avatar.url(:head)%><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	<td><% if m.user_has_seen == false %>New!<% end %></td>
 	</tr>
 <% end %>
 </table>
-/<% else %>
+<% else %>
 	There are no messages to display here.
 <% end %>
 <h3>Sent</h3>
@@ -92,7 +92,7 @@
 	</tr>
 <% @sent_messages.each do |m| %>
 	<tr>
-	<td><%= User.find_by_id(m.to_id).name %></td>
+	<td><%=image_tag User.find_by_id(m.to_id).avatar.url(:head)%><%= User.find_by_id(m.to_id).name %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	</tr>
 <% end %>
