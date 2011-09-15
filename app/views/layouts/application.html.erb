@@ -16,15 +16,16 @@
     $('#tab-container').easytabs();
   });
 </script>
-  <%= csrf_meta_tag %>
-</head>
-<body>
 
+  <%= csrf_meta_tag %>
+
+</head>
+<body>	
 <div class="topbar">
 	<div class="fill" >
 		<div class="container">
 			<h3><%= link_to("OpenSNP", root_path, :class =>"logo") %></h3>
-			<ul>
+			<ul class="nav"> 
 				<li><%= link_to("News", '/news') %></li>
 				<li><%= link_to("FAQ", '/faq') %></li> 
 				<li><%= link_to("Phenotypes", :controller => "phenotypes", :action => "index")%>
@@ -34,12 +35,13 @@
 			<%= form_tag "/search", :method => "get", :authenticity_token => true do %>
 				<%= text_field_tag :search, "Search" %>
 			<% end %>
-			<ul>
+			<ul class="nav secondary-nav"> 
 				<% if current_user %>
 					<li class="dropdown">
-					<a href="#" class="dropdown-toggle"><%= current_user.name %></a>
+					<a href="#" class="dropdown-toggle"><%= image_tag current_user.avatar.url(:head)%> <%= current_user.name %></a>
 					<ul class="dropdown-menu">
 					<li><%= link_to("User's home", current_user)%></li>
+					<li class="divider"></li>
 					<li><%= link_to("Sign out", '/signout') %></li>
 					</ul>
 					</li>

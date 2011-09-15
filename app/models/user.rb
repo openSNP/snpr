@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
-  attr_accessible :user_phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes,:avatar, :phenotype_creation_counter, :phenotype_additional_counter
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>#", :head => "32x32#" }, :default_url => '/images/standard_:style.png'
+  
+  attr_accessible :user_phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes,:avatar, :phenotype_creation_counter, :phenotype_additional_counter,:delete_avatar
+	before_validation :clear_avatar
 	
+	validates_attachment_size :avatar, :less_than=>1.megabyte
+	validates_attachment_content_type :avatar, :content_type=>['image/jpeg', 'image/png', 'image/gif']
 	
 	acts_as_authentic # call on authlogic
 	after_create :make_standard_phenotypes
@@ -59,6 +63,19 @@ class User < ActiveRecord::Base
 	   check_and_make_standard_phenotypes('Eye color')
 	   check_and_make_standard_phenotypes('Skin color')
 	   check_and_make_standard_phenotypes('Blood type')
+   end
+
+   def delete_avatar=(value)
+     @delete_avatar = !value.to_i.zero?
+   end
+
+   def delete_avatar
+     !!@delete_avatar
+   end
+   alias_method :delete_avatar?, :delete_avatar
+   
+   def clear_avatar
+     self.avatar = nil if delete_avatar?
    end
 
 end

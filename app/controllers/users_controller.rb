@@ -94,7 +94,7 @@ class UsersController < ApplicationController
 			    @phenotype.save
 		    end
 		  end
-		  @user.check_and_award_phenotypes_achievements
+		  #@user.check_and_award_phenotypes_achievements
 			flash[:notice] =  "Successfully updated"
 			render :action => 'edit'
 		else
@@ -121,18 +121,6 @@ class UsersController < ApplicationController
         User.delete(@user)
 		redirect_to root_url
 	end
-
-  def removeavatar
-    @user = User.find(params[:id])
-    @user.avatar = nil
-    @user.save
-    puts "Fafjklfjf"
-    flash[:notice] = "Your avatar was successfully deleted"
-    
-    respond_to do |format|
-			format.html
-		end
-  end
 	
 	private
 	
