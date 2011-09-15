@@ -8,6 +8,6 @@ class CreateUserAchievements < ActiveRecord::Migration
   end
 
   def self.down
-		drop_table :user_achievement
+		drop_table :user_achievements
   end
 end

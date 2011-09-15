@@ -10,6 +10,10 @@ Reminder: When new search-indexes are defined on models please run
 
 Reminder 2: You can monitor the resque-server on localhost:3000/resque (useful in killing leftover tasks)
 
+Reminder 3: To load all standard achievements into the database run 
+  
+	rake db:seed OR rake db:setup (which also sets up the entire db)
+
 = Usage
 
 You need to have the following running to ensure that everything works:
@@ -18,7 +22,7 @@ You need to have the following running to ensure that everything works:
 
   rake environment resque:work QUEUE=*
 
-  rake sunspot:solr:run OR rake sunspot:solr:start
+  rake sunspot:solr:run OR rake sunspot:solr:start (runs in background)
 
   rails s(erver)
 

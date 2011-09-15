@@ -13,6 +13,8 @@ Snpr::Application.routes.draw do
   resources :snp_comments
   resources :phenotype_comments
   resources :search_results
+	resources :achievements
+	resources :user_achievements
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login

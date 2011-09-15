@@ -14,7 +14,9 @@
 ActiveRecord::Schema.define(:version => 20110914151105) do
 
   create_table "achievements", :force => true do |t|
-    t.string "type"
+    t.string   "award"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "genotypes", :force => true do |t|
@@ -115,9 +117,9 @@ ActiveRecord::Schema.define(:version => 20110914151105) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-09 14:22:16'
-    t.datetime "plos_updated",       :default => '2011-08-09 14:22:16'
-    t.datetime "snpedia_updated",    :default => '2011-08-09 14:22:16'
+    t.datetime "mendeley_updated",   :default => '2011-08-11 07:35:28'
+    t.datetime "plos_updated",       :default => '2011-08-11 07:35:28'
+    t.datetime "snpedia_updated",    :default => '2011-08-11 07:35:28'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
