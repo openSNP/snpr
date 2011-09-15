@@ -11,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration
 		  t.string :sequence_link
 		  t.text :description
 		  t.boolean :finished_snp_parsing, :default => false
+			t.integer :phenotype_creation_counter, :default => 0
+			t.integer :phenotype_additional_counter, :default => 0
 		  
 		  t.timestamps
 	  end

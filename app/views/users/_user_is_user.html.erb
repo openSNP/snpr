@@ -10,20 +10,21 @@
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
-	<% if @user.description != ""  %>
+	<% if @user.description != nil  %>
 	<h3>Description of yourself</h3>
 	<p><%= @user.description %></p>
 	<% end %>
 
 <div id="tab-container">
 	<ul class="tabs">
+		<li><a href="#snps">Your SNPs</a></li>
+		<li><a href="#variations">Your variations</a></li>
 		<%if @unentered_phenotype_ids != []%>
 		<li><a href="#unentered_variations">Variations you did not enter yet</a></li>
 		<%end%>
-		<li><a href="#snps">Your SNPs</a></li>
-		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
 		<li><a href="#comments">Your comments</a></li>
+		<li><a href="#achievements">Your achievements</a></li>
 	</ul>
 
 
@@ -134,4 +135,7 @@
 </table>
 <% end %>
 <%= will_paginate(@snp_comments)%>
+</div>
+<div id="achievements">
+	<%= current_user.achievements.inspect %>
 </div>

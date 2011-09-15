@@ -117,9 +117,9 @@ ActiveRecord::Schema.define(:version => 20110914151105) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-11 07:35:28'
-    t.datetime "plos_updated",       :default => '2011-08-11 07:35:28'
-    t.datetime "snpedia_updated",    :default => '2011-08-11 07:35:28'
+    t.datetime "mendeley_updated",   :default => '2011-08-11 12:57:14'
+    t.datetime "plos_updated",       :default => '2011-08-11 12:57:14'
+    t.datetime "snpedia_updated",    :default => '2011-08-11 12:57:14'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -157,10 +157,12 @@ ActiveRecord::Schema.define(:version => 20110914151105) do
     t.string   "crypted_password"
     t.string   "persistence_token"
     t.string   "perishable_token"
-    t.boolean  "has_sequence",         :default => false
+    t.boolean  "has_sequence",                 :default => false
     t.string   "sequence_link"
     t.text     "description"
-    t.boolean  "finished_snp_parsing", :default => false
+    t.boolean  "finished_snp_parsing",         :default => false
+    t.integer  "phenotype_creation_counter",   :default => 0
+    t.integer  "phenotype_additional_counter", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
