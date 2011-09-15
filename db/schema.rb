@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912190409) do
+ActiveRecord::Schema.define(:version => 20110914151105) do
+
+  create_table "achievements", :force => true do |t|
+    t.string   "award"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -111,14 +117,21 @@ ActiveRecord::Schema.define(:version => 20110912190409) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-09 13:57:24'
-    t.datetime "plos_updated",       :default => '2011-08-09 13:57:24'
-    t.datetime "snpedia_updated",    :default => '2011-08-09 13:57:24'
+    t.datetime "mendeley_updated",   :default => '2011-08-11 13:51:36'
+    t.datetime "plos_updated",       :default => '2011-08-11 13:51:36'
+    t.datetime "snpedia_updated",    :default => '2011-08-11 13:51:36'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
+
+  create_table "user_achievements", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "achievement_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_phenotypes", :force => true do |t|
     t.integer  "user_id"
@@ -151,6 +164,10 @@ ActiveRecord::Schema.define(:version => 20110912190409) do
     t.boolean  "finished_snp_parsing", :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

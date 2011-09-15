@@ -1,4 +1,11 @@
-<h2>SNP <%= @snp.name %></h2>
+<div class="row">
+	<div class="span6 columns"><h2>SNP <%= @snp.name %></h2></div>
+	<% if current_user %>
+	<div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
+	<div class="span6 columns offset4"><%= link_to "Back to your SNPs", "/users/"+current_user.id.to_s + "#variations" %></div>
+<% end %>
+</div>
+
 <div class="row">
 	<div class="span5 columns">
 		<h6><center>Basic Information</center></h6>
@@ -27,8 +34,13 @@
 	</div>
 	
 	<div class="span3 columns">
-		<%if current_user != nil%>
-			<h6><center>Your Genotype</center></h6>
+		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
+		
+		<div id="your_genotype" class="tooltip">
+			Your genetic variation at <em><%=@snp.name%></em>.
+		</div>
+		
+			<h6><center><a onmouseover="showWMTT('your_genotype')" onmouseout="hideWMTT()" href="#">Your Genotype</a></center></h6>
 			<table>
 				<tr>
 				<th> </th>
@@ -39,9 +51,13 @@
 			</table>
 		<%end%>
 		</div>
-	
+		
+		<div id="geno_frequency" class="tooltip">
+			How the different genetic variation at this position is distributed over all <em>openSNP</em> users.
+		</div>
+		
 	<div class="span4 columns">
-		<h6><center>Genotype Frequency</center></h6>
+		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Genotype Frequency</a></center></h6>
 		<table>
 			<thead>
 				<tr>
@@ -51,7 +67,7 @@
 			</thead>
 			<tbody>
 				<%@snp.genotype_frequency.each do |key,value|%>
-				<%if current_user != nil%>
+				<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
 					<%if key == @user_snp.local_genotype%>
 					<tr>
 						<td><b><%=key%></b></td>
@@ -73,8 +89,13 @@
 			</tbody>
 			</table>
 	</div>
+	
+	<div id="allele_frequency" class="tooltip">
+		How the single nucleotides on this position are distributed over all <em>openSNP</em> users.
+	</div>
+	
 	<div class="span4 columns">
-		<h6><center>Allele Frequency</center></h6>
+		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Allele Frequency</a></center></h6>
 		<table>
 			<thead>
 				<tr>
@@ -99,7 +120,7 @@
     <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>
     <li><a href="#plos">PLoS (<%=@snp.plos_paper.length%>)</a></li>
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
-    <li><a href="#users">Other users</a></li>
+    <li><a href="#users">Other users (<%=@users.length%>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
   </ul>
 <div id="plos">
@@ -176,7 +197,7 @@
 			<th>Summary</th>
 		</tr>
 		<% @snp.snpedia_paper.each do |p| %>
-		<%if current_user != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
+		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
 		<tr>
 			<td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
 			<td><b><%= p.summary.capitalize %></b></td>
@@ -196,9 +217,23 @@
 <div id="users">
 <h3>Users who share this SNP:</h3>
 <% if @users != [] %>
+<table>
+	<tr>
+		<th>User</th>
+		<th>Genotype</th>
+	</tr>
 <% @users.each do |u| %>
-	<%= link_to( u.name, u ) %><br/>
+	<tr>
+	<%if current_user != nil and current_user.has_sequence and u.user_snps.find_by_snp_id(@snp.id).local_genotype == @user_snp.local_genotype%>
+		<td><b><%= link_to( u.name, u ) %></b></td>
+		<td><b><%= u.user_snps.find_by_snp_id(@snp.id).local_genotype%></b></td>
+	<%else%>
+		<td><%= link_to( u.name, u ) %></td>
+		<td><%= u.user_snps.find_by_snp_id(@snp.id).local_genotype%></td>
+	<%end%>
+	</tr>
 <% end %>
+</table>
 <% else %>
 	No user shares this SNP.
 <%end %>

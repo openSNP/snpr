@@ -24,14 +24,19 @@ class GenotypesController < ApplicationController
 
 		respond_to do |format|
 		  if @genotype.save
-			current_user.toggle!(:has_sequence)
-			@genotype.move_file
-			Resque.enqueue(Parsing, @genotype)
-			format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing might take a couple of minutes.') }
-			format.xml { render :xml => current_user, :status => :created, :location => @user }
+				current_user.toggle!(:has_sequence)
+
+				# award for genotyping-upload
+				@award = Achievement.find_by_award("Published genotyping")
+				UserAchievement.create(:user_id => current_user.id, :achievement_id => @award.id)
+
+				@genotype.move_file
+				Resque.enqueue(Parsing, @genotype)
+				format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing might take a couple of minutes.') }
+				format.xml { render :xml => current_user, :status => :created, :location => @user }
 		  else
-			format.html { render :action => "new" }
-			format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
+				format.html { render :action => "new" }
+				format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
 		  end
 		end
 	end

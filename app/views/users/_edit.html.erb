@@ -1,7 +1,13 @@
 <% # helper thing so we don't have to put up fields into every page %>
-<%= nested_form_for(@user, :html => { :class => "form-stacked" } ) do |f| %>
+<%= nested_form_for(@user,:url => user_path, :html => { :class => "form-stacked",:multipart => true  } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
 <div class="well">
+	<%if @user.avatar_file_name != nil%>
+	<%= image_tag @user.avatar.url(:thumb) %>
+	<%end%>
+<div class="clearfix">
+	<%= f.label :avatar, "Upload avatar"%><%= link_to "remove avatar", current_user, :action => "removeavatar",:id => @user.id%>
+	<%=f.file_field :avatar%>
 <div class="clearfix">
 	<%= f.label :name %>
 	<%= f.text_field :name %>

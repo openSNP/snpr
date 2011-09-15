@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-    before_filter :require_user
+    #before_filter :require_user
 	  helper_method :sort_column, :sort_direction
 	
 	def index
@@ -41,6 +41,8 @@ class PhenotypesController < ApplicationController
 		if @user_phenotype.save
 		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
       @phenotype.save
+			
+
 			redirect_to current_user
 		else
 			redirect_to :action => "new", :notice => "Something went wrong in creating the phenotype"
@@ -73,10 +75,10 @@ class PhenotypesController < ApplicationController
 	  private
 	  
 		def sort_column
-			Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "characteristic"
+			Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
 	  end
 	  
 	  def sort_direction
-		%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+		%w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
 	  end
 end

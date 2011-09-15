@@ -1,8 +1,17 @@
-<h1>Phenotype: <%= @phenotype.characteristic %></h1>
+<div class="row">
+	<div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
+	<% if current_user %>
+		<div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
+		<div class="span6 columns offset4"><%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %></div>
+<% end %>
+</div>
+
+<% if current_user %>
 <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
 
 <%= render 'user_phenotypes/form' %>
 <%end%>
+<% end %>
 
 <h6>Known Phenotypes:</h6>
 <ul>
@@ -13,13 +22,10 @@
 <%end%>
 </ul>
 
-<% if current_user %>
-	<%= link_to "Back to your homepage", current_user %> | <%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %>
-<% end %>
 <div id="tab-container">
 	<ul class="tabs">
-		<li><a href="#users">Users sharing this phenotype</a></li>
-		<li><a href="#comments">Comments</a></li>
+		<li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
+		<li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
 	</ul>
 
 	<div id="users">
@@ -30,8 +36,13 @@
 	</tr>
 <% @phenotype.user_phenotypes.each do |up| %>
 	<tr>
+		<%if current_user!= nil and UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id) != nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
+		<td><b><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id)%></b></td>
+		<td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
+		<%else%>
 		<td><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id)%></td>
 		<td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
+		<%end%>
 	</tr>
 <% end %>
 </table>

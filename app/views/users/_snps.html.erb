@@ -1,12 +1,11 @@
 <table>
 	<tr>
-		<th>SNP-ID</th>
-		<th>Name</th>
-		<th>Position</th>
-		<th>Chromosome</th>
-		<th>Genotype-Frequency</th>
-		<th>Allele-Frequency</th>
-		<th>Ranking</th>
+		<th><%= sortable "id", "SNP-ID"%></th>
+		<th><%= sortable "name", "Name"%></th>
+		<th><%= sortable "position","Position"%></th>
+		<th><%= sortable "chromosome","Chromosome"%></th>
+		<% if current_user %><th>Your Genotype</th><% end %>
+		<th><%= sortable "ranking", "Ranking"%></th>
 	</tr>
 	<% @snps.each do |s| %>
 		<tr>
@@ -14,8 +13,7 @@
 			<td><%= link_to s.name, s%></td>
 			<td><%= s.position %></td>
 			<td><%= s.chromosome %></td>
-			<td><%= s.genotype_frequency.keys()[0] + " = " + s.genotype_frequency.values()[0].to_s%></td>
-			<td><% s.allele_frequency.each do |k,v| %><%= k + " = " + v.to_s + " " %><% end %> </td>
+			<% if current_user and current_user.has_sequence %><td><%=UserSnp.find_by_user_id_and_snp_id(current_user.id,s.id).local_genotype%></td><% end %>
 			<td><%= s.ranking %></td>
 	</tr>
 <% end %>

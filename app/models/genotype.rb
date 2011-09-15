@@ -1,7 +1,7 @@
 require 'fileutils'
 
 class Genotype < ActiveRecord::Base
- belongs_to  :user
+ belongs_to :user
  has_many :user_snps
  
 validates_presence_of :originalfilename, :message => "Please provide file"
