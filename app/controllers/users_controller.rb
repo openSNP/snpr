@@ -94,9 +94,9 @@ class UsersController < ApplicationController
 			    @phenotype.save
 		    end
 		  end
-		  
+		  @user.check_and_award_phenotypes_achievements
 			flash[:notice] =  "Successfully updated"
-			redirect_to :controller => "users", :id => @user.id, :action => "edit"
+			render :action => 'edit'
 		else
 			render :action => 'edit' 
 		end

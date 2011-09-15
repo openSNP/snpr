@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	
 	
 	acts_as_authentic # call on authlogic
-    after_create :make_standard_phenotypes
+	after_create :make_standard_phenotypes
 
 	# dependent so stuff gets destroyed on delete
 	has_many :user_phenotypes, :dependent => :destroy
@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
 	end
 
    def check_if_phenotype_exists(charact)
+		 # checks so we don't create duplicate phenotypes
 	   if Phenotype.find_by_characteristic(charact) != nil
 		   return true
 	   else
@@ -40,6 +41,8 @@ class User < ActiveRecord::Base
    end
 
    def check_and_make_standard_phenotypes(charact)
+		 # checks whether phenotype exists, creates one if doesn't,
+		 # creates fitting user_phenotype in both cases
 	   if check_if_phenotype_exists(charact) == true
 		   @phen_id = Phenotype.find_by_characteristic(charact).id
 		   UserPhenotype.create(:phenotype_id => @phen_id, :variation => '', :user_id => id)
@@ -55,5 +58,36 @@ class User < ActiveRecord::Base
 	   check_and_make_standard_phenotypes('Skin color')
 	   check_and_make_standard_phenotypes('Blood type')
    end
+
+   def check_whether_user_has_phenotype_award_and_create(pheno_count, award)
+		 # checks for a given award-type and creates user_award if not existing
+		 
+		 # check for number of phenotypes
+		 @number_of_phenotypes = current_user.phenotypes.all.count
+     # check what achievements are already awarded
+		 @achievements = current_user.achievements
+		 if @number_of_phenotypes >= pheno_count and @achievements.find_by_award(award) == nil
+        @award = Achievement.find_by_award(award)
+				UserAchievement.create(:user_id => current_user.id, :achievement_id => @award.id)
+		 end
+	 end
+
+   def check_and_award_phenotypes_achievements
+		 # checks whether the user has a certain achievement in the area of phenotypes
+		 # awards achievements if not
+		 #
+		 # Method is called on phenotype-creation
+		 # (There is a method for phenotype, snps, etc. because else I'd
+		 # have to parse several tables, which would take too much time/power)
+		 
+		 # 4 standard phenotypes + 5 new = 9 phenotypes = 1 award 
+		 # this does not award if user deleted standard-phenotypes!
+		 check_whether_user_has_phenotype_award_and_create(9, "Entered 5 additional phenotypes")
+		 check_whether_user_has_phenotype_award_and_create(14, "Entered 10 additional phenotypes")
+		 check_whether_user_has_phenotype_award_and_create(24, "Entered 20 additional phenotypes")
+		 check_whether_user_has_phenotype_award_and_create(54, "Entered 50 additional phenotypes")
+		 check_whether_user_has_phenotype_award_and_create(104, "Entered 100 additional phenotypes")
+	 end
+
 
 end

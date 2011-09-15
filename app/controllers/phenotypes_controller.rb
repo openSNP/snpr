@@ -41,6 +41,8 @@ class PhenotypesController < ApplicationController
 		if @user_phenotype.save
 		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
       @phenotype.save
+			
+
 			redirect_to current_user
 		else
 			redirect_to :action => "new", :notice => "Something went wrong in creating the phenotype"
