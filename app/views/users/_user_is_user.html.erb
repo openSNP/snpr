@@ -103,14 +103,18 @@
 </div>
 <div id="comments">
 <% if @paginated_phenotype_replies != [] %>
-<h5>Replies on your comments on Phenotypes</h5>
-	<table>
+<h5>Latest replies on your comments on Phenotypes</h5>
+	<table class="zebra-striped" id="phenotype_reply_comments">
+		<thead>
 		<tr>
-		<td>On Phenotype</td>
-		<td>Reply from</td>
-		<td>Subject</td>
-		<td>Text</td>
-		<td>Written at</td>
+		<th>On Phenotype</th>
+		<th>Reply from</th>
+		<th>Subject</th>
+		<th>Text</th>
+		<th>Written at</th>
+		</tr>
+		</thead>
+		<tbody>
 	<% @paginated_phenotype_replies.each do |pc|%>
 		<tr>
 			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
@@ -120,29 +124,34 @@
 			<td><%= pc.created_at%></td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
 <%= will_paginate(@paginated_phenotype_replies)%>
 <% end %>
 
 <% if @paginated_snp_replies != [] %>
-<h5>Replies on your comments on SNPs</h5>
-	<table>
+<h5>Latest replies on your comments on SNPs</h5>
+	<table class="zebra-striped" id="snp_reply_comments">
+		<thead>
 		<tr>
-			<td>On SNP</td>
-			<td>Reply from</td>
-			<td>Subject</td>
-			<td>Text</td>
-			<td>Written:</td>
+			<th>On SNP</th>
+			<th>Reply from</th>
+			<th>Subject</th>
+			<th>Text</th>
+			<th>Written at:</th>
 		</tr>
+		</thead>
+		<tbody>
 	<% @paginated_snp_replies.each do |snp|%>
 		<tr>
 			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).id.to_s+"/#comments" %></td>
 			<td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
 			<td><%= snp.subject %></td>
 			<td><%= snp.comment_text %></td>
-			<td><%= snp.created_at%>
+			<td><%= snp.created_at%></td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
 <%= will_paginate(@paginated_snp_replies)%>
 <% end %>

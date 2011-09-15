@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   
   helper_method :sort_column, :sort_direction
-
+  
 	def new
 		@user = User.new
 		@title = "Sign up"
@@ -76,6 +76,7 @@ class UsersController < ApplicationController
 		    @snp_comment_replies << rs
 	    end
 	  end  
+	  @snp_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
 		@paginated_snp_replies = @snp_comment_replies.paginate(:page => params[:page])
 		
 		#find all phenotype-comment-replies that this user got
@@ -88,6 +89,7 @@ class UsersController < ApplicationController
 	      @phenotype_comment_replies << rp
       end
     end
+    @phenotype_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
     @paginated_phenotype_replies = @phenotype_comment_replies.paginate(:page => params[:page])
     
 		respond_to do |format|
