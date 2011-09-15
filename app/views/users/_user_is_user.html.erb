@@ -23,7 +23,7 @@
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
-		<li><a href="#comments">Your comments</a></li>
+		<li><a href="#comments">Replies to your comments</a></li>
 		<li><a href="#achievements">Your achievements</a></li>
 	</ul>
 
@@ -103,7 +103,8 @@
 </div>
 <div id="comments">
 <% if @paginated_phenotype_replies != [] %>
-<h5>Latest replies on your comments on Phenotypes</h5>
+<h4>Latest replies on your comments on Phenotypes</h4>
+
 	<table class="zebra-striped" id="phenotype_reply_comments">
 		<thead>
 		<tr>
@@ -130,7 +131,7 @@
 <% end %>
 
 <% if @paginated_snp_replies != [] %>
-<h5>Latest replies on your comments on SNPs</h5>
+<h4>Latest replies on your comments on SNPs</h4>
 	<table class="zebra-striped" id="snp_reply_comments">
 		<thead>
 		<tr>
