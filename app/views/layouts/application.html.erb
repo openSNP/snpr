@@ -41,9 +41,7 @@
 					<a href="#" class="dropdown-toggle"><%= image_tag current_user.avatar.url(:head)%> <%= current_user.name %></a>
 					<ul class="dropdown-menu">
 					<li><%= link_to("User's home", current_user)%></li>
-					<% if current_user.messages.where(:user_has_seen => false) != [] %>
-					<li><%= link_to("New Messages ("+current_user.messages.where(:user_has_seen => false).length.to_s+")",current_user)%>
-					<%end%>
+					<li><%= link_to("Messages ("+current_user.messages.where(:user_has_seen => false).length.to_s+")","/users/" + current_user.id.to_s + "#messages")%>
 					<li><%= link_to("Settings",  :controller => "users", :action => "edit",:id => current_user) %></li>
 					<li class="divider"></li>
 					<li><%= link_to("Sign out", '/signout') %></li>

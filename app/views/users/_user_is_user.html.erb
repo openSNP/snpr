@@ -102,39 +102,51 @@
 <% end %>
 </div>
 <div id="comments">
-<% if @phenotype_comments != [] %>
+<% if @paginated_phenotype_replies != [] %>
+<h5>Replies on your comments on Phenotypes</h5>
 	<table>
 		<tr>
-		<td>Phenotype</td>
+		<td>On Phenotype</td>
+		<td>Reply from</td>
 		<td>Subject</td>
 		<td>Text</td>
-	<% @phenotype_comments.each do |pc|%>
+		<td>Written at</td>
+	<% @paginated_phenotype_replies.each do |pc|%>
 		<tr>
-			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, Phenotype.find_by_id(pc.phenotype_id)%></td>
+			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
+			<td><%=image_tag User.find_by_id(pc.user_id).avatar.url(:head)%><%=User.find_by_id(pc.user_id).name%></td>
 			<td><%= pc.subject %></td>
 			<td><%= pc.comment_text %></td>
+			<td><%= pc.created_at%></td>
 		</tr>
 	<% end %>
 </table>
+<%= will_paginate(@paginated_phenotype_replies)%>
 <% end %>
-<%= will_paginate(@phenotype_comments)%>
-<% if @snp_comments != [] %>
+
+<% if @paginated_snp_replies != [] %>
+<h5>Replies on your comments on SNPs</h5>
 	<table>
 		<tr>
-			<td>SNP</td>
+			<td>On SNP</td>
+			<td>Reply from</td>
 			<td>Subject</td>
 			<td>Text</td>
+			<td>Written:</td>
 		</tr>
-	<% @snp_comments.each do |snp|%>
+	<% @paginated_snp_replies.each do |snp|%>
 		<tr>
 			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).id.to_s+"/#comments" %></td>
+			<td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
 			<td><%= snp.subject %></td>
 			<td><%= snp.comment_text %></td>
+			<td><%= snp.created_at%>
 		</tr>
 	<% end %>
 </table>
+<%= will_paginate(@paginated_snp_replies)%>
 <% end %>
-<%= will_paginate(@snp_comments)%>
+
 </div>
 <div id="achievements">
 	<%= current_user.achievements.inspect %>

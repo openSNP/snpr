@@ -55,18 +55,41 @@ class UsersController < ApplicationController
 		@received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
 		@sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
 		@phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
-		@snp_comments = SnpComment.where(:user_id => @user.id).paginate(:page => params[:page])
+		@snp_comments = SnpComment.where(:user_id => @user.id)
 		
+		# get phenotypes that current_user did not enter yet
 		@all_phenotype_ids = []
 		Phenotype.find(:all).each do |p| @all_phenotype_ids << p.id 
 		end
-		
 		@all_user_phenotype_ids = []
 		UserPhenotype.find_all_by_user_id(@user.id).each do |up| @all_user_phenotype_ids << up.phenotype_id 
-		end
-    
+		end  
     @unentered_phenotype_ids = (@all_phenotype_ids | @all_user_phenotype_ids) - (@all_phenotype_ids & @all_user_phenotype_ids)
 		
+		#find all snp-comment-replies that this user got
+		@user_snp_comment_ids = []
+		@snp_comments.each do |sc| @user_snp_comment_ids << sc.id end		
+		@snp_comment_replies = []
+		@user_snp_comment_ids.each do |ui| 
+		  @replies_for_snp = SnpComment.find_all_by_reply_to_id(ui)
+		  @replies_for_snp.each do |rs|
+		    @snp_comment_replies << rs
+	    end
+	  end  
+		@paginated_snp_replies = @snp_comment_replies.paginate(:page => params[:page])
+		
+		#find all phenotype-comment-replies that this user got
+		@user_phenotype_comment_ids = []
+		@phenotype_comments.each do |pc| @user_phenotype_comment_ids << pc.id end
+	  @phenotype_comment_replies = []
+	  @user_phenotype_comment_ids.each do |pi|
+	    @replies_for_phenotype = PhenotypeComment.find_all_by_reply_to_id(pi)
+	    @replies_for_phenotype.each do |rp|
+	      @phenotype_comment_replies << rp
+      end
+    end
+    @paginated_phenotype_replies = @phenotype_comment_replies.paginate(:page => params[:page])
+    
 		respond_to do |format|
 			format.html
 		end
