@@ -4,15 +4,20 @@ class Parsing
   @queue = :parse
 
   def self.perform(genotyp)
+    Rails.logger.level = 0
+    Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
     @genotype = Genotype.find_by_id(genotyp["genotype"]["id"].to_i)
+    filename = "#{Rails.root}/public/data/#{@genotype.fs_filename}"
+    logger.info "Parsing file #{filename}"
     # do we have a normal filetype?
     if @genotype.filetype != "other"
-      genotype_file = File.open(::Rails.root.to_s+"/public/data/"+ @genotype.fs_filename, "r")
+      genotype_file = File.open(filename, "r")
       known_snps = Snp.all.index_by(&:name)
       new_snps = []
       new_user_snps = []
 
       # open that file, go through each line
+      puts 'parsing...'
       genotype_file.each do |single_snp|
         next if single_snp[0] == "#"
 
@@ -29,7 +34,6 @@ class Parsing
           end
         end
 
-        puts snp_array[0]
         if snp_array.length == (4)
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           snp = known_snps[snp_array[0]]
@@ -69,15 +73,16 @@ class Parsing
           new_user_snps << [ @genotype.id, @genotype.user_id, snp.name, snp_array[3].rstrip ]
         end
       end
-      puts "importing new Snps"
+      logger.info "Importing new Snps"
       Snp.import new_snps
-      puts "updating knonw Snps"
+      logger.info "Updating knonw Snps"
       ActiveRecord::Base.transaction do
         known_snps.each_value(&:save)
       end
-      puts "importing new UserSnps"
+      logger.info "Importing new UserSnps"
       user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
+      logger.info "Done."
     end
   end
 end
