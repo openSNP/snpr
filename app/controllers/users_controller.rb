@@ -118,10 +118,13 @@ class UsersController < ApplicationController
         end
       end
       #@user.check_and_award_phenotypes_achievements
+      @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
+      @empty_websites.each do |ew| ew.delete end
+      
       flash[:notice] =  "Successfully updated"
-      render :action => 'edit'
+      redirect_to :action => 'edit'
     else
-      render :action => 'edit' 
+      redirect_to :action => 'edit' 
     end
   end
 

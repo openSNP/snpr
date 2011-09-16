@@ -1,54 +1,67 @@
 <% # helper thing so we don't have to put up fields into every page %>
 <%= nested_form_for(@user,:url => user_path, :html => { :class => "form-stacked",:multipart => true  } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
-<div class="well">
-	<%= image_tag @user.avatar.url(:thumb) %>
-	<%if @user.avatar_file_name != nil%>
-	<%= f.label(:delete_avatar, 'Delete current avatar') %><%= f.check_box(:delete_avatar) %>
-	<%end%>
-<div class="clearfix">
-	<%= f.label :avatar, "Upload new avatar"%>
-	<%=f.file_field :avatar%>
+<div id="tab-container">
+  <ul class="tabs">
+    <li><a href="#general">General</a></li>
+    <li><a href="#phenotypes">Phenotypes</a></li>
+    <li><a href="#details">Details</a></li>
+	<li><a href="#deleting">Deleting</a></li>
+  </ul>
+<div id="general">
+	<div class="well">
+		<h2>General Information</h2>
+		<%= image_tag @user.avatar.url(:thumb) %>
+		<%if @user.avatar_file_name != nil%>
+		<%= f.label(:delete_avatar, 'Delete current avatar') %><%= f.check_box(:delete_avatar) %>
+		<%end%>
+	<div class="clearfix">
+		<%= f.label :avatar, "Upload new avatar"%>
+		<%=f.file_field :avatar%>
+	</div>
+	
+	<div class="clearfix">
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</div>
+	<div class="clearfix">
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+	</div>
+	<div class="clearfix">
+		<%= f.label :password %>
+		<%= f.password_field :password %>
+	</div>
+	<div class="clearfix">
+		<%= f.label :password_confirmation, "Confirmation" %>
+		<%= f.password_field :password_confirmation %>
+	</div>               
+	</div>
 </div>
 
-<div class="clearfix">
-	<%= f.label :name %>
-	<%= f.text_field :name %>
-</div>
-<div class="clearfix">
-	<%= f.label :email %>
-	<%= f.text_field :email %>
-</div>
-<div class="clearfix">
-	<%= f.label :password %>
-	<%= f.password_field :password %>
-</div>
-<div class="clearfix">
-	<%= f.label :password_confirmation, "Confirmation" %>
-	<%= f.password_field :password_confirmation %>
-</div>               
-</div>
-
-<div class="well">
-<h2>Phenotypes</h2>
-<%= f.fields_for :user_phenotypes do |p| %>
-	 <div class="field">
+<div id="phenotypes">
+	<div class="well">
+		<h2>Your Phenotypes</h2>
+		<%= f.fields_for :user_phenotypes do |p| %>
+		<div class="field">
 		
-		<script type="text/javascript">
-		  $(function () {
-		    $("#phenotype_<%=p.object.phenotype_id.to_json%>").autocomplete({
-		      source: <%=raw(Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json)%>
-		    });
-		  });
-		</script>
+		   <script type="text/javascript">
+		     $(function () {
+		       $("#phenotype_<%=p.object.phenotype_id.to_json%>").autocomplete({
+		         source: <%=raw(Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json)%>
+		       });
+		     });
+		   </script>
 		
-		 <%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
-	 </div>
+		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
+	 	</div>
 <%end %>
 
  <%= link_to "Add a new phenotype", :controller => "phenotypes", :action => "new" %>
- </div>
+ 	</div>
+</div>
 
+<div id="details">
 <div class="well">
 <h2>Details</h2>
 <div class="clearfix">
@@ -58,18 +71,21 @@
 <%= f.fields_for :homepages do |h| %>
 	<div class="clearfix">
 		Description <%= h.text_field :description %>
-		URL <%= h.url_field :url, :value => "http://www." %><%= h.link_to_remove "Remove"%>
+		URL <%= h.url_field :url %><%= h.link_to_remove "Remove"%>
 	</div>
 <% end %>
 <%= f.link_to_add "Add a page", :homepages %>
 </div>
+</div>
 
+<div id="deleting">
 <div class="well">
 	<h2>Deleting</h2>
 	<% if not @user.genotypes.empty? %>
 	<p><%= link_to "Delete your genotype", @user.genotypes, :method => "delete", :confirm => "Are you sure you want to delete your genotype?" %></p>
 	<% end %>
 	<p><%= link_to "Delete this account", @user, :method => "delete", :confirm => "Are you sure you want to delete your account?" %></p>
+</div>
 </div>
 
 <div class="actions">
