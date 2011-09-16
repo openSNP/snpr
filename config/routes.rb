@@ -15,6 +15,7 @@ Snpr::Application.routes.draw do
   resources :search_results
 	resources :achievements
 	resources :user_achievements
+	resources :index
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login
@@ -24,7 +25,7 @@ Snpr::Application.routes.draw do
   match '/rss', :to => 'genotypes#feed'
   match '/search', :to => 'search_results#search'
 
-  root :to => 'static#index' # change thisi, maybe
+  root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
