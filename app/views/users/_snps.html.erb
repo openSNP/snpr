@@ -13,7 +13,7 @@
 			<td><%= link_to s.name, s%></td>
 			<td><%= s.position %></td>
 			<td><%= s.chromosome %></td>
-			<% if current_user and current_user.has_sequence %><td><%=UserSnp.find_by_user_id_and_snp_id(current_user.id,s.id).local_genotype%></td><% end %>
+			<% if current_user and current_user.has_sequence %><td><%=UserSnp.find_by_user_id_and_snp_name(current_user.id,s.name).local_genotype%></td><% end %>
 			<td><%= s.ranking %></td>
 	</tr>
 <% end %>
