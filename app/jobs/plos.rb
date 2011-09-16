@@ -3,11 +3,12 @@ require 'net/http'
 require 'rexml/document'
 
 class Plos
+  include Resque::Plugins::UniqueJob
   @queue = :plos
   
-  def self.perform(snp)
-    @snp = Snp.find_by_id(snp["snp"]["id"].to_i)
-    if @snp.plos_updated + 2678400 < Time.zone.now
+  def self.perform(snp_id)
+    @snp = Snp.find(snp_id)
+    if @snp.plos_updated < 31.days.ago
     
       key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")
       api_key = key_handle.readline.rstrip

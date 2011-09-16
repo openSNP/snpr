@@ -11,11 +11,12 @@ class Parsing
     # do we have a normal filetype?
     if @genotype.filetype != "other"
       genotype_file = File.open(filename, "r")
+      log "Loading known Snps."
       known_snps = Snp.all.index_by(&:name)
       new_snps = []
       new_user_snps = []
 
-      Rails.logger.info "Parsing file #{filename}"
+      log "Parsing file #{filename}"
       # open that file, go through each line
       genotype_file.each do |single_snp|
         next if single_snp[0] == "#"
@@ -40,10 +41,6 @@ class Parsing
             snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
             snp.default_frequencies
             new_snps << snp
-            # TODO: put these in a rake task to be called by a cron job or so...
-            Resque.enqueue(Plos,     snp)
-            Resque.enqueue(Mendeley, snp)
-            Resque.enqueue(Snpedia,  snp)
           end
 
           # change allele-frequency and genotype-frequency for each SNP,
@@ -72,16 +69,20 @@ class Parsing
           new_user_snps << [ @genotype.id, @genotype.user_id, snp.name, snp_array[3].rstrip ]
         end
       end
-      Rails.logger.info "Importing new Snps"
+      log "Importing new Snps"
       Snp.import new_snps
-      Rails.logger.info "Updating known Snps"
+      log "Updating known Snps"
       ActiveRecord::Base.transaction do
         known_snps.each_value(&:save)
       end
-      Rails.logger.info "Importing new UserSnps"
+      log "Importing new UserSnps"
       user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
-      Rails.logger.info "Done."
+      log "Done."
     end
+  end
+
+  def self.log msg
+    Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end
