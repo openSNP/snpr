@@ -34,7 +34,7 @@
 	</div>
 	
 	<div class="span3 columns">
-		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
+		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_name(current_user.id,@snp.name) != nil%>
 		
 		<div id="your_genotype" class="tooltip">
 			Your genetic variation at <em><%=@snp.name%></em>.
@@ -67,7 +67,7 @@
 			</thead>
 			<tbody>
 				<%@snp.genotype_frequency.each do |key,value|%>
-				<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil%>
+				<%if current_user != nil and UserSnp.find_by_user_id_and_snp_name(current_user.id,@snp.name) != nil%>
 					<%if key == @user_snp.local_genotype%>
 					<tr>
 						<td><b><%=key%></b></td>
@@ -197,7 +197,7 @@
 			<th>Summary</th>
 		</tr>
 		<% @snp.snpedia_paper.each do |p| %>
-		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and UserSnp.find_by_user_id_and_snp_id(current_user.id,@snp.id) != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
+		<%if current_user != nil and UserSnp.find_by_user_id_and_snp_name(current_user.id,@snp.name) != nil and p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype or current_user != nil and UserSnp.find_by_user_id_and_snp_name(current_user.id,@snp.name) != nil and p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype%>
 		<tr>
 			<td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
 			<td><b><%= p.summary.capitalize %></b></td>
@@ -224,12 +224,12 @@
 	</tr>
 <% @users.each do |u| %>
 	<tr>
-	<%if current_user != nil and current_user.has_sequence and u.user_snps.find_by_snp_id(@snp.id).local_genotype == @user_snp.local_genotype%>
+	<%if current_user != nil and current_user.has_sequence and u.user_snps.find_by_snp_name(@snp.name).local_genotype == @user_snp.local_genotype%>
 		<td><b><%= link_to( u.name, u ) %></b></td>
-		<td><b><%= u.user_snps.find_by_snp_id(@snp.id).local_genotype%></b></td>
+		<td><b><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></b></td>
 	<%else%>
 		<td><%= link_to( u.name, u ) %></td>
-		<td><%= u.user_snps.find_by_snp_id(@snp.id).local_genotype%></td>
+		<td><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></td>
 	<%end%>
 	</tr>
 <% end %>

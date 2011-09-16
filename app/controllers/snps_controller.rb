@@ -17,7 +17,7 @@ class SnpsController < ApplicationController
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
 		
 		if current_user != nil
-		  @user_snp = UserSnp.find_by_user_id_and_snp_id(current_user,@snp.id)
+		  @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user,@snp.name)
 	  end
 	  
 		@total_genotypes = 0

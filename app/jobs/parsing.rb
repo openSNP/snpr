@@ -74,7 +74,7 @@ class Parsing
       end
       Rails.logger.info "Importing new Snps"
       Snp.import new_snps
-      Rails.logger.info "Updating knonw Snps"
+      Rails.logger.info "Updating known Snps"
       ActiveRecord::Base.transaction do
         known_snps.each_value(&:save)
       end
