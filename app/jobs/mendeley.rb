@@ -4,11 +4,12 @@ require "net/http"
 require "json"
 
 class Mendeley
+   include Resque::Plugins::UniqueJob
    @queue = :mendeley
 
-   def self.perform(snp)
-      @snp = Snp.find_by_id(snp["snp"]["id"].to_i)
-      if @snp.mendeley_updated + 2678400 < Time.zone.now
+   def self.perform(snp_id)
+      @snp = Snp.find(snp_id)
+      if @snp.mendeley_updated < 31.days.ago
         key_handle = File.open(::Rails.root.to_s+"/key_mendeley.txt")
         api_key = key_handle.readline.rstrip
 

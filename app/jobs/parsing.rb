@@ -41,10 +41,6 @@ class Parsing
             snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
             snp.default_frequencies
             new_snps << snp
-            # TODO: put these in a rake task to be called by a cron job or so...
-            Resque.enqueue(Plos,     snp)
-            Resque.enqueue(Mendeley, snp)
-            Resque.enqueue(Snpedia,  snp)
           end
 
           # change allele-frequency and genotype-frequency for each SNP,

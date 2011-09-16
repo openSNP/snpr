@@ -4,11 +4,12 @@ require 'rexml/document'
 require 'media_wiki'
 
 class Snpedia
+   include Resque::Plugins::UniqueJob
    @queue = :snpedia
 
-   def self.perform(snp)
-      @snp = Snp.find_by_id(snp["snp"]["id"].to_i)
-      if @snp.snpedia_updated + 2678400 < Time.zone.now
+   def self.perform(snp_id)
+      @snp = Snp.find(snp_id)
+      if @snp.snpedia_updated < 31.days.ago
         mw = MediaWiki::Gateway.new("http://www.snpedia.com/api.php")
         # return an array of page-titles
         pages = mw.list(@snp.name)
