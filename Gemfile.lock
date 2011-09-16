@@ -109,6 +109,8 @@ GEM
       redis-namespace (~> 1.0.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-loner (1.0.1)
+      resque (~> 1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rsolr (0.12.1)
@@ -163,6 +165,7 @@ DEPENDENCIES
   rails (= 3.0.10)
   rails3-generators
   resque
+  resque-loner
   ruby-debug19
   rubyzip
   shoulda-context

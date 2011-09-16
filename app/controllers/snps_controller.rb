@@ -31,9 +31,9 @@ class SnpsController < ApplicationController
 		  @total_alleles += value
 		end
 		
-		Resque.enqueue(Plos,@snp)
-		Resque.enqueue(Mendeley,@snp)
-		Resque.enqueue(Snpedia,@snp)
+		Resque.enqueue(Plos,@snp.id)
+		Resque.enqueue(Mendeley,@snp.id)
+		Resque.enqueue(Snpedia,@snp.id)
 		  
 	    @snp_comment = SnpComment.new
 			  
