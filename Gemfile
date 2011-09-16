@@ -33,6 +33,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'factory_girl'
   gem 'mocha'
+  gem 'ruby-debug19'
 end
 
 # gem 'email_veracity' # to check whether user-mails are OK

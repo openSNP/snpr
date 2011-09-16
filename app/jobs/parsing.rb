@@ -8,7 +8,6 @@ class Parsing
     Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
     @genotype = Genotype.find_by_id(genotyp["genotype"]["id"].to_i)
     filename = "#{Rails.root}/public/data/#{@genotype.fs_filename}"
-    logger.info "Parsing file #{filename}"
     # do we have a normal filetype?
     if @genotype.filetype != "other"
       genotype_file = File.open(filename, "r")
@@ -16,8 +15,8 @@ class Parsing
       new_snps = []
       new_user_snps = []
 
+      Rails.logger.info "Parsing file #{filename}"
       # open that file, go through each line
-      puts 'parsing...'
       genotype_file.each do |single_snp|
         next if single_snp[0] == "#"
 
@@ -73,16 +72,16 @@ class Parsing
           new_user_snps << [ @genotype.id, @genotype.user_id, snp.name, snp_array[3].rstrip ]
         end
       end
-      logger.info "Importing new Snps"
+      Rails.logger.info "Importing new Snps"
       Snp.import new_snps
-      logger.info "Updating knonw Snps"
+      Rails.logger.info "Updating knonw Snps"
       ActiveRecord::Base.transaction do
         known_snps.each_value(&:save)
       end
-      logger.info "Importing new UserSnps"
+      Rails.logger.info "Importing new UserSnps"
       user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
-      logger.info "Done."
+      Rails.logger.info "Done."
     end
   end
 end

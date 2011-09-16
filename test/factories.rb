@@ -1,4 +1,5 @@
 Factory.define :user do |u|
+  u.name "Dogbert"
   u.sequence(:email) { |i| "fubert#{i}@example.org" }
   u.password "jeheim"
   u.password_confirmation "jeheim"

@@ -1,5 +1,5 @@
 class Snp < ActiveRecord::Base
-  has_many :user_snps, foreign_key: :snp_name
+  has_many :user_snps, foreign_key: :snp_name, primary_key: :name
   has_many :plos_paper
   has_many :mendeley_paper
   has_many :snpedia_paper
