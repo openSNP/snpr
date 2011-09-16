@@ -2,12 +2,15 @@
 <%= nested_form_for(@user,:url => user_path, :html => { :class => "form-stacked",:multipart => true  } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
 <div class="well">
-	<%if @user.avatar_file_name != nil%>
 	<%= image_tag @user.avatar.url(:thumb) %>
+	<%if @user.avatar_file_name != nil%>
+	<%= f.label(:delete_avatar, 'Delete current avatar') %><%= f.check_box(:delete_avatar) %>
 	<%end%>
 <div class="clearfix">
-	<%= f.label :avatar, "Upload avatar"%><%= link_to "remove avatar", current_user, :action => "removeavatar",:id => @user.id%>
+	<%= f.label :avatar, "Upload new avatar"%>
 	<%=f.file_field :avatar%>
+</div>
+
 <div class="clearfix">
 	<%= f.label :name %>
 	<%= f.text_field :name %>

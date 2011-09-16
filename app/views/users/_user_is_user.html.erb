@@ -10,7 +10,7 @@
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
-	<% if @user.description != ""  %>
+	<% if @user.description != nil  %>
 	<h3>Description of yourself</h3>
 	<p><%= @user.description %></p>
 	<% end %>
@@ -23,7 +23,8 @@
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
-		<li><a href="#comments">Your comments</a></li>
+		<li><a href="#comments">Replies to your comments</a></li>
+		<li><a href="#achievements">Your achievements</a></li>
 	</ul>
 
 
@@ -73,13 +74,13 @@
 	</tr>
 <% @received_messages.each do |m| %>
 	<tr>
-	<td><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
+	<td><%=image_tag User.find_by_id(m.from_id).avatar.url(:head)%><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	<td><% if m.user_has_seen == false %>New!<% end %></td>
 	</tr>
 <% end %>
 </table>
-/<% else %>
+<% else %>
 	There are no messages to display here.
 <% end %>
 <h3>Sent</h3>
@@ -91,7 +92,7 @@
 	</tr>
 <% @sent_messages.each do |m| %>
 	<tr>
-	<td><%= User.find_by_id(m.to_id).name %></td>
+	<td><%=image_tag User.find_by_id(m.to_id).avatar.url(:head)%><%= User.find_by_id(m.to_id).name %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	</tr>
 <% end %>
@@ -101,37 +102,62 @@
 <% end %>
 </div>
 <div id="comments">
-<% if @phenotype_comments != [] %>
-	<table>
+<% if @paginated_phenotype_replies != [] %>
+<h4>Latest replies on your comments on Phenotypes</h4>
+
+	<table class="zebra-striped" id="phenotype_reply_comments">
+		<thead>
 		<tr>
-		<td>Phenotype</td>
-		<td>Subject</td>
-		<td>Text</td>
-	<% @phenotype_comments.each do |pc|%>
+		<th>On Phenotype</th>
+		<th>Reply from</th>
+		<th>Subject</th>
+		<th>Text</th>
+		<th>Written at</th>
+		</tr>
+		</thead>
+		<tbody>
+	<% @paginated_phenotype_replies.each do |pc|%>
 		<tr>
-			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, Phenotype.find_by_id(pc.phenotype_id)%></td>
+			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
+			<td><%=image_tag User.find_by_id(pc.user_id).avatar.url(:head)%><%=User.find_by_id(pc.user_id).name%></td>
 			<td><%= pc.subject %></td>
 			<td><%= pc.comment_text %></td>
+			<td><%= pc.created_at%></td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
+<%= will_paginate(@paginated_phenotype_replies)%>
 <% end %>
-<%= will_paginate(@phenotype_comments)%>
-<% if @snp_comments != [] %>
-	<table>
+
+<% if @paginated_snp_replies != [] %>
+<h4>Latest replies on your comments on SNPs</h4>
+	<table class="zebra-striped" id="snp_reply_comments">
+		<thead>
 		<tr>
-			<td>SNP</td>
-			<td>Subject</td>
-			<td>Text</td>
+			<th>On SNP</th>
+			<th>Reply from</th>
+			<th>Subject</th>
+			<th>Text</th>
+			<th>Written at:</th>
 		</tr>
-	<% @snp_comments.each do |snp|%>
+		</thead>
+		<tbody>
+	<% @paginated_snp_replies.each do |snp|%>
 		<tr>
 			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).id.to_s+"/#comments" %></td>
+			<td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
 			<td><%= snp.subject %></td>
 			<td><%= snp.comment_text %></td>
+			<td><%= snp.created_at%></td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
+<%= will_paginate(@paginated_snp_replies)%>
 <% end %>
-<%= will_paginate(@snp_comments)%>
+
+</div>
+<div id="achievements">
+	<%= current_user.achievements.inspect %>
 </div>
