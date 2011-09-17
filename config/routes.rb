@@ -24,6 +24,7 @@ Snpr::Application.routes.draw do
   match '/user_index', :to => 'users#index'
   match '/rss', :to => 'genotypes#feed'
   match '/search', :to => 'search_results#search'
+  match '/users/:id/remove_first', :to => 'users#remove_first'
 
   root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:

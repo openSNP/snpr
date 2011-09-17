@@ -152,6 +152,11 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
 
+  def remove_first
+    current_user.toggle!("has_sequence")
+    redirect_to :back
+  end
+  
   private
 
   def sort_column
