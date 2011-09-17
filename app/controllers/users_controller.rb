@@ -152,9 +152,16 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
 
-  def remove_first
-    current_user.toggle!("has_sequence")
-    redirect_to :back
+  def remove_help_one
+    current_user.update_attribute("help_one",true)
+  end
+  
+  def remove_help_two
+    current_user.update_attribute("help_two",true)
+  end
+  
+  def remove_help_three
+    current_user.update_attribute("help_three",true)
   end
   
   private
