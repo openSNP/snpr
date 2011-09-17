@@ -51,7 +51,7 @@ class PhenotypesController < ApplicationController
       @phenotype.save
 			
 			# check for additional phenotype awards
-	    current_user.update_attributes(:phenotype_additional_counter => (current_user.phenotype_additional_counter + 1)  )
+	    current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
 
 			check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
 			check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")

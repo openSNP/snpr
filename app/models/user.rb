@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 	validates_attachment_content_type :avatar, :content_type=>['image/jpeg', 'image/png', 'image/gif']
 	
 	acts_as_authentic # call on authlogic
-	after_create :make_standard_phenotypes
+	#after_create :make_standard_phenotypes
 
 	# dependent so stuff gets destroyed on delete
 	has_many :user_phenotypes, :dependent => :destroy

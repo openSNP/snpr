@@ -65,6 +65,9 @@ class UsersController < ApplicationController
     UserPhenotype.find_all_by_user_id(@user.id).each do |up| @all_user_phenotype_ids << up.phenotype_id 
     end  
     @unentered_phenotype_ids = (@all_phenotype_ids | @all_user_phenotype_ids) - (@all_phenotype_ids & @all_user_phenotype_ids)
+    @unentered_phenotypes = []
+    @unentered_phenotype_ids.each do |up| @unentered_phenotypes << Phenotype.find_by_id(up) end
+    @unentered_phenotypes.sort!{ |b,a| a.created_at <=> b.created_at }
 
     #find all snp-comment-replies that this user got
     @user_snp_comment_ids = []
@@ -109,15 +112,16 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      params[:user][:user_phenotypes_attributes].each do |p|
-        @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
-        if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
-          @phenotype.known_phenotypes << p[1]["variation"]
-          @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
-          @phenotype.save
+      if params[:user][:user_phenoypes_attributes] != nil
+        params[:user][:user_phenotypes_attributes].each do |p|
+          @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
+          if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
+            @phenotype.known_phenotypes << p[1]["variation"]
+            @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
+            @phenotype.save
+          end
         end
       end
-      #@user.check_and_award_phenotypes_achievements
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
       
@@ -143,7 +147,7 @@ class UsersController < ApplicationController
       end
       UserPhenotype.delete(up)
     end
-    flash[:notice] = "Thank you for using SNPr. Goodbye!"
+    flash[:notice] = "Thank you for using openSNP. Goodbye!"
     User.delete(@user)
     redirect_to root_url
   end

@@ -17,7 +17,7 @@
 
 <div id="tab-container">
 	<ul class="tabs">
-		<%if @unentered_phenotype_ids != []%>
+		<%if @unentered_phenotypes != []%>
 		<li><a href="#unentered_variations">Variations you did not enter yet</a></li>
 		<%end%>
 		<li><a href="#snps">Your SNPs</a></li>
@@ -28,7 +28,7 @@
 	</ul>
 
 
-<%if @unentered_phenotype_ids != []%>
+<%if @unentered_phenotypes != []%>
 	<div id="unentered_variations">
 	<table>
 		<thead>
@@ -38,10 +38,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%@unentered_phenotype_ids.each do |i|%>
+			<%@unentered_phenotypes.each do |i|%>
 			<tr>
-				<td><%=link_to Phenotype.find_by_id(i).characteristic, Phenotype.find_by_id(i)%></td>
-				<td><%=link_to Phenotype.find_by_id(i).created_at,Phenotype.find_by_id(i)%></td>
+				<td><%=link_to i.characteristic, i%></td>
+				<td><%=link_to i.created_at,i%></td>
 			</tr>
 			<%end%>
 			</table>
