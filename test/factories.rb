@@ -19,3 +19,7 @@ Factory.define :snp do |s|
   s.allele_frequency("A" => 0, "T" => 0, "G" => 0, "C" => 0)
   s.ranking 0
 end
+
+Factory.define :achievement do |a|
+  a.award "Foooooooo"
+end

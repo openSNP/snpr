@@ -6,6 +6,7 @@ class UsersControllerTest < ActionController::TestCase
     setup do
       Sunspot.stubs(:index)
       @user = Factory(:user)
+      activate_authlogic
     end
 
     should "be indexed" do
@@ -34,12 +35,51 @@ class UsersControllerTest < ActionController::TestCase
       assert_redirected_to user_path(User.last)
     end
 
-    should "be updated" do
+    should "not be updated by strangers" do
       post :update, id: @user.id, user: { name: "Blah Keks", user_phenotypes_attributes: [] }
-      assert_response :success
+      assert_redirected_to :root
+      @user.reload
+      assert_not_equal "Blah Keks", @user.name
+    end
+
+    should "not be updated by other users" do
+      other_user = Factory(:user)
+      post :update, id: @user.id, user: { name: "Blah Keks", user_phenotypes_attributes: [] }
+      assert_redirected_to :root
+      @user.reload
+      assert_not_equal "Blah Keks", @user.name
+    end
+
+    should "be able to update themselves" do
+      activate_authlogic
+      UserSession.create(@user)
+      post :update, id: @user.id, user: { name: "Blah Keks", user_phenotypes_attributes: [] }
+      assert_redirected_to edit_user_path(@user)
       @user.reload
       assert_equal "Blah Keks", @user.name
     end
+
+    should "not be destroyed by strangers" do
+      assert_no_difference 'User.count' do
+        post :destroy, id: @user.id
+      end
+      assert_redirected_to :root
+    end
+
+    should "not be destroyed by other users" do
+      UserSession.create Factory(:user)
+      assert_no_difference 'User.count' do
+        post :destroy, id: @user.id
+      end
+      assert_redirected_to :root
+    end
+
+    should "be destroyed by themselves" do
+      UserSession.create @user
+      assert_difference 'User.count', -1 do
+        post :destroy, id: @user.id
+      end
+      assert_redirected_to :root
+    end
   end
 end
-

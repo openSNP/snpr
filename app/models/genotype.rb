@@ -5,6 +5,7 @@ class Genotype < ActiveRecord::Base
   has_many :user_snps
 
   validates_presence_of :originalfilename, :message => "Please provide file"
+  validates_presence_of :user
 
   def initialize
     super

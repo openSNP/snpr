@@ -1,5 +1,7 @@
 class GenotypesController < ApplicationController
 
+  before_filter :require_user, except: [ :show, :feed ]
+
   def new
     @genotype = Genotype.new
     # current user is always stored in the method 'current_user',

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  before_filter :requires_owner, only: [ :update, :destroy ]
   helper_method :sort_column, :sort_direction
 
   def new
@@ -174,4 +175,10 @@ class UsersController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
+  def requires_owner
+    unless current_user && params[:id] == current_user.id
+      redirect_to root_path
+      return false
+    end
+  end
 end
