@@ -1,3 +1,5 @@
+<%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "Example RSS"})%>
+
 <div class="row">
 	<div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
 	<% if current_user %>
@@ -12,7 +14,7 @@
 <%= render 'user_phenotypes/form' %>
 <%end%>
 <% end %>
-
+<%=link_to(image_tag("/images/rss_small.png"),:action =>"feed")%>
 <h6>Known Phenotypes:</h6>
 <ul>
 <%@phenotype.known_phenotypes.each do |p|%>

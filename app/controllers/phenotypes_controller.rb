@@ -88,6 +88,21 @@ class PhenotypesController < ApplicationController
 		end
 	end
 	
+	def feed
+    @phenotype = Phenotype.find(params[:id])
+    @user_phenotypes = @phenotype.user_phenotypes
+    @genotypes = []
+    @user_phenotypes.each do |up|
+      if up.user.genotypes[0] != nil
+        @genotypes << up.user.genotypes[0]
+      end
+    end
+    
+    @genotypes.sort!{ |b,a| a.created_at <=> b.created_at }
+    
+    render :action => "rss", :layout => false
+  end
+	
 	  private
 	  
 		def sort_column

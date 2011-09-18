@@ -1,0 +1,42 @@
+<%if current_user %>
+<%if (current_user.help_one and current_user.help_two and current_user.help_three ) == false %>
+<% if current_user.has_sequence == false or current_user.user_phenotypes == [] or current_user.phenotype_creation_counter == 0 %>
+<div class ="well">
+<div class="row">
+		<center><h4>Welcome to openSNP. Here are some first steps you could do:</h4></center>
+		<%if current_user.has_sequence == false and current_user.help_one == false%>
+		<div class="span5 columns offset1">
+		<div class="alert-message block-message success" data-alert="alert">
+			<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_one", :id => current_user},:remote => true, id: "remove_help_one", :class => "close")%>
+			<h5>Upload Your Genotyping File</h5>
+			<%=link_to(image_tag("/images/fileupload.png"), "/genotypes/new")%>
+			<%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em> or <em>deCODEme</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
+		</div>
+		</div>
+		<%end%>
+		<%if current_user.user_phenotypes == [] and current_user.help_two == false%>
+		<div class="span5 columns">
+		<div class="alert-message block-message success" data-alert="alert">
+			<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close")%>
+			<h5>Enter Your Variations</h5>
+			<%=link_to(image_tag("/images/phenotypes.png"), "/users/"+current_user.id.to_s+"#unentered_variations")%>
+			Let us, and the other <em>openSNP</em>-users, know some of your characteristics. Like hair or eye color. Or about some diseases? <%=link_to("Whatever you feel like sharing","/users/"+current_user.id.to_s+"#unentered_variations")%>.
+		</div>
+		</div>
+		<%end%>
+		<%if current_user.phenotype_creation_counter == 0 and current_user.help_three == false %>
+		<div class="span5 columns">
+		<div class="alert-message block-message success" data-alert="alert">
+			<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close")%>
+			<h5>Enter a New Phenotype</h5>
+			<%=link_to(image_tag("/images/addphenotype.png"), "/phenotypes/new")%>
+			Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can easily add this","/phenotypes/new")%> to the <em>openSNP</em>-database.
+		</div>
+		</div>
+		<%end%>
+</div>
+</div>
+</div>
+<%end%>
+<%end%>
+<%end%>
