@@ -5,7 +5,7 @@ Snpr::Application.routes.draw do
   resources :user_phenotypes
   resources :snps
   resources :users
-  resource :user_sessions
+  resource :user_session
   resources :user_snps
   resources :password_resets
   resources :news
