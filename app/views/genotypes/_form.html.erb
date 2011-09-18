@@ -2,7 +2,7 @@
  <div class="span8 columns">
 <%= form_for(@genotype,:html => {:class => "form-stacked", :multipart => true}) do |f| %>
 <%= render 'shared/error_messages', :target => @genotype %>
-<div class="well">
+<div class="well">	
 <div class="clearfix">
 	<%= f.label :filename %>
 	<%= f.file_field :filename %>
