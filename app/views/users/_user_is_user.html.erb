@@ -17,7 +17,7 @@
 <div id="tab-container">
 	<ul class="tabs">
 		<%if @unentered_phenotypes != []%>
-		<li><a href="#unentered_variations">Variations you did not enter yet</a></li>
+		<li><a href="#unentered_variations">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
 		<%end%>
 		<li><a href="#snps">Your SNPs</a></li>
 		<li><a href="#variations">Your variations</a></li>
@@ -73,7 +73,7 @@
 	</tr>
 <% @received_messages.each do |m| %>
 	<tr>
-	<td><%=image_tag User.find_by_id(m.from_id).avatar.url(:head)%><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
+	<td><%=image_tag User.find_by_id(m.from_id).avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	<td><% if m.user_has_seen == false %>New!<% end %></td>
 	</tr>
@@ -91,7 +91,7 @@
 	</tr>
 <% @sent_messages.each do |m| %>
 	<tr>
-	<td><%=image_tag User.find_by_id(m.to_id).avatar.url(:head)%><%= User.find_by_id(m.to_id).name %></td>
+	<td><%=image_tag User.find_by_id(m.to_id).avatar.url(:head),:style => "vertical-align:middle"%><%= User.find_by_id(m.to_id).name %></td>
 	<td><%= link_to( m.subject, m ) %></td>
 	</tr>
 <% end %>

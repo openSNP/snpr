@@ -1,6 +1,5 @@
 <%if current_user %>
-<%if (current_user.help_one and current_user.help_two and current_user.help_three ) == false %>
-<% if current_user.has_sequence == false or current_user.user_phenotypes == [] or current_user.phenotype_creation_counter == 0 %>
+<%if (current_user.help_one or current_user.has_sequence) and (current_user.help_two == false or current_user.user_phenotypes != []) and (current_user.help_three or current_user.phenotype_creation_counter != 0) != true%>
 <div class ="well">
 <div class="row">
 		<center><h4>Welcome to openSNP. Here are some first steps you could do:</h4></center>
@@ -37,6 +36,5 @@
 </div>
 </div>
 </div>
-<%end%>
 <%end%>
 <%end%>
