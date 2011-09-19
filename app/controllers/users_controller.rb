@@ -175,11 +175,4 @@ class UsersController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
-
-  def requires_owner
-    unless current_user && params[:id] == current_user.id
-      redirect_to root_path
-      return false
-    end
-  end
 end
