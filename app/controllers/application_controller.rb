@@ -72,6 +72,15 @@ class ApplicationController < ActionController::Base
 		  return false
 	  end
   end
+  
+  def require_owner
+    unless current_user == User.find(params[:id])
+      store_location
+		  flash[:notice] = "Redirected to your edit page"
+		  redirect_to :controller => "users", :action => "edit", :id => current_user.id 
+		  return false
+	  end
+  end
 
   def store_location
 	  session[:return_to] = request.request_uri
