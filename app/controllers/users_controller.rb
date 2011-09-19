@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_owner, only: [ :update, :destroy,:edit ]
+  before_filter :require_owner, only: [ :update, :destroy, :edit ]
   helper_method :sort_column, :sort_direction
   before_filter :require_no_user, :only => [:new, :create]
 
@@ -22,7 +22,6 @@ class UsersController < ApplicationController
     end
 
     if params[:read] and @user.save
-      homepage = @user.homepages.build(:user_id => current_user.id)
       flash[:notice] = "Account registered!"
       redirect_to @user
     else
@@ -73,7 +72,7 @@ class UsersController < ApplicationController
 
     #find all snp-comment-replies that this user got
     @user_snp_comment_ids = []
-    @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end		
+    @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end    
     @snp_comment_replies = []
     @user_snp_comment_ids.each do |ui| 
       @replies_for_snp = SnpComment.find_all_by_reply_to_id(ui)
@@ -174,5 +173,14 @@ class UsersController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  def require_owner
+    unless current_user && current_user.id == params[:id]
+      store_location
+      flash[:notice] = "You don't have access here."
+      redirect_to root_path
+      return false
+    end
   end
 end
