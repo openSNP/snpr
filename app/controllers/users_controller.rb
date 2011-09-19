@@ -166,6 +166,20 @@ class UsersController < ApplicationController
     current_user.update_attribute("help_three",true)
   end
   
+  def require_owner
+    unless current_user == User.find(params[:id])
+      store_location
+		  if current_user
+		    flash[:notice] = "Redirected to your edit page"
+		    redirect_to :controller => "users", :action => "edit", :id => current_user.id 
+	    else
+	      flash[:notice] = "You need to be logged in"
+	      redirect_to "/signin"
+      end
+		  return false
+	  end
+  end
+  
   private
 
   def sort_column
