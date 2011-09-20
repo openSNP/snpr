@@ -240,6 +240,8 @@
 </div>
 <div id="comments">
 <%= render 'snp_comments/show' %>
+<%if current_user%>
 <%= render 'snp_comments/form' %>
+<%end%>
 </div>
 </div>

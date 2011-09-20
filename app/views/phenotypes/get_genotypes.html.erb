@@ -1,0 +1,5 @@
+<h3>Your Download can start soon...</h3>
+
+<div class="alert-message block-message success">
+<%=image_tag("/images/filedownload.png",:style => "float:left")%><h7>Our servers are working hard to deliver you a file that includes all the genotyping files of users with a variation of <em><%=@variation%></em> at the phenotype <em><%=@phenotype.characteristic%></em>.<br/><br/>The genotyping-files currently get zipped to lighten your download. You will receive the download-link via the eMail-address you registered your account with, as soon as the file is ready.</h7></div>
+<%=link_to "Go Back","/phenotypes/"+@phenotype.id.to_s%>

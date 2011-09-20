@@ -1,3 +1,5 @@
+mail_username.txt
+mail_password.txt
 public/system/images/*
 dump.rdb
 sunspot-solr-development.log.*

@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
 
   before_filter :require_user
+  before_filter :require_owner, only: [ :show, :destroy ]
   
   def new
 	  #create the message
@@ -50,6 +51,20 @@ class MessagesController < ApplicationController
 	  if message.destroy
 		  flash[:notice] = "Message deleted."
 		  redirect_to current_user
+	  end
+  end
+
+  def require_owner
+    unless current_user.id == Message.find_by_id(params[:id]).user_id
+      store_location
+		  if current_user
+		    flash[:warning] = "Ups! Thats none of your business"
+		    redirect_to :controller => "users", :action => "show", :id => current_user.id 
+	    else
+	      flash[:notice] = "You need to be logged in"
+	      redirect_to "/signin"
+      end
+		  return false
 	  end
   end
 

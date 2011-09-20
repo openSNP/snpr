@@ -27,6 +27,7 @@ Snpr::Application.routes.draw do
   match '/users/:id/remove_help_one', :to => 'users#remove_help_one'
   match '/users/:id/remove_help_two', :to => 'users#remove_help_two'
   match '/users/:id/remove_help_three', :to => 'users#remove_help_three'
+  match '/phenotypes/get_genotypes/:phenotype_id/:variation', :to => 'phenotypes#get_genotypes'
   match '/phenotypes/:id/rss', :to => 'phenotypes#feed'
   
   root :to => 'index#index' # change thisi, maybe

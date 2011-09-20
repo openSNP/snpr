@@ -102,6 +102,16 @@ class PhenotypesController < ApplicationController
     
     render :action => "rss", :layout => false
   end
+  
+  def get_genotypes
+    Resque.enqueue(Zipgenotypingfiles,params[:phenotype_id],params[:variation],current_user.email)
+    @phenotype = Phenotype.find(params[:phenotype_id])
+    @variation = params[:variation]
+    respond_to do |format|
+			format.html
+			format.xml
+		end
+  end
 	
 	  private
 	  

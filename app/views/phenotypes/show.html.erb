@@ -19,7 +19,7 @@
 <ul>
 <%@phenotype.known_phenotypes.each do |p|%>
 <%if p != ""%>
-<li><%=p%></li>
+<li><b><%=p%>:</b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :phenotype_id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%><%end%></li> 
 <%end%>
 <%end%>
 </ul>
@@ -52,6 +52,8 @@
   
 <div id="comments">
 <%= render 'phenotype_comments/show' %>
+<%if current_user%>
 <%= render 'phenotype_comments/form' %>
+<%end%>
 </div>
 </div>

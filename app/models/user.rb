@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
 	def deliver_password_reset_instructions!
 		reset_perishable_token!
-		Notifier.deliver_password_reset_instructions(self)
+		UserMailer.password_reset_instructions(self).deliver
 	end
 
    def check_if_phenotype_exists(charact)

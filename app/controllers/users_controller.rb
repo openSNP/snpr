@@ -22,8 +22,8 @@ class UsersController < ApplicationController
     end
 
     if params[:read] and @user.save
-      homepage = @user.homepages.build(:user_id => current_user.id)
       flash[:notice] = "Account registered!"
+      UserMailer.welcome_user(@user).deliver
       redirect_to @user
     else
       respond_to do |format|
