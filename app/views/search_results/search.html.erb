@@ -1,59 +1,103 @@
 <h2>Search results</h2>
 
+<div id="tab-container">
+  <ul class="tabs">
+	<%if not @users.results == [] %>
+	<li><a href="#users">Users (<%=@users.results.length%>)</a></li>
+	<%end%>
+	
+	<%if not @phenotypes.results == []%>
+	<li><a href="#phenotypes">Phenotypes (<%=@phenotypes.results.length%>)</a></li>
+	<%end%>
+	
+	<%if not @snps.results == []%>
+	<li><a href="#snps">SNPs (<%=@snps.results.length%>)</a></li>
+	<%end%>
+	
+	<% if not (@mendeley_papers.results == [] and @plos_papers.results == [])%>
+    <li><a href="#papers">Papers (<%=@plos_papers.results.length + @mendeley_papers.results.length%>)</a></li>
+	<%end%>
+	
+    <%if not (@snp_comments.results == [] and @phenotype_comments.results == [])%>
+    <li><a href="#comments">Comments (<%=@snp_comments.results.length + @phenotype_comments.results.length%>)</a></li>
+	<%end%>	
+  </ul>
+
 <% if not @phenotypes.results == [] %>
-	<h5>Phenotypes</h5>
-	<ul>
+<div id="phenotypes">
+	<table>
+		<thead>
+			<tr>
+				<th>Phenotype</th>
+				<th># of Users</th>
+				<th>Known Variation</th>
+			</tr>
+		</thead>
+		<tbody>
 <% for p in @phenotypes.results %>
-	<li><%= link_to p.characteristic, p %> | <%= link_to "Download all relevant genotypes! bundle(p)", "#" %></li>
-	<li>The following users share this phenotype:
+		<tr>
+			<td><%= link_to p.characteristic, p %></td>
+			<td><%= p.number_of_users%></td>
+			<td>
 	<ul>
-		<% for up in UserPhenotype.where(:phenotype_id => p.id) %>
-			<li><%= link_to User.find_by_id(up.user_id).name, User.find_by_id(up.user_id) %> | <%= up.variation %></li>
+		<% p.known_phenotypes.each do |kp| %>
+			<li><%=kp%>: <%=link_to "Download all genotyping-files of users with this variation",{:controller => "phenotypes",:action => "get_genotypes",:phenotype_id => p.id, :variation => kp} %></li>
 		<% end %>
-	</ul>
+	</ul></td>
+	</tr>
 <% end %>
-</ul>
+</tbody>
+</table>
+</div>
 <% end %>
 
+
 <% if not @snps.results == [] %>
+<div id="snps">
 	<h5>Snps</h5>
 	<ul>
 <% for p in @snps.results %>
 	<li><%= link_to p.name, p %></li>
 <% end %>
 </ul>
+</div>
 <% end %>
 
 <% if not @users.results == [] %>
+<div id="users">
 	<h5>Users</h5>
 	<ul>
 <% for u in @users.results %>
 	<li><%= link_to u.name, u %></li>
 <% end %>
 </ul>
+</div>
 <% end %>
 
-<% if not @user_phenotypes.results == [] %>
-	<h5>Phenotype variations:</h5>
-	<ul>
-<% for p in @user_phenotypes.results %>
-	<li><%= p.variation%></li>
-	<li>Linked to the following phenotypes:</li>
-	<ul>
-	<% for p in Phenotype.where(:id => p.phenotype_id) %>
-		<li><%= link_to p.characteristic, p %>
-	<% end %>
-</ul>
-<% end %>
-</ul>
-<% end %>
-
+<%if not (@snp_comments.results == [] and @phenotype_comments.results == [])%>
+<div id="comments">
 <% if not @snp_comments.results == [] %>
-	<ul>
+	<h5>On SNPs</h5>
+	<table>
+		<thead>
+			<tr>
+				<th>SNP</th>
+				<th>From</th>
+				<th>Subject</th>
+				<th>Text</th>
+			</tr>
+		</thead>
+		<tbody>
 <% for p in @snp_comments.results %>
-	<li><%= p.inspect %></li>
+	<tr>
+		<td><%=link_to(p.snp.name,"/snps/"+p.snp.id.to_s+"#comments")%></td>
+		<td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle"%> <%=link_to(p.user.name,p.user)%></td>
+		<td><%=p.subject%></td>
+		<td><%=p.comment_text%></td>
+	</tr>
 <% end %>
-</ul>
+</tbody>
+</table>
 <% end %>
                          
 <% if not @phenotype_comments.results == [] %>
@@ -63,24 +107,74 @@
 <% end %>
 </ul>
 <% end %>
-                         
-<% if not @mendeley_papers.results == [] %>
-	<h5>Mendeley</h5>
-<ul>
-<% for p in @mendeley_papers.results %>
-	<li><%= link_to p.title, p.mendeley_url %></li>
+</div>
 <% end %>
-</ul>
+       
+<% if not (@mendeley_papers.results == [] and @plos_papers.results == [])%>
+<div id="papers">                  
+<% if not @mendeley_papers.results == [] %>
+	<h5>Papers on Mendeley</h5>
+<table>
+	<thead>
+		<tr>
+			<th>Author</th>
+			<th>Title</th>
+			<th>SNP</th>
+			<th>Year of Publication</th>
+			<th># of Readers</th>
+			<th>DOI</th>
+		</tr>
+	</thead>
+	<tbody>
+<% for p in @mendeley_papers.results %>
+		<tr>
+			<td><%= p.first_author%></td>
+			<td><%=link_to( p.title, p.mendeley_url)%></td>
+			<td><%=link_to(p.snp.name,p.snp)%></td>
+			<td><%=p.pub_year%></td>
+			<td><%=p.reader%></td>
+			<% if p.open_access == true and p.doi != nil%>
+			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%><img src="/images/oa_logo.png"></td>
+			<%elsif p.doi != nil%>
+			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%></td>
+			<%elsif p.open_access == true%>
+			<td><%=p.doi%><img src="/images/oa_logo.png"></td>
+			<%else%>
+			<td>-</td>
+			<%end%>
+		</tr>
+<% end %>
+	</tbody>
+</table>
 <% end %>
 
 <% if not @plos_papers.results == [] %>
-	<h5>PLoS</h5>
-	<ul>
+	<h5>Papers at the Public Library of Science</h5>
+	<table>
+		<thead>
+			<tr>
+				<th>Author</th>
+				<th>Title</th>
+				<th>SNP</th>
+				<th>Year of Publication</th>
+				<th># of Readers</th>
+			</tr>
+		</thead>
+		<tbody>
 <% for p in @plos_papers.results %>
-	<li><%= p.inspect %></li>
+			<tr>
+				<td><%= p.first_author%></td>
+				<td><%= link_to( p.title, "http://dx.doi.org/"+p.doi)%></td>
+				<td><%= link_to( p.snp.name,p.snp)%>
+				<td><%= p.pub_date.to_s[6,4]%></td>
+				<td><%= p.reader%></td>
+			</tr>
 <% end %>
-</ul>
+		</tbody>
+	</table>
 <% end %>        
+</div>
+<% end %>
 
 <% if not @snpedia_papers.results == [] %>
 	<h5>SNPedia</h5>
@@ -90,4 +184,4 @@
 <% end %>
 </ul>
 <% end %>        
-
+</div>
