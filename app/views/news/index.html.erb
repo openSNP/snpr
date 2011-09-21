@@ -19,7 +19,7 @@
 <% @new_genotypes.each do |ng| %>
 	<tr>
 	<td><%= ng.id %></td>
-	<td><%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
+	<td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
 	<td><%= ng.created_at %></td>
 	<td><%= link_to "Click here", ng %></td>
 	<td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
@@ -39,7 +39,7 @@
 <% @new_users.each do |nu| %>
 	<tr>
 		<td><%= nu.id %></td>
-		<td><%= nu.name %></td>
+		<td><%=image_tag nu.avatar.url(:head),:style => "vertical-align:middle"%> <%= nu.name %></td>
 		<td><%= nu.created_at %></td>
 		<td><%= link_to "Profile", nu %></td>
 	</tr>
@@ -50,15 +50,15 @@
 <h2>Phenotypes</h2>
 <table class="common-table zebra-striped">
 	<tr>
-		<th>Characteristic</th>
-		<th>Variation</th>
-		<th>Entered by</th>
+		<th>Name</th>
+		<th>Variations</th>
+		<th># of Users</th>
 	</tr>
 <% @new_phenotypes.each do |nu| %>
 	<tr>
-		<td><%= link_to Phenotype.find_by_id(nu.phenotype_id).characteristic, Phenotype.find_by_id(nu.phenotype_id) %></td>
-		<td><%= nu.variation %></td>
-		<td><%= link_to User.find_by_id(nu.user_id).name, User.find_by_id(nu.user_id) %></td>
+		<td><%= link_to nu.characteristic, nu %></td>
+		<td><ul><%nu.known_phenotypes.each do |kp|%><li><%= kp %></li><%end%></ul></td>
+		<td><%= nu.number_of_users %></td>
 	</tr>
 <% end %>
 </table>

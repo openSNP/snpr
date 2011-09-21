@@ -33,7 +33,7 @@
 				<li><%= link_to("All users", '/user_index') %></li>
 			</ul>
 			<%= form_tag "/search", :method => "get", :authenticity_token => true do %>
-				<%= text_field_tag :search, "Search" %>
+				<%= text_field_tag :search, nil, :placeholder => "Search here" %>
 			<% end %>
 			<ul class="nav secondary-nav"> 
 				<% if current_user %>

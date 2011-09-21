@@ -65,12 +65,30 @@
 
 <% if not @users.results == [] %>
 <div id="users">
-	<h5>Users</h5>
-	<ul>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Genotype-file?</th>
+				<th># of Phenotypes</th>
+				<th># of Achievements</th>
+			</tr>
+		</thead>
+		<tbody>
 <% for u in @users.results %>
-	<li><%= link_to u.name, u %></li>
+			<tr>
+				<td><%= image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to u.name, u %></td>
+				<%if u.has_sequence%>
+				<td>yes</td>
+				<%else%>
+				<td>no</td>
+				<%end%>
+				<td><%=u.phenotypes.length%></td>
+				<td><%=u.achievements.length%></td>
+			</tr>
 <% end %>
-</ul>
+</tbody>
+</table>
 </div>
 <% end %>
 
@@ -101,16 +119,32 @@
 <% end %>
                          
 <% if not @phenotype_comments.results == [] %>
-	<ul>
+	<h5>On Phenotypes</h5>
+	<table>
+		<thead>
+			<tr>
+				<th>Phenotype</th>
+				<th>From</th>
+				<th>Subject</th>
+				<th>Text</th>
+			</tr>
+		</thead>
+		<tbody>
 <% for p in @phenotype_comments.results %>
-	<li><%= p.inspect %></li>
+	<tr>
+		<td><%=link_to(p.phenotype.characteristic,"/snps/"+p.phenotype.id.to_s+"#comments")%></td>
+		<td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle"%> <%=link_to(p.user.name,p.user)%></td>
+		<td><%=p.subject%></td>
+		<td><%=p.comment_text%></td>
+	</tr>
 <% end %>
-</ul>
+</tbody>
+</table>
 <% end %>
 </div>
 <% end %>
        
-<% if not (@mendeley_papers.results == [] and @plos_papers.results == [])%>
+<% if not (@mendeley_papers.results == [] and @plos_papers.results == [] and @snpedia_papers.results == [])%>
 <div id="papers">                  
 <% if not @mendeley_papers.results == [] %>
 	<h5>Papers on Mendeley</h5>
@@ -173,15 +207,26 @@
 		</tbody>
 	</table>
 <% end %>        
-</div>
-<% end %>
 
 <% if not @snpedia_papers.results == [] %>
-	<h5>SNPedia</h5>
-	<ul>
+	<h5>Entries in the SNPedia</h5>
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Summary</th>
+			</tr>
+		</thead>
+		<tbody>
 <% for p in @snpedia_papers.results %>
-	<li><%= link_to p.summary, p.url %></li>
+			<tr>
+				<td><%=link_to p.snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url%></td>
+				<td><%=p.summary%></td>
+			</tr>
 <% end %>
-</ul>
+</tbody>
+</table>
+<% end %>
+</div>
 <% end %>        
 </div>

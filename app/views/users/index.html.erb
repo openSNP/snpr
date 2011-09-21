@@ -7,7 +7,7 @@
 	</tr>	
 <% @users.each do |u| %>
 	<tr>
-		<td><%= link_to(u.name,u) %></td>
+		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
 		<td><% if u.has_sequence %>Yes<% else %>No<% end %></td>
 		<td><%=u.phenotypes.length%></td>
 	</td>
