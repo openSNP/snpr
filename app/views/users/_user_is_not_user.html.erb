@@ -4,7 +4,7 @@
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
 	</div><%end%>
 	<div class="span6 columns"><h1><%= @user.name %>'s page</h1></div>
-	<div class="span6 columns offset4"><h5><%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5>
+	<%if current_user%><div class="span6 columns offset4"><h5><%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5><%end%>
 		</div>
 </div>
 <% if @user.has_sequence == true %>
