@@ -2,7 +2,7 @@ class CreateSnpediaPapers < ActiveRecord::Migration
   def self.up
 	  create_table :snpedia_papers do |t|
 		  t.string :url
-		  t.string :summary
+		  t.text :summary
 		  t.timestamps
 		  t.belongs_to :snp
 	  end
