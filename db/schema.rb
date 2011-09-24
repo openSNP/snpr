@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20110917193600) do
 
   create_table "achievements", :force => true do |t|
-    t.string   "award"
+    t.text     "award"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,18 +29,18 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
   end
 
   create_table "homepages", :force => true do |t|
-    t.string   "url"
-    t.string   "description"
+    t.text     "url"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
   end
 
   create_table "mendeley_papers", :force => true do |t|
-    t.string   "first_author"
-    t.string   "title"
-    t.string   "mendeley_url"
-    t.string   "doi"
+    t.text     "first_author"
+    t.text     "title"
+    t.text     "mendeley_url"
+    t.text     "doi"
     t.integer  "pub_year"
     t.string   "uuid"
     t.boolean  "open_access"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
   end
 
   create_table "messages", :force => true do |t|
-    t.string   "subject"
+    t.text     "subject"
     t.integer  "user_id"
     t.text     "body"
     t.boolean  "sent"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
   end
 
   create_table "phenotype_comments", :force => true do |t|
-    t.string   "comment_text"
-    t.string   "subject"
+    t.text     "comment_text"
+    t.text     "subject"
     t.integer  "user_id"
     t.integer  "phenotype_id"
     t.integer  "reply_to_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
 
   create_table "phenotypes", :force => true do |t|
     t.string   "characteristic"
+    t.text     "description"
     t.string   "known_phenotypes"
     t.integer  "number_of_users",  :default => 0
     t.datetime "created_at"
@@ -81,9 +82,9 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
   end
 
   create_table "plos_papers", :force => true do |t|
-    t.string   "first_author"
-    t.string   "title"
-    t.string   "doi"
+    t.text     "first_author"
+    t.text     "title"
+    t.text     "doi"
     t.datetime "pub_date"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -92,8 +93,8 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
   end
 
   create_table "snp_comments", :force => true do |t|
-    t.string   "comment_text"
-    t.string   "subject"
+    t.text     "comment_text"
+    t.text     "subject"
     t.integer  "user_id"
     t.integer  "snp_id"
     t.datetime "created_at"
@@ -103,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
 
   create_table "snpedia_papers", :force => true do |t|
     t.string   "url"
-    t.string   "summary"
+    t.text     "summary"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "snp_id"
@@ -117,9 +118,9 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-16 23:47:27'
-    t.datetime "plos_updated",       :default => '2011-08-16 23:47:27'
-    t.datetime "snpedia_updated",    :default => '2011-08-16 23:47:27'
+    t.datetime "mendeley_updated",   :default => '2011-08-20 21:40:11'
+    t.datetime "plos_updated",       :default => '2011-08-20 21:40:11'
+    t.datetime "snpedia_updated",    :default => '2011-08-20 21:40:11'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
