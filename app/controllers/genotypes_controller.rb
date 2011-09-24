@@ -21,7 +21,7 @@ class GenotypesController < ApplicationController
     @genotype.uploadtime = Time.new 
     @genotype.user_id = current_user.id
     @genotype.filetype=params[:genotype][:filetype]
-    @genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename].original_filename
+    @genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
     @genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
 
     respond_to do |format|
