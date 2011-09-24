@@ -2,7 +2,7 @@
 <div id="tab-container">
   <ul class="tabs">
     <li><a href="#dtcustomers"><%=image_tag("/images/fileupload_small.png",:style => "vertical-align:middle" )%> Users interested in uploading data</a></li>
-    <li><a href="#scientists"><%=image_tag("/images/filedownload_small.png",:style => "vertical-align:middle" )%>For Citizen Scientists / Everyone interested in downloading data</a></li>
+    <li><a href="#scientists"><%=image_tag("/images/filedownload_small.png",:style => "vertical-align:middle" )%> Users interested in downloading data</a></li>
   </ul>
 <div id="dtcustomers">
 <h5>• What does OpenSNP offer me as a genotyping-customers?</h5>
@@ -15,7 +15,7 @@ We take the "open" in openSNP serious, so everything is free of charge.
 We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
 
 <h5>• How open is my data?</h5>
-Completely open: Everyone can see everything you enter or upload (except your private messages and your password, of course). We warn every user twice about this: Once during the user-creation and once before the genotyping-file-upload. You can find more information about the risks of publishing the data on the LINK_TO :DISCLAIMER
+Completely open: Everyone can see everything you enter or upload (except your private messages and your password, of course). We warn every user twice about this: Once during the user-creation and once before the genotyping-file-upload. You can find more information about the risks of publishing the data by <%=link_to "reading the disclaimer", "/disclaimer"%>
 
 <h5>The phenotype I'm interested in is not yet in openSNP. What can I do?</h5>
 You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%> and enter a name and a description that enables other users to understand what you are interested in. 
