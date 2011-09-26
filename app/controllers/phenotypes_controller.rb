@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-    before_filter :require_user, only: [ :new, :create ]
+    before_filter :require_user, only: [ :new, :create, :get_genotypes ]
 	  helper_method :sort_column, :sort_direction
 	
 	def index
@@ -78,17 +78,6 @@ class PhenotypesController < ApplicationController
 			format.xml
 		end
 	end
-
-=begin
-	def edit
-		@title = "Edit your Phenotypes"
-		@phenotypes = Phenotype.where(:user_id => current_user.id).all
-		respond_to do |format|
-			format.html
-			format.xml
-		end
-	end
-=end
 	
 	def feed
     @phenotype = Phenotype.find(params[:id])

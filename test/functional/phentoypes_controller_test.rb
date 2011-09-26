@@ -40,14 +40,18 @@ class PhenotypesControllerTest < ActionController::TestCase
         assert_response :success
       end
 
+      # TODO: Strangers do not have email addresses (that we know of).
+      # TODO: Hence denying access for them (see before_filter).
       should "not get genotypes" do
         get :get_genotypes, id: @phenotype.id, variation: "10000 cm"
         assert_redirected_to root_path
       end
     end
 
-    context "users" do
+    context "other users" do
       setup do
+        @controller = PhenotypesController.new
+        @other_user = Factory :user
         @session = UserSession.create(@other_user)
       end
 
@@ -57,15 +61,16 @@ class PhenotypesControllerTest < ActionController::TestCase
       end
 
       should "create them" do
+        Factory :achievement, award: "Created a new phenotype"
         assert_difference 'Phenotype.count' do
           assert_difference 'UserPhenotype.count' do
             put :create, phenotype: { characteristic: "Longest toe" },
               user_phenotype: { variation: "Thumb toe" }
           end
         end
-        assert_redirected_to user_path(@user)
+        assert_redirected_to user_path(@other_user)
         assert_equal "Longest toe", Phenotype.last.characteristic
-        assert_equal "Thumb toe", @user.user_phenotypes.last.variation
+        assert_equal "Thumb toe", @other_user.user_phenotypes.last.variation
       end
     end
   end
