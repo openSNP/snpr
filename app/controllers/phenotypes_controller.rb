@@ -116,15 +116,15 @@ class PhenotypesController < ApplicationController
 		%w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
 	  end
 
-		def check_and_award_new_phenotypes(amount, achievement_string)
-			if current_user.phenotype_creation_counter == amount # 10
-				UserAchievement.create(:achievement_id => Achievement.find_by_award(achievement_string).id, :user_id => current_user.id)
-			end
-		end
+    def check_and_award_new_phenotypes(amount, achievement_string)
+    	if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
+    		UserAchievement.create(:achievement_id => Achievement.find_by_award(achievement_string).id, :user_id => current_user.id)
+    	end
+    end
 
-		def check_and_award_additional_phenotypes(amount, achievement_string)
-			if current_user.phenotype_additional_counter == amount #100
-         UserAchievement.create(:user_id => current_user.id, :achievement_id => Achievement.find_by_award(achievement_string))
-			end
-		end
+    def check_and_award_additional_phenotypes(amount, achievement_string)
+    	if current_user.phenotype_additional_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
+         UserAchievement.create(:user_id => current_user.id, :achievement_id => Achievement.find_by_award(achievement_string).id)
+    	end
+    end
 end
