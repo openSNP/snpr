@@ -23,3 +23,7 @@ end
 Factory.define :achievement do |a|
   a.award "Foooooooo"
 end
+
+Factory.define :phenotype do |p|
+  p.characteristic "Penis length"
+end

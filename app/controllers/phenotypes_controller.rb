@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-    before_filter :require_user, only: [:new,:create]
+    before_filter :require_user, only: [ :new, :create, :get_genotypes ]
 	  helper_method :sort_column, :sort_direction
 	
 	def index
@@ -23,7 +23,7 @@ class PhenotypesController < ApplicationController
 	end
 
 	def create
-	  if Phenotype.find_by_characteristic(params[:phenotype][:characteristic]) == nil
+	  unless Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
 		  @phenotype = Phenotype.create(params[:phenotype])
 
 			# award: created one (or more) phenotypes
@@ -37,7 +37,7 @@ class PhenotypesController < ApplicationController
 	    @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
 		end
 
-		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
+		unless @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation])
 		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
 	  end
 	  
@@ -79,15 +79,6 @@ class PhenotypesController < ApplicationController
 			format.xml
 		end
 	end
-
-	def edit
-		@title = "Edit your Phenotypes"
-		@phenotypes = Phenotype.where(:user_id => current_user.id).all
-		respond_to do |format|
-			format.html
-			format.xml
-		end
-	end
 	
 	def feed
     @phenotype = Phenotype.find(params[:id])
@@ -105,8 +96,9 @@ class PhenotypesController < ApplicationController
   end
   
   def get_genotypes
-    Resque.enqueue(Zipgenotypingfiles,params[:phenotype_id],params[:variation],current_user.email)
-    @phenotype = Phenotype.find(params[:phenotype_id])
+    Resque.enqueue(Zipgenotypingfiles, params[:id],
+                   params[:variation], current_user.email)
+    @phenotype = Phenotype.find(params[:id])
     @variation = params[:variation]
     respond_to do |format|
 			format.html

@@ -1,6 +1,11 @@
 Snpr::Application.routes.draw do
   resources :static
-  resources :phenotypes
+  resources :phenotypes do
+    member do
+      get :feed
+      get :get_genotypes
+    end
+  end
   resources :genotypes
   resources :user_phenotypes
   resources :snps
