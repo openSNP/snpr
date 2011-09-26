@@ -41,7 +41,7 @@
 			<td>
 	<ul>
 		<% p.known_phenotypes.each do |kp| %>
-			<li><%=kp%>: <%=link_to "Download all genotyping-files of users with this variation",{:controller => "phenotypes",:action => "get_genotypes",:phenotype_id => p.id, :variation => kp} %></li>
+			<li><%=kp%>: <%=link_to "Download all genotyping-files of users with this variation",{:controller => "phenotypes",:action => "get_genotypes",:id => p.id, :variation => kp} %></li>
 		<% end %>
 	</ul></td>
 	</tr>

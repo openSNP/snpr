@@ -3,13 +3,13 @@ class Phenotype < ActiveRecord::Base
    has_many :phenotype_comments
    serialize :known_phenotypes
 
+   validates_presence_of :characteristic
+
    searchable do
 	   text :characteristic
    end
    
-   after_create :default_array
-   
-   def default_array
-     self.known_phenotypes ||= []
+   def known_phenotypes
+     read_attribute(:known_phenotypes) || []
    end
 end
