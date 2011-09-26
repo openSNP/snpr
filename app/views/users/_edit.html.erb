@@ -42,6 +42,14 @@
 <div id="phenotypes">
 	<div class="well">
 		<h2>Your Phenotypes</h2>
+		<div class="clearfix">
+		<%= f.label :sex, "Chromosomal Sex"%>
+		<%= f.select :sex, options_for_select(["XX", "XY", "other", "rather not say"], :selected => @user.sex) %>
+		</div>
+		<div class="clearfix">
+		<%= f.label :yearofbirth, "Year of Birth"%>
+		<%= f.select :yearofbirth, options_for_select(((1900..2011).to_a << "rather not say").reverse, :selected => @user.yearofbirth) %>
+		</div>
 		<%= f.fields_for :user_phenotypes do |p| %>
 		<div class="field">
 		

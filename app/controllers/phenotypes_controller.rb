@@ -37,7 +37,7 @@ class PhenotypesController < ApplicationController
 	    @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
 		end
 
-		unless @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation])
+		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
 		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
 	  end
 	  

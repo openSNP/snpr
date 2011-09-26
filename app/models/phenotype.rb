@@ -9,7 +9,10 @@ class Phenotype < ActiveRecord::Base
 	   text :characteristic
    end
    
-   def known_phenotypes
-     read_attribute(:known_phenotypes) || []
+   after_create :default_array
+   
+   def default_array
+     self.known_phenotypes ||= []
    end
+   
 end
