@@ -118,9 +118,9 @@ ActiveRecord::Schema.define(:version => 20110917193600) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-20 21:40:11'
-    t.datetime "plos_updated",       :default => '2011-08-20 21:40:11'
-    t.datetime "snpedia_updated",    :default => '2011-08-20 21:40:11'
+    t.datetime "mendeley_updated",   :default => '2011-08-22 13:59:12'
+    t.datetime "plos_updated",       :default => '2011-08-22 13:59:12'
+    t.datetime "snpedia_updated",    :default => '2011-08-22 13:59:12'
     t.datetime "created_at"
     t.datetime "updated_at"
   end

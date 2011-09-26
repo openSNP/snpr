@@ -26,10 +26,16 @@
 
 <div id="tab-container">
 	<ul class="tabs">
+		<li><a href="#description">Description</a></li>
 		<li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
 		<li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
 	</ul>
 
+	<div id="description">
+	<div class="well">
+		<%=@phenotype.description%>
+	</div>
+	</div>
 	<div id="users">
 <table class="zebra-striped">
 	<tr>
