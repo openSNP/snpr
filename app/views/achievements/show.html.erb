@@ -1,0 +1,12 @@
+<h3>Achievement: <%=@achievement.award%> <%=image_tag("/images/achievements/"+@achievement.short_name+"_80px.png",:style => "vertical-align:middle",:height=>"70",:alt => @achievement.award)%></h3>
+
+<h6>Statistics</h6>
+<ul>
+<li><%=(@achievement.user_achievements.length / User.find(:all).length)*100%> % of all users got this achievement</li>
+<li>Those users got this achievement:</li>
+	<ul>
+	<%@achievement.user_achievements.each do |ua|%>
+		<li><%=link_to ua.user.name, ua.user%></li>
+	<%end%>
+	</ul>
+</ul>

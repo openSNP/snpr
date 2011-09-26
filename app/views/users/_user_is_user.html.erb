@@ -3,7 +3,16 @@
 	<div class="span0 columns">
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
 	</div><%end%>
-	<div class="span6 columns"><h1>Hello <%= @first_name %>!</h1></div>
+	<div class="span6 columns"><h1>Hello <%= @first_name %>!</h1>
+		<% current_user.achievements.each do |a|%>
+
+		<div id="<%=a.short_name%>" class="tooltip">
+			Achievement: <%=a.award%>.
+		</div>
+
+		<a onmouseover="showWMTT('<%=a.short_name%>')" onmouseout="hideWMTT()" href="/achievement/<%=a.id%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
+		<%end%>
+		</div>
 </div>
 
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
@@ -23,7 +32,6 @@
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
 		<li><a href="#comments">Replies to your comments</a></li>
-		<li><a href="#achievements">Your achievements</a></li>
 	</ul>
 
 
@@ -157,6 +165,24 @@
 <% end %>
 
 </div>
-<div id="achievements">
-	<%= current_user.achievements.inspect %>
-</div>
+<script type="text/javascript">
+<!--
+wmtt = null;
+document.onmousemove = updateWMTT;
+function updateWMTT(e) {
+  if (wmtt != null && wmtt.style.display == 'block') {
+    x = (e.pageX ? e.pageX : window.event.x);
+    y = (e.pageY ? e.pageY : window.event.y);
+    wmtt.style.left = x + "px";
+	wmtt.style.top  = (y - wmtt.offsetHeight) + "px";
+  }
+}
+function showWMTT(id) {
+  wmtt = document.getElementById(id);
+  wmtt.style.display = "block";
+}
+function hideWMTT() {
+  wmtt.style.display = "none";
+}
+-->
+</script>
