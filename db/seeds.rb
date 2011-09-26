@@ -10,7 +10,7 @@
 if Achievement.all.length == 0
 	Achievement.create(:award => "Published genotyping")
 	Achievement.create(:award => "Published 10 Mio. SNPs")
-	Achievement.create(:award => "Entered variation on standard phenotypes")
+	Achievement.create(:award => "Entered first phenotype")
 	Achievement.create(:award => "Entered 5 additional phenotypes")
 	Achievement.create(:award => "Entered 10 additional phenotypes")
 	Achievement.create(:award => "Entered 20 additional phenotypes")

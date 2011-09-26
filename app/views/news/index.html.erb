@@ -7,7 +7,9 @@
 </ul>
 
 <div id="genotypes">
+<%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
 <h2>Genotypes</h2>
+<%=link_to(image_tag("/images/rss_small.png"),"/rss")%>
 <table class="common-table zebra-striped">
 <tr>
 	<th>Genotype-ID</th>

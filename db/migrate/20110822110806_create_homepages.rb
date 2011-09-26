@@ -1,8 +1,8 @@
 class CreateHomepages < ActiveRecord::Migration
   def self.up
 	  create_table :homepages do |h|
-		  h.string :url
-		  h.string :description
+		  h.text :url
+		  h.text :description
 		  h.timestamps
 		  h.belongs_to :user
 	  end

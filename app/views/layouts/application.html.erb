@@ -26,8 +26,7 @@
 		<div class="container">
 			<h3><%= link_to("openSNP", root_path, :class =>"logo") %></h3>
 			<ul class="nav"> 
-				<li><%= link_to("News", '/news') %></li>
-				<li><%= link_to("FAQ", '/faq') %></li> 
+				<li><%= link_to("News", '/news') %></li> 
 				<li><%= link_to("Phenotypes", :controller => "phenotypes", :action => "index")%>
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
 				<li><%= link_to("All users", '/user_index') %></li>
@@ -52,6 +51,7 @@
 				<% else %>
 					<li><%= link_to("Sign in", '/signin') %></li>
 				<% end %>
+				<li><%= link_to("FAQ", '/faq') %></li>
 				<li><a href="http://www.nephoscale.com" target="_blank"><img src="/images/poweredbynephoscale.png" width="80"/></a></li>
 			</ul>
 		</div>
@@ -59,7 +59,7 @@
 </div>
 
 	<%if current_user %>
-	<%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two == false or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
+	<%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
 	<div class ="well">
 	<div class="row">
 			<center><h4>Welcome to openSNP. Here are some first steps you could do:</h4></center>

@@ -26,6 +26,7 @@ Snpr::Application.routes.draw do
   match '/signin', :to => 'user_sessions#new', :as => :login
   match '/signout', :to => 'user_sessions#destroy', :as => :logout
   match '/faq', :to => 'static#faq'
+  match '/disclaimer', :to => 'static#disclaimer'
   match '/user_index', :to => 'users#index'
   match '/rss', :to => 'genotypes#feed'
   match '/search', :to => 'search_results#search'
