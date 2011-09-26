@@ -38,7 +38,6 @@
 	<ul class="tabs">
 		<% if @user.has_sequence %><li><a href="#snps"><%=@first_name%>'s SNPs</a></li><% end %>
 		<li><a href="#variations"><%= @first_name %>'s variations</a></li>
-		<li><a href="#achievements"><%= @first_name %>'s achievements</a></li>
 	</ul>
 	<div id="variations">
 		<%= render "variations" %>
@@ -48,9 +47,6 @@
 		<%= render "snps" %>
 	</div>
 	<% end %>
-	<div id="achievements">
-		<%= @user.achievements.inspect %>
-	</div>
 
 	<script type="text/javascript">
 	<!--
