@@ -16,7 +16,7 @@
 		<%= f.label :characteristic %> <%= f.text_field :characteristic %>
 		<br/><span class ="help-inline">Hair colour, Blood type, Skin colour etc.</span>
 		
-		<%= f.label :description %> <%= f.text_area :description, :cols => 100%>
+		<%= f.label :description %> <%= f.text_area :description, :rows => 10%>
 		<br/><span class ="help-inline">Give users some more details:<br/>What are different variations of this phenotype?</br>Why this phenotype is interesting?<br/>Some links to web resources on the topic?</span>
 	</div>
 </div>
@@ -29,5 +29,5 @@
 	</div>
 </div>
 
-<%= f.submit %>
+<%= f.submit :class => "primary btn" %>
 <% end %>
