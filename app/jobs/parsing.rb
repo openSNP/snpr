@@ -11,12 +11,10 @@ class Parsing
     # do we have a normal filetype?
     if @genotype.filetype != "other"
       
-      system("csplit -k -f #{@genotype.id}_tmpfile -n 4 #{filename} 10000 {1000}")
+      system("csplit -k -f #{@genotype.id}_tmpfile -n 4 #{filename} 5000 {2000}")
       system("mv #{@genotype.id}_tmpfile* tmp/")
       
       temp_files = Dir.glob("tmp/#{@genotype.id}_tmpfile*")
-      puts temp_files
-      
       temp_files.each do |single_temp_file|
         puts single_temp_file
         genotype_file = File.open(single_temp_file, "r")
@@ -88,7 +86,7 @@ class Parsing
         log "Updating known Snps"
         if known_snps != []
           ActiveRecord::Base.transaction do
-            known_snps.each_value(&:save)
+            known_snps.each(&:save)
           end
         end
         log "Importing new UserSnps"
@@ -96,6 +94,7 @@ class Parsing
         UserSnp.import user_snp_columns, new_user_snps, validate: false
         log "Done."
         puts "done with #{single_temp_file}"
+        genotype_file.close
       end
     end
   end

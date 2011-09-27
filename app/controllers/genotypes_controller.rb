@@ -36,7 +36,7 @@ class GenotypesController < ApplicationController
 
         @genotype.move_file
         Resque.enqueue(Parsing, @genotype)
-        format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing might take a couple of minutes.') }
+        format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing and stuff might take a couple of hours.') }
         format.xml { render :xml => current_user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
