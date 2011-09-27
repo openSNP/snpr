@@ -21,6 +21,8 @@
 	<td><%= s.chromosome %></td>
 	<%if current_user != nil and UserSnp.find_by_user_id_and_snp_name(current_user.id,s.name) != nil%>
 	<td><%=UserSnp.find_by_user_id_and_snp_name(current_user.id,s.name).local_genotype%></td>
+	<%else%>
+	<td>-</td>
 	<%end%>
 	<td><%= s.ranking %></td>
 </tr>
