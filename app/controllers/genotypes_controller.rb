@@ -30,7 +30,9 @@ class GenotypesController < ApplicationController
 
         # award for genotyping-upload
         @award = Achievement.find_by_award("Published genotyping")
-        UserAchievement.create(:user_id => current_user.id, :achievement_id => @award.id)
+        if UserAchievement.find_by_achievement_id_and_user_id(@award.id,current_user.id) == nil
+          UserAchievement.create(:user_id => current_user.id, :achievement_id => @award.id)
+        end
 
         @genotype.move_file
         Resque.enqueue(Parsing, @genotype)

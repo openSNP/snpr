@@ -19,7 +19,7 @@ class Zipgenotypingfiles
       if File.exists?(::Rails.root.to_s+"/public/data/zip/"+phenotype_id.to_s+"."+@time.to_s.gsub(" ","_")+".zip") == false
         Zip::ZipFile.open(::Rails.root.to_s+"/public/data/zip/"+phenotype_id.to_s+"."+@time.to_s.gsub(" ","_")+".zip", Zip::ZipFile::CREATE) do |zipfile| 
           @genotyping_files.each do |gen_file|
-            zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth"+gen_file.user.yearofbirth+"_sex"+gen_file.user.sex+"."+gen_file.filetype+".txt", "#{RAILS_ROOT}/public/data/"+ gen_file.fs_filename)
+            zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth"+gen_file.user.yearofbirth+"_sex"+gen_file.user.sex+"."+gen_file.filetype+".txt", "#{::Rails.root.to_s.}/public/data/"+ gen_file.fs_filename)
           end
         end
       end
