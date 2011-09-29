@@ -142,6 +142,11 @@ class UsersController < ApplicationController
       Resque.enqueue(Deletegenotype, @genotype)
       @genotype.delete
     end
+    
+    @user.user_achievements.each do |ua|
+      UserAchievement.delete(ua)
+    end
+    
     @user.user_phenotypes.each do |up|
       @phenotype = Phenotype.find_by_id(up.phenotype_id)
       if @phenotype.user_phenotypes.length == 1
