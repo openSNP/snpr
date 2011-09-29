@@ -72,6 +72,9 @@ class Parsing
 
           # make a new user_snp
           new_user_snps << [ @genotype.id, @genotype.user_id, snp.name, snp_array[3].rstrip ]
+        else
+          User.find_by_id(@genotype.user_id).toggle!(:has_sequence)
+          break
         end
       end
       log "Importing new Snps"

@@ -28,7 +28,9 @@
 		<%if @unentered_phenotypes != []%>
 		<li><a href="#unentered_variations">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
 		<%end%>
+		<%if @user.has_sequence != true%>
 		<li><a href="#snps">Your SNPs</a></li>
+		<%end%>
 		<li><a href="#variations">Your variations</a></li>
 		<li><a href="#messages">Your messages</a></li>
 		<li><a href="#comments">Replies to your comments</a></li>
@@ -57,9 +59,10 @@
 
 
 <div id="snps">
-<% if @user.has_sequence == true %>
-	<%= render "snps" %>
-<% else %>
+<%# if @user.has_sequence == true %>
+	<%#= render "snps" %>
+<%# else %>
+<%if @user.has_sequence != true%>
 	<h2>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h2>
 <% end %>
 </div>
@@ -83,7 +86,13 @@
 	<tr>
 	<td><%=image_tag User.find_by_id(m.from_id).avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
 	<td><%= link_to( m.subject, m ) %></td>
-	<td><% if m.user_has_seen == false %>New!<% end %></td>
+	<td>
+<% if m.user_has_seen == false %>
+NEW: <%=link_to(image_tag("/images/email_small.png"),m)%> <b><%=link_to("Unread!",m)%></b>
+<%else%>
+<%=link_to(image_tag("/images/email_opened_small.png"),m)%> <%=link_to("Read",m)%>
+<% end %>
+</td>
 	</tr>
 <% end %>
 </table>
