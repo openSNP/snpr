@@ -11,30 +11,39 @@
 <h5>• How much does a membership in openSNP cost?</h5>
 We take the "open" in openSNP serious, so everything is free of charge.
 
+<h5>• Where can I download my raw data on the page of my DTC company?</h5>
+<em>23andMe</em> customers can <a href="https://www.23andme.com/you/download/"> download the data here</a>. <em>deCODEme</em> customers can <a href="https://www.decodeme.com/download">find the data here</a>. We are currently working on adding <em>FamilytreeDNA</em> to <em>openSNP</em>, if you were genotyped by them you can <a href="https://www.familytreedna.com/my-ftdna/download-files.aspx">find your files here</a>. 
+
+<h5>• How long does it take until my genotyping data is available on the site after uploading?</h5>
+This heavily depends on how many other users are in the queue, waiting for their data to be parsed. Right now openSNP runs on a small scale server so it may take 2-3 days until all your variations can be found on the site. But you can start using openSNP right away and others can download your raw-data right from the start. The parsing only affects the "other users sharing this SNP" and the "my genotype"-views.
+
 <h5>• I was genotyped by another DTC company, why can't i upload my data?</h5>
-We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
+We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate. We are already working on adding <em>FamilytreeDNA</em> to <em>openSNP</em>
 
 <h5>• How open is my data?</h5>
 Completely open: Everyone can see everything you enter or upload (except your private messages and your password, of course). We warn every user twice about this: Once during the user-creation and once before the genotyping-file-upload. You can find more information about the risks of publishing the data by <%=link_to "reading the disclaimer", "/disclaimer"%>
 
-<h5>The phenotype I'm interested in is not yet in openSNP. What can I do?</h5>
+<h5>• The phenotype I'm interested in is not yet in openSNP. What can I do?</h5>
 You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%> and enter a name and a description that enables other users to understand what you are interested in. 
+
+<h5>• I've found a bug, what can I do?</h5>
+Just send us an <a href="mailto:info@opensnp.org">email</a>.
 
 </div>
 <div id="scientists">
-	<h5>What does OpenSNP offer me as a researcher working on human SNPs?</h5>
+	<h5>• What does OpenSNP offer me as a researcher working on human SNPs?</h5>
 	<p>We can offer you data, hopefully someday even lots of data. <em>23andMe</em> alone genotyped already over 100.000 people and more and more of them are sharing their SNPs, as well as their phenotypes.</p><p>	Logged-In users can search our database for users with specific phenotypes and mass-download all corresponding SNP-datasets. This allows you to get datasets like <em>"All genotyping files of openSNP-users that have Alzheimer"</em> and the corresponding control group.</p><p>	If you'd like to be informed about new genotyping results in general, or just about all new data sets for a specific phenotype, you can use the RSS-feeds we offer.</p>
 	
-	<h5>How much does a membership in OpenSNP cost?</h5>
+	<h5>• How much does a membership in OpenSNP cost?</h5>
 	We take the "open" in openSNP serious, so everything is free of charge.
 	
-	<h5>The phenotype I'm interested in is not yet in openSNP. What can I do?</h5>
+	<h5>• The phenotype I'm interested in is not yet in openSNP. What can I do?</h5>
 	You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%> and enter a name and a description that enables other users to understand what you are interested in. 
 	
-	<h5>How can i start a mass download?</h5>
+	<h5>• How can i start a mass download?</h5>
 	This option is only available for logged-in users. Just visit the phenotype-page of your choice and click on the download-links for the variations you are interested in. Our server will grab all the data for you, make a handy zip-file out of it and send you the download link via email, as this can be a lot of data.
 	
-	<h5>Is there an API for searching/downloading files?</h5>
+	<h5>• Is there an API for searching/downloading files?</h5>
 	We are currently working on providing a simple API, but up to now there is none. If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.
 	
 </div>
