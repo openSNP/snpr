@@ -1,11 +1,11 @@
 <h1>Message</h1>
-<h4>From: <%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %>, received on <%= @message.created_at %></h4>
+<h4>From: <%if @from != "Deleted User"%><%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %><%else%>Deleted User<%end%>, received on <%= @message.created_at %></h4>
 <h3>Subject: <%=@message.subject %></h3>
 
 <div class="well">
 <p><%= @message.body %></p>
 </div>
-<p><%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id}, :class => "btn primary" %></p>
+<%if @from != "Deleted User"%><p><%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id}, :class => "btn primary" %></p><%end%>
 <p><%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "danger btn"%></p>
 
 

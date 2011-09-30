@@ -36,34 +36,47 @@ class PhenotypesController < ApplicationController
 	  else
 	    @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
 		end
-
-		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
-		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
-	  end
-	  
-	  @phenotype.save
-	  @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
-    
-		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
-	
-		if @user_phenotype.save
-		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
-      @phenotype.save
-			
-			# check for additional phenotype awards
-	    current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
-      
-      check_and_award_additional_phenotypes(1, "Entered first phenotype")
-			check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
-			check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
-			check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
-			check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
-			check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
-
-			redirect_to current_user
+		
+		if params[:phenotype][:characteristic] == ""
+		  flash[:warning] = "Phenotype characteristic may not be empty"
+			redirect_to :action => "new"
 		else
-			redirect_to :action => "new", :notice => "Something went wrong in creating the phenotype"
-		end
+
+  		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
+  		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
+  	  end
+	  
+  	  @phenotype.save
+  	  @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
+    
+      if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id) == nil
+    
+    		@user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
+	
+    		if @user_phenotype.save
+    		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
+          @phenotype.save
+			
+    			# check for additional phenotype awards
+    	    current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
+      
+          check_and_award_additional_phenotypes(1, "Entered first phenotype")
+    			check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
+    			check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
+    			check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
+    			check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
+    			check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
+
+    			redirect_to current_user
+    		else
+    		  flash[:warning] = "Something went wrong in creating the phenotype"
+    			redirect_to :action => "new"
+    		end
+  		else
+        flash[:warning] = "You have already entered your variation at this phenotype"
+  		  redirect_to :action => "new"
+  	  end
+	  end
 	end
   
 	def show

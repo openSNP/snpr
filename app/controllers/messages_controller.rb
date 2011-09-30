@@ -41,8 +41,18 @@ class MessagesController < ApplicationController
 
   def show
 	  @message = Message.find_by_id(params[:id])
-	  @from = User.find_by_id(@message.from_id)
-	  @to = User.find_by_id(@message.to_id)
+	  if 	User.find_by_id(@message.from_id) != nil
+	    @from = User.find_by_id(@message.from_id)
+    else
+      @from = "Deleted User"
+    end
+    
+    if User.find_by_id(@message.to_id) != nil 
+	    @to = User.find_by_id(@message.to_id)
+    else
+      @to = "Deleted User"
+    end
+    
 	  @message.update_attributes :user_has_seen => true
   end
 

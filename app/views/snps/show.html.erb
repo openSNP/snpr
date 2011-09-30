@@ -224,12 +224,17 @@
 	</tr>
 <% @users.each do |u| %>
 	<tr>
-	<%if current_user != nil and current_user.has_sequence and u.user_snps.find_by_snp_name(@snp.name).local_genotype == @user_snp.local_genotype%>
-		<td><b><%= link_to( u.name, u ) %></b></td>
-		<td><b><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></b></td>
+	<%if current_user != nil and current_user.has_sequence and u.user_snps.find_by_snp_name(@snp.name) != nil %>
+		<%if u.user_snps.find_by_snp_name(@snp.name).local_genotype == @local_genotype%>
+			<td><b><%= link_to( u.name, u ) %></b></td>
+			<td><b><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></b></td>
+		<%else%>
+			<td><%= link_to( u.name, u ) %></td>
+			<td><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></td>
+		<%end%>
 	<%else%>
-		<td><%= link_to( u.name, u ) %></td>
-		<td><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></td>
+	<td><%= link_to( u.name, u ) %></td>
+	<td><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></td>
 	<%end%>
 	</tr>
 <% end %>

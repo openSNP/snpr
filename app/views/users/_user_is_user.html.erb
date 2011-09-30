@@ -84,11 +84,15 @@
 	</tr>
 <% @received_messages.each do |m| %>
 	<tr>
+	<%if User.find_by_id(m.from_id) != nil %>
 	<td><%=image_tag User.find_by_id(m.from_id).avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %></td>
+	<%else%>
+	<td>Deleted User</td>
+	<%end%>
 	<td><%= link_to( m.subject, m ) %></td>
 	<td>
 <% if m.user_has_seen == false %>
-NEW: <%=link_to(image_tag("/images/email_small.png"),m)%> <b><%=link_to("Unread!",m)%></b>
+<%=link_to(image_tag("/images/email_small.png"),m)%> <b><%=link_to("Unread!",m)%></b>
 <%else%>
 <%=link_to(image_tag("/images/email_opened_small.png"),m)%> <%=link_to("Read",m)%>
 <% end %>
@@ -105,11 +109,17 @@ NEW: <%=link_to(image_tag("/images/email_small.png"),m)%> <b><%=link_to("Unread!
 	<tr>
 	<th>To</th>
 	<th>Subject</th>
+	<th></th>
 	</tr>
 <% @sent_messages.each do |m| %>
 	<tr>
+	<%if User.find_by_id(m.to_id) != nil%>
 	<td><%=image_tag User.find_by_id(m.to_id).avatar.url(:head),:style => "vertical-align:middle"%><%= User.find_by_id(m.to_id).name %></td>
+	<%else%>
+	<td>Deleted User</td>
+	<%end%>
 	<td><%= link_to( m.subject, m ) %></td>
+	<td><%=link_to(image_tag("/images/email_opened_small.png"),m)%> <%=link_to("Read",m)%></td>
 	</tr>
 <% end %>
 </table>

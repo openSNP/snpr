@@ -18,6 +18,11 @@ class SnpsController < ApplicationController
 		
 		if current_user != nil
 		  @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user,@snp.name)
+		  if @user_snp != nil
+		    @local_genotype = @user_snp.local_genotype
+	    else
+	      @local_genotype = ""
+      end
 	  end
 	  
 		@total_genotypes = 0
