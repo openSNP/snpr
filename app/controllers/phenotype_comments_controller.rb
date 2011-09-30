@@ -16,7 +16,14 @@ class PhenotypeCommentsController < ApplicationController
 		if @phenotype_comment.comment_text.index(/\A(\@\#\d*\:)/) == nil
 			@phenotype_comment.reply_to_id = -1
 		else
-			@phenotype_comment.reply_to_id = @phenotype_comment.comment_text.split()[0].chomp(":").gsub("@#","").to_i
+		  
+			@potential_reply_id = @phenotype_comment.comment_text.split()[0].chomp(":").gsub("@#","").to_i
+			if PhenotypeComment.find_by_id(@potential_reply_id) != nil
+			  @phenotype_comment.reply_to_id = @potential_reply_id
+		  else
+		    @phenotype_comment.reply_to_id = -1
+	    end
+	    
 			@phenotype_comment.comment_text = @phenotype_comment.comment_text.gsub(/\A(\@\#\d*\:)/,"")
 		end
 		@phenotype_comment.user_id = current_user.id

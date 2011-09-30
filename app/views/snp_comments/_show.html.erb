@@ -29,15 +29,15 @@ function hideWMTT() {
 <% @comments.each do |c|%>
 	<%if c.reply_to_id != -1 and c.reply_to_id != nil%>
 		<div id="<%="comment_hover"+c.id.to_s%>" class="tooltip">
-			<b><%=SnpComment.find_by_id(c.reply_to_id).user.name%></b>: <%=SnpComment.find_by_id(c.reply_to_id).comment_text%>
+			<b><%if SnpComment.find_by_id(c.reply_to_id).user != nil%><%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>Deleted User<%end%></b>: <%=SnpComment.find_by_id(c.reply_to_id).comment_text%>
 			</div>
 	<%end%>
 
 	<div id="<%="comment"+c.id.to_s%>">
-	<b><%= c.subject %></b> by user <%= link_to User.find_by_id(c.user_id).name, User.find_by_id(c.user_id)%> on <%= c.created_at %><br/>
+	<b><%= c.subject %></b> by user <%if User.find_by_id(c.user_id) != nil%><%= link_to User.find_by_id(c.user_id).name, User.find_by_id(c.user_id)%><%else%>Deleted User<%end%> on <%= c.created_at %><br/>
 	<div class="well">
-	<% if c.reply_to_id != -1 and c.reply_to_id != nil %><a onmouseover="showWMTT('<%="comment_hover"+c.id.to_s%>')" onmouseout="hideWMTT()" href="#">@<%=SnpComment.find_by_id(c.reply_to_id).user.name%></a><% end %>
-	<%=image_tag c.user.avatar.url(:head),:style => "vertical-align:middle;margin: 10px;float:left"%>  <%= c.comment_text %><br/><%=link_to_function "reply to", "sendCommentId(document.new_comment.snp_comment_comment_text,'@#"+c.id.to_s+": ')"%>
+	<% if c.reply_to_id != -1 and c.reply_to_id != nil%><a onmouseover="showWMTT('<%="comment_hover"+c.id.to_s%>')" onmouseout="hideWMTT()" href="#"><%if SnpComment.find_by_id(c.reply_to_id).user%>@<%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>@Deleted User<%end%></a><% end %>
+	<%if User.find_by_id(c.user_id) != nil%><%=image_tag c.user.avatar.url(:head),:style => "vertical-align:middle;margin: 10px;float:left"%><%end%>  <%= c.comment_text %><br/><%=link_to_function "reply to", "sendCommentId(document.new_comment.snp_comment_comment_text,'@#"+c.id.to_s+": ')"%>
 	</div>
 </div>
 <% end %>
