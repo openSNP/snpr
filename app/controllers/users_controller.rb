@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_owner, only: [ :update, :destroy, :edit ]
+  before_filter :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
   helper_method :sort_column, :sort_direction
   before_filter :require_no_user, :only => [:new, :create]
 
