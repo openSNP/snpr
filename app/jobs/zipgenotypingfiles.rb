@@ -28,5 +28,4 @@ class Zipgenotypingfiles
       UserMailer.no_genotyping_results(target_address,Phenotype.find_by_id(phenotype_id).characteristic,variation).deliver
     end
   end
-
 end

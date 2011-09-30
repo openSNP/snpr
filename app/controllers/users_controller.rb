@@ -147,6 +147,17 @@ class UsersController < ApplicationController
       UserAchievement.delete(ua)
     end
     
+    @messages_to = Message.find_all_by_to_id(@user_id)
+    @messages_from = Message.find_all_by_from_id(@user_id)
+    
+    @messages_to.each do |mt|
+      Message.delete(mt)
+    end
+    
+    @messages_from.each do |mf|
+      Message.delete(mf)
+    end
+    
     @user.user_phenotypes.each do |up|
       @phenotype = Phenotype.find_by_id(up.phenotype_id)
       if @phenotype.user_phenotypes.length == 1
