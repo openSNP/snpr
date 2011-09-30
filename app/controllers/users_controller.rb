@@ -115,15 +115,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     if params[:user][:user_phenotypes_attributes] != nil
-      params[:user][:user_phenotypes_attributes].each do |p|
+      
+      @pot_delete_phenotype_ids = []
+      
+      params[:user][:user_phenotypes_attributes].each do |p|  
         @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
+        @pot_delete_phenotype_ids << @phenotype.id
         if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
           @phenotype.known_phenotypes << p[1]["variation"]
           @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
           @phenotype.save
-        end
-        if UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length == 0
-          Phenotype.delete(@phenotype)
         end
       end
     end
@@ -131,6 +132,13 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
+      
+      @pot_delete_phenotype_ids.each do |pid|
+        if UserPhenotype.find_all_by_phenotype_id(pid).length == 0
+          Phenotype.delete(pid)
+        end
+      end
+      
       flash[:notice] =  "Successfully updated"
       redirect_to :action => 'edit'
     else
