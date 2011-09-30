@@ -24,18 +24,9 @@
 		<%= f.label :name %>
 		<%= f.text_field :name %>
 	</div>
-	<div class="clearfix">
-		<%= f.label :email %>
-		<%= f.text_field :email %>
-	</div>
-	<div class="clearfix">
-		<%= f.label :password %>
-		<%= f.password_field :password %>
-	</div>
-	<div class="clearfix">
-		<%= f.label :password_confirmation, "Confirmation" %>
-		<%= f.password_field :password_confirmation %>
-	</div>               
+	
+	<h5><%=link_to "Change eMail/Password",{:controller => "users", :action => "changepassword",:id =>@user.id}%></h5>
+	            
 	</div>
 </div>
 

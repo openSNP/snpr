@@ -111,12 +111,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def changepassword
+    @user = User.find_by_id(params[:id])
+      respond_to do |format|
+        format.html
+        format.xml
+    end
+  end
+    
   def update
     @user = User.find(params[:id])
-    
+    @pot_delete_phenotype_ids = []
     if params[:user][:user_phenotypes_attributes] != nil
-      
-      @pot_delete_phenotype_ids = []
       
       params[:user][:user_phenotypes_attributes].each do |p|  
         @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
@@ -133,9 +139,11 @@ class UsersController < ApplicationController
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
       
-      @pot_delete_phenotype_ids.each do |pid|
-        if UserPhenotype.find_all_by_phenotype_id(pid).length == 0
-          Phenotype.delete(pid)
+      if @pot_delete_phenotype_ids != []
+        @pot_delete_phenotype_ids.each do |pid|
+          if UserPhenotype.find_all_by_phenotype_id(pid).length == 0
+            Phenotype.delete(pid)
+          end
         end
       end
       

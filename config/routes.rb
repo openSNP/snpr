@@ -22,6 +22,7 @@ Snpr::Application.routes.draw do
 	resources :user_achievements
 	resources :index
   
+  match '/users/:id/changepassword', :to => 'users#changepassword'
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login
   match '/signout', :to => 'user_sessions#destroy', :as => :logout
