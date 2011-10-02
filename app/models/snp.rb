@@ -26,12 +26,39 @@ class Snp < ActiveRecord::Base
 
     snps = Snp.select([ :id, :mendeley_updated, :snpedia_updated, :plos_updated ]).
       where([ 'mendeley_updated < ? or snpedia_updated < ? or plos_updated < ?',
-              max_age, max_age, max_age ]).all
-
-    snps.each do |snp|
+              max_age, max_age, max_age ]).find_each do |snp|
       Resque.enqueue(Mendeley, snp.id) if snp.mendeley_updated < max_age
       Resque.enqueue(Snpedia,  snp.id) if snp.snpedia_updated  < max_age
       Resque.enqueue(Plos,     snp.id) if snp.plos_updated     < max_age
+    end
+  end
+  
+  def self.update_frequencies
+    Snp.find_each do |s|
+      s.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
+      s.genotype_frequency ||= {}
+      UserSnp.where(:snp_name => s.name).find_each do |us|
+        if s.allele_frequency.has_key?(us.local_genotype[0].chr)
+          s.allele_frequency[us.local_genotype[0].chr] += 1
+        else
+          s.allele_frequency[us.local_genotype[0].chr] = 1
+        end
+
+        if s.allele_frequency.has_key?(us.local_genotype[1].chr)
+          s.allele_frequency[us.local_genotype[1].chr] +=  1
+        else
+          s.allele_frequency[us.local_genotype[1].chr] = 1
+        end
+
+        if s.genotype_frequency.has_key?(us.local_genotype.rstrip)
+          s.genotype_frequency[us.local_genotype.rstrip] +=  1
+        elsif s.genotype_frequency.has_key?(us.local_genotype[1].chr+us.local_genotype[0].chr)
+          s.genotype_frequency[us.local_genotype[1].chr+us.local_genotype[0].chr] +=  1
+        else
+          s.genotype_frequency[us.local_genotype.rstrip] = 1
+        end
+      end
+      s.save
     end
   end
 end

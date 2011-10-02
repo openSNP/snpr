@@ -15,6 +15,7 @@ class SnpsController < ApplicationController
 		@title = @snp.name
 		@comments = SnpComment.where(:snp_id => params[:id]).all(:order => "created_at ASC")
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
+		#@user_snps = UserSnps.where(:snp_name => @snp.name)
 		
 		if current_user != nil
 		  @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user,@snp.name)

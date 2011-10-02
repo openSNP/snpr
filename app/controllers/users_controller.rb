@@ -52,8 +52,7 @@ class UsersController < ApplicationController
     @title = @user.name + "'s page"
     @first_name = @user.name.split()[0]
     @user_phenotypes = @user.user_phenotypes
-    @snps = @user.snps.order("#{sort_column} #{sort_direction}").
-      paginate(:page => params[:page])
+    #@snps = @user.snps.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page])
     @received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
     @sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
     @phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])

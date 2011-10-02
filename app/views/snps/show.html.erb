@@ -58,6 +58,7 @@
 		
 	<div class="span4 columns">
 		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Genotype Frequency</a></center></h6>
+		<%if @total_genotypes != 0%>
 		<table>
 			<thead>
 				<tr>
@@ -88,6 +89,9 @@
 				<%end%>
 			</tbody>
 			</table>
+			<%else%>
+			We don't have enough users yet.
+			<%end%>
 	</div>
 	
 	<div id="allele_frequency" class="tooltip">
@@ -96,6 +100,7 @@
 	
 	<div class="span4 columns">
 		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Allele Frequency</a></center></h6>
+		<%if @total_alleles != 0%>
 		<table>
 			<thead>
 				<tr>
@@ -112,6 +117,9 @@
 				<%end%>
 			</tbody>
 			</table>
+		<%else%>
+		We don't have enough users yet.
+		<%end%>
 	</div>
 	</div>
 	<h6>Additional Information</h6>
