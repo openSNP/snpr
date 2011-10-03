@@ -148,10 +148,9 @@ class UsersController < ApplicationController
       end
       
       flash[:notice] =  "Successfully updated"
-      redirect_to :back
     else
-      flash[:notice] = "Oooops, something went wrong while editing your details"
-      redirect_to :action => 'edit' 
+      flash[:warning] = "Oooops, something went wrong while editing your details"
+      #redirect_to :action => 'edit' 
     end
   end
 
