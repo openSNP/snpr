@@ -65,7 +65,7 @@ class Parsing
         end
       end
       log "Importing new Snps"
-      Snp.import new_snps, validate: false
+      Snp.import new_snps
 
       log "Importing new UserSnps"
       user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
