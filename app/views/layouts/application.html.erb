@@ -99,8 +99,8 @@
 	<%end%>
 	<%end%>
 
-
 <div class="container", id="alert-messages">
+		<div id="flash_notice" class="alert-message success" style="display:none"></div>
 	<% if flash[:notice] %><div class="alert-message success"> <p><%= flash[:notice] %></p></div> <% end %>
 	<% if flash[:warning] %><div class="alert-message error"><p><%= flash[:warning] %></p></div> <% end %>
 	<%= yield %>

@@ -1,6 +1,7 @@
 <% # helper thing so we don't have to put up fields into every page %>
 <%= nested_form_for(@user, :remote => true, :url => user_path, :html => { :class => "form-stacked",:multipart => true  } ) do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
+<div id="post_errors" style="display:none"></div>
 <div id="tab-container">
   <ul class="tabs">
     <li><a href="#general">General</a></li>
@@ -89,10 +90,6 @@
 
 
 <div class="actions">
-	<%= f.submit "Update Information", :class => "primary btn" %>
-	<script>
-		$('input').bind('click', function() {
-			alert("Sucessfully updated your information.");})
-	</script>
+	<%= f.submit "Update Information", :class => "primary btn", :id => "update_user" %>
 </div>
 <% end %> 
