@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110926172905) do
+ActiveRecord::Schema.define(:version => 20111005210020) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -119,9 +119,9 @@ ActiveRecord::Schema.define(:version => 20110926172905) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-28 20:37:02'
-    t.datetime "plos_updated",       :default => '2011-08-28 20:37:02'
-    t.datetime "snpedia_updated",    :default => '2011-08-28 20:37:02'
+    t.datetime "mendeley_updated",   :default => '2011-08-31 01:26:24'
+    t.datetime "plos_updated",       :default => '2011-08-31 01:26:24'
+    t.datetime "snpedia_updated",    :default => '2011-08-31 01:26:24'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -160,23 +160,26 @@ ActiveRecord::Schema.define(:version => 20110926172905) do
     t.string   "crypted_password"
     t.string   "persistence_token"
     t.string   "perishable_token"
-    t.boolean  "has_sequence",                 :default => false
+    t.boolean  "has_sequence",                       :default => false
     t.string   "sequence_link"
     t.text     "description"
-    t.boolean  "finished_snp_parsing",         :default => false
-    t.integer  "phenotype_creation_counter",   :default => 0
-    t.integer  "phenotype_additional_counter", :default => 0
+    t.boolean  "finished_snp_parsing",               :default => false
+    t.integer  "phenotype_creation_counter",         :default => 0
+    t.integer  "phenotype_additional_counter",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "help_one",                     :default => false
-    t.boolean  "help_two",                     :default => false
-    t.boolean  "help_three",                   :default => false
-    t.string   "sex",                          :default => "rather not say"
-    t.string   "yearofbirth",                  :default => "rather not say"
+    t.boolean  "help_one",                           :default => false
+    t.boolean  "help_two",                           :default => false
+    t.boolean  "help_three",                         :default => false
+    t.string   "sex",                                :default => "rather not say"
+    t.string   "yearofbirth",                        :default => "rather not say"
+    t.boolean  "message_on_message",                 :default => false
+    t.boolean  "message_on_snp_comment_reply",       :default => false
+    t.boolean  "message_on_phenotype_comment_reply", :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

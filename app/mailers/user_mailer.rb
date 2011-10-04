@@ -23,4 +23,27 @@ default :from => "donotreply@opensnp.org"
     @variation = variation
     mail(:subject => "openSNP.org: No genotyping files match your search",:to => target_address)
   end
+  
+  def parsing_error(user_id)
+    @user = User.find_by_id(user_id)
+    mail(:subject => "openSNP.org: Something went wrong while parsing", :to=> @user.email)
+  end
+  
+  def new_message(user_id,message_id)
+    @user = User.find_by_id(user_id)
+    @message = Message.find_by_id(message_id)
+    mail(:subject => "openSNP.org: You've got a new mail from #{User.find_by_id(@message.from_id).name}", :to => @user.email)
+  end
+  
+  def new_snp_comment(snp_comment,to_user)
+    @user = to_user
+    @snp_comment = snp_comment
+    mail(:subject => "openSNP.org: You've got a reply to one of your SNP-comments", :to => @user.email)
+  end
+  
+  def new_phenotype_comment(phenotype_comment,to_user)
+    @user = to_user
+    @phenotype_comment = phenotype_comment
+    mail(:subject => "openSNP.org: You've got a reply to one of your phenotype-comments", :to => @user.email)
+  end
 end

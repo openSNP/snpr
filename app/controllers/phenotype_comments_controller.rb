@@ -29,6 +29,14 @@ class PhenotypeCommentsController < ApplicationController
 		@phenotype_comment.user_id = current_user.id
 		@phenotype_comment.phenotype_id = params[:phenotype_comment][:phenotype_id]
   		if @phenotype_comment.save
+  		  if @phenotype_comment.reply_to_id != -1 
+  		    @reply_user = PhenotypeComment.find_by_id(@phenotype_comment.reply_to_id).user
+  		    if@reply_user != nil
+  		      if @reply_user.message_on_phenotype_comment_reply == true
+  		        UserMailer.new_phenotype_comment(@phenotype_comment,@reply_user).deliver
+		        end
+	        end
+        end
 			redirect_to "/phenotypes/"+@phenotype_comment.phenotype_id.to_s+"#comments", :notice => 'Comment succesfully created.'
 		else
 			render :action => "new" 

@@ -5,6 +5,8 @@
 	<li><a href="#users">New users</a></li>
 	<li><a href="#genotypes">New genotypes</a></li>
 	<li><a href="#phenotypes">New phenotypes</a></li>
+	<li><a href="#snpcomments">SNP-Comments</a></li>
+	<li><a href="#phenotypecomments">Phenotype-Comments</a></li>
 </ul>
 <div id="general">
 <h5>«5 days after launch»</h5>
@@ -70,5 +72,45 @@ Wow currently there are no things that do not work as expected. So far: Thanks t
 		<td><%= nu.number_of_users %></td>
 	</tr>
 <% end %>
+</table>
+</div>
+
+<div id="phenotypecomments">
+<h2>Phenotype Comments</h2>
+<table class="common-table zebra-striped">
+	<tr>
+		<th>Phenotype</th>
+		<th>Comment By</th>
+		<th>Subject</th>
+		<th>Date</th>
+	</tr>
+<%@new_phenotype_comments.each do |pc|%>
+	<tr>
+		<td><%=link_to pc.phenotype.characteristic, pc.phenotype%></td>
+		<td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
+		<td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
+		<td><%=pc.created_at%></td>
+	</tr>
+<%end%>
+</table>
+</div>
+
+<div id="snpcomments">
+<h2>SNP Comments</h2>
+<table class="common-table zebra-striped">
+	<tr>
+		<th>SNP</th>
+		<th>Comment By</th>
+		<th>Subject</th>
+		<th>Date</th>
+	</tr>
+<%@new_snp_comments.each do |pc|%>
+	<tr>
+		<td><%=link_to pc.snp.name, pc.snp%></td>
+		<td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
+		<td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
+		<td><%=pc.created_at%></td>
+	</tr>
+<%end%>
 </table>
 </div>

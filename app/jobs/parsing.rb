@@ -31,14 +31,26 @@ class Parsing
           if temp_array[0] != "Name"
             snp_array = [temp_array[0],temp_array[2],temp_array[3],temp_array[5]]
           else
-            snp_array = []
+            next
+          end
+          
+        elsif @genotype.filetype == "ftdna-illumina"
+          temp_array = single_snp.split("\",\"")
+          if temp_array[0].index("RSID") == nil
+            if temp_array[0] != nil and temp_array[1] != nil and temp_array[2] != nil and temp_array[3] != nil
+            snp_array = [temp_array[0].gsub("\"",""),temp_array[1].gsub("\"",""),temp_array[2].gsub("\"",""),temp_array[3].gsub("\"","").rstrip]
+            else
+              UserMailer.parsing_error(@genotype.user_id).deliver
+              break
+            end
+          else
+            next
           end
         end
 
-        if snp_array.length == (4)
+        if snp_array[0] != nil and snp_array[1] != nil and snp_array[2] != nil and snp_array[3] != nil
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
-          #snp = known_snps[snp_array[0]]
           snp = known_snps[snp_array[0]]
           if snp.nil?  
             snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
@@ -48,7 +60,7 @@ class Parsing
 
           new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0], snp_array[3].rstrip ]
         else
-          User.find_by_id(@genotype.user_id).toggle!(:has_sequence)
+          UserMailer.parsing_error(@genotype.user_id).deliver
           break
         end
       end

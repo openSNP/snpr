@@ -1,0 +1,15 @@
+Hello <%=@user.name%>,
+<%=@snp_comment.user.name%> just replied to a SNP comment on the SNP <%=@snp_comment.snp.name%> from you. 
+
+This is the text of the reply:
+
+--- SNIP ---
+
+<%=@snp_comment.comment_text%>
+
+--- SNAP ---
+
+You can read and reply to this comment by clicking this link: <%=snp_url(@snp_comment.snp)%>#comments
+
+Cheers,
+your openSNP-team

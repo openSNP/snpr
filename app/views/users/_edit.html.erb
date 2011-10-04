@@ -7,6 +7,7 @@
     <li><a href="#general">General</a></li>
     <li><a href="#phenotypes">Phenotypes</a></li>
     <li><a href="#details">Details</a></li>
+	<li><a href="#notifications">Notifications</a></li>
 	<li><a href="#deleting">Deleting</a></li>
   </ul>
 <div id="general">
@@ -75,6 +76,22 @@
 	</div>
 <% end %>
 <%= f.link_to_add "Add a page", :homepages %>
+</div>
+</div>
+
+<div id="notifications">
+<div class="well">
+<h2>Notifications</h2>
+<h6>Set up mail notifications to make sure you don't miss a thing that happens at openSNP</h6>
+<div class="clearfix">
+	<%= f.label :message_on_message, "Messages"%>Get a mail on new messages: <%= f.check_box :message_on_message%>
+</div>
+<div class="clearfix">
+	<%= f.label :message_on_phenotype_comment_reply, "Phenotype Comments"%>Get a mail on each phenotype comment that is a reply to one of yours: <%= f.check_box :message_on_phenotype_comment_reply%>	
+</div>
+<div class="clearfix">
+	<%= f.label :message_on_snp_comment_reply, "SNP Comments"%>Get a mail on each SNP comment that is a reply to one of yours: <%= f.check_box :message_on_snp_comment_reply%>	
+</div>
 </div>
 </div>
 

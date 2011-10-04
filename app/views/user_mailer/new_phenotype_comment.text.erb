@@ -1,0 +1,15 @@
+Hello <%=@user.name%>,
+<%=@phenotype_comment.user.name%> just replied to a phenotype comment on the Phenotype <%=@phenotype_comment.phenotype.characteristic%> from you. 
+
+This is the text of the reply:
+
+--- SNIP ---
+
+<%=@phenotype_comment.comment_text%>
+
+--- SNAP ---
+
+You can read and reply to this comment by clicking this link: <%=phenotype_url(@phenotype_comment.phenotype)%>#comments
+
+Cheers,
+your openSNP-team

@@ -33,6 +33,14 @@ class SnpCommentsController < ApplicationController
 		@snp_comment.user_id = current_user.id
 		@snp_comment.snp_id = params[:snp_comment][:snp_id]
   		if @snp_comment.save
+  		  if @snp_comment.reply_to_id != -1 
+  		    @reply_user = SnpComment.find_by_id(@snp_comment.reply_to_id).user
+  		    if@reply_user != nil
+  		      if @reply_user.message_on_snp_comment_reply == true
+  		        UserMailer.new_snp_comment(@snp_comment,@reply_user).deliver
+		        end
+	        end
+        end
 			redirect_to "/snps/"+@snp_comment.snp_id.to_s + "#comments", :notice => 'Comment succesfully created.'
 		else
 			render :action => "new"

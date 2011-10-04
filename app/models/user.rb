@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>#", :head => "32x32#" }, :default_url => '/images/standard_:style.png'
   
-  attr_accessible :user_phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes,:avatar, :sex, :yearofbirth, :phenotype_creation_counter, :phenotype_additional_counter,:delete_avatar
+  attr_accessible :user_phenotypes_attributes, :variation, :characteristic, :name, :password_confirmation, :password, :email, :description, :homepages, :homepages_attributes,:avatar, :sex, :yearofbirth, :phenotype_creation_counter, :phenotype_additional_counter,:delete_avatar, :message_on_message, :message_on_phenotype_comment_reply, :message_on_snp_comment_reply
 	before_validation :clear_avatar
 	
 	validates_attachment_size :avatar, :less_than=>1.megabyte
