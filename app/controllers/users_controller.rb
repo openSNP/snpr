@@ -147,8 +147,10 @@ class UsersController < ApplicationController
       end
       
       flash[:notice] =  "Successfully updated"
+			render "edit", :object => @user
     else
       flash[:warning] = "Oooops, something went wrong while editing your details"
+			render :partial => "edit", :object => @user
       #redirect_to :action => 'edit' 
     end
   end
