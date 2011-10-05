@@ -4,12 +4,9 @@
 
 $(document).ready(function() 
     { 
-    
-		$('#update_user').bind('ajaxSuccess', function(evt, request, settings) {
-			$(this).append("whawheoawjdiuawhndkajuwndwkj");
-		});
-		$('#update_user').bind('ajaxFailure', function() {
-			alert("nay");
+		$('#update_user').click(function() {
+			$('#update_user').val("Updating...").addClass("disabled");
+			setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
 		});
 
     $("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
