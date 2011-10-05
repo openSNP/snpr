@@ -23,6 +23,7 @@ class Zipgenotypingfiles
           end
         end
       end
+      system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/"+phenotype_id.to_s+"."+@time.to_s.gsub(" ","_")+".zip")
       UserMailer.genotyping_results(target_address,"/data/zip/"+phenotype_id.to_s+"."+@time.to_s.gsub(" ","_")+".zip",Phenotype.find_by_id(phenotype_id).characteristic,variation).deliver
     else
       UserMailer.no_genotyping_results(target_address,Phenotype.find_by_id(phenotype_id).characteristic,variation).deliver
