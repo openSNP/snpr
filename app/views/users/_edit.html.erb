@@ -84,6 +84,9 @@
 <h2>Notifications</h2>
 <h6>Set up mail notifications to make sure you don't miss a thing that happens at openSNP</h6>
 <div class="clearfix">
+	<%= f.label :message_on_newsletter, "From the openSNP-team"%>The openSNP-team may sent me mails on updates, new features, things like this: <%= f.check_box :message_on_newsletter%>
+</div>	
+<div class="clearfix">
 	<%= f.label :message_on_message, "Messages"%>Get a mail on new messages: <%= f.check_box :message_on_message%>
 </div>
 <div class="clearfix">

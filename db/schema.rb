@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005210020) do
+ActiveRecord::Schema.define(:version => 20111006133700) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -119,9 +119,9 @@ ActiveRecord::Schema.define(:version => 20111005210020) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-28 12:51:33'
-    t.datetime "plos_updated",       :default => '2011-08-28 12:51:33'
-    t.datetime "snpedia_updated",    :default => '2011-08-28 12:51:33'
+    t.datetime "mendeley_updated",   :default => '2011-08-31 01:26:24'
+    t.datetime "plos_updated",       :default => '2011-08-31 01:26:24'
+    t.datetime "snpedia_updated",    :default => '2011-08-31 01:26:24'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -177,9 +177,10 @@ ActiveRecord::Schema.define(:version => 20111005210020) do
     t.boolean  "help_three",                         :default => false
     t.string   "sex",                                :default => "rather not say"
     t.string   "yearofbirth",                        :default => "rather not say"
-    t.boolean  "message_on_message",                 :default => true
-    t.boolean  "message_on_snp_comment_reply",       :default => true
-    t.boolean  "message_on_phenotype_comment_reply", :default => true
+    t.boolean  "message_on_message",                 :default => false
+    t.boolean  "message_on_snp_comment_reply",       :default => false
+    t.boolean  "message_on_phenotype_comment_reply", :default => false
+    t.boolean  "message_on_newsletter",              :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
