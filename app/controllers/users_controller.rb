@@ -148,7 +148,7 @@ class UsersController < ApplicationController
 			flash[:notice] =  "Successfully updated"
 
 			if params[:user][:password]
-				redirect_to current_user
+				redirect_to :action => "edit", :id => current_user.id
 			else
 				respond_to do |format|
 					format.js  
