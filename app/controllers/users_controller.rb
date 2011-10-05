@@ -145,14 +145,11 @@ class UsersController < ApplicationController
           end
         end
       end
+			flash[:notice] =  "Successfully updated"
       respond_to do |format|
+				format.js
 				format.html do
-					if request.xhr?
-						flash[:notice] =  "Successfully updated"
 						render :partial => "edit"
-					else
-						render
-					end
 				end
 			end
     
