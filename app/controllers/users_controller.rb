@@ -146,10 +146,13 @@ class UsersController < ApplicationController
         end
       end
 			flash[:notice] =  "Successfully updated"
-      respond_to do |format|
-				format.js
-				format.html do
-						render :partial => "edit"
+
+			if params[:user][:password]
+				redirect_to current_user
+			else
+				respond_to do |format|
+					format.js  
+					format.html 
 				end
 			end
     
