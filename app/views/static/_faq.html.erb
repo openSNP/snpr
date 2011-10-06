@@ -3,6 +3,7 @@
   <ul class="tabs">
     <li><a href="#dtcustomers"><%=image_tag("/images/fileupload_small.png",:style => "vertical-align:middle" )%> Users interested in uploading data</a></li>
     <li><a href="#scientists"><%=image_tag("/images/filedownload_small.png",:style => "vertical-align:middle" )%> Users interested in downloading data</a></li>
+	<li><a href="#filetypes"><%=image_tag("/images/file_info_small.png",:style => "vertical-align:middle" )%>Filetypes</a>
   </ul>
 <div id="dtcustomers">
 <h5>• What does OpenSNP offer me as a genotyping-customers?</h5>
@@ -18,13 +19,13 @@ The site is hosted and was coded by <a href="http://www.twitter.com/gedankenstue
 We take the "open" in openSNP serious, so everything is free of charge.
 
 <h5>• Where can I download my raw data on the page of my DTC company?</h5>
-<em>23andMe</em> customers can <a href="https://www.23andme.com/you/download/"> download the data here</a>. <em>deCODEme</em> customers can <a href="https://www.decodeme.com/download">find the data here</a>. We are currently working on adding <em>FamilytreeDNA</em> to <em>openSNP</em>, if you were genotyped by them you can <a href="https://www.familytreedna.com/my-ftdna/download-files.aspx">find your files here</a>. 
+<em>23andMe</em> customers can <a href="https://www.23andme.com/you/download/"> download the data here</a>. <em>deCODEme</em> customers can <a href="https://www.decodeme.com/download">find the data here</a>. If you were genotyped by <em>FamilytreeDNA</em> you can <a href="https://www.familytreedna.com/my-ftdna/download-files.aspx">find your files here</a>. 
 
 <h5>• How long does it take until my genotyping data is available on the site after uploading?</h5>
 This heavily depends on how many other users are in the queue, waiting for their data to be parsed. Right now openSNP runs on a small scale server so it may take 2-3 days until all your variations can be found on the site. But you can start using openSNP right away and others can download your raw-data right from the start. The parsing only affects the "other users sharing this SNP" and the "my genotype"-views.
 
 <h5>• I was genotyped by another DTC company, why can't i upload my data?</h5>
-We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate. We are already working on adding <em>FamilytreeDNA</em> to <em>openSNP</em>
+We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
 
 <h5>• How open is my data?</h5>
 Completely open: Everyone can see everything you enter or upload (except your private messages and your password, of course). We warn every user twice about this: Once during the user-creation and once before the genotyping-file-upload. You can find more information about the risks of publishing the data by <%=link_to "reading the disclaimer", "/disclaimer"%>
@@ -50,7 +51,64 @@ Just send us an <a href="mailto:info@opensnp.org">email</a>.
 	This option is only available for logged-in users. Just visit the phenotype-page of your choice and click on the download-links for the variations you are interested in. Our server will grab all the data for you, make a handy zip-file out of it and send you the download link via email, as this can be a lot of data.
 	
 	<h5>• Is there an API for searching/downloading files?</h5>
-	We are currently working on providing a simple API, but up to now there is none. If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.
-	
+	We are currently working on providing a simple API, but up to now there is none. If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.	
 </div>
+
+<div id="filetypes">
+	<h4>Not sure what kind of file you've got? Take a look at our example-files</h4>
+	 
+	<div class="row">
+	 <div class="span13 columns">
+	
+	<h5>23andMe</h5>
+	<pre class="prettyprint linenums">
+		# More Comments up here
+		# More information on reference human assembly build 36:
+		# http://www.ncbi.nlm.nih.gov/projects/mapview/map_search.cgi?taxid=9606&build=36
+		#
+		# rsid	chromosome	position	genotype
+		rs4477212	1	72017	AA
+		rs3094315	1	742429	AA
+		rs3131972	1	742584	GG
+		rs12124819	1	766409	AG
+		rs11240777	1	788822	AG
+		rs6681049	1	789870	CC
+		rs4970383	1	828418	CC
+		rs4475691	1	836671	CC
+		rs7537756	1	844113	AA
+	</pre>
+	
+	<h5>deCODEme</h5>
+	<pre class="prettyprint linenums">
+		Name,Variation,Chromosome,Position,Strand,YourCode
+		rs4477212,A/G,1,72017,+,AA
+		rs2185539,C/T,1,556738,+,CC
+		rs6681105,C/T,1,581938,+,TT
+		rs11240767,C/T,1,718814,+,CC
+		rs3094315,C/T,1,742429,-,TT
+		rs3131972,C/T,1,742584,-,CC
+		rs3131969,C/T,1,744045,-,CC
+		rs1048488,C/T,1,750775,+,TT
+		rs2905046,A/G,1,752518,-,GG
+		</pre>
+		
+	<h5>FamilyTreeDNA</h5>
+	<pre class="prettyprint linenums">
+		RSID,CHROMOSOME,POSITION,RESULT
+		"rs3094315","1","742429","AG"
+		"rs3131972","1","742584","AG"
+		"rs12562034","1","758311","GG"
+		"rs12124819","1","766409","AA"
+		"rs11240777","1","788822","GG"
+		"rs6681049","1","789870","CC"
+		"rs4970383","1","828418","CC"
+		"rs4475691","1","836671","CC"
+		"rs7537756","1","844113","AA"
+		</pre>	
+		
+	<h5>My filetype is still missing, what can I do?</h5>
+	We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
+		</div>
+		</div>
+	</div>
 </div>
