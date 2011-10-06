@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111006133700) do
+ActiveRecord::Schema.define(:version => 20111006163700) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20111006133700) do
     t.boolean  "message_on_snp_comment_reply",       :default => false
     t.boolean  "message_on_phenotype_comment_reply", :default => false
     t.boolean  "message_on_newsletter",              :default => true
+    t.boolean  "message_on_new_phenotype",           :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

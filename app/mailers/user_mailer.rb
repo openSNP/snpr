@@ -46,4 +46,10 @@ default :from => "donotreply@opensnp.org"
     @phenotype_comment = phenotype_comment
     mail(:subject => "openSNP.org: You've got a reply to one of your phenotype-comments", :to => @user.email)
   end
+  
+  def new_phenotype(phenotype,user)
+    @user = user
+    @phenotype = phenotype
+    mail(:subject => "openSNP.org: A new phenotype was entered on the platform", :to => @user.email)
+  end
 end

@@ -48,6 +48,7 @@ class PhenotypesController < ApplicationController
 	  
   	  @phenotype.save
   	  @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
+  	  Resque.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
     
       if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id) == nil
     

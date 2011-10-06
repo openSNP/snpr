@@ -1,0 +1,9 @@
+Hello <%=@user.name%>,
+
+The new phenotype "<%=@phenotype.characteristic%>" was just entered on openSNP. If you want to enter your variation for this phenotype you can visit  <%=phenotype_url(@phenotype)%>
+
+Cheers,
+your openSNP-team.
+
+-- 
+You receive this email because you enabled the phenotype-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications
