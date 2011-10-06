@@ -13,24 +13,25 @@ class Snpedia
         mw = MediaWiki::Gateway.new("http://www.snpedia.com/api.php")
         # return an array of page-titles
         pages = mw.list(@snp.name + "(")
-
-        pages.each do |p|
-           if p.index("(") != nil
+        if pages != nil
+          pages.each do |p|
+            if p.index("(") != nil
               puts "snpedia: Got page\n"
               url = "http://www.snpedia.com/index.php/" + p.to_s
               if SnpediaPaper.find_all_by_url(url)  == []
-                 puts "-> Parsing new site\n"
-                 toparse = mw.get(p)
-								 summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
-                 @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
-  			   @snpedia_link.save
-                 @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
+                puts "-> Parsing new site\n"
+                toparse = mw.get(p)
+                summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
+                @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
+                @snpedia_link.save
+                @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
               else
-                 puts "-> old site\n"
+                puts "-> old site\n"
               end
-           else
+            else
               puts "snpedia: No pages\n"
-           end
+            end
+          end
         end
         @snp.snpedia_updated = Time.zone.now
         @snp.save
