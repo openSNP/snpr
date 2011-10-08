@@ -38,6 +38,7 @@ class Snpedia
 									snpedia_count = 0
 								else
 									snpedia_count = @snp.snpedia_paper.count
+								end
 
                 @snp.ranking = mendeley_count + 2*plos_count + 5*snpedia_count
               else
