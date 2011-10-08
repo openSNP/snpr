@@ -24,17 +24,17 @@ class Snpedia
                 summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
                 @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
                 @snpedia_link.save
-								if @snp.mendeley_paper.count == nil:
+								if @snp.mendeley_paper.count == nil
 									mendeley_count = 0
 								else
 									mendeley_count = @snp.mendeley_paper.count
 								end
-								if @snp.plos_paper.count == nil:
+								if @snp.plos_paper.count == nil
 									plos_count = 0
 								else
 									plos_count = @snp.plos_paper.count
 								end
-								if @snp.snpedia_paper.count == nil:
+								if @snp.snpedia_paper.count == nil
 									snpedia_count = 0
 								else
 									snpedia_count = @snp.snpedia_paper.count
