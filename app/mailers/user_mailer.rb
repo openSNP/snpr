@@ -52,4 +52,10 @@ default :from => "donotreply@opensnp.org"
     @phenotype = phenotype
     mail(:subject => "openSNP.org: A new phenotype was entered on the platform", :to => @user.email)
   end
+  
+  def newsletter(user)
+    @user = user
+    mail(:subject => "Some good news on the openSNP project", :to => @user.email)
+  end
+  
 end

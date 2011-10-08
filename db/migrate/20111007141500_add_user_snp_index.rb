@@ -4,6 +4,6 @@ class AddUserSnpIndex < ActiveRecord::Migration
   end
   
   def self.down
-    remove_index :user_snps, :name => "index_user_snps_on_user_id_and_snp_name"
+    remove_index :user_snps, [:snp_name,:user_id], :name => "index_user_snps_on_user_id_and_snp_name"
   end
 end
