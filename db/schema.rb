@@ -119,9 +119,9 @@ ActiveRecord::Schema.define(:version => 20111007145000) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-31 01:26:24'
-    t.datetime "plos_updated",       :default => '2011-08-31 01:26:24'
-    t.datetime "snpedia_updated",    :default => '2011-08-31 01:26:24'
+    t.datetime "mendeley_updated",   :default => '2011-09-04 13:33:17'
+    t.datetime "plos_updated",       :default => '2011-09-04 13:33:17'
+    t.datetime "snpedia_updated",    :default => '2011-09-04 13:33:17'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -180,9 +180,9 @@ ActiveRecord::Schema.define(:version => 20111007145000) do
     t.boolean  "help_three",                         :default => false
     t.string   "sex",                                :default => "rather not say"
     t.string   "yearofbirth",                        :default => "rather not say"
-    t.boolean  "message_on_message",                 :default => false
-    t.boolean  "message_on_snp_comment_reply",       :default => false
-    t.boolean  "message_on_phenotype_comment_reply", :default => false
+    t.boolean  "message_on_message",                 :default => true
+    t.boolean  "message_on_snp_comment_reply",       :default => true
+    t.boolean  "message_on_phenotype_comment_reply", :default => true
     t.boolean  "message_on_newsletter",              :default => true
     t.boolean  "message_on_new_phenotype",           :default => false
   end
