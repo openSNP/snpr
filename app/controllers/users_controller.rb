@@ -133,10 +133,17 @@ class UsersController < ApplicationController
         end
       end
     end
-      
+		# due to something with the nested_form gem, always one empty homepage is submitted - delete that one
+    params[:user][:homepages_attributes].each do | key, value |
+			if value[:url] == ""
+				params[:user][:homepages_attributes].delete key
+			end
+		end
+		logger.debug params[:user][:homepages_attributes]
+		
     if @user.update_attributes(params[:user])
-      @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
-      @empty_websites.each do |ew| ew.delete end
+      #@empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
+      #@empty_websites.each do |ew| ew.delete end
       
       if @pot_delete_phenotype_ids != []
         @pot_delete_phenotype_ids.each do |pid|
