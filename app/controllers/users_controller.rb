@@ -125,6 +125,13 @@ class UsersController < ApplicationController
       
       params[:user][:user_phenotypes_attributes].each do |p|  
         @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
+        
+        @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
+        if UserPhenotype.find_all_by_phenotype_id_and_variation(@phenotype.id,@old_variation).length == 1
+          @phenotype.known_phenotypes.delete_if { |entry| entry == @old_variation }
+        end
+        
+        
         @pot_delete_phenotype_ids << @phenotype.id
         if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
           @phenotype.known_phenotypes << p[1]["variation"]
@@ -199,6 +206,12 @@ class UsersController < ApplicationController
     
     @user.user_phenotypes.each do |up|
       @phenotype = Phenotype.find_by_id(up.phenotype_id)
+      
+      if UserPhenotype.find_all_by_phenotype_id_and_variation(@phenotype.id,up.variation).length == 1
+        @phenotype.known_phenotypes.delete_if { |entry| entry == up.variation }
+        @phenotype.save
+      end
+      
       if @phenotype.user_phenotypes.length == 1
         Phenotype.delete(@phenotype)
       end
