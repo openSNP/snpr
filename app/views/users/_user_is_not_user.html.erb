@@ -28,7 +28,7 @@
 	<h3>Homepages</h3>
 	<% @user.homepages.each do |uh| %>
 		<strong><%= uh.description %>:</strong> 
-		<%= link_to uh.url, uh.url %><br/>
+		<%= link_to uh.url, uh.url, :target => "_blank" %><br/>
 	<% end %>
 <% end %>
 </p>
