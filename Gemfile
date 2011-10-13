@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.10'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
+gem 'newrelic_rpm'
+gem 'rpm_contrib'
 gem "jquery-rails"
 
 # Bundle edge Rails instead:

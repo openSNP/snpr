@@ -69,6 +69,7 @@ GEM
     mocha (0.10.0)
       metaclass (~> 0.0.1)
     multi_json (1.0.3)
+    newrelic_rpm (3.1.2)
     nokogiri (1.5.0)
     paperclip (2.4.1)
       activerecord (>= 2.3.0)
@@ -113,6 +114,8 @@ GEM
       resque (~> 1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rpm_contrib (2.1.4)
+      newrelic_rpm (>= 3.1.1)
     rsolr (0.12.1)
       builder (>= 2.1.2)
     ruby-debug-base19 (0.11.25)
@@ -160,12 +163,14 @@ DEPENDENCIES
   mediawiki-gateway
   mocha
   nested_form!
+  newrelic_rpm
   paperclip (~> 2.4)
   pg
   rails (= 3.0.10)
   rails3-generators
   resque
   resque-loner
+  rpm_contrib
   ruby-debug19
   rubyzip
   shoulda-context
