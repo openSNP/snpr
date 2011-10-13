@@ -163,7 +163,6 @@ DEPENDENCIES
   mediawiki-gateway
   mocha
   nested_form!
-  newrelic_rpm
   paperclip (~> 2.4)
   pg
   rails (= 3.0.10)

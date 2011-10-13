@@ -56,6 +56,7 @@ class Mendeley
         end
         @snp.mendeley_updated = Time.zone.now
         @snp.save
+        sleep(1)
       else
         print "mendeley: time threshold not met\n"
       end

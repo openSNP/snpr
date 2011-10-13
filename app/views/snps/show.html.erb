@@ -2,8 +2,8 @@
 	<div class="span6 columns"><h2>SNP <%= @snp.name %></h2></div>
 	<% if current_user %>
 	<div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
-	<div class="span6 columns offset4"><%= link_to "Back to your SNPs", "/users/"+current_user.id.to_s + "#variations" %></div>
-<% end %>
+	<% end %>
+	<div class="span6 columns offset4"><%= link_to "Back to SNPs", :snps%></div>
 </div>
 
 <div class="row">
