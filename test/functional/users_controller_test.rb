@@ -102,10 +102,13 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "be able to update" do
-        post :update, id: @user.id, user: { name: "Blah Keks", user_phenotypes_attributes: [] }
-        assert_redirected_to edit_user_path(@user)
+        post :update, id: @user.id, user:
+          { name: "Blah Keks", user_phenotypes_attributes: [],
+            homepages_attributes: { new_123: { url: "" }}}
+        assert_response :success
         @user.reload
         assert_equal "Blah Keks", @user.name
+        assert_equal [], @user.homepages
       end
          
       should "be able to destroy" do
