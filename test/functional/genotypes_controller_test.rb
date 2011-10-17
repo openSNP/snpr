@@ -52,7 +52,7 @@ class GenotypesControllerTest < ActionController::TestCase
       should "be able to upload genotypes" do
         Resque.expects(:enqueue).with do |*args|
           assert_equal 2, args.size
-          assert_equal Parsing, args[0]
+          assert_equal Preparsing, args[0]
           assert args[1].is_a?(Genotype)
         end
         genotype_file_upload = ActionDispatch::Http::UploadedFile.new(
