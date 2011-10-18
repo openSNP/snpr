@@ -21,9 +21,13 @@ class Snpedia
               if SnpediaPaper.find_all_by_url(url)  == []
                 puts "-> Parsing new site\n"
                 toparse = mw.get(p)
-                summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
-                @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
-                @snpedia_link.save
+								if toparse.index("summary=") == nil
+									summary = "No summary provided."
+								else
+									summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
+								end
+									@snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
+									@snpedia_link.save
 								if @snp.mendeley_paper.count == nil
 									mendeley_count = 0
 								else
