@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007145000) do
+ActiveRecord::Schema.define(:version => 20111018040633) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
