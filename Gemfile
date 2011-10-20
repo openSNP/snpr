@@ -29,10 +29,10 @@ gem 'mediawiki-gateway'
 gem 'activerecord-import'
 gem 'paperclip', '~> 2.4'
 
-group :production do
-	gem 'rpm_contrib'
-	gem 'newrelic_rpm'
-end
+#group :production do
+#	gem 'rpm_contrib'
+#	gem 'newrelic_rpm'
+#end
 
 group :test do
   gem 'shoulda-context'
