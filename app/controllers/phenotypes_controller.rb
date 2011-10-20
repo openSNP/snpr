@@ -57,6 +57,7 @@ class PhenotypesController < ApplicationController
     		if @user_phenotype.save
     		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
           @phenotype.save
+          flash[:notice] = "Phenotype sucessfully saved."
 			
     			# check for additional phenotype awards
     	    current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
