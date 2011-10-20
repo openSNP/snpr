@@ -3,8 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.10'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
-gem 'rpm_contrib'
-gem 'newrelic_rpm'
 gem "jquery-rails"
 
 # Bundle edge Rails instead:
@@ -30,6 +28,11 @@ gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import'
 gem 'paperclip', '~> 2.4'
+
+#group :production do
+#	gem 'rpm_contrib'
+#	gem 'newrelic_rpm'
+#end
 
 group :test do
   gem 'shoulda-context'
