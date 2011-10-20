@@ -5,6 +5,7 @@ class GenotypesControllerTest < ActionController::TestCase
     setup do
       Sunspot.stubs(:index)
       @genotype = Factory :genotype
+      UserAchievement.delete_all
     end
 
     context "unauthenticated users" do
@@ -53,11 +54,11 @@ class GenotypesControllerTest < ActionController::TestCase
         Resque.expects(:enqueue).with do |*args|
           assert_equal 2, args.size
           assert_equal Preparsing, args[0]
-          assert args[1].is_a?(Genotype)
+          assert args[1].is_a?(Fixnum)
         end
         genotype_file_upload = ActionDispatch::Http::UploadedFile.new(
           filename: '23andme.txt', content_type: 'text/plain',
-          tempfile: File.new("#{Rails.root}/test/data/23andMe_test.txt"))
+          tempfile: File.new("#{Rails.root}/test/data/23andMe_test.csv"))
         assert_difference 'UserAchievement.count' do
           put :create, commit: "Upload", genotype:
             { filename: genotype_file_upload, filetype: "23andme"}
