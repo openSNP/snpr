@@ -103,6 +103,7 @@
 		<div id="flash_notice" class="alert-message success" style="display:none"></div>
 	<% if flash[:notice] %><div class="alert-message success"> <p><%= flash[:notice] %></p></div> <% end %>
 	<% if flash[:warning] %><div class="alert-message error"><p><%= flash[:warning] %></p></div> <% end %>
+	<% if flash[:achievement] %><div class="alert-message info"><p><%= flash[:achievement] %></p></div><% end %>
 	<%= yield %>
 </div>
 </div>

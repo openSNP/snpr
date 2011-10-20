@@ -32,6 +32,7 @@ class GenotypesController < ApplicationController
         @award = Achievement.find_by_award("Published genotyping")
         if UserAchievement.find_by_achievement_id_and_user_id(@award.id,current_user.id) == nil
           UserAchievement.create(:user_id => current_user.id, :achievement_id => @award.id)
+				flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@award)}">#{@award.award}</a>).html_safe
         end
 
         @genotype.move_file
