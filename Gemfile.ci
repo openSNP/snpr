@@ -39,7 +39,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'factory_girl'
   gem 'mocha'
-  gem 'ruby-debug19'
 end
 
 # gem 'email_veracity' # to check whether user-mails are OK
@@ -50,10 +49,6 @@ end
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Bundle the extra gems:
 # gem 'bj'
