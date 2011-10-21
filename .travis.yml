@@ -3,5 +3,7 @@ gemfile: Gemfile.ci
 env: DB=postgres
 before_script:
   - "cp config/database.yml.ci config/database.yml"
+  - echo "foo" > mail_username.txt
+  - echo "bar" > mail_password.txt
   - "psql -c 'create database snpr_test;' -U postgres"
 
