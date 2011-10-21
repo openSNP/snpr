@@ -1,4 +1,7 @@
 rvm: 1.9.2
 gemfile: Gemfile.ci
 env: DB=postgres
+before_script:
+  - "cp config/database.yml.ci config/database.yml"
+  - "psql -c 'create database snpr_test;' -U postgres"
 

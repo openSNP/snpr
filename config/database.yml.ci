@@ -1,0 +1,4 @@
+postgres:
+  adapter: postgresql
+  database: snpr_test
+  username: postgres
