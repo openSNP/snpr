@@ -1,4 +1,8 @@
-postgres:
+postgres: &postgres
   adapter: postgresql
-  database: snpr_test
   username: postgres
+
+test:
+  <<: *postgres
+  database: snpr_test
+
