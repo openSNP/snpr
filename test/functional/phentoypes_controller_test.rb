@@ -7,11 +7,21 @@ class PhenotypesControllerTest < ActionController::TestCase
       @user = Factory(:user, name: "The Dude")
       activate_authlogic
       @phenotype = Factory :phenotype
-    end
 
+      [ "Entered first phenotype",
+        "Entered 5 additional phenotypes",
+        "Entered 10 additional phenotypes",
+        "Entered 20 additional phenotypes",
+        "Entered 50 additional phenotypes",
+        "Entered 100 additional phenotypes" ].each do |a|
+        Factory :achievement, award: a
+      end
+    end
+ 
     context "strangers" do
       should "see them listed" do
         get :index
+
         assert_response :success
         assert_equal [@phenotype], assigns(:phenotypes)
       end

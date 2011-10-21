@@ -3,13 +3,14 @@ require 'resque'
 class Parsing
   @queue = :parse
 
-  def self.perform(genotyp,temp_file)
+  def self.perform(genotype_id, temp_file)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
-    @genotype = Genotype.find_by_id(genotyp["genotype"]["id"].to_i)
+    genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
+    @genotype = Genotype.find(genotype_id)
     
     if @genotype.filetype != "other"
-      
+
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
       known_snps = {}

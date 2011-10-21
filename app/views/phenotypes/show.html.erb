@@ -1,65 +1,65 @@
 <%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>
 
 <div class="row">
-	<div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
-	<% if current_user %>
-		<div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
-		<div class="span6 columns offset4"><%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %></div>
-<% end %>
+  <div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
+  <% if current_user %>
+    <div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
+    <div class="span6 columns offset4"><%= link_to "Back to your phenotypes", "/users/" + current_user.id.to_s + "#variations" %></div>
+  <% end %>
 </div>
 
 <% if current_user %>
-<%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
+  <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
 
-<%= render 'user_phenotypes/form' %>
-<%end%>
+    <%= render 'user_phenotypes/form' %>
+  <%end%>
 <% end %>
 <%=link_to(image_tag("/images/rss_small.png"),:action =>"feed")%>
 <h6>Known Phenotypes:</h6>
 <ul>
-<%@phenotype.known_phenotypes.each do |p|%>
-<%if p != ""%>
-<li><b><%=p%></b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%> <%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p})%> <%end%></li> 
-<%end%>
-<%end%>
-</ul>
+  <%@phenotype.known_phenotypes.each do |p|%>
+    <%if p != ""%>
+      <li><b><%=p%></b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%> <%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p})%> <%end%></li> 
+      <%end%>
+    <%end%>
+  </ul>
 
-<div id="tab-container">
-	<ul class="tabs">
-		<li><a href="#description">Description</a></li>
-		<li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
-		<li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
-	</ul>
+  <div id="tab-container">
+    <ul class="tabs">
+      <li><a href="#description">Description</a></li>
+      <li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
+      <li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
+    </ul>
 
-	<div id="description">
-	<div class="well">
-		<%=@phenotype.description%>
-	</div>
-	</div>
-	<div id="users">
-<table class="zebra-striped">
-	<tr>
-		<th>User</th>
-		<th>Variation</th>
-	</tr>
-<% @phenotype.user_phenotypes.each do |up| %>
-	<tr>
-		<%if current_user!= nil and UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id) != nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
-		<td><b> <%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></b></td>
-		<td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
-		<%else%>
-		<td><%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></td>
-		<td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
-		<%end%>
-	</tr>
-<% end %>
-</table>
-</div>
-  
-<div id="comments">
-<%= render 'phenotype_comments/show' %>
-<%if current_user%>
-<%= render 'phenotype_comments/form' %>
-<%end%>
-</div>
-</div>
+    <div id="description">
+      <div class="well">
+        <%=@phenotype.description%>
+      </div>
+    </div>
+    <div id="users">
+      <table class="zebra-striped">
+        <tr>
+          <th>User</th>
+          <th>Variation</th>
+        </tr>
+        <% @phenotype.user_phenotypes.each do |up| %>
+          <tr>
+            <%if current_user!= nil and UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id) != nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
+              <td><b> <%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></b></td>
+              <td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
+              <%else%>
+                <td><%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></td>
+                <td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
+                <%end%>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <div id="comments">
+          <%= render 'phenotype_comments/show' %>
+          <%if current_user%>
+            <%= render 'phenotype_comments/form' %>
+          <%end%>
+        </div>
+      </div>
