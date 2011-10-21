@@ -72,7 +72,7 @@ class UsersController < ApplicationController
 
     #find all snp-comment-replies that this user got
     @user_snp_comment_ids = []
-    @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end		
+    @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end    
     @snp_comment_replies = []
     @user_snp_comment_ids.each do |ui| 
       @replies_for_snp = SnpComment.find_all_by_reply_to_id(ui)
@@ -140,14 +140,7 @@ class UsersController < ApplicationController
         end
       end
     end
-		# due to something with the nested_form gem, always one empty homepage is submitted - delete that one
-    params[:user][:homepages_attributes].each do | key, value |
-			if value[:url] == ""
-				params[:user][:homepages_attributes].delete key
-			end
-		end
-		logger.debug params[:user][:homepages_attributes]
-		
+   
     if @user.update_attributes(params[:user])
       #@empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       #@empty_websites.each do |ew| ew.delete end
@@ -159,29 +152,29 @@ class UsersController < ApplicationController
           end
         end
       end
-			flash[:notice] =  "Successfully updated"
+      flash[:notice] =  "Successfully updated"
 
-			if params[:user][:password] or params[:user][:avatar]
-				redirect_to :action => "edit", :id => current_user.id
-			else
-				respond_to do |format|
-					format.js  
-					format.html 
-				end
-			end
+      if params[:user][:password] or params[:user][:avatar]
+        redirect_to :action => "edit", :id => current_user.id
+      else
+        respond_to do |format|
+          format.js  
+          format.html 
+        end
+      end
     
-		else 
-			
-			respond_to do |format|
-				format.html do
-					if request.xhr?
-						flash[:warning] = "Oooops, something went wrong while editing your details"
-						render :partial => "edit"
-					else
-						render
-					end
-				end
-			end
+    else 
+      
+      respond_to do |format|
+        format.html do
+          if request.xhr?
+            flash[:warning] = "Oooops, something went wrong while editing your details"
+            render :partial => "edit"
+          else
+            render
+          end
+        end
+      end
     end
   end
 
@@ -239,15 +232,15 @@ class UsersController < ApplicationController
   def require_owner
     unless current_user == User.find(params[:id])
       store_location
-		  if current_user
-		    flash[:notice] = "Redirected to your edit page"
-		    redirect_to :controller => "users", :action => "edit", :id => current_user.id 
-	    else
-	      flash[:notice] = "You need to be logged in"
-	      redirect_to "/signin"
+      if current_user
+        flash[:notice] = "Redirected to your edit page"
+        redirect_to :controller => "users", :action => "edit", :id => current_user.id 
+      else
+        flash[:notice] = "You need to be logged in"
+        redirect_to "/signin"
       end
-		  return false
-	  end
+      return false
+    end
   end
 
   def sort_column

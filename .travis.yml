@@ -1,0 +1,11 @@
+rvm: 1.9.2
+gemfile: Gemfile.ci
+env: DB=postgres
+before_script:
+  - "cp config/database.yml.ci config/database.yml"
+  - echo "foo" > mail_username.txt
+  - echo "bar" > mail_password.txt
+  - mkdir tmp
+  - "psql -c 'create database snpr_test;' -U postgres"
+script: "bundle exec rake db:drop db:create db:migrate test"
+

@@ -26,4 +26,5 @@ end
 
 Factory.define :phenotype do |p|
   p.characteristic "Penis length"
+  p.known_phenotypes [ "foo", "bar" ]
 end
