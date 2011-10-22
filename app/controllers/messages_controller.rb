@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
 
 	  if @message.save and @message.send_message(@message.from_id, @message.to_id)
 		  flash[:notice] = "Message sent!"
-		  redirect_to current_user
+		  redirect_to "/users/" + current_user.id.to_s + "#messages"
 	  else
 		  respond_to do |format|
 			  format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class MessagesController < ApplicationController
 	  message = Message.find_by_id(params[:id])
 	  if message.destroy
 		  flash[:notice] = "Message deleted."
-		  redirect_to current_user
+		  redirect_to "/users/" + current_user.id.to_s + "#messages"
 	  end
   end
 
@@ -68,7 +68,7 @@ class MessagesController < ApplicationController
     unless current_user.id == Message.find_by_id(params[:id]).user_id
       store_location
 		  if current_user
-		    flash[:warning] = "Ups! Thats none of your business"
+		    flash[:warning] = "Oops! Thats none of your business"
 		    redirect_to :controller => "users", :action => "show", :id => current_user.id 
 	    else
 	      flash[:notice] = "You need to be logged in"
