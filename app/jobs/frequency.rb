@@ -7,7 +7,7 @@ class Frequency
     s = Snp.find_by_id(snp_id)
     s.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
     s.genotype_frequency ||= {}
-    UserSnp.where(:snp_name => s.name).find_each do |us|
+    UserSnp.where(:snp_name => s.name).find(:all).each do |us|
       if s.allele_frequency.has_key?(us.local_genotype[0].chr)
         s.allele_frequency[us.local_genotype[0].chr] += 1
       else

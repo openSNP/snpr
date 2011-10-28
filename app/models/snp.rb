@@ -7,6 +7,9 @@ class Snp < ActiveRecord::Base
   serialize :allele_frequency
   serialize :genotype_frequency
 
+  extend FriendlyId
+  friendly_id :name, :use => :history
+
   validates_uniqueness_of :name
 
   searchable do
@@ -38,4 +41,5 @@ class Snp < ActiveRecord::Base
       Resque.enqueue(Frequency,s.id)
     end
   end
+  
 end

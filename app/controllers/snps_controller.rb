@@ -1,5 +1,7 @@
 class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
+  before_filter :find_snp, :except => [:index]
+    
 	def index
 		@snps = Snp.order(sort_column + " "+ sort_direction)
 		@snps_paginate = @snps.paginate(:page => params[:page],:per_page => 10)
@@ -11,9 +13,9 @@ class SnpsController < ApplicationController
 	end
 	
 	def show
-		@snp = Snp.find_by_id(params[:id])
+		@snp = Snp.find_by_name(params[:id])
 		@title = @snp.name
-		@comments = SnpComment.where(:snp_id => params[:id]).all(:order => "created_at ASC")
+		@comments = SnpComment.where(:snp_id => @snp.id).all(:order => "created_at ASC")
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
 		#@user_snps = UserSnps.where(:snp_name => @snp.name)
 		
@@ -58,5 +60,17 @@ class SnpsController < ApplicationController
 	  def sort_direction
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	  end
+
+
+    def find_snp
+      @snp = Snp.find(params[:id])
+
+      # If an old id or a numeric id was used to find the record, then
+      # the request path will not match the post_path, and we should do
+      # a 301 redirect that uses the current friendly id.
+      if request.path != snp_path(@snp)
+        return redirect_to @snp, :status => :moved_permanently
+      end
+    end
 
 	end

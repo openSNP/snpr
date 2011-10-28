@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/norman/friendly_id.git
+  revision: cf4200237de5c58614df2321228e7de289775a16
+  specs:
+    friendly_id (4.0.0.beta14)
+
+GIT
   remote: https://github.com/ryanb/nested_form.git
   revision: 57f32788f1952bcd633057b4b56b69b51df17610
   specs:
@@ -157,6 +163,7 @@ DEPENDENCIES
   activerecord-import
   authlogic
   factory_girl
+  friendly_id!
   jquery-rails
   json
   mediawiki-gateway

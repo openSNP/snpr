@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018040633) do
+ActiveRecord::Schema.define(:version => 20111028212506) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20111018040633) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false
@@ -119,15 +130,17 @@ ActiveRecord::Schema.define(:version => 20111018040633) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2011-08-27 16:54:19'
-    t.datetime "plos_updated",       :default => '2011-08-27 16:54:19'
-    t.datetime "snpedia_updated",    :default => '2011-08-27 16:54:19'
+    t.datetime "mendeley_updated",   :default => '2011-08-24 03:44:32'
+    t.datetime "plos_updated",       :default => '2011-08-24 03:44:32'
+    t.datetime "snpedia_updated",    :default => '2011-08-24 03:44:32'
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
   add_index "snps", ["ranking"], :name => "index_snps_ranking"
+  add_index "snps", ["slug"], :name => "index_snps_on_slug", :unique => true
 
   create_table "user_achievements", :force => true do |t|
     t.integer  "user_id"
