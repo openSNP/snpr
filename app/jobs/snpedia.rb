@@ -10,6 +10,7 @@ class Snpedia
    def self.perform(snp_id)
       @snp = Snp.find(snp_id)
 			# get the marshalled array
+			namearray = []
 			File.open("#{Rails.root}/marshalled_snpedia_array", "r") do |file|
 				namearray = Marshal.load(file)
 			end
