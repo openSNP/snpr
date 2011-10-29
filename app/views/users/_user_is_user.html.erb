@@ -171,7 +171,7 @@
 		<tbody>
 	<% @paginated_snp_replies.each do |snp|%>
 		<tr>
-			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).id.to_s+"/#comments" %></td>
+			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).name.to_s+"/#comments" %></td>
 			<td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
 			<td><%= snp.subject %></td>
 			<td><%= snp.comment_text %></td>

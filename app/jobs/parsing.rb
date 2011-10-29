@@ -52,14 +52,14 @@ class Parsing
         if snp_array[0] != nil and snp_array[1] != nil and snp_array[2] != nil and snp_array[3] != nil
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
-          snp = known_snps[snp_array[0]]
+          snp = known_snps[snp_array[0].downcase]
           if snp.nil?  
-            snp = Snp.new(:name => snp_array[0], :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
+            snp = Snp.new(:name => snp_array[0].downcase, :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
             snp.default_frequencies
             new_snps << snp
           end
 
-          new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0], snp_array[3].rstrip ]
+          new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
         else
           UserMailer.parsing_error(@genotype.user_id).deliver
           break

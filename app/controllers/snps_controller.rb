@@ -13,7 +13,7 @@ class SnpsController < ApplicationController
 	end
 	
 	def show
-		@snp = Snp.find_by_name(params[:id])
+		@snp = Snp.find_by_name(params[:id].downcase)
 		@title = @snp.name
 		@comments = SnpComment.where(:snp_id => @snp.id).all(:order => "created_at ASC")
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
@@ -63,7 +63,7 @@ class SnpsController < ApplicationController
 
 
     def find_snp
-      @snp = Snp.find(params[:id])
+      @snp = Snp.find(params[:id].downcase)
 
       # If an old id or a numeric id was used to find the record, then
       # the request path will not match the post_path, and we should do
