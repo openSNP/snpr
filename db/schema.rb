@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111028212506) do
+ActiveRecord::Schema.define(:version => 20111028190606) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -135,12 +135,10 @@ ActiveRecord::Schema.define(:version => 20111028212506) do
     t.datetime "snpedia_updated",    :default => '2011-08-24 03:44:32'
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
   end
 
   add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
   add_index "snps", ["ranking"], :name => "index_snps_ranking"
-  add_index "snps", ["slug"], :name => "index_snps_on_slug", :unique => true
 
   create_table "user_achievements", :force => true do |t|
     t.integer  "user_id"
