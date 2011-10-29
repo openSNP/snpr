@@ -9,6 +9,15 @@ class Snpedia
 
    def self.perform(snp_id)
       @snp = Snp.find(snp_id)
+			# get the marshalled array
+			namearray = []
+			File.open("#{Rails.root}/marshalled_snpedia_array", "r") do |file|
+				namearray = Marshal.load(file)
+			end
+
+			if !namearray.include?(@snp.name)
+				puts @snp.name + " not included in the array"
+			else
       if @snp.snpedia_updated < 31.days.ago
         mw = MediaWiki::Gateway.new("http://www.snpedia.com/api.php")
         # return an array of page-titles
@@ -60,5 +69,6 @@ class Snpedia
       else
         print "snpedia: time threshold not met\n"
       end
+			end
    end
 end
