@@ -34,6 +34,9 @@ class Snpedia
 									summary = "No summary provided."
 								else
 									summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
+									if summary.index("}}") != nil
+										summary = summary[0...summary.index("}}")-1]
+									end
 								end
 									@snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary)
 									@snpedia_link.save
