@@ -28,6 +28,7 @@ gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import'
 gem 'paperclip', '~> 2.4'
+gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
 
 #group :production do
 #	gem 'rpm_contrib'
