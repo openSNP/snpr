@@ -4,6 +4,6 @@ class AddSnpRankingIndex < ActiveRecord::Migration
   end
   
   def self.down
-    remove_index :snps, [:ranking], :name => "index_snps_ranking"
+    remove_index :snps, [:ranking]
   end
 end

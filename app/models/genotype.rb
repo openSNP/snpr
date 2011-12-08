@@ -26,9 +26,9 @@ class Genotype < ActiveRecord::Base
 
   def data=(filedata)
     if @tmp_file_name
-      File.open(::Rails.root.to_s+"/public/data/"+@tmp_file_name, "w") {|f| f.write(filedata)}
+      File.open(::Rails.root.to_s+"/public/data/"+@tmp_file_name, "wb") {|f| f.write(filedata)}
     else
-      File.open(::Rails.root.to_s+"/public/data/", "w") {|f| f.write(filedata)}
+      File.open(::Rails.root.to_s+"/public/data/", "wb") {|f| f.write(filedata)}
     end
   end
 
