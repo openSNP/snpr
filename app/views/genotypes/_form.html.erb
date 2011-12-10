@@ -4,7 +4,8 @@
 <%= render 'shared/error_messages', :target => @genotype %>
 <div class="well">	
 <div class="clearfix">
-	<%= f.label :filename,"Your Genotyping-file. Please upload the unzipped text-resultfile only." %>
+	<h5>Provide your genotyping file</h5>
+	<%= f.label :filename,"Customers of 23andMe & deCODEme can upload the unzipped text-files or unaltered archives (beta).\nCustomers of FamilyTree DNA can only upload the unzipped text-file right now." %>
 	<%= f.file_field :filename %>
 </div>
 <div class="clearfix">
