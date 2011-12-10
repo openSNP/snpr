@@ -49,17 +49,25 @@ class Zipfulldata
         
         @csv_handle.close
         puts "created csv-file"
+
+        # make a README containing time of zip - this way, users can compare with page-status 
+        # and see how old the data is
+        @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt","w")
+        @readme_handle.puts("This archive was generated on "+@time.to_s+".")
+        @readme_handle.close
     
-        # zip up the everything (csv + all genotypings) 
+        # zip up the everything (csv + all genotypings + readme) 
         
         Zip::ZipFile.open(::Rails.root.to_s+"/public/data/zip/datadump."+@time.to_s.gsub(" ","_")+".zip", Zip::ZipFile::CREATE) do |zipfile|
           zipfile.add("phenotypes_"+@time.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv") 
+          zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
           @genotyping_files.each do |gen_file|
             zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth"+gen_file.user.yearofbirth+"_sex"+gen_file.user.sex+"."+gen_file.filetype+".txt", ::Rails.root.to_s+"/public/data/"+ gen_file.fs_filename)
           end
         end
         
         File.delete(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv")
+        File.delete(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
         puts "created zip-file"
       end
       
