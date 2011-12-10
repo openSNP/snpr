@@ -11,7 +11,7 @@ class Preparsing
     begin
       Zip::ZipFile.foreach(filename) do |entry|
         # if decodeme-file try to find the csv-file that includes all the data
-        if @genotype.filetype = "decodeme"
+        if @genotype.filetype == "decodeme"
           if entry.to_s.include?(".csv") == true
             puts "decodeme: found csv-file"
             Zip::ZipFile.open(filename) {
@@ -24,13 +24,25 @@ class Preparsing
             puts "copied file"
           end
         
-        elsif @genotype.filename = "23andme"
-          puts "yeah, nothing to do, zip-files suck"
+        elsif @genotype.filetype == "23andme"
+          puts "23andme"
+          if entry.to_s.include?("genome") == true
+            puts "23andme: found genotyping-file"
+            Zip::ZipFile.open(filename) {
+              |zipfile|
+              zipfile.extract(entry,"#{Rails.root}/tmp/#{@genotype.fs_filename}.tsv")
+              zipfile.close()
+              puts "extracted file"
+            }
+            system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.tsv #{Rails.root}/public/data/#{@genotype.fs_filename}")
+            puts "copied file"
+          end
+            
         end
       end
       
     rescue
-      
+      puts "nothing to unzip, seems to be a text-file in the first place"
     end
     
     
