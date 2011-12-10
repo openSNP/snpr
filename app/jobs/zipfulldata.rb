@@ -53,7 +53,9 @@ class Zipfulldata
         # make a README containing time of zip - this way, users can compare with page-status 
         # and see how old the data is
         @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt","w")
-        @readme_handle.puts("This archive was generated on "+@time.to_s+".")
+        @phenotype_count = Phenotype.count
+        @genotype_count = Genotype.count
+        @readme_handle.puts("This archive was generated on "+@time.to_s+". It contains "+@phenotype_count+" phenotypes and "+@genotype_count+" genotypes.")
         @readme_handle.close
     
         # zip up the everything (csv + all genotypings + readme) 
