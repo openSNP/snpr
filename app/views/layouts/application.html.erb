@@ -27,9 +27,10 @@
 			<h3><%= link_to("openSNP", root_path, :class =>"logo") %></h3>
 			<ul class="nav"> 
 				<li><%= link_to("News", '/news') %></li> 
+				<li><%= link_to("Genotypes", :controller => "genotypes", :action => "index")%>
 				<li><%= link_to("Phenotypes", :controller => "phenotypes", :action => "index")%>
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
-				<li><%= link_to("All users", '/user_index') %></li>
+				<li><%= link_to("Users", '/user_index') %></li>
 			</ul>
 			<%= form_tag "/search", :method => "get", :authenticity_token => true do %>
 				<%= text_field_tag :search, nil, :placeholder => "Search here" %>

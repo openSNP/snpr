@@ -19,7 +19,7 @@ class Zipfulldata
       
       # only create a new file if in the current minute none has been created yet
       
-      if File.exists?(::Rails.root.to_s+"/public/data/zip/datadump."+@time.to_s.gsub(" ","_")+".zip") == false
+      if File.exists?(::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip") == false
         
         #create csv-head and writes to csv-filehandle
         
@@ -55,12 +55,13 @@ class Zipfulldata
         @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt","w")
         @phenotype_count = Phenotype.count
         @genotype_count = Genotype.count
-        @readme_handle.puts("This archive was generated on "+@time.to_s+". It contains "+@phenotype_count+" phenotypes and "+@genotype_count+" genotypes.")
+        @readme_handle.puts("This archive was generated on "+@time.to_s+". It contains "+@phenotype_count.to_s+" phenotypes and "+@genotype_count.to_s+" genotypes.")
+        @readme_handle.puts("Thanks for using openSNP!")
         @readme_handle.close
     
         # zip up the everything (csv + all genotypings + readme) 
         
-        Zip::ZipFile.open(::Rails.root.to_s+"/public/data/zip/datadump."+@time.to_s.gsub(" ","_")+".zip", Zip::ZipFile::CREATE) do |zipfile|
+        Zip::ZipFile.open(::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip", Zip::ZipFile::CREATE) do |zipfile|
           zipfile.add("phenotypes_"+@time.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv") 
           zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
           @genotyping_files.each do |gen_file|
@@ -74,11 +75,11 @@ class Zipfulldata
       end
       
       # make sure the file-permissions of the resulting zip-file are okay and sent mail
-      system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/datadump."+@time.to_s.gsub(" ","_")+".zip")
-      UserMailer.genotyping_results(target_address,"/data/zip/datadump."+@time.to_s.gsub(" ","_")+".zip","JUST A TEST", "JUST A TEST").deliver
+      system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip")
+      UserMailer.dump(target_address,"/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip").deliver
       puts "sent mail"
     else
-      UserMailer.no_genotyping_results(target_address,"JUST AN EMPTY TEST","JUST AN EMPTY TEST").deliver
+      UserMailer.no_dump(target_address).deliver
     end
   end
 end

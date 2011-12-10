@@ -58,4 +58,13 @@ default :from => "donotreply@opensnp.org"
     mail(:subject => "Some good news on the openSNP project", :to => @user.email)
   end
   
+  def dump(target_address,link)
+    @link = link
+    mail(:subject => "openSNP.org: The data dump you requested is ready to be downloaded",:to => target_address)
+  end
+  
+  def no_dump(target_address)
+    mail(:subject => "openSNP.org: Sorry, there is no data to be dumped.", :to => target_address)
+  end
+  
 end

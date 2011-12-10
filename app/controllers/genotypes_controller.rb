@@ -1,6 +1,16 @@
 class GenotypesController < ApplicationController
 
-  before_filter :require_user, except: [ :show, :feed ]
+  before_filter :require_user, except: [ :show, :feed,:index ]
+  helper_method :sort_column, :sort_direction
+
+  def index
+    @genotypes = Genotype.order(sort_column + " " + sort_direction)
+    @genotypes_paginate = @genotypes.paginate(:page => params[:page],:per_page => 20)
+    respond_to do |format|
+      format.html
+      format.xml 
+    end
+  end
 
   def new
     @genotype = Genotype.new
@@ -95,6 +105,24 @@ class GenotypesController < ApplicationController
       @user.update_attributes(:sequence_link => nil)
       redirect_to current_user
     end
+  end
+
+  def get_dump
+    Resque.enqueue(Zipfulldata, current_user.email)
+    respond_to do |format|
+      format.html
+      format.xml
+    end
+  end
+
+  private 
+
+  def sort_column
+    Genotype.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
 end

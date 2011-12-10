@@ -1,0 +1,29 @@
+<%=link_to(image_tag("/images/rss_small.png"),"/rss")%><h1>Listing all Genotypes</h1>
+
+<%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
+
+
+<%if current_user%><h5><%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "genotypes", :action => "get_dump"})%> <%=link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users",{:controller => "genotypes", :action => "get_dump"}, :title => "Request download")%></h5><%end%>
+
+<table class="zebra-striped" id="all_genotypes">
+<thead>
+<tr>
+	<th><%= sortable "id", "ID"%></th>
+	<th>User</th>
+	<th><%= sortable "created_at", "Created"%>
+</tr>
+</thead>
+<tbody>
+<% @genotypes_paginate.each do |g| %>
+	<tr>
+	<td><%= g.id %></td>
+	<td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%><%= g.user.name%></td>
+	<td><%=	g.created_at%></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<div class="pagination">
+<%= will_paginate(@genotypes_paginate) %>
+</div>
+
