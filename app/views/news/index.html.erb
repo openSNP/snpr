@@ -87,12 +87,14 @@ Wow currently there are no things that do not work as expected. So far: Thanks t
 		<th>Date</th>
 	</tr>
 <%@new_phenotype_comments.each do |pc|%>
+	<%if pc.phenotype != nil%>
 	<tr>
 		<td><%=link_to pc.phenotype.characteristic, pc.phenotype%></td>
 		<td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
 		<td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
 		<td><%=pc.created_at%></td>
 	</tr>
+	<%end%>
 <%end%>
 </table>
 </div>
