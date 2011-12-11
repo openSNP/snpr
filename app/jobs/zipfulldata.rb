@@ -65,7 +65,15 @@ class Zipfulldata
           zipfile.add("phenotypes_"+@time.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv") 
           zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
           @genotyping_files.each do |gen_file|
-            zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth"+gen_file.user.yearofbirth+"_sex"+gen_file.user.sex+"."+gen_file.filetype+".txt", ::Rails.root.to_s+"/public/data/"+ gen_file.fs_filename)
+            @yob = gen_file.user.yearofbirth
+            @sex = gen_file.user.sex
+            if @yob == "rather not say"
+                @yob = "unknown"
+            end
+            if @sex == "rather not say"
+                @sex = "unknown"
+            end
+            zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth_"+@yob+"_sex_"+@sex+"."+gen_file.filetype+".txt", ::Rails.root.to_s+"/public/data/"+ gen_file.fs_filename)
           end
         end
         
