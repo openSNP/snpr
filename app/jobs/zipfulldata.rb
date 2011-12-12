@@ -61,7 +61,8 @@ class Zipfulldata
     
         # zip up the everything (csv + all genotypings + readme) 
         
-        Zip::ZipFile.open(::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip", Zip::ZipFile::CREATE) do |zipfile|
+        @zipname = ::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip"
+        Zip::ZipFile.open(@zipname, Zip::ZipFile::CREATE) do |zipfile|
           zipfile.add("phenotypes_"+@time.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv") 
           zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
           @genotyping_files.each do |gen_file|
@@ -75,6 +76,12 @@ class Zipfulldata
             end
             zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth_"+@yob+"_sex_"+@sex+"."+gen_file.filetype+".txt", ::Rails.root.to_s+"/public/data/"+ gen_file.fs_filename)
           end
+        end
+        if FileLink.find_by_id(1) == nil
+            @filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => @zipname)
+            @filelink.save
+        else
+            FileLink.find_by_id(1).update_attributes(:url => @zipname)
         end
         
         File.delete(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv")

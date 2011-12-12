@@ -11,11 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111102033039) do
+ActiveRecord::Schema.define(:version => 20111212063354) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
     t.string   "short_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "file_links", :force => true do |t|
+    t.text     "description"
+    t.text     "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
