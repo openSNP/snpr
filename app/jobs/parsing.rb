@@ -15,6 +15,10 @@ class Parsing
       log "Loading known Snps."
       known_snps = {}
       Snp.find_each do |s| known_snps[s.name] = true end
+      
+      known_user_snps = {}  
+      UserSnp.where("user_id" => @genotype.user_id).find_each do |us| known_user_snps[us.snp_name] = true end
+        
       new_snps = []
       new_user_snps = []
 
@@ -58,8 +62,13 @@ class Parsing
             snp.default_frequencies
             new_snps << snp
           end
-
-          new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
+          
+          new_user_snp = known_user_snps[snp_array[0].downcase]
+          if new_user_snp.nil?
+            new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
+          else
+            log "already known user-snp"
+          end
         else
           UserMailer.parsing_error(@genotype.user_id).deliver
           break

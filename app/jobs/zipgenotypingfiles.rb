@@ -9,8 +9,10 @@ class Zipgenotypingfiles
     @user_phenotypes.each do |up|
       @user = User.find_by_id(up.user_id)
       print @user
-      if @user.genotypes[0] != nil
-        @genotyping_files << @user.genotypes[0]
+      if @user.genotypes[] != []
+        @user.genotypes.each do |g|
+          @genotyping_files << g
+        end
       end
     end
 

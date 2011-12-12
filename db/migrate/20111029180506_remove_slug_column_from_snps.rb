@@ -4,6 +4,6 @@ class RemoveSlugColumnFromSnps < ActiveRecord::Migration
   end
 
   def self.down
-    puts "nothing to do"
+    "nothing to do"
   end
 end
