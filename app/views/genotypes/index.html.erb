@@ -14,6 +14,7 @@
 <tr>
 	<th><%= sortable "id", "ID"%></th>
 	<th>User</th>
+    <th>Type</th>
 	<th><%= sortable "created_at", "Created"%>
 </tr>
 </thead>
@@ -22,6 +23,7 @@
 	<tr>
 	<td><%= g.id %></td>
 	<td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%><%= g.user.name%></td>
+    <td><%= g.filetype %></td>
 	<td><%=	g.created_at%></td>
 </tr>
 <% end %>

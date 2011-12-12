@@ -62,7 +62,7 @@
 <%# if @user.has_sequence == true %>
 	<%#= render "snps" %>
 <%# else %>
-<%if @user.has_sequence != true%>
+<%if @user.genotypes.length == 0%>
 	<h2>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h2>
 <% end %>
 </div>

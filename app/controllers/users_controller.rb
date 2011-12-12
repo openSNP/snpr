@@ -180,11 +180,13 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    # delete the genotype
-    @genotype = @user.genotypes[0]
-    if @genotype
-      Resque.enqueue(Deletegenotype, @genotype)
-      @genotype.delete
+    # delete the genotype(s)
+    if @user.genotypes.length != 0
+        @user.genotypes.each do |ug|
+            Resque.enqueue(Deletegenotype, ug)
+            File.delete(::Rails.root.to_s+"/public/data/"+ ug.fs_filename)
+            ug.delete
+        end
     end
     
     @user.user_achievements.each do |ua|
