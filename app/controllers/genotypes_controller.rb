@@ -6,6 +6,7 @@ class GenotypesController < ApplicationController
   def index
     @genotypes = Genotype.order(sort_column + " " + sort_direction)
     @genotypes_paginate = @genotypes.paginate(:page => params[:page],:per_page => 20)
+    @filelink = FileLink.find_by_description("all genotypes and phenotypes archive").url unless FileLink.find_by_description("all genotypes and phenotypes archive") == nil
     respond_to do |format|
       format.html
       format.xml 
