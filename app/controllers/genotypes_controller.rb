@@ -37,7 +37,9 @@ class GenotypesController < ApplicationController
 
     respond_to do |format|
       if @genotype.save
-        current_user.toggle!(:has_sequence)
+        if current_user.has_sequence == false
+            current_user.toggle!(:has_sequence)
+        end
 
         # award for genotyping-upload
         @award = Achievement.find_by_award("Published genotyping")
@@ -102,8 +104,10 @@ class GenotypesController < ApplicationController
     Resque.enqueue(Deletegenotype, @genotype)
     if @genotype.delete
       flash[:notice] = "Genotyping was successfully deleted."
-      @user.toggle!(:has_sequence)
-      @user.update_attributes(:sequence_link => nil)
+      if @user.genotypes.length != 0
+        @user.toggle!(:has_sequence)
+        @user.update_attributes(:sequence_link => nil)
+      end
       redirect_to current_user
     end
   end

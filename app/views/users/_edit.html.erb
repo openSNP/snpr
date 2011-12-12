@@ -29,6 +29,7 @@
 	
 	<h5><%=link_to "Change eMail/Password",{:controller => "users", :action => "changepassword",:id =>@user.id}%></h5>
 	            
+    <% if current_user.genotypes.length >= 1%><%= link_to "Add another genotyping!", :controller => "genotypes", :action => "new"%><% end %>
 	</div>
 </div>
 
@@ -105,7 +106,9 @@
 <div class="well">
 	<h2>Deleting</h2>
 	<% if not @user.genotypes.empty? %>
-	<p><%= link_to "Delete your genotype", @user.genotypes, :method => "delete", :confirm => "Are you sure you want to delete your genotype?" %></p>
+        <% @user.genotypes.each do |ug| %>
+            <p><%= link_to "Delete genotype " + ug.originalfilename.to_s, ug, :method => "delete", :confirm => "Are you sure you want to delete genotype " + ug.originalfilename.to_s + "?" %> </p>
+        <% end %>
 	<% end %>
 	<p><%= link_to "Delete this account", @user, :method => "delete", :confirm => "Are you sure you want to delete your account?" %></p>
 </div>
