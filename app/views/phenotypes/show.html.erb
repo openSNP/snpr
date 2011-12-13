@@ -33,7 +33,7 @@
 
     <div id="description">
       <div class="well">
-        <%=@phenotype.description%>
+        <%= simple_format(h @phenotype.description) %>
       </div>
     </div>
     <div id="users">
