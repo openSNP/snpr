@@ -68,7 +68,7 @@ class UsersController < ApplicationController
     @unentered_phenotype_ids = (@all_phenotype_ids | @all_user_phenotype_ids) - (@all_phenotype_ids & @all_user_phenotype_ids)
     @unentered_phenotypes = []
     @unentered_phenotype_ids.each do |up| @unentered_phenotypes << Phenotype.find_by_id(up) end
-    @unentered_phenotypes.sort!{ |b,a| a.created_at <=> b.created_at }
+    @unentered_phenotypes.sort!{ |b,a| a.number_of_users <=> b.number_of_users }
 
     #find all snp-comment-replies that this user got
     @user_snp_comment_ids = []

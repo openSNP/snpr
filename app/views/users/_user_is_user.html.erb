@@ -43,6 +43,7 @@
 		<thead>
 			<tr>
 				<th>Name of Phenotype</th>
+                <th>Number of users</th>
 				<th>Created at</th>
 			</tr>
 		</thead>
@@ -50,6 +51,7 @@
 			<%@unentered_phenotypes.each do |i|%>
 			<tr>
 				<td><%=link_to i.characteristic, i%></td>
+                <td><%= i.number_of_users %> </td>
 				<td><%=link_to i.created_at,i%></td>
 			</tr>
 			<%end%>
