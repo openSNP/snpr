@@ -39,14 +39,13 @@
 </p>
 <div id="tab-container">
 	<ul class="tabs">
-		<% if @user.has_sequence %><li><a href="#snps"><%=@first_name%>'s SNPs</a></li><% end %>
+		<% if 1==2  %><li><a href="#snps"><%=@first_name%>'s SNPs</a></li><% end %>
 		<li><a href="#variations"><%= @first_name %>'s variations</a></li>
 	</ul>
 	<div id="variations">
 		<%= render "variations" %>
 	</div>
-	<%# if @user.has_sequence %>
-	<% if 1 == 2%>
+	<% if 1==2 # @user.has_sequence %>
 	<div id="snps">
 		<%= render "snps" %>
 	</div>
