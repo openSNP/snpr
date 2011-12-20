@@ -18,3 +18,4 @@ solr/data
 config/database.yml
 vendor/bundle
 public/data
+coverage*
