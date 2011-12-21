@@ -3,6 +3,8 @@ Factory.define :user do |u|
   u.sequence(:email) { |i| "fubert#{i}@example.org" }
   u.password "jeheim"
   u.password_confirmation "jeheim"
+  u.sex 'yes please'
+  u.yearofbirth '1970'
 end
 
 Factory.define :genotype do |g|
@@ -27,4 +29,10 @@ end
 Factory.define :phenotype do |p|
   p.characteristic "Penis length"
   p.known_phenotypes [ "foo", "bar" ]
+end
+
+Factory.define :user_phenotype do |up|
+  up.association :user
+  up.association :phenotype
+  up.variation "pink"
 end
