@@ -15,16 +15,17 @@ class Zipfulldata
     # only try to create csv & zip-file if there is data at all. 
     
     if @genotyping_files != []
-      @time = Time.now
+      @time = Time.now.utc
+      @time_str = @time.strftime("%Y%m%d%H%M")
       
       # only create a new file if in the current minute none has been created yet
       
-      if File.exists?(::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip") == false
+      if File.exists?(::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time_str+".zip") == false
         
         #create csv-head and writes to csv-filehandle
         
         @csv_head = "user_id;chrom_sex;date_of_birth"
-        @csv_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv","w")
+        @csv_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv","w")
         @phenotype_id_array = []
     
         Phenotype.find_each do |p|
@@ -52,7 +53,7 @@ class Zipfulldata
 
         # make a README containing time of zip - this way, users can compare with page-status 
         # and see how old the data is
-        @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt","w")
+        @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt","w")
         @phenotype_count = Phenotype.count
         @genotype_count = Genotype.count
         @readme_handle.puts("This archive was generated on "+@time.to_s+". It contains "+@phenotype_count.to_s+" phenotypes and "+@genotype_count.to_s+" genotypes.")
@@ -61,10 +62,10 @@ class Zipfulldata
     
         # zip up the everything (csv + all genotypings + readme) 
         
-        @zipname = "/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip"
+        @zipname = "/data/zip/opensnp_datadump."+@time_str+".zip"
         Zip::ZipFile.open(::Rails.root.to_s+"/public/"+@zipname, Zip::ZipFile::CREATE) do |zipfile|
-          zipfile.add("phenotypes_"+@time.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv") 
-          zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
+          zipfile.add("phenotypes_"+@time_str.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv") 
+          zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt")
           @genotyping_files.each do |gen_file|
             @yob = gen_file.user.yearofbirth
             @sex = gen_file.user.sex
@@ -84,14 +85,14 @@ class Zipfulldata
             FileLink.find_by_description("all genotypes and phenotypes archive").update_attributes(:url => @zipname)
         end
         
-        File.delete(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".csv")
-        File.delete(::Rails.root.to_s+"/tmp/dump"+@time.to_s+".txt")
+        File.delete(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv")
+        File.delete(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt")
         puts "created zip-file"
       end
       
       # make sure the file-permissions of the resulting zip-file are okay and sent mail
-      system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip")
-      UserMailer.dump(target_address,"/data/zip/opensnp_datadump."+@time.to_s.gsub(" ","_")+".zip").deliver
+      system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time_str+".zip")
+      UserMailer.dump(target_address,"/data/zip/opensnp_datadump."+@time_str+".zip").deliver
       puts "sent mail"
     else
       UserMailer.no_dump(target_address).deliver

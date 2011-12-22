@@ -35,6 +35,10 @@ gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
 #	gem 'newrelic_rpm'
 #end
 
+group :development do
+  gem 'rcov_rails'
+end
+
 group :test do
   gem 'shoulda-context'
   gem 'shoulda-matchers'
