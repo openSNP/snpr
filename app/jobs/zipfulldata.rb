@@ -63,7 +63,6 @@ class Zipfulldata
         # zip up the everything (csv + all genotypings + readme) 
         
         @zipname = "/data/zip/opensnp_datadump."+@time_str+".zip"
-        Dir.mkdir("#{Rails.root}/public/data/zip") unless Dir.exist?("#{Rails.root}/public/data/zip")
         Zip::ZipFile.open(::Rails.root.to_s+"/public/"+@zipname, Zip::ZipFile::CREATE) do |zipfile|
           zipfile.add("phenotypes_"+@time_str.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv") 
           zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt")
