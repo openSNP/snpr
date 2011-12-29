@@ -16,7 +16,7 @@ class Zipfulldata
     
     if @genotyping_files != []
       @time = Time.now.utc
-      @time_str = @time.strftime("%Y%m%d%H%M")
+      @time_str = @time.strftime("%Y%m%d%H%M").gsub(":","_")
       
       # only create a new file if in the current minute none has been created yet
       
