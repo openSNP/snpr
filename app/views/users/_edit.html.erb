@@ -44,7 +44,28 @@
 		<%= f.label :yearofbirth, "Year of Birth"%>
 		<%= f.select :yearofbirth, options_for_select(((1900..2011).to_a << "rather not say").reverse, :selected => @user.yearofbirth) %>
 		</div>
+        <div class="clearfix">
+            <%= f.label :user_phenotypes, "Eye colour"%>
+            <%= select_tag :eye_colour, options_for_select(["blue", "brown", "green", "other"]) , :include_blank => true %>
+        </div>
+        <div class="clearfix">
+            <%= f.label :user_phenotypes, "Population group"%>
+            <%= select_tag "population_group", options_for_select(["European", "African", "American", "Asian", "Aboriginal", "Other"]) , :include_blank => true %>
+        </div>
+        <div class="clearfix">
+            <%= f.label :user_phenotypes, "Hair Color"%>
+            <%= select_tag "hair_colour", options_for_select(["Blonde", "Brunette", "Black", "Other"]) , :include_blank => true %>
+
+        </div>
+        <div class="clearfix">
+            <%= f.label :user_phenotypes, "Height in cm"%>
+            <%= select_tag "height", options_for_select(((100..230)).to_a) , :include_blank => true %>
+
+        </div>
+
 		<%= f.fields_for :user_phenotypes do |p| %>
+            <% @phenotype = Phenotype.find_by_id(p.object.phenotype_id) %>
+        <% if @phenotype and @phenotype.characteristic != "Hair colour" and @phenotype.characteristic!= "Height" and @phenotype.characteristic != "Skin colour" and @phenotype.characteristic != "Population group"%>
 		<div class="field">
 		
 		   <script type="text/javascript">
@@ -57,6 +78,7 @@
 		
 		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
 	 	</div>
+    <% end %> 
 <%end %>
 
  <%= link_to "Add a new phenotype", :controller => "phenotypes", :action => "new" %>

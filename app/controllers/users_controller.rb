@@ -120,6 +120,21 @@ class UsersController < ApplicationController
     
   def update
     @user = User.find(params[:id])
+    # Check whether the user has used phenotype drop down boxes and create (user)-phenotypes
+    if params[:hair_colour] != ""
+        check_to_create_phenotype("Hair colour", params[:hair_colour], @user.id)
+    end
+    if params[:population_group] != ""
+        check_to_create_phenotype("Population group", params[:population_group], @user.id)
+    end
+    if params[:eye_colour] != ""
+        check_to_create_phenotype("Eye colour", params[:eye_colour], @user.id)
+    end
+    if params[:height] != ""
+        check_to_create_phenotype("Height", params[:height], @user.id)
+    end
+
+    # check whether the user has deleted phenotypes and change known_phenotypes
     @pot_delete_phenotype_ids = []
     if params[:user][:user_phenotypes_attributes] != nil
       
@@ -175,6 +190,23 @@ class UsersController < ApplicationController
           end
         end
       end
+    end
+  end
+
+  def check_to_create_phenotype(characteristic, variation, user_id)
+    # does the phenotype exist?
+    @phenotype = Phenotype.find_by_characteristic(characteristic)
+    if @phenotype == nil
+        # createphenotype if it doesn't exist
+        @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1, :known_phenotypes => [variation])
+    end
+    @user_phenotype = UserPhenotype.find_by_phenotype_id(@phenotype.id)
+    if @user_phenotype == nil
+        # create user_phenotype if it doesn't exist
+        @user_phenotype = UserPhenotype.create(:user_id => user_id, :variation => variation, :phenotype_id => @phenotype.id)
+    else
+        # if user_phenotype exists, update
+        @user_phenotype.update_attributes(:variation => variation)
     end
   end
 
