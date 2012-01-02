@@ -120,19 +120,6 @@ class UsersController < ApplicationController
     
   def update
     @user = User.find(params[:id])
-    # Check whether the user has used phenotype drop down boxes and create (user)-phenotypes
-    if params[:hair_colour] != ""
-        check_to_create_phenotype("Hair colour", params[:hair_colour], @user.id)
-    end
-    if params[:population_group] != ""
-        check_to_create_phenotype("Population group", params[:population_group], @user.id)
-    end
-    if params[:eye_colour] != ""
-        check_to_create_phenotype("Eye colour", params[:eye_colour], @user.id)
-    end
-    if params[:height] != ""
-        check_to_create_phenotype("Height", params[:height], @user.id)
-    end
 
     # check whether the user has deleted phenotypes and change known_phenotypes
     @pot_delete_phenotype_ids = []
