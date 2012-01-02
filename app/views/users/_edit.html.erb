@@ -62,7 +62,7 @@
             <%= select_tag "height", options_for_select(((100..230)).to_a) , :include_blank => true %>
 
         </div>
-
+        <h2>Additional phenotypes</h2>
 		<%= f.fields_for :user_phenotypes do |p| %>
             <% @phenotype = Phenotype.find_by_id(p.object.phenotype_id) %>
         <% if @phenotype and @phenotype.characteristic != "Hair colour" and @phenotype.characteristic!= "Height" and @phenotype.characteristic != "Skin colour" and @phenotype.characteristic != "Population group"%>
