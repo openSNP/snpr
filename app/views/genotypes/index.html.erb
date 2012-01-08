@@ -6,7 +6,7 @@
 <%if current_user%><h5><%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "genotypes", :action => "get_dump"})%> <%=link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users",{:controller => "genotypes", :action => "get_dump"}, :title => "Request download")%></h5>
 <% end %>
 <% if not current_user and @filelink != nil%>
-    <h5><%= link_to(image_tag("/images/filedownload_small.png", :style => "vertical-align:middle"), @filelink)%> <%= link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users", @filelink) %></h5>
+    <h5><%= link_to(image_tag("/images/filedownload_small.png", :style => "vertical-align:middle"), {:controller => "genotypes",:action => "dump_download"})%> <%= link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users",{:controller => "genotypes", :action => "dump_download"}, :title => "Download the dump") %></h5>
 <%end%>
 
 <table class="zebra-striped" id="all_genotypes">
