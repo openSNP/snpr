@@ -14,7 +14,7 @@
 		</script>
 		
 		<%= f.label :characteristic %> <%= f.text_field :characteristic %>
-		<br/><span class ="help-inline">Hair colour, Blood type, Skin colour etc.</span>
+		<br/><span class ="help-inline">Hair colour, Blood type, Skin colour etc. <br/>Please <b>enter only one phenotypic characteristic <br/>at once</b> and <b>make use of the auto-completion</b><br/>, as this phenotype might be already in our database.</span>
 		
 		<%= f.label :description %> <%= f.text_area :description, :rows => 10%>
 		<br/><span class ="help-inline">Give users some more details:<br/>What are different variations of this phenotype?</br>Why this phenotype is interesting?<br/>Some links to web resources on the topic?</span>
@@ -24,7 +24,7 @@
 	<div class="inline-inputs">
 <%= fields_for @user_phenotype do |up| %>
 	<%= up.label :variation %> <%= up.text_field :variation %>
-	<br/><span class="help-inline">Blonde, 00, Caucasian etc.</span>
+	<br/><span class="help-inline">Blonde, 00, Caucasian etc.<br/><b>Only enter your variation</b> for this phenotype,<br/>don't list all possible answers (you can use the <br/>description for this).<br/>Again: <b>Please use the auto-completion.</b></span>
 <% end %>
 	</div>
 </div>
