@@ -1,6 +1,6 @@
 class GenotypesController < ApplicationController
 
-  before_filter :require_user, except: [ :show, :feed,:index ]
+  before_filter :require_user, except: [ :show, :feed,:index,:dump_download ]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -10,6 +10,16 @@ class GenotypesController < ApplicationController
     respond_to do |format|
       format.html
       format.xml 
+    end
+  end
+
+  def dump_download
+    @filelink = FileLink.find_by_description("all genotypes and phenotypes archive").url unless FileLink.find_by_description("all genotypes and phenotypes archive") == nil
+    if @filelink != nil
+	redirect_to @filelink
+    else
+      flash[:notice]="Sorry, there is no data-dump yet. If you register with openSNP you could be the first one to create one!"
+      redirect_to :action => :index
     end
   end
 
