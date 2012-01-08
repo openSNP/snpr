@@ -144,8 +144,8 @@ class UsersController < ApplicationController
     end
    
     if @user.update_attributes(params[:user])
-      #@empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
-      #@empty_websites.each do |ew| ew.delete end
+      @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
+      @empty_websites.each do |ew| ew.delete end
       
       if @pot_delete_phenotype_ids != []
         @pot_delete_phenotype_ids.each do |pid|
