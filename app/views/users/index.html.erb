@@ -1,18 +1,22 @@
 <h1>Listing all users</h1>
-<table class="common-table zebra-striped">
+<table class="zebra-striped" id="no_user_overview">
+<thead>
 	<tr>
-		<th>Name</th>
-		<th>SNPs</th>
-		<th># of Phenotypes</th>
+        <th><%= sortable "name", "Name" %></th>
+        <th><%= sortable "has_sequence", "SNPs" %></th>
+        <th><%= sortable "phenotypes.length", "# of Phenotypes" %></th>
 	</tr>	
-<% @users.each do |u| %>
+</thead>
+<tbody>
+<% @users_paginate.each do |u| %>
 	<tr>
 		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
 		<td><% if u.has_sequence %>Yes<% else %>No<% end %></td>
 		<td><%=u.phenotypes.length%></td>
 	</td>
 <% end %>
+</tbody>
 </table>
 <div class="pagination">
-<%= will_paginate(@users) %>
+<%= will_paginate(@users_paginate) %>
 </div>

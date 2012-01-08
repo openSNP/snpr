@@ -36,9 +36,9 @@ class UsersController < ApplicationController
 
   def index
     # showing all users
-    @users = User.paginate(:page => params[:page])
-    # paginate because at some point, we might have more than 30 users!
-    # a man can dream...
+    @users = User.order(sort_column + " " + sort_direction)
+    @users_paginate = User.paginate(:page => params[:page], :per_page => 10)
+
     @title = "Listing all users"
     respond_to do |format|
       format.html
@@ -265,7 +265,7 @@ class UsersController < ApplicationController
   end
 
   def sort_column
-    Snp.column_names.include?(params[:sort]) ? params[:sort] : "ranking"
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_direction
