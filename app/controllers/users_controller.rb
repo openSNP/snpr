@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :require_no_user, :only => [:new, :create]
 
+  ssl_required :create, :new, :update
+  ssl_allowed :index, :show, :edit
+      
   def new
     @user = User.new
     @title = "Sign up"
