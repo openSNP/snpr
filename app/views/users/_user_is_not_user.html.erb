@@ -32,8 +32,10 @@
 	<p>
 	<h3>Homepages</h3>
 	<% @user.homepages.each do |uh| %>
+        <% if uh.description != "" and uh.url != "" %>
 		<strong><%= uh.description %>:</strong> 
 		<%= link_to uh.url, uh.url, :target => "_blank" %><br/>
+        <% end %>
 	<% end %>
 <% end %>
 </p>

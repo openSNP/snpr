@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper :all
   helper_method :current_user_session, :current_user
+  include ::SslRequirement
 
   private
 

@@ -48,6 +48,7 @@ GEM
     authlogic (3.1.0)
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
+    bartt-ssl_requirement (1.4.1)
     builder (2.1.2)
     cocaine (0.2.1)
     columnize (0.3.6)
@@ -165,6 +166,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   authlogic
+  bartt-ssl_requirement (~> 1.4.0)
   factory_girl
   friendly_id!
   jquery-rails
