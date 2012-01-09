@@ -33,7 +33,7 @@ class ZipfulldataTest < ActiveSupport::TestCase
         file.get_input_stream do |content|
           case file.to_s
           when 'readme.txt' then
-            assert_match "This archive was generated on #{time}. " <<
+            assert_match "This archive was generated on #{time.to_s.gsub(":","_")}. " <<
               "It contains 1 phenotypes and 1 genotypes.", content.read
           when /23andme.txt\Z/ then
             assert_equal File.read("#{Rails.root}/test/data/23andMe_test.csv"),
