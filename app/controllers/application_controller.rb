@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   include ::SslRequirement
 
-  ssl_allowed :all
   private
 
   def current_user_session
