@@ -4,6 +4,7 @@ gem 'rails', '3.0.10'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
 gem "jquery-rails"
+gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
