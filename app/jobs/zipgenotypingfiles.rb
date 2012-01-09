@@ -17,7 +17,7 @@ class Zipgenotypingfiles
     end
 
     if @genotyping_files != []
-      @time = Time.now.gsub(":","_")
+      @time = Time.now.to_s.gsub(":","_")
       if File.exists?(::Rails.root.to_s+"/public/data/zip/"+phenotype_id.to_s+"."+@time.to_s.gsub(" ","_")+".zip") == false
         Zip::ZipFile.open(::Rails.root.to_s+"/public/data/zip/"+phenotype_id.to_s+"."+@time.to_s.gsub(" ","_")+".zip", Zip::ZipFile::CREATE) do |zipfile| 
           @genotyping_files.each do |gen_file|

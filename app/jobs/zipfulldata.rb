@@ -15,8 +15,8 @@ class Zipfulldata
     # only try to create csv & zip-file if there is data at all. 
     
     if @genotyping_files != []
-      @time = Time.now.utc
-      @time_str = @time.strftime("%Y%m%d%H%M").gsub(":","_")
+      @time = Time.now.utc.to_s.gsub(":","_")
+      @time_str = @time.strftime("%Y%m%d%H%M")
       
       # only create a new file if in the current minute none has been created yet
       
