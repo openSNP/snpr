@@ -1,5 +1,5 @@
 <h1>Listing all users</h1>
-<table class="zebra-striped" id="no_user_overview">
+<table class="zebra-striped" id="user_overview">
 <thead>
 	<tr>
         <th><%= sortable "name", "Name" %></th>
@@ -9,8 +9,8 @@
 </thead>
 <tbody>
 <% @users_paginate.each do |u| %>
-	<tr>
-		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
+    <tr>
+		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(u.name,u) %></td>
 		<td><% if u.has_sequence %>Yes<% else %>No<% end %></td>
 		<td><%=u.phenotypes.length%></td>
 	</td>
