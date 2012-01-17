@@ -53,6 +53,9 @@ Just send us an <a href="mailto:info@opensnp.org">email</a>.
 	
 	<h5>• Is there an API for searching/downloading files?</h5>
 	We are currently working on providing a simple API, but up to now there is none. If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.	
+
+    <h5>• How do I parse the files provided by openSNP?</h5>
+    There's a Public Domain Python3-script located on github here: <a href="https://gist.github.com/1626642">Click this link.</a> Feel free to download and change this script.
 </div>
 
 <div id="enteringphenotypes">
