@@ -1,6 +1,6 @@
 class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :find_snp, :except => [:index,:json]
+  before_filter :find_snp, :except => [:index, :json]
     
 	def index
 		@snps = Snp.order(sort_column + " "+ sort_direction)

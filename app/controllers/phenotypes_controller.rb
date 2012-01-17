@@ -121,6 +121,35 @@ class PhenotypesController < ApplicationController
     end
   end
 
+  def json
+    begin
+      @user = User.find_by_id(params[:user_id])
+      @result = {}
+      @user_phenotypes = UserPhenotype.find_all_by_user_id(@user.id)
+     
+      @result["user"] = {}
+      @result["user"]["name"] = @user.name
+      @result["user"]["id"] = @user.id
+     
+      @phenotype_hash = {}
+     
+      @user_phenotypes.each do |up|
+        @phenotype_hash[up.phenotype.characteristic] = {}
+        @phenotype_hash[up.phenotype.characteristic]["phenotype_id"] = up.phenotype.id
+        @phenotype_hash[up.phenotype.characteristic]["variation"] = up.variation
+      end
+     
+      @result["phenotypes"] = @phenotype_hash
+	    rescue
+        @result = {}
+        @result["error"] = "Sorry, we couldn't find any information for this user"
+      end
+    
+    respond_to do |format|
+      format.json { render :json => @result } 
+    end
+  end
+
   private
 
   def sort_column
