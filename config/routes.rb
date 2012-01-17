@@ -38,6 +38,7 @@ Snpr::Application.routes.draw do
   match 'get_dump', :to => 'genotypes#get_dump'
   match '/phenotypes/:id/rss', :to => 'phenotypes#feed'
   match '/dump_download', :to => 'genotypes#dump_download'
+  match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
   
   root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:

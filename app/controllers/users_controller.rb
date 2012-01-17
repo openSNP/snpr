@@ -41,11 +41,9 @@ class UsersController < ApplicationController
     # showing all users
     @users = User.order(sort_column + " " + sort_direction)
     @users_paginate = User.paginate(:page => params[:page], :per_page => 10)
-
     @title = "Listing all users"
     respond_to do |format|
       format.html
-      format.xml 
     end
   end
 

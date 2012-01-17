@@ -1,6 +1,6 @@
 class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :find_snp, :except => [:index]
+  before_filter :find_snp, :except => [:index,:json]
     
 	def index
 		@snps = Snp.order(sort_column + " "+ sort_direction)
@@ -50,7 +50,42 @@ class SnpsController < ApplicationController
 			format.xml
 		end
 	end
-		
+	
+	def json
+	  @result = {}
+	  begin
+	    @snp = Snp.find_by_name(params[:snp_name])
+      @result["snp"] = {}
+      @result["snp"]["name"] = @snp.name
+      @result["snp"]["chromosome"] = @snp.chromosome
+      @result["snp"]["position"] = @snp.position
+      
+      @user_snps = UserSnp.find_all_by_user_id_and_snp_name(params[:user_id],
+                     params[:snp_name])
+      @user = User.find_by_id(params[:user_id])
+      @genotypes_array = []
+      
+      @user_snps.each do |us|
+        @genotype_hash = {}
+        @genotype_hash["genotype_id"] = us.genotype_id
+        @genotype_hash["local_genotype"] = us.local_genotype
+        @genotypes_array << @genotype_hash
+      end
+      
+      @result["user"] = {}
+      @result["user"]["name"] = @user.name
+      @result["user"]["id"] = @user.id
+      @result["user"]["genotypes"] = @genotypes_array
+    rescue
+      @result = {}
+      @result["error"] = "Sorry, we couldn't find any information for this user/snp-combination"
+    end
+    
+    respond_to do |format|
+      format.json { render :json => @result } 
+    end
+  end
+  		
 		private
 		
 		def sort_column
