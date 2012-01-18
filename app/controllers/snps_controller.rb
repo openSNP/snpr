@@ -19,6 +19,15 @@ class SnpsController < ApplicationController
 		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
 		#@user_snps = UserSnps.where(:snp_name => @snp.name)
 		
+		@json_results = []
+		
+    @users.each do |u|
+      @new_param = {}
+      @new_param[:user_id] = u.id
+      @new_param[:snp_name] = @snp.name
+      @json_results << json_element(@new_param)
+    end
+		
 		if current_user != nil
 		  @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user,@snp.name)
 		  if @user_snp != nil
@@ -48,6 +57,7 @@ class SnpsController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.xml
+			format.json { render :json => @json_results } 
 		end
 	end
 	
@@ -58,7 +68,7 @@ class SnpsController < ApplicationController
 	    @user_ids.each do |id|
 	      @new_param = {}
 	      @new_param[:user_id] = id
-	      @new_param[:snp_name] = params[:snp_name]
+	      @new_param[:snp_name] = params[:snp_name].downcase
 	      @results << json_element(@new_param)
       end
     elsif params[:user_id].index("-")
@@ -68,7 +78,7 @@ class SnpsController < ApplicationController
       @user_ids.each do |id|
         @new_param = {}
 	      @new_param[:user_id] = id
-	      @new_param[:snp_name] = params[:snp_name]
+	      @new_param[:snp_name] = params[:snp_name].downcase
 	      @results << json_element(@new_param)
       end
 	  else 
@@ -93,14 +103,14 @@ class SnpsController < ApplicationController
     def json_element(params)
       @result = {}
   	  begin
-  	    @snp = Snp.find_by_name(params[:snp_name])
+  	    @snp = Snp.find_by_name(params[:snp_name].downcase)
         @result["snp"] = {}
         @result["snp"]["name"] = @snp.name
         @result["snp"]["chromosome"] = @snp.chromosome
         @result["snp"]["position"] = @snp.position
 
         @user_snps = UserSnp.find_all_by_user_id_and_snp_name(params[:user_id],
-                       params[:snp_name])
+                       params[:snp_name].downcase)
         @user = User.find_by_id(params[:user_id])
         @genotypes_array = []
 
@@ -129,7 +139,9 @@ class SnpsController < ApplicationController
       # the request path will not match the post_path, and we should do
       # a 301 redirect that uses the current friendly id.
       if request.path != snp_path(@snp)
-        return redirect_to @snp, :status => :moved_permanently
+        if request.path.index(".json") == nil
+          return redirect_to @snp, :status => :moved_permanently
+        end
       end
     end
 
