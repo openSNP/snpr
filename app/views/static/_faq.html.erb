@@ -5,6 +5,7 @@
     <li><a href="#scientists"><%=image_tag("/images/filedownload_small.png",:style => "vertical-align:middle" )%> Users interested in downloading data</a></li>
 	<li><a href="#enteringphenotypes"><%=image_tag("/images/add_variation_small.png",:style => "vertical-align:middle")%> Entering phenotypes</a></li>
 	<li><a href="#filetypes"><%=image_tag("/images/file_info_small.png",:style => "vertical-align:middle" )%> Filetypes</a>
+	<li><a href="#api"><%=image_tag("/images/api_small.png",:style => "vertical-align:middle")%> JSON-API</a>
   </ul>
 <div id="dtcustomers">
 <h5>• What does OpenSNP offer me as a genotyping-customers?</h5>
@@ -52,7 +53,7 @@ Just send us an <a href="mailto:info@opensnp.org">email</a>.
 	This option is only available for logged-in users. Just visit the phenotype-page of your choice and click on the download-links for the variations you are interested in. Our server will grab all the data for you, make a handy zip-file out of it and send you the download link via email, as this can be a lot of data.
 	
 	<h5>• Is there an API for searching/downloading files?</h5>
-	We are currently working on providing a simple API, but up to now there is none. If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.	
+	We are currently working on providing API-access. <a href="http://opensnp.org/faq#api">If you are interested in learning more about how you can use JSON to get access to openSNP-data you might want to read this.</a> There are also some other ways to get hands on the data: If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.	
 
     <h5>• How do I parse the files provided by openSNP?</h5>
     There's a Public Domain Python3-script located on github here: <a href="https://gist.github.com/1626642">Click this link.</a> Feel free to download and change this script.
@@ -60,12 +61,12 @@ Just send us an <a href="mailto:info@opensnp.org">email</a>.
 
 <div id="enteringphenotypes">
 	
-</div>
 	<h5>• What do I have to consider while entering my variation for already existing phenotypes?</h5>
 	<strong>1.</strong>You should read the description on the phenotype you are about to enter. Often the description gives further details on which kind of answers people are interested in. You can also take a look on the answers which are given so far by other users. This should also give you a feeling about what kind of information is wanted for this phenotype. <br/><strong>2.</strong> As soon as you start to enter your own variation we will try to auto-complete your writing to avoid duplicate entries into the openSNP-database. Having multiple entries for the same thing, like "blue-green" plus "green-blue" in case of eye-colour makes it harder for (citizen) scientists to use the data for their studies. <br/><strong>3.</strong> The thing you are about to enter doesn't get auto-completed? Great. You are about to enter a variation which has not been reported so far, have fun entering your data! 
 	
 	<h5>• What should I consider while creating a new phenotype?</h5>
 	<strong>1.</strong> Use a reasonable name for your characteristic. Don't make it too long, but at the same time make sure that people get the general idea of what you want to know. <br/><strong>2.</strong> You should also make sure that the same phenotype is not already available in the openSNP-database. As soon as you start writing your characteristics name openSNP will try to auto-complete what you are writing. This should reduce duplicate phenotypes, so if you are about to enter "eye-colour" you will get a suggestions for the already available "eye-color" (Sorry, we can't solve the AE / BE issue here).<br/><strong>3.</strong> Write a description about the characteristic you are interested in. Give users some words why this is interesting. Maybe add what research has been done so far on this phenotype. Links to further web-resources and/or Wikipedia might also be a good idea. If you already have suggestions which different answers might apply to this phenotype: List them in the description. <br/><strong>4.</strong> Enter your own variation: The last field, "variation" is meant to carry your own variation for this phenotype. Don't enter all possible answers (You can list those in the description). Other users can easily add their own variation and take your suggestions from the description or - if you forgot to list a possible answer - give completely new answers.   
+</div>
 
 <div id="filetypes">
 	<h4>Not sure what kind of file you've got? Take a look at our example-files</h4>
@@ -121,7 +122,35 @@ Just send us an <a href="mailto:info@opensnp.org">email</a>.
 		
 	<h5>My filetype is still missing, what can I do?</h5>
 	We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
-		</div>
+</div>
+</div>
+</div>
+<div id="api">
+	<h4>Using JSON</h4>
+	We provide some methods to make it easier to get data back from <em>openSNP</em>. Currently we are implementing some <i><a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a></i> (short: JSON) methods that will make it easier to code some awesome <em>openSNP</em>-utilizing stuff. As you can see on the Wikipedia-page there are many JSON-parsers around for all major programming languages and it is fairly human readable as well. Plus: It is one of the de facto webstandards for APIs. We are trying to add more of such methods in the near future. 
+	<h5>• Getting a list of openSNP-users</h5>
+	You can easily access a complete list of all users, with their unique user-ids and links to their genotyping-files, by accessing <a href="http://opensnp.org/users.json">http://opensnp.org/users.json</a>, similarly to the "normal" users-index-page. You will get back an array which includes all the data in a structured way which looks like this.<br/><br/>
+	<pre class="prettyprint linenums">
+[{"name":"Bastian Greshake","id":1,"genotypes":[{"id":9,"filetype":"23andme","download_url":"http://opensnp.org/data/1.23andme.9"}]},{"name":"Little bit","id":14,"genotypes":[{"id":6,"filetype":"23andme","download_url":"http://opensnp.org/data/14.23andme.6"}]},{"name":"Svan","id":10,"genotypes":[{"id":3,"filetype":"23andme","download_url":"http://opensnp.org/data/10.23andme.3"}]},{"name":"Helge Rausch","id":15,"genotypes":[]}]
+		</pre>
+		
+	<h5>• Getting genotypes of one or multiple users for a given SNP-name</h5>
+	To get back an JSON object that includes information about the SNP as well as the genotype of one or many users at this SNP you can use this JSON request: <a href="http://opensnp.org/snps/json/rs9939609/1,2,8.json">http://opensnp.org/snps/json/$snpname/$userid.json</a>. Just replace $snpname by a real Rs-ID and $userid by the ID of the user(s) you are interested in. If you use a single user-id you will get back a single object that looks like this:<br/><br/>
+	<pre class="prettyprint linenums">
+{"snp":{"name":"rs9939609","chromosome":"16","position":"52378028"},"user":{"name":"Bastian Greshake","id":1,"genotypes":[{"genotype_id":9,"local_genotype":"AT"}]}}
+</pre> 
+If you want to get the data of multiple users you can use commas to separate the user-ids (like <a href="http://opensnp.org/snps/json/rs9939609/1,6,8.json">http://opensnp.org/snps/json/rs9939609/1,6,8.json</a>) or a dash to specify a range of users you are interested in (so <a href="http://opensnp.org/snps/json/rs9939609/1-8.json">http://opensnp.org/snps/json/rs9939609/1-8.json</a> will give you the genotypes of users one to eight.) You will get back an array that includes all the items that you requested and which looks like this: <br/><br/>
+<pre class="prettyprint linenums">
+[{"snp":{"name":"rs9939609","chromosome":"16","position":"52378028"},"user":{"name":"Bastian Greshake","id":1,"genotypes":[{"genotype_id":9,"local_genotype":"AT"}]}},{"snp":{"name":"rs9939609","chromosome":"16","position":"52378028"},"user":{"name":"Nash Parovoz","id":6,"genotypes":[{"genotype_id":5,"local_genotype":"AT"}]}},{"snp":{"name":"rs9939609","chromosome":"16","position":"52378028"},"user":{"name":"Samantha","id":8,"genotypes":[{"genotype_id":2,"local_genotype":"TT"}]}}]
+</pre>
+The results include the genotype and user ids, so it should be easy to trace data back to it's source if you want to.
+	<h5>• Getting all phenotypes of one or many different users</h5>
+	Similar to the genotypes you can request a complete list of all phenotypic information that has been entered by a single user, just use <a href="http://opensnp.org/phenotypes/json/1.json">http://opensnp.org/phenotypes/json/$userid.json</a> and replace $userid by the ID of the user you are interested in. Just as for the genotype-JSON you can ask us for the data of multiple users by using a comma-separated list (<a href="http://opensnp.org/phenotypes/json/1,6,8.json">http://opensnp.org/phenotypes/json/1,6,8.json</a>) or a dash to supply the method with a range of IDs (<a href="http://opensnp.org/phenotypes/json/1-8.json">http://opensnp.org/phenotypes/json/1-8.json</a>). The resulting output will look like this: <br/><br/>
+<pre class="prettyprint linenums">
+{"user":{"name":"D G","id":11},"phenotypes":{"white skin":{"phenotype_id":4,"variation":"tan skin"},"Handedness":{"phenotype_id":3,"variation":"right-handed"},"Lactose intolerance":{"phenotype_id":2,"variation":"lactose-tolerant"},"Eye color":{"phenotype_id":1,"variation":"brown"}}}
+</pre>
+	<h5>• The method I need is missing and/or I need more help!?</h5>
+	There are many ways in which this problem can be fixed. First of all: If you are able to code some <em>Rails</em> and have got some basic understanding of <em>JSON</em> feel invited to help us with the development of <em>openSNP</em>. The source code is freely available at <a href="https://github.com/gedankenstuecke/snpr">GitHub</a> and we are always looking for some motivated people who want to join us. Just start coding the stuff you are interested in and make a pull request. Or what about <a href="http://groups.google.com/group/snpr-development">joining the openSNP development mailinglist/Google group and you can get to know us a bit better?</a> <br/>But don't worry if you don't feel like spending that much time with us (letting alone having that much time left): We are working on implementing more of this stuff, so if you've got a great idea that we should absolutely include just let us know: Write us at <a href="mailto:info@opensnp.org">info@opensnp.org</a> or drop <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Basti</a> a note. And the same is true if you need some more support with those methods already in place. 
 		</div>
 	</div>
 </div>
