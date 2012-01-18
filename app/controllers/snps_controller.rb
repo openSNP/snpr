@@ -52,37 +52,31 @@ class SnpsController < ApplicationController
 	end
 	
 	def json
-	  @result = {}
-	  begin
-	    @snp = Snp.find_by_name(params[:snp_name])
-      @result["snp"] = {}
-      @result["snp"]["name"] = @snp.name
-      @result["snp"]["chromosome"] = @snp.chromosome
-      @result["snp"]["position"] = @snp.position
-      
-      @user_snps = UserSnp.find_all_by_user_id_and_snp_name(params[:user_id],
-                     params[:snp_name])
-      @user = User.find_by_id(params[:user_id])
-      @genotypes_array = []
-      
-      @user_snps.each do |us|
-        @genotype_hash = {}
-        @genotype_hash["genotype_id"] = us.genotype_id
-        @genotype_hash["local_genotype"] = us.local_genotype
-        @genotypes_array << @genotype_hash
+	  if params[:user_id].index(",")
+	    @user_ids = params[:user_id].split(",")
+	    @results = []
+	    @user_ids.each do |id|
+	      @new_param = {}
+	      @new_param[:user_id] = id
+	      @new_param[:snp_name] = params[:snp_name]
+	      @results << json_element(@new_param)
       end
-      
-      @result["user"] = {}
-      @result["user"]["name"] = @user.name
-      @result["user"]["id"] = @user.id
-      @result["user"]["genotypes"] = @genotypes_array
-    rescue
-      @result = {}
-      @result["error"] = "Sorry, we couldn't find any information for this user/snp-combination"
+    elsif params[:user_id].index("-")
+      @results = []
+      @id_array = params[:user_id].split("-")
+      @user_ids = (@id_array[0].to_i..@id_array[1].to_i).to_a
+      @user_ids.each do |id|
+        @new_param = {}
+	      @new_param[:user_id] = id
+	      @new_param[:snp_name] = params[:snp_name]
+	      @results << json_element(@new_param)
+      end
+	  else 
+	    @results = json_element(params)
     end
     
     respond_to do |format|
-      format.json { render :json => @result } 
+      format.json { render :json => @results } 
     end
   end
   		
@@ -96,6 +90,37 @@ class SnpsController < ApplicationController
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	  end
 
+    def json_element(params)
+      @result = {}
+  	  begin
+  	    @snp = Snp.find_by_name(params[:snp_name])
+        @result["snp"] = {}
+        @result["snp"]["name"] = @snp.name
+        @result["snp"]["chromosome"] = @snp.chromosome
+        @result["snp"]["position"] = @snp.position
+
+        @user_snps = UserSnp.find_all_by_user_id_and_snp_name(params[:user_id],
+                       params[:snp_name])
+        @user = User.find_by_id(params[:user_id])
+        @genotypes_array = []
+
+        @user_snps.each do |us|
+          @genotype_hash = {}
+          @genotype_hash["genotype_id"] = us.genotype_id
+          @genotype_hash["local_genotype"] = us.local_genotype
+          @genotypes_array << @genotype_hash
+        end
+
+        @result["user"] = {}
+        @result["user"]["name"] = @user.name
+        @result["user"]["id"] = @user.id
+        @result["user"]["genotypes"] = @genotypes_array
+      rescue
+        @result = {}
+        @result["error"] = "Sorry, we couldn't find any information for SNP "+params[:snp_name].to_s+" and user "+params[:user_id].to_s
+      end
+      return @result
+    end
 
     def find_snp
       @snp = Snp.find(params[:id].downcase)

@@ -42,8 +42,33 @@ class UsersController < ApplicationController
     @users = User.order(sort_column + " " + sort_direction)
     @users_paginate = User.paginate(:page => params[:page], :per_page => 10)
     @title = "Listing all users"
+    
+    @result = []
+	  begin
+	    @users = User.find(:all)
+	    @users.each do |u|
+	      @user = {}
+	      @user["name"] = u.name
+	      @user["id"] = u.id
+	      @user["genotypes"] = []
+	      Genotype.find_all_by_user_id(u.id).each do |g|
+	        @genotype = {}
+	        @genotype["id"] = g.id
+	        @genotype["filetype"] = g.filetype
+	        @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
+	        @user["genotypes"] << @genotype
+        end
+      @result << @user
+      end
+
+    rescue
+      @result = {}
+      @result["error"] = "Sorry, we couldn't find any users"
+    end
+    
     respond_to do |format|
       format.html
+      format.json { render :json => @result }
     end
   end
 
@@ -248,7 +273,7 @@ class UsersController < ApplicationController
   def remove_help_three
     current_user.update_attribute("help_three",true)
   end
-  
+    
   private
 
   def require_owner
