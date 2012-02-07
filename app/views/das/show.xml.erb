@@ -1,0 +1,27 @@
+<DASGFF>
+    <GFF version="1.01" href="http://www.ebi.ac.uk:/das-srv/easydas/das/23dns/features">
+        <SEGMENT id="x" version="1.0" start="1" end="2">
+            <% @user_snps.each do |us| %>
+                <FEATURE id="<%=us.snp_name%>">
+                    <TYPE id="<%= us.local_genotype %>" />
+                    <METHOD id="" />
+                    <START>
+                        <%= Snp.find_by_name(us.snp_name).position %>
+                    </START>
+                    <END>
+                        <%= Snp.find_by_name(us.snp_name).position %>
+                    </END>
+                    <SCORE>
+                        0
+                    </SCORE>
+                    <PHASE>
+                        -
+                    </PHASE>
+                    <ORIENTATION>
+                        0
+                    </ORIENTATION>
+                </FEATURE>
+            <% end %>
+        </SEGMENT> 
+    </GFF>
+</DASGFF>
