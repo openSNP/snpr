@@ -29,6 +29,11 @@ class DasController < ApplicationController
         end
         render :template => 'das/show.xml.erb', :layout => false
     end
+
+    def sources
+        @users = User.all
+        render :template => 'das/sources.xml.erb', :layout => false
+    end
 end
 
 
