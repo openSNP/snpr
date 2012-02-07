@@ -1,5 +1,6 @@
 <SOURCES>
 <% @users.each do |u| %>
+	<% if u.genotypes != []%>
     <SOURCE uri="<%= u.id %>"
             title="<%= u.id %>"
             description="<%= u.id %>">
@@ -12,5 +13,6 @@
                 <PROP value="valid" name="features"/>
             </VERSION>
         </SOURCE>
+	<%end%>
 <% end %>
 </SOURCES>
