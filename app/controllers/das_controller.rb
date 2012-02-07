@@ -42,16 +42,19 @@ class DasController < ApplicationController
                 
               @has_start = false
             end
+            # When everything went correctly, send back 200
+            response.headers["X-DAS-Status"] = "200"
         else
             # no chromosome or start/end, so get nothing
             @user_snps = [] #@user.user_snps
             @id = ""
             @start = ""
             @end  = ""
+
+            # Bad command arguments (arguments invalid)
+            response.headers["X-DAS-Status"] = "402"
         end
         response.headers["X-DAS-Version"] = "DAS/1.6"
-        # When everything went correctly, send back 200
-        response.headers["X-DAS-Status"] = "200"
         # Change these capabilities once we implement more
         response.headers["X-DAS-Capabilities"] = "features/1.1, sources/1.0"
         # Put in the servername and version
