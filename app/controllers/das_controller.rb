@@ -16,6 +16,7 @@ class DasController < ApplicationController
             @user_snps = []
             # ugly solution
             @snps.each do |s|
+                # there is only one user_snp for each snp
                 @user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
             end
         else
