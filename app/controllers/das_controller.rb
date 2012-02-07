@@ -21,8 +21,8 @@ class DasController < ApplicationController
                 @user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
             end
         else
-            # no chromosome or start/end, so get all SNPs
-            @user_snps = @user.user_snps
+            # no chromosome or start/end, so get nothing
+            @user_snps = [] #@user.user_snps
             @id = ""
             @start = ""
             @end  = ""
