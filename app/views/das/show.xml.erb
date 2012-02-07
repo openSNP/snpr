@@ -1,9 +1,9 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" standalone="yes"?>
 <DASGFF>
-    <GFF version="1.01" href="http://www.ebi.ac.uk:/das-srv/easydas/das/23dns/features">
+    <GFF version="1.0" href="<%= request.url %>">
         <SEGMENT id="<%= @id %>" version="1.0" start="<%= @start %>" end="<%= @end %>">
             <% @user_snps.each do |us| %>
-                <FEATURE id="<%=us.snp_name%>">
+                <FEATURE id="<%= us.snp_name %>">
                     <TYPE id="<%= us.local_genotype %>" />
                     <METHOD id="" />
                     <START>
