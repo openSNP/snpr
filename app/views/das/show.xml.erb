@@ -2,7 +2,7 @@
 <DASGFF>
     <GFF version="1.0" href="<%= request.url %>">
 	 <% if @unkown_chromosome == false %>
-        <SEGMENT id="<%= @id %>" version="1.0" <%if @has_start == true %> start="<%= @start %>" end="<%= @end %>" <%end%>>
+        <SEGMENT id="<%= @id %>" version="1.0" <%if @has_start == true %> start="<%= @start %>" end="<%= @end %>"<%else%> start="1" end="" <%end%>>
             <% @user_snps.each do |us| %>
                 <FEATURE id="<%= us.snp_name %>">
                     <TYPE id="<%= us.local_genotype %>" />
