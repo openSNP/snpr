@@ -12,7 +12,8 @@ class DasController < ApplicationController
             # and where position is between start and end
             #
             # Needs some postgresql-magic to force types
-            @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as integer) = ?', @end, @start, @id)
+            
+            @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @id)
             @user_snps = []
             # ugly solution
             @snps.each do |s|
