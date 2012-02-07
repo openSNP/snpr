@@ -41,6 +41,7 @@ Snpr::Application.routes.draw do
   match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
   match '/phenotypes/json/:user_id', :to => 'phenotypes#json'
   match '/users/json_index', :to => 'users#json_index'
+  match '/users/:id/das/features', :to => 'das#show'
   
   root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:
