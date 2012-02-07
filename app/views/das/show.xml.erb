@@ -1,7 +1,8 @@
 <?xml version="1.0" standalone="yes"?>
 <DASGFF>
     <GFF version="1.0" href="<%= request.url %>">
-        <SEGMENT id="<%= @id %>" version="1.0" start="<%= @start %>" end="<%= @end %>">
+	 <% if @unkown_chromosome == false %>
+        <SEGMENT id="<%= @id %>" version="1.0" <%if @has_start == true %> start="<%= @start %>" end="<%= @end %>" <%end%>>
             <% @user_snps.each do |us| %>
                 <FEATURE id="<%= us.snp_name %>">
                     <TYPE id="<%= us.local_genotype %>" />
@@ -27,5 +28,8 @@
                 </FEATURE>
             <% end %>
         </SEGMENT> 
+	<%else%>
+	<UNKNOWNSEGMENT id="<%=@id%>" />
+	<%end%>
     </GFF>
 </DASGFF>
