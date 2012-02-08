@@ -2,50 +2,56 @@ class DasController < ApplicationController
 
     def show
         @user = User.find_by_id(params[:id])
-        if params[:segment]
-            @positions = params[:segment].split(":")
-            @id = @positions[0] # the chromosome
-            
-            @known_chromosomes =  ("1".."22").to_a << "X" << "MT" << "Y"
-            if @known_chromosomes.include? @id
-              @unkown_chromosome = false
-            else 
-              @unkown_chromosome = true
+
+        # make arrays of positions and ids in case we have several
+        # segments defined
+        @positions = []
+        @id = []
+        @unkown_chromosome = []
+        @known_chromosomes =  ("1".."22").to_a << "X" << "MT" << "Y"
+        @user_snps = []
+
+        # first, split up all segments if they are present
+        if request.query_string
+            @query_string = CGI.parse request.query_string
+                @query_string["segment"].each do |q|
+                   @pos = q.split(":") 
+                   # append chromosome-id to the array of ids
+                   @id << @pos[0]
+                   if @known_chromosomes.include? @pos[0]
+                       @unkown_chromosome << true
+                   else
+                       @unkown_chromosome << false
+                   end
+
+                   if @pos[1] != nil
+                       @start_and_end = @pos[1].split(",")
+                       @start = @start_and_end[0]
+                       @end = @start_and_end[1]
+                       @has_start = true
+                       @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @pos[0])
+                       @tmp_user_snps = []
+                       @snps.each do |s|
+                           # there is only one user_snp for each snps
+                           @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                       end
+
+                       @user_snps << @tmp_user_snps
+                    else
+                       @snps = @user.snps.where('CAST(chromosome as text) = ?', @id)
+                       @tmp_user_snps = []
+                       @snps.each do |s|
+                           # there is only one user_snp for each snps
+                           @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                       end
+                       @user_snps << @tmp_user_snps 
+                       @has_start = false
+                    end
             end
-            
-            if @positions[1] != nil
-              @start_and_end = @positions[1].split(",")
-              @start = @start_and_end[0]
-              @end = @start_and_end[1]
-              @has_start = true
-              # Get only those SNPs which have chromosome = id
-              # and where position is between start and end
-              #
-              # Needs some postgresql-magic to force types
-              
-              @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @id)
-              @user_snps = []
-              # ugly solution
-              @snps.each do |s|
-                  # there is only one user_snp for each snp
-                  @user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
-              end
-                
-            else
-              @snps = @user.snps.where('CAST(chromosome as text) = ?', @id)
-              @user_snps = []
-              # ugly solution
-              @snps.each do |s|
-              # there is only one user_snp for each snp
-                @user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
-              end
-                
-              @has_start = false
-            end
-            # When everything went correctly, send back 200
-            response.headers["X-DAS-Status"] = "200"
-        else
-            # no chromosome or start/end, so get nothing
+        # When everything went correctly, send back 200
+        response.headers["X-DAS-Status"] = "200"
+    else
+        # no chromosome or start/end, so get nothing
             @user_snps = [] #@user.user_snps
             @id = ""
             @start = ""
@@ -59,6 +65,7 @@ class DasController < ApplicationController
         response.headers["X-DAS-Capabilities"] = "features/1.1, sources/1.0"
         # Put in the servername and version
         response.headers["X-DAS-Server"] = "" 
+
         render :template => 'das/show.xml.erb', :layout => false
     end
 

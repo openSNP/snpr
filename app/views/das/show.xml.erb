@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <DASGFF>
     <GFF version="1.0" href="<%= request.url %>">
+        <%= CGI.parse request.query_string %>
 	 <% if @unkown_chromosome == false %>
         <SEGMENT id="<%= @id %>" version="1.0" <%if @has_start == true %> start="<%= @start %>" end="<%= @end %>"<%else%> start="1" end="" <%end%>>
             <% @user_snps.each do |us| %>
