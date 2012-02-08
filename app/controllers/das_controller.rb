@@ -67,7 +67,7 @@ class DasController < ApplicationController
         # Change these capabilities once we implement more
         response.headers["X-DAS-Capabilities"] = "features/1.1, sources/1.0"
         # Put in the servername and version
-        response.headers["X-DAS-Server"] = "" 
+        response.headers["X-DAS-Server"] = request.env["SERVER_SOFTWARE"].split(" ")[0]
 
         render :template => 'das/show.xml.erb', :layout => false
     end

@@ -1,5 +1,6 @@
 <?xml version="1.0" standalone="yes"?>
 <DASGFF>
+    <%= request.env["SERVER_SOFTWARE"] %>
     <GFF version="1.0" href="<%= request.url %>">
     <% @user_snps.each_with_index do |s, i| %>
 	 <% if @unkown_chromosome[i] == false %>
