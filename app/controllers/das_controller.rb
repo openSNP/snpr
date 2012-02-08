@@ -48,7 +48,7 @@ class DasController < ApplicationController
                            @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
                        end
                        @user_snps << @tmp_user_snps 
-                       @has_start = false
+                       @has_start << false
                     end
             end
         # When everything went correctly, send back 200
