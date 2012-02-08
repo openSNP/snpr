@@ -9,7 +9,9 @@ class DasController < ApplicationController
         @id = []
         @unkown_chromosome = []
         @known_chromosomes =  ("1".."22").to_a << "X" << "MT" << "Y"
+        # user_snps is an array of arrays, each inner array having all user_snps from one specified segment
         @user_snps = []
+        @has_start = []
 
         # first, split up all segments if they are present
         if request.query_string
@@ -19,16 +21,16 @@ class DasController < ApplicationController
                    # append chromosome-id to the array of ids
                    @id << @pos[0]
                    if @known_chromosomes.include? @pos[0]
-                       @unkown_chromosome << true
-                   else
                        @unkown_chromosome << false
+                   else
+                       @unkown_chromosome << true
                    end
 
                    if @pos[1] != nil
                        @start_and_end = @pos[1].split(",")
                        @start = @start_and_end[0]
                        @end = @start_and_end[1]
-                       @has_start = true
+                       @has_start << true
                        @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @pos[0])
                        @tmp_user_snps = []
                        @snps.each do |s|
@@ -38,10 +40,10 @@ class DasController < ApplicationController
 
                        @user_snps << @tmp_user_snps
                     else
+                       # there are no positions, so use only chromosome
                        @snps = @user.snps.where('CAST(chromosome as text) = ?', @id)
                        @tmp_user_snps = []
                        @snps.each do |s|
-                           # there is only one user_snp for each snps
                            @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
                        end
                        @user_snps << @tmp_user_snps 

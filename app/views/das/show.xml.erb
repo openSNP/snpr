@@ -1,10 +1,10 @@
 <?xml version="1.0" standalone="yes"?>
 <DASGFF>
     <GFF version="1.0" href="<%= request.url %>">
-        <%= CGI.parse request.query_string %>
-	 <% if @unkown_chromosome == false %>
-        <SEGMENT id="<%= @id %>" version="1.0" <%if @has_start == true %> start="<%= @start %>" end="<%= @end %>"<%else%> start="1" end="" <%end%>>
-            <% @user_snps.each do |us| %>
+    <% @user_snps.each_with_index do |s, i| %>
+	 <% if @unkown_chromosome[i] == false %>
+        <% @user_snps[i].each do |us| %>
+        <SEGMENT id="<%= @id[i] %>" version="1.0" <%if @has_start[i] == true %> start="<%= @start_and_end[i][0] %>" end="<%= @start_and_end[i][1] %>"<%else%> start="1" end="" <%end%>>
                 <FEATURE id="<%= us.snp_name %>">
                     <TYPE id="<%= us.local_genotype %>" />
                     <METHOD id="" />
@@ -27,10 +27,11 @@
                         <%= root_url+"snps/" + us.snp_name %>
                     </LINK>
                 </FEATURE>
-            <% end %>
         </SEGMENT> 
+    <% end %>
 	<%else%>
 	<UNKNOWNSEGMENT id="<%=@id%>" />
 	<%end%>
+    <% end %>
     </GFF>
 </DASGFF>
