@@ -12,6 +12,7 @@ class DasController < ApplicationController
         # user_snps is an array of arrays, each inner array having all user_snps from one specified segment
         @user_snps = []
         @has_start = []
+        @start_and_end = []
 
         # first, split up all segments if they are present
         if request.query_string
@@ -27,9 +28,9 @@ class DasController < ApplicationController
                    end
 
                    if @pos[1] != nil
-                       @start_and_end = @pos[1].split(",")
-                       @start = @start_and_end[0]
-                       @end = @start_and_end[1]
+                       @start_and_end << @pos[1].split(",")
+                       @start = @pos[1].split(",")[0]
+                       @end = @pos[1].split(",")[1]
                        @has_start << true
                        @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @pos[0])
                        @tmp_user_snps = []
