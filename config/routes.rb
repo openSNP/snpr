@@ -41,7 +41,6 @@ Snpr::Application.routes.draw do
   match '/dump_download', :to => 'genotypes#dump_download'
   match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
   match '/phenotypes/json/:user_id', :to => 'phenotypes#json'
-  match '/users/json_index', :to => 'users#json_index'
   match '/das/sources', :to => 'das#sources'
   match '/das/:id/features', :to => 'das#show'
   
