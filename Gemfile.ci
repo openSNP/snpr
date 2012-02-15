@@ -42,7 +42,6 @@ group :test do
   gem 'factory_girl'
   gem 'mocha'
   gem 'ruby-debug19'
-  gem 'rcov_rails'
 end
 
 
