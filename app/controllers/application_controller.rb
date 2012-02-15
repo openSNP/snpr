@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   if Rails.env.production?
       include ::SslRequirement
+      ssl_allowed :all
   end
 
   private

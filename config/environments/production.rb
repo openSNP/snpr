@@ -1,8 +1,6 @@
 Snpr::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # Turn on SSL when users come over https://
-  config.middleware.insert_before ActionDispatch::Static, Rack::SSL, :exclude => proc { |env| env['HTTPS'] != 'on' }
 
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
