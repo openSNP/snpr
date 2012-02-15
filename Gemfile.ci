@@ -42,7 +42,9 @@ group :test do
   gem 'factory_girl'
   gem 'mocha'
   gem 'ruby-debug19'
+  gem 'rcov_rails'
 end
+
 
 # gem 'email_veracity' # to check whether user-mails are OK
 # authlogic does that anyway
