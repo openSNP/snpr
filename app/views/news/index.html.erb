@@ -137,7 +137,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 		<tr>
 			<td><%=link_to np.snp.name, np.snp%></td>
 			<td><%=np.first_author%></td>
-			<%if @newest_paper.class = PlosPaper%>
+			<%if @newest_paper.class == PlosPaper%>
 			<td><%= link_to( p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
 			<%else%>
 			<td><%=link_to( p.title, p.mendeley_url)%></td>
