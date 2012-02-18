@@ -163,7 +163,7 @@
 <% for p in @mendeley_papers.results %>
 		<tr>
 			<td><%= p.first_author%></td>
-			<td><%=link_to( p.title.html_safe, p.mendeley_url)%></td>
+			<td><%=link_to( p.title, p.mendeley_url)%></td>
 			<td><%=link_to(p.snp.name,p.snp)%></td>
 			<td><%=p.pub_year%></td>
 			<td><%=p.reader%></td>
@@ -198,7 +198,7 @@
 <% for p in @plos_papers.results %>
 			<tr>
 				<td><%= p.first_author%></td>
-				<td><%= link_to( p.title, "http://dx.doi.org/"+p.doi)%></td>
+				<td><%= link_to( p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
 				<td><%= link_to( p.snp.name,p.snp)%>
 				<td><%= p.pub_date.to_s[6,4]%></td>
 				<td><%= p.reader%></td>

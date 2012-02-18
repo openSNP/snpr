@@ -137,7 +137,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 		<tr>
 			<td><%=link_to np.snp.name, np.snp%></td>
 			<td><%=np.first_author%></td>
-			<td><%=np.title%></td>
+			<td><%=np.title.html_safe%></td>
 			<td><%=np.created_at%></td>
 		</tr>
 		<%end%>
