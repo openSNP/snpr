@@ -1,10 +1,11 @@
 <h1>News</h1>
 <div id="tab-container">
 <ul class="tabs">
-	<li><a href="#general">General Information and Known Bugs</a></li>
+	<li><a href="#general">On openSNP</a></li>
 	<li><a href="#users">New users</a></li>
 	<li><a href="#genotypes">New genotypes</a></li>
 	<li><a href="#phenotypes">New phenotypes</a></li>
+	<li><a href="#publications">Latest publications</a></li>
 	<li><a href="#snpcomments">SNP-Comments</a></li>
 	<li><a href="#phenotypecomments">Phenotype-Comments</a></li>
 </ul>
@@ -120,3 +121,26 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 <%end%>
 </table>
 </div>
+
+<div id="publications">
+<%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%>
+<%=auto_discovery_link_tag(:rss,"/paper/rss", {:title => "RSS for latest publications"})%>
+	<h2>Latest publications</h2>
+	<table class="common-table zebra-striped">
+		<tr>
+			<th>SNP</th>
+			<th>Author</th>
+			<th>Title</th>
+			<th>Found at</th>
+		</tr>
+		<%@newest_paper.each do |np|%>
+		<tr>
+			<td><%=link_to np.snp.name, np.snp%></td>
+			<td><%=np.first_author%></td>
+			<td><%=np.title%></td>
+			<td><%=np.created_at%></td>
+		</tr>
+		<%end%>
+	</table>
+</div>
+			

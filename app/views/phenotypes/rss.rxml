@@ -2,8 +2,8 @@ xml.instruct! :xml, :version => "1.0"
 xml.rss :version => "2.0" do
 	xml.channel do
 		xml.title "Genotyping-files for "+@phenotype.characteristic
-		xml.description "A RSS-feed which contains the newest genotyping files uploaded to openSNP."
-		xml.link "bla"
+		xml.description "A RSS-feed which contains the newest genotyping files of users who have entered their variation for "+@phenotype.characteristic
+		xml.link phenotype_url(@phenotype)
 
 		for genotype in @genotypes
 			xml.item do

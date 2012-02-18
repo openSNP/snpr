@@ -30,7 +30,8 @@ class Plos
           first_author = singleton[2][0].to_s.gsub!(/<\/?str>/,"")
           doi = singleton[4].to_s.gsub!(/<\/?str( name='id')?>/,"")
           pub_date = singleton[6].to_s.gsub!(/<\/?date( name='publication_date')?>/,"")
-          title = singleton[7].to_s.gsub!(/<\/?str( name='title')?>/,"")
+          title = CGI.unescapeHTML(singleton[7].to_s.gsub!(/<\/?str( name='title_display')?>/,""))
+          print title
 
           if PlosPaper.find_all_by_doi(doi) == []
             @plos_paper = PlosPaper.new(:first_author => first_author, :doi => doi, :title => title, :pub_date => pub_date, :snp_id => @snp.id)

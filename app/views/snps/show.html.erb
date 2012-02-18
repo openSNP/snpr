@@ -147,7 +147,7 @@
 	<% @snp.plos_paper.each do |p|%>
 		<tr>
 			<td><%=p.first_author%></td> 
-			<td><%=link_to( p.title, "http://dx.doi.org/"+p.doi)%></td>
+			<td><%=link_to(p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
 			<td><%=p.pub_date.to_s[6,4]%></td>
 			<td><%=p.reader%></td>
 		</tr>
