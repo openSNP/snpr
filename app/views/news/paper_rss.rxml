@@ -14,7 +14,7 @@ xml.rss :version => "2.0" do
                  xml.guid "mendeley_"+paper.id.to_s
               elsif paper.class == PlosPaper
                 xml.description "The paper \""+paper.title+"\" is about SNP "+paper.snp.name+" and was published in one of the PLoS journals in "+paper.pub_date.to_s[6,4]+" by "+paper.first_author+ " et al. and so far "+paper.reader.to_s+" people have read it there."
-                xml.link paper.doi
+                xml.link "http://dx.doi.org/"+paper.doi
                 xml.guid "plos_"+paper.id.to_s 
                end
 			   xml.pubDate paper.created_at.to_s(:rfc822)
