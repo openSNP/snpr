@@ -21,7 +21,7 @@ Snpr::Application.routes.draw do
   resources :achievements
   resources :user_achievements
   resources :index
-  resources :das
+  #resources :das
   
   match '/users/:id/changepassword', :to => 'users#changepassword'
   match '/signup', :to => 'users#new'
@@ -41,8 +41,8 @@ Snpr::Application.routes.draw do
   match '/dump_download', :to => 'genotypes#dump_download'
   match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
   match '/phenotypes/json/:user_id', :to => 'phenotypes#json'
-  match '/das/sources', :to => 'das#sources'
   match '/das/:id/features', :to => 'das#show'
+  match '/das/sources', :to => 'das#sources'
   match '/paper/rss', :to => 'news#paper_rss'
   
   root :to => 'index#index' # change thisi, maybe
