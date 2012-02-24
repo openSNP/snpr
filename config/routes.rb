@@ -21,7 +21,7 @@ Snpr::Application.routes.draw do
   resources :achievements
   resources :user_achievements
   resources :index
-  #resources :das
+  
   
   match '/users/:id/changepassword', :to => 'users#changepassword'
   match '/signup', :to => 'users#new'
