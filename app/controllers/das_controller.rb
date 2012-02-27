@@ -17,6 +17,12 @@ class DasController < ApplicationController
         # first, split up all segments if they are present
         if request.query_string
             @query_string = CGI.parse request.query_string
+            @types = []
+            
+                @query_string["type"].each do |t|
+                  @types << t
+                end
+            
                 @query_string["segment"].each do |q|
                    @pos = q.split(":") 
                    # append chromosome-id to the array of ids
@@ -36,7 +42,14 @@ class DasController < ApplicationController
                        @tmp_user_snps = []
                        @snps.each do |s|
                            # there is only one user_snp for each snps
-                           @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                           if @types != []
+                             @single_user_snp = UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                             if @types.include? @single_user_snp.local_genotype
+                               @tmp_user_snps << @single_user_snp
+                             end
+                           else
+                             @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                           end
                        end
 
                        @user_snps << @tmp_user_snps
@@ -44,9 +57,19 @@ class DasController < ApplicationController
                        # there are no positions, so use only chromosome
                        @snps = @user.snps.where('CAST(chromosome as text) = ?', @id)
                        @tmp_user_snps = []
+                       
                        @snps.each do |s|
-                           @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                           # there is only one user_snp for each snps
+                           if @types != []
+                             @single_user_snp = UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                             if @types.include? @single_user_snp.local_genotype
+                               @tmp_user_snps << @single_user_snp
+                             end
+                           else
+                             @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                           end
                        end
+                       
                        @user_snps << @tmp_user_snps 
                        @has_start << false
                     end

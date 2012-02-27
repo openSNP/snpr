@@ -182,7 +182,7 @@ DEPENDENCIES
   resque
   resque-loner
   ruby-debug19
-  rubyzip
+  rubyzip (= 0.9.5)
   shoulda-context
   shoulda-matchers
   sunspot_rails (~> 1.2.1)
