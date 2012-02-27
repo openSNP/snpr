@@ -101,9 +101,19 @@ class DasController < ApplicationController
         response.headers["X-DAS-Status"] = "200"
         response.headers["X-DAS-Capabilities"] = "features/1.1, sources/1.0"
 
-        response.headers["X-DAS-Server"] = ""
+        response.headers["X-DAS-Server"] = request.env["SERVER_SOFTWARE"].split(" ")[0]
  
         render :template => 'das/sources.xml.erb', :layout => false
+    end
+    
+    def startpoint
+      @user = User.find_by_id(params[:id])
+      response.headers["X-DAS-Version"] = "DAS/1.6"
+      response.headers["X-DAS-Status"] = "200"
+      response.headers["X-DAS-Capabilities"] = "features/1.1, sources/1.0"
+      response.headers["X-DAS-Server"] = request.env["SERVER_SOFTWARE"].split(" ")[0]
+      
+      render :template => 'das/startpoint.xhtml.erb', :layout => false
     end
 end
 

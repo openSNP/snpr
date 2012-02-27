@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ <head>
+  <title>openSNP DAS resource for user-id <%=@user.id%></title>
+ </head>
+ <body>
+  <h1>openSNP DAS resource for user-id <%=@user.id%></h1>
+  <dl>
+   <dt>DSN</dt>
+   <dd><%=@user.id%></dd>
+   <dt>Description</dt>
+   <dd>openSNP DAS resource for user-id <%=@user.id%></dd>
+   <dt>Mapmaster</dt>
+   <dd>none configured</dd>
+   <dt>Capabilities</dt>
+   <dd><a href="<%=@user.id%>/features?segment=1:0,1"> features/1.1</a> <a href="<%=@user.id%>/features?segment=unknown"> unknown-segment/1.0</a></dd>
+  </dl>
+ </body>
+</html>

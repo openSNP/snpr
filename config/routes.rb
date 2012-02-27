@@ -42,6 +42,7 @@ Snpr::Application.routes.draw do
   match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
   match '/phenotypes/json/:user_id', :to => 'phenotypes#json'
   match '/das/:id/features', :to => 'das#show'
+  match '/das/:id', :to => 'das#startpoint'
   match '/das/sources', :to => 'das#sources'
   match '/paper/rss', :to => 'news#paper_rss'
   
