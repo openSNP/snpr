@@ -86,7 +86,7 @@ class DasController < ApplicationController
             # Bad command arguments (arguments invalid)
             response.headers["X-DAS-Status"] = "402"
         end
-        response.headers["X-DAS-Version"] = "DAS/1.6"
+        response.headers["X-DAS-Version"] = "DAS/1.53E"
         # Change these capabilities once we implement more
         response.headers["X-DAS-Capabilities"] = "features/1.1; sources/1.0"
         # Put in the servername and version
@@ -98,7 +98,7 @@ class DasController < ApplicationController
 
     def sources
         @users = User.all
-        response.headers["X-DAS-Version"] = "DAS/1.6"
+        response.headers["X-DAS-Version"] = "DAS/1.53E"
         response.headers["X-DAS-Status"] = "200"
         response.headers["X-DAS-Capabilities"] = "features/1.1; sources/1.0"
 
@@ -109,7 +109,7 @@ class DasController < ApplicationController
     
     def startpoint
       @user = User.find_by_id(params[:id])
-      response.headers["X-DAS-Version"] = "DAS/1.6"
+      response.headers["X-DAS-Version"] = "DAS/1.53E"
       response.headers["X-DAS-Status"] = "200"
       response.headers["X-DAS-Capabilities"] = "features/1.1; sources/1.0"
       response.headers["X-DAS-Server"] = request.env["SERVER_SOFTWARE"].split(" ")[0]
