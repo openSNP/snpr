@@ -5,7 +5,7 @@
 	<% end %>
 	<div class="span6 columns offset4"><%= link_to "Back to SNPs", :snps%></div>
 </div>
-
+<%=root_url%>
 <div class="row">
 	<div class="span5 columns">
 		<h6><center>Basic Information</center></h6>
@@ -154,9 +154,17 @@
 	                   collapseSuperGroups:  true,
 	                   provides_karyotype:   true,
 	                   provides_search:      true},
-	                  {name:                 'MeDIP-seq',
-	                   desc:                 'MeDIP-seq reads from Nature Biotech. 26:779-785',
-	                   uri:                  'http://www.derkholm.net:8080/das/medipseq_reads'}],
+	                  {name:                 'SNPedia',
+	                   desc:                 'Data from SNPedia',
+	                   uri:                  'http://www.ebi.ac.uk/das-srv/easydas/bernat/das/SNPedia'}
+					<%if current_user%>
+					<%if current_user.genotypes != []%>
+					,{name:                 '<%=current_user.name%>',
+	                  desc:                 'SNPs @ openSNP',
+	                  uri:                  '<%="http://opensnp.org/das/"+current_user.id.to_s+"/"%>'}
+					<%end%>
+					<%end%>
+	],
 
 	    searchEndpoint: new DASSource('http://www.derkholm.net:8080/das/hsa_54_36p/'),
 	    browserLinks: {
