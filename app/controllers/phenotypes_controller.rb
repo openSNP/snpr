@@ -23,7 +23,7 @@ class PhenotypesController < ApplicationController
   end
 
   def create
-    unless Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
+    unless @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
       @phenotype = Phenotype.create(params[:phenotype])
 
       # award: created one (or more) phenotypes
@@ -32,9 +32,6 @@ class PhenotypesController < ApplicationController
       check_and_award_new_phenotypes(1, "Created a new phenotype")
       check_and_award_new_phenotypes(5, "Created 5 new phenotypes")
       check_and_award_new_phenotypes(10, "Created 10 new phenotypes")
-
-    else
-      @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
     end
 
     if params[:phenotype][:characteristic] == ""
@@ -50,9 +47,11 @@ class PhenotypesController < ApplicationController
       @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
       Resque.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
 
-      if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id) == nil
+      if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id).nil?
 
-        @user_phenotype = UserPhenotype.new(:user_id => current_user.id, :phenotype_id => @phenotype.id, :variation => params[:user_phenotype][:variation])
+        @user_phenotype = current_user.user_phenotypes.new(
+          variation: params[:user_phenotype][:variation])
+        @user_phenotype.phenotype = @phenotype
 
         if @user_phenotype.save
           @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
