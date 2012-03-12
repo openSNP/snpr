@@ -130,54 +130,7 @@
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
     <li><a href="#users">Other users (<%=@users.length%>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
-	<li><a href="#gbrowser">Genome Browser</a></li>
   </ul>
-<div id="gbrowser">
-<%= javascript_include_tag "dalliance-compiled.js" %>
-
-	<script language="javascript">
-	  new Browser({
-	    chr:          '<%=@snp.chromosome%>',
-	    viewStart:    <%=@snp.position.to_i-100000%>,
-	    viewEnd:      <%=@snp.position.to_i+100000%>,
-	    cookieKey:    '<%=@snp.name%>',
-
-	    sources:     [{name:                 'Genome',      
-	                   desc:                 'Human reference genome build NCBI36',
-	                   uri:                  'http://www.derkholm.net:8080/das/hg18comp/',        
-	                   tier_type:            'sequence',
-	                   provides_entrypoints: true},
-	                  {name:                 'Genes',     
-	                   desc:                 'Gene structures from Ensembl 54',
-	                   uri:                  'http://www.derkholm.net:8080/das/hsa_54_36p/',      
-	                   collapseSuperGroups:  true,
-	                   provides_karyotype:   true,
-	                   provides_search:      true},
-	                  {name:                 'SNPedia',
-	                   desc:                 'Data from SNPedia',
-	                   uri:                  'http://www.ebi.ac.uk/das-srv/easydas/bernat/das/SNPedia'}
-					<%if current_user%>
-					<%if current_user.genotypes != []%>
-					,{name:                 '<%=current_user.name%>',
-	                  desc:                 'SNPs @ openSNP',
-	                  uri:                  '<%="http://opensnp.org/das/"+current_user.id.to_s+"/"%>'}
-					<%end%>
-					<%end%>
-	],
-
-	    searchEndpoint: new DASSource('http://www.derkholm.net:8080/das/hsa_54_36p/'),
-	    browserLinks: {
-	        Ensembl: 'http://ncbi36.ensembl.org/Homo_sapiens/Location/View?r=${chr}:${start}-${end}',
-	        UCSC: 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg18&position=chr${chr}:${start}-${end}',
-	    },
-
-	    forceWidth: 900,
-		noPersist: true,
-	    disablePoweredBy: true
-	  });
-	</script>
-	<div id="svgHolder"></div>
-</div>
 
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>
@@ -306,3 +259,47 @@
 <%end%>
 </div>
 </div>
+
+<h6>Genome Browser</h6>
+<%= javascript_include_tag "dalliance-compiled.js" %>
+
+	<script language="javascript">
+	  new Browser({
+	    chr:          '<%=@snp.chromosome%>',
+	    viewStart:    <%=@snp.position.to_i-100000%>,
+	    viewEnd:      <%=@snp.position.to_i+100000%>,
+	    cookieKey:    '<%=@snp.name%>',
+
+	    sources:     [{name:                 'Genome',      
+	                   desc:                 'Human reference genome build NCBI36',
+	                   uri:                  'http://www.derkholm.net:8080/das/hg18comp/',        
+	                   tier_type:            'sequence',
+	                   provides_entrypoints: true},
+	                  {name:                 'Genes',     
+	                   desc:                 'Gene structures from Ensembl 54',
+	                   uri:                  'http://www.derkholm.net:8080/das/hsa_54_36p/',      
+	                   collapseSuperGroups:  true,
+	                   provides_karyotype:   true,
+	                   provides_search:      true}
+					<%if current_user%>
+					<%if current_user.genotypes != []%>
+					,{name:                 'Your SNPs',
+	                  desc:                 'SNPs @ openSNP',
+	                  uri:                  '<%="http://opensnp.org/das/"+current_user.id.to_s+"/"%>'}
+					<%end%>
+					<%end%>
+	],
+
+	    searchEndpoint: new DASSource('http://www.derkholm.net:8080/das/hsa_54_36p/'),
+	    browserLinks: {
+	        Ensembl: 'http://ncbi36.ensembl.org/Homo_sapiens/Location/View?r=${chr}:${start}-${end}',
+	        UCSC: 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg18&position=chr${chr}:${start}-${end}',
+	    },
+
+	    forceWidth: 900,
+		noPersist: true,
+	    disablePoweredBy: true
+	  });
+	
+	</script>
+<div id="svgHolder"></div>
