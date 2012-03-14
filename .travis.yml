@@ -1,9 +1,7 @@
 rvm: 1.9.2
 gemfile: Gemfile.ci
 env: DB=postgres
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install libhiredis-dev
+before_install: git clone https://github.com/antirez/hiredis.git && cd hiredis && make && sudo make install && sudo
 before_script:
   - "cp config/database.yml.ci config/database.yml"
   - echo "foo" > mail_username.txt
