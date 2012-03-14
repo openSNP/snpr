@@ -5,6 +5,13 @@ GIT
     friendly_id (4.0.0)
 
 GIT
+  remote: https://github.com/paulasmuth/recommendify.git
+  revision: 34308c41800a0ea9b02842c4cf84e8bcc5dd1f63
+  specs:
+    recommendify (0.3.6)
+      redis (>= 2.2.2)
+
+GIT
   remote: https://github.com/ryanb/nested_form.git
   revision: 54da3123d9f1b14b37df608794508adccd6ac5ba
   specs:
@@ -179,6 +186,7 @@ DEPENDENCIES
   rails (= 3.0.10)
   rails3-generators
   rcov_rails
+  recommendify!
   resque
   resque-loner
   ruby-debug19

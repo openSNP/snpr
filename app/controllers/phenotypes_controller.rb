@@ -80,6 +80,16 @@ class PhenotypesController < ApplicationController
     end
   end
 
+  class UserRecommender < Recommendify::Base
+
+    max_neighbors 50
+
+    input_matrix :users_to_phenotypes, 
+      :similarity_func => :jaccard,
+      :weight => 5.0
+
+  end
+
   def show
     #@phenotypes = Phenotype.where(:user_id => current_user.id).all
     #@title = "Phenotypes"
@@ -87,6 +97,22 @@ class PhenotypesController < ApplicationController
     @comments = PhenotypeComment.where(:phenotype_id => params[:id]).all(:order => "created_at ASC")
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
+
+
+    @recommender = UserRecommender.new
+    
+    @similar_ids = @recommender.for(params[:id])
+    @similar_phenotypes = []
+    @it_counter = 0
+    
+    @similar_ids.each do |s|
+      if @it_counter < 6
+        @similar_phenotypes << Phenotype.find(s.item_id)
+        @it_counter += 1
+      else
+        break
+      end
+    end
 
     respond_to do |format|
       format.html

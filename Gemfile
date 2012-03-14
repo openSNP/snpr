@@ -30,6 +30,7 @@ gem 'mediawiki-gateway'
 gem 'activerecord-import'
 gem 'paperclip', '~> 2.4'
 gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
+gem 'recommendify', :git => 'https://github.com/paulasmuth/recommendify.git'
 
 #group :production do
 #	gem 'rpm_contrib'

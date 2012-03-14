@@ -27,6 +27,7 @@
   <div id="tab-container">
     <ul class="tabs">
       <li><a href="#description">Description</a></li>
+	  <li><a href="#similar">Similar phenotypes</a></li>
       <li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
       <li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
     </ul>
@@ -62,4 +63,26 @@
             <%= render 'phenotype_comments/form' %>
           <%end%>
         </div>
-      </div>
+
+<div id="similar">
+<table class="zebra-striped">
+	<tr>
+		<th>Phenotype</th>
+		<th>Number of Users</th>
+	</tr>
+	<% @similar_phenotypes.each do |s|%>
+		<tr>
+		<%if current_user and (current_user.phenotypes.include?(s) == false)%>
+			<td><b><%=link_to(s.characteristic+"*",s)%></b></td>
+			<td><b><%=s.number_of_users%></b></td>
+		<%else%>
+			<td><%=link_to(s.characteristic,s)%></td>
+			<td><%=s.number_of_users%></td>
+		<%end%>
+	<%end%>
+</table>
+<%if current_user %>
+*<b>Bold</b> phenotypes are the one you have not provided information about yet
+<%end%>
+</div>
+</div>
