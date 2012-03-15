@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-  before_filter :require_user, only: [ :new, :create, :get_genotypes ]
+  before_filter :require_user, only: [ :new, :create, :get_genotypes,:recommend_phenotype ]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -117,6 +117,31 @@ class PhenotypesController < ApplicationController
     respond_to do |format|
       format.html
       format.xml
+    end
+  end
+
+  def recommend_phenotype
+    @phenotype = params[:id]
+    @recommender = UserRecommender.new
+    
+    @similar_ids = @recommender.for(params[:id])
+    @similar_phenotypes = []
+    @it_counter = 0
+    
+    @similar_ids.each do |s|
+      if @it_counter < 3
+        @phenotype = Phenotype.find(s.item_id)
+        if current_user.phenotypes.include?(@phenotype) == false
+          @similar_phenotypes << @phenotype
+          @it_counter += 1
+        end
+      else
+        break
+      end
+    end
+      
+    respond_to do |format|
+      format.html
     end
   end
 

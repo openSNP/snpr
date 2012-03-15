@@ -266,8 +266,8 @@
 	<script language="javascript">
 	  new Browser({
 	    chr:          '<%=@snp.chromosome%>',
-	    viewStart:    <%=@snp.position.to_i-100000%>,
-	    viewEnd:      <%=@snp.position.to_i+100000%>,
+	    viewStart:    <%=@snp.position.to_i-10000%>,
+	    viewEnd:      <%=@snp.position.to_i+10000%>,
 	    cookieKey:    '<%=@snp.name%>',
 
 	    sources:     [{name:                 'Genome',      

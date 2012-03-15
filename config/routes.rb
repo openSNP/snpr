@@ -45,6 +45,7 @@ Snpr::Application.routes.draw do
   match '/das/sources', :to => 'das#sources'
   match '/das/:id/', :to => 'das#startpoint'
   match '/paper/rss', :to => 'news#paper_rss'
+  match '/recommend_phenotype/:id/', :to => 'phenotypes#recommend_phenotype'
   
   root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:

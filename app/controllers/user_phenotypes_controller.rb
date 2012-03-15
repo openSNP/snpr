@@ -37,7 +37,7 @@ class UserPhenotypesController < ApplicationController
 		    
     		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
       	  @phenotype.save
-  			  redirect_to "/phenotypes/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
+  			  redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
   		else
   			render :action => "new" 
     	end
