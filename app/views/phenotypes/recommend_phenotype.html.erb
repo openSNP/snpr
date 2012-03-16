@@ -1,12 +1,30 @@
+<%if @similar_variations != []%>
+<h2>Similar Variations</h2>
+You have just entered that <em><strong><%=@users_variation%></strong></em> is your variation for the phenotype <em><strong><%=@phenotype.characteristic%></strong></em>. Below you can find <%=@similar_variations.size%> <%if @similar_variations.size > 1%>phenotypes and the answers which are<%else%>phenotype and the answer which is<%end%> most-often entered by users who also gave <em><%=@users_variation%></em> as their variation for <em><%=@phenotype.characteristic%></em>. You haven't entered information about this phenotype yet. Do you have the same variation for the phenotype, or something completely different? Let us know!<br/><br/>
+<div class="row">
+<%@similar_variations.each do |s|%>
+	<div class="span<%=(16/@similar_variations.size).to_i%> columns">
+		<div class="alert-message block-message success" data-alert="alert">
+			<h6><%=link_to Phenotype.find_by_id(s.item_id.split("=>")[0]).characteristic,Phenotype.find_by_id(s.item_id.split("=>")[0])%></h6>
+			Users with phenotypic variation similar to yours often gave <em><strong><%=s.item_id.split("=>")[1]%></strong></em> as variation for this phenotype. What about you?
+			</div>
+		</div>
+	<%end%>
+</div> 
+<%end%>
+
+<% if @similar_phenotypes != []%>
 <h2>Similar Phenotypes</h2>
-You've just entered your variation for the phenotype <%=@phenotype.characteristic%>. Below you find <%=@similar_phenotypes.size%> <%if @similar_phenotypes.size > 1%>phenotypes<%else%>phenotype<%end%> which are often entered by users who provided information about <%=@phenotype.characteristic%>. Maybe you also want to provide information about it?<br/><br/>
+Below you find <%=@similar_phenotypes.size%> <%if @similar_phenotypes.size > 1%>phenotypes<%else%>phenotype<%end%> which <%if @similar_phenotypes.size > 1%>are<%else%>is<%end%> often entered by users who provided us with any information about <em><strong><%=@phenotype.characteristic%></strong></em>. This list ignores what answers have been given about phenotypes. Maybe you also want to enter information about this?<br/><br/>
 <div class="row">
 <%@similar_phenotypes.each do |s|%>
 	<div class="span<%=(16/@similar_phenotypes.size).to_i%> columns">
 		<div class="alert-message block-message success" data-alert="alert">
 		<h6><%=link_to s.characteristic,s%></h6>
-		<em><%=s.description%></em>
+		Description: <em><%=s.description%></em>
 		</div>
 	</div>
 <%end%>
 </div>
+
+<%end%>

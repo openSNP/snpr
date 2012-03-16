@@ -67,6 +67,9 @@ class PhenotypesController < ApplicationController
           check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
           check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
           check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
+          
+          Resque.enqueue(Recommendvariations)
+      	  Resque.enqueue(Recommendphenotypes)
 
           redirect_to current_user
         else
@@ -80,7 +83,7 @@ class PhenotypesController < ApplicationController
     end
   end
 
-  class UserRecommender < Recommendify::Base
+  class PhenotypeRecommender < Recommendify::Base
 
     max_neighbors 50
 
@@ -88,6 +91,16 @@ class PhenotypesController < ApplicationController
       :similarity_func => :jaccard,
       :weight => 5.0
 
+  end
+  
+  class VariationRecommender < Recommendify::Base
+    
+    max_neighbors 50
+    
+    input_matrix :users_to_variations,
+      :similarity_func => :jaccard,
+      :weight => 5.0
+  
   end
 
   def show
@@ -99,7 +112,7 @@ class PhenotypesController < ApplicationController
     @user_phenotype = UserPhenotype.new
 
 
-    @recommender = UserRecommender.new
+    @recommender = PhenotypeRecommender.new
     
     @similar_ids = @recommender.for(params[:id])
     @similar_phenotypes = []
@@ -121,26 +134,56 @@ class PhenotypesController < ApplicationController
   end
 
   def recommend_phenotype
-    @phenotype = params[:id]
-    @recommender = UserRecommender.new
+    # init the recommendation-engines
+    @phenotype_recommender = PhenotypeRecommender.new
+    @variation_recommender = VariationRecommender.new
+  
+    # get up to three similar phenotypes regardless of variation
     
-    @similar_ids = @recommender.for(params[:id])
+    @similar_ids = @phenotype_recommender.for(params[:id])
     @similar_phenotypes = []
-    @it_counter = 0
+    @item_counter = 0
     
     @similar_ids.each do |s|
-      if @it_counter < 3
+      if @item_counter < 3
         @phenotype = Phenotype.find(s.item_id)
         if current_user.phenotypes.include?(@phenotype) == false
           @similar_phenotypes << @phenotype
-          @it_counter += 1
+          @item_counter += 1
         end
       else
         break
       end
     end
     
-    if @similar_phenotypes == []
+    # get up to three similar combinations of phenotype and variation
+    @user_phenotype = UserPhenotype.find_by_phenotype_id_and_user_id(params[:id],current_user.id)
+    if @user_phenotype != nil
+      @users_variation = @user_phenotype.variation
+      @variation_recommend_request = params[:id]+"=>"+@users_variation
+    else
+      @variation_recommend_request = ""
+    end
+   
+    @similar_combinations = @phenotype_recommender.for(@variation_recommend_request)
+    @similar_variations = []
+    @combination_counter = 0
+    
+    @similar_combinations.each do |s|
+      if @combination_counter < 3
+        @phenotype = Phenotype.find_by_id(s.item_id.split("=>")[0])
+        if current_user.phenotypes.include?(@phenotype) == false
+          @similar_variations << s
+          @combination_counter += 1
+        end
+      else
+        break
+      end
+    end
+    
+    @phenotype = Phenotype.find_by_id(params[:id])
+    
+    if @similar_phenotypes == [] and @similar_variations == []
       redirect_to :action => "index"
     else  
       respond_to do |format|

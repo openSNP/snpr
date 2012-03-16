@@ -182,6 +182,9 @@ class UsersController < ApplicationController
           end
         end
       end
+      Resque.enqueue(Recommendvariations)
+  	  Resque.enqueue(Recommendphenotypes)
+  	  
       flash[:notice] =  "Successfully updated"
 
       if params[:user][:password] or params[:user][:avatar]

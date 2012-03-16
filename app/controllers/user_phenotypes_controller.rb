@@ -51,6 +51,9 @@ class UserPhenotypesController < ApplicationController
 		    
     		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
       	  @phenotype.save
+      	  Resque.enqueue(Recommendvariations)
+      	  Resque.enqueue(Recommendphenotypes)
+      	  
       	  if @js_modal == true
             redirect_to "/users/"+current_user.id.to_s
     	    else
