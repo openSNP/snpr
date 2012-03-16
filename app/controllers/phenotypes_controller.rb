@@ -139,9 +139,13 @@ class PhenotypesController < ApplicationController
         break
       end
     end
-      
-    respond_to do |format|
-      format.html
+    
+    if @similar_phenotypes == []
+      redirect_to :action => "index"
+    else  
+      respond_to do |format|
+        format.html
+      end
     end
   end
 

@@ -43,6 +43,7 @@
 		<thead>
 			<tr>
 				<th>Name of Phenotype</th>
+				<th>Enter variation</th>
                 <th>Number of users</th>
 				<th>Created at</th>
 			</tr>
@@ -50,10 +51,32 @@
 		<tbody>
 			<%@unentered_phenotypes.each do |i|%>
 			<tr>
-				<td><%=link_to i.characteristic, i%></td>
+				<td><%=link_to i.characteristic, i%> </td>
+				<td><%=link_to(image_tag("/images/add_variation_small.png",:style => "vertical-align:middle"),new_user_phenotype_path(:phenotype => i.id,:js_modal => true),:id => 'create_user_phenotype-'+i.id.to_s)%></td>
                 <td><%= i.number_of_users %> </td>
 				<td><%=link_to i.created_at,i%></td>
 			</tr>
+			<script type="text/javascript">
+			$(document).ready(function() {
+			  $('#create_user_phenotype-<%=i.id.to_s%>').click(function(e) {
+			    var url = $(this).attr('href');
+			    var dialog_form = $('<div id="dialog-form">Loading form...</div>').dialog({
+			      autoOpen: true,
+			      width: 650,
+			      modal: true,
+			      open: function() {
+			        return $(this).load(url + ' #content');
+			      },
+			      close: function() {
+			        $('#dialog-form').remove();
+			      }
+			    });
+			    dialog_form.dialog('open');
+			    e.preventDefault();
+			  });
+			});
+			</script>
+			
 			<%end%>
 			</table>
 			</div>

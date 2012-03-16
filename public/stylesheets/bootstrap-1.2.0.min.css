@@ -638,3 +638,23 @@ ol.linenums { margin: 0 0 0 40px; } /* IE indents via margin-left */
 ol.linenums li { color: rgba(0,0,0,.15); line-height: 20px; }
 /* Alternate shading for lines */
 li.L1, li.L3, li.L5, li.L7, li.L9 {  }
+
+
+
+
+#dialog-form {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.ui-widget {
+  background: white;
+}
+
+.ui-widget-overlay {
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+}

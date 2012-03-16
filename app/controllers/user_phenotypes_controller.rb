@@ -5,6 +5,14 @@ class UserPhenotypesController < ApplicationController
 		@user_phenotype = UserPhenotype.new
 		@title = "Add variation"
 
+    if params[:phenotype]
+      @phenotype = Phenotype.find(params[:phenotype])
+    end
+
+    if params[:js_modal]
+      @js_modal = true
+    end
+
 		respond_to do |format|
 			format.html
 			format.xml { render :xml => @phenotype }
@@ -15,6 +23,12 @@ class UserPhenotypesController < ApplicationController
 		@user_phenotype = UserPhenotype.new(params[:user_phenotype])
 		@user_phenotype.user_id = current_user.id
 		@user_phenotype.phenotype_id = params[:user_phenotype][:phenotype_id]
+		
+		if params[:js_modal]
+		  @js_modal = true
+	  else
+	    @js_modal = false
+    end
 		
 		if UserPhenotype.find_by_phenotype_id_and_user_id(@user_phenotype.phenotype_id,@user_phenotype.user_id) == nil
 		
@@ -37,7 +51,11 @@ class UserPhenotypesController < ApplicationController
 		    
     		  @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
       	  @phenotype.save
-  			  redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
+      	  if @js_modal == true
+            redirect_to "/users/"+current_user.id.to_s
+    	    else
+  			    redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
+			    end
   		else
   			render :action => "new" 
     	end
