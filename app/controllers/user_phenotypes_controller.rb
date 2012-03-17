@@ -15,6 +15,7 @@ class UserPhenotypesController < ApplicationController
         end
 
         respond_to do |format|
+            format.js
             format.html
             format.xml { render :xml => @phenotype }
         end
@@ -62,7 +63,6 @@ class UserPhenotypesController < ApplicationController
   			    redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
 			    end
   		else
-  			#render :action => "new" 
             flash[:warning] = "Please enter a variation."
             redirect_to "/users/"+current_user.id.to_s
     	end

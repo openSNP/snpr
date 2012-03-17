@@ -12,10 +12,11 @@
 	      source: <%=raw(@phenotype.known_phenotypes.to_json)%>
 	    });
 	  });
+
 	</script>
 
     <% @all_user_phenotypes.each do |up| %>
-        <%= radio_button_tag("variation", up.variation) %>
+        <%= radio_button_tag("variation", up) %>
         <%= label_tag("variation", up.variation) %>
     <% end %>
 
