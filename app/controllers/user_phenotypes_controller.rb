@@ -1,34 +1,36 @@
 class UserPhenotypesController < ApplicationController
   before_filter :require_user
 
-  def new
-		@user_phenotype = UserPhenotype.new
-		@title = "Add variation"
+    def new
+        @user_phenotype = UserPhenotype.new
+        @title = "Add variation"
 
-    if params[:phenotype]
-      @phenotype = Phenotype.find(params[:phenotype])
+        if params[:phenotype]
+            @phenotype = Phenotype.find(params[:phenotype])
+        end
+
+        @all_user_phenotypes = UserPhenotype.all
+        if params[:js_modal]
+            @js_modal = true
+        end
+
+        respond_to do |format|
+            format.html
+            format.xml { render :xml => @phenotype }
+        end
     end
 
-    if params[:js_modal]
-      @js_modal = true
-    end
-
-		respond_to do |format|
-			format.html
-			format.xml { render :xml => @phenotype }
-		end
-	end
-
-	def create
-		@user_phenotype = UserPhenotype.new(params[:user_phenotype])
-		@user_phenotype.user_id = current_user.id
-		@user_phenotype.phenotype_id = params[:user_phenotype][:phenotype_id]
-		
-		if params[:js_modal]
-		  @js_modal = true
-	  else
-	    @js_modal = false
-    end
+    def create
+        @user_phenotype = UserPhenotype.new(params[:user_phenotype])
+        @user_phenotype.user_id = current_user.id
+        @user_phenotype.phenotype_id = params[:user_phenotype][:phenotype_id]
+        @all_user_phenotypes = UserPhenotype.all
+        
+        if params[:js_modal]
+            @js_modal = true
+        else
+            @js_modal = false
+        end
 		
 		if UserPhenotype.find_by_phenotype_id_and_user_id(@user_phenotype.phenotype_id,@user_phenotype.user_id) == nil
 		
@@ -60,7 +62,9 @@ class UserPhenotypesController < ApplicationController
   			    redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
 			    end
   		else
-  			render :action => "new" 
+  			#render :action => "new" 
+            flash[:warning] = "Please enter a variation."
+            redirect_to "/users/"+current_user.id.to_s
     	end
   	else
   	  redirect_to "/phenotypes/"+@user_phenotype.phenotype_id.to_s, :notice => 'You already have a variation entered'

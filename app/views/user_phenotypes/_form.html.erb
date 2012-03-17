@@ -4,7 +4,7 @@
 <%if @js_modal != true%>
 <div class="alert-message block-message info"> 
 <%end%>
-	<b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b>
+<p><b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b></p>
 
 	<script type="text/javascript">
 	  $(function () {
@@ -14,12 +14,15 @@
 	  });
 	</script>
 
+    <% @all_user_phenotypes.each do |up| %>
+        <%= radio_button_tag("variation", up.variation) %>
+        <%= label_tag("variation", up.variation) %>
+    <% end %>
+
 	<%= f.label :variation, "Enter your phenotype now:" %>
 	<%= f.text_field :variation, :id => "phenotype_field"%>
 	<div class="alert-actions"> 
 	<%= f.submit "Submit your variation", :class => "primary btn"  %>
 	</p></div>
 <% end %>
-<%if @js_modal != true%>
 </div>
-<%end%>
