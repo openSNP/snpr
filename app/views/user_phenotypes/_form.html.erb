@@ -6,18 +6,24 @@
 <%end%>
 <p><b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b></p>
 
-	<script type="text/javascript">
-	  $(function () {
-	    $("#phenotype_field").autocomplete({
-	      source: <%=raw(@phenotype.known_phenotypes.to_json)%>
-	    });
-	  });
+    <script type="text/javascript">
+    $(document).ready(function() {
+            $('input[type=radio]').click(function() { 
+                $('#phenotype_field').hide();
+                });
+    });
+    $(function () {
+        $("#phenotype_field").autocomplete({
+            source: <%=raw(@phenotype.known_phenotypes.to_json)%>
+        });
+    });
 
-	</script>
+    </script>
 
     <% @all_user_phenotypes.each do |up| %>
-        <%= radio_button_tag("variation", up) %>
-        <%= label_tag("variation", up.variation) %>
+            <div class="span5 columns">
+        <%= radio_button_tag("variation", up) %> <%= label_tag("variation", up.variation) %>
+    </div>
     <% end %>
 
 	<%= f.label :variation, "Enter your phenotype now:" %>
