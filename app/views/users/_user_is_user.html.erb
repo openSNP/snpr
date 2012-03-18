@@ -61,12 +61,11 @@
 			  $('#create_user_phenotype-<%=i.id.to_s%>').click(function(e) {
 			    e.preventDefault();
 			    var url = $(this).attr('href');
-                alert(url);
 			    var dialog_form = $('<div id="dialog-form">Loading form...</div>').dialog({
 			      width: 800,
 			      modal: true,
 			      open: function() {
-			        $(this).load(url + " #content");
+			        $(this).load(url + "#content");
 			      },
 			      close: function() {
 			        $('#dialog-form').hide();

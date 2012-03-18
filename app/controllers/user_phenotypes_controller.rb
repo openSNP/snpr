@@ -7,9 +7,9 @@ class UserPhenotypesController < ApplicationController
 
         if params[:phenotype]
             @phenotype = Phenotype.find(params[:phenotype])
+            @all_user_phenotypes = UserPhenotype.where(:phenotype_id => @phenotype.id)
         end
 
-        @all_user_phenotypes = UserPhenotype.all
         if params[:js_modal]
             @js_modal = true
         end
@@ -25,7 +25,7 @@ class UserPhenotypesController < ApplicationController
         @user_phenotype = UserPhenotype.new(params[:user_phenotype])
         @user_phenotype.user_id = current_user.id
         @user_phenotype.phenotype_id = params[:user_phenotype][:phenotype_id]
-        @all_user_phenotypes = UserPhenotype.all
+        @all_user_phenotypes = UserPhenotype.where(:phenotype_id => @user_phenotype.id)
         
         if params[:js_modal]
             @js_modal = true
