@@ -1,4 +1,4 @@
-<%= form_for(@user_phenotype, :url => {:controller => :user_phenotypes, :action => :create,:js_modal => @js_modal}, :html => {:class => "form-stacked", :name => "new_user_phenotype"}) do |f| %>
+<%= form_for(@user_phenotype, :url => {:controller => :user_phenotypes, :action => :create,:js_modal => @js_modal}, :html => {:class => "form-horizontal", :name => "new_user_phenotype"}) do |f| %>
 <%= render 'shared/error_messages', :target => @phenotype %>
 <%= f.hidden_field :phenotype_id, :value => @phenotype.id %>
 <%if @js_modal != true%>
@@ -7,11 +7,13 @@
 <p><b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b></p>
 
     <script type="text/javascript">
+    // hides the input-box when user has selected a radio-button
     $(document).ready(function() {
             $('input[type=radio]').click(function() { 
                 $('#phenotype_field').hide();
                 });
     });
+    // Autocomplete for variations in the input-box
     $(function () {
         $("#phenotype_field").autocomplete({
             source: <%=raw(@phenotype.known_phenotypes.to_json)%>
@@ -21,7 +23,7 @@
     </script>
 
     <% @all_user_phenotypes.each do |up| %>
-        <table class="common">
+        <table>
             <tr>
                 <td><%= radio_button_tag("variation", up) %></td>
                 <td><%= label_tag("variation", up.variation) %></td>
