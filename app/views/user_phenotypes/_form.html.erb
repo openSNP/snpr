@@ -11,6 +11,7 @@
     $(document).ready(function() {
             $('input[type=radio]').click(function() { 
                 $('#phenotype_field').hide();
+                $("label[for=user_phenotype_variation]").hide();
                 });
     });
     // Autocomplete for variations in the input-box
@@ -29,7 +30,7 @@
         </div>
     <% end %>
 
-	<%= f.label :variation, "Enter your phenotype now:" %>
+    <div id="enter-order"><%= f.label :variation, "Enter your phenotype now:" %></div>
 	<%= f.text_field :variation, :id => "phenotype_field"%>
 	<div class="alert-actions"> 
 	<%= f.submit "Submit your variation", :class => "primary btn"  %>
