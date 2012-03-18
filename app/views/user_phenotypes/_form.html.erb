@@ -22,18 +22,24 @@
     });
 
     </script>
-
-    <% @all_user_phenotypes.each do |up| %>
+	
+	<div class="clearfix">
+	<div id="enter-order"><%= f.label :variation, "Enter your phenotype now:" %>&nbsp;
+	<%= f.text_field :variation, :id => "phenotype_field"%></div>
+	</div>
+	
+    <% @phenotype.known_phenotypes.each do |up| %>
         <div class="row">
-            <div class="span4"><%= radio_button_tag("variation", up) %></div>
-            <div class="span4"><%= label_tag("variation", up.variation) %></div>
+            <div class="span4"><%= f.radio_button(:variation, up) %></div>
+            <div class="span4"><%= f.label("variation_box", up) %></div>
         </div>
     <% end %>
 
-    <div id="enter-order"><%= f.label :variation, "Enter your phenotype now:" %></div>
-	<%= f.text_field :variation, :id => "phenotype_field"%>
+
 	<div class="alert-actions"> 
 	<%= f.submit "Submit your variation", :class => "primary btn"  %>
 	</p></div>
 <% end %>
+</div>
+</div>
 </div>

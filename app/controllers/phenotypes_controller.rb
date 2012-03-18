@@ -112,6 +112,7 @@ class PhenotypesController < ApplicationController
     @user_phenotype = UserPhenotype.new
 
 
+
     @recommender = PhenotypeRecommender.new
     
     @similar_ids = @recommender.for(params[:id])
