@@ -21,9 +21,12 @@
     </script>
 
     <% @all_user_phenotypes.each do |up| %>
-            <div class="span5 columns">
-        <%= radio_button_tag("variation", up) %> <%= label_tag("variation", up.variation) %>
-    </div>
+        <table class="common">
+            <tr>
+                <td><%= radio_button_tag("variation", up) %></td>
+                <td><%= label_tag("variation", up.variation) %></td>
+            </tr>
+    </table>
     <% end %>
 
 	<%= f.label :variation, "Enter your phenotype now:" %>

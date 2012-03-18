@@ -14,6 +14,10 @@ $(document).ready(function()
     } 
 );
 
+$(document).ready(function(){ 
+    $('#tab-container').easytabs();
+});$ 
+
 $(document).ready(function(){
 $("body").bind("click", function (e) {
 $('.dropdown-toggle, .menu').parent("li").removeClass("open");
