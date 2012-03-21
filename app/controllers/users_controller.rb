@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     # showing a single user's page
     @user = User.find_by_id(params[:id])
     @title = @user.name + "'s page"
-    @first_name = @user.name.split()[0]
+    @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes
     #@snps = @user.snps.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page])
     @received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
