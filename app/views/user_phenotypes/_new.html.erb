@@ -1,0 +1,9 @@
+<% form_for phenotype.user_phenotypes.new do |up| %>
+  <%= up.text_field :variation %>
+  <%= up.hidden_field :phenotype_id, { value: phenotype.id } %>
+  <%= up.submit "Save" %>
+<% end %>
+
+<% content_for :modal_header do %>
+  What is your <%= phenotype.characteristic %>?
+<% end %>
