@@ -1,9 +1,45 @@
-<% form_for phenotype.user_phenotypes.new do |up| %>
-  <%= up.text_field :variation %>
+<% form_for(phenotype.user_phenotypes.new,:url => {:controller => :user_phenotypes, :action => :create,:js_modal => true}, :html => {:class => "form-horizontal"}) do |up| %>
+  <%= up.text_field :variation, :id => "phenotype_field"+phenotype.id.to_s %>
   <%= up.hidden_field :phenotype_id, { value: phenotype.id } %>
-  <%= up.submit "Save" %>
+<br/><br/>
+<p class="help-block">You can either enter your variation using the text-field (including auto-completing) above or just choose one of the already known variations below.</p>
+<div class="row">
+<div class="span4">
+<div class="form-horizontal">
+
+<div class="control-group">
+<div class="controls">
+<% phenotype.known_phenotypes.each do |p| %>
+<label class="radio">
+<div align="left"><%= up.radio_button(:variation, p,) %> <%=p%></div>
+</label>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  <%= up.submit "Save", :class => "primary btn" %>
 <% end %>
 
 <% content_for :modal_header do %>
-  What is your <%= phenotype.characteristic %>?
+	  What is your <%= phenotype.characteristic %>?
 <% end %>
+
+<script type="text/javascript">
+// hides the input-box when user has selected a radio-button
+$(document).ready(function() {
+        $('input[type=radio]').click(function() { 
+            $('<%="#phenotype_field"+phenotype.id.to_s%>').hide();
+            $("label[for=user_phenotype_variation]").hide();
+            });
+});
+// Autocomplete for variations in the input-box
+$(function () {
+    $('<%="#phenotype_field"+phenotype.id.to_s%>').autocomplete({
+        source: <%=raw(phenotype.known_phenotypes.to_json)%>
+    });
+});
+
+</script>
