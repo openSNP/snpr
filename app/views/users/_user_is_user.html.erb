@@ -52,7 +52,7 @@
 			<%@unentered_phenotypes.each do |i|%>
 			<tr>
 				<td><%=link_to i.characteristic, i%> </td>
-				<td><%=link_to(image_tag("/images/add_variation_small.png",:style => "vertical-align:middle"),new_user_phenotype_path(:phenotype => i.id,:js_modal => true),:id => 'create_user_phenotype-'+i.id.to_s)%></td>
+				<td><%=link_to(image_tag("/images/add_variation_small.png",:style => "vertical-align:middle"),new_user_phenotype_path(:phenotype => i.id,:js_modal => true,:layout => false),:id => 'create_user_phenotype-'+i.id.to_s)%></td>
                 <td><%= i.number_of_users %> </td>
 				<td><%=link_to i.created_at,i%></td>
 			</tr>
@@ -65,7 +65,7 @@
 			      width: 800,
 			      modal: true,
 			      open: function() {
-			        $(this).load(url + "#content");
+			        $(this).load(url + " #content");
 			      },
 			      close: function() {
 			        $('#dialog-form').close();
