@@ -52,7 +52,10 @@
 			<%@unentered_phenotypes.each do |i|%>
 			<tr>
 				<td><%=link_to i.characteristic, i%> </td>
-				<td><%=link_to(image_tag("/images/add_variation_small.png",:style => "vertical-align:middle"),new_user_phenotype_path(:phenotype => i.id,:js_modal => true),:id => 'create_user_phenotype-'+i.id.to_s)%></td>
+                                <td>
+                                  <%= link_to image_tag("/images/add_variation_small.png", :style => "vertical-align:middle"), '#new_user_phenotype_modal', :'data-toggle' => "modal" %>
+                                  <%= render partial: "user_phenotypes/new", layout: "layouts/modal", locals: { id: "new_user_phenotype_modal", phenotype: i } %>
+                                </td>
                 <td><%= i.number_of_users %> </td>
 				<td><%=link_to i.created_at,i%></td>
 			</tr>
