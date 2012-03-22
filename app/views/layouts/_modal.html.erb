@@ -1,7 +1,7 @@
 <div id="<%= id %>" class="modal" style="display: none;">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
-    <h3>What is your variation at phenotype <em><%=phenotype.characteristic%></em>?</h3>
+    <%= yield :modal_header %>
   </div>
   <div class="modal-body">
     <%= yield %>
