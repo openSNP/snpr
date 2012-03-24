@@ -23,7 +23,7 @@
   <%= up.submit "Save", :class => "primary btn" %>
 <% end %>
 
-<% content_for :modal_header do %>
+<% content_for id.to_sym do %>
   <h3>What is your variation at phenotype <em><%=phenotype.characteristic%></em>?</h3>
 <% end %>
 
