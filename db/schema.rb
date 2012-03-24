@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120208020405) do
+ActiveRecord::Schema.define(:version => 20120324143135) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20120208020405) do
 
   create_table "phenotypes", :force => true do |t|
     t.string   "characteristic"
-    t.string   "known_phenotypes"
+    t.text     "known_phenotypes"
     t.integer  "number_of_users",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
