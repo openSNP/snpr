@@ -26,14 +26,23 @@
 	<div class="clearfix">
 	<div id="enter-order"><%= f.label :variation, "Enter your phenotype now:" %>&nbsp;
 	<%= f.text_field :variation, :id => "phenotype_field"%></div>
-	</div>
-	
-    <% @phenotype.known_phenotypes.each do |up| %>
-        <div class="row">
-            <div class="span4"><%= f.radio_button(:variation, up) %></div>
-            <div class="span4"><%= f.label("variation_box", up) %></div>
-        </div>
-    <% end %>
+	</div><br/>
+	<em>You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</em>
+  <div class="row">
+  <div class="span8">
+  <div class="form-horizontal">
+  <div class="control-group">
+  <div class="controls">
+  <% @phenotype.known_phenotypes.each do |p| %>
+  <label class="radio">
+  <div align="left"><%= f.radio_button(:variation, p,) %> <%=p%></div>
+  </label>
+  <% end %>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
 
 
 	<div class="alert-actions"> 
