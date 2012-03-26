@@ -25,7 +25,7 @@ class Zipfulldata
         
         #create csv-head and writes to csv-filehandle
         
-        @csv_head = "user_id;chrom_sex;date_of_birth"
+        @csv_head = "user_id;date_of_birth;chrom_sex"
         @csv_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv","w")
         @phenotype_id_array = []
     
