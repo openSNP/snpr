@@ -20,6 +20,15 @@
             source: <%=raw(@phenotype.known_phenotypes.to_json)%>
         });
     });
+$('#modal').on('shown', function(e) {
+alert("hi");
+    var modal = $(this);
+
+    modal.css('margin-top', (modal.outerHeight() / 2) * -1)
+         .css('margin-left', (modal.outerWidth() / 2) * -1);
+
+    return this;
+});
 
     </script>
 	
