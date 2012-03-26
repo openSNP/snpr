@@ -40,7 +40,7 @@ class ZipfulldataTest < ActiveSupport::TestCase
               content.read
           when "phenotypes_#{time_str}.csv" then
             assert_equal \
-              "user_id;chrom_sex;date_of_birth;jump height\n" <<
+              "user_id;date_of_birth;chrom_sex;jump height\n" <<
               "#{@user.id};1970;yes please;1km\n", content.read
           else
             raise "unknown file #{file} in zip"
