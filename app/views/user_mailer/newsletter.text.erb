@@ -1,27 +1,28 @@
-Hello <%=@user.name%>,
-openSNP has now been around for some days and first of all we'd like to thank you the interest and for joining our project. There were some bugs during the first days after the launch that you may or may not have noticed. But thanks to the great user-feedback we got, we could fix all we were aware of. If you find any new/not fixed bugs please let us know.
-By now we also have emptied the queue of genotyping-files that wanted to get entered into the openSNP-database. 
+Hi <%=@user.name%>,
+Nearly 6 months have passed since we started openSNP, and much has happened! Over 300 users have provided information about over 70 different phenotypes and in total over 120 genotyping data sets have been uploaded. This is a huge success for us and we'd like to thank all of you who are participating in this project. We also want to use this mailing to give you some updates on what has changed and happened on openSNP:
 
-We did our best to optimize everything on speed, but still you might have noticed some long rendering-times for pages. We already bought a new server to fix this and migrated openSNP to it. But we also used the time to implement some new features for you:
+1. What we are doing with the money from WikiMedia
+2. openSNP how has JSON API & DAS-support
+3. Our visual genome browser
+4. Improvement on entering phenotypes
 
-# FEATURES # 
+1. What we are doing with the money from WikiMedia 
+Yesterday marked the application deadline for the free genotypings which we will fund with the 5000 € of funding we got through the German WikiMedia foundation. Over 400 people have applied, and we are going through all the applications. The response to this shows us how many people are willing to share their data with the public. Unfortunately, we don't have enough funding to get all applicants genotyped. So we will set out to try to get more funding. If you have an idea for this, please let us know!
 
-## Upload of FamilyTreeDNA-files ## 
-You can now upload the Illumina-formatted files of FamilyTreeDNA to openSNP. If you are not sure which kind of filetype you've got you can now consult our FAQ: http://opensnp.org/faq#filetypes 
+2. openSNP now has JSON API & DAS-support
+Good news for everybody who wants to build an application which uses data from openSNP: We implemented a JSON API which you can use to get details about single SNPs and the genotypes of users at given SNPs, as well as to grab phenotypes for different users. If you want to learn more about the JSON API you should read this blog post which has some examples: http://opensnp.wordpress.com/2012/01/18/some-progress-on-the-api-json-endpoints/
 
-## Mail-Notifications ## 
-We've built a simple mail-notification-system that you can control via your user-settings. You can opt-in for a range of email-notifications:
-* Get an email for each new message a user sends you
-* Get an email for each new reply you get in the comments 
-* Get an email every time a new phenotype is entered, so you can enter your variation on this one as well. 
+We've also added support for the Distributed Annotation System (DAS). The data of each user who has uploaded genetic information automatically gets transformed into a DAS compatible data source. This allows to query SNPs and visualize them easily in genome browsers and other bioinformatical third party tools. More details about this can be found here: http://opensnp.wordpress.com/2012/02/20/videos-on-opensnp-das-support/
 
-And if you don't want us to send any mails like this? You can also set this. All notification-settings can be found here: <%=edit_user_url(@user)%>#notifications
+3. Our visual genome browser
+The main reason we implemented DAS on openSNP was to give you a simple visual genome browser. On each SNP-page you will see such a browser, and if you're logged in and have uploaded your own genotyping data, you will also see your SNPs appear here. An example of this can be found here: http://opensnp.org/snps/rs6265
 
-## New Phenotypes ## 
-Thanks to some active users there are lots of new phenotypes that can be entered. Those range from coffee consumption and nicotine dependence to colour blindness. If you want to enter some of those just visit http://opensnp.org/news#phenotypes
+4. Improvement on entering phenotypes
+Your starting page on openSNP has always displayed the phenotypes for which you did not enter information yet. But until now you couldn't easily add your variation for those phenotypes from the page. We added support for this, so now you can use this page if you are looking for a way to enter lots of phenotypes in rapid succession and gain some achievements!
 
-# FEATURE REQUESTS AND BUG-FIXING #
-You found a bug that has not been fixed yet? Or have a great idea for some more features that totally need to be added to openSNP? Please let us know. You may send us a reply to this email or comment on our blog: http://opensnp.wordpress.com/2011/10/03/5-days-after-launch-%E2%80%93%C2%A0time-for-some-more-information/
+If you are more interested in browsing the phenotypes you might like our new recommendation feature for similar phenotypes. Each phenotype-page now displays a list of the most similar phenotypes, and if you use the old way of entering your variation through the phenotype-pages instead of the dashboard you will get suggestions specifically for you. If you'd like to know more about this, this blogpost might be of interest to you: http://opensnp.wordpress.com/2012/03/26/update-on-the-free-genotypings-and-new-features-on-opensnp/
 
-Thanks for your attention and enjoy using the platform,
-your openSNP-Team
+Thanks for reading this! And as usual: If you have any suggestions, find bugs or have any other feedback please contact us by either replying to this mail or by contacting us directly on openSNP (Bastian at http://opensnp.org/users/1 or Philipp at http://opensnp.org/users/23http://opensnp.org/users/23 )
+
+Cheers,
+the openSNP team (Bastian, Philipp, Fabian & Helge) 
