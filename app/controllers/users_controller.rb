@@ -157,14 +157,10 @@ class UsersController < ApplicationController
         @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
         
         @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
-        if UserPhenotype.find_all_by_phenotype_id_and_variation(@phenotype.id,@old_variation).length == 1
-          @phenotype.known_phenotypes.delete_if { |entry| entry == @old_variation }
-        end
-        
         
         @pot_delete_phenotype_ids << @phenotype.id
+        # TODO: known_phenotypes compare different now
         if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
-          @phenotype.known_phenotypes << p[1]["variation"]
           @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
           @phenotype.save
         end
@@ -175,6 +171,7 @@ class UsersController < ApplicationController
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
       
+      # TODO: should be covered by `dependent: :destroy`
       if @pot_delete_phenotype_ids != []
         @pot_delete_phenotype_ids.each do |pid|
           if UserPhenotype.find_all_by_phenotype_id(pid).length == 0
@@ -216,7 +213,7 @@ class UsersController < ApplicationController
     @phenotype = Phenotype.find_by_characteristic(characteristic)
     if @phenotype == nil
         # createphenotype if it doesn't exist
-        @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1, :known_phenotypes => [variation])
+        @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1)
     end
     @user_phenotype = UserPhenotype.find_by_phenotype_id(@phenotype.id)
     if @user_phenotype == nil
@@ -249,13 +246,9 @@ class UsersController < ApplicationController
       Message.delete(mt)
     end
     
+    # TODO: should be covered by `dependent: :destroy`
     @user.user_phenotypes.each do |up|
       @phenotype = Phenotype.find_by_id(up.phenotype_id)
-      
-      if UserPhenotype.find_all_by_phenotype_id_and_variation(@phenotype.id,up.variation).length == 1
-        @phenotype.known_phenotypes.delete_if { |entry| entry == up.variation }
-        @phenotype.save
-      end
       
       if @phenotype.user_phenotypes.length == 1
         Phenotype.delete(@phenotype)

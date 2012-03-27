@@ -39,10 +39,6 @@ class PhenotypesController < ApplicationController
       redirect_to :action => "new"
     else
 
-      if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
-        @phenotype.known_phenotypes << params[:user_phenotype][:variation]
-      end
-
       @phenotype.save
       @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
       Resque.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
