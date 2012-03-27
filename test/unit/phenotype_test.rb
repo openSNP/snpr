@@ -11,7 +11,6 @@ class PhenotypeTest < ActiveSupport::TestCase
     should "know some phenotypes" do
       @phenotype.user_phenotypes.create(variation: "Ping pong")
       @phenotype.user_phenotypes.create(variation: "ping pong")
-      debugger
       assert_equal ["Ping pong"], @phenotype.known_phenotypes
     end
   end
