@@ -1,7 +1,6 @@
 class Phenotype < ActiveRecord::Base
-  has_many :user_phenotypes
-  has_many :phenotype_comments
-  serialize :known_phenotypes
+  has_many :user_phenotypes, dependent: :destroy
+  has_many :phenotype_comments, dependent: :destroy
 
   validates_presence_of :characteristic
 

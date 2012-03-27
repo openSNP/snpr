@@ -11,16 +11,16 @@ class User < ActiveRecord::Base
   #after_create :make_standard_phenotypes
 
   # dependent so stuff gets destroyed on delete
-  has_many :user_phenotypes, :dependent => :destroy
-  has_many :phenotypes, :through => :user_phenotypes
-  has_many :genotypes, :dependent => :destroy
+  has_many :user_phenotypes, dependent: :destroy
+  has_many :phenotypes, through: :user_phenotypes
+  has_many :genotypes, dependent: :destroy
   # user_snps needs some extra-logic to decrease the counters
-  has_many :user_snps, :dependent => :destroy
-  has_many :snps, :through => :user_snps
-  has_many :homepages, :dependent => :destroy
-  has_many :messages
-  has_many :user_achievements, :dependent => :destroy
-  has_many :achievements, :through => :user_achievements
+  has_many :user_snps, dependent: :destroy
+  has_many :snps, through: :user_snps
+  has_many :homepages, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :user_achievements, dependent: :destroy
+  has_many :achievements, through: :user_achievements
   has_many :snp_comments
   has_many :phenotype_comments
 
