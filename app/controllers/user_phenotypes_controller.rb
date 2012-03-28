@@ -35,9 +35,6 @@ class UserPhenotypesController < ApplicationController
 		
   		@phenotype = Phenotype.find_by_id(params[:user_phenotype][:phenotype_id])
 		
-  		if @phenotype.known_phenotypes.include?(params[:user_phenotype][:variation]) == false
-  		  @phenotype.known_phenotypes << params[:user_phenotype][:variation]
-  	  end
   		if @user_phenotype.save
 		  
   		    #check for new achievements

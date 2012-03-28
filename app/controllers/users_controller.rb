@@ -46,19 +46,19 @@ class UsersController < ApplicationController
     @title = "Listing all users"
     
     @result = []
-	  begin
-	    @users = User.find(:all)
-	    @users.each do |u|
-	      @user = {}
-	      @user["name"] = u.name
-	      @user["id"] = u.id
-	      @user["genotypes"] = []
-	      Genotype.find_all_by_user_id(u.id).each do |g|
-	        @genotype = {}
-	        @genotype["id"] = g.id
-	        @genotype["filetype"] = g.filetype
-	        @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
-	        @user["genotypes"] << @genotype
+    begin
+      @users = User.find(:all)
+      @users.each do |u|
+        @user = {}
+        @user["name"] = u.name
+        @user["id"] = u.id
+        @user["genotypes"] = []
+        Genotype.find_all_by_user_id(u.id).each do |g|
+          @genotype = {}
+          @genotype["id"] = g.id
+          @genotype["filetype"] = g.filetype
+          @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
+          @user["genotypes"] << @genotype
         end
       @result << @user
       end
@@ -149,22 +149,12 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    # check whether the user has deleted phenotypes and change known_phenotypes
-    @pot_delete_phenotype_ids = []
-    if params[:user][:user_phenotypes_attributes] != nil
-      
+    if params[:user][:user_phenotypes_attributes].present?
       params[:user][:user_phenotypes_attributes].each do |p|  
-        @phenotype = Phenotype.find(UserPhenotype.find(p[1]["id"]).phenotype_id)
-        
+        @phenotype = UserPhenotype.find(p[1]["id"]).phenotype
         @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
-        if UserPhenotype.find_all_by_phenotype_id_and_variation(@phenotype.id,@old_variation).length == 1
-          @phenotype.known_phenotypes.delete_if { |entry| entry == @old_variation }
-        end
-        
-        
-        @pot_delete_phenotype_ids << @phenotype.id
+        # TODO: known_phenotypes compare different now
         if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
-          @phenotype.known_phenotypes << p[1]["variation"]
           @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
           @phenotype.save
         end
@@ -175,16 +165,9 @@ class UsersController < ApplicationController
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
       
-      if @pot_delete_phenotype_ids != []
-        @pot_delete_phenotype_ids.each do |pid|
-          if UserPhenotype.find_all_by_phenotype_id(pid).length == 0
-            Phenotype.delete(pid)
-          end
-        end
-      end
       Resque.enqueue(Recommendvariations)
-  	  Resque.enqueue(Recommendphenotypes)
-  	  
+      Resque.enqueue(Recommendphenotypes)
+      
       flash[:notice] =  "Successfully updated"
 
       if params[:user][:password] or params[:user][:avatar]
@@ -216,7 +199,7 @@ class UsersController < ApplicationController
     @phenotype = Phenotype.find_by_characteristic(characteristic)
     if @phenotype == nil
         # createphenotype if it doesn't exist
-        @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1, :known_phenotypes => [variation])
+        @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1)
     end
     @user_phenotype = UserPhenotype.find_by_phenotype_id(@phenotype.id)
     if @user_phenotype == nil
@@ -232,36 +215,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # delete the genotype(s)
     if @user.genotypes.length != 0
-        @user.genotypes.each do |ug|
-            Resque.enqueue(Deletegenotype, ug)
-            File.delete(::Rails.root.to_s+"/public/data/"+ ug.fs_filename)
-            ug.delete
-        end
-    end
-    
-    @user.user_achievements.each do |ua|
-      UserAchievement.delete(ua)
-    end
-    
-    @messages = Message.find_all_by_user_id(@user_id)
-    
-    @messages.each do |mt|
-      Message.delete(mt)
-    end
-    
-    @user.user_phenotypes.each do |up|
-      @phenotype = Phenotype.find_by_id(up.phenotype_id)
-      
-      if UserPhenotype.find_all_by_phenotype_id_and_variation(@phenotype.id,up.variation).length == 1
-        @phenotype.known_phenotypes.delete_if { |entry| entry == up.variation }
-        @phenotype.save
+      @user.genotypes.each do |ug|
+        Resque.enqueue(Deletegenotype, ug)
+        File.delete(::Rails.root.to_s+"/public/data/"+ ug.fs_filename)
+        ug.delete
       end
-      
-      if @phenotype.user_phenotypes.length == 1
-        Phenotype.delete(@phenotype)
-      end
-      UserPhenotype.delete(up)
     end
+    
     flash[:notice] = "Thank you for using openSNP. Goodbye!"
     User.delete(@user)
     redirect_to root_url
