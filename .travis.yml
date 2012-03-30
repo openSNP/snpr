@@ -4,7 +4,7 @@ env: DB=postgres
 before_install: 
   - git clone https://github.com/antirez/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
 before_script:
-  - rake sunspot:solr:run & sleep 10
+  - find /home/vagrant/.rvm/gems/ -name sunspot_test.rb -exec sed -i 's/at_exit/#at_exit/' {} \;
   - cp config/database.yml.ci config/database.yml
   - echo "foo" > mail_username.txt
   - echo "bar" > mail_password.txt
