@@ -3,8 +3,11 @@ require 'resque'
 class Zipgenotypingfiles
   @queue = :zipgenotyping
 
-  def self.perform(phenotype_id,variation,target_address)
-    @user_phenotypes = UserPhenotype.find_all_by_phenotype_id_and_variation(phenotype_id,variation)
+  def self.perform(phenotype_id, variation, target_address)
+    @user_phenotypes = UserPhenotype.search do
+      with :phenotype_id, phenotype_id
+      fulltext variation
+    end.results
     @genotyping_files = []
     @user_phenotypes.each do |up|
       @user = User.find_by_id(up.user_id)

@@ -47,6 +47,7 @@ group :test do
   gem 'factory_girl'
   gem 'mocha'
   gem 'ruby-debug19'
+  gem 'sunspot_test'
 end
 
 # gem 'email_veracity' # to check whether user-mails are OK
