@@ -20,3 +20,4 @@ vendor/bundle
 public/data
 coverage*
 hiredis/
+log/

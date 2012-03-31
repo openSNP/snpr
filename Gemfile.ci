@@ -32,38 +32,8 @@ gem 'paperclip', '~> 2.4'
 gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
 gem 'recommendify', :git => 'https://github.com/paulasmuth/recommendify.git'
 
-#group :production do
-#	gem 'rpm_contrib'
-#	gem 'newrelic_rpm'
-#end
-
-group :test do
-  gem 'shoulda-context'
-  gem 'shoulda-matchers'
-  gem 'factory_girl'
-  gem 'mocha'
-  gem 'ruby-debug19'
-end
-
-
-# gem 'email_veracity' # to check whether user-mails are OK
-# authlogic does that anyway
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-# gem 'webrat'
-# end
+gem 'shoulda-context'
+gem 'shoulda-matchers'
+gem 'factory_girl'
+gem 'mocha'
+gem 'sunspot_test'
