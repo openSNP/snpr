@@ -5,11 +5,11 @@ class UserPhenotypeTest < ActiveSupport::TestCase
     setup do
       @phenotype = Factory :phenotype
       @user_phenotype_0 = Factory :user_phenotype,
-        phenotype_id: @phenotype.id, variation: 'foo-bar'
+        phenotype_id: @phenotype.id, variation: 'male'
       @user_phenotype_1 = Factory :user_phenotype,
-        phenotype_id: @phenotype.id, variation: 'Foo Bar'
+        phenotype_id: @phenotype.id, variation: 'female'
       @user_phenotype_2 = Factory :user_phenotype,
-        phenotype_id: @phenotype.id + 1, variation: 'Foo Bar'
+        phenotype_id: @phenotype.id + 1, variation: 'male'
       Sunspot.commit
     end
 
@@ -17,9 +17,9 @@ class UserPhenotypeTest < ActiveSupport::TestCase
       phenotype = @phenotype
       results = UserPhenotype.search do
         with(:phenotype_id, phenotype.id)
-        fulltext 'foo bar'
+        fulltext 'male'
       end.results
-      assert_equal [@user_phenotype_0, @user_phenotype_1], results.sort_by(&:id)
+      assert_equal [@user_phenotype_0], results.sort_by(&:id)
     end
   end
 end
