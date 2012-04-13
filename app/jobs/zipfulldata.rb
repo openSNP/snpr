@@ -57,7 +57,7 @@ class Zipfulldata
         @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt","w")
         @phenotype_count = Phenotype.count
         @genotype_count = Genotype.count
-        @readme_handle.puts("This archive was generated on "+@time.to_s+". It contains "+@phenotype_count.to_s+" phenotypes and "+@genotype_count.to_s+" genotypes.")
+        @readme_handle.puts("This archive was generated on "+@time.to_s+" UTC. It contains "+@phenotype_count.to_s+" phenotypes and "+@genotype_count.to_s+" genotypes.")
         @readme_handle.puts("Thanks for using openSNP!")
         @readme_handle.close
     
