@@ -14,4 +14,12 @@ class StaticController < ApplicationController
 			format.xml
 		end
 	end
+
+    def press
+        @title = "openSNP in the press"
+        respond_to do |format|
+            format.html
+            format.xml
+        end
+    end
 end
