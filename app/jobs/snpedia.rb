@@ -27,9 +27,13 @@ class Snpedia
                   if p.index("(") != nil
                      puts "snpedia: Got page\n"
                      url = "http://www.snpedia.com/index.php/" + p.to_s
-										 # revision returns an int which grows with changes
-										 rev_id = mw.revision(p).to_i
-                     if SnpediaPaper.find_all_by_url(url)  == [] or SnpediaPaper.find_by_url(url).revision < rev_id
+                     # revision returns an int which grows with changes
+                     rev_id = mw.revision(p).to_i
+                     # set the revision-id to 0 if we don't have the Snpedia-entry
+                     s = SnpediaPaper.find_by_url(url)
+                     s.revision ||= 0 unless s == nil
+
+                     if SnpediaPaper.find_all_by_url(url)  == [] or (s != nil and s.revision != rev_id)
                         puts "-> Parsing new or changed site\n"
                         toparse = mw.get(p)
                         if toparse.index("summary=") == nil
