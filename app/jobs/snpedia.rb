@@ -31,8 +31,6 @@ class Snpedia
                      rev_id = mw.revision(p).to_i
                      # set the revision-id to 0 if we don't have the Snpedia-entry
                      s = SnpediaPaper.find_by_url(url)
-                     s.revision ||= 0 unless s == nil
-
                      if SnpediaPaper.find_all_by_url(url)  == [] or (s != nil and s.revision != rev_id)
                         puts "-> Parsing new or changed site\n"
                         toparse = mw.get(p)
