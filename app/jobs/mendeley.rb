@@ -29,7 +29,12 @@ class Mendeley
            result["documents"].each do |document|
               mendeley_url = document["mendeley_url"]
               uuid = document["uuid"].to_s
-              first_author = document["authors"][0]["forename"]+" "+document["authors"][0]["surname"]
+              begin
+                first_author = document["authors"][0]["forename"]+" "+document["authors"][0]["surname"]
+              rescue
+                print "Something wrong in " + document["authors"]
+                first_author = "Unknown"
+              end
               title = document["title"]
               pub_year = document["year"]
               doi = document["doi"]
