@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120509234035) do
+ActiveRecord::Schema.define(:version => 20120324143135) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20120509234035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "snp_id"
-    t.integer  "revision",   :default => 0
   end
 
   create_table "snps", :force => true do |t|

@@ -7,6 +7,6 @@
   dirs = path.split('/')
   dirs.size.times do |i|
     new_path = Rails.root.to_s + '/' + dirs[0..i].join('/')
-    Dir.mkdir(new_path) unless Dir.exist?(new_path)
+    Dir.mkdir(new_path) unless File.directory?(new_path)
   end
 end
