@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20120324143135) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "snp_id"
-    t.integer  "revision",   :default => 0
   end
 
   create_table "snps", :force => true do |t|
