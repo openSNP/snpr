@@ -29,7 +29,14 @@ class MendeleyDetails
       end
 
       print "mendeley details: updated oa- and reader-status\n"
-      @mendeley_paper.reader = detail_result["stats"]["readers"]
+      if detail_result["stats"]
+        @mendeley_paper.reader = detail_result["stats"]["readers"]
+      elsif detail_result["reader"]
+        @mendeley_paper.reader = detail_result["reader"]
+      else
+        @mendeley_paper.reader = "Unknown"
+      end
+
       @mendeley_paper.save
       print "-> sleep for 5 secs\n"
       sleep(5)

@@ -29,10 +29,15 @@ class Snpedia
                      url = "http://www.snpedia.com/index.php/" + p.to_s
                      # revision returns an int which grows with changes
                      rev_id = mw.revision(p).to_i
-                     # set the revision-id to 0 if we don't have the Snpedia-entry
                      s = SnpediaPaper.find_by_url(url)
                      if SnpediaPaper.find_all_by_url(url)  == [] or (s != nil and s.revision != rev_id)
                         puts "-> Parsing new or changed site\n"
+                        # delete the old entry
+                        old_ones = SnpediaPaper.find_all_by_url(url)
+                        if old_ones != []
+                            SnpediaPaper.delete(old_ones)
+                        end
+
                         toparse = mw.get(p)
                         if toparse.index("summary=") == nil
                            summary = "No summary provided."
