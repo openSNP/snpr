@@ -25,7 +25,7 @@ class Parsing
       log "Parsing file #{temp_file}"
       # open that file, go through each line
       genotype_file.each do |single_snp|
-        next if single_snp[0] == "#"
+        next if single_snp[0] == "#" && @genotype.filetype == "23andme-exome-vcf"
 
         # make a nice array if line is no comment
         if @genotype.filetype == "23andme"
@@ -51,6 +51,30 @@ class Parsing
           else
             next
           end
+          
+        elsif @genotype.filetype == "23andme-exome-vcf"
+          temp_array = single_snp.split("\t")
+          @format_array = temp_array[-2].split(":")
+          @format_array.each_with_index do |element,index|
+            if element == "GT"
+              @genotype_position = index
+            end
+          end
+          @genotype_non_parsed = temp_array[-1].split(":")[@genotype_position].split("/")
+          @genotype_parsed = ""
+          @genotype_non_parsed.each do |allele|
+            if allele == "0"
+              @genotype_parsed = @genotype_parsed + temp_array[3]
+            elsif allele == "1"
+              @genotype_parsed = @genotype_parsed + temp_array[4]
+            end
+          end
+          snp_array = [temp_array[2].downcase,temp_array[0],temp_array[1],@genotype_parsed.upcase]
+          
+          snp = known_snps[snp_array[0].downcase]
+          if snp.nil?
+            next
+          end    
         end
 
         if snp_array[0] != nil and snp_array[1] != nil and snp_array[2] != nil and snp_array[3] != nil
