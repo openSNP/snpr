@@ -23,7 +23,7 @@
 <tbody>
 <% @genotypes_paginate.each do |g| %>
 	<tr>
-	<td><%= g.id %></td>
+	<td><%= Genotype.all.index(g) + 1 %></td>
 	<td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(g.user.name, g.user)%></td>
     <td><%= g.filetype %></td>
 	<td><%= g.created_at%></td>
