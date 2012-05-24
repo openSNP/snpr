@@ -12,7 +12,7 @@
 <tbody>
 <% @phenotypes_paginate.each do |s| %>
 	<tr>
-	<td><%= Phenotype.all.index(s) + 1%></td>
+        <td><%= Phenotype.all.sort! { |a,b| a.id <=> b.id}.index(s) + 1%></td>
 	<td><%= link_to(s.characteristic, s) %></td>
 	<td><%=s.number_of_users%></td>
 	<td><%=s.created_at%></td>
