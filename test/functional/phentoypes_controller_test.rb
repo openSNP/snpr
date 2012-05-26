@@ -4,7 +4,7 @@ class PhenotypesControllerTest < ActionController::TestCase
   context "Phenotypes" do
     setup do
       Sunspot.stubs(:index)
-      @user = Factory(:user, name: "The Dude")
+      @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       @phenotype = Factory :phenotype
 

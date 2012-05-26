@@ -4,7 +4,7 @@ class SnpTest < ActiveSupport::TestCase
   context "Snp" do
     setup do
       Sunspot.stubs(:index)
-      @snp = Factory(:snp)
+      @snp = FactoryGirl.create(:snp)
     end
 
     context "papers" do

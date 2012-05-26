@@ -4,7 +4,7 @@ class PhenotypeTest < ActiveSupport::TestCase
   context "Phenotype" do
     setup do
       Sunspot.stubs(:index)
-      @phenotype = Factory(:phenotype)
+      @phenotype = FactoryGirl.create(:phenotype)
       @phenotype.instance_variable_set(:@known_phenotypes, nil)
     end
 
