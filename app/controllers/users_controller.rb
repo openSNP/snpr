@@ -5,8 +5,7 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
 
   if Rails.env.production?
-    ssl_required :create, :new, :update
-    ssl_allowed :index, :show, :edit
+    ssl_allowed :index, :show, :edit, :create, :new, :update
   end
       
   def new
