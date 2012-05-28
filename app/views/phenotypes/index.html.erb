@@ -3,8 +3,8 @@
 <table class="zebra-striped" id="no_snp_overview">
 <thead>
 <tr>
+  <th>Count</th>
 	<th><%= sortable "id", "ID"%></th>
-    <th>Count</th>
 	<th><%= sortable "characteristic","Phenotype"%></th>
 	<th><%= sortable "number_of_users","Number of users"%></th>
 	<th><%= sortable "created_at", "Created"%>
@@ -13,8 +13,8 @@
 <tbody>
 <% @phenotypes_paginate.each do |s| %>
 	<tr>
-    <td><%= s.id %></td>
     <td><%= Phenotype.all.sort! { |a,b| a.id <=> b.id}.index(s) + 1%></td>
+    <td><%= s.id %></td>
 	<td><%= link_to(s.characteristic, s) %></td>
 	<td><%=s.number_of_users%></td>
 	<td><%=s.created_at%></td>
