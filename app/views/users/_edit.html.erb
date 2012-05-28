@@ -47,7 +47,6 @@
        <h2>Additional phenotypes</h2>
 		<%= f.fields_for :user_phenotypes do |p| %>
             <% @phenotype = Phenotype.find_by_id(p.object.phenotype_id) %>
-        <% if @phenotype and @phenotype.characteristic != "Hair colour" and @phenotype.characteristic!= "Height" and @phenotype.characteristic != "Skin colour" and @phenotype.characteristic != "Population group"%>
 		<div class="field">
 		
 		   <script type="text/javascript">
@@ -60,7 +59,6 @@
 		
 		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
 	 	</div>
-    <% end %> 
 <%end %>
 
  <%= link_to "Add a new phenotype", :controller => "phenotypes", :action => "new" %>
