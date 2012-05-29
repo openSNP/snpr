@@ -25,7 +25,7 @@ class Parsing
       log "Parsing file #{temp_file}"
       # open that file, go through each line
       genotype_file.each do |single_snp|
-        next if single_snp[0] == "#" && @genotype.filetype == "23andme-exome-vcf"
+        next if single_snp[0] == "#"
 
         # make a nice array if line is no comment
         if @genotype.filetype == "23andme"
