@@ -1,3 +1,50 @@
+.tweet,
+.query {
+font: 100% Georgia, serif;
+color: #085258;
+}
+
+.tweet_list {
+-webkit-border-radius: 1em;
+-moz-border-radius: 1em;
+border-radius: 1em;
+margin: 20; /* leave some space to the news */
+padding: 0;
+/*background-color: #8ADEE2;*/
+width: 22%;
+float: right; /* float to the right of news */
+clear: right;
+}
+
+.tweet_list li {
+-webkit-border-radius: 1em;
+-moz-border-radius: 1em;
+border-radius: 1em;
+overflow-y: auto;
+overflow-x: hidden;
+padding: 0.5em;
+list-style-type: none;
+border: black;
+border-style: solid;
+border-width: 1px;
+}
+.tweet_intro {
+float: right;
+color: black;
+}
+.tweet_list li a {
+/*color: #0C717A;*/
+}
+
+.tweet_list .tweet_even {
+/*background-color: #91E5E7;*/
+}
+
+.tweet_list .tweet_avatar {
+padding-right: .5em;
+float: left;
+}
+
 html,body{margin:0;padding:40px;}
 h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,cite,code,del,dfn,em,img,q,s,samp,small,strike,strong,sub,sup,tt,var,dd,dl,dt,li,ol,ul,fieldset,form,label,legend,button,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:normal;font-style:normal;font-size:100%;line-height:1;font-family:inherit;}
 table{border-collapse:collapse;border-spacing:0;}
