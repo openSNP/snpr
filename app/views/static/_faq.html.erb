@@ -1,11 +1,12 @@
 <h3>Frequently Asked Questions</h3>
 <div id="tab-container">
   <ul class="tabs">
-    <li><a href="#dtcustomers"><%=image_tag("/images/fileupload_small.png",:style => "vertical-align:middle" )%> Users interested in uploading data</a></li>
-    <li><a href="#scientists"><%=image_tag("/images/filedownload_small.png",:style => "vertical-align:middle" )%> Users interested in downloading data</a></li>
+    <li><a href="#dtcustomers"><%=image_tag("/images/fileupload_small.png",:style => "vertical-align:middle" )%> Uploading data</a></li>
+    <li><a href="#scientists"><%=image_tag("/images/filedownload_small.png",:style => "vertical-align:middle" )%> Downloading data</a></li>
 	<li><a href="#enteringphenotypes"><%=image_tag("/images/add_variation_small.png",:style => "vertical-align:middle")%> Entering phenotypes</a></li>
-	<li><a href="#filetypes"><%=image_tag("/images/file_info_small.png",:style => "vertical-align:middle" )%> Filetypes</a>
-	<li><a href="#api"><%=image_tag("/images/api_small.png",:style => "vertical-align:middle")%> JSON-API</a>
+	<li><a href="#filetypes"><%=image_tag("/images/file_info_small.png",:style => "vertical-align:middle" )%> Filetypes</a></li>
+	<li><a href="#api"><%=image_tag("/images/api_small.png",:style => "vertical-align:middle")%> JSON-API</a></li>
+	<li><a href="#das"><%=image_tag("/images/api_small.png",:style => "vertical-align:middle")%> Distributed Annotation System</a></li>
   </ul>
 <div id="dtcustomers">
 <h5>• What does OpenSNP offer me as a genotyping-customers?</h5>
@@ -26,6 +27,9 @@ We take the "open" in openSNP serious, so everything is free of charge.
 <h5>• How long does it take until my genotyping data is available on the site after uploading?</h5>
 This heavily depends on how many other users are in the queue, waiting for their data to be parsed. Right now openSNP runs on a small scale server so it may take 2-3 days until all your variations can be found on the site. But you can start using openSNP right away and others can download your raw-data right from the start. The parsing only affects the "other users sharing this SNP" and the "my genotype"-views.
 
+<h5>• Exomes?</h5>
+<em><a href="https://www.23andme.com/exome/">23andMe</a></em> has a limited exome sequencing offer. If you've got your exome sequenced through <em>23andMe</em> you can now upload the VCF (Variant Call Format, see <a href="#filetypes"> the filetypes-FAQ</a>) version of your exome as well. But there are some limitations: While users will be able to download your complete VCF-file we currently don't have the computing power to parse all of your variation. So currently we will only parse the already known SNPs out of your file. For the same reasons we currently can't offer uploads of the raw sequence data. <br/><br/>The feature is still in an early beta stage, so please notify us if something goes wrong. 
+ 
 <h5>• I was genotyped by another DTC company, why can't i upload my data?</h5>
 We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
 
@@ -120,11 +124,96 @@ Just send us an <a href="mailto:info@opensnp.org">email</a>.
 		"rs7537756","1","844113","AA"
 		</pre>	
 		
+		<h5>23andMe Exome in VCF format</h5>
+		This feature is still an early beta version. Please let us know if it works for you.
+		<pre class="prettyprint linenums">
+##fileformat=VCFv4.1
+##CombineVariants=[...]
+##FILTER=<ID=FSFilter200,Description="FS > 200.0">
+[...]
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+[...]
+##INFO=<ID=SNPEFF_TRANSCRIPT_ID,Number=1,Type=String,Description="Transcript ID for the highest-impact effect resulting from the current variant">
+[...]
+##contig=<ID=1,length=249250621>
+##contig=<ID=10,length=135534747>
+[...]
+#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  USERID
+1       14907   rs79585140      A       G       317.34  MQFilter40 AB=0.604;AC=1;AF=0.50; [...]     GT:AD:DP:GQ:PL  0/1:32,21:54:99:347,0,514
+1       14930   rs75454623      A       G       351.37  MQFilter40  AB=0.61;AC=1;AF=0.50; [...]     GT:AD:DP:GQ:PL  0/1:36,23:59:99:381,0,680
+      </pre>
+		
 	<h5>My filetype is still missing, what can I do?</h5>
 	We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
 </div>
 </div>
 </div>
+<div id="das">
+<h4>Using DAS</h4>
+<h5>• DAS?</h5>
+We've implemented some basic commands of the <a href="http://en.wikipedia.org/wiki/Distributed_Annotation_System"><em>Distributed Annotation System</em></a> (DAS). Those are for example used for the genome browsers on the SNP-pages in <em>openSNP</em>. 
+
+<h5>• Where can I learn more about DAS?</h5>
+If you want to learn more about the use at <em>openSNP</em> you can <a href="http://opensnp.wordpress.com/2012/02/20/videos-on-opensnp-das-support/">watch this video</a> which explains a bit about it. You can also read the <a href="http://www.biodas.org/documents/spec.html">specifications</a> or read about <a href="http://www.dasregistry.org/DASCommandExamples.jsp">example commands</a> at the <a href="http://www.dasregistry.org/"><em>DASRegistry</em></a>. 
+
+<h5>• How can I see all DAS sources?</h5>
+To find all DAS-sources you can point your browser to <a href="http://opensnp.org/das/sources"><em>http://opensnp.org/das/sources</em></a>. You should get back some XML which roughly looks like this: 
+<pre class="prettyprint linenums">
+  &lt;SOURCES&gt;
+    &lt;SOURCE uri=&quot;6&quot; title=&quot;6&quot; description=&quot;6&quot;&gt;
+      &lt;MAINTAINER email=&quot;admin@opensnp.org&quot;/&gt;
+      &lt;VERSION created=&quot;29.09.2011 15:43&quot; uri=&quot;6&quot;&gt;
+      &lt;COORDINATES uri=&quot;http://www.dasregistry.org/dasregistry/coordsys/CS_DS40&quot; source=&quot;Chromosome&quot; authority=&quot;NCBI&quot; taxid=&quot;9606&quot; version=&quot;36&quot; test_range=&quot;1:0,1&quot;&gt;NCBI_36,Chromosome,Homo sapiens&lt;/COORDINATES&gt;
+      &lt;CAPABILITY query_uri=&quot;http://opensnp.org/das/6/features&quot; type=&quot;das1:features&quot;/&gt;
+      &lt;CAPABILITY type=&quot;das1:unknown-segment&quot;/&gt;
+      &lt;/VERSION&gt;
+    &lt;/SOURCE&gt;
+      &lt;SOURCE uri=&quot;10&quot; title=&quot;10&quot; description=&quot;10&quot;&gt;
+      &lt;MAINTAINER email=&quot;admin@opensnp.org&quot;/&gt;
+      &lt;VERSION created=&quot;29.09.2011 20:54&quot; uri=&quot;10&quot;&gt;
+      &lt;COORDINATES uri=&quot;http://www.dasregistry.org/dasregistry/coordsys/CS_DS40&quot; source=&quot;Chromosome&quot; authority=&quot;NCBI&quot; taxid=&quot;9606&quot; version=&quot;36&quot; test_range=&quot;1:0,1&quot;&gt;NCBI_36,Chromosome,Homo sapiens&lt;/COORDINATES&gt;
+      &lt;CAPABILITY query_uri=&quot;http://opensnp.org/das/10/features&quot; type=&quot;das1:features&quot;/&gt;
+      &lt;CAPABILITY type=&quot;das1:unknown-segment&quot;/&gt;
+      &lt;/VERSION&gt;
+    &lt;/SOURCE&gt;
+  &lt;/SOURCES&gt;
+</pre>
+The title of each source corresponds to a single <em>openSNP</em>-user. Even if users have provided more than one file you can query all the data available for this user through a single DAS-source. 
+
+<h5>• How can I query a DAS source?</h5>
+To query a DAS-source you can use the <em>features</em>-command and provide the chromosome and slice you are interested in. For example <a href="http://opensnp.org/das/1/features?segment=1:1,1000000"><em>http://opensnp.org/das/1/features?segment=1:1,1000000</em></a> will provide you with all SNPs which are located between base 1 and 1000000 for the user with the ID #1. It will produce a similar XML-output like shown below: 
+
+<pre class="prettyprint linenums">
+/tmp/temp_textmate.axZXjZ:2: warning: variable $KCODE is no longer effective; ignored
+  &lt;DASGFF&gt;
+    &lt;GFF version=&quot;1.0&quot; href=&quot;http://opensnp.org/das/1/features?segment=1:1,1000000&quot;&gt;
+    &lt;SEGMENT id=&quot;1&quot; version=&quot;1.0&quot; start=&quot;1&quot; stop=&quot;1000000&quot;&gt;
+    &lt;FEATURE id=&quot;rs6681049&quot;&gt;
+      &lt;TYPE id=&quot;CC&quot;/&gt;
+      &lt;METHOD id=&quot;&quot;/&gt;
+      &lt;START&gt;789870&lt;/START&gt;
+      &lt;END&gt;789870&lt;/END&gt;
+      &lt;LINK href=&quot;http://opensnp.org/snps/rs6681049&quot;&gt;http://opensnp.org/snps/rs6681049&lt;/LINK&gt;
+    &lt;/FEATURE&gt;
+    &lt;FEATURE id=&quot;rs6657048&quot;&gt;
+      &lt;TYPE id=&quot;CC&quot;/&gt;
+      &lt;METHOD id=&quot;&quot;/&gt;
+      &lt;START&gt;947503&lt;/START&gt;
+      &lt;END&gt;947503&lt;/END&gt;
+      &lt;LINK href=&quot;http://opensnp.org/snps/rs6657048&quot;&gt;http://opensnp.org/snps/rs6657048&lt;/LINK&gt;
+    &lt;/FEATURE&gt;
+    &lt;FEATURE id=&quot;rs28415373&quot;&gt;
+      &lt;TYPE id=&quot;CC&quot;/&gt;
+      &lt;METHOD id=&quot;&quot;/&gt;
+      &lt;START&gt;883844&lt;/START&gt;
+      &lt;END&gt;883844&lt;/END&gt;
+      &lt;LINK href=&quot;http://opensnp.org/snps/rs28415373&quot;&gt;http://opensnp.org/snps/rs28415373&lt;/LINK&gt;
+    &lt;/FEATURE&gt;
+  &lt;/DASGFF&gt;
+</pre>
+The general URL-schema for DAS-feature-requests is http://opensnp.org/das/$USER_ID/features?segment=$CHROMOSOME:$START_BASE,$STOP_BASE.  
+</div>
+  
 <div id="api">
 	<h4>Using JSON</h4>
 	We provide some methods to make it easier to get data back from <em>openSNP</em>. Currently we are implementing some <i><a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a></i> (short: JSON) methods that will make it easier to code some awesome <em>openSNP</em>-utilizing stuff. As you can see on the Wikipedia-page there are many JSON-parsers around for all major programming languages and it is fairly human readable as well. Plus: It is one of the de facto webstandards for APIs. We are trying to add more of such methods in the near future. 
