@@ -39,7 +39,9 @@ left: -14%;
 .tweet_list .tweet_even {
 /*background-color: #91E5E7;*/
 }
-
+.loading {
+  float: right;
+}
 .tweet_list .tweet_avatar {
 padding-right: .5em;
 float: left;
