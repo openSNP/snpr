@@ -29,8 +29,9 @@ border-style: solid;
 border-width: 1px;
 }
 .tweet_intro {
+position: relative;
 float: right;
-color: black;
+left: -14%;
 }
 .tweet_list li a {
 /*color: #0C717A;*/
