@@ -1,6 +1,5 @@
 .tweet,
 .query {
-font: 100% Georgia, serif;
 color: #085258;
 }
 
@@ -29,8 +28,8 @@ border-style: solid;
 border-width: 1px;
 }
 .tweet_intro {
+float:right;
 position: relative;
-float: right;
 left: -14%;
 }
 .tweet_list li a {

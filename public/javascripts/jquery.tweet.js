@@ -211,7 +211,7 @@
     }
 
     function load(widget) {
-      var intro = '<p class="tweet_intro">'+s.intro_text+'</p>';
+      var intro = '<h5 class="tweet_intro">'+s.intro_text+'</h5>';
       var outro = '<p class="tweet_outro">'+s.outro_text+'</p>';
       var loading = $('<p class="loading">'+s.loading_text+'</p>');
       if (s.loading_text) $(widget).not(":has(.tweet_list)").empty().append(loading);
