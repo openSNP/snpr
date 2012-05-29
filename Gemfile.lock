@@ -201,4 +201,5 @@ DEPENDENCIES
   shoulda-matchers
   sunspot_rails (~> 1.2.1)
   sunspot_test
+  vegas
   will_paginate (= 3.0.pre2)

@@ -21,3 +21,4 @@ public/data
 coverage*
 hiredis/
 log/
+secret_token
