@@ -38,9 +38,10 @@ gem 'recommendify', :git => 'https://github.com/paulasmuth/recommendify.git'
 #	gem 'newrelic_rpm'
 #end
 
-group :development do
-  gem 'rcov_rails'
-end
+
+#group :development do
+#  gem 'rcov_rails'
+#end
 
 group :test do
   gem 'shoulda-context'
