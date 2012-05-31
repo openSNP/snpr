@@ -11,5 +11,5 @@ before_script:
   - echo "anyOleBollocks" > secret_token
   - mkdir tmp
   - psql -c 'create database snpr_test;' -U postgres
-script: "bundle exec rake db:drop db:create db:migrate db:seed test"
+script: "bundle exec rake db:drop db:create db:migrate test"
 
