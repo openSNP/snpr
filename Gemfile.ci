@@ -32,8 +32,6 @@ gem 'paperclip', '~> 2.4'
 gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
 gem 'recommendify', :git => 'https://github.com/paulasmuth/recommendify.git'
 
-gem 'inline'
-
 gem 'shoulda-context'
 gem 'shoulda-matchers'
 gem 'factory_girl'
