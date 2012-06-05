@@ -8,7 +8,7 @@
 <% if not current_user and @filelink != nil%>
     <h5><%= link_to(image_tag("/images/filedownload_small.png", :style => "vertical-align:middle"), {:controller => "genotypes",:action => "dump_download"})%> <%= link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users",{:controller => "genotypes", :action => "dump_download"}, :title => "Download the dump") %></h5>
 <%end%>
-<h5><a href="https://gist.github.com/1626642">Python-script to parse the provided files</a></h5>
+<h5><a href="https://github.com/superbobry/snpy">Python-library to parse the provided files</a>, courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h5>
 
 <table class="zebra-striped" id="all_genotypes">
 <thead>
