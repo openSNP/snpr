@@ -6,8 +6,12 @@ class User < ActiveRecord::Base
   
   validates_attachment_size :avatar, :less_than=>1.megabyte
   validates_attachment_content_type :avatar, :content_type=>['image/jpeg', 'image/png', 'image/gif']
-  
-  acts_as_authentic # call on authlogic
+  # call on authlogic
+  acts_as_authentic do |c| 
+      # replace SHA512 by bcrypt
+      c.transition_from_crypto_providers = Authlogic::CryptoProviders::Sha512
+      c.crypto_provider = Authlogic::CryptoProviders::BCrypt
+  end
   #after_create :make_standard_phenotypes
 
   # dependent so stuff gets destroyed on delete

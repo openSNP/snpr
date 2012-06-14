@@ -58,6 +58,7 @@ GEM
       activesupport (>= 3.0.0)
       activesupport (>= 3.0.7)
     bartt-ssl_requirement (1.4.2)
+    bcrypt-ruby (3.0.1)
     builder (2.1.2)
     cocaine (0.2.1)
     columnize (0.3.6)
@@ -175,6 +176,7 @@ DEPENDENCIES
   activerecord-import
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
+  bcrypt-ruby
   factory_girl
   friendly_id!
   jquery-rails

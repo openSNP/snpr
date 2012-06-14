@@ -6,6 +6,7 @@ gem 'rails3-generators'
 gem "jquery-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'vegas'
+gem 'bcrypt-ruby', :require => "bcrypt"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
