@@ -23,7 +23,7 @@ gem 'rubyzip','0.9.5', :require => 'zip/zip'
 
 # for jobs
 gem 'resque' 
-gem 'resque-loner'
+gem 'resque-loner', '~> 1.0.1'
 
 gem "will_paginate", "3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
