@@ -59,6 +59,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 <%=link_to(image_tag("/images/rss_small.png"),"/rss")%>
 <table class="common-table zebra-striped">
 <tr>
+    <th>#</th>
 	<th>Genotype-ID</th>
 	<th>Uploaded by</th>
 	<th>Uploaded on</th>
@@ -67,12 +68,13 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </tr>
 <% @new_genotypes.each do |ng| %>
 	<tr>
-	<td><%= ng.id %></td>
-	<td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
-	<td><%= ng.created_at %></td>
-	<td><%= link_to "Click here", ng %></td>
-	<td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
-</tr>
+        <td><%= Genotype.all.sort! {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
+        <td><%= ng.id %></td>
+        <td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
+        <td><%= ng.created_at %></td>
+        <td><%= link_to "Click here", ng %></td>
+        <td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
+    </tr>
 <% end %>
 </table>
 </div>
@@ -80,6 +82,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 <h2>Users</h2>
 <table class="common-table zebra-striped">
 	<tr>
+        <td>#</th>
 		<th>ID</th>
 		<th>Name</th>
 		<th>Joined on</th>
@@ -87,6 +90,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 	</tr>
 <% @new_users.each do |nu| %>
 	<tr>
+        <td><%= User.all.sort! {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
 		<td><%= nu.id %></td>
 		<td><%=image_tag nu.avatar.url(:head),:style => "vertical-align:middle"%> <%= nu.name %></td>
 		<td><%= nu.created_at %></td>
