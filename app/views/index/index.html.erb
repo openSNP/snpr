@@ -3,7 +3,7 @@
 		<p><%=image_tag "/images/microarray.png",:style => "float:left;margin: 10px"%></p>
 		<p><h7><em>openSNP</em> allows customers of direct-to-customer genetic tests to publish their test results, find others with similar genetic variations, learn more about their results, find the latest primary literature on their variations and help scientists to find new associations.</h7></p> <center><a href="/signup" class="btn large primary">Sign Up!</a></center><br/><br/>
 		<div id="tab-container"> 
-			<ul class="tabs"> 
+			<ul class="nav nav-tabs"> 
 				<li><a href="#dtcustomers">For Genotyping Users</a></li> 
 				<li><a href="#scientists">For Scientists</a></li> 
 				<li><a href="#faq">FAQ</a></li>
@@ -11,31 +11,25 @@
 			<div id="dtcustomers">
 				<div class ="well">
 				<div class="row">
-					<div class="span3 columns">
-					<div class="alert-message block-message success" data-alert="alert">
-						<h5>Upload Your Genotyping File</h5>
-						<%=image_tag("/images/fileupload.png")%>
+				  <div class="container">
+					<div class="span5 columns">
+						<h4 class="alert-heading">Upload Your Genotyping File</h4>
+						<%=image_tag("/images/fileupload.png")%><br/>
 						Upload the genotyping raw-data you got from <em><%=link_to "23andMe","http://www.23andme.com"%></em> or <em><%=link_to "deCODEme","http://www.decodeme.com/"%></em> to the database of <em>openSNP</em> to make it available for everybody. 
 					</div>
-					</div>
-					<div class="span4 columns">
-					<div class="alert-message block-message success" data-alert="alert">
-					<h5>Share Your Phenotypes & Traits</h5> 
-					<%=image_tag("/images/phenotypes.png")%>
+					<div class="span5 columns">
+					<h4 class="alert-heading">Share Your Phenotypes & Traits</h4> 
+					<%=image_tag("/images/phenotypes.png")%><br/>
 					Share as many phenotypes, characteristics and traits with other <em>openSNP</em> users and find others with similar characteristics.<br/>And maybe help scientists to discover new genetic associations.
 					</div>
-					</div>
-					<div class="span4 columns">
-					<div class="alert-message block-message success" data-alert="alert">
-					<h5>Share your stories on variations & phenotypes</h5>
-					<%=image_tag("/images/sendmessage.png")%>
+					<div class="span5 columns">
+					<h4 class="alert-heading">Share your stories on variations & phenotypes</h4>
+					<%=image_tag("/images/sendmessage.png")%></br>
 					<em>openSNP</em> lets you share your stories on your genetic variations & phenotypes with others. Discover the stories of other users.<br/>Find others to exchange experiences about your variations. 
 					</div>
-					</div>
-					<div class="span4 columns">
-					<div class="alert-message block-message success" data-alert="alert">
-					<h5>Find literature on genetic variation</h5>
-					<%=image_tag("/images/literature.png")%>
+					<div class="span5 columns">
+					<h4 class="alert-heading">Find literature on genetic variation</h4>
+					<%=image_tag("/images/literature.png")%></br>
 					<em>openSNP</em> gets the latest open access journal articles on genetic variations via the <em><%=link_to "Public Library of Science","http://www.plos.org/"%></em>. Additionally popular articles are indexed via the social reference manager <em><%=link_to "Mendeley","http://www.mendeley.com/"%></em>. Summaries are provided by <em><%=link_to "SNPedia","http://snpedia.com"%></em>.
 					</div>
 					</div>

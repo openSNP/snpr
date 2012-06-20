@@ -15,10 +15,11 @@
 
 </head>
 <body>	
-<div class="topbar">
-	<div class="fill" >
-		<div class="container">
-			<h3><%= link_to("openSNP", root_path, :class =>"logo") %></h3>
+<div class="navbar navbar">
+	<div class="navbar-inner">
+		<div class="container-center">
+			<h3><%= link_to("openSNP", root_path, :class =>"brand") %></h3>
+			<div class="nav-collapse">
 			<ul class="nav"> 
 				<li><%= link_to("News", '/news') %></li> 
 				<li><%= link_to("Genotypes", :controller => "genotypes", :action => "index")%>
@@ -26,7 +27,7 @@
 				<li><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
 				<li><%= link_to("Users", '/user_index') %></li>
 			</ul>
-			<%= form_tag "/search", :method => "get", :authenticity_token => true do %>
+			<%= form_tag "/search", :method => "get",:class => "navbar-form pull-left", :authenticity_token => true do %>
 				<%= text_field_tag :search, nil, :placeholder => "Search here" %>
 			<% end %>
 			<ul class="nav secondary-nav"> 
@@ -48,10 +49,11 @@
 				<% end %>
 				<li><%= link_to("FAQ", '/faq') %></li>
 			</ul>
+			</div>
 		</div>
 	</div>
 </div>
-
+<div class="container">
 	<%if current_user %>
 	<%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
 	<div class ="well">
@@ -128,6 +130,6 @@
     </footer>
 
 
-
+</div>
 </body>
 </html>
