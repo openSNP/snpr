@@ -1,6 +1,6 @@
 <h1>Listing all Phenotypes</h1>
 		<%if current_user%><div class="row"><div class="span10 columns offset6"><h5><%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%></h5></div></div><%end%>
-<table class="zebra-striped" id="no_snp_overview">
+<table class="table table-striped" id="no_snp_overview">
 <thead>
 <tr>
  	<th>#</th>

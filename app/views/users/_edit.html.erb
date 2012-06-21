@@ -3,7 +3,7 @@
 <%= render 'shared/error_messages', :target => @user %>
 <div id="post_errors" style="display:none"></div>
 <div id="tab-container">
-  <ul class="tabs">
+  <ul class="nav nav-tabs">
     <li><a href="#general">General</a></li>
     <li><a href="#phenotypes">Phenotypes</a></li>
     <li><a href="#details">Details</a></li>
@@ -118,6 +118,6 @@
 
 
 <div class="actions">
-	<%= f.submit "Update Information", :class => "primary btn", :id => "update_user" %>
+	<%= f.submit "Update Information", :class => "btn btn-primary", :id => "update_user" %>
 </div>
 <% end %> 

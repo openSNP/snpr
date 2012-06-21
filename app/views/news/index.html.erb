@@ -1,6 +1,6 @@
 <h1>News</h1>
 <div id="tab-container">
-<ul class="tabs">
+<ul class="nav nav-tabs">
 	<li><a href="#general">On openSNP</a></li>
 	<li><a href="#users">New users</a></li>
 	<li><a href="#genotypes">New genotypes</a></li>
@@ -57,7 +57,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
 <h2>Genotypes</h2>
 <%=link_to(image_tag("/images/rss_small.png"),"/rss")%>
-<table class="common-table zebra-striped">
+<table class="table table-striped">
 <tr>
     <th>#</th>
 	<th>Genotype-ID</th>
@@ -80,7 +80,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </div>
 <div id="users">
 <h2>Users</h2>
-<table class="common-table zebra-striped">
+<table class="table table-striped">
 	<tr>
         <td>#</th>
 		<th>ID</th>
@@ -101,7 +101,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </div>
 <div id="phenotypes">
 <h2>Phenotypes</h2>
-<table class="common-table zebra-striped">
+<table class="table table-striped">
 	<tr>
 		<th>Name</th>
 		<th>Variations</th>
@@ -119,7 +119,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 
 <div id="phenotypecomments">
 <h2>Phenotype Comments</h2>
-<table class="common-table zebra-striped">
+<table class="table table-striped">
 	<tr>
 		<th>Phenotype</th>
 		<th>Comment By</th>
@@ -141,7 +141,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 
 <div id="snpcomments">
 <h2>SNP Comments</h2>
-<table class="common-table zebra-striped">
+<table class="table table-striped">
 	<tr>
 		<th>SNP</th>
 		<th>Comment By</th>
@@ -163,7 +163,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 <%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%>
 <%=auto_discovery_link_tag(:rss,"/paper/rss", {:title => "RSS for latest publications"})%>
 	<h2>Latest publications</h2>
-	<table class="common-table zebra-striped">
+	<table class="table table-striped">
 		<tr>
 			<th>SNP</th>
 			<th>Author</th>

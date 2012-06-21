@@ -25,7 +25,7 @@
   </ul>
 
   <div id="tab-container">
-    <ul class="tabs">
+    <ul class="nav nav-tabs">
       <li><a href="#description">Description</a></li>
 	  <li><a href="#similar">Similar phenotypes</a></li>
       <li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div id="users">
-      <table class="zebra-striped">
+      <table class="table table-striped">
         <tr>
           <th>User</th>
           <th>Variation</th>
@@ -65,7 +65,7 @@
         </div>
 
 <div id="similar">
-<table class="zebra-striped">
+<table class="table table-striped">
 	<tr>
 		<th>Phenotype</th>
 		<th>Number of Users</th>

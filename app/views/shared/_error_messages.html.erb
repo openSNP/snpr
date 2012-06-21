@@ -1,5 +1,5 @@
 <% if target.errors.any? %>
-	<div class="alert-message block-message error">
+	<div class="alert alert-block alert-error">
 			<% target.errors.full_messages.each do |msg| %>
                 <%= msg %><br/>
 			<% end %>

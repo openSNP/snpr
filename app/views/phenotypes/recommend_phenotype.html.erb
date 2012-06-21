@@ -19,7 +19,7 @@ Below you find <%=@similar_phenotypes.size%> <%if @similar_phenotypes.size > 1%>
 <div class="row">
 <%@similar_phenotypes.each do |s|%>
 	<div class="span<%=(16/@similar_phenotypes.size).to_i%> columns">
-		<div class="alert-message block-message success" data-alert="alert">
+		<div class="alert alert-block alert-success" data-alert="alert">
 		<h6><%=link_to s.characteristic,s%></h6>
 		Description: <em><%=s.description%></em>
 		</div>

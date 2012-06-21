@@ -24,7 +24,7 @@
 	<% end %>
 
 <div id="tab-container">
-	<ul class="tabs">
+	<ul class="nav nav-tabs">
 		<%if @unentered_phenotypes != []%>
 		<li><a href="#unentered_variations">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
 		<%end%>
@@ -139,7 +139,7 @@
 <% if @paginated_phenotype_replies != [] %>
 <h4>Latest replies on your comments on Phenotypes</h4>
 
-	<table class="zebra-striped" id="phenotype_reply_comments">
+	<table class="table table-striped" id="phenotype_reply_comments">
 		<thead>
 		<tr>
 		<th>On Phenotype</th>
@@ -166,7 +166,7 @@
 
 <% if @paginated_snp_replies != [] %>
 <h4>Latest replies on your comments on SNPs</h4>
-	<table class="zebra-striped" id="snp_reply_comments">
+	<table class="table table-striped" id="snp_reply_comments">
 		<thead>
 		<tr>
 			<th>On SNP</th>
