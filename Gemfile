@@ -21,10 +21,6 @@ gem 'sunspot_rails', '~> 1.2.1'
 # so we can create zip-files for genotypes
 gem 'rubyzip','0.9.5', :require => 'zip/zip'
 
-# for jobs
-gem 'resque' 
-gem 'resque-loner', '~> 1.0.1'
-
 gem "will_paginate", "3.0.pre2" # needed for Rails 3, pagination
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'json'
@@ -32,7 +28,11 @@ gem 'mediawiki-gateway'
 gem 'activerecord-import'
 gem 'paperclip', '~> 2.4'
 gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
-gem 'recommendify', :git => 'https://github.com/paulasmuth/recommendify.git'
+gem 'recommendify',:git => 'https://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
+
+# for jobs
+gem 'resque', '1.19.0'
+gem 'resque-loner'
 
 #group :production do
 #	gem 'rpm_contrib'
