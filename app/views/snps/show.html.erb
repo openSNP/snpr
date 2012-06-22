@@ -1,18 +1,14 @@
 <div class="row">
-	<div class="span6 columns"><h2>SNP <%= @snp.name %></h2></div>
+	<div class="span3 columns"><h2>SNP <%= @snp.name %></h2></div>
 	<% if current_user %>
-	<div class="span6 columns offset4"><%= link_to "Back to your homepage", current_user %></div>
+	<div class="span4"><%= link_to "Back to your homepage", current_user %></div>
 	<% end %>
-	<div class="span6 columns offset4"><%= link_to "Back to SNPs", :snps%></div>
+	<div class="span3"><%= link_to "Back to SNPs", :snps%></div>
 </div>
 <div class="row">
-	<div class="span5 columns">
+	<div class="span3 columns">
 		<h6><center>Basic Information</center></h6>
-		<table>
-			<tr>
-				<th> </th>
-				<th> </th>
-			</tr>
+		<table class="table table-striped">
 			<tr>
 				<td><b>Name</b></td>
 				<td><%=@snp.name%></td>
@@ -40,10 +36,11 @@
 		</div>
 		
 			<h6><center><a onmouseover="showWMTT('your_genotype')" onmouseout="hideWMTT()" href="#">Your Genotype</a></center></h6>
-			<table>
+			<table class="table table-striped">
+			  <thead>
 				<tr>
-				<th> </th>
 				</tr>
+				</thead>
 				<tr>
 			<td><center><b><%=@user_snp.local_genotype%></b></center></td>
 			</tr>
@@ -55,14 +52,12 @@
 			How the different genetic variation at this position is distributed over all <em>openSNP</em> users.
 		</div>
 		
-	<div class="span4 columns">
+	<div class="span3 columns">
 		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Genotype Frequency</a></center></h6>
 		<%if @total_genotypes != 0%>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th> </th>
-					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -97,14 +92,12 @@
 		How the single nucleotides on this position are distributed over all <em>openSNP</em> users.
 	</div>
 	
-	<div class="span4 columns">
+	<div class="span3 columns">
 		<h6><center><a onmouseover="showWMTT('geno_frequency')" onmouseout="hideWMTT()" href="#">Allele Frequency</a></center></h6>
 		<%if @total_alleles != 0%>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th> </th>
-					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -124,7 +117,7 @@
 	<h6>Additional Information</h6>
 	
 <div id="tab-container">
-  <ul class="tabs">
+  <ul class="nav nav-tabs">
     <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>
     <li><a href="#plos">PLoS (<%=@snp.plos_paper.length%>)</a></li>
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
@@ -135,7 +128,7 @@
 <div id="plos">
 <h3>Publications on this SNP on the Public Library of Science:</h3>
 <% if @snp.plos_paper != [] %>
-<table class="zebra-striped" id="PaperPlos">
+<table class="table table-striped" id="PaperPlos">
 	<thead>
 	<tr>
 		<th>First Author</th>
@@ -163,7 +156,7 @@
 <div id="mendeley">
 <h3>Publications on this SNP on Mendeley</h3>
 <% if @snp.mendeley_paper != [] %>
-	<table class="zebra-striped" id="PaperMendeley">
+	<table class="table table-striped" id="PaperMendeley">
 		<thead>
 		<tr>
 			<th>First Author</th>
@@ -200,7 +193,7 @@
 <div id="snpedia">
 <h3>Links to SNPedia</h3>
 <% if @snp.snpedia_paper != [] %>
-	<table class="zebra-striped">
+	<table class="table table-striped">
 		<tr>
 			<th>Title</th>
 			<th>Summary</th>
@@ -226,7 +219,7 @@
 <div id="users">
 <h3>Users who share this SNP:</h3>
 <% if @users != [] %>
-<table>
+<table class="table table-striped">
 	<tr>
 		<th>User</th>
 		<th>Genotype</th>
@@ -269,6 +262,7 @@
 	    viewStart:    <%=@snp.position.to_i-10000%>,
 	    viewEnd:      <%=@snp.position.to_i+10000%>,
 	    cookieKey:    '<%=@snp.name%>',
+	    pageName:     "<%=@snp.name%>", 
 
 	    sources:     [{name:                 'Genome',      
 	                   desc:                 'Human reference genome build NCBI36',
@@ -302,4 +296,4 @@
 	  });
 	
 	</script>
-<div id="svgHolder"></div>
+<div id="<%=@snp.name%>"></div>

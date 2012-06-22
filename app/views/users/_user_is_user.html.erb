@@ -39,7 +39,7 @@
 
 <%if @unentered_phenotypes != []%>
 	<div id="unentered_variations">
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Name of Phenotype</th>
@@ -84,7 +84,7 @@
 <p><%= link_to "Write a new message", :controller => "messages", :action => "new" %></p>
 <h4>Received</h4>
 <% if @received_messages != [] %>
-<table>
+<table class="table table-striped">
 	<tr>
 	<th>From</th>
 	<th>Subject</th>
@@ -113,7 +113,7 @@
 <% end %>
 <h3>Sent</h3>
 <% if @sent_messages != [] %>
-<table>
+<table class="table table-striped">
 	<tr>
 	<th>To</th>
 	<th>Subject</th>

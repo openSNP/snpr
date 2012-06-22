@@ -1,6 +1,5 @@
 <h1>Login</h1>
-<div class="well">
-<%= form_for @user_session, :html => {:class => "form-stacked"}, :url => {:action => "create"} do |f| %>
+<%= form_for @user_session, :html => {:class => "well"}, :url => {:action => "create"} do |f| %>
 <%= render "shared/error_messages", :target => @user_session %>
   <div class="clearfix">
     <%= f.label :email %>
@@ -16,22 +15,19 @@
 	</div>
   <div class="clearfix">
 	  <div class="input">
-	  <ul class="inputs-list">
-		  <li><label>
+      <label class="checkbox">
 			  <%= f.check_box :remember_me %>
-			  <span>Remember me</span>
-		</label></li>
-		</ul>                   
+			  Remember me
+		</label>              
 	 </div>
   </div>
   <div class="clearfix">
-	<%= f.submit "Login", :class => "primary btn" %>
+	<%= f.submit "Login", :class => "btn btn-primary" %>
 </div>
 <% end %>
-</div>
 
 
 	<div class="row">
 	<div class="span8 columns"><%= link_to("Not registered? Click here!", '/signup') %></div>  
-	<div class="span8 columns"><%= link_to("Forgot password? Click here!", :controller => "password_resets", :action => "new") %></div>
+	<div class="span6 columns"><%= link_to("Forgot password? Click here!", :controller => "password_resets", :action => "new") %></div>
 </div>
