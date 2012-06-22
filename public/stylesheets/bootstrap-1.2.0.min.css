@@ -10,14 +10,6 @@
 
 body { padding-top: 70px; }
 
-<!--
-.tooltip {
-  position: absolute;
-  display: none;
-  background-color: #EEEEEE;
-}
--->
-
 .hiddenbar {display:none} 
 .shownbar {display:inline}
 

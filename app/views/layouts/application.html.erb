@@ -10,7 +10,7 @@
 	<title>openSNP <% if @title %>| <%= @title %><% end %></title>
 	<link rel="shortcut icon" href="/favicon.ico" />
   <%= stylesheet_link_tag :all %>
-<%= javascript_include_tag :defaults, "nested_form","jquery-1.7.1.min","jquery.tablesorter.min", "jquery.ba-hashchange.min","jquery.easytabs","jquery-ui-1.8.16.custom.min","bootstrap-alerts", "bootstrap-modal"%>
+<%= javascript_include_tag :defaults, "nested_form","jquery-1.7.1.min","jquery.tablesorter.min", "jquery.ba-hashchange.min","jquery.easytabs","jquery-ui-1.8.16.custom.min","bootstrap-alert", "bootstrap-modal","bootstrap-tooltip","bootstrap-popover"%>
   <%= csrf_meta_tag %>
 
 </head>
@@ -98,19 +98,19 @@
 <div class="container" id="alert-messages">
 		<div id="flash_notice" class="alert alert-success" style="display:none"></div>
 		<% if flash[:notice] %>
-			<div class="alert alert-success" data-alert="alert">
+			<div class="alert alert-success" data-dismiss="alert">
 				<a class="close" href="#">&times;</a>
 				<strong><%= flash[:notice] %></strong>
 			</div> 
 		<% end %>
 		<% if flash[:warning] %>
-			<div class="alert alert-error" data-alert="alert">
+			<div class="alert alert-error" data-dismiss="alert">
 				<a class="close" href="#">&times;</a>
 				<strong><%= flash[:warning] %></strong>
 			</div> 
 		<% end %>
 		<% if flash[:achievement] %>
-			<div class="alert alert-info" data-alert="alert">
+			<div class="alert alert-info" data-dismiss="alert">
 				<a class="close" href="#">&times;</a>
 				<strong><%= flash[:achievement] %></strong>
 			</div>

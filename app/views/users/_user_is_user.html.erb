@@ -5,12 +5,7 @@
 	</div><%end%>
 	<div class="span6 columns"><h1>Hello <%= @first_name %>!</h1>
 		<% current_user.achievements.each do |a|%>
-
-		<div id="<%=a.short_name%>" class="tooltip">
-			Achievement: <%=a.award%>.
-		</div>
-
-		<a onmouseover="showWMTT('<%=a.short_name%>')" onmouseout="hideWMTT()" href="/achievements/<%=a.id%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
+    <a href="#" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
 		<%end%>
 		</div>
 </div>
@@ -193,23 +188,7 @@
 
 </div>
 <script type="text/javascript">
-<!--
-wmtt = null;
-document.onmousemove = updateWMTT;
-function updateWMTT(e) {
-  if (wmtt != null && wmtt.style.display == 'block') {
-    x = (e.pageX ? e.pageX : window.event.x);
-    y = (e.pageY ? e.pageY : window.event.y);
-    wmtt.style.left = x + "px";
-	wmtt.style.top  = (y - wmtt.offsetHeight) + "px";
-  }
-}
-function showWMTT(id) {
-  wmtt = document.getElementById(id);
-  wmtt.style.display = "block";
-}
-function hideWMTT() {
-  wmtt.style.display = "none";
-}
--->
+  $(document).ready(function () {
+    $("[rel=tooltip]").tooltip({placement:'bottom'});
+  });
 </script>
