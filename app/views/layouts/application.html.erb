@@ -58,10 +58,10 @@
 	<%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
 	<div class ="alert alert-block alert-success">
 	<div class="row">
-			<center><h3>Welcome to openSNP. Here are some first steps you could do:</h3></center>
+        <center><h3>Welcome to openSNP. Here are some first steps you could do:</h3></center><br/>
 			<%if current_user.has_sequence == false and current_user.help_one == false%>
-			<div class="span3 offset">
-			<div class="alert-message block-message success" data-alert="alert">
+			<div class="span3">
+			<div class="alert-message " data-alert="alert">
 				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_one", :id => current_user},:remote => true, id: "remove_help_one", :class => "close")%>
 				<h4 class="alert-heading">Upload Your Genotyping File</h4>
 				<%=link_to(image_tag("/images/fileupload.png"), "/genotypes/new")%><br/>
