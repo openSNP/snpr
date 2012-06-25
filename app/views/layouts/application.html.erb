@@ -56,13 +56,13 @@
 <div class="container">
 	<%if current_user %>
 	<%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
-	<div class ="alert alert-block alert-success">
+	<div class ="test">
 	<div class="row">
         <center><h3>Welcome to openSNP. Here are some first steps you could do:</h3></center><br/>
 			<%if current_user.has_sequence == false and current_user.help_one == false%>
 			<div class="span3">
-			<div class="alert-message " data-alert="alert">
-				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_one", :id => current_user},:remote => true, id: "remove_help_one", :class => "close")%>
+			<div class="alert" data-dismiss="alert">
+				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_one", :id => current_user},:remote => true, id: "remove_help_one", :class => "close", 'data-dismiss' => "alert")%>
 				<h4 class="alert-heading">Upload Your Genotyping File</h4>
 				<%=link_to(image_tag("/images/fileupload.png"), "/genotypes/new")%><br/>
 				<%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em> or <em>deCODEme</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
@@ -71,8 +71,8 @@
 			<%end%>
 			<%if current_user.user_phenotypes == [] and current_user.help_two == false%>
 			<div class="span3 offset1">
-			<div class="alert-message block-message success" data-alert="alert">
-				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close")%>
+			<div class="alert" data-dismiss="alert">
+				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close",'data-dismiss' => 'alert')%>
 				<h4 class="alert-heading">Enter Your Variations</h4>
 				<%=link_to(image_tag("/images/phenotypes.png"), "/users/"+current_user.id.to_s+"#unentered_variations")%><br/>
 				Let us, and the other <em>openSNP</em>-users, know some of your characteristics. Like hair or eye color. Or about some diseases? <%=link_to("Whatever you feel like sharing","/users/"+current_user.id.to_s+"#unentered_variations")%>.
@@ -81,8 +81,8 @@
 			<%end%>
 			<%if current_user.phenotype_creation_counter == 0 and current_user.help_three == false %>
 			<div class="span3 offset1">
-			<div class="alert-message block-message success" data-alert="alert">
-				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close")%>
+			<div class="alert" data-dismiss="alert">
+				<%=link_to(raw("&times;"),{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close",'data-dismiss' => 'alert')%>
 				<h4 class="alert-heading">Enter a New Phenotype</h4>
 				<%=link_to(image_tag("/images/addphenotype.png"), "/phenotypes/new")%><br/>
 				Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can easily add this","/phenotypes/new")%> to the <em>openSNP</em>-database.
