@@ -3,13 +3,14 @@
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
 	<%end%>
     <div class="span3"><h1>Hello <%= @first_name %>!</h1></div>
+        <br/>
         <div class="span4">
 		<% current_user.achievements.each do |a|%>
     <a href="#" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
 		<%end%>
     </div>
 </div>
-
+<br/>
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
