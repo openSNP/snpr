@@ -30,7 +30,7 @@
 			<%= form_tag "/search", :method => "get",:class => "navbar-search pull-left", :authenticity_token => true do %>
 				<%= text_field_tag :search, nil, :placeholder => "Search here", :class => "search-query" %>
 			<% end %>
-			<ul class="nav secondary-nav"> 
+			<ul class="nav secondary-nav pull-right"> 
 				<% if current_user %>
 					<li class="dropdown">
 					<a href="#" class="dropdown-toggle"><%= image_tag current_user.avatar.url(:head),:style => "vertical-align:middle"%> <%= current_user.name %><b class="caret"></b></a>
