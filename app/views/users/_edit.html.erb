@@ -85,12 +85,14 @@
 <div id="notifications">
 <div class="well">
 <h2>Notifications</h2>
-<h6>Set up mail notifications to make sure you don't miss a thing that happens at openSNP</h6>
-	<%= f.label :message_on_newsletter, "From the openSNP-team"%>The openSNP-team may sent me mails on updates, new features, things like this: <%= f.check_box :message_on_newsletter%>
-	<%= f.label :message_on_message, "Messages"%>Get a mail on new messages: <%= f.check_box :message_on_message%>
-	<%= f.label :message_on_new_phenotype, "New Phenotypes"%>Get a mail as soon as a new phenotype gets available: <%= f.check_box :message_on_new_phenotype%>
-	<%= f.label :message_on_phenotype_comment_reply, "Phenotype Comments"%>Get a mail on each phenotype comment that is a reply to one of yours: <%= f.check_box :message_on_phenotype_comment_reply%>	
-	<%= f.label :message_on_snp_comment_reply, "SNP Comments"%>Get a mail on each SNP comment that is a reply to one of yours: <%= f.check_box :message_on_snp_comment_reply%>	
+<h6>Set up mail notifications to make sure you don't miss a thing that happens at openSNP</h6><br/>
+<ul>
+    <li><%= f.label :message_on_newsletter, "From the openSNP-team"%>The openSNP-team may sent me mails on updates, new features, things like this: <%= f.check_box :message_on_newsletter%></li>
+    <li><%= f.label :message_on_message, "Messages"%>Get a mail on new messages: <%= f.check_box :message_on_message%></li>
+    <li><%= f.label :message_on_new_phenotype, "New Phenotypes"%>Get a mail as soon as a new phenotype gets available: <%= f.check_box :message_on_new_phenotype%></li>
+    <li><%= f.label :message_on_phenotype_comment_reply, "Phenotype Comments"%>Get a mail on each phenotype comment that is a reply to one of yours: <%= f.check_box :message_on_phenotype_comment_reply%></li>
+    <li><%= f.label :message_on_snp_comment_reply, "SNP Comments"%>Get a mail on each SNP comment that is a reply to one of yours: <%= f.check_box :message_on_snp_comment_reply%></li>
+</ul>
 </div>
 </div>
 

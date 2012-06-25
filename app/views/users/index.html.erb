@@ -1,13 +1,10 @@
-<h1>Listing all users</h1>
+<h1>Listing all users</h1><br/>
 <table class="table table-striped" id="user_overview">
-<thead>
 	<tr>
         <th><%= sortable "name", "Name" %></th>
         <th><%= sortable "has_sequence", "SNPs" %></th>
         <th><%= sortable "phenotypes.length", "# of Phenotypes" %></th>
 	</tr>	
-</thead>
-<tbody>
 <% @users_paginate.each do |u| %>
     <tr>
 		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(u.name,u) %></td>
@@ -15,7 +12,6 @@
 		<td><%=u.phenotypes.length%></td>
 	</td>
 <% end %>
-</tbody>
 </table>
 <div class="pagination">
 <%= will_paginate(@users_paginate) %>
