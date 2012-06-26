@@ -64,8 +64,11 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 
 <div id="genotypes">
 <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
-<h2>Genotypes</h2>
-<%=link_to(image_tag("/images/rss_small.png"),"/rss")%>
+<div class="row-fluid">
+    <div class="span2"><h2>Genotypes</h2></div>
+    <div class="span2"><%=link_to(image_tag("/images/rss_small.png"),"/rss")%></div>
+</div>
+<br/>
 <table class="table table-striped">
 <tr>
     <th>#</th>
@@ -88,7 +91,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </table>
 </div>
 <div id="users">
-<h2>Users</h2>
+<h2>Users</h2><br/>
 <table class="table table-striped">
 	<tr>
         <td>#</th>
@@ -109,7 +112,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </table>
 </div>
 <div id="phenotypes">
-<h2>Phenotypes</h2>
+<h2>Phenotypes</h2><br/>
 <table class="table table-striped">
 	<tr>
 		<th>Name</th>
@@ -127,7 +130,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </div>
 
 <div id="phenotypecomments">
-<h2>Phenotype Comments</h2>
+<h2>Phenotype Comments</h2><br/>
 <table class="table table-striped">
 	<tr>
 		<th>Phenotype</th>
@@ -149,7 +152,7 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </div>
 
 <div id="snpcomments">
-<h2>SNP Comments</h2>
+<h2>SNP Comments</h2><br/>
 <table class="table table-striped">
 	<tr>
 		<th>SNP</th>
@@ -169,9 +172,11 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </div>
 
 <div id="publications">
-<%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%>
-<%=auto_discovery_link_tag(:rss,"/paper/rss", {:title => "RSS for latest publications"})%>
-	<h2>Latest publications</h2>
+    <div class="row-fluid">
+        <div class="span3"><h2>Latest publications</h2></div>
+        <div class="span2"><%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%></div>
+    </div>
+    <br/>
 	<table class="table table-striped">
 		<tr>
 			<th>SNP</th>
