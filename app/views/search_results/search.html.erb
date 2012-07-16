@@ -109,7 +109,11 @@
 <% for p in @snp_comments.results %>
 	<tr>
 		<td><%=link_to(p.snp.name,"/snps/"+p.snp.id.to_s+"#comments")%></td>
+        <% if p.user %>
 		<td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle"%> <%=link_to(p.user.name,p.user)%></td>
+        <% else %>
+        <td>User deleted</td>
+        <% end %>
 		<td><%=p.subject%></td>
 		<td><%=p.comment_text%></td>
 	</tr>
@@ -133,7 +137,11 @@
 <% for p in @phenotype_comments.results %>
 	<tr>
 		<td><%=link_to(p.phenotype.characteristic,"/snps/"+p.phenotype.id.to_s+"#comments")%></td>
+        <% if p.user %>
 		<td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle"%> <%=link_to(p.user.name,p.user)%></td>
+        <% else %>
+        <td>User deleted</td>
+        <% end %>
 		<td><%=p.subject%></td>
 		<td><%=p.comment_text%></td>
 	</tr>
