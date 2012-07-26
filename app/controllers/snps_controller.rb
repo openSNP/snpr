@@ -1,6 +1,6 @@
 class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :find_snp, :except => [:index, :json]
+  before_filter :find_snp, :except => [:index, :json, :json_annotation]
     
 	def index
 		@snps = Snp.order(sort_column + " "+ sort_direction)
@@ -89,7 +89,64 @@ class SnpsController < ApplicationController
       format.json { render :json => @results } 
     end
   end
-  		
+  	
+  def json_annotation
+
+    @result = {}
+    begin 
+      @snp = Snp.find_by_name(params[:snp_name].downcase)
+      puts @snp.name
+      @result["snp"] = {}
+      @result["snp"]["name"] = @snp.name
+      @result["snp"]["chromosome"] = @snp.chromosome
+      @result["snp"]["position"] = @snp.position
+      @result["snp"]["annotations"] = {}
+      @result["snp"]["annotations"]["mendeley"] = []
+      puts "got snp-details"
+      @snp.mendeley_paper.each do |mp|
+        @mendeley = {}
+        @mendeley["author"] = mp.first_author
+        @mendeley["title"] = mp.title
+        @mendeley["publication_year"] = mp.pub_year
+        @mendeley["number_of_readers"] = mp.reader
+        @mendeley["open_access"] = mp.open_access
+        @mendeley["url"] = mp.mendeley_url
+        @mendeley["doi"] = mp.doi
+        @result["snp"]["annotations"]["mendeley"] << @mendeley
+      end
+      puts "got mendeley-details"
+      @result["snp"]["annotations"]["plos"] = []
+      @snp.plos_paper.each do |mp|
+        @plos = {}
+        @plos["author"] = mp.first_author
+        @plos["title"] = mp.title
+        @plos["publication_date"] = mp.pub_date
+        @plos["number_of_readers"] = mp.reader
+        @plos["url"] = "http://dx.doi.org/"+mp.doi
+        @plos["doi"] = mp.doi
+        @result["snp"]["annotations"]["plos"] << @plos
+      end
+      puts "got plos-details"
+      @result["snp"]["annotations"]["snpedia"] = []
+      @snp.snpedia_paper.each do |mp|
+        @snpedia = {}
+        @snpedia["url"] = mp.url
+        @snpedia["summary"] = mp.summary
+        @result["snp"]["annotations"]["snpedia"] << @snpedia
+      end
+      puts "got snpedia-details"
+    rescue
+      @result = {}
+      @result["error"] = "Sorry, we couldn't find SNP "+params[:snp_name].to_s
+    end
+    
+    respond_to do |format|
+      format.json { render :json => @result } 
+    end
+    
+  end
+        
+	
 		private
 		
 		def sort_column
