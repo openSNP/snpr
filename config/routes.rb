@@ -49,6 +49,7 @@ Snpr::Application.routes.draw do
   match '/paper/rss', :to => 'news#paper_rss'
   match '/recommend_phenotype/:id/', :to => 'phenotypes#recommend_phenotype'
   match '/press', :to => 'static#press'
+  match '/blog' => redirect("http://opensnp.wordpress.com")
   
   root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:
