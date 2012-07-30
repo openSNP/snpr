@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
       ssl_allowed :all
   end
 
+  def not_found
+      raise ActionController::RoutingError.new("Not found")
+  end
+
   private
 
   def current_user_session
