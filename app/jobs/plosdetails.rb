@@ -12,7 +12,7 @@ class PlosDetails
       key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")
       api_key = key_handle.readline.rstrip
 
-      detail_url = "http://alm.plos.org/articles/" + @Plos_paper.doi + ".json?citations=1&source=counter&api_key="+api_key
+      detail_url = "http://alm.plos.org/articles/" + @Plos_paper.doi + ".json?api_key="+api_key
       begin
          detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
       rescue
@@ -24,7 +24,7 @@ class PlosDetails
 
       print "plos details: updated reader-status\n"
       print detail_result
-      readers_total = detail_result["article"]["source"][0]["citations"][0]["citation"]["views"][0]["html_views"].to_i + detail_result["article"]["source"][0]["citations"][0]["citation"]["views"][0]["pdf_views"].to_i+detail_result["article"]["source"][0]["citations"][0]["citation"]["views"][0]["xml_views"].to_i
+      readers_total = detail_result["article"]["events_count"].to_i
       
       @Plos_paper.reader = readers_total.to_i
       @Plos_paper.save
