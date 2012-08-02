@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 
   def show
     # showing a single user's page
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_id(params[:id]) || not_found
     @title = @user.name + "'s page"
     @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes

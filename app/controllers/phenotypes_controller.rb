@@ -102,7 +102,7 @@ class PhenotypesController < ApplicationController
   def show
     #@phenotypes = Phenotype.where(:user_id => current_user.id).all
     #@title = "Phenotypes"
-    @phenotype = Phenotype.find(params[:id])
+    @phenotype = Phenotype.find(params[:id]) || not_found
     @comments = PhenotypeComment.where(:phenotype_id => params[:id]).all(:order => "created_at ASC")
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
