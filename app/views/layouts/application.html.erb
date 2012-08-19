@@ -32,7 +32,7 @@
             <ul class="nav secondary-nav pull-right"> 
                 <% if current_user %>
                     <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"><%= image_tag current_user.avatar.url(:head),:style => "vertical-align:middle"%> <%= current_user.name %><b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle"><%= image_tag current_user.avatar.url(:head),:style => "vertical-align:middle;width:33%;height:33%;"%> <%= current_user.name %><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     <li><%= link_to("Settings",  :controller => "users", :action => "edit",:id => current_user) %></li>
                     <li><%= link_to("Edit Your Phenotypes", "/users/"+current_user.id.to_s+"/edit#phenotypes")%>
@@ -61,7 +61,7 @@
             <%=link_to "x",{:controller => "users", :action => "remove_help_one", :id => current_user}, :remote => true, id: "remove_help_one",:class => "close" %>
             <h4 class="alert-heading">Upload Your Genotyping File</h4>
             <%=link_to(image_tag("/images/fileupload.png"), "/genotypes/new")%><br/>
-            <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em> or <em>deCODEme</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
+            <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em>, <em>deCODEme</em> or <em>FamilyTreeDNA</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
         </div>
         <%end%>
         <%if current_user.user_phenotypes == [] and current_user.help_two == false%>
@@ -69,7 +69,7 @@
             <%=link_to("x",{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close")%>
             <h4 class="alert-heading">Enter Your Variations</h4>
             <%=link_to(image_tag("/images/phenotypes.png"), "/users/"+current_user.id.to_s+"#unentered_variations")%><br/>
-            Let us, and the other <em>openSNP</em>-users, know some of your characteristics. Like hair or eye color. Or about some diseases? <%=link_to("Whatever you feel like sharing","/users/"+current_user.id.to_s+"#unentered_variations")%>.
+            Let us, and the other <em>openSNP</em>-users, know some of your characteristics -like hair or eye color! Or how about some diseases? <%=link_to("Whatever you feel like sharing!","/users/"+current_user.id.to_s+"#unentered_variations")%>.
         </div>
         <%end%>
         <%if current_user.phenotype_creation_counter == 0 and current_user.help_three == false %>
@@ -77,7 +77,7 @@
             <%=link_to("x",{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close")%>
             <h4 class="alert-heading">Enter a New Phenotype</h4>
             <%=link_to(image_tag("/images/addphenotype.png"), "/phenotypes/new")%><br/>
-            Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can easily add this","/phenotypes/new")%> to the <em>openSNP</em>-database.
+            Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can add one","/phenotypes/new")%> to the <em>openSNP</em>-database.
         </div>
         <%end%>
 </div>
