@@ -12,7 +12,6 @@
   <%= stylesheet_link_tag :all %>
 <%= javascript_include_tag :defaults, "nested_form","jquery-1.7.1.min","jquery.tablesorter.min", "jquery.ba-hashchange.min","jquery.easytabs","jquery-ui-1.8.16.custom.min","bootstrap-alert", "bootstrap-modal","bootstrap-tooltip","bootstrap-popover"%>
   <%= csrf_meta_tag %>
-
 </head>
 <body>	
 <div class="navbar navbar-fixed-top">
@@ -53,76 +52,75 @@
 		</div>
 	</div>
 </div>
-<div class="container">
-	<%if current_user %>
-	<%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
-	<div class ="well">
-	<div class="row-fluid">
+<div class="container" id="help_block">
+<%if current_user %>
+    <%unless (current_user.help_one or current_user.has_sequence) && (current_user.help_two or current_user.user_phenotypes != []) && (current_user.help_three or current_user.phenotype_creation_counter != 0) == true%>
+    <div class ="well row-fluid">
         <center><h3>Welcome to openSNP. Here are some first steps you could do:</h3></center><br/>
-			<%if current_user.has_sequence == false and current_user.help_one == false%>
-			<div class="alert alert-block span3 ">
-                <%=link_to "x",{:controller => "users", :action => "remove_help_one", :id => current_user}, {:remote => true, :class => "close", 'data-dismiss' => "alert"}%>
-				<h4 class="alert-heading">Upload Your Genotyping File</h4>
-				<%=link_to(image_tag("/images/fileupload.png"), "/genotypes/new")%><br/>
-				<%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em> or <em>deCODEme</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
-			</div>
-			<%end%>
-			<%if current_user.user_phenotypes == [] and current_user.help_two == false%>
-			<div class="alert span3">
-				<%=link_to("x",{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close",'data-dismiss' => 'alert')%>
-				<h4 class="alert-heading">Enter Your Variations</h4>
-				<%=link_to(image_tag("/images/phenotypes.png"), "/users/"+current_user.id.to_s+"#unentered_variations")%><br/>
-				Let us, and the other <em>openSNP</em>-users, know some of your characteristics. Like hair or eye color. Or about some diseases? <%=link_to("Whatever you feel like sharing","/users/"+current_user.id.to_s+"#unentered_variations")%>.
-			</div>
-			<%end%>
-			<%if current_user.phenotype_creation_counter == 0 and current_user.help_three == false %>
-			<div class="alert span3">
-				<%=link_to("x",{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close",'data-dismiss' => 'alert')%>
-				<h4 class="alert-heading">Enter a New Phenotype</h4>
-				<%=link_to(image_tag("/images/addphenotype.png"), "/phenotypes/new")%><br/>
-				Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can easily add this","/phenotypes/new")%> to the <em>openSNP</em>-database.
-			</div>
-			<%end%>
-	</div>
-	</div>
-	</div>
-	<%end%>
-	<%end%>
-
+        <%if current_user.has_sequence == false and current_user.help_one == false%>
+        <div class="alert alert-block span3" id="help_one">
+            <%=link_to "x",{:controller => "users", :action => "remove_help_one", :id => current_user}, :remote => true, id: "remove_help_one",:class => "close", 'data-dismiss' => "alert" %>
+            <h4 class="alert-heading">Upload Your Genotyping File</h4>
+            <%=link_to(image_tag("/images/fileupload.png"), "/genotypes/new")%><br/>
+            <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em> or <em>deCODEme</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
+        </div>
+        <%end%>
+        <%if current_user.user_phenotypes == [] and current_user.help_two == false%>
+        <div class="alert span3" id="help_two">
+            <%=link_to("x",{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close",'data-dismiss' => 'alert')%>
+            <h4 class="alert-heading">Enter Your Variations</h4>
+            <%=link_to(image_tag("/images/phenotypes.png"), "/users/"+current_user.id.to_s+"#unentered_variations")%><br/>
+            Let us, and the other <em>openSNP</em>-users, know some of your characteristics. Like hair or eye color. Or about some diseases? <%=link_to("Whatever you feel like sharing","/users/"+current_user.id.to_s+"#unentered_variations")%>.
+        </div>
+        <%end%>
+        <%if current_user.phenotype_creation_counter == 0 and current_user.help_three == false %>
+        <div class="alert span3" id="help_three">
+            <%=link_to("x",{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close",'data-dismiss' => 'alert')%>
+            <h4 class="alert-heading">Enter a New Phenotype</h4>
+            <%=link_to(image_tag("/images/addphenotype.png"), "/phenotypes/new")%><br/>
+            Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can easily add this","/phenotypes/new")%> to the <em>openSNP</em>-database.
+        </div>
+        <%end%>
+</div>
+</div>
+<%end%>
+<%end%>
 <div class="container" id="alert-messages">
-		<div id="flash_notice" class="alert alert-success" style="display:none"></div>
-		<% if flash[:notice] %>
-			<div class="alert alert-success" data-dismiss="alert">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-				<strong><%= flash[:notice] %></strong>
-			</div> 
-		<% end %>
-		<% if flash[:warning] %>
-			<div class="alert alert-error" data-dismiss="alert">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-				<strong><%= flash[:warning] %></strong>
-			</div> 
-		<% end %>
-		<% if flash[:achievement] %>
-			<div class="alert alert-info" data-dismiss="alert">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-				<strong><%= flash[:achievement] %></strong>
-			</div>
-		<% end %>
-	<%= yield %>
+    <div id="flash_notice" class="alert alert-success" style="display:none"></div>
+    <% if flash[:notice] %>
+        <div class="alert alert-success" data-dismiss="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong><%= flash[:notice] %></strong>
+        </div> 
+    <% end %>
+    <% if flash[:warning] %>
+        <div class="alert alert-error" data-dismiss="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong><%= flash[:warning] %></strong>
+        </div> 
+    <% end %>
+    <% if flash[:achievement] %>
+        <div class="alert alert-info" data-dismiss="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong><%= flash[:achievement] %></strong>
+        </div>
+    <% end %>
+
+    <%= yield %>
+    
 </div>
 </div>
 <hr />
+
 <footer class="footer">
-      <div class="container">
+    <div class="container">
         <p>
-        Contact openSNP: <a href="http://opensnp.wordpress.com" target="_blank">Blog</a> | <a href="http://www.twitter.com/openSNPorg" target="_blank">Twitter</a> | <a href="mailto:info@opensnp.org">Mail</a> | 	<a href="https://www.iubenda.com/privacy-policy/641811" class="iubenda-nostyle " id="iubenda-embed" title="Privacy Policy">Privacy Policy</a> | <%= link_to "openSNP in the press", "/press"%>
-			<script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; w.addEventListener ? w.addEventListener("load", loader, false) : w.attachEvent("onload", loader);})(window, document);</script></br></br>
+            Contact openSNP: <a href="http://opensnp.wordpress.com" target="_blank">Blog</a> | <a href="http://www.twitter.com/openSNPorg" target="_blank">Twitter</a> | <a href="mailto:info@opensnp.org">Mail</a> | 	<a href="https://www.iubenda.com/privacy-policy/641811" class="iubenda-nostyle " id="iubenda-embed" title="Privacy Policy">Privacy Policy</a> | <%= link_to "openSNP in the press", "/press"%>
+            <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; w.addEventListener ? w.addEventListener("load", loader, false) : w.attachEvent("onload", loader);})(window, document);</script></br></br>
             The openSNP project is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY SA 3.0</a>. The data is licensed under <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0 1.0</a>. The hand drawn icons were created by <a href="http://oneseventyseven.com/" target="_blank">one seventy seven</a> and are licensed under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>, the CSS of openSNP is provided by <a href="http://twitter.github.com/bootstrap/">Bootstrap, from Twitter</a> and is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.
         </p>
-      </div>
-    </footer>
-
+    </div>
+</footer>
 
 </div>
 </body>
