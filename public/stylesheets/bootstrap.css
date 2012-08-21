@@ -172,7 +172,7 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
@@ -647,32 +647,32 @@ h6 small {
 }
 
 h1 {
-  font-size: 36px;
-  line-height: 40px;
-}
-
-h2 {
   font-size: 30px;
   line-height: 40px;
 }
 
-h3 {
+h2 {
   font-size: 24px;
   line-height: 40px;
 }
 
+h3 {
+  font-size: 20px;
+  line-height: 40px;
+}
+
 h4 {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
 }
 
 h5 {
-  font-size: 14px;
+  font-size: 12px;
   line-height: 20px;
 }
 
 h6 {
-  font-size: 12px;
+  font-size: 10px;
   line-height: 20px;
 }
 
