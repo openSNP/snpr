@@ -22,9 +22,9 @@
 </div>
 <br/>
 <div class="input">
-        <label>
-            <%= check_box_tag(:read) %>
-            <span>I understand the warning and I am willing to take these risks.</span>
+        <label class="checkbox">
+            <%= check_box_tag(:read, :type => "checkbox") %>
+            I understand the warning and I am willing to take these risks.
         </label>
 </div>
 <%= f.submit :class => "btn btn-primary"%>
