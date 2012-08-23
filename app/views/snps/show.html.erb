@@ -1,9 +1,5 @@
 <div class="row">
 	<div class="span3 columns"><h2>SNP <%= @snp.name %></h2></div>
-	<% if current_user %>
-	<div class="span4"><%= link_to "Back to your homepage", current_user %></div>
-	<% end %>
-	<div class="span3"><%= link_to "Back to SNPs", :snps%></div>
 </div>
 <div class="row">
 	<div class="span3 columns">
@@ -47,34 +43,7 @@
 	<div class="span3 columns">
 	  <center><h6><a href="#" rel="tooltip" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">Genotype Frequency</a></h6></center>
 		<%if @total_genotypes != 0%>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-				</tr>
-			</thead>
-			<tbody>
-				<%@snp.genotype_frequency.each do |key,value|%>
-				<%if current_user != nil and UserSnp.find_by_user_id_and_snp_name(current_user.id,@snp.name) != nil%>
-					<%if key == @user_snp.local_genotype%>
-					<tr>
-						<td><b><%=key%></b></td>
-						<td><b><%=(value.to_f/@total_genotypes).to_s[0,4]%></b></td>
-					</tr>
-					<%else%>
-					<tr>
-						<td><%=key%></td>
-						<td><%=(value.to_f/@total_genotypes).to_s[0,4]%></td>
-					</tr>
-					<%end%>
-				<%else%>
-				<tr>
-					<td><%=key%></td>
-					<td><%=(value.to_f/@total_genotypes).to_s[0,4]%></td>
-				</tr>
-				<%end%>
-				<%end%>
-			</tbody>
-			</table>
+            <div id="freq_chart" style="height:200px; width:200px;"></div>
 			<%else%>
 			We don't have enough users yet.
 			<%end%>
@@ -288,6 +257,29 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+
     $("[rel=tooltip]").tooltip({placement:'left'});
-  });
+
+    <%if @total_genotypes != 0%>
+    <% counter = 0 %>
+    var data=[
+    <%@snp.genotype_frequency.each do |key,value|%>
+        
+        <% counter += 1 %>
+        ['<%=key%>',<%=(value.to_f/@total_genotypes).to_s[0,4]%>]<% if counter != @snp.genotype_frequency.length %>,<%end%>
+    <%end%>
+    ];
+    var plot1 = jQuery.jqplot ('freq_chart', [data], 
+    {
+      seriesDefaults: {
+        renderer: jQuery.jqplot.PieRenderer,
+        rendererOptions: {
+          showDataLabels: true
+        }
+      },
+      legend: { show:true, location: 'e' }
+    }
+  );
+});
+<%end%>
 </script>
