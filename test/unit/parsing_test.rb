@@ -9,10 +9,12 @@ class ParsingTest < ActiveSupport::TestCase
       UserSnp.delete_all
 
       @file_23andMe = "#{Rails.root}/test/data/23andMe_test.csv"
-      @genotype_23andme = FactoryGirl.build(:genotype, id: 1, originalfilename:@file_23andMe.split('/').last, filetype:'23andme')
+      @genotype_23andme = Factory :genotype,
+                  originalfilename: @file_23andMe.split('/').last, filetype: '23andme'
 
       @file_deCODEme = "#{Rails.root}/test/data/deCODEme_test.csv"
-      @genotype_decodeme = FactoryGirl.build(:genotype, id: 2, originalfilename: @file_deCODEme.split('/').last, filetype: "decodeme")
+      @genotype_decodeme = Factory :genotype,
+                  originalfilename: @file_deCODEme.split('/').last, filetype: 'decodeme'
 
       @temp_file = "#{Rails.root}/tmp/snp_file.txt"
       FileUtils.rm(@temp_file) if File.exist?(@temp_file)
