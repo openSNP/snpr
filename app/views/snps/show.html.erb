@@ -43,7 +43,9 @@
 	<div class="span3 columns">
 	  <center><h6><a href="#" rel="tooltip" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">Genotype Frequency</a></h6></center>
 		<%if @total_genotypes != 0%>
+            <center>
             <div id="freq_chart" style="height:200px; width:200px;"></div>
+            </center>
 			<%else%>
 			We don't have enough users yet.
 			<%end%>
@@ -52,20 +54,7 @@
 	<div class="span3 columns">
 	  <center><h6><a href="#" rel="tooltip" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">Allele Frequency</a></h6></center>
 		<%if @total_alleles != 0%>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-				</tr>
-			</thead>
-			<tbody>
-				<%@snp.allele_frequency.each do |key,value|%>
-				<tr>
-					<td><%=key%></td>
-					<td><%=(value.to_f/@total_alleles).to_s[0,4]%></td>
-				</tr>
-				<%end%>
-			</tbody>
-			</table>
+            <div id="allele_chart" style="height:200px; width:200px;"></div>
 		<%else%>
 		We don't have enough users yet.
 		<%end%>
@@ -262,14 +251,13 @@
 
     <%if @total_genotypes != 0%>
     <% counter = 0 %>
-    var data=[
+    var freq_data=[
     <%@snp.genotype_frequency.each do |key,value|%>
-        
         <% counter += 1 %>
         ['<%=key%>',<%=(value.to_f/@total_genotypes).to_s[0,4]%>]<% if counter != @snp.genotype_frequency.length %>,<%end%>
     <%end%>
     ];
-    var plot1 = jQuery.jqplot ('freq_chart', [data], 
+    var plot1 = jQuery.jqplot ('freq_chart', [freq_data], 
     {
       seriesDefaults: {
         renderer: jQuery.jqplot.PieRenderer,
@@ -279,7 +267,25 @@
       },
       legend: { show:true, location: 'e' }
     }
-  );
+    );
+    <% counter = 0 %>
+    var allele_data=[
+    <%@snp.allele_frequency.each do |key,value|%>
+        <% counter += 1 %>
+        ['<%=key%>', <%=(value.to_f/@total_alleles).to_s[0,4]%>]<% if counter != @snp.allele_frequency.length %>,<%end%>
+    <%end%>
+    ];
+    var plot2 = jQuery.jqplot ('allele_chart', [allele_data],
+    {
+      seriesDefaults: {
+        renderer: jQuery.jqplot.PieRenderer,
+        rendererOptions: {
+          showDataLabels: true
+        }
+      },
+      legend: { show:true, location: 'e' }
+    }
+    );
 });
 <%end%>
 </script>
