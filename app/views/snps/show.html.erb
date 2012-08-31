@@ -259,14 +259,17 @@
     ];
     var plot1 = jQuery.jqplot ('freq_chart', [freq_data], 
     {
-      seriesColors: ["#B0EDFF","#8EB5E8","#6E7CDB","#5F4DD6","#4823AD"],
+      /*seriesColors: ["#B0EDFF","#8EB5E8","#6E7CDB","#5F4DD6","#4823AD"],*/
       seriesDefaults: {
         renderer: jQuery.jqplot.PieRenderer,
         rendererOptions: {
-          showDataLabels: true
+          showDataLabels: true,
+          fill: false
         }
       },
-      legend: { show:true, location: 'e' }
+      legend: { show:true, location: 'e' },
+       grid: { shadow:false, 
+       borderWidth: 0}
     }
     );
     <% counter = 0 %>
@@ -278,15 +281,18 @@
     ];
     var plot2 = jQuery.jqplot ('allele_chart', [allele_data],
     {
-      seriesColors: ["#B0EDFF","#8EB5E8","#6E7CDB","#5F4DD6","#4823AD"],
+      /*seriesColors: ["#B0EDFF","#8EB5E8","#6E7CDB","#5F4DD6","#4823AD"],*/
       seriesDefaults: {
         dataLabelPositionFactor: 3,
         renderer: jQuery.jqplot.PieRenderer,
         rendererOptions: {
-          showDataLabels: true
+          showDataLabels: true,
+          fill: false
         }
       },
-      legend: { show:true, location: 'e' }
+       legend: { show:true, location: 'e' },
+       grid: { shadow:false, 
+       borderWidth: 0}
     }
     );
 });
