@@ -6,7 +6,7 @@
         <br/>
         <div class="span4">
 		<% current_user.achievements.each do |a|%>
-    <a href="#" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
+            <a href=<%= a%> rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
 		<%end%>
     </div>
 </div>
