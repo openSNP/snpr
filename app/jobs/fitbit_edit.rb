@@ -10,6 +10,11 @@ class FitbitEdit
      @client.create_subscription({:type => :all, :subscription_id => @fitbit_profile.id})
      
      # check for body data & subscriptions
+     ###############################################
+     ##             TODO!!!111                    ##
+     ## SET UP SUBSCRIPTION API ON THIS POINT!!!1 ##
+     ###############################################
+     
      if @fitbit_profile.body == false
        @entries = FitbitBody.find_all_by_fitbit_profile_id(@fitbit_profile.id)
        @entries.each do |e|
@@ -58,7 +63,7 @@ class FitbitEdit
        @minutes_awake_array = @client.data_by_time_range("/sleep/minutesAwake",{:base_date => Date.today.to_s,:period => :max})["sleep-minutesAwake"]
        @minutes_awake_array.each do |m_awake|
          @sleep = FitbitSleep.find_or_create_by_fitbit_profile_id_and_date_logged(@fitbit_profile.id,m_awake["dateTime"])
-         @sleep.minutes_awake = m_awake
+         @sleep.minutes_awake = m_awake["value"]
          @sleep.save
          puts "saved minutes awake"
        end
