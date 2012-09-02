@@ -22,7 +22,12 @@ Snpr::Application.routes.draw do
   resources :user_achievements
   resources :index
   
-  
+  match '/fitbit/start_auth', :to => 'fitbit_profiles#start_auth'
+  match '/fitbit/verify', :to => 'fitbit_profiles#verify_auth'
+  match '/fitbit/info', :to => 'fitbit_profiles#info'
+  match '/fitbit/edit', :to => 'fitbit_profiles#edit'
+  match '/fitbit/init', :to => 'fitbit_profiles#init'
+  match '/fitbit/update/', :to => 'fitbit_profiles#update'
   match '/users/:id/changepassword', :to => 'users#changepassword'
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login
