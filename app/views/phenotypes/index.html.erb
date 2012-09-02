@@ -1,7 +1,15 @@
-<h1>Listing all Phenotypes</h1>
-		<%if current_user%><div class="row"><div class="span10 columns offset6"><h5><%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%></h5></div></div><%end%>
-<table class="zebra-striped" id="no_snp_overview">
-<thead>
+<legend>Listing all Phenotypes</legend>
+<%if current_user%>
+    <div class="row">
+        <div class="span10">
+            <h4>
+            <%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%>
+        </h4>
+        </div>
+    </div>
+<%end%>
+<br/>
+<table class="table table-striped" id="no_snp_overview">
 <tr>
  	<th>#</th>
 	<th><%= sortable "id", "ID"%></th>
@@ -9,8 +17,6 @@
 	<th><%= sortable "number_of_users","Number of users"%></th>
 	<th><%= sortable "created_at", "Created"%>
 </tr>
-</thead>
-<tbody>
 <% @phenotypes_paginate.each do |s| %>
 	<tr>
     <td><%= Phenotype.all.sort! { |a,b| a.id <=> b.id}.index(s) + 1%></td>
@@ -20,7 +26,6 @@
 	<td><%=s.created_at%></td>
 </tr>
 <% end %>
-</tbody>
 </table>
 <div class="pagination">
 <%= will_paginate(@phenotypes_paginate) %>

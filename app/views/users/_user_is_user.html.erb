@@ -1,20 +1,16 @@
 <div class="row">
 	<%if @user.avatar_file_name != nil%>
-	<div class="span0 columns">
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
-	</div><%end%>
-	<div class="span6 columns"><h1>Hello <%= @first_name %>!</h1>
+	<%end%>
+    <div class="span3"><h1>Hello <%= @first_name %>!</h1></div>
+        <br/>
+        <div class="span4">
 		<% current_user.achievements.each do |a|%>
-
-		<div id="<%=a.short_name%>" class="tooltip">
-			Achievement: <%=a.award%>.
-		</div>
-
-		<a onmouseover="showWMTT('<%=a.short_name%>')" onmouseout="hideWMTT()" href="/achievements/<%=a.id%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
+            <a href=<%= a%> rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
 		<%end%>
-		</div>
+    </div>
 </div>
-
+<br/>
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
 	<p><a href="#messages">You have messages!</a></p>
 <% end %>
@@ -24,7 +20,7 @@
 	<% end %>
 
 <div id="tab-container">
-	<ul class="tabs">
+	<ul class="nav nav-tabs">
 		<%if @unentered_phenotypes != []%>
 		<li><a href="#unentered_variations">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
 		<%end%>
@@ -39,7 +35,7 @@
 
 <%if @unentered_phenotypes != []%>
 	<div id="unentered_variations">
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Name of Phenotype</th>
@@ -84,7 +80,7 @@
 <p><%= link_to "Write a new message", :controller => "messages", :action => "new" %></p>
 <h4>Received</h4>
 <% if @received_messages != [] %>
-<table>
+<table class="table table-striped">
 	<tr>
 	<th>From</th>
 	<th>Subject</th>
@@ -113,7 +109,7 @@
 <% end %>
 <h3>Sent</h3>
 <% if @sent_messages != [] %>
-<table>
+<table class="table table-striped">
 	<tr>
 	<th>To</th>
 	<th>Subject</th>
@@ -139,7 +135,7 @@
 <% if @paginated_phenotype_replies != [] %>
 <h4>Latest replies on your comments on Phenotypes</h4>
 
-	<table class="zebra-striped" id="phenotype_reply_comments">
+	<table class="table table-striped" id="phenotype_reply_comments">
 		<thead>
 		<tr>
 		<th>On Phenotype</th>
@@ -166,7 +162,7 @@
 
 <% if @paginated_snp_replies != [] %>
 <h4>Latest replies on your comments on SNPs</h4>
-	<table class="zebra-striped" id="snp_reply_comments">
+	<table class="table table-striped" id="snp_reply_comments">
 		<thead>
 		<tr>
 			<th>On SNP</th>
@@ -193,23 +189,7 @@
 
 </div>
 <script type="text/javascript">
-<!--
-wmtt = null;
-document.onmousemove = updateWMTT;
-function updateWMTT(e) {
-  if (wmtt != null && wmtt.style.display == 'block') {
-    x = (e.pageX ? e.pageX : window.event.x);
-    y = (e.pageY ? e.pageY : window.event.y);
-    wmtt.style.left = x + "px";
-	wmtt.style.top  = (y - wmtt.offsetHeight) + "px";
-  }
-}
-function showWMTT(id) {
-  wmtt = document.getElementById(id);
-  wmtt.style.display = "block";
-}
-function hideWMTT() {
-  wmtt.style.display = "none";
-}
--->
+  $(document).ready(function () {
+    $("[rel=tooltip]").tooltip({placement:'bottom'});
+  });
 </script>

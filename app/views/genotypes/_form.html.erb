@@ -1,5 +1,5 @@
 <div class="row">
- <div class="span8 columns">
+ <div class="span6 columns">
 <%= form_for(@genotype,:html => {:class => "form-stacked", :multipart => true}) do |f| %>
 <%= render 'shared/error_messages', :target => @genotype %>
 <div class="well">	
@@ -41,7 +41,7 @@
 	</div>
 </div>
 <div class="actions">
-	<%= f.submit "Upload", :class => "primary btn"  %>
+	<%= f.submit "Upload", :class => "btn btn-primary"  %>
 </div>
 <% end %>
 </div>

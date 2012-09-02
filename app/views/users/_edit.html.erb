@@ -3,7 +3,7 @@
 <%= render 'shared/error_messages', :target => @user %>
 <div id="post_errors" style="display:none"></div>
 <div id="tab-container">
-  <ul class="tabs">
+  <ul class="nav nav-tabs">
     <li><a href="#general">General</a></li>
     <li><a href="#phenotypes">Phenotypes</a></li>
     <li><a href="#details">Details</a></li>
@@ -85,22 +85,14 @@
 <div id="notifications">
 <div class="well">
 <h2>Notifications</h2>
-<h6>Set up mail notifications to make sure you don't miss a thing that happens at openSNP</h6>
-<div class="clearfix">
-	<%= f.label :message_on_newsletter, "From the openSNP-team"%>The openSNP-team may sent me mails on updates, new features, things like this: <%= f.check_box :message_on_newsletter%>
-</div>	
-<div class="clearfix">
-	<%= f.label :message_on_message, "Messages"%>Get a mail on new messages: <%= f.check_box :message_on_message%>
-</div>
-<div class="clearfix">
-	<%= f.label :message_on_new_phenotype, "New Phenotypes"%>Get a mail as soon as a new phenotype gets available: <%= f.check_box :message_on_new_phenotype%>
-</div>
-<div class="clearfix">
-	<%= f.label :message_on_phenotype_comment_reply, "Phenotype Comments"%>Get a mail on each phenotype comment that is a reply to one of yours: <%= f.check_box :message_on_phenotype_comment_reply%>	
-</div>
-<div class="clearfix">
-	<%= f.label :message_on_snp_comment_reply, "SNP Comments"%>Get a mail on each SNP comment that is a reply to one of yours: <%= f.check_box :message_on_snp_comment_reply%>	
-</div>
+<h5>Set up mail notifications to make sure you don't miss a thing happening at openSNP</h5>
+<dl>
+    <dt><%= f.label :message_on_newsletter, "From the openSNP-team"%></dt><dd>The openSNP-team may sent me mails on updates, new features, things like this: <%= f.check_box :message_on_newsletter%></dd><br/>
+    <dt><%= f.label :message_on_message, "Messages"%></dt><dd>Get a mail on new messages: <%= f.check_box :message_on_message%></dd><br/>
+    <dt><%= f.label :message_on_new_phenotype, "New Phenotypes"%></dt><dd>Get a mail as soon as a new phenotype gets available: <%= f.check_box :message_on_new_phenotype%></dd><br/>
+    <dt><%= f.label :message_on_phenotype_comment_reply, "Phenotype Comments"%></dt><dd>Get a mail on each phenotype comment that is a reply to one of yours: <%= f.check_box :message_on_phenotype_comment_reply%></dd><br/>
+    <dt><%= f.label :message_on_snp_comment_reply, "SNP Comments"%></dt><dd>Get a mail on each SNP comment that is a reply to one of yours: <%= f.check_box :message_on_snp_comment_reply%></dd><br/>
+</dl>
 </div>
 </div>
 
@@ -118,6 +110,6 @@
 
 
 <div class="actions">
-	<%= f.submit "Update Information", :class => "primary btn", :id => "update_user" %>
+	<%= f.submit "Update Information", :class => "btn btn-primary", :id => "update_user" %>
 </div>
 <% end %> 

@@ -1,10 +1,9 @@
 <div class="row">
- <div class="span8 columns">
+ <div class="span5">
 <% # helper thing so we don't have to put up fields into every page %>
 <div class="well">
-<%= form_for @user, :html => {:class => "form-stacked"} do |f| %>
+<%= form_for @user, :html => {:class => "form"} do |f| %>
 <%= render 'shared/error_messages', :target => @user %>
-<div class="clearfix">
 	<%= f.label :name %>
 <div class="input">
 	<%= f.text_field :name %>
@@ -22,20 +21,17 @@
 	<%= f.password_field :password_confirmation %>
 </div>
 <br/>
-<div class="clearfix">
-	<div class="input">
-		<ul class="inputs-list">
-			<li><label>
-				<%= check_box_tag(:read) %>
-				<span>I understand the warning and I am willing to take these risks.</span>
-			</label></li>
-	</ul>
-	</div>
+<div class="input">
+        <label class="checkbox">
+            <%= check_box_tag(:read, :type => "checkbox") %>
+            I understand the warning and I am willing to take these risks.
+        </label>
 </div>
-	<%= f.submit :class => "btn primary"%>
-</div>
-</div>
+<%= f.submit :class => "btn btn-primary"%>
 <% end %> 
+<p>Already a user? <%= link_to("Log in now!", "/signin")%></p>
 </div>
+</div>
+<div class="span6">
 <%=render "static/disclaimer"%>
 </div>

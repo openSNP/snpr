@@ -2,7 +2,7 @@
 	<div class="span0 columns">
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
 	</div>
-	<div class="span6 columns"><h1><%= @user.name %>'s page</h1>
+	<div class="span6 columns"><legend><%= @user.name %>'s page</legend>
 		<% @user.achievements.each do |a|%>
 
 		<div id="<%=a.short_name%>" class="tooltip">
@@ -12,8 +12,9 @@
 		<a onmouseover="showWMTT('<%=a.short_name%>')" onmouseout="hideWMTT()" href="/achievements/<%=a.id%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
 		<%end%>
 		
-		</div>
-		<%if current_user%><div class="span6 columns offset2"><h5><%=link_to(image_tag("/images/sendmessage_small.png",:style => "vertical-align:middle" ), :controller => "messages", :action => "new", :user_to_send => @user.id)%> <%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div><%end%>
+    </div>
+		<%if current_user%><div class="span3"><h5><%=link_to(image_tag("/images/sendmessage_small.png",:style => "vertical-align:middle" ), :controller => "messages", :action => "new", :user_to_send => @user.id)%> <%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div><%end%>
+    </div>
 </div>
 <% if @user.genotypes != [] %>
 	<p><%= @first_name %> has uploaded genotyping rawdata.</p>
@@ -27,7 +28,7 @@
 <% end %>
 
 <% if @user.description != "" and not @user.homepages.empty?%><h3>On <%= @first_name %>:</h3><%end %>
-<div class="well"><h5>Description</h5><% if @user.description != nil %><%= simple_format(h @user.description) %><% else %>This user has not entered a description yet.<% end %> </p></div>
+<div class="well"><h5>Description</h5><p><% if @user.description != nil %><%= simple_format(h @user.description) %><% else %>This user has not entered a description yet.<% end %> </p></div>
 <% if @user.homepages != [] %>
 	<p>
 	<h3>Homepages</h3>
@@ -37,10 +38,10 @@
 		<%= link_to uh.url, uh.url, :target => "_blank" %><br/>
         <% end %>
 	<% end %>
+    </p>
 <% end %>
-</p>
 <div id="tab-container">
-	<ul class="tabs">
+	<ul class="nav nav-tabs">
 		<% if 1==2  %><li><a href="#snps"><%=@first_name%>'s SNPs</a></li><% end %>
 		<li><a href="#variations"><%= @first_name %>'s variations</a></li>
 	</ul>

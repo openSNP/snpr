@@ -4,6 +4,7 @@ require 'rails/test_help'
 require "authlogic/test_case"
 SunspotTest.solr_startup_timeout = 30
 require 'sunspot_test/test_unit'
+require 'factory_girl'
 
 #class ActiveSupport::TestCase
 FactoryGirl.find_definitions

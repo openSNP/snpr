@@ -1,6 +1,5 @@
-<h1>Listing all SNPs</h1>
-<table class="zebra-striped" id="no_snp_overview">
-<thead>
+<legend>Listing all SNPs</legend>
+<table class="table table-striped" id="no_snp_overview">
 <tr>
 	<th><%= sortable "id", "SNP-ID"%></th>
 	<th><%= sortable "name","Name"%></th>
@@ -9,8 +8,6 @@
 	<th>Your Genotype</th>
 	<th><%= sortable "ranking","Ranking*"%></th>
 </tr>
-</thead>
-<tbody>
 <% @snps_paginate.each do |s| %>
 	<tr>
 	<td><%= s.id %></td>
@@ -25,7 +22,6 @@
 	<td><%= s.ranking %></td>
 </tr>
 <% end %>
-</tbody>
 </table>
 <p>* The Ranking reflects how much information <em>openSNP</em> has mined for this SNP. An entry in SNPedia is worth 5 points, a paper in the PLoS 2 points, a paper on mendeley 1 point.</p> 
 <div class="pagination">

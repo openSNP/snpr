@@ -1,49 +1,40 @@
 FactoryGirl.define do
-    factory :user do |u|
-  u.name "Dogbert"
-  u.sequence(:email) { |i| "fubert#{i}@example.org" }
-  u.password "jeheim"
-  u.password_confirmation "jeheim"
-  u.sex 'yes please'
-  u.yearofbirth '1970'
+
+    factory :user do
+        name "Dogbert"
+        sequence(:email) { |i| "fubert#{i}@example.org" }
+        password "jeheim"
+        password_confirmation "jeheim"
+        sex 'yes please'
+        yearofbirth '1970'
     end
-end
 
-FactoryGirl.define do
-    factory :genotype do |g|
-    g.originalfilename "foo.txt"
-    g.uploadtime { Time.now }
-    g.association :user
+    factory :genotype do
+        originalfilename "foo.txt"
+        uploadtime { Time.now }
+        association :user
     end
-end
 
-FactoryGirl.define do
-  factory :snp do |s|
-    s.sequence(:name) { |i| "name #{i}" }
-    s.sequence(:position) { |i| i }
-    s.sequence(:chromosome) { |i| i }
-    s.genotype_frequency("AA" => 1)
-    s.allele_frequency("A" => 0, "T" => 0, "G" => 0, "C" => 0)
-    s.ranking 0
-  end
-end
-
-FactoryGirl.define do
-    factory :achievement do |a|
-  a.award "Foooooooo"
+    factory :snp do
+        sequence(:name) { |i| "name #{i}" }
+        sequence(:position) { |i| i }
+        sequence(:chromosome) { |i| i }
+        genotype_frequency("AA" => 1)
+        allele_frequency("A" => 0, "T" => 0, "G" => 0, "C" => 0)
+        ranking 0
     end
-end
 
-FactoryGirl.define do 
-    factory :phenotype do |p|
-  p.characteristic "Penis length"
+    factory :achievement do
+        award "Foooooooo"
     end
-end
 
-FactoryGirl.define do
-    factory :user_phenotype do |up|
-  up.association :user
-  up.association :phenotype
-  up.variation "pink"
+    factory :phenotype do
+        characteristic "Penis length"
+    end
+
+    factory :user_phenotype do
+        association :user
+        association :phenotype
+        variation "pink"
     end
 end

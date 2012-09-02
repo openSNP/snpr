@@ -1,29 +1,46 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-
-$(document).ready(function() 
-    { 
-		$('#update_user').click(function() {
-			$('#update_user').val("Updating...").addClass("disabled");
-			setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
-		});
+$(document).ready(function() { 
+    $('#update_user').click(function() {
+        $('#update_user').val("Updating...").addClass("disabled");
+        setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
+    });
 
     $("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
     $("#PaperPlos").tablesorter({sortList: [[2,1]]});
-    } 
-);
 
-$(document).ready(function(){ 
+    $('#remove_help_one').click(function() {
+        if( $('#help_three').is(":hidden") && $('#help_two').is(":hidden") ){
+            $("#help_block").hide("slow");
+        }
+        else {
+            $('#help_one').hide('slow');
+        }
+    });$
+    $('#remove_help_two').click(function() {
+        if( $('#help_one').is(":hidden") && $('#help_three').is(":hidden") ){
+            $("#help_block").hide("slow");
+        }
+        else {
+            $('#help_two').hide('slow');
+        }
+    });
+    $('#remove_help_three').click(function() {
+        if( $('#help_one').is(":hidden") && $('#help_two').is(":hidden") ){
+            $("#help_block").hide("slow");
+        }
+        else {
+            $('#help_three').hide('slow');
+        };
+    });
+
     $('#tab-container').easytabs();
-});$ 
-
-$(document).ready(function(){
-$("body").bind("click", function (e) {
-$('.dropdown-toggle, .menu').parent("li").removeClass("open");
-});
-$(".dropdown-toggle, .menu").click(function (e) {
-var $li = $(this).parent("li").toggleClass('open');
-return false;
-});
+    $("body").bind("click", function (e) {
+    $('.dropdown-toggle, .menu').parent("li").removeClass("open");
+    });
+    $(".dropdown-toggle, .menu").click(function (e) {
+    var $li = $(this).parent("li").toggleClass('open');
+    return false;
+    });
 });

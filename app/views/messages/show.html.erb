@@ -1,12 +1,28 @@
 <h1>Message</h1>
 <h4>From: <%if @from != "Deleted User"%><%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %><%else%>Deleted User<%end%>, received on <%= @message.created_at %></h4>
-<h3>Subject: <%=@message.subject %></h3>
+<div class="row">
+    <div class="span2">
+        <h3>Subject: <%=@message.subject %></h3>
+    </div>
+
+    <div class="span2 offset6">
+        <%if @from != "Deleted User"%>
+            <%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id}, :class => "btn primary" %>
+        <%end%>
+    </div>
+    <div class="span2">
+        <%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "danger btn"%>
+    </div>
+</div>
 
 <div class="well">
 <p><%=  simple_format(h @message.body) %></p>
 </div>
-<%if @from != "Deleted User"%><p><%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id}, :class => "btn primary" %></p><%end%>
-<p><%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "danger btn"%></p>
-
-
-<%= link_to "Back to your homepage", current_user %> | <%= link_to "Back to your messages", "/users/" + current_user.id.to_s + "#messages" %>
+<div class="row">
+    <div class="span4">
+        <%= link_to "Back to your homepage", current_user %> 
+    </div>
+    <div class="span4 offset4">
+        <%= link_to "Back to your messages", "/users/" + current_user.id.to_s + "#messages" %>
+    </div>
+</div>
