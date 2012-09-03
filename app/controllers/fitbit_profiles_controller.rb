@@ -1,6 +1,7 @@
 class FitbitProfilesController < ApplicationController
-  before_filter :require_user
+  before_filter :require_user, except: [:new_notification]
   before_filter :require_owner, only: [:update]
+  protect_from_forgery :except => :new_notification 
 
   
   def show
@@ -85,6 +86,17 @@ class FitbitProfilesController < ApplicationController
       flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again."
       redirect_to :action => "info"
     end
+  end
+  
+  def new_notification
+    puts params
+    @json_object = params["updates"]
+    @json_unparsed = @json_object.read
+    @notification = JSON.parse(@json_unparsed)
+    puts @notification[0]
+    puts @notification[0]["collectionType"]
+    Resque.enqueue(FitbitNotification,@notification)
+    render :nothing => true, :status => 204
   end
 
   private

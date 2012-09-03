@@ -21,7 +21,8 @@ Snpr::Application.routes.draw do
   resources :achievements
   resources :user_achievements
   resources :index
-  
+
+  match '/fitbit/notification/', :to => 'fitbit_profiles#new_notification'
   match '/fitbit/start_auth', :to => 'fitbit_profiles#start_auth'
   match '/fitbit/verify', :to => 'fitbit_profiles#verify_auth'
   match '/fitbit/info', :to => 'fitbit_profiles#info'
