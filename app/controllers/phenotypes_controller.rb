@@ -3,6 +3,7 @@ class PhenotypesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    @title = "Listing all phenotypes"
     @phenotypes = Phenotype.order(sort_column + " " + sort_direction)
     @phenotypes_paginate = @phenotypes.paginate(:page => params[:page],:per_page => 10)
     respond_to do |format|
