@@ -3,15 +3,12 @@
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
 	</div>
 	<div class="span6 columns"><legend><%= @user.name %>'s page</legend>
-		<% @user.achievements.each do |a|%>
-
-		<div id="<%=a.short_name%>" class="tooltip">
-			Achievement: <%=a.award%>.
-		</div>
-
-		<a onmouseover="showWMTT('<%=a.short_name%>')" onmouseout="hideWMTT()" href="/achievements/<%=a.id%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:style => "vertical-align:middle",:height=>"20",:alt => a.award)%></a>
+	  <%if @user.fitbit_profile != nil%>
+     <%=link_to(image_tag("/images/fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See Fitbit data for this user")%>
 		<%end%>
-		
+		<% @user.achievements.each do |a|%>
+    <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
+		<%end%>
     </div>
 		<%if current_user%><div class="span3"><h5><%=link_to(image_tag("/images/sendmessage_small.png",:style => "vertical-align:middle" ), :controller => "messages", :action => "new", :user_to_send => @user.id)%> <%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div><%end%>
     </div>
@@ -54,24 +51,8 @@
 	</div>
 	<% end %>
 
-	<script type="text/javascript">
-	<!--
-	wmtt = null;
-	document.onmousemove = updateWMTT;
-	function updateWMTT(e) {
-	  if (wmtt != null && wmtt.style.display == 'block') {
-	    x = (e.pageX ? e.pageX : window.event.x);
-	    y = (e.pageY ? e.pageY : window.event.y);
-	    wmtt.style.left = x + "px";
-		wmtt.style.top  = (y - wmtt.offsetHeight) + "px";
-	  }
-	}
-	function showWMTT(id) {
-	  wmtt = document.getElementById(id);
-	  wmtt.style.display = "block";
-	}
-	function hideWMTT() {
-	  wmtt.style.display = "none";
-	}
-	-->
-	</script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("[rel=tooltip]").tooltip({placement:'bottom'});
+    });
+  </script>

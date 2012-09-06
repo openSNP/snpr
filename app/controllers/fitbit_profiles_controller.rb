@@ -1,12 +1,28 @@
 class FitbitProfilesController < ApplicationController
-  before_filter :require_user, except: [:new_notification]
+  before_filter :require_user, except: [:new_notification, :show, :index]
   before_filter :require_user, only: [:update,:destroy,:init,:edit,:start_auth,:verify_auth,:dump]
   protect_from_forgery :except => :new_notification 
+  helper_method :sort_column, :sort_direction
 
+  def index
+    @title = "Listing all connected Fitbit accounts"
+    @fitbit = FitbitProfile.order(sort_column + " " + sort_direction)
+    @fitbit_paginate = @fitbit.paginate(:page => params[:page],:per_page => 20)
+    respond_to do |format|
+      format.html
+      format.xml 
+    end
+  end
   
   def show
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
-    
+    @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
+    @step_counter = 0
+    @floor_counter = 0
+    @steps = @activity.map {|fa| [fa.date_logged,fa.steps.to_i]}.inspect
+    @total_steps = @activity.map {|fa| [fa.date_logged,@step_counter = @step_counter += fa.steps.to_i]}.inspect
+    @total_floors = @activity.map {|fa| [fa.date_logged,@floor_counter = @floor_counter += fa.floors.to_i]}.inspect
+    @floors = @activity.map {|fa| [fa.date_logged,fa.floors.to_i]}.inspect
     respond_to do |format|
       format.html
     end
@@ -128,6 +144,14 @@ class FitbitProfilesController < ApplicationController
       end
       return false
     end
+  end
+  
+  def sort_column
+    Genotype.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
 end

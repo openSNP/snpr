@@ -5,6 +5,9 @@
     <div class="span3"><h1>Hello <%= @first_name %>!</h1></div>
         <br/>
         <div class="span4">
+          <%if @user.fitbit_profile != nil%>
+           <%=link_to(image_tag("/images/fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See Fitbit data for this user")%>
+      		<%end%>
 		<% current_user.achievements.each do |a|%>
             <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
 		<%end%>

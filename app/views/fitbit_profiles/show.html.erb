@@ -4,3 +4,91 @@
 <%if current_user%>
 <p class="lead"><%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
 <%end%>
+
+<div id="chart1"></div>
+<div id="chart2"></div>
+  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.highlighter.min.js"></script>
+  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.dateAxisRenderer.min.js"></script>
+  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.cursor.min.js"></script>
+  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.barRenderer.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var steps=<%=raw(@steps)%>;
+  var floors=<%=raw(@floors)%>;
+  var plot1 = $.jqplot('chart1', [floors,steps], {
+      title:'Activity per Day',
+      series:[{label:'Floors' ,yaxis:'y2axis',fill: true,highlightMouseOver: false}, {label:'Steps'}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          } 
+        },
+        yaxis:{
+          tickOptions:{
+            formatString:'%i steps'
+            }
+        },
+        y2axis:{
+          tickOptions:{
+            formatString:'%i floors'
+          },
+        },
+      },
+      axesDefaults: {
+          pad: 0
+      },
+      legend: {
+                  show: true,
+                  placement: 'outsideGrid'
+              },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
+  });
+  var total_steps=<%=raw(@total_steps)%>;
+  var total_floors=<%=raw(@total_floors)%>;
+  var plot2 = $.jqplot('chart2', [total_floors,total_steps], {
+      title:'Sum of Activity',
+      series:[{label:"Floors",yaxis:'y2axis',fill:true},{label:'Steps',fill:true}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          } 
+        },
+        yaxis:{
+          tickOptions:{
+            formatString:'%i steps'
+            }
+        },
+        y2axis:{
+          tickOptions:{
+            formatString:'%i floors'
+          },
+        },
+      },
+      axesDefaults: {
+          pad: 0
+      },
+      legend: {
+                  show: true,
+                  placement: 'outsideGrid'
+              },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
+  });
+});
+</script>

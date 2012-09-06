@@ -7,6 +7,7 @@
     <li><a href="#general">General</a></li>
     <li><a href="#phenotypes">Phenotypes</a></li>
     <li><a href="#details">Details</a></li>
+    <li><a href="#fitbit">Fitbit</a></li>
 	<li><a href="#notifications">Notifications</a></li>
 	<li><a href="#deleting">Deleting</a></li>
   </ul>
@@ -107,7 +108,17 @@
 	<p><%= link_to "Delete this account", @user, :method => "delete", :confirm => "Are you sure you want to delete your account?" %></p>
 </div>
 </div>
-
+<div id="fitbit">
+  <div class="well">
+  <h2><%=image_tag("/images/fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
+  <%if @user.fitbit_profile != nil%>
+    <p class="lead">You have connected your <em>Fitbit</em> account with <em>openSNP</em></p>
+    <p class="lead"><%=link_to("Edit your Fitbit connection" ,{:controller => "fitbit_profiles", :action => "edit"})%></p>
+  <%else%>
+    <p class="lead">You haven't connected a <em>Fitbit</em> account with <em>openSNP</em> yet. <%=link_to("Do you want to learn more about how to do this?" ,{:controller => "fitbit_profiles", :action => "info"})%></p>
+  <%end%>
+  </div>
+</div>
 
 <div class="actions">
 	<%= f.submit "Update Information", :class => "btn btn-primary", :id => "update_user" %>

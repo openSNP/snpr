@@ -32,6 +32,7 @@ Snpr::Application.routes.draw do
   match '/fitbit/delete/', :to => 'fitbit_profiles#destroy'
   match '/fitbit/show/:id', :to => 'fitbit_profiles#show', :as => :fitbit_show
   match '/fitbit/dump/:id', :to => 'fitbit_profiles#dump', :as => :fitbit_dump
+  match '/fitbit/', :to => 'fitbit_profiles#index', :as => :fitbit_index
   match '/users/:id/changepassword', :to => 'users#changepassword'
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login
