@@ -4,6 +4,7 @@ class GenotypesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    @title = "Listing all genotypings"
     @genotypes = Genotype.order(sort_column + " " + sort_direction)
     @genotypes_paginate = @genotypes.paginate(:page => params[:page],:per_page => 20)
     @filelink = FileLink.find_by_description("all genotypes and phenotypes archive").url unless FileLink.find_by_description("all genotypes and phenotypes archive") == nil
@@ -60,7 +61,7 @@ class GenotypesController < ApplicationController
 
         @genotype.move_file
         Resque.enqueue(Preparsing, @genotype.id)
-        format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing and stuff might take a couple of hours.') }
+        format.html { redirect_to(current_user, :notice => 'Genotype was successfully uploaded! Parsing and annotating might take a couple of hours.') }
         format.xml { render :xml => current_user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }

@@ -19,7 +19,7 @@
   </ul>
 <% if not @phenotypes.results == [] %>
 <div id="phenotypes">
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>Phenotype</th>
 				<th># of Users</th>
@@ -53,7 +53,7 @@
 
 <% if not @users.results == [] %>
 <div id="users">
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>Name</th>
 				<th>Genotype-file?</th>
@@ -79,7 +79,7 @@
 <div id="comments">
 <% if not @snp_comments.results == [] %>
 	<h5>On SNPs</h5>
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>SNP</th>
 				<th>From</th>
@@ -102,7 +102,7 @@
 <% end %>
 <% if not @phenotype_comments.results == [] %>
 	<h5>On Phenotypes</h5>
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>Phenotype</th>
 				<th>From</th>
@@ -129,7 +129,7 @@
 <div id="papers">                  
 <% if not @mendeley_papers.results == [] %>
 	<h5>Papers on Mendeley</h5>
-<table>
+	<table class="table table-striped">
 		<tr>
 			<th>Author</th>
 			<th>Title</th>
@@ -160,7 +160,7 @@
 <% end %>
 <% if not @plos_papers.results == [] %>
 	<h5>Papers at the Public Library of Science</h5>
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>Author</th>
 				<th>Title</th>
@@ -181,7 +181,7 @@
 <% end %>        
 <% if not @snpedia_papers.results == [] %>
 	<h5>Entries in the SNPedia</h5>
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>Title</th>
 				<th>Summary</th>
