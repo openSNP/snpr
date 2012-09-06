@@ -29,6 +29,9 @@ Snpr::Application.routes.draw do
   match '/fitbit/edit', :to => 'fitbit_profiles#edit'
   match '/fitbit/init', :to => 'fitbit_profiles#init'
   match '/fitbit/update/', :to => 'fitbit_profiles#update'
+  match '/fitbit/delete/', :to => 'fitbit_profiles#destroy'
+  match '/fitbit/show/:id', :to => 'fitbit_profiles#show', :as => :fitbit_show
+  match '/fitbit/dump/:id', :to => 'fitbit_profiles#dump', :as => :fitbit_dump
   match '/users/:id/changepassword', :to => 'users#changepassword'
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'user_sessions#new', :as => :login

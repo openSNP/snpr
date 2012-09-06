@@ -10,6 +10,8 @@ class FitbitNotification
        if @fitbit_profile != nil
          @client = Fitgem::Client.new(:consumer_key => APP_CONFIG[:fitbit_consumer_key], :consumer_secret => APP_CONFIG[:fitbit_consumer_secret])
          @client.reconnect(@fitbit_profile.access_token, @fitbit_profile.access_secret)
+         puts n
+         puts n["collectionType"]
          if n["collectionType"] == "activities" and @fitbit_profile.activities == true
            @activity = FitbitActivity.find_or_create_by_fitbit_profile_id_and_date_logged(@fitbit_profile.id,n["date"])
            @steps = @client.data_by_time_range("/activities/log/steps",{:base_date => n["date"],:period => "1d"})["activities-log-steps"][0]["value"]

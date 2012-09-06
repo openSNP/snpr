@@ -67,4 +67,10 @@ default :from => "donotreply@opensnp.org"
     mail(:subject => "openSNP.org: Sorry, there is no data to be dumped.", :to => target_address)
   end
   
+  def fitbit_dump(target_address,link)
+    @link = link
+    mail(:subject => "openSNP.org: The Fitbit-data you requested is now ready for download",:to => target_address)
+    puts "http://"+ActionMailer::Base.default_url_options[:host]+@link
+  end
+  
 end

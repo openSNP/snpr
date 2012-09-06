@@ -1,0 +1,6 @@
+<legend><%=image_tag("/images/fitbit-icon.png",:style => "vertical-align:middle")%> <em>Fitbit</em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></legend>
+
+<p class="lead">Some graphs go here. This is FitbitProfile #<%=link_to(@fitbit_profile.id ,{:controller => "fitbit_profiles", :action => "show", :id => @fitbit_profile.id})%> for user <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%>.</p>
+<%if current_user%>
+<p class="lead"><%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
+<%end%>

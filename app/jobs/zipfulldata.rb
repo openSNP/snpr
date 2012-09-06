@@ -51,7 +51,57 @@ class Zipfulldata
         
         @csv_handle.close
         puts "created csv-file"
-
+        
+        # Create a file of fitbit-data for each user with fitbit-data
+        
+        @fitbit_profiles = FitbitProfile.find(:all)
+        @fitbit_profiles.each do |fp|
+          # open handle
+          @fitbit_handle = File.new(::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv","w")
+          @fitbit_handle.puts("date;steps;floors;weight;bmi;minutes asleep;minutes awake; times awaken; minutes until fell asleep")
+          
+          # get all dates which have to be included in the csv
+          @time_array = []
+          fp.fitbit_bodies.each do |fb|
+            @time_array << fb.date_logged
+          end
+          fp.fitbit_sleeps.each do |fs|
+            @time_array << fs.date_logged
+          end
+          fp.fitbit_activities.each do |fa|
+            @time_array << fa.date_logged
+          end
+          
+          @time_array = @time_array.uniq.sort
+          
+          @time_array.each do |d|
+            @line = d + ";"
+            @activity = fp.fitbit_activities.find_by_date_logged(d)
+            if @activity == nil
+              @line = @line + "-;-;"
+            else
+              @line = @line + @activity.steps + ";" + @activity.floors+ ";"
+            end
+            
+            @body = fp.fitbit_bodies.find_by_date_logged(d)
+            if @body == nil
+              @line = @line + "-;-;"
+            else
+              @line = @line + @body.weight + ";" + @body.bmi + ";"
+            end
+            
+            @sleep = fp.fitbit_sleeps.find_by_date_logged(d)
+            if @sleep == nil
+              @line = @line + "-;-;-;-;"
+            else
+              @line = @line + @sleep.minutes_asleep+";"+@sleep.minutes_awake+";"+@sleep.number_awakenings+";"+@sleep.minutes_to_sleep+";"
+            end
+            @fitbit_handle.puts(@line)
+          end
+          @fitbit_handle.close
+          puts "Saved fibit-date for "
+        end
+          
         # make a README containing time of zip - this way, users can compare with page-status 
         # and see how old the data is
         @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt","w")
@@ -78,6 +128,11 @@ class Zipfulldata
             end
             zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth_"+@yob+"_sex_"+@sex+"."+gen_file.filetype+".txt", ::Rails.root.to_s+"/public/data/"+ gen_file.fs_filename)
           end
+          
+          @fitbit_profiles.each do |fp|
+            zipfile.add("user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv",::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv")
+          end
+          
         end
         if FileLink.find_by_description("all genotypes and phenotypes archive") == nil
             @filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => @zipname)
@@ -88,6 +143,9 @@ class Zipfulldata
         
         File.delete(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv")
         File.delete(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt")
+        @fitbit_profiles.each do |fp|
+          File.delete(::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv")
+        end
         puts "created zip-file"
       end
       

@@ -1,12 +1,20 @@
 class FitbitProfilesController < ApplicationController
   before_filter :require_user, except: [:new_notification]
-  before_filter :require_owner, only: [:update]
+  before_filter :require_user, only: [:update,:destroy,:init,:edit,:start_auth,:verify_auth,:dump]
   protect_from_forgery :except => :new_notification 
 
   
   def show
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
     
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def dump
+    @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
+    Resque.enqueue(FitbitDump,current_user.email,@fitbit_profile.id)
     respond_to do |format|
       format.html
     end
@@ -20,6 +28,14 @@ class FitbitProfilesController < ApplicationController
     
   def edit
     @fitbit_profile = current_user.fitbit_profile
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def destroy
+    @fitbit_profile = current_user.fitbit_profile
+    Resque.enqueue(FitbitEndSubscription,@fitbit_profile.id)
     respond_to do |format|
       format.html
     end
