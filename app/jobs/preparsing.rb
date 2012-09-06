@@ -75,23 +75,27 @@ class Preparsing
     if @genotype.filetype == "23andme"
         # first non-comment line is of length 4 after split
         if l.split("\t").length == 4
+            puts "file is 23andme and is ok!"
             file_is_ok = true
         end
     elsif @genotype.filetype == "decodeme"
         # first line is of length 6
         if l.split(",").length == 6
             file_is_ok = true
+            puts "file is decodeme and is ok!"
         end
     elsif @genotype.filetype == "ftdna-illumina"
         # first line is of length 4
         if l.split(",").length == 4
             file_is_ok = true
+            puts "file is ftdna and is ok!"
         end
     end
 
     # not proper file!
     if not file_is_ok
         UserMailer.parsing_error(@genotype.user_id).deliver
+        puts "file is not ok, sending email"
         # should delete the uploaded file here, leaving that for now
         # might be better to keep the file for debugging
     else

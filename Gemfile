@@ -11,6 +11,8 @@ gem 'fitgem'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem "turn", "< 0.8.3"
+gem "minitest"
 
 # gem 'sqlite3'
 # use postgresql instead:

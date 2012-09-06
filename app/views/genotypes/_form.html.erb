@@ -9,35 +9,27 @@
 	<%= f.file_field :filename %>
 </div>
 <div class="clearfix">
+    <div class="input">
 	<%= f.label :filetype %>
+    </div>
 	<div class="input">
-		<ul class="inputs-list">
-			<li>
 			<label>
 				<%= f.radio_button :filetype,"23andme" %>
 				<span>23andme-format</span>
 			</label>
-			</li>
-			<li>
 			<label>
 				<%= f.radio_button :filetype,"decodeme"%>
 				<span>deCODEme-format</span>
 			</label>
-			</li>
-			<li>
 			<label>
 				<%= f.radio_button :filetype,"ftdna-illumina"%>
 				<span>FamilyTreeDNA, Illumina-Format</span>
 			</label>
-			</li>
-			<li>
 			<label>
 				<%= f.radio_button :filetype,"23andme-exome-vcf"%>
 				<span>23andMe-EXOME, VCF-format (unzipped)</span>
 			</label>
-			</li>
-		</ul>
-		<br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>
+            <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%><br/><br/>
 	</div>
 </div>
 <div class="actions">
