@@ -64,9 +64,12 @@ class Preparsing
     file_is_ok = false
     fh = File.open("#{Rails.root}/public/data/#{@genotype.fs_filename}")
     l = fh.readline()
+    # some files, for some reason, start with the UTF-BOM-marker
+    l = l.sub("\uFEFF","")
     # iterate as long as there's commenting going on
     while l.start_with?("#")
         l = fh.readline()
+        l = l.sub("\uFEFF","")
     end
 
     if @genotype.filetype == "23andme"
