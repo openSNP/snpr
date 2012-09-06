@@ -37,6 +37,20 @@ class Preparsing
             system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.tsv #{Rails.root}/public/data/#{@genotype.fs_filename}")
             puts "copied file"
           end
+
+        elsif @genotype.filetype == "ftdna-illumina"
+          puts "ftdna"
+          if entry.to_s.include?("csv")
+            puts "ftdna: found genotyping-file"
+            Zip::ZipFile.open(filename) {
+                |zipfile|
+                zipfile.extract(entry,"#{Rails.root}/tmp/#{@genotype.fs_filename}.csv")
+                zipfile.close()
+                puts "extracted file"
+            }
+            system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.csv #{Rails.root}/public/data/#{@genotype.fs_filename}")
+            puts "copied file"
+          end
             
         end
       end
