@@ -16,13 +16,47 @@ class FitbitProfilesController < ApplicationController
   
   def show
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
-    @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
-    @step_counter = 0
-    @floor_counter = 0
-    @steps = @activity.map {|fa| [fa.date_logged,fa.steps.to_i]}.inspect
-    @total_steps = @activity.map {|fa| [fa.date_logged,@step_counter = @step_counter += fa.steps.to_i]}.inspect
-    @total_floors = @activity.map {|fa| [fa.date_logged,@floor_counter = @floor_counter += fa.floors.to_i]}.inspect
-    @floors = @activity.map {|fa| [fa.date_logged,fa.floors.to_i]}.inspect
+    
+    #grab activity measures for graphs
+    if @fitbit_profile.activities == true
+      @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
+      @step_counter = 0
+      @floor_counter = 0
+      @steps = @activity.map {|fa| [fa.date_logged,fa.steps.to_i]}.inspect
+      @total_steps = @activity.map {|fa| [fa.date_logged,@step_counter = @step_counter += fa.steps.to_i]}
+      @mean_steps = @total_steps[-1][-1] / @activity.length
+      @total_steps = @total_steps.inspect
+      @total_floors = @activity.map {|fa| [fa.date_logged,@floor_counter = @floor_counter += fa.floors.to_i]}.inspect
+      @floors = @activity.map {|fa| [fa.date_logged,fa.floors.to_i]}.inspect
+    end
+    
+    #grab body measurements for graphs
+    if @fitbit_profile.body == true
+      @body = FitbitBody.find_all_by_fitbit_profile_id(@fitbit_profile.id, :order => "date_logged")
+      @bmi = @body.map {|fa| [fa.date_logged,fa.bmi.to_f]}.inspect
+    end
+    
+    #grab sleep measurements for graphs
+    if @fitbit_profile.sleep == true
+      @sleep = FitbitSleep.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
+      @no_sleep = FitbitSleep.find_all_by_fitbit_profile_id_and_minutes_asleep(@fitbit_profile.id,"0")
+      
+      @total_asleep_counter = 0
+      @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged,@total_asleep_counter = @total_asleep_counter += fa.minutes_asleep.to_i]}
+      @minutes_asleep = @sleep.map {|fa| [fa.date_logged,fa.minutes_asleep.to_i]}.inspect
+      @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep.length)
+      @total_minutes_asleep = @total_minutes_asleep.inspect
+      @total_to_sleep_counter = 0
+      @total_minutes_to_sleep = @sleep.map {|fa| [fa.date_logged,@total_to_sleep_counter = @total_to_sleep_counter += fa.minutes_to_sleep.to_i]}.inspect
+      @minutes_to_sleep = @sleep.map {|fa| [fa.date_logged,fa.minutes_to_sleep.to_i]}.inspect
+      
+      @awakenings = @sleep.map {|fa| [fa.date_logged,fa.number_awakenings.to_i]}.inspect
+      
+      
+      
+      
+    end
+    
     respond_to do |format|
       format.html
     end
