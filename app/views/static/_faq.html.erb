@@ -150,11 +150,11 @@
   <div class="accordion" id="accordionscientists">
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseOne">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciOne">
 	        <legend>What does openSNP offer me as a researcher working on human SNPs?</legend>
         </a>
       </div>
-      <div id="collapseOne" class="accordion-body collapse in">
+      <div id="collapseSciOne" class="accordion-body collapse in">
          <div class="accordion-inner">
            <p>We can offer you data, hopefully someday even lots of data. <em>23andMe</em> alone genotyped already over 100.000 people and more and more of them are sharing their SNPs, as well as their phenotypes.</p><p>	Logged-In users can search our database for users with specific phenotypes and mass-download all corresponding SNP-datasets. This allows you to get datasets like <em>"All genotyping files of openSNP-users that have Alzheimer"</em> and the corresponding control group.</p><p>	If you'd like to be informed about new genotyping results in general, or just about all new data sets for a specific phenotype, you can use the RSS-feeds we offer.</p>
          </div>
@@ -162,11 +162,11 @@
     </div>    
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseTwo">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciTwo">
           <legend>How much does a membership in openSNP cost?</legend>
         </a>
       </div>
-      <div id="collapseTwo" class="accordion-body collapse">
+      <div id="collapseSciTwo" class="accordion-body collapse">
          <div class="accordion-inner">
 	          We take the "open" in openSNP serious, so everything is free of charge.
          </div>
@@ -174,11 +174,11 @@
     </div>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseThree">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciThree">
         	<legend>The phenotype I'm interested in is not yet in openSNP. What can I do?</legend>
       	</a>
       </div>
-      <div id="collapseThree" class="accordion-body collapse">
+      <div id="collapseSciThree" class="accordion-body collapse">
          <div class="accordion-inner">
 	You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%> and enter a name and a description that enables other users to understand what you are interested in. 
         </div>
@@ -186,11 +186,11 @@
     </div>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseFour">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciFour">
 	        <legend>How can i start a mass download?</legend>
 	      </a>
 	    </div>
-	    <div id="collapseFour" class="accordion-body collapse">
+	    <div id="collapseSciFour" class="accordion-body collapse">
          <div class="accordion-inner">
 	         This option is only available for logged-in users. Just visit the phenotype-page of your choice and click on the download-links for the variations you are interested in. Our server will grab all the data for you, make a handy zip-file out of it and send you the download link via email, as this can be a lot of data.
 	       </div>
@@ -198,11 +198,11 @@
      </div>
      <div class="accordion-group">
        <div class="accordion-heading">
-         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseFive">
+         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciFive">
 	          <legend>Is there an API for searching/downloading files?</legend>
           </a>
        </div>
-       <div id="collapseFive" class="accordion-body collapse">
+       <div id="collapseSciFive" class="accordion-body collapse">
           <div class="accordion-inner">
 	            We are currently working on providing API-access. <a href="http://opensnp.org/faq#api">If you are interested in learning more about how you can use JSON to get access to openSNP-data you might want to read this.</a> There are also some other ways to get hands on the data: If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.	
            </div>
@@ -210,11 +210,11 @@
     </div>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSix">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciSix">
             <legend>How do I parse the files provided by openSNP?</legend>
         </a>
       </div>
-      <div id="collapseSix" class="accordion-body collapse">
+      <div id="collapseSciSix" class="accordion-body collapse">
          <div class="accordion-inner">
            There's a Public Domain Python3-script located on github here: <a href="https://gist.github.com/1626642">Click this link.</a> Feel free to download and change this script.
           </div>
@@ -228,11 +228,11 @@
 	<div class="accordion" id="accordionphenotypes">
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionphenotypes" href="#collapseOne">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionphenotypes" href="#collapsePhenoOne">
 	        <legend>What do I have to consider while entering my variation for already existing phenotypes?</legend>
         </a>
       </div>
-      <div id="collapseSix" class="accordion-body collapse in">
+      <div id="collapsePhenoOne" class="accordion-body collapse in">
          <div class="accordion-inner">
 	          <strong>1.</strong>You should read the description on the phenotype you are about to enter. Often the description gives further details on which kind of answers people are interested in. You can also take a look on the answers which are given so far by other users. This should also give you a feeling about what kind of information is wanted for this phenotype. <br/><strong>2.</strong> As soon as you start to enter your own variation we will try to auto-complete your writing to avoid duplicate entries into the openSNP-database. Having multiple entries for the same thing, like "blue-green" plus "green-blue" in case of eye-colour makes it harder for (citizen) scientists to use the data for their studies. <br/><strong>3.</strong> The thing you are about to enter doesn't get auto-completed? Great. You are about to enter a variation which has not been reported so far, have fun entering your data! 
           </div>
@@ -240,19 +240,80 @@
 	    </div>
 	    <div class="accordion-group">
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionphenotypes" href="#collapseTwo">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionphenotypes" href="#collapsePhenoTwo">
 	            <legend>What should I consider while creating a new phenotype?</legend>
           </a>
         </div>
-        <div id="collapseSix" class="accordion-body collapse">
+        <div id="collapsePhenoTwo" class="accordion-body collapse">
            <div class="accordion-inner">
 	           <strong>1.</strong> Use a reasonable name for your characteristic. Don't make it too long, but at the same time make sure that people get the general idea of what you want to know. <br/><strong>2.</strong> You should also make sure that the same phenotype is not already available in the openSNP-database. As soon as you start writing your characteristics name openSNP will try to auto-complete what you are writing. This should reduce duplicate phenotypes, so if you are about to enter "eye-colour" you will get a suggestions for the already available "eye-color" (Sorry, we can't solve the AE / BE issue here).<br/><strong>3.</strong> Write a description about the characteristic you are interested in. Give users some words why this is interesting. Maybe add what research has been done so far on this phenotype. Links to further web-resources and/or Wikipedia might also be a good idea. If you already have suggestions which different answers might apply to this phenotype: List them in the description. <br/><strong>4.</strong> Enter your own variation: The last field, "variation" is meant to carry your own variation for this phenotype. Don't enter all possible answers (You can list those in the description). Other users can easily add their own variation and take your suggestions from the description or - if you forgot to list a possible answer - give completely new answers.  
            </div>
          </div>
  	    </div> 
     </div>	
-	<p class="lead"><strong>Connecting Fitbit</strong></p> 
-	Needs to be written
+  	<p class="lead"><strong>Connecting Fitbit</strong></p> 
+  	<div class="accordion" id="accordionfitbit">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitOne">
+            <legend>What is <em>Fitbit</em>?</legend>
+          </a>
+        </div>
+        <div id="collapseFitOne" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <em>Fitbit</em> is a wearable gadget which allows you to track your activities (How many steps have you taken? How many floors have you climbed?) and your sleep (How long did you sleep? How often have you awoken at night?). The tracker displays this information on the <em>Fitbit</em> website and calculates how efficient you sleep and many calories you have burned. Their website also allows you to track your body-development (i.e. your weight/BMI) and how much food you have eaten. 
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitTwo">
+            <legend>Which data will <em>openSNP</em> save from <em>Fitbit</em>? And will it be public?</legend>
+          </a>
+        </div>
+        <div id="collapseFitTwo" class="accordion-body collapse">
+          <div class="accordion-inner">
+            If you connect your <em>Fitbit</em> account with <em>openSNP</em> we will save data for up to three different categories: Activities, Body and Sleep. In the activity category we will save your step-count and the number of floors you've climbed for each day. For the body category we will save your Body Mass Index and your weight for each day. In the sleep category we will save how many minutes you have slept, how many minutes you were awake while you tried to sleep, how long it took you to fall asleep and the number of times you awoke for each night.<br/><br/>If you connect your <em>Fitbit</em> account we will also save as much data of past days as it's possible to get through the API of <em>Fitbit</em>. This data is as public as are the genotyping datasets or all standard phenotypes which are entered into openSNP. So please be sure you want the world to be able to see this data.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitThree">
+            <legend>Can I choose which data <em>openSNP</em> should save and which not?</legend>
+          </a>
+        </div>
+        <div id="collapseFitThree" class="accordion-body collapse">
+          <div class="accordion-inner">
+            Yes, you can choose which for which categories we should save the data. For example you can share our activity-data, so people can see the number of steps you have taken for each day, along with the floors you have climbed, but keep your body and sleep data on <em>FitBit</em>.Two things you should keep in mind: You can (de)activate the saving of data for different categories at any time. <br/><br/>1. If you deactivate a category we will delete all of your data of this category from <em>openSNP</em> (but of course not on <em>Fitbit</em>).<br/>2. If activate a category we will try to save as many data from the past as possible. So if there is past data you don't want to share you probably should not activate it (or delete the data from <em>Fitbit</em>). 
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitFour">
+            <legend>Do you get write-access to my <em>Fitbit</em> account?</legend>
+          </a>
+        </div>
+        <div id="collapseFitFour" class="accordion-body collapse">
+          <div class="accordion-inner">
+            No, if you connect your <em>Fitbit</em> account with <em>openSNP</em> we only have read-access. The read-access gives us access to all data you have in your <em>Fitbit</em> account, but we will only read and save the data for which you have given us permission. We're sorry that you have to trust us in this point but the <em>Fitbit</em> API currently doesn't allow for a more granular setting. 
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitFive">
+            <legend>Does <em>openSNP</em> automatically get the latest data from <em>Fitbit</em>?</legend>
+          </a>
+        </div>
+        <div id="collapseFitFive" class="accordion-body collapse">
+          <div class="accordion-inner">
+            Yes, once your <em>Fitbit</em> account is connected and set up we will get an notification from <em>Fitbit</em> each time you enter or change any data in their system. So each time your tracker uploads new data to <em>Fitbit</em> we will get those changes as well. This also works for past records. So if you change or delete entries on the <em>Fitbit</em> website those changes will be reflected on <em>openSNP</em> as well.
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 
 <div id="filetypes">

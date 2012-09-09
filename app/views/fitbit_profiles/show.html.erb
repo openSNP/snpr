@@ -1,7 +1,4 @@
 <legend><%=image_tag("/images/fitbit-icon.png",:style => "vertical-align:middle")%> <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></legend>
-
-<p class="lead">This is the <%=link_to("Fitbit-Profile",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%> for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%>.</p>
-
 <%if current_user%>
 <p class="lead"><%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
 <%else%>
