@@ -19,7 +19,7 @@
     var floors=<%=raw(@floors)%>;
     var plot1 = $.jqplot('chart1', [floors,steps], {
         title:'Activity per Day (Mean steps/day: <%=@mean_steps%>)',
-        series:[{label:'Floors' ,yaxis:'y2axis',fill: true,highlightMouseOver: false}, {label:'Steps'}],
+        series:[{label:'Floors' ,yaxis:'y2axis',fill: true,fillAlpha: 0.8,highlightMouseOver: false}, {label:'Steps'}],
         axes:{
           xaxis:{
             renderer:$.jqplot.DateAxisRenderer,
@@ -58,7 +58,7 @@
     var total_floors=<%=raw(@total_floors)%>;
     var plot2 = $.jqplot('chart2', [total_floors,total_steps], {
         title:'Sum of Activity',
-        series:[{label:"Floors",yaxis:'y2axis',fill:true},{label:'Steps',fill:true}],
+        series:[{label:"Floors",yaxis:'y2axis',fill:true,fillAlpha:0.5},{label:'Steps',fill:true,fillAlpha:0.5}],
         axes:{
           xaxis:{
             renderer:$.jqplot.DateAxisRenderer,
@@ -187,7 +187,7 @@
     var total_minutes_to_sleep=<%=raw(@total_minutes_to_sleep)%>;
     var plot5 = $.jqplot('chart5', [total_minutes_asleep,total_minutes_to_sleep], {
         title:'Sum of Sleep',
-        series:[{label:'minutes asleep',fill:true},{label:"minutes falling asleep",yaxis:'y2axis',fill:true,fillAlpha:0.9}],
+        series:[{label:'minutes asleep',fill:true,fillAlpha:0.5},{label:"minutes falling asleep",yaxis:'y2axis',fill:true,fillAlpha:0.6}],
         axes:{
           xaxis:{
             renderer:$.jqplot.DateAxisRenderer,
