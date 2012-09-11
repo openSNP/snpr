@@ -112,4 +112,7 @@ class Preparsing
         end
     end
   end
+  def self.log msg
+    Rails.logger.info "#{DateTime.now}: #{msg}"
+  end
 end
