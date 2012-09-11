@@ -27,6 +27,7 @@ class FitbitProfilesController < ApplicationController
       if @total_steps.length != 0
         begin
           @mean_steps = @total_steps[-1][-1] / @activity.length
+        rescue
         end
       end
       @total_steps = @total_steps.inspect
@@ -51,6 +52,7 @@ class FitbitProfilesController < ApplicationController
       if @total_minutes_asleep.length != 0
         begin
           @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep.length)
+        rescue
         end
       end
       @total_minutes_asleep = @total_minutes_asleep.inspect
