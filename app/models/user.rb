@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   has_many :achievements, through: :user_achievements
   has_many :snp_comments
   has_many :phenotype_comments
-  has_one :fitbit_profile
+  has_one :fitbit_profile, dependent: :destroy
 
   # needed to edit several user_phenotypes at once, add and delete, and not empty
   accepts_nested_attributes_for :homepages, :allow_destroy => true
