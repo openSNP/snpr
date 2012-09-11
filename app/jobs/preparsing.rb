@@ -94,6 +94,12 @@ class Preparsing
             file_is_ok = true
             log "file is ftdna and is ok!"
         end
+    elsif @genotype.filetype == "23andme-exome-vcf"
+        #first line is ???
+        if l.split("\t").length == 10
+            file_is_ok = true
+            log "file is 23andme-exome and is ok!"
+        end
     end
 
     # not proper file!
