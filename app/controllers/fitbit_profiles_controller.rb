@@ -25,7 +25,9 @@ class FitbitProfilesController < ApplicationController
       @steps = @activity.map {|fa| [fa.date_logged,fa.steps.to_i]}.inspect
       @total_steps = @activity.map {|fa| [fa.date_logged,@step_counter = @step_counter += fa.steps.to_i]}
       if @total_steps.length != 0
-        @mean_steps = @total_steps[-1][-1] / @activity.length
+        begin
+          @mean_steps = @total_steps[-1][-1] / @activity.length
+        end
       end
       @total_steps = @total_steps.inspect
       @total_floors = @activity.map {|fa| [fa.date_logged,@floor_counter = @floor_counter += fa.floors.to_i]}.inspect
@@ -47,7 +49,9 @@ class FitbitProfilesController < ApplicationController
       @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged,@total_asleep_counter = @total_asleep_counter += fa.minutes_asleep.to_i]}
       @minutes_asleep = @sleep.map {|fa| [fa.date_logged,fa.minutes_asleep.to_i]}.inspect
       if @total_minutes_asleep.length != 0
-        @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep.length)
+        begin
+          @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep.length)
+        end
       end
       @total_minutes_asleep = @total_minutes_asleep.inspect
       @total_to_sleep_counter = 0
