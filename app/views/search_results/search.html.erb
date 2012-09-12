@@ -88,7 +88,7 @@
 			</tr>
 <% for p in @snp_comments.results %>
 	<tr>
-		<td><%=link_to(p.snp.name,"/snps/"+p.snp.id.to_s+"#comments")%></td>
+		<td><%if p.snp != nil%><%=link_to(p.snp.name,"/snps/"+p.snp.id.to_s+"#comments")%><%else%>SNP was deleted<%end%></td>
         <% if p.user %>
 		<td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle"%> <%=link_to(p.user.name,p.user)%></td>
         <% else %>
@@ -111,7 +111,7 @@
 			</tr>
 <% for p in @phenotype_comments.results %>
 	<tr>
-		<td><%=link_to(p.phenotype.characteristic,"/snps/"+p.phenotype.id.to_s+"#comments")%></td>
+		<td><%if p.phenotype != nil%><%=link_to(p.phenotype.characteristic,"/snps/"+p.phenotype.id.to_s+"#comments")%><%else%>Phenotype was deleted<%end%></td>
         <% if p.user %>
 		<td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle"%> <%=link_to(p.user.name,p.user)%></td>
         <% else %>
