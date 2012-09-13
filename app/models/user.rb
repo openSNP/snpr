@@ -44,7 +44,17 @@ class User < ActiveRecord::Base
   end
 
   def phenotype_length
+     # tiny workaround for user-index
      phenotypes.length
+  end
+
+  def user_has_sequence_string
+     # used in the user-index-page instead of ugly true/false
+     if has_sequence
+         "Yes"
+     else
+         "No"
+     end
   end
 
    def check_if_phenotype_exists(charact)
