@@ -1,26 +1,25 @@
 <div class="row">
-	<%if @user.avatar_file_name != nil%>
-	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
-	<%end%>
     <div class="span3"><h1>Hello <%= @first_name %>!</h1></div>
+    <div class="row">
+        <%if @user.fitbit_profile != nil%>
         <br/>
-        <div class="span4">
-          <%if @user.fitbit_profile != nil%>
-           <%=link_to(image_tag("/images/fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See Fitbit data for this user")%>
-      		<%end%>
-		<% current_user.achievements.each do |a|%>
+        <div align="right">
+            <%=link_to(image_tag("/images/fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See your Fitbit data")%>
+        <%end%>
+
+        <% current_user.achievements.each do |a|%>
             <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
-		<%end%>
+        <%end%>
+        </div>
     </div>
 </div>
-<br/>
 <% if current_user.messages.where(:user_has_seen => false) != [] %>
-	<p><a href="#messages">You have messages!</a></p>
+    <p><a href="#messages">You have messages!</a></p>
 <% end %>
-	<% if @user.description != nil  %>
-	<h3>Description of yourself</h3>
+<% if @user.description != nil  %>
+    <h3>Description of yourself</h3>
 	<p><%= @user.description %></p>
-	<% end %>
+<% end %>
 
 <div id="tab-container">
 	<ul class="nav nav-tabs">
@@ -34,7 +33,6 @@
 		<li><a href="#messages">Your messages</a></li>
 		<li><a href="#comments">Replies to your comments</a></li>
 	</ul>
-
 
 <%if @unentered_phenotypes != []%>
 	<div id="unentered_variations">
