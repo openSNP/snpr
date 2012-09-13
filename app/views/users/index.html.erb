@@ -1,16 +1,16 @@
 <legend>Listing all users</legend>
-<table class="table table-striped" id="user_overview">
+<table class="table table-striped" id="users_overview">
 	<tr>
         <th><%= sortable "name", "Name" %></th>
         <th><%= sortable "has_sequence", "SNPs" %></th>
-        <th><%= sortable "phenotypes.length", "# of Phenotypes" %></th>
-	</tr>	
+        <th><%= sortable "phenotype_length", "# of Phenotypes" %></th>
+	</tr>
 <% @users_paginate.each do |u| %>
     <tr>
-		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(u.name,u) %></td>
+		<td><%=image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
 		<td><% if u.has_sequence %>Yes<% else %>No<% end %></td>
-		<td><%=u.phenotypes.length%></td>
-	</td>
+		<td><%=u.phenotype_length%></td>
+	</tr>
 <% end %>
 </table>
 <div class="pagination">

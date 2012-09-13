@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     UserMailer.password_reset_instructions(self).deliver
   end
 
+  def phenotype_length
+     phenotypes.length
+  end
+
    def check_if_phenotype_exists(charact)
      # checks so we don't create duplicate phenotypes
      if Phenotype.find_by_characteristic(charact) != nil
