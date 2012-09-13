@@ -133,6 +133,11 @@
 <% end %>
 </div>
 <div id="comments">
+    <% if @paginated_phenotype_replies == [] and @paginated_snp_replies == [] %>
+        <p>
+        You have received no replies on any comments yet.
+        </p>
+    <% end %>
 <% if @paginated_phenotype_replies != [] %>
 <h4>Latest replies on your comments on Phenotypes</h4>
 

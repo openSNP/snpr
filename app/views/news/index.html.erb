@@ -64,9 +64,8 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 
 <div id="genotypes">
 <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
-<div class="row-fluid">
-    <div class="span2"><h3>Genotypes</h3></div>
-    <div class="span2"><%=link_to(image_tag("/images/rss_small.png"),"/rss")%></div>
+<div class="row">
+    <div class="span2"><h3>Genotypes</h3></div><br/><div class="span1"><%=link_to(image_tag("/images/rss_small.png"),"/rss")%></div>
 </div>
 <br/>
 <table class="table table-striped">
@@ -172,10 +171,9 @@ Hello everyone! We've implemented a minor change, you can now access SNPs over t
 </div>
 
 <div id="publications">
-    <div class="row">
-        <div class="span3"><h3>Latest publications</h3></div>
-        <div class="span2"><%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%></div>
-    </div>
+<div class="row">
+    <div class="span3"><h3>Lastest publications</h3></div><br/><div class="span1"><%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%></div>
+</div>
     <br/>
 	<table class="table table-striped">
 		<tr>
