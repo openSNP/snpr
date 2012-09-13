@@ -1,16 +1,16 @@
 <div class="row">
-	<div class="span0 columns">
+	<div class="span0">
 	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
 	</div>
-	<div class="span6 columns"><legend><%= @user.name %>'s page</legend>
+	<div class="span6"><legend><%= @user.name %>'s page</legend>
 	  <%if @user.fitbit_profile != nil%>
      <%=link_to(image_tag("/images/fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See Fitbit data for this user")%>
 		<%end%>
 		<% @user.achievements.each do |a|%>
-    <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
+            <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
 		<%end%>
     </div>
-		<%if current_user%><div class="span3"><h5><%=link_to(image_tag("/images/sendmessage_small.png",:style => "vertical-align:middle" ), :controller => "messages", :action => "new", :user_to_send => @user.id)%> <%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div><%end%>
+		<%if current_user%><div align="right" class="span4"><h5><%=link_to(image_tag("/images/sendmessage_small.png",:style => "vertical-align:middle" ), :controller => "messages", :action => "new", :user_to_send => @user.id)%> <%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div><%end%>
     </div>
 </div>
 <% if @user.genotypes != [] %>
@@ -43,7 +43,11 @@
 		<li><a href="#variations"><%= @first_name %>'s variations</a></li>
 	</ul>
 	<div id="variations">
-		<%= render "variations" %>
+        <% if @user_phenotypes != []%>
+            <%= render "variations" %>
+        <% else %>
+            <p>This user has not entered any phenotypes yet.</p>
+        <% end %>
 	</div>
 	<% if 1==2 # @user.has_sequence %>
 	<div id="snps">
