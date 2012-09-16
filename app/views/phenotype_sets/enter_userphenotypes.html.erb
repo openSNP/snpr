@@ -1,0 +1,11 @@
+<%= form_for(:user_phenotypes, :url => {:controller => :phenotype_sets, :action => :save_user_phenotypes}) do |f| %>
+  <% @user_phenotypes.each do |us| %>
+    <%= f.fields_for us do |user_phenotype| %>
+      <p class="lead">Phenotype: <%=us.phenotype.characteristic%></p>
+      <%= render "user_phenotype", :user_phenotype => user_phenotype %>
+    <% end %>
+  <% end %>
+  <div class="alert-actions"> 
+	<%= f.submit "Submit your variation", :class => "btn btn-primary"  %>
+	</p></div>
+<% end %>

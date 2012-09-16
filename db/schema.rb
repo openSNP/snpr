@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902175500) do
+ActiveRecord::Schema.define(:version => 20120916212700) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -135,6 +135,19 @@ ActiveRecord::Schema.define(:version => 20120902175500) do
     t.datetime "updated_at"
   end
 
+  create_table "phenotype_sets", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phenotype_sets_phenotypes", :id => false, :force => true do |t|
+    t.integer "phenotype_set_id"
+    t.integer "phenotype_id"
+  end
+
   create_table "phenotypes", :force => true do |t|
     t.string   "characteristic"
     t.text     "known_phenotypes"
@@ -182,9 +195,9 @@ ActiveRecord::Schema.define(:version => 20120902175500) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-07-18 03:42:13'
-    t.datetime "plos_updated",       :default => '2012-07-18 03:42:13'
-    t.datetime "snpedia_updated",    :default => '2012-07-18 03:42:13'
+    t.datetime "mendeley_updated",   :default => '2012-08-13 02:14:48'
+    t.datetime "plos_updated",       :default => '2012-08-13 02:14:48'
+    t.datetime "snpedia_updated",    :default => '2012-08-13 02:14:48'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
