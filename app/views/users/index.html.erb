@@ -1,9 +1,9 @@
 <legend>Listing all users</legend>
-<table class="table table-striped" id="users_overview">
+<table class="table table-striped" id="all_users">
 	<tr>
         <th><%= sortable "name", "Name" %></th>
-        <th><%= sortable "has_sequence_string", "SNPs" %></th>
-        <th><%= sortable "phenotype_length", "# of Phenotypes" %></th>
+        <th>"SNPs"</th>
+        <th># of Phenotypes"</th>
 	</tr>
 <% @users_paginate.each do |u| %>
     <tr>

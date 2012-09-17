@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_filter :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
   helper_method :sort_column, :sort_direction
+  before_filter :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
   before_filter :require_no_user, :only => [:new, :create]
 
   if Rails.env.production?
@@ -39,34 +39,37 @@ class UsersController < ApplicationController
 
 
   def index
+    print request.format.inspect
     # showing all users
     @users = User.order(sort_column + " " + sort_direction)
     @users_paginate = User.paginate(:page => params[:page], :per_page => 10)
     @title = "Listing all users"
     
-    @result = []
-    begin
-      @users = User.find(:all)
-      @users.each do |u|
-        @user = {}
-        @user["name"] = u.name
-        @user["id"] = u.id
-        @user["genotypes"] = []
-        Genotype.find_all_by_user_id(u.id).each do |g|
-          @genotype = {}
-          @genotype["id"] = g.id
-          @genotype["filetype"] = g.filetype
-          @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
-          @user["genotypes"] << @genotype
+    if request.format.json?
+        @result = []
+        begin
+        @users = User.find(:all)
+        @users.each do |u|
+            @user = {}
+            @user["name"] = u.name
+            @user["id"] = u.id
+            @user["genotypes"] = []
+            Genotype.find_all_by_user_id(u.id).each do |g|
+            @genotype = {}
+            @genotype["id"] = g.id
+            @genotype["filetype"] = g.filetype
+            @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
+            @user["genotypes"] << @genotype
+            end
+        @result << @user
         end
-      @result << @user
-      end
 
-    rescue
-      @result = {}
-      @result["error"] = "Sorry, we couldn't find any users"
+        rescue
+        @result = {}
+        @result["error"] = "Sorry, we couldn't find any users"
+        end
     end
-    
+        
     respond_to do |format|
       format.html
       format.json { render :json => @result }
@@ -243,6 +246,14 @@ class UsersController < ApplicationController
     
   private
 
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
   def require_owner
     unless current_user == User.find(params[:id])
       store_location
@@ -257,11 +268,4 @@ class UsersController < ApplicationController
     end
   end
 
-  def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
 end
