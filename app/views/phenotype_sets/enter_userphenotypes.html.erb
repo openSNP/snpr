@@ -2,8 +2,8 @@
   <% @user_phenotypes.each do |us, i| %>
       <%= f.fields_for "user_phenotypes[]", us do |user_phenotype| %>
       <p class="lead">Phenotype: <%=us.phenotype.characteristic%></p>
-      <%= user_phenotype.hidden_field :phenotype, :value => us.phenotype.id%>
-        <%= user_phenotype.text_field :variation %>
+        <%= user_phenotype.hidden_field :phenotype, :value => us.phenotype.id%>
+        <%= user_phenotype.text_field :variation, :value => us.give_me_user_phenotype(us.phenotype.id, current_user.id) %>
     <% end %>
   <% end %>
   <div class="alert-actions"> 
