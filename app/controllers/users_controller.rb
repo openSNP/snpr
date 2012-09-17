@@ -39,10 +39,9 @@ class UsersController < ApplicationController
 
 
   def index
-    print request.format.inspect
     # showing all users
     @users = User.order(sort_column + " " + sort_direction)
-    @users_paginate = User.paginate(:page => params[:page], :per_page => 10)
+    @users_paginate = @users.paginate(:page => params[:page], :per_page => 10)
     @title = "Listing all users"
     
     if request.format.json?
