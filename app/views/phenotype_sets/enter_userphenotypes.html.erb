@@ -1,12 +1,43 @@
-<%= form_for(:user_phenotypes, :url => {:controller => :phenotype_sets, :action => :save_user_phenotypes}) do |f| %>
-  <% @user_phenotypes.each do |us, i| %>
-      <%= f.fields_for "user_phenotypes[]", us do |user_phenotype| %>
-      <p class="lead">Phenotype: <%=us.phenotype.characteristic%></p>
-        <%= user_phenotype.hidden_field :phenotype, :value => us.phenotype.id%>
-        <%= user_phenotype.text_field :variation, :value => us.give_me_user_phenotype(us.phenotype.id, current_user.id) %>
+<legend><%=@phenotypeset.title%></legend>
+<div class="row">
+  <div class="span6">
+    <%= form_for(:user_phenotypes, :url => {:controller => :phenotype_sets, :action => :save_user_phenotypes}) do |f| %>
+      <% @user_phenotypes.each do |us, i| %>
+      <div class="well">
+          <%= f.fields_for "user_phenotypes[]", us do |user_phenotype| %>
+          <p class="lead">Phenotype: <%=us.phenotype.characteristic%></p>
+          <b>Description:</b> <%=simple_format(us.phenotype.description)%>
+            <%= user_phenotype.hidden_field :phenotype, :value => us.phenotype.id%>
+            <%= user_phenotype.text_field :variation, :value => us.give_me_user_phenotype(us.phenotype.id, current_user.id), :id => "autocomplete_#{us.phenotype.id}" %>
+        <% end %>
+    
+        <script type="text/javascript">
+        $(function () {
+            $("#autocomplete_<%=us.phenotype.id%>").autocomplete({
+                source: <%=raw(us.phenotype.known_phenotypes.to_json)%>
+            });
+        });
+        </script>
+      </div>
+      <% end %>
+      <div class="alert-actions"> 
+    	<%= f.submit "Submit your variation", :class => "btn btn-primary"  %>
+    	</p></div>
     <% end %>
-  <% end %>
-  <div class="alert-actions"> 
-	<%= f.submit "Submit your variation", :class => "btn btn-primary"  %>
-	</p></div>
-<% end %>
+  </div>
+  <div class="span6">
+    <p class="lead">Description for this set</p>
+    <%=simple_format(@phenotypeset.description)%>
+    <div class="alert alert-info">
+      <p class="lead">Help</p>
+      <dl>
+        <dt>Entering Data</dt>
+        <dd>Using the phenotype-sets works just as entering single phenotypes. So you shouldn't have too much to worry about.</dd>
+        <dt>Auto Completion</dt>
+        <dd>Please make use of the auto-complete which gives hints on the already available variation. This makes it easier for researchers to put your data to use.</dd>
+        <dt>All that information?</dt>
+        <dd>You don't have to answer all questions. If you keep a field empty it will just be ignored, so you can only provide those phenotypes which you are comfortable sharing with.</dd>
+      </dl>
+    </div>
+  </div>
+</div>
