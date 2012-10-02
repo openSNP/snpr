@@ -21,7 +21,7 @@ Below you find <%=@similar_phenotypes.size%> <%if @similar_phenotypes.size > 1%>
 	<div class="span<%=(16/@similar_phenotypes.size).to_i%> columns">
 		<div class="alert alert-block alert-success" data-alert="alert">
 		<h6><%=link_to s.characteristic,s%></h6>
-		Description: <em><%=s.description%></em>
+		Description: <em><%=simple_format(s.description)%></em>
 		</div>
 	</div>
 <%end%>

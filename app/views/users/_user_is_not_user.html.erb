@@ -25,7 +25,7 @@
 <% end %>
 
 <% if @user.description != "" and not @user.homepages.empty?%><h3>On <%= @first_name %>:</h3><%end %>
-<div class="well"><h5>Description</h5><p><% if @user.description != nil %><%= simple_format(h @user.description) %><% else %>This user has not entered a description yet.<% end %> </p></div>
+<div class="well"><h5>Description</h5><p><% if @user.description != nil %><%= simple_format(@user.description) %><% else %>This user has not entered a description yet.<% end %> </p></div>
 <% if @user.homepages != [] %>
 	<p>
 	<h3>Homepages</h3>
