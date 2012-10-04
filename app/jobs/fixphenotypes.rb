@@ -13,6 +13,8 @@ class Fixphenotypes
             # delete!
             log "Deleting phenotype '" + p.characteristic
             Phenotype.destroy(p)
+            Resque.enqueue(Recommendvariations)
+        	  Resque.enqueue(Recommendphenotypes)
             next
         end
 
