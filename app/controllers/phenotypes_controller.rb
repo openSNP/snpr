@@ -6,9 +6,19 @@ class PhenotypesController < ApplicationController
     @title = "Listing all phenotypes"
     @phenotypes = Phenotype.order(sort_column + " " + sort_direction)
     @phenotypes_paginate = @phenotypes.paginate(:page => params[:page],:per_page => 10)
+    @phenotypes_json = []
+    @phenotypes.each do |p|
+      @phenotype = {}
+      @phenotype["id"] = p.id
+      @phenotype["characteristic"] = p.characteristic
+      @phenotype["known_variations"] = p.known_phenotypes
+      @phenotype["number_of_users"] = p.user_phenotypes.length
+      @phenotypes_json << @phenotype
+    end
     respond_to do |format|
       format.html
       format.xml 
+      format.json {render :json => @phenotypes_json} 
     end
   end
 
@@ -214,6 +224,29 @@ class PhenotypesController < ApplicationController
       format.html
       format.xml
     end
+  end
+
+  def json_variation
+    @result = {}
+    begin
+      @phenotype = Phenotype.find_by_id(params[:phenotype_id])
+      @result["id"] = @phenotype.id
+      @result["characteristic"] = @phenotype.characteristic
+      @result["description"] = @phenotype.description
+      @result["known_variations"] = @phenotype.known_phenotypes
+      @result["users"] = []
+      @phenotype.user_phenotypes.each do |up|
+        @user_phenotype = {"user_id" => up.user_id,"variation" => up.variation}
+        @result["users"] << @user_phenotype
+      end
+    rescue
+      @result["error"] = "Sorry, this phenotype doesn't exist"
+    end
+    
+    respond_to do |format|
+      format.json { render :json => @result } 
+    end    
+    
   end
 
   def json
