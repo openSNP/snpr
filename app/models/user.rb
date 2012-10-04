@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :user_phenotypes, :dependent => :destroy
   has_many :phenotypes, :through => :user_phenotypes
   has_many :genotypes, :dependent => :destroy
-  has_many :user_snps, :dependent => :destroy
+  has_many :user_snps
   has_many :snps, :through => :user_snps
   has_many :homepages, :dependent => :destroy
   has_many :messages, :dependent => :destroy
