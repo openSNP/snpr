@@ -232,8 +232,6 @@ class UsersController < ApplicationController
     # delete all dependents
     User.destroy(@user)
 
-    # re-calculate SNP-frequencies
-    Resque.enqueue(Frequency)
     # delete phenotypes without user-phenotypes and update number-of-users
     Resque.enqueue(Fixphenotypes)
     redirect_to root_url
