@@ -16,19 +16,19 @@ class User < ActiveRecord::Base
   #after_create :make_standard_phenotypes
 
   # dependent so stuff gets destroyed on delete
-  has_many :user_phenotypes, dependent: :destroy
-  has_many :phenotypes, through: :user_phenotypes
-  has_many :genotypes, dependent: :destroy
+  has_many :user_phenotypes, :dependent => :destroy
+  has_many :phenotypes, :through => :user_phenotypes
+  has_many :genotypes, :dependent => :destroy
   # user_snps needs some extra-logic to decrease the counters
-  has_many :user_snps, dependent: :destroy
-  has_many :snps, through: :user_snps
-  has_many :homepages, dependent: :destroy
-  has_many :messages, dependent: :destroy
-  has_many :user_achievements, dependent: :destroy
-  has_many :achievements, through: :user_achievements
-  has_many :snp_comments
-  has_many :phenotype_comments
-  has_one :fitbit_profile
+  has_many :user_snps, :dependent => :destroy
+  has_many :snps, :through => :user_snps
+  has_many :homepages, :dependent => :destroy
+  has_many :messages, :dependent => :destroy
+  has_many :user_achievements, :dependent => :destroy
+  has_many :achievements, :through => :user_achievements
+  has_many :snp_comments, :dependent => :destroy
+  has_many :phenotype_comments, :dependent => :destroy
+  has_one :fitbit_profile, :dependent => :destroy
 
   # needed to edit several user_phenotypes at once, add and delete, and not empty
   accepts_nested_attributes_for :homepages, :allow_destroy => true
@@ -60,9 +60,9 @@ class User < ActiveRecord::Base
    def check_if_phenotype_exists(charact)
      # checks so we don't create duplicate phenotypes
      if Phenotype.find_by_characteristic(charact) != nil
-       return true
+       true
      else
-       return false
+       false
      end
    end
 

@@ -224,10 +224,8 @@ class UsersController < ApplicationController
     end
     
     flash[:notice] = "Thank you for using openSNP. Goodbye!"
-    User.delete(@user)
-    if @user.fitbit_profile != nil
-      FitbitProfile.destroy(@user.fitbit_profile)
-    end
+    Resque.enqueue(Frequency)
+    User.destroy(@user)
     redirect_to root_url
   end
 
