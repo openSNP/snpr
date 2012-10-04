@@ -224,8 +224,17 @@ class UsersController < ApplicationController
     end
     
     flash[:notice] = "Thank you for using openSNP. Goodbye!"
+
+    # disconnect from fitbit if needed
+    if @user.fitbit_profile != nil
+        Resque.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
+    end
+    # delete all dependents
     User.destroy(@user)
+
+    # re-calculate SNP-frequencies
     Resque.enqueue(Frequency)
+    # delete phenotypes without user-phenotypes and update number-of-users
     Resque.enqueue(Fixphenotypes)
     redirect_to root_url
   end
