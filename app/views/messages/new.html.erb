@@ -1,8 +1,15 @@
-<h1>Compose Message</h1>
-<%= form_for @message, :html => {:class => "form-stacked"} do |f| %>
+<% if @answering %>
+<h2>Answering:</h2>
+<div class="well">
+    <p><b>Subject: <%= @answering.subject %></b></p>
+    <p><%= @answering.body %></p>
+</div>
+<%end%>
+<h2>Compose Message</h2>
+<%= form_for @message do |f| %>
 	<%= render 'shared/error_messages', :target => @message %>
 	<div class="clearfix">
-		<% if params[:user_to_send] %> <%= collection_select(:user, :id, @users, :id, :name, :class =>"user", :selected => params[:user_to_send]) %>
+        <% if params[:user_to_send] %> <%= f.label "Select a user" %><%= collection_select(:user, :id, @users, :id, :name, :class =>"user", :selected => params[:user_to_send]) %>
 		<% else %><%= f.label :to_id%> <%= collection_select(:user, :id, @users, :id, :name, :class =>"user", :selected => :prompt, :prompt => "Select a user") %>
 		<% end %>
 	</div>
@@ -15,7 +22,7 @@
 	<div class="clearfix">
 		<%= f.label "body"%>
 		<div class="input">
-			<%= f.text_area :body, :cols => 100, :rows => 10 %>
+            <%= f.text_area :body, :size => "10x10"  %>
 		</div>
 	</div>
 	<div class="actions">

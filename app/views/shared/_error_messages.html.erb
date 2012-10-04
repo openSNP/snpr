@@ -1,5 +1,6 @@
 <% if target.errors.any? %>
 	<div class="alert alert-block alert-error">
+    There was one or more errors:
             <ul>
 			<% target.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>

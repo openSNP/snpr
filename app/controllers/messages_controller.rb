@@ -9,7 +9,9 @@ class MessagesController < ApplicationController
 	  @title = "New message"
 	  @users = User.all # .delete(current_user) 
 	  # ideally, we would kick out the current_user however, this generates crashes when there are only two users (function "map" doesn't work on a single object)
-	  
+      if params[:message]
+        @answering = Message.find_by_id(params[:message])
+      end
 	  respond_to do |format|
 		  format.html
 		  format.xml { render :xml => @message }
