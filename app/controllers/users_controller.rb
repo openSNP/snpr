@@ -225,6 +225,7 @@ class UsersController < ApplicationController
     
     flash[:notice] = "Thank you for using openSNP. Goodbye!"
     Resque.enqueue(Frequency)
+    Resque.enqueue(Fixphenotypes)
     User.destroy(@user)
     redirect_to root_url
   end
