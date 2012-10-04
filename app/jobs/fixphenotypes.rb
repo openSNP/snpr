@@ -9,10 +9,11 @@ class Fixphenotypes
 
     Phenotype.all.each do |p|
         # is it empty?
-        if p.user_phenotypes == []
+        if p.user_phenotypes.length == 0
             # delete!
-            log "Deleting phenotype '" + p.characteristic + "' with id " + p.id
+            log "Deleting phenotype '" + p.characteristic
             Phenotype.destroy(p)
+            next
         end
 
         # is number_of_users still up-to-date?
