@@ -14,3 +14,7 @@ test:
 production:
   <<: *base
   database: snpr_production
+
+staging:
+  <<: *base
+  database: snpr_production
