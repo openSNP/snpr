@@ -1,10 +1,13 @@
 require 'capistrano/ext/multistage'
+default_run_options[:pty] = true 
 set :stages, %w(production staging)
 set :default_stage, "staging"
 
 set :application, "opensnp"
 set :scm, :git
 set :user, "philipp"
+set :use_sudo, false
+set :port, 57329
 set :scm_user, "drsnuggles"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 #
