@@ -8,12 +8,7 @@ set :repository,  "set your repository location here"
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 #
-<<<<<<< HEAD
 set :repository, "https://github.com/gedankenstuecke/snpr.git"
-=======
-set :repository, "ssh://"
->>>>>>> 833d45260ad30de1128dd42d0fbaffea0ad28367
-set :deploy_to, "/var/www/snpr"
 set :deploy_via, :remote_cache
 set :rails_env, "production"
 
