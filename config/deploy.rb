@@ -2,10 +2,10 @@ require 'capistrano/ext/multistage'
 set :stages, %w(production staging)
 set :default_stage, "staging"
 
-set :application, "snpr"
-set :repository,  "set your repository location here"
-
+set :application, "opensnp"
 set :scm, :git
+set :user, "philipp"
+set :scm_user, "drsnuggles"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 #
 set :repository, "https://github.com/gedankenstuecke/snpr.git"
