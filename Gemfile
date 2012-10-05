@@ -8,6 +8,7 @@ gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'fitgem'
+gem 'rvm-capistrano'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
