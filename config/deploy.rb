@@ -5,7 +5,7 @@ set :default_stage, "staging"
 
 set :application, "opensnp"
 set :scm, :git
-set :user, "philipp"
+set :user, "bastian"
 set :use_sudo, false
 set :port, 57329
 set :scm_user, "drsnuggles"

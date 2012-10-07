@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916212700) do
+ActiveRecord::Schema.define(:version => 20121006230458) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -81,6 +81,21 @@ ActiveRecord::Schema.define(:version => 20120916212700) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "genome_gov_papers", :force => true do |t|
+    t.text     "first_author"
+    t.text     "title"
+    t.text     "pubmed_link"
+    t.text     "pub_date"
+    t.text     "journal"
+    t.text     "trait"
+    t.float    "pvalue"
+    t.text     "pvalue_description"
+    t.text     "confidence_interval"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "snp_id"
+  end
 
   create_table "genotypes", :force => true do |t|
     t.datetime "uploadtime",                              :null => false

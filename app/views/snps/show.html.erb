@@ -67,6 +67,7 @@
     <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>
     <li><a href="#plos">PLoS (<%=@snp.plos_paper.length%>)</a></li>
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
+    <li><a href="#genomegov">Genome.gov (<%=@snp.genome_gov_paper.length%>)</a></li>
     <li><a href="#users">Other users (<%=@users.length%>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
   </ul>
@@ -99,6 +100,39 @@
 <% end %>
 </div>
 
+<div id="genomegov">
+  <h3>Publications listed by <em>Genome.gov</em></h3>
+  <% if @snp.genome_gov_paper != []%>
+  <table class="table table-striped" id="PaperGenomeGov">
+    <thead>
+      <tr>
+        <th>First Author</th>
+        <th>Title</th>
+        <th>Journal</th>
+        <th>Publication Date</th>
+        <th>Trait</th>
+        <th>p-value</th>
+        <th>Confidence Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@snp.genome_gov_paper.each do |p|%>
+      <tr>
+        <td><%=p.first_author%></td>
+        <td><%=link_to(p.title.html_safe,p.pubmed_link)%></td>
+        <td><%=p.journal%></td>
+        <td><%=p.pub_date%></td>
+        <td><%=p.trait%></td>
+        <td><%=p.pvalue%> <%=p.pvalue_description%></td>
+        <td><%=p.confidence_interval%></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  <%else%>
+  There are no results from <em>genome.gov</em> yet. Please come back later.
+  <%end%>
+</div>
 <div id="mendeley">
 <h3>Publications on this SNP on Mendeley</h3>
 <% if @snp.mendeley_paper != [] %>
@@ -297,6 +331,6 @@
        background: '#ffffff'}
     }
     );
-});
 <%end%>
+});
 </script>
