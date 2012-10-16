@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :user_phenotypes, :allow_destroy => true
 
   searchable do
-    text :description, :name, :email
+    text :description
   end
 
   def deliver_password_reset_instructions!
