@@ -5,6 +5,7 @@ class Snp < ActiveRecord::Base
   has_many :snpedia_paper
   has_many :snp_comments
   has_many :genome_gov_paper
+  has_many :pgp_annotation
   serialize :allele_frequency
   serialize :genotype_frequency
 
