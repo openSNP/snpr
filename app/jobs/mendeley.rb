@@ -26,6 +26,9 @@ class Mendeley
 
         if result["total_results"] != 0
            print "mendeley: Got papers\n"
+           print "results are\n"
+           print result
+           print "\n"
            result["documents"].each do |document|
               mendeley_url = document["mendeley_url"]
               uuid = document["uuid"].to_s
