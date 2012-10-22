@@ -14,10 +14,7 @@ class Phenotype < ActiveRecord::Base
       user_phenotypes.map(&:variation).
       map(&:downcase).
       uniq.
-      map(&:camelize).
-      each do |up|
-        up.gsub!("::","/")
-      end
+      map{ |p| p.sub(/^[a-z]/) { |m| m.upcase }}
   end
   
 end
