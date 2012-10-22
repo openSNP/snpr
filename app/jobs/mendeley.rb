@@ -24,11 +24,13 @@ class Mendeley
         data = resp.body
         result = JSON.parse(data)
 
-        if result["total_results"] != 0
+        if result["error"] != 0
+           @snp.mendeley_updated = Time.zone.now
+           @snp.save
+           sleep(1)
+        elsif result["total_results"] != 0
            print "mendeley: Got papers\n"
-           print "results are\n"
-           print result
-           print "\n"
+
            result["documents"].each do |document|
               mendeley_url = document["mendeley_url"]
               uuid = document["uuid"].to_s
