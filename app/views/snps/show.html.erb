@@ -67,6 +67,7 @@
     <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>
     <li><a href="#plos">PLoS (<%=@snp.plos_paper.length%>)</a></li>
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
+    <li><a href="#pgp">Personal Genome Project (<%=@snp.pgp_annotation.length%>)</a></li>
     <li><a href="#genomegov">Genome.gov (<%=@snp.genome_gov_paper.length%>)</a></li>
     <li><a href="#users">Other users (<%=@users.length%>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
@@ -131,6 +132,35 @@
   </table>
   <%else%>
   There are no results from <em>genome.gov</em> yet. Please come back later.
+  <%end%>
+</div>
+<div id="pgp">
+  <h3>Evidence compiled by the <em>Personal Genome Project</em></h3>
+  <% if @snp.pgp_annotation != []%>
+  <table class="table table-striped" id="PgpAnnotation">
+    <thead>
+      <tr>
+        <th>Gene</th>
+        <th>Impact</th>
+        <th>Trait</th>
+        <th>Summary</th>
+        <th>Inheritance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@snp.pgp_annotation.each do |p|%>
+      <tr>
+        <td><%=p.gene%></td>
+        <td><%=p.qualified_impact%></td>
+        <td><%=p.trait%></td>
+        <td><%=p.summary%></td>
+        <td><%=p.inheritance%></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  <%else%>
+  There are no results from the <em>Personal Genome Project</em> yet. Please come back later.
   <%end%>
 </div>
 <div id="mendeley">

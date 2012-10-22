@@ -1,9 +1,9 @@
 require 'resque'
 require 'open-uri'
 
-class PgpAnnotationJob
+class PgpAnnotationjob
   include Resque::Plugins::UniqueJob
-  @queue = :pgpannotation
+  @queue = :pgp
   
   def self.perform()
     known_snps = {}

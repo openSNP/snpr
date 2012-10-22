@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121006230458) do
+ActiveRecord::Schema.define(:version => 20121020153113) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -140,6 +140,17 @@ ActiveRecord::Schema.define(:version => 20121006230458) do
     t.datetime "updated_at"
   end
 
+  create_table "pgp_annotations", :force => true do |t|
+    t.text     "gene"
+    t.text     "qualified_impact"
+    t.text     "inheritance"
+    t.text     "summary"
+    t.text     "trait"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "snp_id"
+  end
+
   create_table "phenotype_comments", :force => true do |t|
     t.text     "comment_text"
     t.text     "subject"
@@ -210,9 +221,9 @@ ActiveRecord::Schema.define(:version => 20121006230458) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-08-31 01:47:10'
-    t.datetime "plos_updated",       :default => '2012-08-31 01:47:10'
-    t.datetime "snpedia_updated",    :default => '2012-08-31 01:47:10'
+    t.datetime "mendeley_updated",   :default => '2012-09-16 08:00:37'
+    t.datetime "plos_updated",       :default => '2012-09-16 08:00:37'
+    t.datetime "snpedia_updated",    :default => '2012-09-16 08:00:37'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
