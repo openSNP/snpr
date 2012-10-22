@@ -2,7 +2,7 @@ rvm: 1.9.2
 gemfile: Gemfile.ci
 env: DB=postgres
 before_install: 
-  - git clone https://github.com/antirez/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
+  - git clone git://github.com/redis/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
 before_script:
   - bash -c "find /home/vagrant/.rvm/gems -name sunspot_test.rb -exec sed -i 's/at_exit/#at_exit/' {} \;"
   - cp config/database.yml.ci config/database.yml
