@@ -10,11 +10,15 @@ class Phenotype < ActiveRecord::Base
   end
   
   def known_phenotypes
-    @known_phenotypes ||=
-      user_phenotypes.map(&:variation).
-      map(&:downcase).
-      uniq.
-      map(&:camelize)
+    if @known_phenotypes.nil?
+      @known_phenotypes =
+        user_phenotypes.select('variation').all.
+        map!(&:variation).
+        map!(&:capitalize!)
+      @known_phenotypes.uniq!
+      @known_phenotypes.compact!
+    end
+    @known_phenotypes
   end
   
 end
