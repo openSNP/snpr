@@ -25,6 +25,10 @@ class Mendeley
         result = JSON.parse(data)
 
         if result["error"] != 0
+           print "Mendeley API seems to be down.\n"
+           print "Error is:\n"
+           print result["error"] 
+           print "\n"
            @snp.mendeley_updated = Time.zone.now
            @snp.save
            sleep(1)
