@@ -125,7 +125,7 @@ class Preparsing
         if file_is_duplicate
             UserMailer.duplicate_file(@genotype.user_id).deliver
             system("rm #{Rails.root}/public/data/#{@genotype.fs_filename}")
-            @Genotype.find_by_id(@genotype.id).delete
+            Genotype.find_by_id(@genotype.id).delete
         else
             UserMailer.parsing_error(@genotype.user_id).deliver
             log "file is not ok, sending email"
