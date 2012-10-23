@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020153113) do
+ActiveRecord::Schema.define(:version => 20121023032404) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20121020153113) do
     t.integer  "user_id",                                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "md5sum"
   end
 
   create_table "homepages", :force => true do |t|
@@ -221,9 +222,9 @@ ActiveRecord::Schema.define(:version => 20121020153113) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-09-16 08:00:37'
-    t.datetime "plos_updated",       :default => '2012-09-16 08:00:37'
-    t.datetime "snpedia_updated",    :default => '2012-09-16 08:00:37'
+    t.datetime "mendeley_updated",   :default => '2012-07-18 03:42:13'
+    t.datetime "plos_updated",       :default => '2012-07-18 03:42:13'
+    t.datetime "snpedia_updated",    :default => '2012-07-18 03:42:13'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
