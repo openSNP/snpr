@@ -106,6 +106,7 @@ class Preparsing
 
     log "Checking whether genotyping is duplicate"
     md5 = Digest::MD5.file("#{Rails.root}/public/data/#{@genotype.fs_filename}").to_s
+    file_is_duplicate = false
     Genotype.all.each do |g|
         other_md5 = g.md5sum
         if other_md5 == md5
@@ -115,6 +116,7 @@ class Preparsing
             file_is_duplicate = true
         end
     end
+
 
 
 
