@@ -13,19 +13,6 @@ class Preparsing
     
     log "Starting preparse"
 
-    log "Checking whether genotyping is duplicate"
-    md5 = Digest::MD5.file(filename)
-    Genotype.each do |g|
-        other_md5 = g.md5sum
-        if other_md5 == md5
-            puts "Genotyping #{filename} is already uploaded!\n"
-            # needs some extra-logic for deletion and user-mail
-            return 1
-        end
-    end
-
-    log "Genotyping is not duplicate, continuing"
-
     begin
       Zip::ZipFile.foreach(filename) do |entry|
         # if decodeme-file try to find the csv-file that includes all the data
@@ -117,6 +104,20 @@ class Preparsing
         end
     end
 
+    log "Checking whether genotyping is duplicate"
+    md5 = Digest::MD5.file("#{Rails.root}/public/data/#{@genotype.fs_filename}").to_s
+    Genotype.all.each do |g|
+        other_md5 = g.md5sum
+        log other_md5
+        log md5
+        if other_md5 == md5
+            log "Genotyping #{filename} is already uploaded!\n"
+            file_is_ok = false
+        end
+    end
+
+
+
     # not proper file!
     if not file_is_ok
         UserMailer.parsing_error(@genotype.user_id).deliver
@@ -124,6 +125,10 @@ class Preparsing
         # should delete the uploaded file here, leaving that for now
         # might be better to keep the file for debugging
     else
+        log "Updating genotype with md5sum #{md5}"
+        status = @genotype.update_attributes(:md5sum => md5)
+        log "Status is #{status}"
+
         system("csplit -k -f #{@genotype.id}_tmpfile -n 4 #{filename} 20000 {2000}")
         system("mv #{@genotype.id}_tmpfile* tmp/")
         
