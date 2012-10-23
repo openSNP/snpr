@@ -108,10 +108,9 @@ class Preparsing
     md5 = Digest::MD5.file("#{Rails.root}/public/data/#{@genotype.fs_filename}").to_s
     Genotype.all.each do |g|
         other_md5 = g.md5sum
-        log other_md5
-        log md5
         if other_md5 == md5
             log "Genotyping #{filename} is already uploaded!\n"
+            log "Genotyping #{g.fs_filename} has the same md5sum.\n"
             file_is_ok = false
         end
     end
