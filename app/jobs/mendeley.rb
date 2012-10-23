@@ -56,7 +56,7 @@ class Mendeley
                  end
 
                  @mendeley_paper.save
-                 @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
+                 @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count + 2*@snp.genome_gov_paper.count + 2*@snp.pgp_annotation.count
   
                  print "-> Written paper\n"
               else
