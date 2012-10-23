@@ -1,4 +1,5 @@
 require 'resque'
+require 'digest'
 
 class Preparsing
   @queue = :preparse
@@ -11,6 +12,20 @@ class Preparsing
     filename = "#{Rails.root}/public/data/#{@genotype.fs_filename}"
     
     log "Starting preparse"
+
+    log "Checking whether genotyping is duplicate"
+    md5 = Digest::MD5.file(filename)
+    Genotype.each do |g|
+        other_md5 = g.md5sum
+        if other_md5 == md5
+            puts "Genotyping #{filename} is already uploaded!\n"
+            # needs some extra-logic for deletion and user-mail
+            return 1
+        end
+    end
+
+    log "Genotyping is not duplicate, continuing"
+
     begin
       Zip::ZipFile.foreach(filename) do |entry|
         # if decodeme-file try to find the csv-file that includes all the data
