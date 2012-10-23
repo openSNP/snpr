@@ -112,6 +112,7 @@ class Preparsing
             log "Genotyping #{filename} is already uploaded!\n"
             log "Genotyping #{g.fs_filename} has the same md5sum.\n"
             file_is_ok = false
+            file_is_duplicate = true
         end
     end
 
@@ -119,10 +120,16 @@ class Preparsing
 
     # not proper file!
     if not file_is_ok
-        UserMailer.parsing_error(@genotype.user_id).deliver
-        log "file is not ok, sending email"
-        # should delete the uploaded file here, leaving that for now
-        # might be better to keep the file for debugging
+        if file_is_duplicate
+            UserMailer.duplicate_file(@genotype.user_id).deliver
+            system("rm #{Rails.root}/public/data/#{@genotype.fs_filename}")
+            @Genotype.find_by_id(@genotype.id).delete
+        else
+            UserMailer.parsing_error(@genotype.user_id).deliver
+            log "file is not ok, sending email"
+            # should delete the uploaded file here, leaving that for now
+            # might be better to keep the file for debugging
+         end
     else
         log "Updating genotype with md5sum #{md5}"
         status = @genotype.update_attributes(:md5sum => md5)

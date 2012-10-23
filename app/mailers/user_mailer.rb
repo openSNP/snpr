@@ -29,6 +29,11 @@ default :from => "donotreply@opensnp.org"
     mail(:subject => "openSNP.org: Something went wrong while parsing", :to=> @user.email)
   end
   
+  def duplicate_file(user_id)
+    @user = User.find_by_id(user_id)
+    mail(:subject => "openSNP.org: You uploaded a duplicate genotyping", :to=> @user.email)
+  end
+
   def new_message(user_id,message_id)
     @user = User.find_by_id(user_id)
     @message = Message.find_by_id(message_id)
