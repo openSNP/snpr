@@ -15,7 +15,7 @@
 <h5>Known Phenotypes:</h5>
 <ul>
   <%@phenotype.known_phenotypes.each do |p|%>
-    <%if p != ""%>
+    <%if p and p != ""%>
       <li><b><%=p%></b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%> <%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p})%> <%end%></li> 
       <%end%>
     <%end%>

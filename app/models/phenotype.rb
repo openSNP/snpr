@@ -14,7 +14,7 @@ class Phenotype < ActiveRecord::Base
       @known_phenotypes =
         user_phenotypes.select('variation').all.
         map!(&:variation).
-        map!(&:capitalize!)
+        map!(&:capitalize)
       @known_phenotypes.uniq!
       @known_phenotypes.compact
     end
