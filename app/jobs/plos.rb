@@ -37,7 +37,7 @@ class Plos
             @plos_paper = PlosPaper.new(:first_author => first_author, :doi => doi, :title => title, :pub_date => pub_date, :snp_id => @snp.id)
   		  @plos_paper.save
             print "-> written new paper\n"
-            @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count
+            @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count + 2*@snp.genome_gov_paper.count + 2*@snp.pgp_annotation.count
           else
             print "-> paper is old"
             @plos_paper = PlosPaper.find_by_doi(doi)

@@ -65,7 +65,7 @@ class Snpedia
                            snpedia_count = @snp.snpedia_paper.count
                         end
 
-                        @snp.ranking = mendeley_count + 2*plos_count + 5*snpedia_count
+                        @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count + 2*@snp.genome_gov_paper.count + 2*@snp.pgp_annotation.count
                      else
                         puts "-> old site\n"
                      end

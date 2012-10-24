@@ -18,7 +18,7 @@
 				<td><%=@snp.position%></td>
 			</tr>
 			<tr>
-				<td><b>Weight of evidence</b></td>
+				<td><b><a href="#" rel="woe" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. And a paper on <em>Mendeley</em> 1 point.">Weight of evidence</a></b></td>
 				<td><%=@snp.ranking%></td>
 				</tr>
 		</table>
@@ -312,6 +312,7 @@
   $(document).ready(function () {
 
     $("[rel=tooltip]").tooltip({placement:'left'});
+    $("[rel=woe]").tooltip({placement:'right'});
 
     <%if @total_genotypes != 0%>
     <% counter = 0 %>
