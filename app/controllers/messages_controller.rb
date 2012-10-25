@@ -9,8 +9,12 @@ class MessagesController < ApplicationController
 	  @title = "New message"
 	  @users = User.all # .delete(current_user) 
 	  # ideally, we would kick out the current_user however, this generates crashes when there are only two users (function "map" doesn't work on a single object)
-      if params[:message]
-        @answering = Message.find_by_id(params[:message])
+      if params[:message] 
+         @answering = Message.find_by_id(params[:message])
+         @allowed = true
+         if @answering.from_id != current_user.id and @answering.to_id != current_user.id 
+             @allowed = false
+         end
       end
 	  respond_to do |format|
 		  format.html
@@ -41,21 +45,20 @@ class MessagesController < ApplicationController
 	  end
   end
 
-  def show
-	  @message = Message.find_by_id(params[:id])
-	  if 	User.find_by_id(@message.from_id) != nil
-	    @from = User.find_by_id(@message.from_id)
+    def show
+    @message = Message.find_by_id(params[:id])
+    if User.find_by_id(@message.from_id) != nil
+        @from = User.find_by_id(@message.from_id)
     else
-      @from = "Deleted User"
+        @from = "Deleted User"
     end
     
     if User.find_by_id(@message.to_id) != nil 
-	    @to = User.find_by_id(@message.to_id)
+        @to = User.find_by_id(@message.to_id)
     else
-      @to = "Deleted User"
+        @to = "Deleted User"
     end
-    
-	  @message.update_attributes :user_has_seen => true
+    @message.update_attributes :user_has_seen => true
   end
 
   def destroy
