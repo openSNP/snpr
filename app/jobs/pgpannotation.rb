@@ -6,15 +6,18 @@ class PgpAnnotationjob
   @queue = :pgp
   
   def self.perform()
-    print "Running PgpAnnotationJob\n"
+    puts "Running PgpAnnotationJob\n"
     known_snps = {}
     Snp.find_each do |s| known_snps[s.name] = true end
-    print known_snps 
-    print "\n"
+    puts known_snps 
+    puts "\n"
       
     pgp_file  = open('http://evidence.personalgenomes.org/download/latest/flat/latest-flat.tsv') {|f| f.readlines }
     
+    puts pgp_file
+
     pgp_file.each do |pgp_entry|
+        puts pgp_entry
       pgp_entry_array = pgp_entry.strip().split("\t")
       snp_id = pgp_entry_array[7]
       if snp_id == nil
