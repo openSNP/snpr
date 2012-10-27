@@ -6,14 +6,14 @@ class PgpAnnotationjob
   @queue = :pgp
   
   def self.perform()
-    print "Running PgpAnnotationJob\n"
+    puts "Running PgpAnnotationJob\n"
     known_snps = {}
     Snp.find_each do |s| known_snps[s.name] = true end
-    print known_snps 
-    print "\n"
       
     pgp_file  = open('http://evidence.personalgenomes.org/download/latest/flat/latest-flat.tsv') {|f| f.readlines }
     
+    puts "got pgp file"
+
     pgp_file.each do |pgp_entry|
       pgp_entry_array = pgp_entry.strip().split("\t")
       snp_id = pgp_entry_array[7]
@@ -41,9 +41,9 @@ class PgpAnnotationjob
         annotation.inheritance = inheritance
         annotation.summary = summary
         annotation.trait = trait
-        annotation.save
         snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotation.count
-        if qualified_impact != "Insufficiently evaluated not reviewed"
+        if qualified_impact != "Insufficiently evaluated not reviewed" and qualified_impact != "Insufficiently evaluated pharmacogenetic"
+	  annotation.save
           snp.save()
         end
       end
