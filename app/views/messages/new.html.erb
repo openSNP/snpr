@@ -1,5 +1,5 @@
-<% if @answering %>
-<h2>Answering:</h2>
+<% if @answering and @allowed %>
+    <h2>Answering:</h2>
 <div class="well">
     <p><b>Subject: <%= @answering.subject %></b></p>
     <p><%= @answering.body %></p>

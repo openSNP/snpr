@@ -15,6 +15,7 @@ class PgpAnnotationjob
     puts "got pgp file"
 
     pgp_file.each do |pgp_entry|
+        puts pgp_entry
       pgp_entry_array = pgp_entry.strip().split("\t")
       snp_id = pgp_entry_array[7]
       if snp_id == nil

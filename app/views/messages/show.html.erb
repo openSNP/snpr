@@ -1,5 +1,8 @@
 <h1>Message</h1>
-<h4>From: <%if @from != "Deleted User"%><%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %><%else%>Deleted User<%end%>, received on <%= @message.created_at %></h4>
+<h4>Date:  <%= @message.created_at %> </h4>
+<h4>From: <%if @from != "Deleted User"%><%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %><%else%>Deleted User<%end%></h4>
+<h4>To: <% if @to == @current_user %> You! <% else %> <% if @to != "Deleted User" %><%= image_tag @to.avatar.url(:head) %><%= link_to @to.name, @to %></h4><% else %>Deleted User<% end %><% end %>
+
 <div class="row">
     <div class="span8">
         <h3>Subject: <%=@message.subject %></h3>
@@ -16,12 +19,4 @@
 
 <div class="well">
 <p><%=  simple_format(@message.body) %></p>
-</div>
-<div class="row">
-    <div class="span4">
-        <%= link_to "Back to your homepage", current_user %> 
-    </div>
-    <div class="span4 offset4">
-        <%= link_to "Back to your messages", "/users/" + current_user.id.to_s + "#messages" %>
-    </div>
 </div>
