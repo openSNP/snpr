@@ -1,5 +1,6 @@
 require 'resque'
 require 'open-uri'
+require 'iconv'
 
 class GenomeGov
   include Resque::Plugins::UniqueJob
@@ -12,7 +13,7 @@ class GenomeGov
     genome_file  = open('http://www.genome.gov/admin/gwascatalog.txt') {|f| f.readlines }
     
     genome_file.each do |genome_entry|
-      genome_array = genome_entry.split("\t")
+      genome_array = Iconv.conv("UTF-8","windows-1252",genome_entry).split("\t")
       snp_id = genome_array[21]
       if snp_id == nil
         snp_id = "NA"
@@ -62,6 +63,7 @@ class GenomeGov
         end
       end
     end
+    puts "done!"
   end
 end
 
