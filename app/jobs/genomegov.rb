@@ -50,6 +50,9 @@ class GenomeGov
           paper.confidence_interval = confidence_interval
           paper.pvalue_description = pvalue_description
           paper.pvalue = pvalue 
+          if pvalue < 1e-100
+            pvalue = 1e-100
+          end
           paper.pubmed_link = pubmed_link
           paper.first_author = first_author
           paper.pub_date = pub_date
