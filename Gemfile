@@ -35,7 +35,7 @@ gem 'friendly_id', :git => 'https://github.com/norman/friendly_id.git'
 gem 'recommendify',:git => 'https://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
 # for jobs
-gem 'resque', '1.19.0'
+gem 'resque', '1.23.0'
 gem 'resque-loner'
 
 #group :production do
