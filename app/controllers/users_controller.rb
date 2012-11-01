@@ -162,6 +162,10 @@ class UsersController < ApplicationController
       end
     end
    
+    if params[:user][:description].present?
+        params[:user][:description] = Sanitize.clean(params[:user][:description], Sanitize::Config::RESTRICTED)
+    end
+
     if @user.update_attributes(params[:user])
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end

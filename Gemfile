@@ -9,6 +9,7 @@ gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'fitgem'
 gem 'rvm-capistrano'
+gem 'sanitize'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
