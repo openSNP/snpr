@@ -135,6 +135,32 @@ class SnpsController < ApplicationController
         @result["snp"]["annotations"]["snpedia"] << @snpedia
       end
       puts "got snpedia-details"
+      @result["snp"]["annotations"]["pgp_annotations"] = []
+      @snp.pgp_annotation.each do |p|
+        @pgp = {}
+        @pgp["gene"] = p.gene
+        @pgp["impact"] = p.qualified_impact
+        @pgp["inheritance"] = p.inheritance
+        @pgp["trait"] = p.trait
+        @pgp["summary"] = p.summary
+        @result["snp"]["annotations"]["pgp_annotations"] << @pgp
+      end
+      puts "got pgp details"
+      @result["snp"]["annotations"]["genome_gov_publications"] = []
+      @snp.genome_gov_paper.each do |g|
+        @gov = {}
+        @gov["title"] = g.title
+        @gov["first_author"] = g.first_author
+        @gov["pubmed_link"] = g.pubmed_link
+        @gov["publication_date"] = g.pub_date
+        @gov["journal"] = g.journal
+        @gov["trait"] = g.trait
+        @gov["pvalue"] = g.pvalue
+        @gov["pvalue_description"] = g.pvalue_description
+        @gov["confidence_interval"] = g.confidence_interval
+        @result["snp"]["annotations"]["genome_gov_publications"] << @gov
+      end
+      puts "got genome.gov details"
     rescue
       @result = {}
       @result["error"] = "Sorry, we couldn't find SNP "+params[:snp_name].to_s
@@ -145,7 +171,7 @@ class SnpsController < ApplicationController
     end
     
   end
-  		
+    		
 		private
 		
 		def sort_column
