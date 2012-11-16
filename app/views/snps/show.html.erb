@@ -276,12 +276,12 @@
 
 	    sources:     [{name:                 'Genome',      
 	                   desc:                 'Human reference genome build NCBI36',
-	                   uri:                  'http://www.derkholm.net:8080/das/hg18comp/',        
+	                   uri:                  'http://www.derkholm.net:8080/das/hg19comp/',        
 	                   tier_type:            'sequence',
 	                   provides_entrypoints: true},
 	                  {name:                 'Genes',     
 	                   desc:                 'Gene structures from Ensembl 54',
-	                   uri:                  'http://www.derkholm.net:8080/das/hsa_54_36p/',      
+	                   uri:                  'http://www.derkholm.net:8080/das/hsa_59_37d/',      
 	                   collapseSuperGroups:  true,
 	                   provides_karyotype:   true,
 	                   provides_search:      true}
@@ -294,10 +294,10 @@
 					<%end%>
 	],
 
-	    searchEndpoint: new DASSource('http://www.derkholm.net:8080/das/hsa_54_36p/'),
+	    searchEndpoint: new DASSource('http://www.derkholm.net:8080/das/hsa_59_37d'),
 	    browserLinks: {
-	        Ensembl: 'http://ncbi36.ensembl.org/Homo_sapiens/Location/View?r=${chr}:${start}-${end}',
-	        UCSC: 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg18&position=chr${chr}:${start}-${end}',
+	        Ensembl: 'http://www.ensembl.org/Homo_sapiens/Location/View?r=${chr}:${start}-${end}',
+	        UCSC: 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&position=chr${chr}:${start}-${end}',
 	    },
 
 	    forceWidth: 900,
