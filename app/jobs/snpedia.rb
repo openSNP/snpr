@@ -32,6 +32,7 @@ class Snpedia
                      s = SnpediaPaper.find_by_url(url)
                      if SnpediaPaper.find_all_by_url(url) == [] or (s != nil and s.revision != rev_id)
                         puts "-> Parsing new or changed site\n"
+                        puts "url: " + url
                         # delete the old entries
                         SnpediaPaper.find_all_by_url(url).each do |s|
                             SnpediaPaper.delete(s)
