@@ -30,11 +30,11 @@ class Snpedia
                      # revision returns an int which grows with changes
                      rev_id = mw.revision(p).to_i
                      s = SnpediaPaper.find_by_url(url)
-                     if SnpediaPaper.find_all_by_url(url)  == [] or (s != nil and s.revision != rev_id)
+                     if SnpediaPaper.find_all_by_url(url) == [] or (s != nil and s.revision != rev_id)
                         puts "-> Parsing new or changed site\n"
                         # delete the old entries
                         SnpediaPaper.find_all_by_url(url).each do |s|
-                            s.delete
+                            SnpediaPaper.delete(s)
                         end
 
                         toparse = mw.get(p)
