@@ -6,6 +6,12 @@ Snpr::Application.routes.draw do
       get :get_genotypes
     end
   end
+  resources :picture_phenotypes do
+    member do
+      get :feed
+    end
+  end
+  resources :user_picture_phenotypes
   resources :genotypes
   resources :user_phenotypes
   resources :snps
@@ -17,6 +23,7 @@ Snpr::Application.routes.draw do
   resources :messages
   resources :snp_comments
   resources :phenotype_comments
+  resources :picture_phenotype_comments
   resources :search_results
   resources :achievements
   resources :user_achievements
@@ -62,6 +69,8 @@ Snpr::Application.routes.draw do
   match '/recommend_phenotype/:id/', :to => 'phenotypes#recommend_phenotype'
   match '/press', :to => 'static#press'
   match '/blog' => redirect("http://opensnp.wordpress.com")
+  match '/user_picture_phenotypes/:id/edit', :to => 'user_picture_phenotypes#edit'
+  match '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
   
   root :to => 'index#index' # change thisi, maybe
   # The priority is based upon order of creation:
