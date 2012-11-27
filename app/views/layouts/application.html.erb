@@ -112,10 +112,25 @@
             <strong><%= flash[:achievement] %></strong>
         </div>
     <% end %>
+    </div>
+    <% if ["phenotypes", "picture_phenotypes", "fitbit_profiles"].include? params[:controller] %>
+    </div>
+    <div class="container-fluid">
+    <div class="row-fluid">
+    <div class="span2">
 
+        <ul class="nav nav-list">
+            <li><a href="/phenotypes">Normal phenotypes</a></li>
+            <li><a href="/picture_phenotypes">Picture phenotypes</a></li>
+            <li><a href="/fitbit">Fitbit phenotypes</a></li>
+        </ul>
+    </div>
+    <div class="span8">
+    <% end # of sidebar%>
     <%= yield %>
     
 </div>
+<% if params[:controller] == "phenotypes" %></div></div></div><% end %>
 <hr />
 
 <footer class="footer">
