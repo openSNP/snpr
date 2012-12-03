@@ -21,14 +21,7 @@
             <ul class="nav"> 
                 <li class=""><%= link_to("News", '/news') %></li>
                 <li class=""><%= link_to("Genotypes", :controller => "genotypes", :action => "index")%></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Phenotypes<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li class=""><%= link_to("Normal Phenotypes", :controller => "phenotypes", :action => "index")%></li>
-                      <li class=""><%= link_to("Fitbit Connections", :controller => "fitbit_profiles", :action => "index")%></li>
-                    </ul>
-                </li>
+                <li class=""><%= link_to("Phenotypes", :controller => "phenotypes", :action => "index")%></li>
                 <li class=""><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
                 <li class=""><%= link_to("Users", '/user_index') %></li>
             </ul>
@@ -136,19 +129,19 @@
             <%= yield %>
         </div>
 
-    </div>
-</div>
-<% if params[:controller] == "phenotypes" %>
-</div>
-<% end %>
 
 <footer class="footer">
+    <hr/>
     <div class="container">
-        <hr/>
         Contact openSNP: <a href="http://opensnp.wordpress.com" target="_blank">Blog</a> | <a href="http://www.twitter.com/openSNPorg" target="_blank">Twitter</a> | <a href="mailto:info@opensnp.org">Mail</a> | 	<a href="https://www.iubenda.com/privacy-policy/641811" class="iubenda-nostyle " id="iubenda-embed" title="Privacy Policy">Privacy Policy</a> | <%= link_to "openSNP in the press", "/press"%>
         <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; w.addEventListener ? w.addEventListener("load", loader, false) : w.attachEvent("onload", loader);})(window, document);</script></br></br>
         The openSNP project is licensed under the <a href="https://github.com/gedankenstuecke/snpr/blob/master/MIT-LICENSE.txt" target="_blank">MIT License</a>, the code <a href="https://github.com/gedankenstuecke/snpr">is at GitHub</a>. The data is licensed under <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0 1.0</a>. The hand drawn icons were created by <a href="http://oneseventyseven.com/" target="_blank">one seventy seven</a> and are licensed under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>, the CSS of openSNP is provided by <a href="http://twitter.github.com/bootstrap/">Bootstrap, from Twitter</a> and is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>. Tiny white person in the navigational-bar from <a href="http://glyphicons.com/">glyphicons</a>.
     </div>
 </footer>
+<% if params[:controller] == "phenotypes" %>
+</div>
+</div>
+</div>
+<% end %>
 </body>
 </html>
