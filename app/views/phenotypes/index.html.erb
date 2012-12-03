@@ -1,12 +1,8 @@
 <legend>Listing all Phenotypes</legend>
 <%if current_user%>
-    <div class="row">
-        <div class="span10">
-            <h4>
-            <%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%>
-        </h4>
-        </div>
-    </div>
+    <h4>
+        <%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%>
+    </h4>
 <%end%>
 <br/>
 <table class="table table-striped" id="no_snp_overview">
