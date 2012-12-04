@@ -124,9 +124,10 @@ class Zipfulldata
           @pic_phenotype_id_array.each do |pid|
 
             # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-            @file_name = u.id.to_s + "_" + pid.to_s + ".png"
 
             @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,pid)
+            @type = @picture.phenotype_picture_content_type.split("/")[-1]
+            @file_name = u.id.to_s + "_" + pid.to_s + "." + @type
             puts "FOUND THIS"
             puts @picture
             if @picture != nil
