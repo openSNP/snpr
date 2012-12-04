@@ -1,0 +1,84 @@
+require "resque"
+require "rubygems"
+require "net/http"
+require "json"
+
+class MendeleySearch
+   include Resque::Plugins::UniqueJob
+   @queue = :mendeley
+
+   def self.perform(snp_id)
+     snp = Snp.find(snp_id)
+     if snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago
+       page = 0
+       items = 100
+       documents = []
+       begin
+         begin
+           result = Mendeley::API::Documents.
+             search(snp.name, { items: items, page: page })
+           documents.concat(result['documents'])
+           page += 1
+         rescue => e
+           puts e.class
+           puts e.message
+           puts "retrying..."
+           retry
+         end
+       end while result['total_pages'].to_i > 0 &&
+         result['total_pages'].to_i > result['current_page'].to_i
+
+       if result["error"].present?
+         puts "Mendeley API seems to be down."
+         puts "Error is:"
+         puts result["error"] 
+         snp.mendeley_updated = Time.zone.now # TODO: Why?
+         snp.save
+         sleep(1) # TODO: Why?
+       elsif documents.present?
+         puts "mendeley: Found #{documents.size} papers"
+         documents.each do |document|
+           uuid = document["uuid"].to_s
+           begin
+             first_author = document["authors"].first["forename"] + ' ' +
+               document["authors"].first["surname"]
+           rescue => e
+             puts "Something wrong in #{document["authors"]}: #{e.class}: #{e.message}"
+             first_author = "Unknown"
+           end
+
+           if MendeleyPaper.where(uuid: uuid).count == 0
+             puts "-> paper is new"
+             @mendeley_paper = MendeleyPaper.new(
+               snp_id:       snp.id,
+               title:        document['title'],
+               mendeley_url: document['mendeley_url'],
+               first_author: first_author,
+               pub_year:     document['year'],
+               uuid:         uuid
+             )
+             doi = document["doi"]
+             @mendeley_paper.doi = doi  if doi.present?
+             @mendeley_paper.save
+             snp.ranking = snp.mendeley_paper.count +
+               2*snp.plos_paper.count + 5*snp.snpedia_paper.count +
+               2*snp.genome_gov_paper.count + 2*snp.pgp_annotation.count
+  
+             puts "-> Written paper"
+           else
+             puts "-> paper is old"
+             @mendeley_paper = MendeleyPaper.find_by_uuid(uuid)
+           end
+           Resque.enqueue(MendeleyDetails, @mendeley_paper.id)
+         end
+       else
+         puts "mendeley: No papers found"
+       end
+       snp.mendeley_updated = Time.zone.now
+       snp.save
+       sleep(1) # TODO: Why?
+     else
+       puts "mendeley: time threshold not met"
+     end
+   end
+end
