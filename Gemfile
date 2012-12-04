@@ -7,9 +7,12 @@ gem "jquery-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
-gem 'fitgem'
 gem 'rvm-capistrano'
 gem 'sanitize'
+
+# apis
+gem 'fitgem'
+gem 'mendeley', git: 'git@github.com:tsujigiri/mendeley.git', branch: 'paging_search'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -54,7 +57,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'factory_girl'
   gem 'mocha'
-  gem 'ruby-debug19'
+  gem 'debugger'
   gem 'sunspot_test'
 end
 
