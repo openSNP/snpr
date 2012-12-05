@@ -7,3 +7,5 @@ development:
 test:
   fitbit_consumer_key:
   fitbit_consumer_secret:
+  mendeley:
+    consumer_key:
