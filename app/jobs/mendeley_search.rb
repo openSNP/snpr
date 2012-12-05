@@ -34,8 +34,7 @@ class MendeleySearch
          puts "Mendeley API seems to be down."
          puts "Error is:"
          puts result["error"] 
-         snp.mendeley_updated = Time.zone.now # TODO: Why?
-         snp.save
+         return
        elsif documents.present?
          puts "mendeley: Found #{documents.size} papers"
          documents.each do |document|
