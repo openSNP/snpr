@@ -11,7 +11,7 @@ class MendeleySearch
      snp = Snp.find(snp_id)
      if snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago
        page = 0
-       items = 100
+       items = 500
        documents = []
        begin
          begin
@@ -23,8 +23,10 @@ class MendeleySearch
            puts e.class
            puts e.message
            puts "retrying..."
+           sleep 1
            retry
          end
+         sleep 1
        end while result['total_pages'].to_i > 0 &&
          result['total_pages'].to_i > result['current_page'].to_i
 
@@ -32,9 +34,7 @@ class MendeleySearch
          puts "Mendeley API seems to be down."
          puts "Error is:"
          puts result["error"] 
-         snp.mendeley_updated = Time.zone.now # TODO: Why?
-         snp.save
-         sleep(1) # TODO: Why?
+         return
        elsif documents.present?
          puts "mendeley: Found #{documents.size} papers"
          documents.each do |document|
@@ -76,7 +76,6 @@ class MendeleySearch
        end
        snp.mendeley_updated = Time.zone.now
        snp.save
-       sleep(1) # TODO: Why?
      else
        puts "mendeley: time threshold not met"
      end
