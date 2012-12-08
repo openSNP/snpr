@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       end
     end  
     @snp_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
-    @paginated_snp_replies = @snp_comment_replies.paginate(:page => params[:page])
+    @paginated_snp_replies = @snp_comment_replies[(params[:page].to_i*10)..10]
 
     #find all phenotype-comment-replies that this user got
     @user_phenotype_comment_ids = []
@@ -123,7 +123,7 @@ class UsersController < ApplicationController
       end
     end
     @phenotype_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
-    @paginated_phenotype_replies = @phenotype_comment_replies.paginate(:page => params[:page])
+    @paginated_phenotype_replies = @phenotype_comment_replies[(params[:page].to_i*10)..10]
 
     respond_to do |format|
       format.html
@@ -233,8 +233,8 @@ class UsersController < ApplicationController
     if @user.fitbit_profile != nil
         Resque.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
     end
-    # delete all dependents
-    User.destroy(@user)
+
+    @user.destroy
 
     # delete phenotypes without user-phenotypes and update number-of-users
     Resque.enqueue(Fixphenotypes)

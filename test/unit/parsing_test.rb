@@ -3,18 +3,16 @@ require_relative '../test_helper'
 class ParsingTest < ActiveSupport::TestCase
   context "parser" do
     setup do
-
-      Sunspot.stubs(:index)
       Snp.delete_all
       UserSnp.delete_all
 
       @file_23andMe = "#{Rails.root}/test/data/23andMe_test.csv"
-      @genotype_23andme = Factory :genotype,
-                  originalfilename: @file_23andMe.split('/').last, filetype: '23andme'
+      @genotype_23andme = FactoryGirl.create(:genotype,
+        originalfilename: @file_23andMe.split('/').last, filetype: '23andme')
 
       @file_deCODEme = "#{Rails.root}/test/data/deCODEme_test.csv"
-      @genotype_decodeme = Factory :genotype,
-                  originalfilename: @file_deCODEme.split('/').last, filetype: 'decodeme'
+      @genotype_decodeme = FactoryGirl.create(:genotype,
+        originalfilename: @file_deCODEme.split('/').last, filetype: 'decodeme')
 
       @temp_file = "#{Rails.root}/tmp/snp_file.txt"
       FileUtils.rm(@temp_file) if File.exist?(@temp_file)

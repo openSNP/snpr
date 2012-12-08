@@ -1,11 +1,14 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
+require "test/unit"
+require "shoulda-context"
+require "mocha/setup"
 require 'rails/test_help'
 require "authlogic/test_case"
 SunspotTest.solr_startup_timeout = 30
 require 'sunspot_test/test_unit'
 require 'factory_girl'
-
-#class ActiveSupport::TestCase
 FactoryGirl.find_definitions
-#end
+
+class ActiveSupport::TestCase
+end

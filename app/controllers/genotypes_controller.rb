@@ -15,11 +15,12 @@ class GenotypesController < ApplicationController
   end
 
   def dump_download
-    @filelink = FileLink.find_by_description("all genotypes and phenotypes archive").url unless FileLink.find_by_description("all genotypes and phenotypes archive") == nil
-    if @filelink != nil
-	redirect_to @filelink
+    if FileLink.find_by_description("all genotypes and phenotypes archive")
+      @filelink = FileLink.find_by_description("all genotypes and phenotypes archive").url
+	    redirect_to @filelink
     else
-      flash[:notice]="Sorry, there is no data-dump yet. If you register with openSNP you could be the first one to create one!"
+      flash[:notice] = "Sorry, there is no data-dump yet. " +
+        "If you register with openSNP you could be the first one to create one!"
       redirect_to :action => :index
     end
   end
@@ -39,24 +40,27 @@ class GenotypesController < ApplicationController
   end
 
   def create
-    @genotype = Genotype.new()
-    @genotype.uploadtime = Time.new 
-    @genotype.user_id = current_user.id
-    @genotype.filetype=params[:genotype][:filetype]
-    @genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
-    @genotype.data=params[:genotype][:filename].read if params[:genotype][:filename]
-
+    @genotype = Genotype.new(uploadtime: Time.new,
+                             user_id: current_user.id,
+                             filetype: params[:genotype][:filetype])
+    if params[:genotype][:filename]
+      @genotype.data = params[:genotype][:filename].read 
+      @genotype.originalfilename = params[:genotype][:filename].original_filename 
+    end
     respond_to do |format|
       if @genotype.save
         if current_user.has_sequence == false
-            current_user.toggle!(:has_sequence)
+          current_user.toggle!(:has_sequence)
         end
 
         # award for genotyping-upload
         @award = Achievement.find_by_award("Published genotyping")
-        if UserAchievement.find_by_achievement_id_and_user_id(@award.id,current_user.id) == nil
-          UserAchievement.create(:user_id => current_user.id, :achievement_id => @award.id)
-				flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@award)}">#{@award.award}</a>).html_safe
+        if UserAchievement.where(
+            achievement_id: @award.id, user_id: current_user.id).count < 1
+          UserAchievement.create(user_id: current_user.id,
+                                 achievement_id: @award.id)
+				  flash[:achievement] = "Congratulations! You've unlocked an achievement:" +
+            " <a href=\"#{url_for(@award)}\">#{@award.award}</a>".html_safe
         end
 
         @genotype.move_file

@@ -1,16 +1,17 @@
-rvm: 1.9.2
-gemfile: Gemfile.ci
+rvm:
+  - 1.9.2
+  - 1.9.3
+#gemfile: Gemfile.ci
 env: DB=postgres
 before_install: 
   - git clone git://github.com/redis/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
 before_script:
-  - bash -c "find /home/vagrant/.rvm/gems -name sunspot_test.rb -exec sed -i 's/at_exit/#at_exit/' {} \;"
   - cp config/database.yml.ci config/database.yml
+  - cp config/app_config.yml.example config/app_config.yml
   - echo "foo" > mail_username.txt
   - echo "bar" > mail_password.txt
   - echo "anyOleBollocks" > secret_token
-  - mkdir tmp
   - psql -c 'create database snpr_test;' -U postgres
-script: "bundle update"
-script: "bundle exec rake db:drop db:create db:migrate test"
+script: "bundle install"
+script: "bundle exec rake --trace db:migrate test"
 

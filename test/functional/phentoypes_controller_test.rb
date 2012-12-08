@@ -3,10 +3,9 @@ require_relative '../test_helper'
 class PhenotypesControllerTest < ActionController::TestCase
   context "Phenotypes" do
     setup do
-      Sunspot.stubs(:index)
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
-      @phenotype = Factory :phenotype
+      @phenotype = FactoryGirl.create(:phenotype)
 
       [ "Entered first phenotype",
         "Entered 5 additional phenotypes",
@@ -14,7 +13,7 @@ class PhenotypesControllerTest < ActionController::TestCase
         "Entered 20 additional phenotypes",
         "Entered 50 additional phenotypes",
         "Entered 100 additional phenotypes" ].each do |a|
-        Factory :achievement, award: a
+        FactoryGirl.create(:achievement, award: a)
       end
     end
  
@@ -61,7 +60,7 @@ class PhenotypesControllerTest < ActionController::TestCase
     context "other users" do
       setup do
         @controller = PhenotypesController.new
-        @other_user = Factory :user
+        @other_user = FactoryGirl.create(:user)
         @session = UserSession.create(@other_user)
       end
 
@@ -71,7 +70,7 @@ class PhenotypesControllerTest < ActionController::TestCase
       end
 
       should "create them" do
-        Factory :achievement, award: "Created a new phenotype"
+        FactoryGirl.create(:achievement, award: "Created a new phenotype")
         assert_difference 'Phenotype.count' do
           assert_difference 'UserPhenotype.count' do
             put :create, phenotype: { characteristic: "Longest toe" },
