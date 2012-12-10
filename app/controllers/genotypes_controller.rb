@@ -15,9 +15,8 @@ class GenotypesController < ApplicationController
   end
 
   def dump_download
-    if FileLink.find_by_description("all genotypes and phenotypes archive")
-      @filelink = FileLink.find_by_description("all genotypes and phenotypes archive").url
-	    redirect_to @filelink
+    if filelink = FileLink.find_by_description("all genotypes and phenotypes archive")
+	    redirect_to filelink.url
     else
       flash[:notice] = "Sorry, there is no data-dump yet. " +
         "If you register with openSNP you could be the first one to create one!"
@@ -55,10 +54,10 @@ class GenotypesController < ApplicationController
 
         # award for genotyping-upload
         @award = Achievement.find_by_award("Published genotyping")
-        if UserAchievement.where(
-            achievement_id: @award.id, user_id: current_user.id).count < 1
-          UserAchievement.create(user_id: current_user.id,
-                                 achievement_id: @award.id)
+        user_achievement_attrs = { achievement_id: @award.id,
+                                  user_id: current_user.id }
+        if UserAchievement.where(user_achievement_attrs).count < 1
+          UserAchievement.create(user_achievement_attrs)
 				  flash[:achievement] = "Congratulations! You've unlocked an achievement:" +
             " <a href=\"#{url_for(@award)}\">#{@award.award}</a>".html_safe
         end

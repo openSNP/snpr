@@ -48,7 +48,6 @@ gem 'resque-loner'
 #end
 
 group :test do
-  #gem 'test-unit', :require => "test/unit" # fixes file not found error with rake tasks
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
