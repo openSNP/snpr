@@ -3,12 +3,11 @@ require_relative '../test_helper'
 class ZipfulldataTest < ActiveSupport::TestCase
   context "Zipfulldata" do
     setup do
-      Sunspot.stubs(:index)
-      @user = Factory :user
-      @phenotype = Factory :phenotype, characteristic: "jump height"
-      @user_phenotype = Factory :user_phenotype, user_id: @user.id,
-        phenotype_id: @phenotype.id, variation: "1km"
-      @genotype = Factory :genotype, user_id: @user.id
+      @user = FactoryGirl.create(:user)
+      @phenotype = FactoryGirl.create(:phenotype, characteristic: "jump height")
+      @user_phenotype = FactoryGirl.create(:user_phenotype, user_id: @user.id,
+        phenotype_id: @phenotype.id, variation: "1km")
+      @genotype = FactoryGirl.create(:genotype, user_id: @user.id)
       FileUtils.cp("#{Rails.root}/test/data/23andMe_test.csv",
         "#{Rails.root}/public/data/#{@user.id}.23andme.#{@genotype.id}")
     end
