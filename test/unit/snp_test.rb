@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class SnpTest < ActiveSupport::TestCase
   context "Snp" do
     setup do
-      Sunspot.stubs(:index)
       @snp = FactoryGirl.create(:snp)
     end
 

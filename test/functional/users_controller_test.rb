@@ -4,7 +4,6 @@ require_relative '../test_helper'
 class UsersControllerTest < ActionController::TestCase
   context "Users" do
     setup do
-      Sunspot.stubs(:index)
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       assert_nil @controller.send(:current_user)
@@ -93,7 +92,7 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       teardown do
-        @session.destroy
+        @session.present? && @session.destroy
       end
 
       should "be able to edit" do

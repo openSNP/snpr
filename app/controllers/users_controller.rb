@@ -233,8 +233,8 @@ class UsersController < ApplicationController
     if @user.fitbit_profile != nil
         Resque.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
     end
-    # delete all dependents
-    User.destroy(@user)
+
+    @user.destroy
 
     # delete phenotypes without user-phenotypes and update number-of-users
     Resque.enqueue(Fixphenotypes)
