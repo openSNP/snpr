@@ -28,7 +28,16 @@ class Parsing
         next if single_snp[0] == "#" 
 
         # make a nice array if line is no comment
-        if @genotype.filetype == "23andme"
+        if @genotype.filetype == "IYG"
+          prior_snp_array = single_snp.split("\t")
+          name = prior_snp_array[0]
+          if name.starts_with? "MT"
+            position = name.tr('0-9','') # MT-G1234G -> 1234
+            snp_array = [prior_snp_array[0], "MT", position, prior_snp_array[1]]
+          else
+            snp_array = [prior_snp_array[0], "1", "1", prior_snp_array[1]]
+          end
+        elsif @genotype.filetype == "23andme":
           snp_array = single_snp.split("\t")
 
         elsif @genotype.filetype == "decodeme"

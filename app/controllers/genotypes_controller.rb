@@ -86,7 +86,7 @@ class GenotypesController < ApplicationController
     @genotype.user=current_user
     @genotype.uploadtime=Time.new
     @genotype.filetype=params[:genotype][:filetype]
-    @genotype.originalfilename=params[:genotype][:filename].ofindriginal_filename if params[:genotype][:filename]
+    @genotype.originalfilename=params[:genotype][:filename].original_filename if params[:genotype][:filename]
 
     if @genotype.save
       @genotype.move_file
