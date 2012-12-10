@@ -126,10 +126,15 @@ class Zipfulldata
             # copy the picture with name to +user_id+_+pic_phenotype_id+.png
 
             @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,pid)
-            @type = @picture.phenotype_picture_content_type.split("/")[-1]
-            @file_name = u.id.to_s + "_" + pid.to_s + "." + @type
-            puts "FOUND THIS"
-            puts @picture
+            begin
+              @type = @picture.phenotype_picture_content_type.split("/")[-1]
+              @file_name = u.id.to_s + "_" + pid.to_s + "." + @type
+              puts "FOUND THIS"
+              puts @picture
+            rescue
+              puts "help!"
+              @picture = nil
+            end
             if @picture != nil
               @list_of_temporary_pics << "/tmp/pics/" + @file_name
               system("cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name)
@@ -148,8 +153,12 @@ class Zipfulldata
         @pic_zipname = "/data/zip/opensnp_picturedump."+@time_str+".zip"
         Zip::ZipFile.open(::Rails.root.to_s + "/public/" + @pic_zipname, Zip::ZipFile::CREATE) do |z|
           @list_of_temporary_pics.each do |tmp|
+            begin
               basename = tmp.split("/")[-1]
               z.add(basename, ::Rails.root.to_s + "/" + tmp)
+            rescue
+              puts "missing file"
+            end
           end
         end
 
