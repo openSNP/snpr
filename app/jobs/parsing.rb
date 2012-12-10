@@ -40,7 +40,7 @@ class Parsing
           name = prior_snp_array[0]
           if name.starts_with? "MT"
             # check whether it's in db_snp_snps, use that name
-            position = name.tr('0-9','') # MT-G1234G -> 1234
+            position = name.tr('A-Za-z-','') # MT-G1234G -> 1234
 
             if db_snp_snps[name] # do we have a dbSNP-name?
                 name = db_snp_snps[name]
