@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(:version => 20121124201111) do
     t.float    "pvalue"
     t.text     "pvalue_description"
     t.text     "confidence_interval"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "snp_id"
   end
 
@@ -147,8 +147,8 @@ ActiveRecord::Schema.define(:version => 20121124201111) do
     t.text     "inheritance"
     t.text     "summary"
     t.text     "trait"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "snp_id"
   end
 
@@ -240,9 +240,9 @@ ActiveRecord::Schema.define(:version => 20121124201111) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-07-18 03:42:13'
-    t.datetime "plos_updated",       :default => '2012-07-18 03:42:13'
-    t.datetime "snpedia_updated",    :default => '2012-07-18 03:42:13'
+    t.datetime "mendeley_updated",   :default => '2012-11-06 08:24:36'
+    t.datetime "plos_updated",       :default => '2012-11-06 08:24:36'
+    t.datetime "snpedia_updated",    :default => '2012-11-06 08:24:36'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
