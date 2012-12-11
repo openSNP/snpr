@@ -107,10 +107,8 @@ class Zipfulldata
         # make a CSV describing all of them - which filename is for which user's phenotype
         @csv_head = "user_id;date_of_birth;chrom_sex"
         @csv_handle = File.new(::Rails.root.to_s+"/tmp/picture_dump"+@time_str.to_s+".csv","w")
-        @pic_phenotype_id_array = []
     
         PicturePhenotype.find_each do |p|
-          @pic_phenotype_id_array << p.id
           @csv_head = @csv_head + ";" + p.characteristic.gsub(";",",")
         end
         @csv_handle.puts(@csv_head)
@@ -119,30 +117,31 @@ class Zipfulldata
         
         @list_of_temporary_pics = [] # need this for the zip-file-later
 
-        @users.each do |u|
+        User.all.each do |u|
           @user_line = u.id.to_s + ";" + u.yearofbirth + ";" + u.sex
-          @pic_phenotype_id_array.each do |pid|
+          puts "Looking at user #{u.id}"
+          PicturePhenotype.all.each do |up|
 
             # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-
-            @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,pid)
-            begin
+            puts "Looking for this picture #{up.id}"
+            @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,up.id)
+            if @picture != nil
+              # does this user have this pic?
               @type = @picture.phenotype_picture_content_type.split("/")[-1]
-              @file_name = u.id.to_s + "_" + pid.to_s + "." + @type
+              @file_name = u.id.to_s + "_" + up.id.to_s + "." + @type
               puts "FOUND THIS"
               puts @picture
-            rescue
-              puts "help!"
-              @picture = nil
-            end
-            if @picture != nil
+
               @list_of_temporary_pics << "/tmp/pics/" + @file_name
+              puts "Copying!"
               system("cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name)
+              puts "Finished copying"
               @user_line = @user_line + ";" + @file_name
             else 
               @user_line = @user_line + ";" + "-"
             end
           end
+          puts "Putting a line into CSV"
           @csv_handle.puts(@user_line)
         end
         
