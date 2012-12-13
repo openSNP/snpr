@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023032404) do
+ActiveRecord::Schema.define(:version => 20121213120010) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -98,13 +98,15 @@ ActiveRecord::Schema.define(:version => 20121023032404) do
   end
 
   create_table "genotypes", :force => true do |t|
-    t.datetime "uploadtime",                              :null => false
-    t.string   "filetype",         :default => "23andme"
-    t.string   "originalfilename",                        :null => false
-    t.integer  "user_id",                                 :null => false
+    t.string   "filetype",              :default => "23andme"
+    t.integer  "user_id",                                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "md5sum"
+    t.string   "genotype_file_name"
+    t.string   "genotype_content_type"
+    t.integer  "genotype_file_size"
+    t.datetime "genotype_updated_at"
   end
 
   create_table "homepages", :force => true do |t|
@@ -222,15 +224,16 @@ ActiveRecord::Schema.define(:version => 20121023032404) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-11-05 06:09:52'
-    t.datetime "plos_updated",       :default => '2012-11-05 06:09:52'
-    t.datetime "snpedia_updated",    :default => '2012-11-05 06:09:52'
+    t.datetime "mendeley_updated",   :default => '2012-11-08 19:06:24'
+    t.datetime "plos_updated",       :default => '2012-11-08 19:06:24'
+    t.datetime "snpedia_updated",    :default => '2012-11-08 19:06:24'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "snps", ["chromosome", "position"], :name => "index_snps_chromosome_position"
   add_index "snps", ["id"], :name => "index_snps_on_id", :unique => true
+  add_index "snps", ["name"], :name => "index_snps_on_name"
   add_index "snps", ["ranking"], :name => "index_snps_ranking"
 
   create_table "user_achievements", :force => true do |t|
@@ -259,6 +262,7 @@ ActiveRecord::Schema.define(:version => 20121023032404) do
   end
 
   add_index "user_snps", ["snp_name", "user_id"], :name => "index_user_snps_on_user_id_and_snp_name"
+  add_index "user_snps", ["snp_name"], :name => "index_user_snps_on_snp_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"

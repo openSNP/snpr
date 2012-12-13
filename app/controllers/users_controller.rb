@@ -219,12 +219,8 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     # delete the genotype(s)
-    if @user.genotypes.length != 0
-      @user.genotypes.each do |ug|
-        Resque.enqueue(Deletegenotype, ug)
-        File.delete(::Rails.root.to_s+"/public/data/"+ ug.fs_filename)
-        ug.delete
-      end
+    @user.genotypes.each do |ug|
+      ug.destroy
     end
     
     flash[:notice] = "Thank you for using openSNP. Goodbye!"
