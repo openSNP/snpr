@@ -50,15 +50,13 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "be able to upload genotypes" do
-        #Resque.expects(:enqueue).with() do |klass, id|
-        #  klass.is_a?(Preparsing) && id.is_a?(Fixnum)
-        #end
+        Resque.expects(:enqueue).with(Preparsing, is_a(Fixnum))
         genotype_file_upload = ActionDispatch::Http::UploadedFile.new(
           filename: '23andme.txt', content_type: 'text/plain',
           tempfile: File.new("#{Rails.root}/test/data/23andMe_test.csv"))
         assert_difference 'UserAchievement.count' do
           put :create, commit: "Upload", genotype:
-            { filename: genotype_file_upload, filetype: "23andme"}
+            { genotype: genotype_file_upload, filetype: "23andme"}
         end
         assert_redirected_to user_path(@user)
         assert_equal @publishing_award.id, UserAchievement.last.achievement_id

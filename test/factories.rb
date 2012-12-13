@@ -10,8 +10,7 @@ FactoryGirl.define do
     end
 
     factory :genotype do
-        originalfilename "foo.txt"
-        uploadtime { Time.now }
+        genotype_file_name "foo.txt"
         association :user
     end
 

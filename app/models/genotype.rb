@@ -3,45 +3,34 @@ require 'fileutils'
 class Genotype < ActiveRecord::Base
   belongs_to :user
   has_many :user_snps
-
-  validates_presence_of :originalfilename, :message => "Please provide a genotyping file"
   validates_presence_of :user
 
+  has_attached_file :genotype, url: '/data/:fs_filename',
+                               path: "#{Rails.root}/public/data/:fs_filename"
+  before_post_process :is_image?
+  validates_attachment_presence :genotype
+
+  attr_accessible :genotype, :filetype, :user_id
+  after_create :parse_genotype
+  before_destroy :delete_genotype
+
+  def is_image?
+    false
+  end
+
   def fs_filename
-    return user.id.to_s+"."+filetype.to_s+"."+id.to_s
+    "#{user.id}.#{filetype}.#{id}"
   end
 
-  def data
-    if tmp_file_name
-      return File.open(::Rails.root.to_s+"/public/data/"+tmp_file_name).read
-    else
-      File.open(::Rails.root.to_s+"/public/data/"+id.to_s).read
-    end
+  def parse_genotype
+    Resque.enqueue(Preparsing, id)
   end
 
-  def data=(filedata)
-    if tmp_file_name
-      File.open(::Rails.root.to_s+"/public/data/"+tmp_file_name, "wb") {|f| f.write(filedata)}
-    else
-      File.open(::Rails.root.to_s+"/public/data/", "wb") {|f| f.write(filedata)}
-    end
+  def delete_genotype
+    Resque.enqueue(DeleteGenotype, { genotype_id: id })
   end
 
-  def move_file
-    FileUtils.move(::Rails.root.to_s+"/public/data/"+tmp_file_name, ::Rails.root.to_s+"/public/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s)
-  end
-
-  def delete_file
-    FileUtils.rm(::Rails.root.to_s+"/public/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s)
-  end
-
-  def download
-    return "/data/"+user.id.to_s+"."+filetype.to_s+"."+id.to_s
-  end
-
-  private
-
-  def tmp_file_name
-    @tmp_file_name ||= rand(999999).to_s
+  Paperclip.interpolates :fs_filename do |attachment, style|
+    attachment.instance.fs_filename
   end
 end

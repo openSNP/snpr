@@ -30,7 +30,7 @@ gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import'
-gem 'paperclip', '~> 2.4'
+gem 'paperclip', '~> 3.0'
 gem 'friendly_id', :git => 'git://github.com/norman/friendly_id.git'
 gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
