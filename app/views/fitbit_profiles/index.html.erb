@@ -35,9 +35,8 @@
 </tr>
 <% end %>
 </table>
-<div class="pagination">
-<%= will_paginate(@fitbit_paginate) %>
-</div>
+
+<%= page_navigation_links @fitbit_paginate %>
 
 <script type="text/javascript">
   $(document).ready(function () {
