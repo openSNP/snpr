@@ -1,7 +1,7 @@
-<legend>Listing all phenotypes</legend>
+<legend>Listing all picture phenotypes</legend>
 <%if current_user%>
     <h4>
-        <%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%>
+        <%=link_to(image_tag("/images/addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The picture phenotype of your interest is missing? Add a new one!",:action => "new"%>
     </h4>
 <%end%>
 <br/>
@@ -15,7 +15,7 @@
 </tr>
 <% @phenotypes_paginate.each do |s| %>
 	<tr>
-    <td><%= Phenotype.all.sort! { |a,b| a.id <=> b.id}.index(s) + 1%></td>
+    <td><%= PicturePhenotype.all.sort! { |a,b| a.id <=> b.id}.index(s) + 1%></td>
     <td><%= s.id %></td>
 	<td><%= link_to(s.characteristic, s) %></td>
 	<td><%=s.number_of_users%></td>

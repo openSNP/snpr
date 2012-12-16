@@ -1,7 +1,7 @@
 <div class="leftside">
 	<h1>Welcome to <em>openSNP</em></h1>
 		<p><%=image_tag "/images/microarray.png",:style => "float:left;margin: 10px"%></p>
-		<p><h7><em>openSNP</em> allows customers of direct-to-customer genetic tests to publish their test results, find others with similar genetic variations, learn more about their results, find the latest primary literature on their variations and help scientists to find new associations.</h7></p> <center><a href="/signup" class="btn btn-primary btn-large">Sign Up!</a></center><br/><br/>
+        <p><h7><em>openSNP</em> allows customers of direct-to-customer genetic tests to publish their test results, find others with similar genetic variations, learn more about their results, get the latest primary literature on their variations and help scientists find new associations.</h7></p> <center><a href="/signup" class="btn btn-primary btn-large">Sign Up!</a>  <a href="/dump_download" class="btn btn-primary btn-large">Download the data!</a></center><br/><br/>
 		<div id="tab-container"> 
 			<ul class="nav nav-tabs"> 
 				<li><a href="#dtcustomers">For Genotyping Users</a></li> 
@@ -13,17 +13,18 @@
 					<div class="well span3">
 						<h4>Upload Your Genotyping File</h4>
 						<%=image_tag("/images/fileupload.png")%><br/>
-						Upload the genotyping raw-data you got from <em><%=link_to "23andMe","http://www.23andme.com"%></em> or <em><%=link_to "deCODEme","http://www.decodeme.com/"%></em> to the database of <em>openSNP</em> to make it available for everybody. 
+                        Upload the raw genotyping or exome data you got from <em><%=link_to "23andMe","http://www.23andme.com"%></em>, <em><%=link_to "deCODEme","http://www.decodeme.com/"%></em> or <em><%= link_to "FamilyTreeDNA", "http://www.familytreedna.com/" %></em> to the database of <em>openSNP</em> to make it available for everybody. 
 					</div>
 					<div class="well span3">
 					<h4>Share Your Phenotypes & Traits</h4> 
 					<%=image_tag("/images/phenotypes.png")%><br/>
-					Share as many phenotypes, characteristics and traits with other <em>openSNP</em> users and find others with similar characteristics.<br/>And maybe help scientists to discover new genetic associations.
+                    Phenotypes are the observable characteristics of your body, such as height, eye color or preference for coffee.
+					Share as many phenotypes, characteristics and traits with other <em>openSNP</em> users and find others with similar characteristics.<br/>Maybe you will help scientists discover new genetic associations!
 					</div>
 					<div class="well span3">
 					<h4>Share your stories on variations & phenotypes</h4>
 					<%=image_tag("/images/sendmessage.png")%></br>
-					<em>openSNP</em> lets you share your stories on your genetic variations & phenotypes with others. Discover the stories of other users.<br/>Find others to exchange experiences about your variations. 
+					<em>openSNP</em> lets you share your stories on your genetic variations and phenotypes with others. Discover the stories of other users.<br/>Find others to exchange experiences about your variations. 
 					</div>
 					<div class="well span3">
 					<h4>Find literature on genetic variation</h4>
@@ -44,7 +45,7 @@
 					<div class="well span4">
 					<h4>Easily download datasets</h4>
 					<%=image_tag("/images/filedownload.png")%><br/>
-					The mass download-function of <em>openSNP</em> allows you to easily download the full genotyping raw-data in the file formats that are provided by <em>23andMe</em> and <em>deCODEme</em>.<br/><br/>As the files can be grouped by their variations for specific phenotypes it is easy to get datasets that are already usable for association studies. 
+                    The mass download-function of <em>openSNP</em> allows you to easily download the full genotyping raw-data in the file formats that are provided by <em>23andMe</em>, <em>deCODEme</em> and <em>FamilyTreeDNA</em>.<br/><br/>As the files can be grouped by their variations for specific phenotypes it is easy to get datasets that are already usable for association studies. 
 					</div>
 					<div class="well span4">
 					<h4>Get notified about new data</h4>

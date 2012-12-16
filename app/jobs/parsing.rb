@@ -10,6 +10,10 @@ class Parsing
     @genotype = Genotype.find(genotype_id)
     
     if @genotype.filetype != "other"
+      # IYG filetype needs proper dbSNP-names
+      if @genotype.filetype == "IYG"
+        db_snp_snps = {"MT-T3027C"=>"rs199838004", "MT-T4336C"=>"rs41456348", "MT-G4580A"=>"rs28357975", "MT-T5004C"=>"rs41419549", "MT-C5178a"=>"rs28357984", "MT-A5390G"=>"rs41333444", "MT-C6371T"=>"rs41366755", "MT-G8697A"=>"rs28358886", "MT-G9477A"=>"rs2853825", "MT-G10310A"=>"rs41467651", "MT-A10550G"=>"rs28358280", "MT-C10873T"=>"rs2857284", "MT-C11332T"=>"rs55714831", "MT-A11947G"=>"rs28359168", "MT-A12308G"=>"rs2853498", "MT-A12612G"=>"rs28359172", "MT-T14318C"=>"rs28357675", "MT-T14766C"=>"rs3135031", "MT-T14783C"=>"rs28357680"}
+      end
 
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
@@ -28,7 +32,24 @@ class Parsing
         next if single_snp[0] == "#" 
 
         # make a nice array if line is no comment
-        if @genotype.filetype == "23andme"
+        if @genotype.filetype == "IYG"
+          prior_snp_array = single_snp.gsub("\n","").split("\t")
+          name = prior_snp_array[0]
+          if name.starts_with? "MT"
+            # check whether it's in db_snp_snps, use that name
+            position = name.tr('A-Za-z-','') # MT-G1234G -> 1234
+
+            if db_snp_snps[name] # do we have a dbSNP-name?
+                name = db_snp_snps[name]
+            end
+            
+            snp_array = [name, "MT", position, prior_snp_array[1]]
+          else
+            snp_array = [prior_snp_array[0], "1", "1", prior_snp_array[1]]
+          end
+          log "SNP_ARRAY IS" 
+          log snp_array
+        elsif @genotype.filetype == "23andme"
           snp_array = single_snp.split("\t")
 
         elsif @genotype.filetype == "decodeme"

@@ -101,20 +101,90 @@ class Zipfulldata
           @fitbit_handle.close
           puts "Saved fibit-date for "
         end
-          
+
+        # picture phenotype zipping comes here
+        
+        # make a CSV describing all of them - which filename is for which user's phenotype
+        @csv_head = "user_id;date_of_birth;chrom_sex"
+        @csv_handle = File.new(::Rails.root.to_s+"/tmp/picture_dump"+@time_str.to_s+".csv","w")
+    
+        PicturePhenotype.find_each do |p|
+          @csv_head = @csv_head + ";" + p.characteristic.gsub(";",",")
+        end
+        @csv_handle.puts(@csv_head)
+    
+        # create lines in csv-file for each user who has uploaded his data
+        
+        @list_of_temporary_pics = [] # need this for the zip-file-later
+
+        User.all.each do |u|
+          @user_line = u.id.to_s + ";" + u.yearofbirth + ";" + u.sex
+          puts "Looking at user #{u.id}"
+          PicturePhenotype.all.each do |up|
+
+            # copy the picture with name to +user_id+_+pic_phenotype_id+.png
+            puts "Looking for this picture #{up.id}"
+            @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,up.id)
+            if @picture != nil
+              # does this user have this pic?
+              @type = @picture.phenotype_picture_content_type.split("/")[-1]
+              @file_name = u.id.to_s + "_" + up.id.to_s + "." + @type
+              puts "FOUND THIS"
+              puts @picture
+
+              @list_of_temporary_pics << "/tmp/pics/" + @file_name
+              puts "Copying!"
+              system("cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name)
+              puts "Finished copying"
+              @user_line = @user_line + ";" + @file_name
+            else 
+              @user_line = @user_line + ";" + "-"
+            end
+          end
+          puts "Putting a line into CSV"
+          @csv_handle.puts(@user_line)
+        end
+        
+        @csv_handle.close
+        puts "created picture handle csv-file"
+
+        # now create zipfile of pictures
+        @pic_zipname = "/data/zip/opensnp_picturedump."+@time_str+".zip"
+        Zip::ZipFile.open(::Rails.root.to_s + "/public/" + @pic_zipname, Zip::ZipFile::CREATE) do |z|
+          @list_of_temporary_pics.each do |tmp|
+            begin
+              basename = tmp.split("/")[-1]
+              z.add(basename, ::Rails.root.to_s + "/" + tmp)
+            rescue
+              puts "missing file"
+            end
+          end
+        end
+
+        puts "created picture zip file"
+        @list_of_temporary_pics.each do |tmp|
+            system("rm " + ::Rails.root.to_s + "/" + tmp) 
+        end
+        
+        puts "deleted temporary pics"
+
+       
         # make a README containing time of zip - this way, users can compare with page-status 
         # and see how old the data is
         @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt","w")
         @phenotype_count = Phenotype.count
         @genotype_count = Genotype.count
-        @readme_handle.puts("This archive was generated on "+@time.to_s+" UTC. It contains "+@phenotype_count.to_s+" phenotypes and "+@genotype_count.to_s+" genotypes.")
+        @picture_count = PicturePhenotype.count
+        @readme_handle.puts("This archive was generated on "+@time.to_s+" UTC. It contains "+@phenotype_count.to_s+" phenotypes, "+@genotype_count.to_s+" genotypes and " + @picture_count.to_s + " picture phenotypes.")
         @readme_handle.puts("Thanks for using openSNP!")
         @readme_handle.close
     
-        # zip up the everything (csv + all genotypings + readme) 
+        # zip up everything (csv + all genotypings + pics-zip + pics-csv + readme) 
         
         @zipname = "/data/zip/opensnp_datadump."+@time_str+".zip"
         Zip::ZipFile.open(::Rails.root.to_s+"/public/"+@zipname, Zip::ZipFile::CREATE) do |zipfile|
+          zipfile.add("picture_phenotypes_" + @time_str.to_s + ".csv", ::Rails.root.to_s+"/tmp/picture_dump"+@time_str.to_s+".csv")
+          zipfile.add("picture_phenotypes_" + @time_str.to_s + "_all_pics.zip", ::Rails.root.to_s + "/public/" + @pic_zipname)
           zipfile.add("phenotypes_"+@time_str.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".csv") 
           zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt")
           @genotyping_files.each do |gen_file|
@@ -149,7 +219,7 @@ class Zipfulldata
         puts "created zip-file"
       end
       
-      # make sure the file-permissions of the resulting zip-file are okay and sent mail
+      # make sure the file-permissions of the resulting zip-file are okay and send mail
       system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time_str+".zip")
       UserMailer.dump(target_address,"/data/zip/opensnp_datadump."+@time_str+".zip").deliver
       puts "sent mail"

@@ -1,12 +1,7 @@
-<%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>
-
-<div class="row">
-  <div class="span6 columns"><h1>Phenotype: <%= @phenotype.characteristic %></h1> </div>
-</div>
+<legend>Phenotype: <%= @phenotype.characteristic %></legend><%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>
 
 <% if current_user %>
   <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
-
     <%= render 'user_phenotypes/form' %>
   <%end%>
 <% end %>

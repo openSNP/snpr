@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213120010) do
+ActiveRecord::Schema.define(:version => 20121124201111) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -186,6 +186,24 @@ ActiveRecord::Schema.define(:version => 20121213120010) do
     t.text     "description"
   end
 
+  create_table "picture_phenotype_comments", :force => true do |t|
+    t.text     "comment_text"
+    t.text     "subject"
+    t.integer  "user_id"
+    t.integer  "picture_phenotype_id"
+    t.integer  "reply_to_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "picture_phenotypes", :force => true do |t|
+    t.string   "characteristic"
+    t.string   "description"
+    t.integer  "number_of_users", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "plos_papers", :force => true do |t|
     t.text     "first_author"
     t.text     "title"
@@ -224,9 +242,9 @@ ActiveRecord::Schema.define(:version => 20121213120010) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-11-08 19:06:24'
-    t.datetime "plos_updated",       :default => '2012-11-08 19:06:24'
-    t.datetime "snpedia_updated",    :default => '2012-11-08 19:06:24'
+    t.datetime "mendeley_updated",   :default => '2012-11-06 08:24:36'
+    t.datetime "plos_updated",       :default => '2012-11-06 08:24:36'
+    t.datetime "snpedia_updated",    :default => '2012-11-06 08:24:36'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -247,6 +265,18 @@ ActiveRecord::Schema.define(:version => 20121213120010) do
     t.integer  "user_id"
     t.integer  "phenotype_id"
     t.string   "variation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_picture_phenotypes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "picture_phenotype_id"
+    t.string   "variation"
+    t.string   "phenotype_picture_file_name"
+    t.string   "phenotype_picture_content_type"
+    t.integer  "phenotype_picture_file_size"
+    t.datetime "phenotype_picture_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

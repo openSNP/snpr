@@ -25,9 +25,11 @@ class User < ActiveRecord::Base
   #after_create :make_standard_phenotypes
 
   # dependent so stuff gets destroyed on delete
-  has_many :user_phenotypes, dependent: :destroy
-  has_many :phenotypes, through: :user_phenotypes
-  has_many :genotypes, dependent: :destroy
+  has_many :user_phenotypes, :dependent => :destroy
+  has_many :phenotypes, :through => :user_phenotypes
+  has_many :user_picture_phenotypes, :dependent => :destroy
+  has_many :picture_phenotypes, :through => :user_picture_phenotypes
+  has_many :genotypes, :dependent => :destroy
   has_many :user_snps
   has_many :snps, through: :user_snps
   has_many :homepages, dependent: :destroy
@@ -36,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :achievements, through: :user_achievements
   has_many :snp_comments # these shouldn't be deleted, but orphaned
   has_many :phenotype_comments
+  has_many :picture_phenotype_comments
   has_one :fitbit_profile
 
   # needed to edit several user_phenotypes at once, add and delete, and not empty

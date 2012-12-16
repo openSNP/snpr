@@ -102,6 +102,11 @@ class Preparsing
             file_is_ok = true
             log "file is 23andme-exome and is ok!"
         end
+    elsif @genotype.filetype == "IYG"
+        if l.split("\t").length == 2
+            file_is_ok = true
+            log "file is IYG and is ok!"
+        end
     end
 
     log "Checking whether genotyping is duplicate"
