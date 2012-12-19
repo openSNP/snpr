@@ -163,7 +163,7 @@
 	<% end %>
 	</tbody>
 </table>
-<%= will_paginate(@paginated_phenotype_replies)%>
+<%= page_navigation_links @paginated_phenotype_replies %>
 <% end %>
 
 <% if @paginated_snp_replies != [] %>
@@ -190,7 +190,7 @@
 	<% end %>
 	</tbody>
 </table>
-<%= will_paginate(@paginated_snp_replies)%>
+<%= page_navigation_links @paginated_snp_replies %>
 <% end %>
 
 </div>
