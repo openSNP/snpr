@@ -21,7 +21,14 @@
             <ul class="nav"> 
                 <li class=""><%= link_to("News", '/news') %></li>
                 <li class=""><%= link_to("Genotypes", :controller => "genotypes", :action => "index")%></li>
-                <li class=""><%= link_to("Phenotypes", :controller => "phenotypes", :action => "index")%></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Phenotypes<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class=""><%= link_to("Phenotypes", :controller => "phenotypes", :action => "index")%></li>
+                    <li class=""><%= link_to("Picture phenotypes", :controller => "picture_phenotypes", :action => "index")%></li>
+                    <li class=""><%= link_to("Fitbit connections", :controller => "fitbit_profiles", :action => "index")%></li>
+                </ul>
                 <li class=""><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
                 <li class=""><%= link_to("Users", '/user_index') %></li>
             </ul>
