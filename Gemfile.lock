@@ -112,6 +112,7 @@ GEM
       rest-client (>= 1.3.0)
     metaclass (0.0.1)
     mime-types (1.19)
+    minitest (4.3.3)
     mocha (0.13.1)
       metaclass (~> 0.0.1)
     multi_json (1.4.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   json
   mediawiki-gateway
   mendeley!
+  minitest (~> 4.3.2)
   mocha
   nested_form!
   paperclip (~> 3.0)

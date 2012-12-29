@@ -14,6 +14,8 @@ gem 'sanitize'
 gem 'fitgem'
 gem 'mendeley', git: 'git://github.com/tsujigiri/mendeley.git', branch: 'paging_search'
 
+# workaround for bug in Fedora
+gem 'minitest', '~> 4.3.2'
 
 # gem 'sqlite3'
 # use postgresql instead:

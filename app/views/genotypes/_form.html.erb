@@ -13,27 +13,27 @@
 	<%= f.label :filetype %>
     </div>
 	<div class="input">
-			<label>
+			<label class="radio">
 				<%= f.radio_button :filetype,"23andme" %>
 				<span>23andme-format</span>
 			</label>
-			<label>
+			<label class="radio">
 				<%= f.radio_button :filetype,"decodeme"%>
 				<span>deCODEme-format</span>
 			</label>
-			<label>
+			<label class="radio">
 				<%= f.radio_button :filetype,"ftdna-illumina"%>
 				<span>FamilyTreeDNA, Illumina-Format <b>(unzipped)</b></span>
 			</label>
-			<label>
+			<label class="radio">
 				<%= f.radio_button :filetype,"23andme-exome-vcf"%>
 				<span>23andMe-EXOME, VCF-format <b>(unzipped)</b></span>
 			</label>
-			<label>
+			<label class="radio">
 				<%= f.radio_button :filetype,"IYG"%>
-				<span>IYG-format (EBI genotyping users)</span>
+				<span>IYG-format (EBI genotyping participants)</span>
 			</label>
-            <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%><br/><br/>
+            <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>.<br/><br/>
 	</div>
 </div>
 <div class="actions">
