@@ -102,7 +102,7 @@
 	<h2>Deleting</h2>
 	<% if not @user.genotypes.empty? %>
         <% @user.genotypes.each do |ug| %>
-          <p><%= link_to "Delete genotype #{ug.genotype_file_name}", ug, :method => "delete", :confirm => "Are you sure you want to delete genotype " + ug.originalfilename.to_s + "?" %> </p>
+          <p><%= link_to "Delete genotype #{ug.genotype_file_name}", ug, :method => "delete", :confirm => "Are you sure you want to delete genotype " + ug.genotype_file_name.to_s + "?" %> </p>
         <% end %>
 	<% end %>
 	<p><%= link_to "Delete this account", @user, :method => "delete", :confirm => "Are you sure you want to delete your account?" %></p>

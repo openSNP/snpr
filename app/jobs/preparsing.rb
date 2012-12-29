@@ -139,8 +139,9 @@ class Preparsing
          end
     else
         log "Updating genotype with md5sum #{md5}"
+        log "Updating genotype #{@genotype.id}"
         status = @genotype.update_attributes(:md5sum => md5)
-        log "Status is #{status}"
+        log "Md5-updating-status is #{status}"
 
         system("csplit -k -f #{@genotype.id}_tmpfile -n 4 #{filename} 20000 {2000}")
         system("mv #{@genotype.id}_tmpfile* tmp/")
