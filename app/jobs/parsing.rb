@@ -119,7 +119,7 @@ class Parsing
           break
         end
       end
-      log "Importing new Snps"
+      log "Importing #{new_snps.length} new Snps"
       Snp.import new_snps
 
       log "Importing new UserSnps"
