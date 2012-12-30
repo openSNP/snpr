@@ -12,6 +12,8 @@ class DeleteGenotype
             # This user_snp is the only one, so, destroy the Snp,
             # which destroys the UserSnp implicitly
             Snp.where(name: us.snp_name).destroy_all
+        else
+            UserSnp.delete(us)
         end
     end
   end
