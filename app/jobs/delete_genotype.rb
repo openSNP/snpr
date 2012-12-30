@@ -13,8 +13,8 @@ class DeleteGenotype
             # which destroys the UserSnp implicitly
             Snp.where(name: us.snp_name).destroy_all
         else
-            UserSnp.delete(us)
         end
+        UserSnp.delete(us)
     end
   end
 end
