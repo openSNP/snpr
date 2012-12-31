@@ -45,10 +45,6 @@ gem 'resque-loner'
 #	gem 'newrelic_rpm'
 #end
 
-#group :development do
-#  gem 'rcov_rails'
-#end
-
 group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
@@ -56,6 +52,7 @@ group :test do
   gem 'debugger'
   gem 'sunspot_test', git: 'git://github.com/tsujigiri/sunspot_test.git', branch: 'dirty_quickfix'
   #gem "turn", "< 0.8.3" # truncates backtraces in the tests (bad)
+  gem 'simplecov', require: false
 end
 
 group :development, :test do

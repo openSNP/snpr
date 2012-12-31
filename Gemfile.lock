@@ -178,6 +178,10 @@ GEM
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     shoulda-context (1.0.1)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     sinatra (1.2.8)
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
@@ -229,6 +233,7 @@ DEPENDENCIES
   rvm-capistrano
   sanitize
   shoulda-context
+  simplecov
   sunspot_rails
   sunspot_solr
   sunspot_test!
