@@ -1,7 +1,7 @@
 rvm:
   - 1.9.2
   - 1.9.3
-env: DB=postgres
+env: DB=postgres CI=1
 before_install: 
   - git clone git://github.com/redis/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
 before_script:
