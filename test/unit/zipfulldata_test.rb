@@ -18,12 +18,15 @@ class ZipfulldataTest < ActiveSupport::TestCase
       Time.stubs(:now).returns time
 
       old_entries = Dir.entries("#{Rails.root}/public/data/zip")
-      assert_difference 'Dir.entries("#{Rails.root}/public/data/zip").size' do
+      # should have two new files - picture-dump, genotyping-dump
+      assert_difference('Dir.entries("#{Rails.root}/public/data/zip").size', +2) do
         Zipfulldata.perform 'foo@example.org'
       end
 
       created_zip =
-        (Dir.entries("#{Rails.root}/public/data/zip") - old_entries).first
+          (Dir.entries("#{Rails.root}/public/data/zip").map{ |item| if item.include? "data"; item; end}.compact - old_entries).first
+      # above is the weirdest way to get only the zips containing "data"
+
       assert_match "opensnp_datadump.#{time_str}.zip", created_zip
 
       file_count = 0
@@ -33,7 +36,7 @@ class ZipfulldataTest < ActiveSupport::TestCase
           case file.to_s
           when 'readme.txt' then
             assert_match "This archive was generated on #{time.to_s.gsub(":","_")} UTC. " <<
-              "It contains 1 phenotypes and 1 genotypes.", content.read
+              "It contains 1 phenotypes, 1 genotypes and 0 picture phenotypes.\nThanks for using openSNP!\n", content.read
           when /23andme.txt\Z/ then
             assert_equal File.read("#{Rails.root}/test/data/23andMe_test.csv"),
               content.read
@@ -41,12 +44,16 @@ class ZipfulldataTest < ActiveSupport::TestCase
             assert_equal \
               "user_id;date_of_birth;chrom_sex;jump height\n" <<
               "#{@user.id};1970;yes please;1km\n", content.read
+          when "picture_phenotypes_#{time_str}.csv" then
+              next # TODO: put proper test here
+          when "picture_phenotypes_#{time_str}_all_pics.zip" then
+              next # TODO: put proper test here
           else
             raise "unknown file #{file} in zip"
           end
         end
       end
-      assert_equal 3, file_count
+      assert_equal 5, file_count
       File.delete("#{Rails.root}/public/data/zip/#{created_zip}")
     end
 
