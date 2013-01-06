@@ -133,10 +133,11 @@ class Zipfulldata
             if @picture != nil
               @file_name = @picture.phenotype_picture.path
               @basename = @file_name.split("/")[-1]
+              @filetype = @basename.split(".")[-1]
               log "FOUND file #{@file_name}, basename is #{@basename}"
 
-              @list_of_pics << ::Rails.root.to_s + "/tmp/pics/" + @basename
-              @user_line = @user_line + ";" + @basename
+              @list_of_pics << @picture
+              @user_line = @user_line + ";" + @picture.id.to_s + "." +  @filetype
             else 
               @user_line = @user_line + ";" + "-"
             end
@@ -153,10 +154,12 @@ class Zipfulldata
         Zip::ZipFile.open(::Rails.root.to_s + "/public/" + @pic_zipname, Zip::ZipFile::CREATE) do |z|
           @list_of_pics.each do |tmp|
             begin
-              basename = tmp.split("/")[-1]
-              log "Adding file to zip named #{tmp}"
-              z.add(basename, tmp)
-              log "Added #{tmp}"
+              @file_name = tmp.phenotype_picture.path
+              @basename = @file_name.split("/")[-1]
+              @filetype = @basename.split(".")[-1]
+              log "Adding file to zip named #{tmp.id.to_s + "." + @filetype}"
+              z.add(tmp.id.to_s+"."+@filetype, @file_name)
+              log "Added #{tmp.id.to_s + "." + @filetype}"
             rescue
               log "missing file"
             end

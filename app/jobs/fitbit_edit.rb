@@ -22,6 +22,7 @@ class FitbitEdit
      else
        # grab all data so far
        @bmi_array = @client.data_by_time_range("/body/bmi",{:base_date => Date.today.to_s,:period => :max})["body-bmi"]
+       puts @bmi_array
        @bmi_array.each do |bmi|
          @body = FitbitBody.find_or_create_by_fitbit_profile_id_and_date_logged(@fitbit_profile.id,bmi["dateTime"])
          @body.bmi = bmi["value"]
