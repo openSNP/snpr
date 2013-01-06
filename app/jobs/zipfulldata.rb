@@ -119,7 +119,7 @@ class Zipfulldata
     
         # create lines in csv-file for each user who has uploaded his data
         
-        @list_of_temporary_pics = [] # need this for the zip-file-later
+        @list_of_pics = [] # need this for the zip-file-later
 
         User.all.each do |u|
           @user_line = u.id.to_s + ";" + u.yearofbirth + ";" + u.sex
@@ -129,20 +129,14 @@ class Zipfulldata
             # copy the picture with name to +user_id+_+pic_phenotype_id+.png
             log "Looking for this picture #{up.id}"
             @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,up.id)
+            # does this user have this pic?
             if @picture != nil
-              # does this user have this pic?
-              @type = @picture.phenotype_picture_content_type.split("/")[-1]
-              @file_name = u.id.to_s + "_" + up.id.to_s + "." + @type
-              log "FOUND THIS"
-              log @picture
+              @file_name = @picture.phenotype_picture.path
+              @basename = @file_name.split("/")[-1]
+              log "FOUND file #{@file_name}, basename is #{@basename}"
 
-              @list_of_temporary_pics << ::Rails.root.to_s + "/tmp/pics/" + @file_name
-              log "Adding this file to list: #{::Rails.root.to_s + "/tmp/pics/" + @file_name}"
-              log "Copying!"
-              log "Running this command: #{"cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name }"
-              system("cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name)
-              log "Finished copying"
-              @user_line = @user_line + ";" + @file_name
+              @list_of_pics << ::Rails.root.to_s + "/tmp/pics/" + @basename
+              @user_line = @user_line + ";" + @basename
             else 
               @user_line = @user_line + ";" + "-"
             end
@@ -157,7 +151,7 @@ class Zipfulldata
         # now create zipfile of pictures
         @pic_zipname = "/data/zip/opensnp_picturedump."+@time_str+".zip"
         Zip::ZipFile.open(::Rails.root.to_s + "/public/" + @pic_zipname, Zip::ZipFile::CREATE) do |z|
-          @list_of_temporary_pics.each do |tmp|
+          @list_of_pics.each do |tmp|
             begin
               basename = tmp.split("/")[-1]
               log "Adding file to zip named #{tmp}"
@@ -170,14 +164,7 @@ class Zipfulldata
         end
 
         log "created picture zip file"
-
-        #@list_of_temporary_pics.each do |tmp|
-            #system("rm " + tmp) 
-        #end
         
-        log "deleted temporary pics"
-
-       
         # make a README containing time of zip - this way, users can compare with page-status 
         # and see how old the data is
         @readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+@time_str.to_s+".txt","w")
