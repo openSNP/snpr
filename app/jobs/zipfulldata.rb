@@ -4,6 +4,8 @@ class Zipfulldata
   @queue = :zipfulldata
 
   def self.perform(target_address)
+    Rails.logger.level = 0
+    Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
     @genotyping_files = []
     @users = []
 
@@ -50,7 +52,7 @@ class Zipfulldata
         end
         
         @csv_handle.close
-        puts "created csv-file"
+        log "created csv-file"
         
         # Create a file of fitbit-data for each user with fitbit-data
         
@@ -99,7 +101,7 @@ class Zipfulldata
             @fitbit_handle.puts(@line)
           end
           @fitbit_handle.close
-          puts "Saved fibit-date for "
+          log "Saved fibit-date for "
         end
 
         # picture phenotype zipping comes here
@@ -107,7 +109,9 @@ class Zipfulldata
         # make a CSV describing all of them - which filename is for which user's phenotype
         @csv_head = "user_id;date_of_birth;chrom_sex"
         @csv_handle = File.new(::Rails.root.to_s+"/tmp/picture_dump"+@time_str.to_s+".csv","w")
-    
+
+        log "Writing picture-CSV to #{::Rails.root.to_s+"/tmp/picture_dump"+@time_str.to_s+".csv"}"
+
         PicturePhenotype.find_each do |p|
           @csv_head = @csv_head + ";" + p.characteristic.gsub(";",",")
         end
@@ -119,34 +123,36 @@ class Zipfulldata
 
         User.all.each do |u|
           @user_line = u.id.to_s + ";" + u.yearofbirth + ";" + u.sex
-          puts "Looking at user #{u.id}"
+          log "Looking at user #{u.id}"
           PicturePhenotype.all.each do |up|
 
             # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-            puts "Looking for this picture #{up.id}"
+            log "Looking for this picture #{up.id}"
             @picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,up.id)
             if @picture != nil
               # does this user have this pic?
               @type = @picture.phenotype_picture_content_type.split("/")[-1]
               @file_name = u.id.to_s + "_" + up.id.to_s + "." + @type
-              puts "FOUND THIS"
-              puts @picture
+              log "FOUND THIS"
+              log @picture
 
-              @list_of_temporary_pics << "/tmp/pics/" + @file_name
-              puts "Copying!"
+              @list_of_temporary_pics << ::Rails.root.to_s + "/tmp/pics/" + @file_name
+              log "Adding this file to list: #{::Rails.root.to_s + "/tmp/pics/" + @file_name}"
+              log "Copying!"
+              log "Running this command: #{"cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name }"
               system("cp " + ::Rails.root.to_s + "/public/system/phenotype_pictures/" + @picture.picture_phenotype_id.to_s + "/original/" + @picture.phenotype_picture_file_name.to_s + " " + ::Rails.root.to_s + "/tmp/pics/" + @file_name)
-              puts "Finished copying"
+              log "Finished copying"
               @user_line = @user_line + ";" + @file_name
             else 
               @user_line = @user_line + ";" + "-"
             end
           end
-          puts "Putting a line into CSV"
+          log "Putting a line into CSV"
           @csv_handle.puts(@user_line)
         end
         
         @csv_handle.close
-        puts "created picture handle csv-file"
+        log "created picture handle csv-file"
 
         # now create zipfile of pictures
         @pic_zipname = "/data/zip/opensnp_picturedump."+@time_str+".zip"
@@ -154,19 +160,22 @@ class Zipfulldata
           @list_of_temporary_pics.each do |tmp|
             begin
               basename = tmp.split("/")[-1]
-              z.add(basename, ::Rails.root.to_s + "/" + tmp)
+              log "Adding file to zip named #{tmp}"
+              z.add(basename, tmp)
+              log "Added #{tmp}"
             rescue
-              puts "missing file"
+              log "missing file"
             end
           end
         end
 
-        puts "created picture zip file"
-        @list_of_temporary_pics.each do |tmp|
-            system("rm " + ::Rails.root.to_s + "/" + tmp) 
-        end
+        log "created picture zip file"
+
+        #@list_of_temporary_pics.each do |tmp|
+            #system("rm " + tmp) 
+        #end
         
-        puts "deleted temporary pics"
+        log "deleted temporary pics"
 
        
         # make a README containing time of zip - this way, users can compare with page-status 
@@ -216,15 +225,19 @@ class Zipfulldata
         @fitbit_profiles.each do |fp|
           File.delete(::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv")
         end
-        puts "created zip-file"
+        log "created zip-file"
       end
       
       # make sure the file-permissions of the resulting zip-file are okay and send mail
       system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+@time_str+".zip")
       UserMailer.dump(target_address,"/data/zip/opensnp_datadump."+@time_str+".zip").deliver
-      puts "sent mail"
+      log "sent mail"
     else
       UserMailer.no_dump(target_address).deliver
     end
+  end
+
+  def self.log msg
+      Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end
