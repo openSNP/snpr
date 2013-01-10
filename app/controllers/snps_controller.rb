@@ -16,7 +16,12 @@ class SnpsController < ApplicationController
 		@snp = Snp.find_by_name(params[:id].downcase) || not_found
 		@title = @snp.name
 		@comments = SnpComment.where(:snp_id => @snp.id).all(:order => "created_at ASC")
-		@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
+		#@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
+		@user_snps = @snp.user_snps
+		@users = []
+		@user_snps.each do |us|
+		  @users << us.user
+	  end
 		#@user_snps = UserSnps.where(:snp_name => @snp.name)
 		
 		@json_results = []
