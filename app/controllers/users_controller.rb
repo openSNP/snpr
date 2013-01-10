@@ -25,15 +25,16 @@ class UsersController < ApplicationController
       flash[:warning] = "You must tick the box to proceed!"
     end
 
-    if params[:read] and @user.save
+    recaptcha_verified = verify_recaptcha
+    if params[:read] && @user.valid? && recaptcha_verified && @user.save
       flash[:notice] = "Account registered!"
       UserMailer.welcome_user(@user).deliver
       redirect_to @user
     else
-      respond_to do |format|
-        format.html { render :action => "new" }
-        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
+      unless recaptcha_verified
+        @user.errors.add(:base, 'The reCAPTCHA code was wrong')
       end
+      render :action => "new"
     end
   end
 

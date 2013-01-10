@@ -27,6 +27,9 @@
             I understand the warning and I am willing to take these risks.
         </label>
 </div>
+<p>
+<%= recaptcha_tags %>
+</p>
 <%= f.submit :class => "btn btn-primary"%>
 <% end %> 
 <p>Already a user? <%= link_to("Log in now!", "/signin")%></p>
