@@ -1,28 +1,17 @@
 Hi <%=@user.name%>,
-Nearly 6 months have passed since we started openSNP, and much has happened! Over 300 users have provided information about over 70 different phenotypes and in total over 120 genotyping data sets have been uploaded. This is a huge success for us and we'd like to thank all of you who are participating in this project. We also want to use this mailing to give you some updates on what has changed and happened on openSNP:
+we know we're a bit late, but we still want to wish you a happy new year! We have been busy over the last couple of weeks and added some new features to openSNP.
 
-1. What we are doing with the money from WikiMedia
-2. openSNP how has JSON API & DAS-support
-3. Our visual genome browser
-4. Improvement on entering phenotypes
+First of all, there has been a major rewrite of the parts of openSNP which go through your genotyping files to make sure that your variations are shown correctly on the website. This also includes support for a new file format: The raw data as delivered by the "Inside Your Genome", an internal project of the Sanger Institute/European Bioinformatics Institute. While this project is not open to the general public, participants of the project can now opt-in to share their data with the rest of the world as well as receive the annotation we have stored for their SNPs.
 
-1. What we are doing with the money from WikiMedia 
-Yesterday marked the application deadline for the free genotypings which we will fund with the 5000 € of funding we got through the German WikiMedia foundation. Over 400 people have applied, and we are going through all the applications. The response to this shows us how many people are willing to share their data with the public. Unfortunately, we don't have enough funding to get all applicants genotyped. So we will set out to try to get more funding. If you have an idea for this, please let us know!
+The second big change is that we've added picture phenotypes. If you ever ended up wondering how to describe your phenotypic variation in text form you can now simply upload a picture. Those picture phenotypes are an addition to the text phenotype-questions which you are used to and do not replace them. So if you don't mind sharing a description of your eye color but don't want to upload a picture of your eyes: That's still possible. As usual with openSNP: If a picture phenotype you would like to see on the platform is missing you can create it straight away so that other people can add pictures about themselves. A first example of a picture phenotype, for eye color, can be found here: https://opensnp.org/picture_phenotypes/2
 
-2. openSNP now has JSON API & DAS-support
-Good news for everybody who wants to build an application which uses data from openSNP: We implemented a JSON API which you can use to get details about single SNPs and the genotypes of users at given SNPs, as well as to grab phenotypes for different users. If you want to learn more about the JSON API you should read this blog post which has some examples: http://opensnp.wordpress.com/2012/01/18/some-progress-on-the-api-json-endpoints/
+Besides this we've also made contact to some of the Personal Genomics / Quantified Self campaigns which are currently fundraising on Indiegogo. With Talking20, a startup for personal proteomics, and uBiome, a startup for personal microbiomes, there are two projects which might be of special interest to you as well. We've contacted both campaigns and you can read more about them on our blog: http://opensnp.wordpress.com/2013/01/10/crowdfunding-dtc-microbiomics-proteomics/
+If they are successful we are looking forward to add support for their data to openSNP as well.
 
-We've also added support for the Distributed Annotation System (DAS). The data of each user who has uploaded genetic information automatically gets transformed into a DAS compatible data source. This allows to query SNPs and visualize them easily in genome browsers and other bioinformatical third party tools. More details about this can be found here: http://opensnp.wordpress.com/2012/02/20/videos-on-opensnp-das-support/
-
-3. Our visual genome browser
-The main reason we implemented DAS on openSNP was to give you a simple visual genome browser. On each SNP-page you will see such a browser, and if you're logged in and have uploaded your own genotyping data, you will also see your SNPs appear here. An example of this can be found here: http://opensnp.org/snps/rs6265
-
-4. Improvement on entering phenotypes
-Your starting page on openSNP has always displayed the phenotypes for which you did not enter information yet. But until now you couldn't easily add your variation for those phenotypes from the page. We added support for this, so now you can use this page if you are looking for a way to enter lots of phenotypes in rapid succession and gain some achievements!
-
-If you are more interested in browsing the phenotypes you might like our new recommendation feature for similar phenotypes. Each phenotype-page now displays a list of the most similar phenotypes, and if you use the old way of entering your variation through the phenotype-pages instead of the dashboard you will get suggestions specifically for you. If you'd like to know more about this, this blogpost might be of interest to you: http://opensnp.wordpress.com/2012/03/26/update-on-the-free-genotypings-and-new-features-on-opensnp/
-
-Thanks for reading this! And as usual: If you have any suggestions, find bugs or have any other feedback please contact us by either replying to this mail or by contacting us directly on openSNP (Bastian at http://opensnp.org/users/1 or Philipp at http://opensnp.org/users/23http://opensnp.org/users/23 )
+If you have any questions regarding openSNP, ideas for new features or find any bugs: Please contact us. We're really interested in your feedback!
 
 Cheers,
-the openSNP team (Bastian, Philipp, Fabian & Helge) 
+Bastian, Philipp, Fabian & Helge.
+
+--
+You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team. You can change this setting really easy at https://opensnp.org/users/<%=@user.id%>/edit#notifications
