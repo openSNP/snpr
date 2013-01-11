@@ -1,40 +1,27 @@
 <div class="row">
- <div class="span5">
-<% # helper thing so we don't have to put up fields into every page %>
-<div class="well">
-<%= form_for @user, :html => {:class => "form"} do |f| %>
-<%= render 'shared/error_messages', :target => @user %>
-	<%= f.label :name %>
-<div class="input">
-	<%= f.text_field :name %>
-</div>
-	<%= f.label :email %>
-<div class="input">
-	<%= f.text_field :email %>
-</div>
-	<%= f.label :password %>
-<div class="input">
-	<%= f.password_field :password %>
-</div>
-	<%= f.label :password_confirmation, "Confirmation" %>
-<div class="input">
-	<%= f.password_field :password_confirmation %>
-</div>
-<br/>
-<div class="input">
-        <label class="checkbox">
-            <%= check_box_tag(:read, :type => "checkbox") %>
-            I understand the warning and I am willing to take these risks.
-        </label>
-</div>
-<p>
-<%= recaptcha_tags %>
-</p>
-<%= f.submit :class => "btn btn-primary"%>
-<% end %> 
-<p>Already a user? <%= link_to("Log in now!", "/signin")%></p>
-</div>
-</div>
-<div class="span6">
-<%=render "static/disclaimer"%>
+  <div class="span5">
+    <% # helper thing so we don't have to put up fields into every page %>
+    <div class="well">
+      <%= form_for @user, :html => {:class => "form"} do |f| %>
+        <%= render 'shared/error_messages', :target => @user %>
+        <%= f.label :name %>
+        <div class="input"><%= f.text_field :name %></div>
+        <%= f.label :email %>
+        <div class="input"><%= f.text_field :email %></div>
+        <%= f.label :password %>
+        <div class="input"><%= f.password_field :password %></div>
+        <%= f.label :password_confirmation, "Confirmation" %>
+        <div class="input"><%= f.password_field :password_confirmation %></div>
+        <br/>
+        <div class="input">
+          <%= check_box_tag(:read, :type => "checkbox") %>
+          <%= label_tag :read, 'I understand the warning and I am willing to take these risks.' %>
+        </div>
+        <p><%= recaptcha_tags %></p>
+        <%= f.submit :class => "btn btn-primary"%>
+      <% end %> 
+      <p>Already a user? <%= link_to("Log in now!", "/signin")%></p>
+    </div>
+  </div>
+  <div class="span6"><%=render "static/disclaimer"%></div>
 </div>
