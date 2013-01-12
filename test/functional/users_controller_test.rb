@@ -29,7 +29,7 @@ class UsersControllerTest < ActionController::TestCase
 
       should "not be able to create accounts when failing reCAPTCHA" do
         UsersController.any_instance.expects(:verify_recaptcha).returns(false)
-        assert_difference 'User.count' do
+        assert_no_difference 'User.count' do
           put :create, user: { name: "Fubert Barfuß", password: 'jeheim',
             password_confirmation: 'jeheim', email: 'fubert@example.com'}, read: 1
         end
