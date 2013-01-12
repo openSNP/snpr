@@ -43,7 +43,7 @@ Snpr::Application.routes.draw do
   match '/phenotypesets/enter/:id', :to => "phenotype_sets#enter_userphenotypes"
   match '/phenotypesets/user_phenotypes/save', :to => "phenotype_sets#save_user_phenotypes"
   match '/users/:id/changepassword', :to => 'users#changepassword'
-  match '/signup', :to => 'users#new'
+  match '/signup', :to => 'users#new', as: :signup
   match '/signin', :to => 'user_sessions#new', :as => :login
   match '/signout', :to => 'user_sessions#destroy', :as => :logout
   match '/faq', :to => 'static#faq'

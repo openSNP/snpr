@@ -26,8 +26,19 @@ class UsersControllerTest < ActionController::TestCase
         assert_response :success
         assert_equal @user, assigns(:user)
       end
- 
+
+      should "not be able to create accounts when failing reCAPTCHA" do
+        UsersController.any_instance.expects(:verify_recaptcha).returns(false)
+        assert_no_difference 'User.count' do
+          put :create, user: { name: "Fubert Barfuß", password: 'jeheim',
+            password_confirmation: 'jeheim', email: 'fubert@example.com'}, read: 1
+        end
+        assert_response :success
+        assert_template :new
+      end
+
       should "be able to create accounts" do
+        UsersController.any_instance.expects(:verify_recaptcha).returns(true)
         assert_difference 'User.count' do
           put :create, user: { name: "Fubert Barfuß", password: 'jeheim',
             password_confirmation: 'jeheim', email: 'fubert@example.com'}, read: 1
