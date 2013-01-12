@@ -5,18 +5,18 @@
       <%= form_for @user, :html => {:class => "form"} do |f| %>
         <%= render 'shared/error_messages', :target => @user %>
         <%= f.label :name %>
-        <div class="input"><%= f.text_field :name %></div>
+        <%= f.text_field :name %>
         <%= f.label :email %>
-        <div class="input"><%= f.text_field :email %></div>
+        <%= f.text_field :email %>
         <%= f.label :password %>
-        <div class="input"><%= f.password_field :password %></div>
+        <%= f.password_field :password %>
         <%= f.label :password_confirmation, "Confirmation" %>
-        <div class="input"><%= f.password_field :password_confirmation %></div>
+        <%= f.password_field :password_confirmation %>
         <br/>
-        <div class="input">
+        <label class="checkbox">
           <%= check_box_tag(:read, :type => "checkbox") %>
-          <%= label_tag :read, 'I understand the warning and I am willing to take these risks.' %>
-        </div>
+          I understand the warning and I am willing to take these risks.
+        </label>
         <p><%= recaptcha_tags %></p>
         <%= f.submit :class => "btn btn-primary"%>
       <% end %> 
