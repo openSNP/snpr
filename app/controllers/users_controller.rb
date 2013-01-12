@@ -19,22 +19,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(params[:user])
+    @user = User.new(params[:user])
 
     if not params[:read]
       flash[:warning] = "You must tick the box to proceed!"
     end
 
-    recaptcha_verified = verify_recaptcha
-    if params[:read] && @user.valid? && recaptcha_verified && @user.save
+    if params[:read] && verify_recaptcha(model: @user) && @user.save
       flash[:notice] = "Account registered!"
       UserMailer.welcome_user(@user).deliver
       redirect_to @user
     else
-      unless recaptcha_verified
-        @user.errors.add(:base, 'The reCAPTCHA code was wrong')
-      end
-      render :action => "new"
+      render :new
     end
   end
 
