@@ -20,59 +20,10 @@ class Zipfulldata
 
       # only create a new file if in the current minute none has been created yet
 
-      if File.exists?(::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+time_str+".zip") == false
+      unless File.exists?("#{Rails.root}/public/data/zip/opensnp_datadump.#{time_str}.zip")
 
         create_user_csv(genotypes, time_str, csv_options)
-
-        # Create a file of fitbit-data for each user with fitbit-data
-
-        fitbit_profiles = FitbitProfile.find(:all)
-        fitbit_profiles.each do |fp|
-          # open handle
-          fitbit_handle = File.new(::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+time_str.to_s+".csv","w")
-          fitbit_handle.puts("date;steps;floors;weight;bmi;minutes asleep;minutes awake; times awaken; minutes until fell asleep")
-
-          # get all dates which have to be included in the csv
-          time_array = []
-          fp.fitbit_bodies.each do |fb|
-            time_array << fb.date_logged
-          end
-          fp.fitbit_sleeps.each do |fs|
-            time_array << fs.date_logged
-          end
-          fp.fitbit_activities.each do |fa|
-            time_array << fa.date_logged
-          end
-
-          time_array = time_array.uniq.sort
-
-          time_array.each do |d|
-            line = d + ";"
-            activity = fp.fitbit_activities.find_by_date_logged(d)
-            if activity == nil
-              line = line + "-;-;"
-            else
-              line = line + activity.steps + ";" + activity.floors+ ";"
-            end
-
-            body = fp.fitbit_bodies.find_by_date_logged(d)
-            if body == nil
-              line = line + "-;-;"
-            else
-              line = line + body.weight + ";" + body.bmi + ";"
-            end
-
-            sleep = fp.fitbit_sleeps.find_by_date_logged(d)
-            if sleep == nil
-              line = line + "-;-;-;-;"
-            else
-              line = line + sleep.minutes_asleep+";"+sleep.minutes_awake+";"+sleep.number_awakenings+";"+sleep.minutes_to_sleep+";"
-            end
-            fitbit_handle.puts(line)
-          end
-          fitbit_handle.close
-          log "Saved fibit-date for "
-        end
+        create_fitbit_csv(csv_options)
 
         # picture phenotype zipping comes here
 
@@ -221,6 +172,64 @@ class Zipfulldata
       end
     end
     log "created csv-file"
+  end
+
+  def self.create_fitbit_csv(csv_options)
+    # Create a file of fitbit-data for each user with fitbit-data
+    fitbit_profiles = FitbitProfile.
+      includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps).all
+    fitbit_profiles.each do |fp|
+      csv_header = ['date', 'steps', 'floors', 'weight', 'bmi',
+                    'minutes asleep', 'minutes awake', 'times awaken',
+                    'minutes until fell asleep']
+
+      CSV.open("#{Rails.root}/tmp/dump_user#{fp.user.id}_fitbit_data_#{time_str}.csv","w", csv_options) do |csv|
+
+        # get all dates which have to be included in the csv
+
+        bodies = fp.fitbit_bodies.group_by(&:date_logged)
+        sleeps = fp.fitbit_sleeps.group_by(&:date_logged)
+        activities = fp.fitbit_activities.group_by(&:date_logged)
+
+        time_array = []
+        time_array.concat(bodies.keys)
+        time_array.concat(sleeps.keys)
+        time_array.concat(activities.keys)
+        time_array = time_array.uniq.sort
+
+        time_array.each do |d|
+          row = [d]
+
+          activity = activities[d]
+          if activity.present?
+            activity = activity.first
+            row.concat([activity.steps, activity.floors])
+          else
+            row.concat(%w(- -))
+          end
+
+          body = bodies[d]
+          if body.present?
+            body = body.first
+            row.concat([body.weight, body.bmi])
+          else
+            row.concat(%w(- -))
+          end
+
+          sleep = sleeps[d]
+          if sleep.present?
+            sleep = sleep.first
+            row.concat([sleep.minutes_asleep, sleep.minutes_awake,
+                        sleep.number_awakenings, sleep.minutes_to_sleep])
+          else
+            row.concat(%w(- - - -))
+          end
+
+          csv << row
+        end
+      end
+      log "Saved fibit-date for "
+    end
   end
 
   def self.log msg
