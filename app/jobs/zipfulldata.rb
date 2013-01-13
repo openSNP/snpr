@@ -24,36 +24,9 @@ class Zipfulldata
 
         create_user_csv(genotypes, time_str, csv_options)
         create_fitbit_csv(time_str, csv_options)
-        create_user_picture_phenotype_csv(time_str, csv_options)
-
-        # now create zipfile of pictures
-        pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
-        Zip::ZipFile.open(::Rails.root.to_s + "/public/" + pic_zipname, Zip::ZipFile::CREATE) do |z|
-          list_of_pics.each do |tmp|
-            begin
-              file_name = tmp.phenotype_picture.path
-              basename = file_name.split("/")[-1]
-              filetype = basename.split(".")[-1]
-              log "Adding file to zip named #{tmp.id.to_s + "." + filetype}"
-              z.add(tmp.id.to_s+"."+filetype, file_name)
-              log "Added #{tmp.id.to_s + "." + filetype}"
-            rescue
-              log "missing file"
-            end
-          end
-        end
-
-        log "created picture zip file"
-
-        # make a README containing time of zip - this way, users can compare with page-status
-        # and see how old the data is
-        readme_handle = File.new(::Rails.root.to_s+"/tmp/dump"+time_str.to_s+".txt","w")
-        phenotype_count = Phenotype.count
-        genotype_count = Genotype.count
-        picture_count = PicturePhenotype.count
-        readme_handle.puts("This archive was generated on "+time.to_s+" UTC. It contains "+phenotype_count.to_s+" phenotypes, "+genotype_count.to_s+" genotypes and " + picture_count.to_s + " picture phenotypes.")
-        readme_handle.puts("Thanks for using openSNP!")
-        readme_handle.close
+        list_of_pics = create_user_picture_phenotype_csv(time_str, csv_options)
+        create_picture_zip(list_of_pics, time_str)
+        create_readme(time_str, time)
 
         # zip up everything (csv + all genotypings + pics-zip + pics-csv + readme)
 
@@ -193,6 +166,8 @@ class Zipfulldata
     file_name = "#{Rails.root}/tmp/picture_dump#{time_str}.csv"
     log "Writing picture-CSV to #{file_name}"
 
+    list_of_pics = [] # need this for the zip-file-later
+
     picture_phenotypes = PicturePhenotype.all
     csv_head = %w(user_id date_of_birth chrom_sex)
     csv_head.concat(picture_phenotypes.map(&:characteristic))
@@ -203,7 +178,6 @@ class Zipfulldata
 
       # create lines in csv-file for each user who has uploaded his data
 
-      #list_of_pics = [] # need this for the zip-file-later
 
       User.includes(:user_picture_phenotypes).all.each do |u|
         log "Looking at user #{u.id}"
@@ -221,7 +195,7 @@ class Zipfulldata
             filetype = basename.split(".")[-1]
             log "FOUND file #{file_name}, basename is #{basename}"
 
-            #list_of_pics << picture
+            list_of_pics << picture
             row << "#{picture.id}.#{filetype}"
           else
             row << '-'
@@ -232,6 +206,42 @@ class Zipfulldata
       end
     end
     log "created picture handle csv-file"
+    list_of_pics
+  end
+
+  def self.create_picture_zip(list_of_pics, time_str)
+    pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
+    Zip::ZipFile.open("#{Rails.root}/public/#{pic_zipname}", Zip::ZipFile::CREATE) do |z|
+      list_of_pics.each do |tmp|
+        begin
+          file_name = tmp.phenotype_picture.path
+          basename = file_name.split("/")[-1]
+          filetype = basename.split(".")[-1]
+          log "Adding file to zip named #{tmp.id.to_s + "." + filetype}"
+          z.add(tmp.id.to_s+"."+filetype, file_name)
+          log "Added #{tmp.id.to_s + "." + filetype}"
+        rescue
+          log "missing file"
+        end
+      end
+    end
+
+    log "created picture zip file"
+  end
+  
+  def self.create_readme(time_str, time)
+    # make a README containing time of zip - this way, users can compare with page-status
+    # and see how old the data is
+    phenotype_count = Phenotype.count
+    genotype_count = Genotype.count
+    picture_count = PicturePhenotype.count
+    File.open("#{Rails.root}/tmp/dump#{time_str}.txt", "w") do |readme|
+      readme.puts(<<-TXT)
+This archive was generated on #{time} UTC. It contains #{phenotype_count} phenotypes, #{genotype_count} genotypes and #{picture_count} picture phenotypes.
+
+Thanks for using openSNP!
+TXT
+    end
   end
 
   def self.log msg
