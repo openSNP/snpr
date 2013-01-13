@@ -1,11 +1,15 @@
-development:
+default: &default
   fitbit_consumer_key:
   fitbit_consumer_secret:
   mendeley:
     consumer_key:
+  recaptcha:
+    public_key: foo
+    private_key: bar
+
+development:
+  <<: *default
 
 test:
-  fitbit_consumer_key:
-  fitbit_consumer_secret:
-  mendeley:
-    consumer_key:
+  <<: *default
+

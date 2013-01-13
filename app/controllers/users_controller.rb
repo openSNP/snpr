@@ -19,21 +19,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(params[:user])
+    @user = User.new(params[:user])
 
     if not params[:read]
       flash[:warning] = "You must tick the box to proceed!"
     end
 
-    if params[:read] and @user.save
+    if params[:read] && verify_recaptcha(model: @user) && @user.save
       flash[:notice] = "Account registered!"
       UserMailer.welcome_user(@user).deliver
       redirect_to @user
     else
-      respond_to do |format|
-        format.html { render :action => "new" }
-        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
+      render :new
     end
   end
 

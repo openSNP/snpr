@@ -9,6 +9,7 @@ gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'rvm-capistrano'
 gem 'sanitize'
+gem "recaptcha", :require => "recaptcha/rails"
 
 # apis
 gem 'fitgem'
