@@ -23,52 +23,8 @@ class Zipfulldata
       unless File.exists?("#{Rails.root}/public/data/zip/opensnp_datadump.#{time_str}.zip")
 
         create_user_csv(genotypes, time_str, csv_options)
-        create_fitbit_csv(csv_options)
-
-        # picture phenotype zipping comes here
-
-        # make a CSV describing all of them - which filename is for which user's phenotype
-        csv_head = "user_id;date_of_birth;chrom_sex"
-        csv_handle = File.new(::Rails.root.to_s+"/tmp/picture_dump"+time_str.to_s+".csv","w")
-
-        log "Writing picture-CSV to #{::Rails.root.to_s+"/tmp/picture_dump"+time_str.to_s+".csv"}"
-
-        PicturePhenotype.find_each do |p|
-          csv_head = csv_head + ";" + p.characteristic.gsub(";",",")
-        end
-        csv_handle.puts(csv_head)
-
-        # create lines in csv-file for each user who has uploaded his data
-
-        list_of_pics = [] # need this for the zip-file-later
-
-        User.all.each do |u|
-          user_line = u.id.to_s + ";" + u.yearofbirth + ";" + u.sex
-          log "Looking at user #{u.id}"
-          PicturePhenotype.all.each do |up|
-
-            # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-            log "Looking for this picture #{up.id}"
-            picture = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(u.id,up.id)
-            # does this user have this pic?
-            if picture != nil
-              file_name = picture.phenotype_picture.path
-              basename = file_name.split("/")[-1]
-              filetype = basename.split(".")[-1]
-              log "FOUND file #{file_name}, basename is #{basename}"
-
-              list_of_pics << picture
-              user_line = user_line + ";" + picture.id.to_s + "." +  filetype
-            else
-              user_line = user_line + ";" + "-"
-            end
-          end
-          log "Putting a line into CSV"
-          csv_handle.puts(user_line)
-        end
-
-        csv_handle.close
-        log "created picture handle csv-file"
+        create_fitbit_csv(time_str, csv_options)
+        create_user_picture_phenotype_csv(time_str, csv_options)
 
         # now create zipfile of pictures
         pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
@@ -174,7 +130,7 @@ class Zipfulldata
     log "created csv-file"
   end
 
-  def self.create_fitbit_csv(csv_options)
+  def self.create_fitbit_csv(time_str, csv_options)
     # Create a file of fitbit-data for each user with fitbit-data
     fitbit_profiles = FitbitProfile.
       includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps).all
@@ -230,6 +186,52 @@ class Zipfulldata
       end
       log "Saved fibit-date for "
     end
+  end
+
+  # make a CSV describing all of them - which filename is for which user's phenotype
+  def self.create_user_picture_phenotype_csv(time_str, csv_options)
+    file_name = "#{Rails.root}/tmp/picture_dump#{time_str}.csv"
+    log "Writing picture-CSV to #{file_name}"
+
+    picture_phenotypes = PicturePhenotype.all
+    csv_head = %w(user_id date_of_birth chrom_sex)
+    csv_head.concat(picture_phenotypes.map(&:characteristic))
+
+    CSV.open(file_name, "w", csv_options) do |csv|
+
+      csv << csv_head
+
+      # create lines in csv-file for each user who has uploaded his data
+
+      #list_of_pics = [] # need this for the zip-file-later
+
+      User.includes(:user_picture_phenotypes).all.each do |u|
+        log "Looking at user #{u.id}"
+        row = [u.id, u.yearofbirth, u.sex]
+        picture_phenotypes.each do |up|
+
+          # copy the picture with name to +user_id+_+pic_phenotype_id+.png
+          log "Looking for this picture #{up.id}"
+          picture = u.user_picture_phenotypes.
+            where(picture_phenotypes_id: up.id).first
+          # does this user have this pic?
+          if picture.present?
+            file_name = picture.phenotype_picture.path
+            basename = file_name.split("/")[-1]
+            filetype = basename.split(".")[-1]
+            log "FOUND file #{file_name}, basename is #{basename}"
+
+            #list_of_pics << picture
+            row << "#{picture.id}.#{filetype}"
+          else
+            row << '-'
+          end
+        end
+        log "Putting a line into CSV"
+        csv << row
+      end
+    end
+    log "created picture handle csv-file"
   end
 
   def self.log msg
