@@ -1,10 +1,18 @@
 require 'resque'
 
 class Zipfulldata
-  queue = :zipfulldata
+  @queue = :zipfulldata
 
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
     :zip_fs_path, :tmp_dir, :zipfile
+
+  def self.perform(target_address)
+    Rails.logger.level = 0
+    Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
+    log("job started")
+    new.run
+    log("job done")
+  end
 
   def initialize
     @time = Time.now.utc
@@ -15,15 +23,6 @@ class Zipfulldata
     @zip_fs_path = "#{Rails.root}/public#{zip_public_path}"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
     @zipfile = Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE)
-  end
-
-
-  def self.perform(target_address)
-    Rails.logger.level = 0
-    Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
-    log("job started")
-    new.run
-    log("job done")
   end
 
   def run
@@ -38,7 +37,7 @@ class Zipfulldata
     # only create a new file if in the current minute none has been created yet
     # TODO: maybe we extend that to not run this job, if it is currently running?
     if Dir.exists?(tmp_dir)
-      log "Directory #{tmp_dir} already exists"
+      log "Directory #{tmp_dir} already exists. Exiting..."
       return false
     end
 
@@ -67,6 +66,7 @@ class Zipfulldata
     ensure
       FileUtils.rm_rf(tmp_dir)
     end
+    true
   end
 
   def create_user_csv(genotypes)
@@ -93,7 +93,7 @@ class Zipfulldata
         csv << row
       end
     end
-    log "created csv-file"
+    log "created user csv"
     zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
   end
 
