@@ -3,86 +3,79 @@ require 'resque'
 class Zipfulldata
   queue = :zipfulldata
 
+  attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
+    :zip_fs_path, :tmp_dir, :zipfile
+
+  def initialize
+    @time = Time.now.utc
+    @time_str = time.strftime("%Y%m%d%H%M")
+    @csv_options = { col_sep: ';' }
+    @dump_file_name = "opensnp_datadump.#{time_str}"
+    @zip_public_path = "/data/zip/#{dump_file_name}.zip"
+    @zip_fs_path = "#{Rails.root}/public#{zip_public_path}"
+    @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
+    @zipfile = Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE)
+  end
+
+
   def self.perform(target_address)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
+    log("job started")
+    new.run
+    log("job done")
+  end
 
+  def run
     genotypes = Genotype.includes(user: :user_phenotypes).all
 
     # only try to create csv & zip-file if there is data at all.
+    if genotypes.empty?
+      UserMailer.no_dump(target_address).deliver
+      return false
+    end
 
-    if genotypes != []
-      time = Time.now.utc
-      time_str = time.strftime("%Y%m%d%H%M")
-      time = time.to_s.gsub(":","_")
+    # only create a new file if in the current minute none has been created yet
+    # TODO: maybe we extend that to not run this job, if it is currently running?
+    if Dir.exists?(tmp_dir)
+      log "Directory #{tmp_dir} already exists"
+      return false
+    end
 
-      csv_options = { col_sep: ';' }
+    begin
+      Dir.mkdir(tmp_dir)
+      create_user_csv(genotypes)
+      create_fitbit_csv
+      list_of_pics = create_picture_phenotype_csv
+      create_picture_zip(list_of_pics)
+      create_readme
+      zip_genotype_files(genotypes)
 
-      # only create a new file if in the current minute none has been created yet
-
-      unless File.exists?("#{Rails.root}/public/data/zip/opensnp_datadump.#{time_str}.zip")
-
-        create_user_csv(genotypes, time_str, csv_options)
-        create_fitbit_csv(time_str, csv_options)
-        list_of_pics = create_user_picture_phenotype_csv(time_str, csv_options)
-        create_picture_zip(list_of_pics, time_str)
-        create_readme(time_str, time)
-
-        # zip up everything (csv + all genotypings + pics-zip + pics-csv + readme)
-
-        zipname = "/data/zip/opensnp_datadump."+time_str+".zip"
-        Zip::ZipFile.open(::Rails.root.to_s+"/public/"+zipname, Zip::ZipFile::CREATE) do |zipfile|
-          zipfile.add("picture_phenotypes_" + time_str.to_s + ".csv", ::Rails.root.to_s+"/tmp/picture_dump"+time_str.to_s+".csv")
-          zipfile.add("picture_phenotypes_" + time_str.to_s + "_all_pics.zip", ::Rails.root.to_s + "/public/" + pic_zipname)
-          zipfile.add("phenotypes_"+time_str.to_s+".csv",::Rails.root.to_s+"/tmp/dump"+time_str.to_s+".csv")
-          zipfile.add("readme.txt",::Rails.root.to_s+"/tmp/dump"+time_str.to_s+".txt")
-          genotypes.each do |gen_file|
-            yob = gen_file.user.yearofbirth
-            sex = gen_file.user.sex
-            if yob == "rather not say"
-                yob = "unknown"
-            end
-            if sex == "rather not say"
-                sex = "unknown"
-            end
-            zipfile.add("user"+gen_file.user_id.to_s+"_file"+gen_file.id.to_s+"_yearofbirth_"+yob+"_sex_"+sex+"."+gen_file.filetype+".txt", ::Rails.root.to_s+"/public/data/"+ gen_file.fs_filename)
-          end
-
-          fitbit_profiles.each do |fp|
-            zipfile.add("user"+fp.user.id.to_s+"_fitbit_data_"+time_str.to_s+".csv",::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+time_str.to_s+".csv")
-          end
-
-        end
-        if FileLink.find_by_description("all genotypes and phenotypes archive") == nil
-            filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => zipname)
-            filelink.save
-        else
-            FileLink.find_by_description("all genotypes and phenotypes archive").update_attributes(:url => zipname)
-        end
-
-        File.delete(::Rails.root.to_s+"/tmp/dump"+time_str.to_s+".csv")
-        File.delete(::Rails.root.to_s+"/tmp/dump"+time_str.to_s+".txt")
-        fitbit_profiles.each do |fp|
-          File.delete(::Rails.root.to_s+"/tmp/dump_user"+fp.user.id.to_s+"_fitbit_data_"+time_str.to_s+".csv")
-        end
-        log "created zip-file"
+      if FileLink.find_by_description("all genotypes and phenotypes archive").nil?
+        filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => zip_public_path)
+        filelink.save
+      else
+        FileLink.find_by_description("all genotypes and phenotypes archive").update_attributes(:url => zip_public_path)
       end
 
+      FileUtils.chmod(0755, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
+      UserMailer.dump(target_address, "/data/zip/#{dump_file_name}.zip").deliver
+      log "created zip-file"
+
       # make sure the file-permissions of the resulting zip-file are okay and send mail
-      system("chmod 777 "+::Rails.root.to_s+"/public/data/zip/opensnp_datadump."+time_str+".zip")
-      UserMailer.dump(target_address,"/data/zip/opensnp_datadump."+time_str+".zip").deliver
       log "sent mail"
-    else
-      UserMailer.no_dump(target_address).deliver
+    ensure
+      FileUtils.rm_rf(tmp_dir)
     end
   end
 
-  def self.create_user_csv(genotypes, time_str, csv_options)
+  def create_user_csv(genotypes)
     phenotypes = Phenotype.all
+    csv_file_name = "#{tmp_dir}/dump#{time_str}.csv"
     csv_head = %w(user_id date_of_birth chrom_sex)
     csv_head.concat(phenotypes.map(&:characteristic))
 
-    CSV.open("#{Rails.root}/tmp/dump#{time_str}.csv", "w", csv_options) do |csv|
+    CSV.open(csv_file_name, "w", csv_options) do |csv|
       csv << csv_head
 
       # create lines in csv-file for each user who has uploaded his data
@@ -101,25 +94,26 @@ class Zipfulldata
       end
     end
     log "created csv-file"
+    zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
   end
 
-  def self.create_fitbit_csv(time_str, csv_options)
+  def create_fitbit_csv
     # Create a file of fitbit-data for each user with fitbit-data
     fitbit_profiles = FitbitProfile.
       includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps).all
     fitbit_profiles.each do |fp|
+      csv_file_name =
+        "#{tmp_dir}/dump_user#{fp.user.id}_fitbit_data_#{time_str}.csv"
       csv_header = ['date', 'steps', 'floors', 'weight', 'bmi',
                     'minutes asleep', 'minutes awake', 'times awaken',
                     'minutes until fell asleep']
-
-      CSV.open("#{Rails.root}/tmp/dump_user#{fp.user.id}_fitbit_data_#{time_str}.csv","w", csv_options) do |csv|
-
-        # get all dates which have to be included in the csv
-
+      CSV.open(csv_file_name, "w", csv_options) do |csv|
+        csv << csv_header
         bodies = fp.fitbit_bodies.group_by(&:date_logged)
         sleeps = fp.fitbit_sleeps.group_by(&:date_logged)
         activities = fp.fitbit_activities.group_by(&:date_logged)
 
+        # get all dates which have to be included in the csv
         time_array = []
         time_array.concat(bodies.keys)
         time_array.concat(sleeps.keys)
@@ -153,17 +147,17 @@ class Zipfulldata
           else
             row.concat(%w(- - - -))
           end
-
           csv << row
         end
       end
+      zipfile.add("user#{fp.user.id}_fitbit_data_#{time_str}.csv", csv_file_name)
       log "Saved fibit-date for "
     end
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype
-  def self.create_user_picture_phenotype_csv(time_str, csv_options)
-    file_name = "#{Rails.root}/tmp/picture_dump#{time_str}.csv"
+  def self.create_picture_phenotype_csv
+    file_name = "#{tmp_dir}/picture_dump#{time_str}.csv"
     log "Writing picture-CSV to #{file_name}"
 
     list_of_pics = [] # need this for the zip-file-later
@@ -206,10 +200,11 @@ class Zipfulldata
       end
     end
     log "created picture handle csv-file"
+    zipfile.add("picture_phenotypes_#{time_str}.csv", "#{tmp_dir}/picture_dump"+time_str.to_s+".csv")
     list_of_pics
   end
 
-  def self.create_picture_zip(list_of_pics, time_str)
+  def self.create_picture_zip(list_of_pics)
     pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
     Zip::ZipFile.open("#{Rails.root}/public/#{pic_zipname}", Zip::ZipFile::CREATE) do |z|
       list_of_pics.each do |tmp|
@@ -225,26 +220,47 @@ class Zipfulldata
         end
       end
     end
-
+    zipfile.add("picture_phenotypes_#{time_str}_all_pics.zip",
+                "#{Rails.root}/public/#{pic_zipname}")
     log "created picture zip file"
   end
-  
-  def self.create_readme(time_str, time)
+
+  def self.create_readme
     # make a README containing time of zip - this way, users can compare with page-status
     # and see how old the data is
     phenotype_count = Phenotype.count
     genotype_count = Genotype.count
     picture_count = PicturePhenotype.count
-    File.open("#{Rails.root}/tmp/dump#{time_str}.txt", "w") do |readme|
+    File.open("#{tmp_dir}/dump#{time_str}.txt", "w") do |readme|
       readme.puts(<<-TXT)
-This archive was generated on #{time} UTC. It contains #{phenotype_count} phenotypes, #{genotype_count} genotypes and #{picture_count} picture phenotypes.
+This archive was generated on #{time.ctime} UTC. It contains #{phenotype_count} phenotypes, #{genotype_count} genotypes and #{picture_count} picture phenotypes.
 
 Thanks for using openSNP!
 TXT
     end
+    zipfile.add("readme.txt", "#{tmp_dir}/dump#{time_str}.txt")
   end
 
-  def self.log msg
-      Rails.logger.info "#{DateTime.now}: #{msg}"
+  def self.zip_genotype_files(genotypes)
+    genotypes.each do |gen_file|
+      yob = gen_file.user.yearofbirth
+      sex = gen_file.user.sex
+      if yob == "rather not say"
+          yob = "unknown"
+      end
+      if sex == "rather not say"
+          sex = "unknown"
+      end
+      zipfile.add("user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
+                  "#{Rails.root}/public/data/#{gen_file.fs_filename}")
+    end
+  end
+
+  def self.log(msg)
+    Rails.logger.info "#{DateTime.now}: #{msg}"
+  end
+
+  def log(msg)
+    self.class.log(msg)
   end
 end
