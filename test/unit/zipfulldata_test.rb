@@ -10,7 +10,45 @@ class ZipfulldataTest < ActiveSupport::TestCase
       @genotype = FactoryGirl.create(:genotype, user_id: @user.id)
       FileUtils.cp("#{Rails.root}/test/data/23andMe_test.csv",
         "#{Rails.root}/public/data/#{@user.id}.23andme.#{@genotype.id}")
+      @job = Zipfulldata.new
+      @tmp_dir = @job.instance_variable_get(:@tmp_dir) + '_test_' +
+        Digest::SHA1.hexdigest("#{Time.now.to_i}#{rand}")
+      @job.instance_variable_set(:@tmp_dir, @tmp_dir)
+      Dir.mkdir(@tmp_dir)
     end
+
+    should "create user csv" do
+      @job.create_user_csv([@genotype])
+      csv = CSV.read("#{@tmp_dir}/dump#{@job.time_str}.csv", @job.csv_options)
+      exp_header = ["user_id", "date_of_birth", "chrom_sex",
+                    @phenotype.characteristic]
+      exp_row = [@user.id.to_s, @user.yearofbirth, @user.sex,
+                 @user.user_phenotypes.first.variation]
+      assert_equal [exp_header, exp_row], csv
+    end
+
+    should "create fitbit csv" do
+      fp = FactoryGirl.create(:fitbit_profile, user: @user)
+      @job.create_fitbit_csv
+      csv = CSV.read(
+        "#{@tmp_dir}/dump_user#{@user.id}_fitbit_data_#{@job.time_str}.csv",
+        @job.csv_options)
+      exp_header = ["date", "steps", "floors", "weight", "bmi",
+                    "minutes asleep", "minutes awake", "times awaken",
+                    "minutes until fell asleep"]
+      exp_row = [fp.fitbit_activities.first.date_logged,
+                 fp.fitbit_activities.first.steps,
+                 fp.fitbit_activities.first.floors,
+                 fp.fitbit_bodies.first.weight,
+                 fp.fitbit_bodies.first.bmi,
+                 fp.fitbit_sleeps.first.minutes_asleep,
+                 fp.fitbit_sleeps.first.minutes_awake,
+                 fp.fitbit_sleeps.first.number_awakenings,
+                 fp.fitbit_sleeps.first.minutes_to_sleep]
+      assert_equal [exp_header, exp_row], csv
+    end
+
+
 
     should "zip the full data" do
       time = Time.now
