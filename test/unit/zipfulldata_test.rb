@@ -68,6 +68,21 @@ class ZipfulldataTest < ActiveSupport::TestCase
         csv)
     end
 
+    should "create a readme file" do
+      Phenotype.expects(:count).returns(42)
+      Genotype.expects(:count).returns(23)
+      PicturePhenotype.expects(:count).returns(5)
+      Zip::ZipFile.any_instance.expects(:add).
+        with("readme.txt", "#{@tmp_dir}/dump#{@job.time_str}.txt")
+      @job.create_readme
+      readme = File.read("#{@tmp_dir}/dump#{@job.time_str}.txt")
+      exp_text = <<-TXT
+This archive was generated on #{@job.time.ctime} UTC. It contains 42 phenotypes, 23 genotypes and 5 picture phenotypes.
+
+Thanks for using openSNP!
+TXT
+    end
+
 =begin
     should "zip the full data" do
       time = Time.now

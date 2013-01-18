@@ -214,8 +214,8 @@ class Zipfulldata
           log "Adding file to zip named #{tmp.id.to_s + "." + filetype}"
           z.add(tmp.id.to_s+"."+filetype, file_name)
           log "Added #{tmp.id.to_s + "." + filetype}"
-        rescue
-          log "missing file"
+        rescue => e
+          log "create_picture_zip: #{e.class}: #{e.message}"
         end
       end
     end
