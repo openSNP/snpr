@@ -36,6 +36,14 @@ FactoryGirl.define do
     variation "pink"
   end
 
+  factory :picture_phenotype do
+    characteristic 'Eye color'
+  end
+
+  factory :user_picture_phenotype do
+    variation 'pink'
+  end
+
   factory :fitbit_profile do
     after(:create) do |fp, evaluator|
       params = { fitbit_profile: fp, date_logged: '2013-01-14' }

@@ -156,7 +156,7 @@ class Zipfulldata
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype
-  def self.create_picture_phenotype_csv
+  def create_picture_phenotype_csv
     file_name = "#{tmp_dir}/picture_dump#{time_str}.csv"
     log "Writing picture-CSV to #{file_name}"
 
@@ -176,18 +176,17 @@ class Zipfulldata
       User.includes(:user_picture_phenotypes).all.each do |u|
         log "Looking at user #{u.id}"
         row = [u.id, u.yearofbirth, u.sex]
-        picture_phenotypes.each do |up|
+        picture_phenotypes.each do |pp|
 
           # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-          log "Looking for this picture #{up.id}"
-          picture = u.user_picture_phenotypes.
-            where(picture_phenotypes_id: up.id).first
+          log "Looking for this picture #{pp.id}"
+          picture = pp.user_picture_phenotypes.where(user_id: u.id).first
           # does this user have this pic?
-          if picture.present?
-            file_name = picture.phenotype_picture.path
-            basename = file_name.split("/")[-1]
+          if picture.present? && picture.phenotype_picture.present?
+            picture_path = picture.phenotype_picture.path
+            basename = picture_path.split("/")[-1]
             filetype = basename.split(".")[-1]
-            log "FOUND file #{file_name}, basename is #{basename}"
+            log "FOUND file #{picture_path}, basename is #{basename}"
 
             list_of_pics << picture
             row << "#{picture.id}.#{filetype}"
@@ -200,11 +199,11 @@ class Zipfulldata
       end
     end
     log "created picture handle csv-file"
-    zipfile.add("picture_phenotypes_#{time_str}.csv", "#{tmp_dir}/picture_dump"+time_str.to_s+".csv")
+    zipfile.add("picture_phenotypes_#{time_str}.csv", file_name)
     list_of_pics
   end
 
-  def self.create_picture_zip(list_of_pics)
+  def create_picture_zip(list_of_pics)
     pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
     Zip::ZipFile.open("#{Rails.root}/public/#{pic_zipname}", Zip::ZipFile::CREATE) do |z|
       list_of_pics.each do |tmp|
@@ -225,7 +224,7 @@ class Zipfulldata
     log "created picture zip file"
   end
 
-  def self.create_readme
+  def create_readme
     # make a README containing time of zip - this way, users can compare with page-status
     # and see how old the data is
     phenotype_count = Phenotype.count
@@ -241,7 +240,7 @@ TXT
     zipfile.add("readme.txt", "#{tmp_dir}/dump#{time_str}.txt")
   end
 
-  def self.zip_genotype_files(genotypes)
+  def zip_genotype_files(genotypes)
     genotypes.each do |gen_file|
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
@@ -256,11 +255,11 @@ TXT
     end
   end
 
-  def self.log(msg)
-    Rails.logger.info "#{DateTime.now}: #{msg}"
-  end
-
   def log(msg)
     self.class.log(msg)
+  end
+
+  def self.log(msg)
+    Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end
