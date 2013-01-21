@@ -10,7 +10,7 @@ class Zipfulldata
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
     log("job started")
-    new.run
+    new.run(target_address)
     log("job done")
   end
 
@@ -25,7 +25,7 @@ class Zipfulldata
     @zipfile = Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE)
   end
 
-  def run
+  def run(target_address)
     genotypes = Genotype.includes(user: :user_phenotypes).all
 
     # only try to create csv & zip-file if there is data at all.
@@ -35,7 +35,6 @@ class Zipfulldata
     end
 
     # only create a new file if in the current minute none has been created yet
-    # TODO: maybe we extend that to not run this job, if it is currently running?
     if Dir.exists?(tmp_dir)
       log "Directory #{tmp_dir} already exists. Exiting..."
       return false
