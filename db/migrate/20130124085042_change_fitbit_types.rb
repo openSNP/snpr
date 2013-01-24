@@ -1,29 +1,25 @@
 class ChangeFitbitTypes < ActiveRecord::Migration
   def self.up
-      change_column :fitbit_bodies, :weight, :float
-      change_column :fitbit_bodies, :bmi, :float
-      change_column :fitbit_activities, :steps, :int
-      change_column :fitbit_activities, :floors, :int
-      change_column :fitbit_sleeps, :minutes_awake, :int
-      change_column :fitbit_sleeps, :minutes_asleep, :int
-      change_column :fitbit_sleeps, :number_awakenings, :int
-      change_column :fitbit_sleeps, :minutes_to_sleep, :int
-      change_column :fitbit_sleeps, :date_logged, :date
-      change_column :fitbit_bodies, :date_logged, :date
-      change_column :fitbit_activities, :date_logged, :date
+    ActiveRecord::Base.connection.execute(<<-SQL)
+      ALTER TABLE fitbit_bodies ALTER weight      TYPE float8 USING weight::float8
+                               ,ALTER bmi         TYPE float8 USING bmi::float8
+                               ,ALTER date_logged TYPE date   USING date_logged::date
+    SQL
+    ActiveRecord::Base.connection.execute(<<-SQL)
+      ALTER TABLE fitbit_activities ALTER steps       TYPE integer USING steps::integer
+                                   ,ALTER floors      TYPE integer USING floors::integer
+                                   ,ALTER date_logged TYPE date    USING date_logged::date
+    SQL
+    ActiveRecord::Base.connection.execute(<<-SQL)
+      ALTER TABLE fitbit_sleeps ALTER minutes_awake     TYPE integer USING minutes_awake::integer
+                               ,ALTER minutes_asleep    TYPE integer USING minutes_asleep::integer
+                               ,ALTER number_awakenings TYPE integer USING number_awakenings::integer
+                               ,ALTER minutes_to_sleep  TYPE integer USING minutes_to_sleep::integer
+                               ,ALTER date_logged       TYPE date    USING date_logged::date
+    SQL
   end
 
   def self.down
-      change_column :fitbit_bodies, :weight, :string
-      change_column :fitbit_bodies, :bmi, :string
-      change_column :fitbit_activities, :steps, :string
-      change_column :fitbit_activities, :floors, :string
-      change_column :fitbit_sleeps, :minutes_awake, :string
-      change_column :fitbit_sleeps, :minutes_asleep, :string
-      change_column :fitbit_sleeps, :number_awakenings, :string
-      change_column :fitbit_sleeps, :minutes_to_sleep, :string
-      change_column :fitbit_sleeps, :date_logged, :string
-      change_column :fitbit_bodies, :date_logged, :string
-      change_column :fitbit_activities, :date_logged, :string
+    raise ActiveRecord::IrreversibleMigration
   end
 end
