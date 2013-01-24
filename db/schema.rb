@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213120010) do
+ActiveRecord::Schema.define(:version => 20130124085042) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -29,18 +29,18 @@ ActiveRecord::Schema.define(:version => 20121213120010) do
 
   create_table "fitbit_activities", :force => true do |t|
     t.integer  "fitbit_profile_id"
-    t.string   "steps"
-    t.string   "floors"
-    t.string   "date_logged"
+    t.integer  "steps"
+    t.integer  "floors"
+    t.date     "date_logged"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "fitbit_bodies", :force => true do |t|
     t.integer  "fitbit_profile_id"
-    t.string   "date_logged"
-    t.string   "weight"
-    t.string   "bmi"
+    t.date     "date_logged"
+    t.float    "weight"
+    t.float    "bmi"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(:version => 20121213120010) do
 
   create_table "fitbit_sleeps", :force => true do |t|
     t.integer  "fitbit_profile_id"
-    t.string   "minutes_asleep"
-    t.string   "minutes_awake"
-    t.string   "number_awakenings"
-    t.string   "minutes_to_sleep"
-    t.string   "date_logged"
+    t.integer  "minutes_asleep"
+    t.integer  "minutes_awake"
+    t.integer  "number_awakenings"
+    t.integer  "minutes_to_sleep"
+    t.date     "date_logged"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -242,9 +242,9 @@ ActiveRecord::Schema.define(:version => 20121213120010) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-11-29 19:09:23'
-    t.datetime "plos_updated",       :default => '2012-11-29 19:09:23'
-    t.datetime "snpedia_updated",    :default => '2012-11-29 19:09:23'
+    t.datetime "mendeley_updated",   :default => '2012-11-08 23:24:59'
+    t.datetime "plos_updated",       :default => '2012-11-08 23:24:59'
+    t.datetime "snpedia_updated",    :default => '2012-11-08 23:24:59'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
