@@ -19,17 +19,20 @@ class ZipfulldataTest < ActiveSupport::TestCase
     end
 
     should "create user csv" do
+      user2 = FactoryGirl.create(:user)
+      genotype2 = FactoryGirl.create(:genotype, user_id: user2.id)
       Zip::ZipFile.any_instance.expects(:add).
         with("phenotypes_#{@job.time_str}.csv",
              "#{@job.tmp_dir}/dump#{@job.time_str}.csv")
-      @job.create_user_csv([@genotype])
+      @job.create_user_csv([@genotype, genotype2])
       csv = CSV.read("#{@job.tmp_dir}/dump#{@job.time_str}.csv", @job.csv_options)
       exp_header = ["user_id", "date_of_birth", "chrom_sex",
                     @phenotype.characteristic]
-      exp_row = [@user.id.to_s, @user.yearofbirth, @user.sex,
-                 @user.user_phenotypes.first.variation]
+      exp_row1 = [@user.id.to_s, @user.yearofbirth, @user.sex,
+                  @user.user_phenotypes.first.variation]
+      exp_row2 = [user2.id.to_s, user2.yearofbirth, user2.sex, '-']
       assert_equal @phenotype, @user.user_phenotypes.first.phenotype
-      assert_equal [exp_header, exp_row], csv
+      assert_equal [exp_header, exp_row1, exp_row2], csv
     end
 
     should "create fitbit csv" do
@@ -56,6 +59,7 @@ class ZipfulldataTest < ActiveSupport::TestCase
     end
 
     should "create picture phenotype csv" do
+      user2 = FactoryGirl.create(:user)
       pp = FactoryGirl.create(:picture_phenotype)
       upp = FactoryGirl.create(:user_picture_phenotype, picture_phenotype: pp,
                                user: @user)
@@ -69,7 +73,8 @@ class ZipfulldataTest < ActiveSupport::TestCase
       csv = CSV.read("#{@job.tmp_dir}/picture_dump#{@job.time_str}.csv", @csv_options)
       assert_equal(
         [["user_id", "date_of_birth", "chrom_sex", "Eye color"],
-         [@user.id.to_s, @user.yearofbirth, @user.sex, "#{upp.id}.png"]],
+         [@user.id.to_s, @user.yearofbirth, @user.sex, "#{upp.id}.png"],
+         [user2.id.to_s, user2.yearofbirth, user2.sex, '-']],
         csv)
     end
 
