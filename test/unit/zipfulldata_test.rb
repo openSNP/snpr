@@ -46,15 +46,15 @@ class ZipfulldataTest < ActiveSupport::TestCase
       exp_header = ["date", "steps", "floors", "weight", "bmi",
                     "minutes asleep", "minutes awake", "times awaken",
                     "minutes until fell asleep"]
-      exp_row = [fp.fitbit_activities.first.date_logged,
-                 fp.fitbit_activities.first.steps,
-                 fp.fitbit_activities.first.floors,
-                 fp.fitbit_bodies.first.weight,
-                 fp.fitbit_bodies.first.bmi,
-                 fp.fitbit_sleeps.first.minutes_asleep,
-                 fp.fitbit_sleeps.first.minutes_awake,
-                 fp.fitbit_sleeps.first.number_awakenings,
-                 fp.fitbit_sleeps.first.minutes_to_sleep]
+      exp_row = [fp.fitbit_activities.first.date_logged.to_s,
+                 fp.fitbit_activities.first.steps.to_s,
+                 fp.fitbit_activities.first.floors.to_s,
+                 fp.fitbit_bodies.first.weight.to_s,
+                 fp.fitbit_bodies.first.bmi.to_s,
+                 fp.fitbit_sleeps.first.minutes_asleep.to_s,
+                 fp.fitbit_sleeps.first.minutes_awake.to_s,
+                 fp.fitbit_sleeps.first.number_awakenings.to_s,
+                 fp.fitbit_sleeps.first.minutes_to_sleep.to_s]
       assert_equal [exp_header, exp_row], csv
     end
 
