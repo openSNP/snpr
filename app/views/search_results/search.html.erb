@@ -1,5 +1,5 @@
 <h2>Search results</h2>
-	<%if not @users.results == [] and not @phenotypes.results == [] and not @snps.results == [] and not (@mendeley_papers.results == [] and @plos_papers.results == []) and not (@snp_comments.results == [] and @phenotype_comments.results == [])%>
+<%if @all_len != 0 %>
 <div id="tab-container">
   <ul class="nav nav-tabs">
 	<%if not @users.results == [] %>
@@ -45,11 +45,20 @@
 <% if not @snps.results == [] %>
 <div id="snps">
 	<h5>Snps</h5>
-	<ul>
-<% for p in @snps.results %>
-	<li><%= link_to p.name, p %></li>
-<% end %>
-</ul>
+    <table class="table table-striped">
+        <tr>
+            <th>SNP name</th>
+            <th>Chromosome</th>
+            <th>Position</th>
+        </tr>
+        <% for p in @snps.results %>
+        <tr>
+            <td><%= link_to p.name, p %></td>
+            <td><%= p.chromosome %></td>
+            <td><%= p.position %></td>
+        </tr>
+    <% end %>
+</table>
 </div>
 <% end %>
 
