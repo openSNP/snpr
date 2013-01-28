@@ -1,4 +1,5 @@
 require 'resque'
+require 'csv'
 
 class Zipfulldata
   @queue = :zipfulldata
@@ -48,6 +49,7 @@ class Zipfulldata
       create_picture_zip(list_of_pics)
       create_readme
       zip_genotype_files(genotypes)
+      zipfile.close
 
       if FileLink.find_by_description("all genotypes and phenotypes archive").nil?
         filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => zip_public_path)
