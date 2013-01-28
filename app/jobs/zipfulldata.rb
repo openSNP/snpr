@@ -5,7 +5,7 @@ class Zipfulldata
   @queue = :zipfulldata
 
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
-    :zip_fs_path, :tmp_dir, :zipfile
+    :zip_fs_path, :tmp_dir
 
   def self.perform(target_address)
     Rails.logger.level = 0
@@ -23,7 +23,6 @@ class Zipfulldata
     @zip_public_path = "/data/zip/#{dump_file_name}.zip"
     @zip_fs_path = "#{Rails.root}/public#{zip_public_path}"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
-    @zipfile = Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE)
   end
 
   def run(target_address)
@@ -43,13 +42,14 @@ class Zipfulldata
 
     begin
       Dir.mkdir(tmp_dir)
-      create_user_csv(genotypes)
-      create_fitbit_csv
-      list_of_pics = create_picture_phenotype_csv
-      create_picture_zip(list_of_pics)
-      create_readme
-      zip_genotype_files(genotypes)
-      zipfile.close
+      Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE) do |zipfile|
+        create_user_csv(genotypes, zipfile)
+        create_fitbit_csv(zipfile)
+        list_of_pics = create_picture_phenotype_csv(zipfile)
+        create_picture_zip(list_of_pics, zipfile)
+        create_readme(zipfile)
+        zip_genotype_files(genotypes, zipfile)
+      end
 
       if FileLink.find_by_description("all genotypes and phenotypes archive").nil?
         filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => zip_public_path)
@@ -70,7 +70,7 @@ class Zipfulldata
     true
   end
 
-  def create_user_csv(genotypes)
+  def create_user_csv(genotypes, zipfile)
     phenotypes = Phenotype.all
     csv_file_name = "#{tmp_dir}/dump#{time_str}.csv"
     csv_head = %w(user_id date_of_birth chrom_sex)
@@ -98,7 +98,7 @@ class Zipfulldata
     zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
   end
 
-  def create_fitbit_csv
+  def create_fitbit_csv(zipfile)
     # Create a file of fitbit-data for each user with fitbit-data
     fitbit_profiles = FitbitProfile.
       includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps).all
@@ -157,7 +157,7 @@ class Zipfulldata
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype
-  def create_picture_phenotype_csv
+  def create_picture_phenotype_csv(zipfile)
     file_name = "#{tmp_dir}/picture_dump#{time_str}.csv"
     log "Writing picture-CSV to #{file_name}"
 
@@ -204,7 +204,7 @@ class Zipfulldata
     list_of_pics
   end
 
-  def create_picture_zip(list_of_pics)
+  def create_picture_zip(list_of_pics, zipfile)
     pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
     Zip::ZipFile.open("#{Rails.root}/public/#{pic_zipname}", Zip::ZipFile::CREATE) do |z|
       list_of_pics.each do |tmp|
@@ -225,7 +225,7 @@ class Zipfulldata
     log "created picture zip file"
   end
 
-  def create_readme
+  def create_readme(zipfile)
     # make a README containing time of zip - this way, users can compare with page-status
     # and see how old the data is
     phenotype_count = Phenotype.count
@@ -241,7 +241,7 @@ TXT
     zipfile.add("readme.txt", "#{tmp_dir}/dump#{time_str}.txt")
   end
 
-  def zip_genotype_files(genotypes)
+  def zip_genotype_files(genotypes, zipfile)
     genotypes.each do |gen_file|
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
