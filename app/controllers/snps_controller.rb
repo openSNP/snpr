@@ -2,79 +2,59 @@ class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :find_snp, :except => [:index, :json,:json_annotation]
     
-	def index
-		@snps = Snp.order(sort_column + " "+ sort_direction)
-		@snps_paginate = @snps.paginate(:page => params[:page],:per_page => 10)
+  def index
+    @snps = Snp.order(sort_column + " "+ sort_direction)
+    @snps_paginate = @snps.paginate(:page => params[:page],:per_page => 10)
         @title = "Listing all SNPs"
-		respond_to do |format|
-			format.html
-			format.xml 
-		end
-	end
-	
-	def show
-		@snp = Snp.find_by_name(params[:id].downcase) || not_found
-		@title = @snp.name
-		@comments = SnpComment.where(:snp_id => @snp.id).all(:order => "created_at ASC")
-		#@users = User.find(:all, :conditions => { :user_snp => { :snps => { :id => @snp.id }}}, :joins => [ :user_snps => :snp])
-		@user_snps = @snp.user_snps
-		@users = []
-		@user_snps.each do |us|
-		  @users << us.user
-	  end
-		#@user_snps = UserSnps.where(:snp_name => @snp.name)
-		
-		@json_results = []
-		
-    @users.each do |u|
-      @new_param = {}
-      @new_param[:user_id] = u.id
-      @new_param[:snp_name] = @snp.name
-      @json_results << json_element(@new_param)
+    respond_to do |format|
+      format.html
+      format.xml 
     end
-		
-		if current_user != nil
-		  @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user,@snp.name)
-		  if @user_snp != nil
-		    @local_genotype = @user_snp.local_genotype
-	    else
-	      @local_genotype = ""
-      end
-	  end
-	  
-		@total_genotypes = 0
-		
-		@snp.genotype_frequency.each do |key,value|
-		  @total_genotypes += value
-		end
+  end
+  
+  def show
+    @snp = Snp.includes(:snp_comments, { user_snps: :user }).
+      where(name: params[:id].downcase).first || not_found
+    @title = @snp.name
+    @comments = @snp.snp_comments.order('created_at ASC').all
+    @user_snps = @snp.user_snps
+    @users = @user_snps.map(&:user)
+   
+    @user_snp = nil
+    if current_user
+      @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user, @snp.name)
+      @local_genotype = @user_snp.try(:local_genotype) || ''
+    end
     
-		@total_alleles = 0
-		@snp.allele_frequency.each do |key,value|
-		  @total_alleles += value
-		end
-		
-		Resque.enqueue(Plos, @snp.id)
-		Resque.enqueue(MendeleySearch, @snp.id)
-		Resque.enqueue(Snpedia, @snp.id)
-		  
-	    @snp_comment = SnpComment.new
-			  
-		respond_to do |format|
-			format.html
-			format.xml
-			format.json { render :json => @json_results } 
-		end
-	end
-	
-	def json
-	  if params[:user_id].index(",")
-	    @user_ids = params[:user_id].split(",")
-	    @results = []
-	    @user_ids.each do |id|
-	      @new_param = {}
-	      @new_param[:user_id] = id
-	      @new_param[:snp_name] = params[:snp_name].downcase
-	      @results << json_element(@new_param)
+    @total_genotypes = @snp.genotype_frequency.map {|k,v| v }.sum
+    @total_alleles = @snp.allele_frequency.map {|k,v| v }.sum
+    
+    Resque.enqueue(Plos, @snp.id)
+    Resque.enqueue(MendeleySearch, @snp.id)
+    Resque.enqueue(Snpedia, @snp.id)
+      
+    @snp_comment = SnpComment.new
+        
+    respond_to do |format|
+      format.html
+      format.json do
+        json_results = @users.map do |u|
+          json_element(user_id: u.id, snp_name: @snp.name)
+        end
+        render :json => json_results
+      end
+    end
+  end
+  
+  def json
+    if params[:user_id].index(",")
+      @user_ids = params[:user_id].split(",")
+      @results = []
+      @user_ids.each do |id|
+        @new_param = {}
+        @new_param[:user_id] = id
+        @new_param[:snp_name] = params[:snp_name].downcase
+        @results << json_element(@new_param)
       end
     elsif params[:user_id].index("-")
       @results = []
@@ -82,12 +62,12 @@ class SnpsController < ApplicationController
       @user_ids = (@id_array[0].to_i..@id_array[1].to_i).to_a
       @user_ids.each do |id|
         @new_param = {}
-	      @new_param[:user_id] = id
-	      @new_param[:snp_name] = params[:snp_name].downcase
-	      @results << json_element(@new_param)
+        @new_param[:user_id] = id
+        @new_param[:snp_name] = params[:snp_name].downcase
+        @results << json_element(@new_param)
       end
-	  else 
-	    @results = json_element(params)
+    else 
+      @results = json_element(params)
     end
     
     respond_to do |format|
@@ -176,21 +156,21 @@ class SnpsController < ApplicationController
     end
     
   end
-    		
-		private
-		
-		def sort_column
-			Snp.column_names.include?(params[:sort]) ? params[:sort] : "ranking"
-	  end
-	  
-	  def sort_direction
-		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-	  end
+        
+    private
+    
+    def sort_column
+      Snp.column_names.include?(params[:sort]) ? params[:sort] : "ranking"
+    end
+    
+    def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end
 
     def json_element(params)
       @result = {}
-  	  begin
-  	    @snp = Snp.find_by_name(params[:snp_name].downcase)
+      begin
+        @snp = Snp.find_by_name(params[:snp_name].downcase)
         @result["snp"] = {}
         @result["snp"]["name"] = @snp.name
         @result["snp"]["chromosome"] = @snp.chromosome
@@ -232,4 +212,4 @@ class SnpsController < ApplicationController
       end
     end
 
-	end
+  end
