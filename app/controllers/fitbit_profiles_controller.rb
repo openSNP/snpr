@@ -20,13 +20,20 @@ class FitbitProfilesController < ApplicationController
     #grab activity measures for graphs
     if @fitbit_profile.activities == true
       @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
+      @total_length = 0 # sum of all steps which are not 0
+      @activity.each do |a|
+          if a != 0
+              @total_length += a
+          end
+      end
+
       @step_counter = 0
       @floor_counter = 0
       @steps = @activity.map {|fa| [fa.date_logged,fa.steps.to_i]}.inspect
       @total_steps = @activity.map {|fa| [fa.date_logged,@step_counter = @step_counter += fa.steps.to_i]}
       if @total_steps.length != 0
         begin
-          @mean_steps = @total_steps[-1][-1] / @activity.length
+          @mean_steps = @total_steps[-1][-1] / @total_length #@activity.length
         rescue
         end
       end
