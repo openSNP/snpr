@@ -15,6 +15,9 @@ gem "recaptcha", :require => "recaptcha/rails"
 gem 'fitgem'
 gem 'mendeley', git: 'git://github.com/tsujigiri/mendeley.git', branch: 'paging_search'
 
+# New Relic monitoring, off by default in development
+gem 'newrelic_rpm'
+
 # workaround for bug in Fedora
 gem 'minitest', '~> 4.3.2'
 
