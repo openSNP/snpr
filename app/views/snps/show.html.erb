@@ -69,7 +69,7 @@
     <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
     <li><a href="#pgp">Personal Genome Project (<%=@snp.pgp_annotation.length%>)</a></li>
     <li><a href="#genomegov">Genome.gov (<%=@snp.genome_gov_paper.length%>)</a></li>
-    <li><a href="#users">Other users (<%=@users.length%>)</a></li>
+    <li><a href="#users">Other users (<%= @user_count %>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
   </ul>
 
@@ -228,32 +228,18 @@
 </div>
 <div id="users">
   <h3>Users who share this SNP:</h3>
-  <% if @users != [] %>
-    <table class="table table-striped">
-      <tr>
-        <th>User</th>
-        <th>Genotype</th>
-      </tr>
-      <% @users.each do |u| %>
-        <tr>
-          <%if current_user != nil and current_user.has_sequence and u.user_snps.find_by_snp_name(@snp.name) != nil %>
-            <%if u.user_snps.find_by_snp_name(@snp.name).local_genotype == @local_genotype%>
-              <td><b><%= link_to( u.name, u ) %></b></td>
-              <td><b><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></b></td>
-            <%else%>
-              <td><%= link_to( u.name, u ) %></td>
-              <td><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></td>
-            <%end%>
-          <%else%>
-            <td><%= link_to( u.name, u ) %></td>
-            <td><%= u.user_snps.find_by_snp_name(@snp.name).local_genotype%></td>
-          <%end%>
-        </tr>
-      <% end %>
-    </table>
+  <% if @user_count > 0 %>
+    <div id="user-list"></div>
+    <script type="text/javascript">
+      $.ajax({
+        url: "/user_snps",
+        data: { snp_name: '<%= @snp.name %>', local_genotype: '<%= @local_genotype %>' },
+        success: function (html) { $("#user-list").append(html); }
+      }); 
+    </script>
   <% else %>
     No user shares this SNP.
-  <%end %>
+  <% end %>
 </div>
 <div id="comments">
   <%= render 'snp_comments/show' %>
