@@ -22,8 +22,8 @@ class FitbitProfilesController < ApplicationController
       @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
       @total_length = 0 # sum of all steps which are not 0
       @activity.each do |a|
-          if a != 0
-              @total_length += a
+          if a.steps != 0  # the change of type from string to int means this works
+              @total_length += 1
           end
       end
 
