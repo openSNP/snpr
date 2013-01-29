@@ -1,0 +1,21 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Genotype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_snps.each do |usnp| %>
+      <tr>
+        <% if @local_genotype == usnp.local_genotype %>
+          <td><strong><%= link_to usnp.user.name, usnp.user %></strong></td>
+          <td><strong><%= usnp.local_genotype %></strong></td>
+        <% else %>
+          <td><%= link_to usnp.user.name, usnp.user %></td>
+          <td><%= usnp.local_genotype %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

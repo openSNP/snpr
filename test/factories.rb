@@ -14,12 +14,26 @@ FactoryGirl.define do
   end
 
   factory :snp do
-    sequence(:name) { |i| "name #{i}" }
+    sequence(:name) { |i| "rs#{i}" }
     sequence(:position) { |i| i }
     sequence(:chromosome) { |i| i }
     genotype_frequency("AA" => 1)
     allele_frequency("A" => 0, "T" => 0, "G" => 0, "C" => 0)
     ranking 0
+  end
+
+  factory :snp_comment do
+    comment_text "This is a great SNP!"
+    subject "Great!"
+    user_id 1
+    snp_id 1
+  end
+
+  factory :user_snp do
+    local_genotype 'AG'
+    genotype_id 1
+    user_id 1
+    snp_id 1
   end
 
   factory :achievement do
