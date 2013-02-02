@@ -61,7 +61,7 @@ GEM
       activesupport (= 3.0.20)
       arel (~> 2.0.10)
       tzinfo (~> 0.3.23)
-    activerecord-import (0.3.0)
+    activerecord-import (0.2.11)
       activerecord (~> 3.0)
       activerecord (~> 3.0)
     activeresource (3.0.20)
@@ -209,7 +209,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-import
+  activerecord-import (~> 0.2.11)
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
