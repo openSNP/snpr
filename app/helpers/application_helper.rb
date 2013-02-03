@@ -20,7 +20,7 @@ module ApplicationHelper
         tag :li, link(page, page, :rel => rel_value(page)), :class => ('active' if page == current_page)
       end
       def gap
-        tag :li, link(super, '#'), :class => 'disabled'
+        tag :li, link('&hellip;'.html_safe, '#'), :class => 'disabled'
       end
       def previous_or_next_page(page, text, classname)
         tag :li, link(text, page || '#'), :class => [classname[0..3], classname, ('disabled' unless page)].join(' ')
