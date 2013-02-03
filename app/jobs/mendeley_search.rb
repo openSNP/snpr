@@ -68,6 +68,16 @@ class MendeleySearch
            else
              puts "-> paper is old"
              @mendeley_paper = MendeleyPaper.find_by_uuid(uuid)
+             if @mendeley_paper.title == ""
+               puts "-> paper is broken and will be replaced now"
+               @mendeley_paper.update_attributes(
+                 :title => document['title'],
+                 :snp_id => snp.id,
+                 :mendeley_url => document['mendeley_url'],
+                 :first_author => first_author,
+                 :pub_year => document['year']
+               ) 
+             end
            end
            Resque.enqueue(MendeleyDetails, @mendeley_paper.id)
          end
