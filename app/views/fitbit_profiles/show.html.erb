@@ -15,8 +15,8 @@
   <script type="text/javascript">
   $(document).ready(function(){
     // Activity Graph
-    var steps=<%=raw(@steps)%>;
-    var floors=<%=raw(@floors)%>;
+    var steps=<%=raw(@steps.to_json)%>;
+    var floors=<%=raw(@floors.to_json)%>;
     var plot1 = $.jqplot('chart1', [floors,steps], {
         title:'Activity per Day (Mean steps/day: <%=@mean_steps%>)',
         series:[{label:'Floors' ,yaxis:'y2axis',fill: true,fillAlpha: 0.8,highlightMouseOver: false}, {label:'Steps'}],
@@ -54,8 +54,8 @@
         }
     });
     // Sum Activity Graph
-    var total_steps=<%=raw(@total_steps)%>;
-    var total_floors=<%=raw(@total_floors)%>;
+    var total_steps=<%=raw(@total_steps.to_json)%>;
+    var total_floors=<%=raw(@total_floors.to_json)%>;
     var plot2 = $.jqplot('chart2', [total_floors,total_steps], {
         title:'Sum of Activity',
         series:[{label:"Floors",yaxis:'y2axis',fill:true,fillAlpha:0.5},{label:'Steps',fill:true,fillAlpha:0.5}],
@@ -103,7 +103,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
     // BMI Graph
-    var bmi=<%=raw(@bmi)%>;
+    var bmi=<%=raw(@bmi.to_json)%>;
     var plot3 = $.jqplot('chart3', [bmi], {
         title:'BMI per Day',
         series:[{label:'Body Mass Index',fill:true}],
@@ -143,9 +143,9 @@
   <script type="text/javascript">
   $(document).ready(function(){
     // Activity Graph
-    var minutes_asleep=<%=raw(@minutes_asleep)%>;
-    var minutes_to_sleep=<%=raw(@minutes_to_sleep)%>;
-    var awakenings=<%=raw(@awakenings)%>;
+    var minutes_asleep=<%=raw(@minutes_asleep.to_json)%>;
+    var minutes_to_sleep=<%=raw(@minutes_to_sleep.to_json)%>;
+    var awakenings=<%=raw(@awakenings.to_json)%>;
     var plot4 = $.jqplot('chart4', [awakenings,minutes_asleep,minutes_to_sleep], {
         title:'Sleep per Day (Mean sleep/day: <%=@mean_sleep%> minutes)',
         series:[{label:'# awaken' ,yaxis:'y2axis',fill: true,highlightMouseOver: false}, {label:'Minutes asleep'},{label: 'Minutes awake',fill:true}],
@@ -183,8 +183,8 @@
         }
     });
     // Sum Activity Graph
-    var total_minutes_asleep=<%=raw(@total_minutes_asleep)%>;
-    var total_minutes_to_sleep=<%=raw(@total_minutes_to_sleep)%>;
+    var total_minutes_asleep=<%=raw(@total_minutes_asleep.to_json)%>;
+    var total_minutes_to_sleep=<%=raw(@total_minutes_to_sleep.to_json)%>;
     var plot5 = $.jqplot('chart5', [total_minutes_asleep,total_minutes_to_sleep], {
         title:'Sum of Sleep',
         series:[{label:'minutes asleep',fill:true,fillAlpha:0.5},{label:"minutes falling asleep",yaxis:'y2axis',fill:true,fillAlpha:0.6}],
