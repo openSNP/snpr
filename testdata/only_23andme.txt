@@ -1,0 +1,7 @@
+# this is a minimal 23andme-test-file for annotation-reasons
+# rs7412983 has no annotation (2.2.2013)
+# rs1800497 has SNPedia-annotation with a redirect that shouldn't be listed
+# rs7903146 has proper Mendeley, SNPedia and PLOS annotation
+rs7412983	1	2933043	AC
+rs1800497	1	1234	AA
+rs7903146	10	114748339	CC
