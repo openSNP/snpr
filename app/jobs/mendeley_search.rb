@@ -18,6 +18,8 @@ class MendeleySearch
            result = Mendeley::API::Documents.
              search(snp.name, { items: items, page: page })
            documents.concat(result['documents'])
+           puts result["total_pages"]
+           puts page
            page += 1
          rescue => e
            puts e.class

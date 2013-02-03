@@ -78,6 +78,8 @@ class FitbitEdit
        end
      else
        @steps_array = @client.data_by_time_range("/activities/log/steps",{:base_date => Date.today.to_s,:period => :max})["activities-log-steps"]
+       puts "ACTIVITIES!!!"
+       puts @steps_array
        @steps_array.each do |s|
          @activity = FitbitActivity.find_or_create_by_fitbit_profile_id_and_date_logged(@fitbit_profile.id,s["dateTime"])
          @activity.steps = s["value"]
