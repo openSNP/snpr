@@ -27,6 +27,7 @@ class Plos
       if all_elements[0][2].index("numFound='0'") != -1     # check if there are any papers to add...
         puts "plos: got papers"
         all_elements[0][2].each do |singleton|
+          puts "plos: Looking at #{singleton}"
           first_author = singleton[2][0].to_s.gsub!(/<\/?str>/,"")
           doi = singleton[4].to_s.gsub!(/<\/?str( name='id')?>/,"")
           pub_date = singleton[6].to_s.gsub!(/<\/?date( name='publication_date')?>/,"")

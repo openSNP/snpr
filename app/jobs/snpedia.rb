@@ -39,9 +39,16 @@ class Snpedia
                         end
 
                         toparse = mw.get(p)
-                        if toparse.index("summary=") == nil
+                        if toparse.to_s.include? "#REDIRECT"
+                           # Don't include redirect-descriptions 
+                           puts "#{p} is a redirect"
+                           next # jump to next SNPedia-entry
+                        elsif not toparse.include? "summary="
+                           puts "#{p} is empty"
+                           # Handle empty summaries
                            summary = "No summary provided."
                         else
+                           puts "#{p} has stuff"
                            summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
                            if summary.index("}}") != nil
                               summary = summary[0...summary.index("}}")-1]
