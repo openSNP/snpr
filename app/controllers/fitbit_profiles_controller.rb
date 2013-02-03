@@ -29,22 +29,22 @@ class FitbitProfilesController < ApplicationController
 
       @step_counter = 0
       @floor_counter = 0
-      @steps = @activity.map {|fa| [fa.date_logged,fa.steps.to_i]}
-      @total_steps = @activity.map {|fa| [fa.date_logged,@step_counter = @step_counter += fa.steps.to_i]}
+      @steps = @activity.map {|fa| [fa.date_logged, fa.steps]}
+      @total_steps = @activity.map {|fa| [fa.date_logged, @step_counter += fa.steps]}
       if @total_steps.length != 0
         begin
           @mean_steps = @total_steps[-1][-1] / @total_length #@activity.length
         rescue
         end
       end
-      @total_floors = @activity.map {|fa| [fa.date_logged,@floor_counter = @floor_counter += fa.floors.to_i]}
-      @floors = @activity.map {|fa| [fa.date_logged,fa.floors.to_i]}
+      @total_floors = @activity.map {|fa| [fa.date_logged, @floor_counter += fa.floors]}
+      @floors = @activity.map {|fa| [fa.date_logged, fa.floors]}
     end
     
     #grab body measurements for graphs
     if @fitbit_profile.body == true
       @body = FitbitBody.find_all_by_fitbit_profile_id(@fitbit_profile.id, :order => "date_logged")
-      @bmi = @body.map {|fa| [fa.date_logged,fa.bmi.to_f]}
+      @bmi = @body.map {|fa| [fa.date_logged, fa.bmi]}
     end
     
     #grab sleep measurements for graphs
@@ -53,8 +53,8 @@ class FitbitProfilesController < ApplicationController
       @no_sleep = FitbitSleep.find_all_by_fitbit_profile_id_and_minutes_asleep(@fitbit_profile.id,"0")
       
       @total_asleep_counter = 0
-      @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged,@total_asleep_counter = @total_asleep_counter += fa.minutes_asleep.to_i]}
-      @minutes_asleep = @sleep.map {|fa| [fa.date_logged,fa.minutes_asleep.to_i]}
+      @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged,@total_asleep_counter += fa.minutes_asleep]}
+      @minutes_asleep = @sleep.map {|fa| [fa.date_logged, fa.minutes_asleep]}
       if @total_minutes_asleep.length != 0
         begin
           @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep.length)
@@ -62,10 +62,10 @@ class FitbitProfilesController < ApplicationController
         end
       end
       @total_to_sleep_counter = 0
-      @total_minutes_to_sleep = @sleep.map {|fa| [fa.date_logged,@total_to_sleep_counter = @total_to_sleep_counter += fa.minutes_to_sleep.to_i]}
-      @minutes_to_sleep = @sleep.map {|fa| [fa.date_logged,fa.minutes_to_sleep.to_i]}
+      @total_minutes_to_sleep = @sleep.map {|fa| [fa.date_logged, @total_to_sleep_counter += fa.minutes_to_sleep]}
+      @minutes_to_sleep = @sleep.map {|fa| [fa.date_logged, fa.minutes_to_sleep]}
       
-      @awakenings = @sleep.map {|fa| [fa.date_logged,fa.number_awakenings.to_i]}
+      @awakenings = @sleep.map {|fa| [fa.date_logged, fa.number_awakenings]}
     end
   end
   
