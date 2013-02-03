@@ -29,26 +29,26 @@ class FitbitDump
        @time_array = @time_array.uniq.sort
        
        @time_array.each do |d|
-         @line = d + ";"
+         @line = d.to_s + ";"
          @activity = fp.fitbit_activities.find_by_date_logged(d)
          if @activity == nil
            @line = @line + "-;-;"
          else
-           @line = @line + @activity.steps + ";" + @activity.floors+ ";"
+           @line = @line + @activity.steps.to_s + ";" + @activity.floors.to_s+ ";"
          end
          
          @body = fp.fitbit_bodies.find_by_date_logged(d)
          if @body == nil
            @line = @line + "-;-;"
          else
-           @line = @line + @body.weight + ";" + @body.bmi + ";"
+           @line = @line + @body.weight.to_s + ";" + @body.bmi.to_s + ";"
          end
          
          @sleep = fp.fitbit_sleeps.find_by_date_logged(d)
          if @sleep == nil
            @line = @line + "-;-;-;-;"
          else
-           @line = @line + @sleep.minutes_asleep+";"+@sleep.minutes_awake+";"+@sleep.number_awakenings+";"+@sleep.minutes_to_sleep+";"
+           @line = @line + @sleep.minutes_asleep.to_s+";"+@sleep.minutes_awake.to_s+";"+@sleep.number_awakenings.to_s+";"+@sleep.minutes_to_sleep.to_s+";"
          end
          @fitbit_handle.puts(@line)
        end
