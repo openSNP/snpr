@@ -8,7 +8,7 @@ class Plos
   
   def self.perform(snp_id)
     @snp = Snp.find(snp_id)
-    if @snp.plos_updated < 31.days.ago
+    if (@snp.plos_updated < 31.days.ago) && (@snp.name.index("vg").nil? == true && @snp.name.index("mt-").nil? == true)
     
       key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")
       api_key = key_handle.readline.rstrip
