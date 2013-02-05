@@ -53,7 +53,7 @@ class FitbitProfilesController < ApplicationController
       @no_sleep = FitbitSleep.find_all_by_fitbit_profile_id_and_minutes_asleep(@fitbit_profile.id,"0")
       
       @total_asleep_counter = 0
-      @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged,@total_asleep_counter += fa.minutes_asleep]}
+      @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged, @total_asleep_counter += fa.minutes_asleep]}
       @minutes_asleep = @sleep.map {|fa| [fa.date_logged, fa.minutes_asleep]}
       if @total_minutes_asleep.length != 0
         begin
