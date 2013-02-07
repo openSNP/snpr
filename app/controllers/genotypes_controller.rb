@@ -34,7 +34,7 @@ class GenotypesController < ApplicationController
       @award = Achievement.find_by_award("Published genotyping")
       user_achievement_attrs = { achievement_id: @award.id,
                                  user_id: current_user.id }
-      if UserAchievement.where(user_achievement_attrs).count == 0
+      if UserAchievement.where(user_achievement_attrs).count.zero?
         UserAchievement.create(user_achievement_attrs)
 			  flash[:achievement] = "Congratulations! You've unlocked an achievement:" +
           " <a href=\"#{url_for(@award)}\">#{@award.award}</a>"

@@ -25,7 +25,7 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "get the rss feed" do
-        get :feed
+        get :feed, format: 'xml'
         assert_response :success
         assert_equal [@genotype], assigns(:genotypes)
       end
@@ -41,7 +41,8 @@ class GenotypesControllerTest < ActionController::TestCase
         activate_authlogic
         @user = FactoryGirl.create(:user)
         UserSession.create(@user)
-        @publishing_award = FactoryGirl.create(:achievement, award: "Published genotyping")
+        @publishing_award = FactoryGirl.
+          create(:achievement, award: "Published genotyping")
       end
 
       should "see the upload form" do
@@ -50,16 +51,20 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "be able to upload genotypes" do
+        FileUtils.cp("#{Rails.root}/testdata/testdatensatz1_23andme.txt",
+                     "#{Rails.root}/test/fixtures")
+        genotype_file = fixture_file_upload('testdatensatz1_23andme.txt')
+        genotype_file.content_type = 'text/plain'
         Resque.expects(:enqueue).with(Preparsing, is_a(Fixnum))
-        genotype_file_upload = ActionDispatch::Http::UploadedFile.new(
-          filename: '23andme.txt', content_type: 'text/plain',
-          tempfile: File.new("#{Rails.root}/test/data/23andMe_test.csv"))
         assert_difference 'UserAchievement.count' do
-          put :create, commit: "Upload", genotype:
-            { genotype: genotype_file_upload, filetype: "23andme"}
+          assert_difference 'Genotype.count' do
+            put :create, commit: "Upload", genotype:
+              { genotype: genotype_file, filetype: "23andme"}
+          end
         end
         assert_redirected_to user_path(@user)
         assert_equal @publishing_award.id, UserAchievement.last.achievement_id
+        FileUtils.rm("#{Rails.root}/test/fixtures/testdatensatz1_23andme.txt")
       end
     end
   end

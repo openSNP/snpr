@@ -11,6 +11,8 @@ SunspotTest.solr_startup_timeout = 30
 require 'sunspot_test/test_unit'
 require 'factory_girl'
 FactoryGirl.find_definitions
+require 'paperclip/matchers'
 
 class ActiveSupport::TestCase
+  extend Paperclip::Shoulda::Matchers
 end
