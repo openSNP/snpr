@@ -74,9 +74,9 @@ class PhenotypesController < ApplicationController
           check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
           check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
           check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
-          
+
           Resque.enqueue(Recommendvariations)
-      	  Resque.enqueue(Recommendphenotypes)
+          Resque.enqueue(Recommendphenotypes)
 
           redirect_to current_user
         else
@@ -90,68 +90,28 @@ class PhenotypesController < ApplicationController
     end
   end
 
-  class PhenotypeRecommender < Recommendify::Base
-
-    max_neighbors 50
-
-    input_matrix :users_to_phenotypes, 
-      :similarity_func => :jaccard,
-      :weight => 5.0
-
-  end
-  
-  class VariationRecommender < Recommendify::Base
-    
-    max_neighbors 50
-    
-    input_matrix :users_to_variations,
-      :similarity_func => :jaccard,
-      :weight => 5.0
-  
-  end
-
   def show
-    #@phenotypes = Phenotype.where(:user_id => current_user.id).all
-    #@title = "Phenotypes"
     @phenotype = Phenotype.find(params[:id]) || not_found
     @comments = PhenotypeComment.where(:phenotype_id => params[:id]).all(:order => "created_at ASC")
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
 
-
-
-    @recommender = PhenotypeRecommender.new
-    
-    @similar_ids = @recommender.for(params[:id])
-    @similar_phenotypes = []
-    @it_counter = 0
-    
-    @similar_ids.each do |s|
-      if @it_counter < 6
-        @similar_phenotypes << Phenotype.find(s.item_id)
-        @it_counter += 1
-      else
-        break
-      end
-    end
-
-    respond_to do |format|
-      format.html
-      format.xml
-    end
+    recommender = PhenotypeRecommender.new
+    similar_ids = recommender.for(params[:id])
+    @similar_phenotypes = Phenotype.where(['id in (?)', similar_ids]).limit(6)
   end
 
   def recommend_phenotype
     # init the recommendation-engines
     @phenotype_recommender = PhenotypeRecommender.new
     @variation_recommender = VariationRecommender.new
-  
+
     # get up to three similar phenotypes regardless of variation
-    
+
     @similar_ids = @phenotype_recommender.for(params[:id])
     @similar_phenotypes = []
     @item_counter = 0
-    
+
     @similar_ids.each do |s|
       if @item_counter < 3
         @phenotype = Phenotype.find(s.item_id)
@@ -163,7 +123,7 @@ class PhenotypesController < ApplicationController
         break
       end
     end
-    
+
     # get up to three similar combinations of phenotype and variation
     @user_phenotype = UserPhenotype.find_by_phenotype_id_and_user_id(params[:id],current_user.id)
     if @user_phenotype != nil
@@ -172,11 +132,11 @@ class PhenotypesController < ApplicationController
     else
       @variation_recommend_request = ""
     end
-   
+
     @similar_combinations = @phenotype_recommender.for(@variation_recommend_request)
     @similar_variations = []
     @combination_counter = 0
-    
+
     @similar_combinations.each do |s|
       if @combination_counter < 3
         @phenotype = Phenotype.find_by_id(s.item_id.split("=>")[0])
@@ -188,9 +148,9 @@ class PhenotypesController < ApplicationController
         break
       end
     end
-    
+
     @phenotype = Phenotype.find_by_id(params[:id])
-    
+
     if @similar_phenotypes == [] and @similar_variations == []
       redirect_to :action => "index"
     else  
@@ -242,37 +202,37 @@ class PhenotypesController < ApplicationController
     rescue
       @result["error"] = "Sorry, this phenotype doesn't exist"
     end
-    
+
     respond_to do |format|
       format.json { render :json => @result } 
     end    
-    
+
   end
 
   def json
     if params[:user_id].index(",")
       @user_ids = params[:user_id].split(",")
-	    @results = []
-	    @user_ids.each do |id|
-	      @new_param = {}
-	      @new_param[:user_id] = id
+      @results = []
+      @user_ids.each do |id|
+        @new_param = {}
+        @new_param[:user_id] = id
         @results << json_element(@new_param)
       end
-      
+
     elsif params[:user_id].index("-")
       @results = []
       @id_array = params[:user_id].split("-")
       @user_ids = (@id_array[0].to_i..@id_array[1].to_i).to_a
       @user_ids.each do |id|
         @new_param = {}
-	      @new_param[:user_id] = id
-	      @results << json_element(@new_param)
+        @new_param[:user_id] = id
+        @results << json_element(@new_param)
       end
-      
-	  else 
+
+    else 
       @results = json_element(params)	  
     end   
-    
+
     respond_to do |format|
       format.json { render :json => @results } 
     end
@@ -283,19 +243,19 @@ class PhenotypesController < ApplicationController
       @user = User.find_by_id(params[:user_id])
       @result = {}
       @user_phenotypes = UserPhenotype.find_all_by_user_id(@user.id)
-   
+
       @result["user"] = {}
       @result["user"]["name"] = @user.name
       @result["user"]["id"] = @user.id
-   
+
       @phenotype_hash = {}
-   
+
       @user_phenotypes.each do |up|
         @phenotype_hash[up.phenotype.characteristic] = {}
         @phenotype_hash[up.phenotype.characteristic]["phenotype_id"] = up.phenotype.id
         @phenotype_hash[up.phenotype.characteristic]["variation"] = up.variation
       end
-   
+
       @result["phenotypes"] = @phenotype_hash
     rescue
       @result = {}

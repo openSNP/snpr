@@ -9,7 +9,8 @@ class MendeleySearch
 
    def self.perform(snp_id)
      snp = Snp.find(snp_id)
-     if (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) && (snp.name.index("vg").nil? == true && snp.name.index("mt-").nil? == true)
+     if (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) &&
+         snp.name.index("vg").nil? && snp.name.index("mt-").nil?
        page = 0
        items = 500
        documents = []
