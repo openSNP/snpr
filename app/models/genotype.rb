@@ -8,7 +8,10 @@ class Genotype < ActiveRecord::Base
   has_attached_file :genotype, url: '/data/:fs_filename',
                                path: "#{Rails.root}/public/data/:fs_filename"
   before_post_process :is_image?
-  validates_attachment_presence :genotype
+  validates_attachment :genotype,
+    presence: true,
+    content_type: { content_type: 'text/plain' },
+    size: { in: 0..100.megabytes }
 
   attr_accessible :genotype, :filetype, :user_id
   after_create :parse_genotype

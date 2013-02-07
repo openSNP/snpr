@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.20'
+gem 'rails', '~> 3.1.0'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
 gem "jquery-rails"

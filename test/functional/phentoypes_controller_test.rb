@@ -39,13 +39,17 @@ class PhenotypesControllerTest < ActionController::TestCase
       end
 
       should "see them" do
+        similar_phenotype = FactoryGirl.create(:phenotype)
+        PhenotypeRecommender.any_instance.expects(:for).
+          with(@phenotype.id.to_s).returns([similar_phenotype.id])
         get :show, id: @phenotype.id
         assert_response :success
         assert_equal @phenotype, assigns(:phenotype)
+        assert_equal [similar_phenotype], assigns(:similar_phenotypes)
       end
 
       should "get the feed" do
-        get :feed, id: @phenotype.id
+        get :feed, id: @phenotype.id, format: 'xml'
         assert_response :success
       end
 
