@@ -44,10 +44,11 @@ gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref 
 gem 'resque', '1.23.0'
 gem 'resque-loner'
 
-#group :production do
-#	gem 'rpm_contrib'
-#	gem 'newrelic_rpm'
-#end
+group :assets do
+  gem 'sass-rails', " ~> 3.2.0"
+  gem 'coffee-rails', " ~> 3.2.0"
+  gem 'uglifier'
+end
 
 group :test do
   gem 'shoulda-context', require: false

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_attached_file :avatar,
     styles: { medium: "300x300>", thumb: "100x100>#", head: "32x32#" },
-    default_url: '/images/standard_:style.png'
+    default_url: 'standard_:style.png'
   
   attr_accessible :user_phenotypes_attributes, :variation, :characteristic,
     :name, :password_confirmation, :password, :email, :description, :homepages,

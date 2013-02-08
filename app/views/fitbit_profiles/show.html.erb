@@ -1,14 +1,9 @@
-<legend><%=image_tag("/images/fitbit-icon.png",:style => "vertical-align:middle")%> <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></legend>
+<legend><%=image_tag("fitbit-icon.png",:style => "vertical-align:middle")%> <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></legend>
 <%if current_user%>
-<p class="lead"><%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
+<p class="lead"><%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
 <%else%>
 <p class="lead">If you log in to <em>openSNP</em> you can download a CSV-file with all the data.</p>
 <%end%>
-
-  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.highlighter.min.js"></script>
-  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.dateAxisRenderer.min.js"></script>
-  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.cursor.min.js"></script>
-  <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.barRenderer.min.js"></script>
 
 <%if @activity != nil%>
   <legend>Activity Measurements</legend>

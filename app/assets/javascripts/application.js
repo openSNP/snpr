@@ -1,5 +1,24 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+//= require ./jquery
+//= require ./jquery_ujs
+//= require ./nested_form
+//= require ./jquery-1.7.1.min
+//= require ./jquery.tablesorter.min
+//= require ./jquery.ba-hashchange.min
+//= require ./jquery.easytabs
+//= require ./jquery-ui-1.8.16.custom.min
+//= require ./bootstrap-alert
+//= require ./bootstrap-modal
+//= require ./bootstrap-tooltip
+//= require ./bootstrap-popover
+//= require ./jquery.jqplot.min
+//= require ./jqplot.pieRenderer.min
+//= require ./jqplot.highlighter.min
+//= require ./jqplot.dateAxisRenderer.min
+//= require ./jqplot.cursor.min
+//= require ./jqplot.barRenderer.min
+//= require ./bootstrap-collapse
+//= require_self
+
 
 $(document).ready(function() { 
     $('#update_user').click(function() {
