@@ -90,6 +90,7 @@ GEM
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.8)
+    dynamic_form (1.1.4)
     erubis (2.7.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
@@ -225,6 +226,7 @@ DEPENDENCIES
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
   debugger
+  dynamic_form
   factory_girl
   fitgem
   friendly_id!
