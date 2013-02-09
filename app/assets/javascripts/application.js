@@ -1,4 +1,3 @@
-//= require ./nested_form
 //= require ./jquery-1.7.1.min
 //= require ./jquery.tablesorter.min
 //= require ./jquery.ba-hashchange.min
@@ -15,6 +14,7 @@
 //= require ./jqplot.cursor.min
 //= require ./jqplot.barRenderer.min
 //= require ./bootstrap-collapse
+//= require ./nested_form
 //= require_self
 
 
