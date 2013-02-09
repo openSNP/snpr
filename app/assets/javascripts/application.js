@@ -1,5 +1,3 @@
-//= require ./jquery
-//= require ./jquery_ujs
 //= require ./nested_form
 //= require ./jquery-1.7.1.min
 //= require ./jquery.tablesorter.min
