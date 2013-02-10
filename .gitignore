@@ -11,6 +11,7 @@ db/*.sqlite3
 log/*.log
 tmp/pids/server.pid
 public/data/*23andme*
+config/deploy.rb
 development.log
 server.pid
 *.swp
