@@ -16,15 +16,15 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
   create_table "achievements", :force => true do |t|
     t.text     "award"
     t.string   "short_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "file_links", :force => true do |t|
     t.text     "description"
     t.text     "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "fitbit_activities", :force => true do |t|
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.integer  "steps"
     t.integer  "floors"
     t.date     "date_logged"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "fitbit_bodies", :force => true do |t|
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.date     "date_logged"
     t.float    "weight"
     t.float    "bmi"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "fitbit_profiles", :force => true do |t|
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.boolean  "body",           :default => true
     t.boolean  "activities",     :default => true
     t.boolean  "sleep",          :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "fitbit_sleeps", :force => true do |t|
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.integer  "number_awakenings"
     t.integer  "minutes_to_sleep"
     t.date     "date_logged"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -92,16 +92,16 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.float    "pvalue"
     t.text     "pvalue_description"
     t.text     "confidence_interval"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "snp_id"
   end
 
   create_table "genotypes", :force => true do |t|
     t.string   "filetype",              :default => "23andme"
     t.integer  "user_id",                                      :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.string   "md5sum"
     t.string   "genotype_file_name"
     t.string   "genotype_content_type"
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
   create_table "homepages", :force => true do |t|
     t.text     "url"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "user_id"
   end
 
@@ -126,8 +126,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.string   "uuid"
     t.boolean  "open_access"
     t.integer  "reader"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "snp_id"
   end
 
@@ -139,8 +139,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.boolean  "user_has_seen"
     t.integer  "from_id"
     t.integer  "to_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "pgp_annotations", :force => true do |t|
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.text     "inheritance"
     t.text     "summary"
     t.text     "trait"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "snp_id"
   end
 
@@ -160,16 +160,16 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.integer  "user_id"
     t.integer  "phenotype_id"
     t.integer  "reply_to_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "phenotype_sets", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "phenotype_sets_phenotypes", :id => false, :force => true do |t|
@@ -181,8 +181,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.string   "characteristic"
     t.text     "known_phenotypes"
     t.integer  "number_of_users",  :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.text     "description"
   end
 
@@ -192,16 +192,16 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.integer  "user_id"
     t.integer  "picture_phenotype_id"
     t.integer  "reply_to_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "picture_phenotypes", :force => true do |t|
     t.string   "characteristic"
     t.string   "description"
     t.integer  "number_of_users", :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "plos_papers", :force => true do |t|
@@ -209,8 +209,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.text     "title"
     t.text     "doi"
     t.datetime "pub_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "reader"
     t.integer  "snp_id"
   end
@@ -220,16 +220,16 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.text     "subject"
     t.integer  "user_id"
     t.integer  "snp_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "reply_to_id"
   end
 
   create_table "snpedia_papers", :force => true do |t|
     t.string   "url"
     t.text     "summary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.integer  "snp_id"
     t.integer  "revision",   :default => 0
   end
@@ -242,11 +242,11 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2012-12-30 21:33:41'
-    t.datetime "plos_updated",       :default => '2012-12-30 21:33:41'
-    t.datetime "snpedia_updated",    :default => '2012-12-30 21:33:41'
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "mendeley_updated",   :default => '2013-01-06 07:32:46'
+    t.datetime "plos_updated",       :default => '2013-01-06 07:32:46'
+    t.datetime "snpedia_updated",    :default => '2013-01-06 07:32:46'
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
   end
 
   add_index "snps", ["chromosome", "position"], :name => "index_snps_chromosome_position"
@@ -257,16 +257,16 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
   create_table "user_achievements", :force => true do |t|
     t.integer  "user_id"
     t.integer  "achievement_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "user_phenotypes", :force => true do |t|
     t.integer  "user_id"
     t.integer  "phenotype_id"
     t.string   "variation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "user_picture_phenotypes", :force => true do |t|
@@ -277,8 +277,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.string   "phenotype_picture_content_type"
     t.integer  "phenotype_picture_file_size"
     t.datetime "phenotype_picture_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "user_snps", :force => true do |t|
@@ -286,8 +286,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.integer  "genotype_id"
     t.integer  "user_id"
     t.integer  "snp_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "snp_name"
   end
 
@@ -307,8 +307,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.boolean  "finished_snp_parsing",               :default => false
     t.integer  "phenotype_creation_counter",         :default => 0
     t.integer  "phenotype_additional_counter",       :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
