@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       flash[:warning] = "You must tick the box to proceed!"
     end
 
-    if params[:read] && verify_recaptcha(model: @user) && @user.save
+    if params[:read] && @user.save #&& verify_recaptcha(model: @user) && @user.save
       flash[:notice] = "Account registered!"
       UserMailer.welcome_user(@user).deliver
       redirect_to @user

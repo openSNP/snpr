@@ -68,7 +68,13 @@ class GenotypesController < ApplicationController
     if @genotype.destroy
       flash[:notice] = "Genotyping was successfully deleted."
       if @user.genotypes.count == 0
+        # update user-attributes
         @user.update_attributes(has_sequence: false, sequence_link: nil)
+        
+        # delete Uploaded Genotyping-achievement
+        @achievement_id = Achievement.find_by_award("Published genotyping").id
+        @to_delete = UserAchievement.find_all_by_achievement_id_and_user_id(@achievement_id, @user.id)
+        UserAchievement.destroy(@to_delete)
       end
       redirect_to current_user
     end

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     :phenotype_creation_counter, :phenotype_additional_counter,:delete_avatar,
     :message_on_message, :message_on_phenotype_comment_reply,
     :message_on_snp_comment_reply, :message_on_new_phenotype,
-    :message_on_newsletter
+    :message_on_newsletter, :has_sequence, :sequence_link
 
   before_validation :clear_avatar
   
