@@ -73,7 +73,7 @@ class GenotypesController < ApplicationController
         
         # delete Uploaded Genotyping-achievement
         @achievement_id = Achievement.find_by_award("Published genotyping").id
-        @to_delete = UserAchievement.find_all_by_achievement_id_and_user_id(@achievement_id, @user.id)
+        @to_delete = UserAchievement.find_by_achievement_id_and_user_id(@achievement_id, @user.id)
         UserAchievement.destroy(@to_delete)
       end
       redirect_to current_user
