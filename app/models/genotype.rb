@@ -13,7 +13,7 @@ class Genotype < ActiveRecord::Base
     content_type: { content_type: 'text/plain' },
     size: { in: 0..100.megabytes }
 
-  attr_accessible :genotype, :filetype, :user_id
+  attr_accessible :genotype, :filetype, :user_id, :md5sum
   after_create :parse_genotype
   before_destroy :delete_genotype
 
