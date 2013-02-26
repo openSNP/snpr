@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/nevans/resque-pool.git
+  revision: 96218b25fabbcbe58a109135706611a33158ba13
+  specs:
+    resque-pool (0.4.0.dev)
+      rake
+      resque (~> 1.20)
+      trollop (~> 1.16)
+
+GIT
   remote: git://github.com/norman/friendly_id.git
   revision: cb0c987be9cc36fea581ba56b321f8790f0b1c50
   specs:
@@ -14,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/ryanb/nested_form.git
-  revision: 8655e352c8f8dd26a6918e72f6d152954b65676a
+  revision: 8f89b2ee38808c7e3af6797c11092b5600e09376
   specs:
     nested_form (0.3.1)
 
@@ -81,24 +90,27 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    cocaine (0.4.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
     columnize (0.3.6)
-    debugger (1.3.1)
+    debugger (1.3.3)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.1.8)
+      debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.8)
+    debugger-ruby_core_source (1.2.0)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
-    fitgem (0.5.2)
+    fitgem (0.6.0)
       oauth
     highline (1.6.15)
     hike (1.2.1)
-    i18n (0.6.1)
+    i18n (0.6.2)
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
@@ -116,7 +128,7 @@ GEM
     minitest (4.3.3)
     mocha (0.13.2)
       metaclass (~> 0.0.1)
-    multi_json (1.5.1)
+    multi_json (1.6.1)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.1)
@@ -124,14 +136,14 @@ GEM
     net-ssh (2.6.5)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.5.6.46)
+    newrelic_rpm (3.5.7.59)
     nokogiri (1.5.6)
     oauth (0.4.7)
-    paperclip (3.4.0)
+    paperclip (3.4.1)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
+      cocaine (~> 0.5.0)
       mime-types
     pg (0.14.1)
     polyglot (0.3.3)
@@ -163,9 +175,9 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
-    rdoc (3.12.1)
+    rdoc (3.12.2)
       json (~> 1.4)
-    recaptcha (0.3.4)
+    recaptcha (0.3.5)
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
@@ -190,7 +202,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    sinatra (1.3.4)
+    sinatra (1.3.5)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -211,6 +223,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (1.16.2)
     tzinfo (0.3.35)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -246,6 +259,7 @@ DEPENDENCIES
   recommendify!
   resque (= 1.23.0)
   resque-loner
+  resque-pool!
   rubyzip (= 0.9.5)
   rvm-capistrano
   sanitize

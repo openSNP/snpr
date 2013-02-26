@@ -3,5 +3,4 @@
 screen -d -m -S "Server" bundle exec rails s
 screen -d -m -S "Solr" bundle exec rake sunspot:solr:run
 screen -d -m -S "Redis" redis-server
-screen -d -m -S "Resque-worker" bundle exec rake environment resque:work QUEUE=*
-
+bundle exec resque-pool --daemon --environment development
