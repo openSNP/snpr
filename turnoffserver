@@ -2,6 +2,4 @@
 screen -X -S Server quit
 screen -X -S Solr quit
 killall -9 redis-server
-screen -X -S Resque-worker quit
-
-  
+ps aux | grep [r]esque-pool | kill -9 `awk '{print $2}'` # ugly :D
