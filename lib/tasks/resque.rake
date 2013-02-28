@@ -1,7 +1,10 @@
 require 'resque/pool/tasks'
 require 'resque'
 
-task "resque:setup" => :environment
+task "resque:setup" => :environment do
+  # FIX FOR "PG::Error: ERROR: prepared statement "a1" already exists"
+  Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
+end
 
 task "resque:pool:setup" do
   # close any sockets or files in pool manager
