@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
 	  #create the message
 	  @message = Message.new
 	  @title = "New message"
-	  @users = User.all # .delete(current_user) 
+      @users = User.all
 	  # ideally, we would kick out the current_user however, this generates crashes when there are only two users (function "map" doesn't work on a single object)
       if params[:message] 
          @answering = Message.find_by_id(params[:message])
@@ -32,7 +32,6 @@ class MessagesController < ApplicationController
 	  if params[:user] != nil
 		  @message.to_id = params[:user][:id]
 	  end
-
 
 	  if @message.save and @message.send_message(@message.from_id, @message.to_id)
 		  flash[:notice] = "Message sent!"
