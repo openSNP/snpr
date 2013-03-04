@@ -19,6 +19,10 @@ class SnpsController < ApplicationController
     @comments = @snp.snp_comments.order('created_at ASC').all
     @user_count = @snp.user_snps.select('distinct(user_id)').count
 
+	# needed for JSON API
+	@user_snps = @snp.user_snps
+	@users = @user_snps.map(&:user)
+
     @user_snp = nil
     if current_user
       @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user, @snp.name)
