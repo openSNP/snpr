@@ -3,7 +3,7 @@ require 'resque'
 class FitbitDump
    @queue = :fitbitdump
 
-   def self.perform(target_address,fitbit_profile_id)
+   def perform(target_address,fitbit_profile_id)
      fp = FitbitProfile.find_by_id(fitbit_profile_id)
        # open handle
        

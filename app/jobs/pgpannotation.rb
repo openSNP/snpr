@@ -5,7 +5,7 @@ class PgpAnnotationjob
   include Resque::Plugins::UniqueJob
   @queue = :pgp
   
-  def self.perform()
+  def perform()
     puts "Running PgpAnnotationJob\n"
     known_snps = {}
     Snp.find_each do |s| known_snps[s.name] = true end

@@ -3,7 +3,7 @@ require 'resque'
 class Fixphenotypes
   @queue = :fixphenotypes
 
-  def self.perform()
+  def perform()
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/fix_phenotypes_#{Rails.env}.log")
 

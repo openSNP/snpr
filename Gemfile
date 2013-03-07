@@ -43,7 +43,7 @@ gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref 
 
 # for jobs
 gem 'resque', '1.23.0'
-gem 'resque-loner'
+gem 'sidekiq'
 
 #group :production do
 #	gem 'rpm_contrib'

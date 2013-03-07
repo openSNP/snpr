@@ -7,7 +7,7 @@ class MendeleySearch
    include Resque::Plugins::UniqueJob
    @queue = :mendeley
 
-   def self.perform(snp_id)
+   def perform(snp_id)
      snp = Snp.find(snp_id)
      if (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) &&
          snp.name.index("vg").nil? && snp.name.index("mt-").nil?

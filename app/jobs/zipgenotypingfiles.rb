@@ -3,7 +3,7 @@ require 'resque'
 class Zipgenotypingfiles
   @queue = :zipgenotyping
 
-  def self.perform(phenotype_id, variation, target_address)
+  def perform(phenotype_id, variation, target_address)
     @user_phenotypes = UserPhenotype.search do
       with :phenotype_id, phenotype_id
       fulltext variation

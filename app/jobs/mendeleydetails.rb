@@ -6,7 +6,7 @@ require "json"
 class MendeleyDetails
    @queue = :mendeley_details
 
-   def self.perform(mendeley_paper_id)
+   def perform(mendeley_paper_id)
       @mendeley_paper = MendeleyPaper.find_by_id(mendeley_paper_id.to_i)
 
       key_handle = File.open(::Rails.root.to_s+"/key_mendeley.txt")

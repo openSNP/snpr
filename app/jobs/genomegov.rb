@@ -6,7 +6,7 @@ class GenomeGov
   include Resque::Plugins::UniqueJob
   @queue = :genomegov
   
-  def self.perform()
+  def perform()
     known_snps = {}
     Snp.find_each do |s| known_snps[s.name] = true end
       

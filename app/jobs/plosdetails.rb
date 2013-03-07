@@ -6,7 +6,7 @@ require "json"
 class PlosDetails
    @queue = :plos_details
 
-   def self.perform(plos_paper)
+   def perform(plos_paper)
       @Plos_paper = PlosPaper.find_by_id(plos_paper["plos_paper"]["id"].to_i)
 
       key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")

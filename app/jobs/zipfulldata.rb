@@ -7,7 +7,7 @@ class Zipfulldata
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
     :zip_fs_path, :tmp_dir
 
-  def self.perform(target_address)
+  def perform(target_address)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
     log("job started")

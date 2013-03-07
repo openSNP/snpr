@@ -7,7 +7,7 @@ class Snpedia
    include Resque::Plugins::UniqueJob
    @queue = :snpedia
 
-   def self.perform(snp_id)
+   def perform(snp_id)
       @snp = Snp.find(snp_id)
       # get the marshalled array
       namearray = []
