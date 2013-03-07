@@ -26,11 +26,11 @@ class Genotype < ActiveRecord::Base
   end
 
   def parse_genotype
-    Resque.enqueue(Preparsing, id)
+    Sidekiq::Client.enqueue(Preparsing, id)
   end
 
   def delete_genotype
-    Resque.enqueue(DeleteGenotype, { genotype_id: id })
+    Sidekiq::Client.enqueue(DeleteGenotype, { genotype_id: id })
   end
 
   Paperclip.interpolates :fs_filename do |attachment, style|

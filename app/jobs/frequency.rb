@@ -1,6 +1,7 @@
 require 'resque'
 
 class Frequency
+  include Sidekiq::Worker
   @queue = :frequency
 
   def perform(snp_id)

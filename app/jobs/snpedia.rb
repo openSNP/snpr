@@ -4,6 +4,7 @@ require 'rexml/document'
 require 'media_wiki'
 
 class Snpedia
+   include Sidekiq::Worker
    include Resque::Plugins::UniqueJob
    @queue = :snpedia
 

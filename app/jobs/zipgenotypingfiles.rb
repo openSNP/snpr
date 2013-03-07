@@ -1,6 +1,7 @@
 require 'resque'
 
 class Zipgenotypingfiles
+  include Sidekiq::Worker
   @queue = :zipgenotyping
 
   def perform(phenotype_id, variation, target_address)

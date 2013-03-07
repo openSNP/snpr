@@ -1,6 +1,7 @@
 require 'resque'
 
 class Parsing
+  include Sidekiq::Worker
   @queue = :parse
 
   def perform(genotype_id, temp_file)

@@ -1,6 +1,7 @@
 require 'resque'
 
 class FitbitNotification
+   include Sidekiq::Worker
    @queue = :fitbitnotification
 
    def perform(notification)

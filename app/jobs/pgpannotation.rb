@@ -2,6 +2,7 @@ require 'resque'
 require 'open-uri'
 
 class PgpAnnotationjob
+  include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
   @queue = :pgp
   

@@ -14,6 +14,7 @@ class UserRecommender < Recommendify::Base
 end
 
 class Recommendvariations
+  include Sidekiq::Worker
   @queue = :recommendvariations
 
   def perform()

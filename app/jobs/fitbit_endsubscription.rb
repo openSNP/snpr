@@ -1,6 +1,7 @@
 require 'resque'
 
 class FitbitEndSubscription
+   include Sidekiq::Worker
    @queue = :fitbitendsubscription
 
    def perform(fitbit_profile_id)

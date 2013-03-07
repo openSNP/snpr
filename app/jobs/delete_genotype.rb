@@ -1,6 +1,7 @@
 require 'resque'
 
 class DeleteGenotype
+  include Sidekiq::Worker
   @queue = :deletegenotype
 
   def perform(params)

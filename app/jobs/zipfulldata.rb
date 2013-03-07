@@ -2,6 +2,7 @@ require 'resque'
 require 'csv'
 
 class Zipfulldata
+  include Sidekiq::Worker
   @queue = :zipfulldata
 
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,

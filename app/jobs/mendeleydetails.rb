@@ -4,6 +4,7 @@ require "net/http"
 require "json"
 
 class MendeleyDetails
+   include Sidekiq::Worker
    @queue = :mendeley_details
 
    def perform(mendeley_paper_id)

@@ -3,6 +3,7 @@ require 'net/http'
 require 'rexml/document'
 
 class Plos
+  include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
   @queue = :plos
   

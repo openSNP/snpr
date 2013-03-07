@@ -1,6 +1,7 @@
 require 'resque'
 
 class Mailnewphenotype
+  include Sidekiq::Worker
   @queue = :mailnewgenotype
 
   def perform(phenotype_id,user_id)

@@ -4,6 +4,7 @@ require "net/http"
 require "json"
 
 class MendeleySearch
+   include Sidekiq::Worker
    include Resque::Plugins::UniqueJob
    @queue = :mendeley
 

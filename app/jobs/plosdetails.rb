@@ -4,6 +4,7 @@ require "net/http"
 require "json"
 
 class PlosDetails
+   include Sidekiq::Worker
    @queue = :plos_details
 
    def perform(plos_paper)

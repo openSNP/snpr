@@ -53,7 +53,7 @@ class PicturePhenotypesController < ApplicationController
 
       @phenotype.save
       @phenotype = PicturePhenotype.find_by_characteristic(params[:picture_phenotype][:characteristic])
-      #Resque.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
+      #Sidekiq::Client.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
 
       if UserPicturePhenotype.find_by_picture_phenotype_id_and_user_id(@phenotype.id,current_user.id).nil?
 
@@ -76,8 +76,8 @@ class PicturePhenotypesController < ApplicationController
           check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
           check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
           
-          #Resque.enqueue(Recommendvariations)
-      	  #Resque.enqueue(Recommendphenotypes)
+          #Sidekiq::Client.enqueue(Recommendvariations)
+      	  #Sidekiq::Client.enqueue(Recommendphenotypes)
 
           redirect_to current_user
         else

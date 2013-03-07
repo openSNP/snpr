@@ -1,6 +1,7 @@
 require 'resque'
 
 class Fixphenotypes
+  include Sidekiq::Worker
   @queue = :fixphenotypes
 
   def perform()

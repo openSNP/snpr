@@ -1,6 +1,7 @@
 require 'resque'
 
 class FitbitInit
+   include Sidekiq::Worker
    @queue = :fitbitinit
 
    def perform(fitbit_profile_id)

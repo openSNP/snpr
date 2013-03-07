@@ -2,6 +2,7 @@ require 'resque'
 require 'digest'
 
 class Preparsing
+  include Sidekiq::Worker
   @queue = :preparse
 
   def perform(genotype_id)

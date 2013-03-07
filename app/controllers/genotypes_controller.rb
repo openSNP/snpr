@@ -81,7 +81,7 @@ class GenotypesController < ApplicationController
   end
 
   def get_dump
-    Resque.enqueue(Zipfulldata, current_user.email)
+    Sidekiq::Client.enqueue(Zipfulldata, current_user.email)
   end
 
   private 

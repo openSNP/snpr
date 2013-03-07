@@ -33,15 +33,15 @@ class Snp < ActiveRecord::Base
     snps = Snp.select([ :id, :mendeley_updated, :snpedia_updated, :plos_updated ]).
       where([ 'mendeley_updated < ? or snpedia_updated < ? or plos_updated < ?',
               max_age, max_age, max_age ]).find_each do |snp|
-      Resque.enqueue(Mendeley, snp.id) if snp.mendeley_updated < max_age
-      Resque.enqueue(Snpedia,  snp.id) if snp.snpedia_updated  < max_age
-      Resque.enqueue(Plos,     snp.id) if snp.plos_updated     < max_age
+      Sidekiq::Client.enqueue(Mendeley, snp.id) if snp.mendeley_updated < max_age
+      Sidekiq::Client.enqueue(Snpedia,  snp.id) if snp.snpedia_updated  < max_age
+      Sidekiq::Client.enqueue(Plos,     snp.id) if snp.plos_updated     < max_age
     end
   end
   
   def self.update_frequencies
     Snp.find_each do |s|
-      Resque.enqueue(Frequency,s.id)
+      Sidekiq::Client.enqueue(Frequency,s.id)
     end
   end
   
