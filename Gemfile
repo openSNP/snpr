@@ -44,8 +44,6 @@ gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref 
 # for jobs
 gem 'resque', '1.23.0'
 gem 'resque-loner'
-# easier handling of workers
-gem 'resque-pool', :git => 'git://github.com/nevans/resque-pool.git'
 
 #group :production do
 #	gem 'rpm_contrib'
