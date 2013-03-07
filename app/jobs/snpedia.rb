@@ -4,10 +4,11 @@ require 'rexml/document'
 require 'media_wiki'
 
 class Snpedia
+   include Sidekiq::Worker
    include Resque::Plugins::UniqueJob
-   @queue = :snpedia
+   sidekiq_options :queue => :snpedia
 
-   def self.perform(snp_id)
+   def perform(snp_id)
       @snp = Snp.find(snp_id)
       # get the marshalled array
       namearray = []

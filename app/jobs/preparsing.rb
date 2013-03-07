@@ -2,9 +2,10 @@ require 'resque'
 require 'digest'
 
 class Preparsing
-  @queue = :preparse
+  include Sidekiq::Worker
+  sidekiq_options :queue => :preparse
 
-  def self.perform(genotype_id)
+  def perform(genotype_id)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/preparsing_#{Rails.env}.log")
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)

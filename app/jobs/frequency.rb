@@ -1,9 +1,10 @@
 require 'resque'
 
 class Frequency
-  @queue = :frequency
+  include Sidekiq::Worker
+  sidekiq_options :queue => :frequency
 
-  def self.perform(snp_id)
+  def perform(snp_id)
     s = Snp.find_by_id(snp_id)
     s.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
     s.genotype_frequency ||= {}

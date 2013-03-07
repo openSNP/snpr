@@ -14,9 +14,10 @@ class UserRecommender < Recommendify::Base
 end
 
 class Recommendvariations
-  @queue = :recommendvariations
+  include Sidekiq::Worker
+  sidekiq_options :queue => :recommendvariations
 
-  def self.perform()
+  def perform()
    recommender = UserRecommender.new
    
    #delete old items. this isn't the most efficient way to process this data, but for a test implementation it should work

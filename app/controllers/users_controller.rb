@@ -167,8 +167,8 @@ class UsersController < ApplicationController
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
       
-      Resque.enqueue(Recommendvariations)
-      Resque.enqueue(Recommendphenotypes)
+      Sidekiq::Client.enqueue(Recommendvariations)
+      Sidekiq::Client.enqueue(Recommendphenotypes)
       
       flash[:notice] =  "Successfully updated"
 
@@ -224,13 +224,13 @@ class UsersController < ApplicationController
 
     # disconnect from fitbit if needed
     if @user.fitbit_profile != nil
-        Resque.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
+        Sidekiq::Client.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
     end
 
     @user.destroy
 
     # delete phenotypes without user-phenotypes and update number-of-users
-    Resque.enqueue(Fixphenotypes)
+    Sidekiq::Client.enqueue(Fixphenotypes)
     redirect_to root_url
   end
 

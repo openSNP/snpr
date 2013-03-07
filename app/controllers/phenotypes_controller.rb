@@ -52,7 +52,7 @@ class PhenotypesController < ApplicationController
 
       @phenotype.save
       @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
-      Resque.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
+      Sidekiq::Client.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
 
       if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id).nil?
 
@@ -75,8 +75,8 @@ class PhenotypesController < ApplicationController
           check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
           check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
 
-          Resque.enqueue(Recommendvariations)
-          Resque.enqueue(Recommendphenotypes)
+          Sidekiq::Client.enqueue(Recommendvariations)
+          Sidekiq::Client.enqueue(Recommendphenotypes)
 
           redirect_to current_user
         else
@@ -176,7 +176,7 @@ class PhenotypesController < ApplicationController
   end
 
   def get_genotypes
-    Resque.enqueue(Zipgenotypingfiles, params[:id],
+    Sidekiq::Client.enqueue(Zipgenotypingfiles, params[:id],
                    params[:variation], current_user.email)
     @phenotype = Phenotype.find(params[:id])
     @variation = params[:variation]

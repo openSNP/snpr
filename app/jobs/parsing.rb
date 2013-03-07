@@ -1,9 +1,10 @@
 require 'resque'
 
 class Parsing
-  @queue = :parse
+  include Sidekiq::Worker
+  sidekiq_options :queue => :parse
 
-  def self.perform(genotype_id, temp_file)
+  def perform(genotype_id, temp_file)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)

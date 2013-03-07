@@ -3,10 +3,11 @@ require 'open-uri'
 require 'iconv'
 
 class GenomeGov
+  include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
-  @queue = :genomegov
+  sidekiq_options :queue => :genomegov
   
-  def self.perform()
+  def perform()
     known_snps = {}
     Snp.find_each do |s| known_snps[s.name] = true end
       

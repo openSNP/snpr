@@ -3,10 +3,11 @@ require 'net/http'
 require 'rexml/document'
 
 class Plos
+  include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
-  @queue = :plos
+  sidekiq_options :queue => :plos
   
-  def self.perform(snp_id)
+  def perform(snp_id)
     @snp = Snp.find(snp_id)
     if @snp.plos_updated < 31.days.ago && @snp.name.index("vg").nil? &&
         @snp.name.index("mt-").nil?

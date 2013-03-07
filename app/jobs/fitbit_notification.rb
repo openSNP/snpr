@@ -1,9 +1,10 @@
 require 'resque'
 
 class FitbitNotification
-   @queue = :fitbitnotification
+   include Sidekiq::Worker
+   sidekiq_options :queue => :fitbitnotification
 
-   def self.perform(notification)
+   def perform(notification)
      puts notification
      notification.each do |n|
        @fitbit_profile = FitbitProfile.find_by_id(n["subscriptionId"])
