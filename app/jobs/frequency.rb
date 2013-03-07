@@ -2,7 +2,7 @@ require 'resque'
 
 class Frequency
   include Sidekiq::Worker
-  @queue = :frequency
+  sidekiq_options :queue => :frequency
 
   def perform(snp_id)
     s = Snp.find_by_id(snp_id)

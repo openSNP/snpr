@@ -5,7 +5,7 @@ require 'rexml/document'
 class Plos
   include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
-  @queue = :plos
+  sidekiq_options :queue => :plos
   
   def perform(snp_id)
     @snp = Snp.find(snp_id)

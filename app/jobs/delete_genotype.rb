@@ -2,7 +2,7 @@ require 'resque'
 
 class DeleteGenotype
   include Sidekiq::Worker
-  @queue = :deletegenotype
+  sidekiq_options :queue => :deletegenotype
 
   def perform(params)
     user_snps = UserSnp.where(genotype_id: params["genotype_id"].to_i).all

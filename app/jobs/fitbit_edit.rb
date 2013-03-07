@@ -2,7 +2,7 @@ require 'resque'
 
 class FitbitEdit
    include Sidekiq::Worker
-   @queue = :fitbitedit
+   sidekiq_options :queue => :fitbitedit
 
    def perform(fitbit_profile_id)
      @fitbit_profile = FitbitProfile.find_by_id(fitbit_profile_id)

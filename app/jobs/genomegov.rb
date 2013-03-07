@@ -5,7 +5,7 @@ require 'iconv'
 class GenomeGov
   include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
-  @queue = :genomegov
+  sidekiq_options :queue => :genomegov
   
   def perform()
     known_snps = {}

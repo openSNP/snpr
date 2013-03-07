@@ -2,7 +2,7 @@ require 'resque'
 
 class Parsing
   include Sidekiq::Worker
-  @queue = :parse
+  sidekiq_options :queue => :parse
 
   def perform(genotype_id, temp_file)
     Rails.logger.level = 0

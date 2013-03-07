@@ -4,7 +4,7 @@ require 'open-uri'
 class PgpAnnotationjob
   include Sidekiq::Worker
   include Resque::Plugins::UniqueJob
-  @queue = :pgp
+  sidekiq_options :queue => :pgp
   
   def perform()
     puts "Running PgpAnnotationJob\n"

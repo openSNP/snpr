@@ -2,6 +2,7 @@ base: &base
   adapter: postgresql
   username: snpr
   password: secret
+  pool: 25
   
 development:
   <<: *base

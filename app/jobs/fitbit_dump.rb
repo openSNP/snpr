@@ -2,7 +2,7 @@ require 'resque'
 
 class FitbitDump
    include Sidekiq::Worker
-   @queue = :fitbitdump
+   sidekiq_options :queue => :fitbitdump
 
    def perform(target_address,fitbit_profile_id)
      fp = FitbitProfile.find_by_id(fitbit_profile_id)

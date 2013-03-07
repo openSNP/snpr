@@ -15,7 +15,7 @@ end
 
 class Recommendvariations
   include Sidekiq::Worker
-  @queue = :recommendvariations
+  sidekiq_options :queue => :recommendvariations
 
   def perform()
    recommender = UserRecommender.new

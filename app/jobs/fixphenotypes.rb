@@ -2,7 +2,7 @@ require 'resque'
 
 class Fixphenotypes
   include Sidekiq::Worker
-  @queue = :fixphenotypes
+  sidekiq_options :queue => :fixphenotypes
 
   def perform()
     Rails.logger.level = 0

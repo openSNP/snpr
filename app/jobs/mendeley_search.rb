@@ -6,7 +6,7 @@ require "json"
 class MendeleySearch
    include Sidekiq::Worker
    include Resque::Plugins::UniqueJob
-   @queue = :mendeley
+   sidekiq_options :queue => :mendeley
 
    def perform(snp_id)
      snp = Snp.find(snp_id)

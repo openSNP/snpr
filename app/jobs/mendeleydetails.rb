@@ -5,7 +5,7 @@ require "json"
 
 class MendeleyDetails
    include Sidekiq::Worker
-   @queue = :mendeley_details
+   sidekiq_options :queue => :mendeley_details
 
    def perform(mendeley_paper_id)
       @mendeley_paper = MendeleyPaper.find_by_id(mendeley_paper_id.to_i)

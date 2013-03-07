@@ -3,7 +3,7 @@ require 'digest'
 
 class Preparsing
   include Sidekiq::Worker
-  @queue = :preparse
+  sidekiq_options :queue => :preparse
 
   def perform(genotype_id)
     Rails.logger.level = 0
