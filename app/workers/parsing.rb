@@ -1,5 +1,3 @@
-
-
 class Parsing
   include Sidekiq::Worker
   sidekiq_options :queue => :parse
