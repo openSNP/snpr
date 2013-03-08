@@ -1,10 +1,8 @@
-require 'resque'
 require 'open-uri'
 require 'iconv'
 
 class GenomeGov
   include Sidekiq::Worker
-  include Resque::Plugins::UniqueJob
   sidekiq_options :queue => :genomegov
   
   def perform()

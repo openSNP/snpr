@@ -1,4 +1,4 @@
-require 'resque'
+
 require 'csv'
 
 class Zipfulldata
@@ -261,7 +261,7 @@ TXT
     self.class.log(msg)
   end
 
-  def self.log(msg)
+  def log(msg)
     Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end

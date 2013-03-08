@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class Fixphenotypes
   include Sidekiq::Worker
@@ -14,8 +14,8 @@ class Fixphenotypes
             # delete!
             log "Deleting phenotype '" + p.characteristic
             Phenotype.destroy(p)
-            Resque.enqueue(Recommendvariations)
-        	  Resque.enqueue(Recommendphenotypes)
+            Sidekiq::Client.enqueue(Recommendvariations)
+            Sidekiq::Client.enqueue(Recommendphenotypes)
             next
         end
 
@@ -30,7 +30,7 @@ class Fixphenotypes
     
   end
 
-  def self.log msg
+  def log msg
     Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end

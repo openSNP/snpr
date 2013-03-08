@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class FitbitEdit
    include Sidekiq::Worker

@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class FitbitDump
    include Sidekiq::Worker

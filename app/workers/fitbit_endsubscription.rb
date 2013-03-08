@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class FitbitEndSubscription
    include Sidekiq::Worker

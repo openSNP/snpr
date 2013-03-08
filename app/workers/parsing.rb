@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class Parsing
   include Sidekiq::Worker
@@ -132,7 +132,7 @@ class Parsing
     end
   end
 
-  def self.log msg
+  def log msg
     Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end

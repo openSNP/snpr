@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class FitbitNotification
    include Sidekiq::Worker

@@ -1,4 +1,4 @@
-require 'resque'
+
 require 'digest'
 
 class Preparsing
@@ -149,11 +149,11 @@ class Preparsing
         
         temp_files = Dir.glob("tmp/#{@genotype.id}_tmpfile*")
         temp_files.each do |single_temp_file|
-        Resque.enqueue(Parsing, @genotype.id, single_temp_file)
+        Sidekiq::Client.enqueue(Parsing, @genotype.id, single_temp_file)
         end
     end
   end
-  def self.log msg
+  def log msg
     Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end

@@ -1,4 +1,4 @@
-require 'resque'
+
 require "recommendify"
 Recommendify.redis = Redis.new
 

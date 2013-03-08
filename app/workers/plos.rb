@@ -1,10 +1,9 @@
-require 'resque'
+
 require 'net/http'
 require 'rexml/document'
 
 class Plos
   include Sidekiq::Worker
-  include Resque::Plugins::UniqueJob
   sidekiq_options :queue => :plos
   
   def perform(snp_id)
@@ -44,7 +43,7 @@ class Plos
             print "-> paper is old"
             @plos_paper = PlosPaper.find_by_doi(doi)
           end
-          Resque.enqueue(PlosDetails,@plos_paper)
+          Sidekiq::Client.enqueue(PlosDetails,@plos_paper)
         end
         else
           print "plos: none found\n"

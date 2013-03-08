@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Snpr::Application.routes.draw do
   resources :static
   resources :phenotypes do
@@ -73,6 +74,9 @@ Snpr::Application.routes.draw do
   match '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
   
   root :to => 'index#index' # change this, maybe
+
+  mount Sidekiq::Web, at: '/sidekiq'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

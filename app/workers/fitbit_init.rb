@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class FitbitInit
    include Sidekiq::Worker

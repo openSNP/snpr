@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class Zipgenotypingfiles
   include Sidekiq::Worker

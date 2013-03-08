@@ -1,11 +1,9 @@
-require 'resque'
 require 'net/http'
 require 'rexml/document'
 require 'media_wiki'
 
 class Snpedia
    include Sidekiq::Worker
-   include Resque::Plugins::UniqueJob
    sidekiq_options :queue => :snpedia
 
    def perform(snp_id)

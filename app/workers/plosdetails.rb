@@ -1,4 +1,3 @@
-require "resque"
 require "rubygems"
 require "net/http"
 require "json"

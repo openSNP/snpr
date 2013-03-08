@@ -1,5 +1,3 @@
-require 'resque'
-
 class DeleteGenotype
   include Sidekiq::Worker
   sidekiq_options :queue => :deletegenotype

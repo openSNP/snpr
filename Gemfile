@@ -42,8 +42,9 @@ gem 'friendly_id', :git => 'git://github.com/norman/friendly_id.git'
 gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
 # for jobs
-gem 'resque', '1.23.0'
 gem 'sidekiq'
+gem 'slim'
+gem 'sinatra'
 
 #group :production do
 #	gem 'rpm_contrib'

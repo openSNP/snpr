@@ -1,11 +1,9 @@
-require "resque"
 require "rubygems"
 require "net/http"
 require "json"
 
 class MendeleySearch
    include Sidekiq::Worker
-   include Resque::Plugins::UniqueJob
    sidekiq_options :queue => :mendeley
 
    def perform(snp_id)
@@ -83,7 +81,7 @@ class MendeleySearch
                ) 
              end
            end
-           Resque.enqueue(MendeleyDetails, @mendeley_paper.id)
+           Sidekiq::Client.enqueue(MendeleyDetails, @mendeley_paper.id)
          end
        else
          puts "mendeley: No papers found"

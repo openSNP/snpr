@@ -1,4 +1,4 @@
-require 'resque'
+
 
 class Frequency
   include Sidekiq::Worker
