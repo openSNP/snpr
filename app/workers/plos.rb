@@ -5,9 +5,9 @@ require 'rexml/document'
 class Plos
   include Sidekiq::Worker
   sidekiq_options :queue => :plos
-  
+
   def is_illegal_snp(name)
-    # we don't need mitochondrial or VG-SNPs as these just result in noise 
+    # we don't need mitochondrial or VG-SNPs as these just result in noise
     # from the PLOS API
     forbidden_names = ["mt-", "vg"]
     if forbidden_names.any? { |part| name[part] }

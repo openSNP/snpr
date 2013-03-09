@@ -2,7 +2,7 @@
 
 class FitbitNotification
    include Sidekiq::Worker
-   sidekiq_options :queue => :fitbitnotification
+   sidekiq_options :queue => :fitbit
 
    def perform(notification)
      puts notification

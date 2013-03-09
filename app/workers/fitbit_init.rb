@@ -2,7 +2,7 @@
 
 class FitbitInit
    include Sidekiq::Worker
-   sidekiq_options :queue => :fitbitinit
+   sidekiq_options :queue => :fitbit
 
    def perform(fitbit_profile_id)
      @client = Fitgem::Client.new(:consumer_key => APP_CONFIG[:fitbit_consumer_key], :consumer_secret => APP_CONFIG[:fitbit_consumer_secret])
