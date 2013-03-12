@@ -9,10 +9,18 @@
     <% @user_snps.each do |usnp| %>
       <tr>
         <% if @local_genotype == usnp.local_genotype %>
+          <% if usnp.user != nil %>
           <td><strong><%= link_to usnp.user.name, usnp.user %></strong></td>
+          <% else %>
+          <td>Deleted</td>
+          <% end %>
           <td><strong><%= usnp.local_genotype %></strong></td>
         <% else %>
+          <% if usnp.user != nil %>
           <td><%= link_to usnp.user.name, usnp.user %></td>
+          <% else %>
+          <td>Deleted</td>
+          <% end %>
           <td><%= usnp.local_genotype %></td>
         <% end %>
       </tr>
