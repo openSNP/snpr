@@ -86,8 +86,8 @@ class UsersController < ApplicationController
 
     # get phenotypes that current_user did not enter yet
     @unentered_phenotypes = Phenotype.all - @user.phenotypes
-    @unentered_phenotypes.sort! { |b,a| a.number_of_users <=> b.number_of_users }
     @unentered_phenotypes = @unentered_phenotypes[0..20]
+    @unentered_phenotypes.sort! { |b,a| a.number_of_users <=> b.number_of_users }
 
     #find all snp-comment-replies that this user got
     @user_snp_comment_ids = []

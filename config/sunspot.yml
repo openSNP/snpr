@@ -1,6 +1,8 @@
 production:
   solr:
     hostname: localhost
+    min_memory: 512M
+    max_memory: 1G
     port: 8983
     log_level: WARNING
 
@@ -15,7 +17,7 @@ test:
     hostname: localhost
     port: 8981
     log_level: WARNING
-    
+
 cucumber:
   solr:
     hostname: localhost
