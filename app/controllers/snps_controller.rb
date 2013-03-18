@@ -1,17 +1,17 @@
 class SnpsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :find_snp, :except => [:index, :json,:json_annotation]
-    
+
   def index
     @snps = Snp.order(sort_column + " "+ sort_direction)
     @snps_paginate = @snps.paginate(:page => params[:page],:per_page => 10)
-        @title = "Listing all SNPs"
+    @title = "Listing all SNPs"
     respond_to do |format|
       format.html
       format.xml 
     end
   end
-  
+
   def show
     @snp = Snp.includes(:snp_comments).
       where(name: params[:id].downcase).first || not_found
@@ -19,28 +19,26 @@ class SnpsController < ApplicationController
     @comments = @snp.snp_comments.order('created_at ASC').all
     @user_count = @snp.user_snps.select('distinct(user_id)').count
 
-	# needed for JSON API
-	@user_snps = @snp.user_snps
-	@users = @user_snps.map(&:user)
 
     @user_snp = nil
     if current_user
       @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user, @snp.name)
       @local_genotype = @user_snp.try(:local_genotype) || ''
     end
-    
+
     @total_genotypes = @snp.genotype_frequency.map {|k,v| v }.sum
     @total_alleles = @snp.allele_frequency.map {|k,v| v }.sum
-    
+
     Sidekiq::Client.enqueue(Plos, @snp.id)
     Sidekiq::Client.enqueue(MendeleySearch, @snp.id)
     Sidekiq::Client.enqueue(Snpedia, @snp.id)
-      
+
     @snp_comment = SnpComment.new
-        
+
     respond_to do |format|
       format.html
       format.json do
+        @users = @snp.user_snps.map(&:user)
         json_results = @users.map do |u|
           json_element(user_id: u.id, snp_name: @snp.name)
         end
@@ -48,7 +46,7 @@ class SnpsController < ApplicationController
       end
     end
   end
-  
+
   def json
     if params[:user_id].index(",")
       @user_ids = params[:user_id].split(",")
@@ -72,7 +70,7 @@ class SnpsController < ApplicationController
     else 
       @results = json_element(params)
     end
-    
+
     respond_to do |format|
       format.json { render :json => @results } 
     end
