@@ -1,5 +1,41 @@
+---
+:verbose: true
+:pidfile: /tmp/sidekiq.pid
+:concurrency: 5
+:queues:
+ - [recommendvariations,3]
+ - [recommendphenotypes,3]
+ - [preparse,3]
+ - [parse,3]
+ - [zipgenotyping,2]
+ - [zipfulldata]
+ - [deletegenotype]
+ - [fitbit]
+ - [frequency]
+ - [genomegov]
+ - [mailnewgenotype]
+ - [mendeley_details]
+ - [mendeley]
+ - [pgp]
+ - [plos_details]
+ - [plos]
+ - [snpedia]
+ - [fixphenotypes]
 :limits:
-    mendeley: 1 
-    plos: 1
+    recommendvariations: 3
+    recommendphenotypes: 3
+    preparse: 2
+    parse: 2
+    zipgenotyping: 1
+    zipfulldata: 1
+    fitbit: 3
+    frequency: 10
+    genomegov: 1
+    mailnewgenotype: 1
     mendeley_details: 1
+    mendeley: 1
+    pgp: 1
+    plos_details: 1
+    plos: 1
     snpedia: 1
+    fixphenotypes: 1
