@@ -2,7 +2,7 @@
 
 class Frequency
   include Sidekiq::Worker
-  sidekiq_options :queue => :frequency
+  sidekiq_options :queue => :frequency, :retry => 5
 
   def perform(snp_id)
     s = Snp.find_by_id(snp_id)

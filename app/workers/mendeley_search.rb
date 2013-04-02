@@ -4,7 +4,7 @@ require "json"
 
 class MendeleySearch
    include Sidekiq::Worker
-   sidekiq_options :queue => :mendeley
+   sidekiq_options :queue => :mendeley, :retry => 5
 
    def perform(snp_id)
      snp = Snp.find(snp_id)

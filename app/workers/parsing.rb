@@ -1,6 +1,6 @@
 class Parsing
   include Sidekiq::Worker
-  sidekiq_options :queue => :parse
+  sidekiq_options :queue => :parse, :retry => 5
 
   def perform(genotype_id, temp_file)
     Rails.logger.level = 0

@@ -4,7 +4,7 @@ require "json"
 
 class MendeleyDetails
   include Sidekiq::Worker
-  sidekiq_options :queue => :mendeley_details
+  sidekiq_options :queue => :mendeley_details, :retry => 5
 
   def perform(mendeley_paper_id)
      # Logging stuff

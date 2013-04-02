@@ -4,7 +4,7 @@ require "json"
 
 class PlosDetails
    include Sidekiq::Worker
-   sidekiq_options :queue => :plos_details
+   sidekiq_options :queue => :plos_details, :retry => 5
 
    def perform(plos_paper)
       @Plos_paper = PlosPaper.find_by_id(plos_paper["plos_paper"]["id"].to_i)

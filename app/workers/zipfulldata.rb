@@ -3,7 +3,7 @@ require 'csv'
 
 class Zipfulldata
   include Sidekiq::Worker
-  sidekiq_options :queue => :zipfulldata
+  sidekiq_options :queue => :zipfulldata, :retry => 5
 
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
     :zip_fs_path, :tmp_dir
