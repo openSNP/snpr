@@ -1,6 +1,7 @@
 ---
 :verbose: true
 :pidfile: /tmp/sidekiq.pid
+:logfile: ./log/sidekiq.log
 :concurrency: 5
 :queues:
  - [recommendvariations,3]
