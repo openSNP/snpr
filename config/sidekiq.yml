@@ -23,8 +23,8 @@
  - [snpedia]
  - [fixphenotypes]
 :limits:
-    recommendvariations: 3
-    recommendphenotypes: 3
+    recommendvariations: 1
+    recommendphenotypes: 1
     preparse: 2
     parse: 2
     zipgenotyping: 1
