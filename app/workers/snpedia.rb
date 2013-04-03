@@ -4,7 +4,7 @@ require 'media_wiki'
 
 class Snpedia
    include Sidekiq::Worker
-   sidekiq_options :queue => :snpedia, :retry => 5
+   sidekiq_options :queue => :snpedia, :retry => 5, :unique => true
 
    def perform(snp_id)
       @snp = Snp.find(snp_id)

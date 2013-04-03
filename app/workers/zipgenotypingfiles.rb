@@ -2,7 +2,7 @@
 
 class Zipgenotypingfiles
   include Sidekiq::Worker
-  sidekiq_options :queue => :zipgenotyping, :retry => 5
+  sidekiq_options :queue => :zipgenotyping, :retry => 5, :unique => true
 
   def perform(phenotype_id, variation, target_address)
     @user_phenotypes = UserPhenotype.search do

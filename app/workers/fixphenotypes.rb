@@ -2,7 +2,7 @@
 
 class Fixphenotypes
   include Sidekiq::Worker
-  sidekiq_options :queue => :fixphenotypes, :retry => 5
+  sidekiq_options :queue => :fixphenotypes, :retry => 5, :unique => true
 
   def perform()
     Rails.logger.level = 0

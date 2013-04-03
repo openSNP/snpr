@@ -2,7 +2,7 @@
 
 class Mailnewphenotype
   include Sidekiq::Worker
-  sidekiq_options :queue => :mailnewgenotype, :retry => false # avoid spam on breakage
+  sidekiq_options :queue => :mailnewgenotype, :unique => true, :retry => false # avoid spam on breakage
 
   def perform(phenotype_id,user_id)
     @phenotype = Phenotype.find_by_id(phenotype_id)

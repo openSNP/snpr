@@ -3,7 +3,7 @@ require 'open-uri'
 
 class PgpAnnotationjob
   include Sidekiq::Worker
-  sidekiq_options :queue => :pgp, :retry => 5
+  sidekiq_options :queue => :pgp, :retry => 5, :unique => true
   
   def perform()
     puts "Running PgpAnnotationJob\n"

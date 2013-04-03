@@ -4,7 +4,7 @@ require 'rexml/document'
 
 class Plos
   include Sidekiq::Worker
-  sidekiq_options :queue => :plos, :retry => 5
+  sidekiq_options :queue => :plos, :retry => 5, :unique => true
 
   def is_illegal_snp(name)
     # we don't need mitochondrial or VG-SNPs as these just result in noise

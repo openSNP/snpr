@@ -1,6 +1,6 @@
 class DeleteGenotype
   include Sidekiq::Worker
-  sidekiq_options :queue => :deletegenotype, :retry => 5
+  sidekiq_options :queue => :deletegenotype, :retry => 5, :unique => true
 
   def perform(params)
     user_snps = UserSnp.where(genotype_id: params["genotype_id"].to_i).all
