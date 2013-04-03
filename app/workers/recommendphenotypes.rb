@@ -15,7 +15,7 @@ end
 
 class Recommendphenotypes
   include Sidekiq::Worker
-  sidekiq_options :queue => :recommendphenotypes, :retry => 5, :unique => true
+  sidekiq_options :queue => :recommend, :retry => 5, :unique => true
 
   def perform()
    recommender = UserRecommender.new

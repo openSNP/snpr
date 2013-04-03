@@ -10,8 +10,7 @@
  - [mailnewgenotype, 10]
  - [zipgenotyping,5]
  - [zipfulldata,5]
- - [recommendvariations,5]
- - [recommendphenotypes,5]
+ - [recommend,5]
  - [preparse,3]
  - [parse,3]
  - [fitbit,1]
@@ -25,8 +24,7 @@
  - [snpedia,1]
  - [fixphenotypes,1]
 :limits:
-    recommendvariations: 1
-    recommendphenotypes: 1
+    recommend: 1
     preparse: 2
     parse: 2
     zipgenotyping: 1
