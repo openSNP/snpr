@@ -2,7 +2,9 @@
 :verbose: true
 :pidfile: /tmp/sidekiq.pid
 :logfile: ./log/sidekiq.log
+:global: true
 :concurrency: 10
+
 :queues:
  - [deletegenotype, 10]
  - [mailnewgenotype, 10]
@@ -12,16 +14,16 @@
  - [recommendphenotypes,5]
  - [preparse,3]
  - [parse,3]
- - [fitbit]
- - [frequency]
- - [genomegov]
- - [mendeley_details]
- - [mendeley]
- - [pgp]
- - [plos_details]
- - [plos]
- - [snpedia]
- - [fixphenotypes]
+ - [fitbit,1]
+ - [frequency,1]
+ - [genomegov,1]
+ - [mendeley_details,1]
+ - [mendeley,1]
+ - [pgp,1]
+ - [plos_details,1]
+ - [plos,1]
+ - [snpedia,1]
+ - [fixphenotypes,1]
 :limits:
     recommendvariations: 1
     recommendphenotypes: 1
