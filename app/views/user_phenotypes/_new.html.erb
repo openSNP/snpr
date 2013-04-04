@@ -1,4 +1,4 @@
-<% form_for(phenotype.user_phenotypes.new,:url => {:controller => :user_phenotypes, :action => :create,:js_modal => true}, :html => {:class => "form-horizontal"}) do |up| %>
+<%= form_for(phenotype.user_phenotypes.new,:url => {:controller => :user_phenotypes, :action => :create,:js_modal => true}, :html => {:class => "form-horizontal"}) do |up| %>
   <%= up.text_field :variation, :id => "phenotype_field"+phenotype.id.to_s %>
   <%= up.hidden_field :phenotype_id, { value: phenotype.id } %>
 <br/><br/>
