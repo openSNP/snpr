@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="span6">
-<% form_for @fitbit_profile, :url => fitbit_update_path, :method => :post, :html => {:class => "form-horizontal"} do |f|%>
+<%= form_for @fitbit_profile, :url => fitbit_update_path, :method => :post, :html => {:class => "form-horizontal"} do |f|%>
 <h5> For which categories should we save data?</h5>
   <%= f.error_messages %>
   <%= f.check_box :body %> Body (Weight and Body Mass Index)<br />
