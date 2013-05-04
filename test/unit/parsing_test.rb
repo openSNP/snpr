@@ -20,7 +20,7 @@ class ParsingTest < ActiveSupport::TestCase
 
     should "parse 23andMe data" do
       FileUtils.cp @file_23andMe, @temp_file
-      Parsing.perform(@genotype_23andme.id, @temp_file)
+      Parsing.new.perform(@genotype_23andme.id, @temp_file)
 
       # Snp
       snp_data = Snp.all.map do |s|
@@ -51,7 +51,7 @@ class ParsingTest < ActiveSupport::TestCase
 
     should "parse deCODEme data" do
       FileUtils.cp @file_deCODEme, @temp_file
-      Parsing.perform(@genotype_decodeme.id, @temp_file)
+      Parsing.new.perform(@genotype_decodeme.id, @temp_file)
 
       # Snp
       snp_data = Snp.all.map do |s|

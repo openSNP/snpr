@@ -55,7 +55,7 @@ class GenotypesControllerTest < ActionController::TestCase
                      "#{Rails.root}/test/fixtures")
         genotype_file = fixture_file_upload('testdatensatz1_23andme.txt')
         genotype_file.content_type = 'text/plain'
-        Resque.expects(:enqueue).with(Preparsing, is_a(Fixnum))
+        Sidekiq::Client.expects(:enqueue).with(Preparsing, is_a(Fixnum))
         assert_difference 'UserAchievement.count' do
           assert_difference 'Genotype.count' do
             put :create, commit: "Upload", genotype:
