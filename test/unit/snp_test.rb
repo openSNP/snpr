@@ -7,7 +7,7 @@ class SnpTest < ActiveSupport::TestCase
     end
 
     context "papers" do
-      should "be updated whan older than 31 days" do
+      should "be updated when older than 31 days" do
         @snp.mendeley_updated = @snp.snpedia_updated = @snp.plos_updated = 32.days.ago
         @snp.save
         queue = sequence('queue')
