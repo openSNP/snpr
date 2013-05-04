@@ -1,6 +1,8 @@
+language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
 rvm:
   - 1.9.2
   - 1.9.3
+  - 2.0.0
 env: DB=postgres CI=1
 before_install: 
   - git clone git://github.com/redis/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
@@ -11,6 +13,8 @@ before_script:
   - echo "bar" > mail_password.txt
   - echo "anyOleBollocks" > secret_token
   - psql -c 'create database snpr_test;' -U postgres
-script: "bundle install"
+# script: "bundle install" # this is automatically run by travis-ci
+services:
+  - redis-server
 script: "bundle exec rake --trace db:migrate test"
 
