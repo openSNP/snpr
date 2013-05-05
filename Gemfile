@@ -38,7 +38,7 @@ gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
 gem 'paperclip', '~> 3.0'
-gem 'friendly_id', :git => 'git://github.com/norman/friendly_id.git'
+gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git'
 gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
 # for jobs
