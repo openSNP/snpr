@@ -5,7 +5,7 @@ class SnpsControllerTest < ActionController::TestCase
   context "Snps" do
     setup do
       activate_authlogic
-      Resque.stubs(:enqueue)
+      Sidekiq::Client.stubs(:enqueue)
       @user = FactoryGirl.create(:user)
       @snp = FactoryGirl.create(:snp)
       @snp_comment = FactoryGirl.create(:snp_comment, snp: @snp, user: @user)
