@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124085042) do
+ActiveRecord::Schema.define(:version => 20130608135719) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20130124085042) do
     t.datetime "updated_at",   :null => false
     t.integer  "snp_id"
   end
+
+  add_index "mendeley_papers", ["snp_id"], :name => "index_mendeley_papers_on_snp_id"
 
   create_table "messages", :force => true do |t|
     t.text     "subject"
