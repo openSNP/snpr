@@ -10,6 +10,10 @@ namespace :snps do
     f.write("SNP\tPosition\tChromosome\tYear\tFirst Author\tTitle\tDOI\tOpen Access\tLink\n")
     MendeleyPaper.find_each do |m|
       parental = m.snp
+      if parental == nil
+        puts m.snp_id
+        next
+      end
       position = parental.position
       name = parental.name
       chrom = parental.chromosome
@@ -26,6 +30,10 @@ namespace :snps do
     f.write("SNP\tPosition\tChromosome\tSummary\tLink\n")
     SnpediaPaper.find_each do |sn|
       parental = sn.snp
+      if parental == nil
+        puts m.snp_id
+        next
+      end
       position = parental.position
       name = parental.name
       chrom = parental.chromosome
@@ -38,6 +46,10 @@ namespace :snps do
     f.write("SNP\tPosition\tChromosome\tFirst author\tTitle\tDOI\tYear\n")
     PlosPaper.find_each do |sp|
       parental = sp.snp
+      if parental == nil
+        puts m.snp_id
+        next
+      end
       position = parental.position
       name = parental.name
       chrom = parental.chromosome
@@ -53,6 +65,10 @@ namespace :snps do
     f.write("SNP\tPosition\tChromosome\tGene\tQualified Impact\tInheritance\tSummary\tTrait\n")
     PgpAnnotation.find_each do |spg|
       parental = sp.snp
+      if parental == nil
+        puts m.snp_id
+        next
+      end
       position = parental.position
       name = parental.name
       chrom = parental.chromosome
@@ -68,6 +84,10 @@ namespace :snps do
     f.write("SNP\tPosition\tChromosome\tFirst author\tTitle\tPubmed-link\tYear\tJournal\tTrait\tp-value\tp-value description\tConfidence Interval\n")
     GenomeGovPaper.find_each do |gg|
       parental = gg.snp
+      if parental == nil
+        puts m.snp_id
+        next
+      end
       position = parental.position
       name = parental.name
       chrom = parental.chromosome

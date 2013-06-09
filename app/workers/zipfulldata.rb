@@ -28,6 +28,7 @@ class Zipfulldata
 
   def run(target_address)
     genotypes = Genotype.includes(user: :user_phenotypes).all
+    log "Got #{genotypes.length} genotypes"
 
     # only try to create csv & zip-file if there is data at all.
     if genotypes.empty?
@@ -42,7 +43,9 @@ class Zipfulldata
     end
 
     begin
+      log "Making tmpdir #{tmp_dir}"
       Dir.mkdir(tmp_dir)
+      log "Starting zipfile #{zip_fs_path}"
       Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
         create_fitbit_csv(zipfile)
