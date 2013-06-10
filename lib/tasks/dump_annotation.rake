@@ -88,8 +88,12 @@ namespace :snps do
       end
     end
 
+    # get rid of old Zip
+    if File.exist? "#{Rails.root}/public/annotation.zip"
+      File.delete("#{Rails.root}/public/annotation.zip")
+    end
+
     # now zip the CSVs and put the zip into /public
-    File.delete("#{Rails.root}/public/annotation.zip")
     Zip::ZipFile.open("#{Rails.root}/public/annotation.zip", Zip::ZipFile::CREATE) do |zipfile|
       zipfile.add("genome_gov.csv", "#{Rails.root}/tmp/genome_gov.csv")
       zipfile.add("readme.txt", "#{Rails.root}/tmp/readme.txt")

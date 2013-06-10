@@ -22,7 +22,7 @@ def destroy(set, type)
     end
     # delete
     puts "Want to destroy: #{s.inspect}"
-    # type.destroy(s)
+    type.destroy(s)
   end
 end
 
