@@ -2,9 +2,11 @@ require 'csv'
 namespace :snps do
   desc "Iterates over all SNPs, writes a CSV of annotation into public/"
   task :dump => :environment do
-    readme = File.new("#{Rails.root}/tmp/readme.txt", "w")
+    readme = File.new("#{Rails.root}/tmp/readme.txt", "w")t
     # get date
     readme.write("File created at: #{Time.now}\n")
+    readme.write("PLOS and Mendeley data is licensed under Creative Commons Attribution.\n")
+    readme.write("SNPedia data is licensed under Creative Commons Attribution-Noncommercial-Share Alike 3.0\n")
     readme.close()
     # dump mendeley
     CSV.open("#{Rails.root}/tmp/mendeley.csv", "wb") do |csv|
