@@ -1,5 +1,5 @@
 <h4>
- <%=link_to("Download all SNP annotations", image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"), "/annotation.zip")%> <%=link_to("Download annotation dump: Includes all annotations for all SNPs","/annotation.zip", :title => "Request download")%>
+    <%= link_to image_tag("/images/filedownload_small.png",:style => "vert   ical-align:middle"), "/data/annotation.zip"  %> <%= link_to "Download the annotation dump: Includes annotation for all SNPs from all sources", "/data/annotation.zip" %>
 </h4>
 <legend>Listing all SNPs</legend>
 <table class="table table-striped" id="no_snp_overview">
