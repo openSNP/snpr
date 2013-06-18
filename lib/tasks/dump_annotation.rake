@@ -2,7 +2,7 @@ require 'csv'
 namespace :snps do
   desc "Iterates over all SNPs, writes a CSV of annotation into public/"
   task :dump => :environment do
-    readme = File.new("#{Rails.root}/tmp/readme.txt", "w")t
+    readme = File.new("#{Rails.root}/tmp/readme.txt", "w")
     # get date
     readme.write("File created at: #{Time.now}\n")
     readme.write("PLOS and Mendeley data is licensed under Creative Commons Attribution.\n")
@@ -13,7 +13,7 @@ namespace :snps do
       csv << ["Name", "Position", "Chromosome", "Year", "First author", "Title", "DOI", "Open Access status", "Link"]
       MendeleyPaper.find_each do |m|
         parental = m.snp
-        position = parental.position
+        position = parental.position.strip
         name = parental.name
         chrom = parental.chromosome
         first_author = m.first_author
@@ -30,7 +30,7 @@ namespace :snps do
       csv << ["Name", "Position", "Chromosome", "Summary", "Link"]
       SnpediaPaper.find_each do |sn|
         parental = sn.snp
-        position = parental.position
+        position = parental.position.strip
         name = parental.name
         chrom = parental.chromosome
         summary = sn.summary
@@ -43,7 +43,7 @@ namespace :snps do
       csv << ["Name", "Position", "Chromosome", "Year", "First author", "Title", "DOI"]
       PlosPaper.find_each do |sp|
         parental = sp.snp
-        position = parental.position
+        position = parental.position.strip
         name = parental.name
         chrom = parental.chromosome
         first_author = sp.first_author
@@ -57,8 +57,8 @@ namespace :snps do
     CSV.open("#{Rails.root}/tmp/pgp.csv", "wb") do |csv|
       csv << ["Name", "Position", "Chromosome", "Gene", "Qualified Impact", "Inheritance", "Summary", "Trait"]
       PgpAnnotation.find_each do |spg|
-        parental = sp.snp
-        position = parental.position
+        parental = spg.snp
+        position = parental.position.strip
         name = parental.name
         chrom = parental.chromosome
         gene = spg.gene
@@ -74,7 +74,7 @@ namespace :snps do
       csv << ["Name", "Position", "Chromosome", "First Author", "Title", "Pubmed link", "Year", "Journal", "Trait", "p-value", "p-value description", "Confidence Interval"]
       GenomeGovPaper.find_each do |gg|
         parental = gg.snp
-        position = parental.position
+        position = parental.position.strip
         name = parental.name
         chrom = parental.chromosome
         author = gg.first_author
@@ -86,17 +86,17 @@ namespace :snps do
         pvalue = gg.pvalue
         pvalue_description = gg.pvalue_description
         conf = gg.confidence_interval
-        csv << [name, position, chrom, first_author, title, pubmed, year, journal, trait, pvalue, pvalue_description, conf]
+        csv << [name, position, chrom, author, title, pubmed, year, journal, trait, pvalue, pvalue_description, conf]
       end
     end
 
     # get rid of old Zip
-    if File.exist? "#{Rails.root}/public/annotation.zip"
-      File.delete("#{Rails.root}/public/annotation.zip")
+    if File.exist? "#{Rails.root}/public/data/annotation.zip"
+      File.delete("#{Rails.root}/public/data/annotation.zip")
     end
 
     # now zip the CSVs and put the zip into /public
-    Zip::ZipFile.open("#{Rails.root}/public/annotation.zip", Zip::ZipFile::CREATE) do |zipfile|
+    Zip::ZipFile.open("#{Rails.root}/public/data/annotation.zip", Zip::ZipFile::CREATE) do |zipfile|
       zipfile.add("genome_gov.csv", "#{Rails.root}/tmp/genome_gov.csv")
       zipfile.add("readme.txt", "#{Rails.root}/tmp/readme.txt")
       zipfile.add("pgp.csv", "#{Rails.root}/tmp/pgp.csv")
@@ -104,6 +104,7 @@ namespace :snps do
       zipfile.add("plos.csv", "#{Rails.root}/tmp/plos.csv")
       zipfile.add("snpedia.csv", "#{Rails.root}/tmp/snpedia.csv")
     end
+    FileUtils.chmod(0665, "#{Rails.root}/public/data/annotation.zip")
     # delete the CSVs?
   end
 end
