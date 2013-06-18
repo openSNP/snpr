@@ -5,8 +5,11 @@ namespace :snps do
     readme = File.new("#{Rails.root}/tmp/readme.txt", "w")
     # get date
     readme.write("File created at: #{Time.now}\n")
-    readme.write("PLOS and Mendeley data is licensed under Creative Commons Attribution.\n")
-    readme.write("SNPedia data is licensed under Creative Commons Attribution-Noncommercial-Share Alike 3.0\n")
+    readme.write("PLOS data is licensed under Creative Commons Attribution.\nhttp://creativecommons.org/licenses/by/3.0/\nWebsite: http://api.plos.org\n")
+    readme.write("Mendeley data is licensed under Create Commons Attribution.\nhttp://creativecommons.org/licenses/by/3.0/\nWebsite: http://apidocs.mendeley.com/\n")
+    readme.write("SNPedia data is licensed under Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported.\nhttp://creativecommons.org/licenses/by-nc-sa/3.0/us/\nWebsite: http://snpedia.com/index.php/SNPedia:FAQ#Legal_.2F_Licensing\n")
+    readme.write("Genome.gov data is in the public domain.\nWebsite: http://www.genome.gov/copyright.cfm\n")
+    readme.write("Personal Genome Project is licensed under CC0.\nhttp://creativecommons.org/publicdomain/zero/1.0/\nWebsite: http://evidence.personalgenomes.org/about\n")
     readme.close()
     # dump mendeley
     CSV.open("#{Rails.root}/tmp/mendeley.csv", "wb") do |csv|
