@@ -86,7 +86,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @snp.plos_paper.each do |p|%>
+          <% @snp.plos_paper.limit(100).each do |p|%>
             <tr>
               <td><%=p.first_author%></td> 
               <td><%=link_to(p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
@@ -117,7 +117,7 @@
           </tr>
         </thead>
         <tbody>
-          <%@snp.genome_gov_paper.each do |p|%>
+          <%@snp.genome_gov_paper.limit(100).each do |p|%>
             <tr>
               <td><%=p.first_author%></td>
               <td><%=link_to(p.title.html_safe,p.pubmed_link)%></td>
@@ -148,7 +148,7 @@
           </tr>
         </thead>
         <tbody>
-          <%@snp.pgp_annotation.each do |p|%>
+          <%@snp.pgp_annotation.limit(100).each do |p|%>
             <tr>
               <td><%=p.gene%></td>
               <td><%=p.qualified_impact%></td>
@@ -177,7 +177,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @snp.mendeley_paper.each do |p|%>
+          <% @snp.mendeley_paper.limit(100).each do |p|%>
             <tr>
               <td><%=p.first_author%></td>
               <td><%=link_to( p.title, p.mendeley_url)%></td>
@@ -208,7 +208,7 @@
           <th>Title</th>
           <th>Summary</th>
         </tr>
-        <% @snp.snpedia_paper.each do |p| %>
+        <% @snp.snpedia_paper.limit(100).each do |p| %>
           <% if current_user && @user_snp && p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype || current_user && @user_snp && p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype %>
             <tr>
               <td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
