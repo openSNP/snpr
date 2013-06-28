@@ -10,7 +10,7 @@
   <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.cursor.min.js"></script>
   <script class="include" language="javascript" type="text/javascript" src="/javascripts/jqplot.barRenderer.min.js"></script>
 
-<%if @activity != nil%>
+<%if @activity and @activity != [] %>
   <legend>Activity Measurements</legend>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -98,7 +98,7 @@
   <div id="chart2"></div>
 <%end%>
 
-<%if @body != nil%>
+<%if @body and @body != [] %>
   <legend>Body Measurements</legend>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -138,7 +138,8 @@
   </script>
   <div id="chart3"></div>
 <%end%>
-<%if @sleep != nil%>
+
+<%if @sleep and  @sleep != [] %>
   <legend>Sleep Measurements</legend>
   <script type="text/javascript">
   $(document).ready(function(){
