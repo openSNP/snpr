@@ -7,13 +7,13 @@ class DeleteGenotype
     # now parse through all user_snps, delete the relevant SNP if the user_snp
     # is the only one, then delete the user_snp
     user_snps.each do |us|
-        if UserSnp.where(snp_name: us.snp_name).count == 1
-            # This user_snp is the only one, so, destroy the Snp,
-            # which destroys the UserSnp implicitly
-            Snp.where(name: us.snp_name).destroy_all
-        else
-        end
-        UserSnp.delete(us)
+      if us.snp.user_snps.count == 1
+        # This user_snp is the only one, so, destroy the Snp,
+        # which destroys the UserSnp implicitly
+        us.snp.destroy
+      else
+        us.destroy
+      end
     end
   end
 end

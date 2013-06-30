@@ -22,7 +22,7 @@ class SnpsController < ApplicationController
 
     @user_snp = nil
     if current_user
-      @user_snp = UserSnp.find_by_user_id_and_snp_name(current_user, @snp.name)
+      @user_snp = @snp.user_snps.where(user_id: current_user.id).first
       @local_genotype = @user_snp.try(:local_genotype) || ''
     end
 
@@ -177,8 +177,7 @@ class SnpsController < ApplicationController
         @result["snp"]["chromosome"] = @snp.chromosome
         @result["snp"]["position"] = @snp.position
 
-        @user_snps = UserSnp.find_all_by_user_id_and_snp_name(params[:user_id],
-                       params[:snp_name].downcase)
+        @user_snps = @snp.user_snps.where(user_id: params[:user_id])
         @user = User.find_by_id(params[:user_id])
         @genotypes_array = []
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608135719) do
+ActiveRecord::Schema.define(:version => 20130630074416) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -290,11 +290,7 @@ ActiveRecord::Schema.define(:version => 20130608135719) do
     t.integer  "snp_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.string   "snp_name"
   end
-
-  add_index "user_snps", ["snp_name", "user_id"], :name => "index_user_snps_on_user_id_and_snp_name"
-  add_index "user_snps", ["snp_name"], :name => "index_user_snps_on_snp_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"
