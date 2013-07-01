@@ -6,8 +6,8 @@ class UserSnpsController < ApplicationController
   def index
     @local_genotype = params[:local_genotype].presence
     if params[:snp_name].present?
-      @user_snps = UserSnp.joins(:snp).
-        where(['snps.name = ?', params[:snp_name]]).includes(:user)
+      @user_snps = Snp.find_by_name(params[:snp_name]).user_snps.
+        includes(:user)
       render layout: false
     else
       render text: "Something went wrong.", layout: false
