@@ -17,10 +17,10 @@ class Parsing
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
       known_snps = {}
-      Snp.find_each do |s| known_snps[s.name] = true end
+      Snp.find_each {|s| known_snps[s.name] = s.id }
       
-      known_user_snps = {}  
-      UserSnp.where("user_id" => @genotype.user_id).find_each do |us| known_user_snps[us.snp_name] = true end
+      known_user_snps = UserSnp.joins(:snp).where(user_id: @genotype.user_id).
+        pluck(:name)
         
       new_snps = []
       new_user_snps = []
@@ -100,18 +100,16 @@ class Parsing
         if snp_array[0] != nil and snp_array[1] != nil and snp_array[2] != nil and snp_array[3] != nil
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
-          snp = known_snps[snp_array[0].downcase]
-          if snp.nil?  
+          if known_snps[snp_array[0].downcase].blank?
             snp = Snp.new(:name => snp_array[0].downcase, :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
             snp.default_frequencies
             new_snps << snp
           end
           
-          new_user_snp = known_user_snps[snp_array[0].downcase]
-          if new_user_snp.nil?
-            new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
-          else
+          if known_user_snps.include?(snp_array[0].downcase)
             log "already known user-snp"
+          else
+            new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
           end
         else
           UserMailer.parsing_error(@genotype.user_id).deliver
@@ -121,8 +119,15 @@ class Parsing
       log "Importing #{new_snps.length} new Snps"
       Snp.import new_snps
 
+      known_snps = {}
+      Snp.find_each {|s| known_snps[s.name] = s.id }
+      new_user_snps.map! do |us|
+        us[2] = known_snps[us[2]]
+        us
+      end
+
       log "Importing new UserSnps"
-      user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
+      user_snp_columns = [ :genotype_id, :user_id, :snp_id, :local_genotype ]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
       log "Done."
       puts "done with #{temp_file}"

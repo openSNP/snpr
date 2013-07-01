@@ -43,12 +43,12 @@ class DasController < ApplicationController
                        @snps.each do |s|
                            # there is only one user_snp for each snps
                            if @types != []
-                             @single_user_snp = UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                             @single_user_snp = s.user_snps.find_by_user_id(@user.id)
                              if @types.include? @single_user_snp.local_genotype
                                @tmp_user_snps << @single_user_snp
                              end
                            else
-                             @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                             @tmp_user_snps << s.user_snps.find_by_user_id(@user.id)
                            end
                        end
 
@@ -61,12 +61,12 @@ class DasController < ApplicationController
                        @snps.each do |s|
                            # there is only one user_snp for each snps
                            if @types != []
-                             @single_user_snp = UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                             @single_user_snp = s.user_snps.find_by_user_id(@user.id)
                              if @types.include? @single_user_snp.local_genotype
                                @tmp_user_snps << @single_user_snp
                              end
                            else
-                             @tmp_user_snps << UserSnp.find_by_user_id_and_snp_name(@user.id, s.name)
+                             @tmp_user_snps << s.user_snps.find_by_user_id(@user.id)
                            end
                        end
                        
