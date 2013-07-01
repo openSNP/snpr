@@ -5,10 +5,10 @@ class Frequency
   sidekiq_options :queue => :frequency, :retry => 5, :unique => true
 
   def perform(snp_id)
-    s = Snp.find_by_id(snp_id)
+    s = Snp.find(snp_id)
     s.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
     s.genotype_frequency ||= {}
-    UserSnp.where(:snp_name => s.name).find(:all).each do |us|
+    s.user_snps.find_each do |us|
       if s.allele_frequency.has_key?(us.local_genotype[0].chr)
         s.allele_frequency[us.local_genotype[0].chr] += 1
       else

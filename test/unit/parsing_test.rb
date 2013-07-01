@@ -41,11 +41,10 @@ class ParsingTest < ActiveSupport::TestCase
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w[ AA AA GG AG AG ]
       assert_equal expected_genotypes, user_snp_genotypes
-      snp_names = Snp.all.map(&:name)
       user_snps.each do |s|
         assert_equal @genotype_23andme.id, s.genotype_id
         assert_equal @genotype_23andme.user.id, s.user_id
-        assert snp_names.include?(s.snp_name)
+        assert Snp.pluck(:id).include?(s.snp_id)
       end
     end
 
@@ -72,11 +71,10 @@ class ParsingTest < ActiveSupport::TestCase
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w[ AA CC TT CC TT ]
       assert_equal expected_genotypes, user_snp_genotypes
-      snp_names = Snp.all.map(&:name)
       user_snps.each do |s|
         assert_equal @genotype_decodeme.id, s.genotype_id
         assert_equal @genotype_decodeme.user.id, s.user_id
-        assert snp_names.include?(s.snp_name)
+        assert Snp.pluck(:id).include?(s.snp_id)
       end
     end
   end
