@@ -12,7 +12,7 @@ class Zipfulldata
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
     log("job started")
-    new.run(target_address)
+    run(target_address)
     log("job done")
   end
 
