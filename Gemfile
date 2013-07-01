@@ -44,7 +44,7 @@ gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref 
 # for jobs
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
-gem 'slim'
+gem 'slim', '~> 1.3.8'
 gem 'sinatra'
 
 #group :production do
