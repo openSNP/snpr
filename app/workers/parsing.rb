@@ -50,7 +50,15 @@ class Parsing
           log snp_array
         elsif @genotype.filetype == "23andme"
           snp_array = single_snp.split("\t")
-
+          
+        elsif @genotype.filetype == "ancestry"
+          temp_array = single_snp.split("\t")
+          if temp_array[0] != "rsid"
+            snp_array = [temp_array[0],temp_array[1],temp_array[3],temp_array[4]+temp_array[5]]
+          else
+            next
+          end
+          
         elsif @genotype.filetype == "decodeme"
           temp_array = single_snp.split(",")
           if temp_array[0] != "Name"

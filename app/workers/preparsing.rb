@@ -85,6 +85,12 @@ class Preparsing
             log "file is 23andme and is ok!"
             file_is_ok = true
         end
+    elsif @genotype.filetype == "ancestry"
+      # first line is of length 5
+      if l.split("\t").length == 5
+            file_is_ok = true
+            log "file is ancestry and is ok!"
+      end
     elsif @genotype.filetype == "decodeme"
         # first line is of length 6
         if l.split(",").length == 6

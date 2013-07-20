@@ -26,6 +26,10 @@
               <span>FamilyTreeDNA, Illumina-Format <b>(unzipped)</b></span>
             </label>
             <label class="radio">
+              <%= f.radio_button :filetype,"ancestry"%>
+              <span>AncestryDNA data <b>(unzipped)</b></span>
+            </label>
+            <label class="radio">
               <%= f.radio_button :filetype,"23andme-exome-vcf"%>
               <span>23andMe-EXOME, VCF-format <b>(unzipped)</b></span>
             </label>
