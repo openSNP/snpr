@@ -61,7 +61,7 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
 	<!-- OLD <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <tokenizer class="solr.ClassicTokenizerFactory"/>
         <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
@@ -69,13 +69,12 @@
 	<!-- NEW ours - here: https://github.com/outoftime/sunspot/wiki/Wildcard-searching-with-ngrams -->
 	<fieldType name="text" class="solr.TextField" omitNorms="false">
 	  <analyzer type="index">
-		<tokenizer class="solr.StandardTokenizerFactory"/>
+		<tokenizer class="solr.ClassicTokenizerFactory"/>
 		<filter class="solr.StandardFilterFactory"/>
 		<filter class="solr.LowerCaseFilterFactory"/>
-		<filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
 	  </analyzer>
 	  <analyzer type="query">
-		<tokenizer class="solr.StandardTokenizerFactory"/>
+		<tokenizer class="solr.ClassicTokenizerFactory"/>
 		<filter class="solr.StandardFilterFactory"/>
 		<filter class="solr.LowerCaseFilterFactory"/>
 	  </analyzer>

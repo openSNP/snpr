@@ -244,9 +244,9 @@ ActiveRecord::Schema.define(:version => 20130630074416) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2013-02-11 18:14:24'
-    t.datetime "plos_updated",       :default => '2013-02-11 18:14:24'
-    t.datetime "snpedia_updated",    :default => '2013-02-11 18:14:24'
+    t.datetime "mendeley_updated",   :default => '2013-06-07 18:32:43'
+    t.datetime "plos_updated",       :default => '2013-06-07 18:32:43'
+    t.datetime "snpedia_updated",    :default => '2013-06-07 18:32:43'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end
