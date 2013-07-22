@@ -35,3 +35,9 @@ Note: "serverscript" starts all these in detached screen-sessions.
 = To do
 
 Check the issues-page for things to fix/finish/do.
+
+= Dependencies
+
+For Fedora 19:
+
+  yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libxslt libxml2 libxml2-devel
