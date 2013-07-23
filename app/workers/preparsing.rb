@@ -10,6 +10,10 @@ class Preparsing
     Rails.logger = Logger.new("#{Rails.root}/log/preparsing_#{Rails.env}.log")
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
     @genotype = Genotype.find(genotype_id)
+    if not @genotype
+      log "Genotype #{genotype_id} has already been deleted"
+      return
+    end
     filename = "#{Rails.root}/public/data/#{@genotype.fs_filename}"
     
     log "Starting preparse"
