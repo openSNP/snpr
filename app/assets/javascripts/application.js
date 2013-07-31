@@ -1,22 +1,16 @@
-//= require ./jquery-1.7.1.min
-//= require ./jquery.tablesorter.min
-//= require ./jquery.ba-hashchange.min
-//= require ./jquery.easytabs
-//= require ./jquery-ui-1.8.16.custom.min
-//= require ./bootstrap-alert
-//= require ./bootstrap-modal
-//= require ./bootstrap-tooltip
-//= require ./bootstrap-popover
+//= require jquery
+//= require jquery_ujs
+//= require twitter/bootstrap
+//= require ./dalliance-compiled.js
 //= require ./jquery.jqplot.min
-//= require ./jqplot.pieRenderer.min
-//= require ./jqplot.highlighter.min
-//= require ./jqplot.dateAxisRenderer.min
-//= require ./jqplot.cursor.min
-//= require ./jqplot.barRenderer.min
-//= require ./bootstrap-collapse
-//= require ./nested_form
+//= require ./jqplot.barRenderer.min.js
+//= require ./jqplot.cursor.min.js
+//= require ./jqplot.dateAxisRenderer.min.js
+//= require ./jqplot.highlighter.min.js
+//= require ./jqplot.pieRenderer.min.js
+//= require ./jquery.easytabs
+//= require jquery_nested_form
 //= require_self
-
 
 $(document).ready(function() { 
     $('#update_user').click(function() {
@@ -24,8 +18,8 @@ $(document).ready(function() {
         setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
     });
 
-    $("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
-    $("#PaperPlos").tablesorter({sortList: [[2,1]]});
+    //$("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
+    //$("#PaperPlos").tablesorter({sortList: [[2,1]]});
 
     $('#remove_help_one').click(function() {
         if( $('#help_three').is(":hidden") && $('#help_two').is(":hidden") ){
