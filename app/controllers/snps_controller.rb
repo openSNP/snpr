@@ -76,86 +76,106 @@ class SnpsController < ApplicationController
     end
   end
 
-  def json_annotation
-
-    @result = {}
-    begin 
-      @snp = Snp.find_by_name(params[:snp_name].downcase)
-      puts @snp.name
-      @result["snp"] = {}
-      @result["snp"]["name"] = @snp.name
-      @result["snp"]["chromosome"] = @snp.chromosome
-      @result["snp"]["position"] = @snp.position
-      @result["snp"]["annotations"] = {}
-      @result["snp"]["annotations"]["mendeley"] = []
-      puts "got snp-details"
-      @snp.mendeley_paper.each do |mp|
-        @mendeley = {}
-        @mendeley["author"] = mp.first_author
-        @mendeley["title"] = mp.title
-        @mendeley["publication_year"] = mp.pub_year
-        @mendeley["number_of_readers"] = mp.reader
-        @mendeley["open_access"] = mp.open_access
-        @mendeley["url"] = mp.mendeley_url
-        @mendeley["doi"] = mp.doi
-        @result["snp"]["annotations"]["mendeley"] << @mendeley
-      end
-      puts "got mendeley-details"
-      @result["snp"]["annotations"]["plos"] = []
-      @snp.plos_paper.each do |mp|
-        @plos = {}
-        @plos["author"] = mp.first_author
-        @plos["title"] = mp.title
-        @plos["publication_date"] = mp.pub_date
-        @plos["number_of_readers"] = mp.reader
-        @plos["url"] = "http://dx.doi.org/"+mp.doi
-        @plos["doi"] = mp.doi
-        @result["snp"]["annotations"]["plos"] << @plos
-      end
-      puts "got plos-details"
-      @result["snp"]["annotations"]["snpedia"] = []
-      @snp.snpedia_paper.each do |mp|
-        @snpedia = {}
-        @snpedia["url"] = mp.url
-        @snpedia["summary"] = mp.summary
-        @result["snp"]["annotations"]["snpedia"] << @snpedia
-      end
-      puts "got snpedia-details"
-      @result["snp"]["annotations"]["pgp_annotations"] = []
-      @snp.pgp_annotation.each do |p|
-        @pgp = {}
-        @pgp["gene"] = p.gene
-        @pgp["impact"] = p.qualified_impact
-        @pgp["inheritance"] = p.inheritance
-        @pgp["trait"] = p.trait
-        @pgp["summary"] = p.summary
-        @result["snp"]["annotations"]["pgp_annotations"] << @pgp
-      end
-      puts "got pgp details"
-      @result["snp"]["annotations"]["genome_gov_publications"] = []
-      @snp.genome_gov_paper.each do |g|
-        @gov = {}
-        @gov["title"] = g.title
-        @gov["first_author"] = g.first_author
-        @gov["pubmed_link"] = g.pubmed_link
-        @gov["publication_date"] = g.pub_date
-        @gov["journal"] = g.journal
-        @gov["trait"] = g.trait
-        @gov["pvalue"] = g.pvalue
-        @gov["pvalue_description"] = g.pvalue_description
-        @gov["confidence_interval"] = g.confidence_interval
-        @result["snp"]["annotations"]["genome_gov_publications"] << @gov
-      end
-      puts "got genome.gov details"
-    rescue
-      @result = {}
-      @result["error"] = "Sorry, we couldn't find SNP "+params[:snp_name].to_s
+  def make_annotation(result, snp, name)
+    result[name] = {}
+    result[name]["name"] = snp.name
+    result[name]["chromosome"] = snp.chromosome
+    result[name]["position"] = snp.position
+    result[name]["annotations"] = {}
+    result[name]["annotations"]["mendeley"] = []
+    puts "got snp-details"
+    snp.mendeley_paper.each do |mp|
+      @mendeley = {}
+      @mendeley["author"] = mp.first_author
+      @mendeley["title"] = mp.title
+      @mendeley["publication_year"] = mp.pub_year
+      @mendeley["number_of_readers"] = mp.reader
+      @mendeley["open_access"] = mp.open_access
+      @mendeley["url"] = mp.mendeley_url
+      @mendeley["doi"] = mp.doi
+      result[name]["annotations"]["mendeley"] << @mendeley
     end
-    
+    puts "got mendeley-details"
+    result[name]["annotations"]["plos"] = []
+    snp.plos_paper.each do |mp|
+      @plos = {}
+      @plos["author"] = mp.first_author
+      @plos["title"] = mp.title
+      @plos["publication_date"] = mp.pub_date
+      @plos["number_of_readers"] = mp.reader
+      @plos["url"] = "http://dx.doi.org/"+mp.doi
+      @plos["doi"] = mp.doi
+      result[name]["annotations"]["plos"] << @plos
+    end
+    puts "got plos-details"
+    result[name]["annotations"]["snpedia"] = []
+    snp.snpedia_paper.each do |mp|
+      snpedia = {}
+      snpedia["url"] = mp.url
+      snpedia["summary"] = mp.summary
+      result[name]["annotations"]["snpedia"] << snpedia
+    end
+    puts "got snpedia-details"
+    result[name]["annotations"]["pgp_annotations"] = []
+    snp.pgp_annotation.each do |p|
+      @pgp = {}
+      @pgp["gene"] = p.gene
+      @pgp["impact"] = p.qualified_impact
+      @pgp["inheritance"] = p.inheritance
+      @pgp["trait"] = p.trait
+      @pgp["summary"] = p.summary
+      result[name]["annotations"]["pgp_annotations"] << @pgp
+    end
+    puts "got pgp details"
+    result[name]["annotations"]["genome_gov_publications"] = []
+    snp.genome_gov_paper.each do |g|
+      @gov = {}
+      @gov["title"] = g.title
+      @gov["first_author"] = g.first_author
+      @gov["pubmed_link"] = g.pubmed_link
+      @gov["publication_date"] = g.pub_date
+      @gov["journal"] = g.journal
+      @gov["trait"] = g.trait
+      @gov["pvalue"] = g.pvalue
+      @gov["pvalue_description"] = g.pvalue_description
+      @gov["confidence_interval"] = g.confidence_interval
+      result[name]["annotations"]["genome_gov_publications"] << @gov
+    end
+    puts "got genome.gov details"
+    return result
+  end
+
+  def json_annotation
+    result = {}
+    if params[:snp_name].index(",")
+      snps = params[:snp_name].split(",")
+      snps.each do |s|
+        snp = Snp.find_by_name(s)
+        # did we get a SNP?
+        if snp
+          result = make_annotation(result, snp, snp.name)
+        else
+          # empty dictionary, else we get a half-filled dictionary for EXISTS, DOESN'T EXIST, EXISTS
+          result = {}
+          result["error"] = "Sorry, we couldn't find SNP " + s
+          # just stop. Alternative: we could put in one error per SNP?
+          break
+        end
+      end
+    else
+      snp = Snp.find_by_name(params[:snp_name].downcase)
+      if snp
+        puts snp.name
+        result = make_annotation(result, snp, "snp")
+      else
+        result["error"] = "Sorry, we couldn't find SNP " + params[:snp_name]
+      end
+    end
+
+    @result = result 
     respond_to do |format|
       format.json { render :json => @result } 
     end
-    
   end
         
     private
