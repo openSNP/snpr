@@ -89,10 +89,10 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     columnize (0.3.6)
     connection_pool (1.0.0)
-    debugger (1.6.0)
+    debugger (1.6.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.1)
+      debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.3)
     dynamic_form (1.1.4)
@@ -236,7 +236,7 @@ DEPENDENCIES
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
-  debugger (~> 1.6.0)
+  debugger
   dynamic_form
   factory_girl
   fitgem
