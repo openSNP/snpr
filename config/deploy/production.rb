@@ -1,3 +1,2 @@
-#server "opensnp.org", :app, :web, :primary => true
-set :deploy_to, "var/www/snpr"
-set :rails_env, "production"
+server "opensnp.org:57329", :app, :web, :db, :primary => true
+set :deploy_to, "/srv/www/#{application}"
