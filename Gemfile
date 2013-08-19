@@ -67,3 +67,6 @@ group :development, :test do
   gem 'sunspot_solr'
 end
 
+group :development do
+  gem 'capistrano-unicorn', :require => false
+end

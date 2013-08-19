@@ -81,6 +81,8 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    capistrano-unicorn (0.1.7)
+      capistrano
     celluloid (0.13.0)
       timers (>= 1.0.0)
     climate_control (0.0.3)
@@ -235,6 +237,7 @@ DEPENDENCIES
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
+  capistrano-unicorn
   debugger (~> 1.6.0)
   dynamic_form
   factory_girl
