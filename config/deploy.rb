@@ -1,5 +1,5 @@
 set :application, 'snpr'
-set :repository, "git@github.com:gedankenstuecke/#{application}.git"
+set :repository, "git://github.com/gedankenstuecke/#{application}.git"
 set :scm, :git
 set :user, application
 set :rails_env, "production"
@@ -17,3 +17,5 @@ set :rvm_type, :system
 
 after 'deploy:restart', 'unicorn:reload'
 after 'deploy:restart', 'unicorn:restart'
+
+
