@@ -5,14 +5,14 @@ set :user, application
 set :rails_env, "production"
 set :use_sudo, false
 set :default_stage, "production"
-set :stages, %w(production staging)
+set :stages, %w(production staging vagrant)
 
 require 'capistrano/ext/multistage'
 require "bundler/capistrano"
 require "rvm/capistrano"
 require 'capistrano-unicorn'
 
-set :rvm_ruby_string, "ruby-1.9.2-p290"
+set :rvm_ruby_string, "ruby-2.0.0-p247"
 set :rvm_type, :system
 
 after 'deploy:restart', 'unicorn:reload'
