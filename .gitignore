@@ -10,13 +10,16 @@ api_key.txt
 db/*.sqlite3
 log/*.log
 tmp/pids/server.pid
+tmp/cache
 public/data/*23andme*
 development.log
 server.pid
 *.swp
 solr/data
+solr/pids
 config/database.yml
 vendor/bundle
+vendor/cache
 public/data
 coverage
 hiredis/
@@ -26,3 +29,4 @@ config/app_config.yml
 config/newrelic.yml
 tmp/
 .vagrant
+.sass-cache/

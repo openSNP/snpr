@@ -110,7 +110,7 @@
 </div>
 <div id="fitbit">
   <div class="well">
-  <h2><%=image_tag("/images/fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
+  <h2><%=image_tag("fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
   <%if @user.fitbit_profile != nil%>
     <p class="lead">You have connected your <em>Fitbit</em> account with <em>openSNP</em></p>
     <p class="lead"><%=link_to("Edit your Fitbit connection" ,{:controller => "fitbit_profiles", :action => "edit"})%></p>

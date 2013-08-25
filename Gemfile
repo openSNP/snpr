@@ -4,6 +4,8 @@ gem 'rails', '~> 3.2'
 gem 'authlogic' # lots of user-related magic
 gem 'rails3-generators'
 gem "jquery-rails"
+gem "jquery-ui-rails"
+gem "twitter-bootstrap-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
@@ -18,7 +20,7 @@ gem 'fitgem'
 gem 'mendeley', git: 'git://github.com/tsujigiri/mendeley.git', branch: 'paging_search'
 
 # New Relic monitoring, off by default in development
-gem 'newrelic_rpm'
+#gem 'newrelic_rpm'
 
 # workaround for bug in Fedora
 gem 'minitest', '~> 4.3.2'
@@ -39,7 +41,7 @@ gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
 gem 'paperclip', '~> 3.0'
-gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git'
+gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git' 
 gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
 # for jobs
@@ -48,16 +50,23 @@ gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra'
 
-#group :production do
-#	gem 'rpm_contrib'
-#	gem 'newrelic_rpm'
-#end
+# JS
+gem 'execjs'
+gem 'therubyracer'
+
+
+group :assets do
+  gem 'sass-rails', " ~> 3.2.0"
+  gem 'coffee-rails', " ~> 3.2.0"
+  gem 'uglifier'
+  gem 'yui-compressor'
+end
 
 group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'debugger', "~> 1.6.0"  unless ENV['CI']
+  #gem 'debugger'  unless ENV['CI']
   gem 'sunspot_test', git: 'git://github.com/tsujigiri/sunspot_test.git', branch: 'dirty_quickfix'
   #gem "turn", "< 0.8.3" # truncates backtraces in the tests (bad)
   gem 'simplecov', require: false

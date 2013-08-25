@@ -47,4 +47,15 @@ Snpr::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # Compress JavaScript and CSS
+  config.assets.compress = true
+  config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :yui
+
+  # Don't fallback to assets pipeline
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
 end
