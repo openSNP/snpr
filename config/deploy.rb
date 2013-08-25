@@ -20,6 +20,6 @@ after 'deploy:restart', 'unicorn:restart'
 
 load 'lib/capistrano/tasks/helpers'
 load 'lib/capistrano/tasks/base'
+load 'lib/capistrano/tasks/assets'
 
 after 'deploy:update', 'deploy:migrate'
-after 'deploy:create_shared_dirs', 'deploy:assets:precompile'

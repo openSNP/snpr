@@ -40,7 +40,7 @@ gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
 gem 'paperclip', '~> 3.0'
-gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git', branch: '4.0-stable'
+gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
 # for jobs
@@ -49,8 +49,15 @@ gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra'
 
-gem 'therubyracer'
-gem 'execjs'
+group :assets do
+  gem 'therubyracer'
+  gem 'execjs'
+  gem 'uglifier'
+  gem 'yui-compressor'
+  gem "twitter-bootstrap-rails"
+  gem "jquery-ui-rails"
+  gem 'uglifier'
+end
 
 #group :production do
 #	gem 'rpm_contrib'
