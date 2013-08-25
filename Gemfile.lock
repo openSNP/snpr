@@ -1,8 +1,10 @@
 GIT
   remote: git://github.com/FriendlyId/friendly_id.git
-  revision: cc5ce00077b168523a95b195d9911e5576e6489f
+  revision: a65aba2bc595789b71af0728478b6939a8949e9e
+  branch: 4.0-stable
   specs:
-    friendly_id (5.0.0.alpha1)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
 
 GIT
   remote: git://github.com/paulasmuth/recommendify.git
@@ -14,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/ryanb/nested_form.git
-  revision: a25eebe8205e4e63899873b716535def6c1f5a9d
+  revision: 42028bc06e72a848d297edc1467a969a7c9def57
   specs:
     nested_form (0.3.2)
 
@@ -38,16 +40,12 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    POpen4 (0.1.4)
-      Platform (>= 0.4.0)
-      open4
-    Platform (0.4.0)
-    actionmailer (3.2.11)
-      actionpack (= 3.2.11)
-      mail (~> 2.4.4)
-    actionpack (3.2.11)
-      activemodel (= 3.2.11)
-      activesupport (= 3.2.11)
+    actionmailer (3.2.14)
+      actionpack (= 3.2.14)
+      mail (~> 2.5.4)
+    actionpack (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -77,7 +75,7 @@ GEM
       activerecord (>= 3.2)
       activesupport (>= 3.2)
     bartt-ssl_requirement (1.4.2)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.1)
     builder (3.0.4)
     capistrano (2.15.5)
       highline
@@ -85,14 +83,14 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    celluloid (0.13.0)
+    celluloid (0.14.1)
       timers (>= 1.0.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     columnize (0.3.6)
-    connection_pool (1.0.0)
+    connection_pool (1.1.0)
     debugger (1.6.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -105,31 +103,29 @@ GEM
       multi_json (~> 1.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
-    fitgem (0.6.1)
+    fitgem (0.8.0)
       oauth
     highline (1.6.19)
     hike (1.2.3)
     i18n (0.6.5)
     journey (1.0.4)
-    jquery-rails (2.2.1)
+    jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.4)
-      jquery-rails
-      railties (>= 3.1.0)
-    json (1.7.6)
-    libv8 (3.11.8.17)
-    mail (2.4.4)
-      i18n (>= 0.4.0)
+    json (1.8.0)
+    libv8 (3.16.14.3)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mediawiki-gateway (0.5.1)
+    mediawiki-gateway (0.5.2)
       activesupport
+      mediawiki-gateway
       rest-client (>= 1.3.0)
     metaclass (0.0.1)
     mime-types (1.24)
+    mini_portile (0.5.1)
     minitest (4.3.3)
-    mocha (0.13.3)
+    mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.7.9)
     net-scp (1.1.2)
@@ -139,16 +135,16 @@ GEM
     net-ssh (2.6.8)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    nokogiri (1.5.6)
+    newrelic_rpm (3.6.6.147)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     oauth (0.4.7)
-    open4 (1.3.0)
-    paperclip (3.4.0)
+    paperclip (3.5.1)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    pg (0.15.1)
+    pg (0.16.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     rack (1.4.5)
@@ -177,22 +173,14 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    raindrops (0.11.0)
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.5)
     redis (3.0.4)
-    redis-namespace (1.3.0)
+    redis-namespace (1.3.1)
       redis (~> 3.0.0)
     ref (1.0.5)
-    resque (1.23.0)
-      multi_json (~> 1.0)
-      redis-namespace (~> 1.0)
-      sinatra (>= 0.9.2)
-      vegas (~> 0.1.2)
-    resque-loner (1.2.1)
-      resque (~> 1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rsolr (1.0.9)
@@ -200,22 +188,25 @@ GEM
     rubyzip (0.9.5)
     rvm-capistrano (1.4.4)
       capistrano (>= 2.15.4)
-    sanitize (2.0.3)
-      nokogiri (>= 1.4.4, < 1.6)
-    sass (3.2.5)
-    sass-rails (3.2.6)
-      railties (~> 3.2.0)
-      sass (>= 3.1.10)
-      tilt (~> 1.3)
-    shoulda-context (1.0.2)
+    sanitize (2.0.6)
+      nokogiri (>= 1.4.4)
+    shoulda-context (1.1.5)
+    sidekiq (2.13.1)
+      celluloid (>= 0.14.1)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0)
+      redis-namespace
+    sidekiq-limit_fetch (2.1.1)
+      sidekiq (>= 2.6.5, < 3)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    sinatra (1.3.6)
+    sinatra (1.4.3)
       rack (~> 1.4)
-      rack-protection (~> 1.3)
-      tilt (~> 1.3, >= 1.3.3)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     slim (1.3.9)
       temple (~> 0.6.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -229,31 +220,23 @@ GEM
       rsolr (~> 1.0.7)
     sunspot_rails (2.0.0)
       nokogiri
-      sunspot (= 1.3.3)
-    sunspot_solr (1.3.3)
-    therubyracer (0.11.4)
-      libv8 (~> 3.11.8.12)
+      sunspot (= 2.0.0)
+    sunspot_solr (2.0.0)
+    temple (0.6.6)
+    therubyracer (0.12.0)
+      libv8 (~> 3.16.14.0)
       ref
-    thor (0.17.0)
-    tilt (1.3.3)
-    treetop (1.4.12)
+    thor (0.18.1)
+    tilt (1.4.1)
+    timers (1.1.0)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.7)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
-    tzinfo (0.3.35)
-    uglifier (1.3.0)
-      execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+    tzinfo (0.3.37)
     vegas (0.1.11)
       rack (>= 1.0.0)
     will_paginate (3.0.4)
     yajl-ruby (1.1.0)
-    yui-compressor (0.9.6)
-      POpen4 (>= 0.1.4)
 
 PLATFORMS
   ruby
@@ -263,29 +246,29 @@ DEPENDENCIES
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
-  debugger (~> 1.6.1)
+  debugger
   dynamic_form
+  execjs
   factory_girl
   fitgem
   friendly_id!
   jquery-rails
-  jquery-ui-rails
   json
   mediawiki-gateway
   mendeley!
   minitest (~> 4.3.2)
   mocha
   nested_form!
+  newrelic_rpm
   paperclip (~> 3.0)
   pg
-  rails (~> 3.2)
+  rails (~> 3.2.12)
   rails3-generators
   recaptcha
   recommendify!
   rubyzip (= 0.9.5)
   rvm-capistrano
   sanitize
-  sass-rails (~> 3.2.0)
   shoulda-context
   sidekiq
   sidekiq-limit_fetch
@@ -296,8 +279,5 @@ DEPENDENCIES
   sunspot_solr
   sunspot_test!
   therubyracer
-  twitter-bootstrap-rails
-  uglifier
   vegas
   will_paginate
-  yui-compressor
