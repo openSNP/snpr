@@ -18,7 +18,7 @@ set :rvm_type, :system
 after 'deploy:restart', 'unicorn:reload'
 after 'deploy:restart', 'unicorn:restart'
 
-load 'lib/capistrano/tasks/helpers'
+load 'lib/capistrano/helpers'
 load 'lib/capistrano/tasks/base'
 load 'lib/capistrano/tasks/assets'
 
