@@ -21,5 +21,7 @@ after 'deploy:restart', 'unicorn:restart'
 load 'lib/capistrano/helpers'
 load 'lib/capistrano/tasks/base'
 load 'lib/capistrano/tasks/assets'
+load 'lib/capistrano/tasks/solr'
 
 after 'deploy:update', 'deploy:migrate'
+

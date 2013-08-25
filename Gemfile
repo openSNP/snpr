@@ -14,6 +14,8 @@ gem 'dynamic_form'
 gem 'rvm-capistrano'
 gem 'capistrano-unicorn'
 
+gem 'unicorn'
+
 # apis
 gem 'fitgem'
 gem 'mendeley', git: 'git://github.com/tsujigiri/mendeley.git', branch: 'paging_search'
@@ -30,6 +32,7 @@ gem 'pg', :require => 'pg'
 
 # for solr (indexing, searching)
 gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 # so we can create zip-files for genotypes
 gem 'rubyzip','0.9.5', :require => 'zip/zip'
@@ -72,10 +75,5 @@ group :test do
   gem 'sunspot_test', git: 'git://github.com/tsujigiri/sunspot_test.git', branch: 'dirty_quickfix'
   #gem "turn", "< 0.8.3" # truncates backtraces in the tests (bad)
   gem 'simplecov', require: false
-end
-
-group :development, :test do
-  # TODO: do we need this in production?
-  gem 'sunspot_solr'
 end
 
