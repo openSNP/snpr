@@ -236,7 +236,7 @@ DEPENDENCIES
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
-  debugger
+  debugger (~> 1.6.1)
   dynamic_form
   factory_girl
   fitgem
