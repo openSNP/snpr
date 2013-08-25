@@ -11,9 +11,8 @@ namespace :solr do
     end
   end
 
-  task :restart do
-  end
-  after "unicorn:restart", "solr:restart"
+  task :restart do; end
+  after "deploy:restart", "solr:restart"
   after "solr:restart", "solr:stop"
   after "solr:restart", "solr:start"
 end

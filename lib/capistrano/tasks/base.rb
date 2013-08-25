@@ -10,5 +10,5 @@ namespace :deploy do
   task :create_shared_dirs do
     mkdir("#{shared_path}/config")
   end
-  after "deploy:update", "deploy:create_shared_dirs"
+  after "deploy:update_code", "deploy:create_shared_dirs"
 end
