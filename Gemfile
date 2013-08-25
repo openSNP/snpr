@@ -7,10 +7,12 @@ gem "jquery-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
-gem 'rvm-capistrano'
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
+
+gem 'rvm-capistrano'
+gem 'capistrano-unicorn'
 
 # apis
 gem 'fitgem'
