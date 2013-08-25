@@ -25,3 +25,4 @@ secret_token
 config/app_config.yml
 config/newrelic.yml
 tmp/
+.vagrant

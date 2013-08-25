@@ -18,4 +18,8 @@ set :rvm_type, :system
 after 'deploy:restart', 'unicorn:reload'
 after 'deploy:restart', 'unicorn:restart'
 
+load 'lib/capistrano/tasks/helpers'
+load 'lib/capistrano/tasks/base'
 
+after 'deploy:update', 'deploy:migrate'
+after 'deploy:create_shared_dirs', 'deploy:assets:precompile'

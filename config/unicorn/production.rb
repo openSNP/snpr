@@ -1,17 +1,14 @@
-# ------------------------------------------------------------------------------
-# Sample rails 3 config
-# ------------------------------------------------------------------------------
-
 # Set your full path to application.
-app_path = "/srv/www/snpr"
+app_path = "/srv/www/snpr/current"
 
 # Set unicorn options
 worker_processes 5
 preload_app true
 timeout 180
+#listen "/tmp/snpr_unicorn.sock", :backlog => 64
 listen "127.0.0.1:9000"
 
-# Spawn unicorn master worker for user apps (group: apps)
+# Spawn unicorn master worker for user snpr (group: snpr)
 user 'snpr', 'snpr' 
 
 # Fill path to your app
