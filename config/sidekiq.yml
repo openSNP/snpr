@@ -1,6 +1,6 @@
 ---
 :verbose: true
-:pidfile: /tmp/sidekiq.pid
+:pidfile: tmp/pids/sidekiq.pid
 :logfile: ./log/sidekiq.log
 :global: true
 :concurrency: 10
