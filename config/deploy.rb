@@ -16,7 +16,6 @@ require 'sidekiq/capistrano'
 set :rvm_ruby_string, "ruby-2.0.0-p247"
 set :rvm_type, :system
 
-after 'deploy:restart', 'unicorn:reload'
 after 'deploy:restart', 'unicorn:restart'
 
 load 'lib/capistrano/helpers'
