@@ -10,11 +10,7 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
-
 gem 'rvm-capistrano'
-gem 'capistrano-unicorn'
-
-gem 'unicorn'
 
 # apis
 gem 'fitgem'

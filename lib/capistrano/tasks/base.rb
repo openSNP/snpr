@@ -4,6 +4,8 @@ namespace :deploy do
     ln("#{shared_path}/config/database.yml", "#{release_path}/config/database.yml")
     mkdir("#{release_path}/solr/pids")
     ln("#{shared_path}/pids", "#{release_path}/solr/pids/production")
+    mkdir("#{shared_path}/assets")
+    ln("#{shared_path}/assets", "#{release_path}/public/assets")
   end
   after "deploy:create_shared_dirs", "deploy:set_symlinks"
 

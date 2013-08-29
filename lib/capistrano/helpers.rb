@@ -1,5 +1,6 @@
-def ln(src, dst)
-  run("ln -snf '#{src}' '#{dst}'")
+def ln(dst, src)
+  run("rm -rf '#{src}'")
+  run("ln -snf '#{dst}' '#{src}'")
 end
 
 def mkdir(path)
