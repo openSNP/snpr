@@ -1,2 +1,4 @@
-set "deploy_to", "/var/www/snpr_staging"
+server "opensnp.org:57329", :app, :web, :db, :primary => true
+set "deploy_to", "/srv/www/snpr_staging"
+set :branch, "staging"
 set :rails_env, "staging"

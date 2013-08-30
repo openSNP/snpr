@@ -1,2 +1,2 @@
-<legend><%=image_tag("/images/fitbit-icon.png")%> Dumping <em>Fitbit</em> data for <%=@fitbit_profile.user.name%></legend>
+<legend><%=image_tag("fitbit-icon.png")%> Dumping <em>Fitbit</em> data for <%=@fitbit_profile.user.name%></legend>
 <p class="lead">You have requested <em>Fitbit</em> data for the user <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%>. The data is currently prepared and you will receive an email as soon as the data is ready to be downloaded. <%=link_to("Return to the Fitbit Profile" ,{:controller => "fitbit_profiles", :action => "show", :id => @fitbit_profile.id})%>.</p>

@@ -7,10 +7,10 @@ gem "jquery-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
-gem 'rvm-capistrano'
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
+gem 'rvm-capistrano'
 
 # apis
 gem 'fitgem'
@@ -28,6 +28,7 @@ gem 'pg', :require => 'pg'
 
 # for solr (indexing, searching)
 gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 # so we can create zip-files for genotypes
 gem 'rubyzip','0.9.5', :require => 'zip/zip'
@@ -38,7 +39,7 @@ gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
 gem 'paperclip', '~> 3.0'
-gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git'
+gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
 
 # for jobs
@@ -46,6 +47,16 @@ gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra'
+
+group :assets do
+  gem 'therubyracer'
+  gem 'execjs'
+  gem 'uglifier'
+  gem 'yui-compressor'
+  gem "twitter-bootstrap-rails"
+  gem "jquery-ui-rails"
+  gem 'uglifier'
+end
 
 #group :production do
 #	gem 'rpm_contrib'
@@ -56,14 +67,9 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'debugger', '~> 1.6.1'
+  gem 'debugger'
   gem 'sunspot_test', git: 'git://github.com/tsujigiri/sunspot_test.git', branch: 'dirty_quickfix'
   #gem "turn", "< 0.8.3" # truncates backtraces in the tests (bad)
   gem 'simplecov', require: false
-end
-
-group :development, :test do
-  # TODO: do we need this in production?
-  gem 'sunspot_solr'
 end
 
