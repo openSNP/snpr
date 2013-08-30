@@ -1,198 +1,198 @@
 <legend>News</legend>
 <div id="tab-container">
-<ul class="nav nav-tabs">
-	<li><a href="#general">On openSNP</a></li>
-	<li><a href="#users">New users</a></li>
-	<li><a href="#genotypes">New genotypes</a></li>
-	<li><a href="#phenotypes">New phenotypes</a></li>
-	<li><a href="#publications">Latest publications</a></li>
-	<li><a href="#snpcomments">SNP-Comments</a></li>
-	<li><a href="#phenotypecomments">Phenotype-Comments</a></li>
-</ul>
-<div id="general">
-<div class="tweet-list">
-<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
-<script>
-new TWTR.Widget({
-  version: 2,
-  type: 'profile',
-  rpp: 4,
-  interval: 30000,
-  width: 250,
-  height: 300,
-  theme: {
-    shell: {
-      background: '#ffffff',
-      color: '#000000'
-    },
-    tweets: {
-      background: '#ffffff',
-      color: '#000000',
-      links: '#339bb9'
-    }
-  },
-  features: {
-    scrollbar: false,
-    loop: false,
-    live: false,
-    behavior: 'all'
-  }
-}).render().setUser('opensnporg').start();
-</script>
-</div>
-<h5>Support the Open Access petition of access2research</h5>
-<p>We support the <a href="http://wh.gov/6TH">access2research petition for Open Access</a> directed to the Obama administration. The petition wants to make Open Access publication of tax-funded publications mandatory. In total, 25,000 signatures are needed to have the petition officially reviewed by the White House. Non-US-citizens may sign the petition, too, so <a href="http://wh.gov/6TH">it would be great if you sign it</a>, too! For more information, please <a href="http://opensnp.wordpress.com/2012/05/23/a-petition-on-open-access/">read our blogpost on the petition</a>.
-<div align="center"><img src="/images/a2r.png"/></div>
-</p>
-<h5>API: JSON methods</h5>
-<p>
-The promised support for the <em>Distributed Annotation System</em> will take some time. But in the meantime you can access <em>openSNP</em> using some simple JSON-methods. Examples can be found for <a href="http://opensnp.org/snps/json/rs9939609/1.json">SNPs</a>, <a href="http://opensnp.org/users.json">users</a> and <a href="http://opensnp.org/phenotypes/json/1,6,8.json">phenotypes</a>. To learn more about how to use those methods you may want to <a href="http://opensnp.org/faq#api">read the FAQ</a> or this blogpost we've written about this.   
-</p>
-<h5>SSL-Support</h5>
-<p>
-Hello everyone! We've bought a SSL-certificate so that you can safely browse this site (especially relevant if you log in to this site over an open WLAN). You can access the SSL-version of openSNP over <a href="https://opensnp.org">this link</a>. It's still experimental, so if you find anything please message <a href"http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>.
-</p>
-<h5>Winning the Binary Battle and Data-Dumps</h5>
-<p>
-What a shame: We totally forgot to announce it here. But <a href="http://opensnp.wordpress.com/2011/11/30/results-of-the-binary-battle/"><b>we are the winner of the Mendeley/PLoS Binary Battle</b></a>. Since this we got many new users and it's great to see how many of you are willing to share their data. If you are interested in downloading the information that is uploaded to our website you are lucky. <br/><br/><b>We just implemented three new features: The genotype-overview, the data-dump and several uploads for each user. </b><%=link_to "The first one gives you a table of all the genotyping files we have in our database", :controller => "genotypes", :action => "index"%>. The second can be found on the genotype-overview and it produces a zipped file that includes all genotyping-information, as well as a tabular file that includes all phenotypic information of those users. You can now also upload several genotypings, have a look at the Settings-page.<br/><br/>Enjoy playing around with it. And as usual: If you find any bugs please contact <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>. 
-</p>
-<h5>SNP-ids/names</h5>
-<p>
-Hello everyone! We've implemented a minor change, you can now access SNPs over their name directly, together with the ID (like we had it before) - e.g. http://opensnp.org/snps/rs7566605 now leads to the SNP named rs7566605. If you encounter any problems please contact <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Basti</a>.  
-</p>
-</div>
+  <ul class="nav nav-tabs">
+    <li><a href="#general">On openSNP</a></li>
+    <li><a href="#users">New users</a></li>
+    <li><a href="#genotypes">New genotypes</a></li>
+    <li><a href="#phenotypes">New phenotypes</a></li>
+    <li><a href="#publications">Latest publications</a></li>
+    <li><a href="#snpcomments">SNP-Comments</a></li>
+    <li><a href="#phenotypecomments">Phenotype-Comments</a></li>
+  </ul>
+  <div id="general">
+    <div class="tweet-list">
+      <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+      <script>
+        new TWTR.Widget({
+          version: 2,
+          type: 'profile',
+          rpp: 4,
+          interval: 30000,
+          width: 250,
+          height: 300,
+          theme: {
+            shell: {
+              background: '#ffffff',
+              color: '#000000'
+            },
+            tweets: {
+              background: '#ffffff',
+              color: '#000000',
+              links: '#339bb9'
+            }
+          },
+          features: {
+            scrollbar: false,
+            loop: false,
+            live: false,
+            behavior: 'all'
+          }
+        }).render().setUser('opensnporg').start();
+      </script>
+    </div>
+    <h5>Support the Open Access petition of access2research</h5>
+    <p>We support the <a href="http://wh.gov/6TH">access2research petition for Open Access</a> directed to the Obama administration. The petition wants to make Open Access publication of tax-funded publications mandatory. In total, 25,000 signatures are needed to have the petition officially reviewed by the White House. Non-US-citizens may sign the petition, too, so <a href="http://wh.gov/6TH">it would be great if you sign it</a>, too! For more information, please <a href="http://opensnp.wordpress.com/2012/05/23/a-petition-on-open-access/">read our blogpost on the petition</a>.
+    <div align="center"><%= image_tag("a2r.png") %></div>
+    </p>
+    <h5>API: JSON methods</h5>
+    <p>
+    The promised support for the <em>Distributed Annotation System</em> will take some time. But in the meantime you can access <em>openSNP</em> using some simple JSON-methods. Examples can be found for <a href="http://opensnp.org/snps/json/rs9939609/1.json">SNPs</a>, <a href="http://opensnp.org/users.json">users</a> and <a href="http://opensnp.org/phenotypes/json/1,6,8.json">phenotypes</a>. To learn more about how to use those methods you may want to <a href="http://opensnp.org/faq#api">read the FAQ</a> or this blogpost we've written about this.   
+    </p>
+    <h5>SSL-Support</h5>
+    <p>
+    Hello everyone! We've bought a SSL-certificate so that you can safely browse this site (especially relevant if you log in to this site over an open WLAN). You can access the SSL-version of openSNP over <a href="https://opensnp.org">this link</a>. It's still experimental, so if you find anything please message <a href"http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>.
+    </p>
+    <h5>Winning the Binary Battle and Data-Dumps</h5>
+    <p>
+    What a shame: We totally forgot to announce it here. But <a href="http://opensnp.wordpress.com/2011/11/30/results-of-the-binary-battle/"><b>we are the winner of the Mendeley/PLoS Binary Battle</b></a>. Since this we got many new users and it's great to see how many of you are willing to share their data. If you are interested in downloading the information that is uploaded to our website you are lucky. <br/><br/><b>We just implemented three new features: The genotype-overview, the data-dump and several uploads for each user. </b><%=link_to "The first one gives you a table of all the genotyping files we have in our database", :controller => "genotypes", :action => "index"%>. The second can be found on the genotype-overview and it produces a zipped file that includes all genotyping-information, as well as a tabular file that includes all phenotypic information of those users. You can now also upload several genotypings, have a look at the Settings-page.<br/><br/>Enjoy playing around with it. And as usual: If you find any bugs please contact <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>. 
+    </p>
+    <h5>SNP-ids/names</h5>
+    <p>
+    Hello everyone! We've implemented a minor change, you can now access SNPs over their name directly, together with the ID (like we had it before) - e.g. http://opensnp.org/snps/rs7566605 now leads to the SNP named rs7566605. If you encounter any problems please contact <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Basti</a>.  
+    </p>
+  </div>
 
-<div id="genotypes">
-<%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
-<div class="row">
-    <div class="span2"><h3>Genotypes</h3></div><br/><div class="span1"><%=link_to(image_tag("/images/rss_small.png"),"/rss")%></div>
-</div>
-<br/>
-<table class="table table-striped">
-<tr>
-    <th>#</th>
-	<th>Genotype-ID</th>
-	<th>Uploaded by</th>
-	<th>Uploaded on</th>
-	<th>Description</th>
-	<th>Download</th>
-</tr>
-<% @new_genotypes.each do |ng| %>
-	<tr>
-        <td><%= Genotype.all.sort! {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
-        <td><%= ng.id %></td>
-        <td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
-        <td><%= ng.created_at %></td>
-        <td><%= link_to "Click here", ng %></td>
-        <td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
-    </tr>
-<% end %>
-</table>
-</div>
-<div id="users">
-<h3>Users</h3><br/>
-<table class="table table-striped">
-	<tr>
-        <th>#</th>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Joined on</th>
-		<th>Link</th>
-	</tr>
-<% @new_users.each do |nu| %>
-	<tr>
-        <td><%= User.all.sort! {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
-		<td><%= nu.id %></td>
-		<td><%=image_tag nu.avatar.url(:head),:style => "vertical-align:middle"%> <%= nu.name %></td>
-		<td><%= nu.created_at %></td>
-		<td><%= link_to "Profile", nu %></td>
-	</tr>
-<% end %>
-</table>
-</div>
-<div id="phenotypes">
-<h3>Phenotypes</h3><br/>
-<table class="table table-striped">
-	<tr>
-		<th>Name</th>
-		<th>Variations</th>
-		<th># of Users</th>
-	</tr>
-<% @new_phenotypes.each do |nu| %>
-	<tr>
-		<td><%= link_to nu.characteristic, nu %></td>
-		<td><ul><%nu.known_phenotypes.each do |kp|%><li><%= kp %></li><%end%></ul></td>
-		<td><%= nu.number_of_users %></td>
-	</tr>
-<% end %>
-</table>
-</div>
-
-<div id="phenotypecomments">
-<h3>Phenotype Comments</h3><br/>
-<table class="table table-striped">
-	<tr>
-		<th>Phenotype</th>
-		<th>Comment By</th>
-		<th>Subject</th>
-		<th>Date</th>
-	</tr>
-<%@new_phenotype_comments.each do |pc|%>
-	<%if pc.phenotype != nil%>
-	<tr>
-		<td><%=link_to pc.phenotype.characteristic, pc.phenotype%></td>
-		<td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
-		<td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
-		<td><%=pc.created_at%></td>
-	</tr>
-	<%end%>
-<%end%>
-</table>
-</div>
-
-<div id="snpcomments">
-<h3>SNP Comments</h3><br/>
-<table class="table table-striped">
-	<tr>
-		<th>SNP</th>
-		<th>Comment By</th>
-		<th>Subject</th>
-		<th>Date</th>
-	</tr>
-<%@new_snp_comments.each do |pc|%>
-	<tr>
-		<td><%=link_to pc.snp.name, pc.snp%></td>
-		<td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
-		<td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
-		<td><%=pc.created_at%></td>
-	</tr>
-<%end%>
-</table>
-</div>
-
-<div id="publications">
-<div class="row">
-    <div class="span3"><h3>Lastest publications</h3></div><br/><div class="span1"><%=link_to(image_tag("/images/rss_small.png"),"/paper/rss")%></div>
-</div>
+  <div id="genotypes">
+    <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
+    <div class="row">
+      <div class="span2"><h3>Genotypes</h3></div><br/><div class="span1"><%=link_to(image_tag("rss_small.png"),"/rss")%></div>
+    </div>
     <br/>
-	<table class="table table-striped">
-		<tr>
-			<th>SNP</th>
-			<th>Author</th>
-			<th>Title</th>
-			<th>Found at</th>
-		</tr>
-		<%@newest_paper.each do |np|%>
-		<tr>
-			<td><%=link_to np.snp.name, np.snp%></td>
-			<td><%=np.first_author%></td>
-			<%if np.class == PlosPaper%>
-			<td><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
-			<%else%>
-			<td><%=link_to( np.title, np.mendeley_url)%></td>
-			<%end%>
-			<td><%=np.created_at%></td>
-		</tr>
-		<%end%>
-	</table>
-</div>
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>Genotype-ID</th>
+        <th>Uploaded by</th>
+        <th>Uploaded on</th>
+        <th>Description</th>
+        <th>Download</th>
+      </tr>
+      <% @new_genotypes.each do |ng| %>
+        <tr>
+          <td><%= Genotype.all.sort! {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
+          <td><%= ng.id %></td>
+          <td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
+          <td><%= ng.created_at %></td>
+          <td><%= link_to "Click here", ng %></td>
+          <td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div id="users">
+    <h3>Users</h3><br/>
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Joined on</th>
+        <th>Link</th>
+      </tr>
+      <% @new_users.each do |nu| %>
+        <tr>
+          <td><%= User.all.sort! {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
+          <td><%= nu.id %></td>
+          <td><%=image_tag nu.avatar.url(:head),:style => "vertical-align:middle"%> <%= nu.name %></td>
+          <td><%= nu.created_at %></td>
+          <td><%= link_to "Profile", nu %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div id="phenotypes">
+    <h3>Phenotypes</h3><br/>
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Variations</th>
+        <th># of Users</th>
+      </tr>
+      <% @new_phenotypes.each do |nu| %>
+        <tr>
+          <td><%= link_to nu.characteristic, nu %></td>
+          <td><ul><%nu.known_phenotypes.each do |kp|%><li><%= kp %></li><%end%></ul></td>
+          <td><%= nu.number_of_users %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div id="phenotypecomments">
+    <h3>Phenotype Comments</h3><br/>
+    <table class="table table-striped">
+      <tr>
+        <th>Phenotype</th>
+        <th>Comment By</th>
+        <th>Subject</th>
+        <th>Date</th>
+      </tr>
+      <%@new_phenotype_comments.each do |pc|%>
+        <%if pc.phenotype != nil%>
+          <tr>
+            <td><%=link_to pc.phenotype.characteristic, pc.phenotype%></td>
+            <td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
+            <td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
+            <td><%=pc.created_at%></td>
+          </tr>
+        <%end%>
+      <%end%>
+    </table>
+  </div>
+
+  <div id="snpcomments">
+    <h3>SNP Comments</h3><br/>
+    <table class="table table-striped">
+      <tr>
+        <th>SNP</th>
+        <th>Comment By</th>
+        <th>Subject</th>
+        <th>Date</th>
+      </tr>
+      <%@new_snp_comments.each do |pc|%>
+        <tr>
+          <td><%=link_to pc.snp.name, pc.snp%></td>
+          <td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
+          <td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
+          <td><%=pc.created_at%></td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+
+  <div id="publications">
+    <div class="row">
+      <div class="span3"><h3>Lastest publications</h3></div><br/><div class="span1"><%=link_to(image_tag("rss_small.png"),"/paper/rss")%></div>
+    </div>
+    <br/>
+    <table class="table table-striped">
+      <tr>
+        <th>SNP</th>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Found at</th>
+      </tr>
+      <%@newest_paper.each do |np|%>
+        <tr>
+          <td><%=link_to np.snp.name, np.snp%></td>
+          <td><%=np.first_author%></td>
+          <%if np.class == PlosPaper%>
+            <td><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
+          <%else%>
+            <td><%=link_to( np.title, np.mendeley_url)%></td>
+          <%end%>
+          <td><%=np.created_at%></td>
+        </tr>
+      <%end%>
+    </table>
+  </div>

@@ -1,14 +1,14 @@
-<legend><%=image_tag("/images/fitbit-icon.png")%> Listing all connected <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> accounts </legend>
+<legend><%=image_tag("fitbit-icon.png")%> Listing all connected <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> accounts </legend>
 
 <%if current_user%>
     <h4>
-        <%=link_to(image_tag("/images/filedownload_small.png",:style => "vertical-align:middle"),{:controller => "genotypes", :action => "get_dump"})%> <%=link_to("Download the dump: Includes all Fitbit data with all other phenotypes & genotyping files",{:controller => "genotypes", :action => "get_dump"}, :title => "Request download")%>
+        <%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "genotypes", :action => "get_dump"})%> <%=link_to("Download the dump: Includes all Fitbit data with all other phenotypes & genotyping files",{:controller => "genotypes", :action => "get_dump"}, :title => "Request download")%>
     </h4>
 <% end %>
 <br/>
 <% if not current_user and @filelink != nil%>
     <h4>
-        <%= link_to(image_tag("/images/filedownload_small.png", :style => "vertical-align:middle"), {:controller => "genotypes",:action => "dump_download"})%> <%= link_to("Download the dump: Includes all Fitbit data with all other phenotypes & genotyping files",{:controller => "genotypes", :action => "dump_download"}, :title => "Download the dump") %>
+        <%= link_to(image_tag("filedownload_small.png", :style => "vertical-align:middle"), {:controller => "genotypes",:action => "dump_download"})%> <%= link_to("Download the dump: Includes all Fitbit data with all other phenotypes & genotyping files",{:controller => "genotypes", :action => "dump_download"}, :title => "Download the dump") %>
     </h4>
     <h4><a href="https://github.com/superbobry/snpy">Python-library to parse the provided files</a>, courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
     <br/>

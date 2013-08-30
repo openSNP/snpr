@@ -1,5 +1,16 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+//= require jquery
+//= require jquery_ujs
+//= require twitter/bootstrap
+//= require ./dalliance-compiled.js
+//= require ./jquery.jqplot.min
+//= require ./jqplot.barRenderer.min.js
+//= require ./jqplot.cursor.min.js
+//= require ./jqplot.dateAxisRenderer.min.js
+//= require ./jqplot.highlighter.min.js
+//= require ./jqplot.pieRenderer.min.js
+//= require ./jquery.easytabs
+//= require jquery_nested_form
+//= require_self
 
 $(document).ready(function() { 
     $('#update_user').click(function() {
@@ -7,8 +18,8 @@ $(document).ready(function() {
         setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
     });
 
-    $("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
-    $("#PaperPlos").tablesorter({sortList: [[2,1]]});
+    //$("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
+    //$("#PaperPlos").tablesorter({sortList: [[2,1]]});
 
     $('#remove_help_one').click(function() {
         if( $('#help_three').is(":hidden") && $('#help_two').is(":hidden") ){

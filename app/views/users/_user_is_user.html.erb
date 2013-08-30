@@ -4,11 +4,11 @@
         <br/>
         <div align="right">
         <%if @user.fitbit_profile != nil%>
-            <%=link_to(image_tag("/images/fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See your Fitbit data")%>
+            <%=link_to(image_tag("fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See your Fitbit data")%>
         <%end%>
 
         <% current_user.achievements.each do |a|%>
-            <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("/images/achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
+            <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("achievements/#{a.short_name}_32px.png",:height=>"20px",:alt => a.award)%></a>
         <%end%>
         </div>
     </div>
@@ -50,7 +50,7 @@
 			<tr>
 				<td><%=link_to i.characteristic, i%> </td>
                                 <td>
-                                  <%= link_to image_tag("/images/add_variation_small.png", :style => "vertical-align:middle"), '#new_user_phenotype_modal'+i.id.to_s, :'data-toggle' => "modal" %>
+                                  <%= link_to image_tag("add_variation_small.png", :style => "vertical-align:middle"), '#new_user_phenotype_modal'+i.id.to_s, :'data-toggle' => "modal" %>
                                   <%= render partial: "user_phenotypes/new", layout: "layouts/modal", locals: { id: "new_user_phenotype_modal"+i.id.to_s, phenotype: i } %>
                                 </td>
                 <td><%= i.number_of_users %> </td>
@@ -97,9 +97,9 @@
 	<td><%= link_to( m.subject, m ) %></td>
 	<td>
 <% if m.user_has_seen == false %>
-<%=link_to(image_tag("/images/email_small.png"),m)%> <b><%=link_to("Unread!",m)%></b>
+<%=link_to(image_tag("email_small.png"),m)%> <b><%=link_to("Unread!",m)%></b>
 <%else%>
-<%=link_to(image_tag("/images/email_opened_small.png"),m)%> <%=link_to("Read",m)%>
+<%=link_to(image_tag("email_opened_small.png"),m)%> <%=link_to("Read",m)%>
 <% end %>
 </td>
 	</tr>
@@ -124,7 +124,7 @@
 	<td>Deleted User</td>
 	<%end%>
 	<td><%= link_to( m.subject, m ) %></td>
-	<td><%=link_to(image_tag("/images/email_opened_small.png"),m)%> <%=link_to("Read",m)%></td>
+	<td><%=link_to(image_tag("email_opened_small.png"),m)%> <%=link_to("Read",m)%></td>
 	</tr>
 <% end %>
 </table>
