@@ -5,6 +5,7 @@ case $1 in
 		cat <<EOM
 graph_title Response time
 graph_vlabel ms
+graph_scale no
 graph_category opensnp.org
 time0.label /
 EOM
