@@ -3,17 +3,19 @@
 case $1 in
 	config)
 		cat <<EOM
+graph_args -l 0
 graph_title Sidekiq workers
 graph_vlabel #
 graph_category opensnp.org
-idle.label idle
-idle.draw AREA
 busy.label busy
-busy.draw STACK
+busy.draw AREA
+busy.min 0
+idle.label idle
+idle.draw STACK
+idle.min 0
 EOM
 	exit 0;;
 esac
-
 
 ps=$(ps -eo command | grep sidekiq | grep busy | cut -d '[' -f 2)
 busy=$(echo $ps | cut -d ' ' -f 1)
