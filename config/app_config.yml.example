@@ -6,6 +6,13 @@ default: &default
   recaptcha:
     public_key: foo
     private_key: bar
+  sidekiq:
+    user: admin
+    password: password
+
+
+production:
+  <<: *default
 
 development:
   <<: *default
