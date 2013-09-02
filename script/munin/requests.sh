@@ -3,7 +3,7 @@
 case $1 in
 	config)
 		cat <<EOM
-graph_title requests
+graph_title requests per second
 graph_vlabel requests
 graph_category opensnp.org
 req.label requests
