@@ -157,7 +157,7 @@
 			<td><%=p.pub_year%></td>
 			<td><%=p.reader%></td>
 			<% if p.open_access == true and p.doi != nil%>
-			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%><%= image_tag("oa_logo.png" %></td>
+			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%><%= image_tag("oa_logo.png") %></td>
 			<%elsif p.doi != nil%>
 			<td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%></td>
 			<%elsif p.open_access == true%>
