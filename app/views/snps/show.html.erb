@@ -18,7 +18,7 @@
         <td><%=@snp.position%></td>
       </tr>
       <tr>
-        <td><b><a href="#" rel="woe" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. And a paper on <em>Mendeley</em> 1 point.">Weight of evidence</a></b></td>
+        <td><b><a href="#" rel="woe" data-html="true" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. And a paper on <em>Mendeley</em> 1 point.">Weight of evidence</a></b></td>
         <td><%=@snp.ranking%></td>
       </tr>
     </table>
@@ -27,7 +27,7 @@
   <div class="span3 columns">
     <%if current_user != nil and @user_snp != nil%>
 
-      <center><h6><a href="#" rel="tooltip" title="Your genetic variation at <em><%=@snp.name%></em>.">Your Genotype</a></h6></center>
+      <center><h6><a href="#" rel="tooltip" data-html="true" title="Your genetic variation at <em><%=@snp.name%></em>.">Your Genotype</a></h6></center>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -41,7 +41,7 @@
   </div>
 
   <div class="span3 columns">
-    <center><h6><a href="#" rel="tooltip" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">Genotype Frequency</a></h6></center>
+    <center><h6><a href="#" rel="tooltip" data-html="true" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">Genotype Frequency</a></h6></center>
     <%if @total_genotypes != 0%>
       <center>
         <div id="freq_chart" style="height:200px; width:200px;"></div>
@@ -52,7 +52,7 @@
   </div>
 
   <div class="span3 columns">
-    <center><h6><a href="#" rel="tooltip" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">Allele Frequency</a></h6></center>
+    <center><h6><a href="#" rel="tooltip" data-html="true" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">Allele Frequency</a></h6></center>
     <%if @total_alleles != 0%>
       <div id="allele_chart" style="height:200px; width:200px;"></div>
     <%else%>
