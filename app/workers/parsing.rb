@@ -17,10 +17,9 @@ class Parsing
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
       known_snps = {}
-      Snp.find_each {|s| known_snps[s.name] = s.id }
+      Snp.find_each {|s| known_snps[s.name] = true }
       
-      known_user_snps = UserSnp.joins(:snp).where(user_id: @genotype.user_id).
-        pluck(:name)
+      known_user_snps = UserSnp.where(user_id: @genotype.user_id).pluck(:snp_name)
         
       new_snps = []
       new_user_snps = []
@@ -127,15 +126,8 @@ class Parsing
       log "Importing #{new_snps.length} new Snps"
       Snp.import new_snps
 
-      known_snps = {}
-      Snp.find_each {|s| known_snps[s.name] = s.id }
-      new_user_snps.map! do |us|
-        us[2] = known_snps[us[2]]
-        us
-      end
-
       log "Importing new UserSnps"
-      user_snp_columns = [ :genotype_id, :user_id, :snp_id, :local_genotype ]
+      user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
       log "Done."
       puts "done with #{temp_file}"
