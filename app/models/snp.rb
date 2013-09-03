@@ -1,5 +1,6 @@
 class Snp < ActiveRecord::Base
-  has_many :user_snps, dependent: :destroy
+  has_many :user_snps, foreign_key: :snp_name, primary_key: :name,
+    dependent: :destroy
   has_many :plos_paper
   has_many :mendeley_paper
   has_many :snpedia_paper
