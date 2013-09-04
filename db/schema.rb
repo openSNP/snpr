@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130630074416) do
+ActiveRecord::Schema.define(:version => 20130608135719) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -244,9 +244,9 @@ ActiveRecord::Schema.define(:version => 20130630074416) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2013-06-07 18:32:43'
-    t.datetime "plos_updated",       :default => '2013-06-07 18:32:43'
-    t.datetime "snpedia_updated",    :default => '2013-06-07 18:32:43'
+    t.datetime "mendeley_updated",   :default => '2013-07-31 12:17:26'
+    t.datetime "plos_updated",       :default => '2013-07-31 12:17:26'
+    t.datetime "snpedia_updated",    :default => '2013-07-31 12:17:26'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end
@@ -290,7 +290,11 @@ ActiveRecord::Schema.define(:version => 20130630074416) do
     t.integer  "snp_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "snp_name"
   end
+
+  add_index "user_snps", ["snp_name", "user_id"], :name => "index_user_snps_on_user_id_and_snp_name"
+  add_index "user_snps", ["snp_name"], :name => "index_user_snps_on_snp_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"
