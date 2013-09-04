@@ -11,8 +11,16 @@ namespace :solr do
     end
   end
 
+  task :set_symlinks do
+    mkdir("#{shared_path}/solr/pids")
+    ln("#{shared_path}/solr/pids", "#{current_path}/solr/pids")
+    mkdir("#{shared_path}/solr/data")
+    ln("#{shared_path}/solr/data", "#{current_path}/solr/data")
+  end
+
   task :restart do; end
   after "deploy:restart", "solr:restart"
   after "solr:restart", "solr:stop"
   after "solr:restart", "solr:start"
+  before "solr:restart", "solr:set_symlinks"
 end

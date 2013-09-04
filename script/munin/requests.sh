@@ -3,7 +3,7 @@
 case $1 in
 	config)
 		cat <<EOM
-graph_title requests
+graph_title requests per second
 graph_vlabel requests
 graph_category opensnp.org
 req.label requests
@@ -13,5 +13,5 @@ EOM
 	exit 0;;
 esac
 
-req=$(egrep -c '^Started ' /var/www/snpr/log/extra_production.log)
+req=$(egrep -c '^Started ' /srv/www/snpr/shared/log/production.log)
 echo "req.value ${req}"
