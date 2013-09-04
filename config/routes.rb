@@ -1,4 +1,5 @@
 Snpr::Application.routes.draw do
+  root :to => 'index#index' # change this, maybe
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -75,7 +76,6 @@ Snpr::Application.routes.draw do
   match '/user_picture_phenotypes/:id/edit', :to => 'user_picture_phenotypes#edit'
   match '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
   
-  root :to => 'index#index' # change this, maybe
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
