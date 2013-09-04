@@ -16,7 +16,7 @@ class UserPhenotypeTest < ActiveSupport::TestCase
 
     should "find similar user phenotypes" do
       phenotype = @phenotype
-      results = UserPhenotype.search do
+      results = Sunspot.search(UserPhenotype) do
         with(:phenotype_id, phenotype.id)
         fulltext 'male'
       end.results
