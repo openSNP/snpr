@@ -48,6 +48,12 @@ gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra'
 
+# for activeadmin-interface
+gem "activeadmin"
+gem 'sass-rails'
+gem "meta_search",    '>= 1.1.0.pre'
+gem 'coffee-script'
+
 group :assets do
   gem 'therubyracer'
   gem 'execjs'
