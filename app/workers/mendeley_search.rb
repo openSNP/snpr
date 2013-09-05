@@ -10,13 +10,18 @@ class MendeleySearch
      snp = Snp.find(snp_id)
      if (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) &&
          snp.name.index("vg").nil? && snp.name.index("mt-").nil?
+       if snp.name.index("-")
+         snp_name = snp.name.gsub("-","_")
+       else
+         snp_name = snp.name
+       end
        page = 0
        items = 500
        documents = []
        begin
          begin
            result = Mendeley::API::Documents.
-             search(snp.name, { items: items, page: page })
+             search(snp_name, { items: items, page: page })
            documents.concat(result['documents'])
            puts result["total_pages"]
            puts page
