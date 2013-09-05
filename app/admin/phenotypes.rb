@@ -3,7 +3,7 @@ ActiveAdmin.register Phenotype do
   scope :all, :default => true
 
   index do
-    column :name
+    column :characteristic
     column :description
     default_actions
   end
