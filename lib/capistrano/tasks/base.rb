@@ -6,6 +6,7 @@ namespace :deploy do
     ln("#{shared_path}/config/mail_username.txt", "#{release_path}/mail_username.txt")
     ln("#{shared_path}/config/mail_password.txt", "#{release_path}/mail_password.txt")
     ln("#{shared_path}/config/key_mendeley.txt", "#{release_path}/key_mendeley.txt")
+    ln("#{shared_path}/config/key_plos.txt", "#{release_path}/key_plos.txt")
     mkdir("#{shared_path}/assets")
     ln("#{shared_path}/assets", "#{release_path}/public/assets")
   end
