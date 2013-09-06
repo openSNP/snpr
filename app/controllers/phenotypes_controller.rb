@@ -98,7 +98,12 @@ class PhenotypesController < ApplicationController
 
     recommender = PhenotypeRecommender.new
     similar_ids = recommender.for(params[:id])
-    @similar_phenotypes = Phenotype.where(['id in (?)', similar_ids.map { |rec| rec.item_id } ]).limit(6)
+    # For some reason, Recommendify sometimes returns items of class Fixnum, sometimes of class Recommendify
+    if similar_ids[0].class == Fixnum
+      @similar_phenotypes = Phenotype.where(['id in (?)', similar_ids]).limit(6)
+    else
+      @similar_phenotypes = Phenotype.where(['id in (?)', similar_ids.map { |rec| rec.item_id } ]).limit(6)
+    end
   end
 
   def recommend_phenotype
