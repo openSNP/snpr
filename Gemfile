@@ -79,3 +79,6 @@ group :test do
   gem 'simplecov', require: false
 end
 
+group :development, :test do
+  gem 'uuidtools'
+end

@@ -295,6 +295,7 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -351,6 +352,7 @@ DEPENDENCIES
   therubyracer
   twitter-bootstrap-rails
   uglifier
+  uuidtools
   vegas
   will_paginate
   yui-compressor
