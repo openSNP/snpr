@@ -20,7 +20,6 @@ solr/pids
 config/database.yml
 vendor/bundle
 vendor/cache
-public/data
 coverage
 hiredis/
 log/
