@@ -2,7 +2,7 @@ class Snp < ActiveRecord::Base
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name,
     dependent: :destroy
   has_many :plos_paper
-  has_many :mendeley_paper
+  has_many :mendeley_paper, dependent: :destroy
   has_many :snpedia_paper
   has_many :snp_comments
   has_many :genome_gov_paper
@@ -44,5 +44,4 @@ class Snp < ActiveRecord::Base
       Sidekiq::Client.enqueue(Frequency,s.id)
     end
   end
-  
 end
