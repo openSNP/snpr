@@ -3,93 +3,84 @@ require "net/http"
 require "json"
 
 class MendeleySearch
-   include Sidekiq::Worker
-   sidekiq_options :queue => :mendeley, :retry => 5, :unique => true
+  include Sidekiq::Worker
+  attr_reader :snp
 
-   def perform(snp_id)
-     snp = Snp.find(snp_id)
-     if (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) &&
-         snp.name.index("vg").nil? && snp.name.index("mt-").nil?
-       page = 0
-       items = 500
-       documents = []
-       begin
-         begin
-           result = Mendeley::API::Documents.
-             search('"' + snp.name + '"', { items: items, page: page })
-           documents.concat(result['documents'])
-           puts result["total_pages"]
-           puts page
-           page += 1
-         rescue => e
-           puts e.class
-           puts e.message
-           puts "retrying..."
-           sleep 1
-           retry
-         end
-         sleep 1
-       end while result['total_pages'].to_i > 0 &&
-         result['total_pages'].to_i > result['current_page'].to_i
+  sidekiq_options :queue => :mendeley, :retry => 5, :unique => true
 
-       if result["error"].present?
-         puts "Mendeley API seems to be down."
-         puts "Error is:"
-         puts result["error"] 
-         return
-       elsif documents.present?
-         puts "mendeley: Found #{documents.size} papers"
-         documents.each do |document|
-           uuid = document["uuid"].to_s
-           begin
-             first_author = document["authors"].first["forename"] + ' ' +
-               document["authors"].first["surname"]
-           rescue => e
-             puts "Something wrong in #{document["authors"]}: #{e.class}: #{e.message}"
-             first_author = "Unknown"
-           end
+  def perform(snp_id)
+    @snp = Snp.where(id: snp_id).first
+    if snp.nil?
+      logger.error("Snp(#{snp_id}) not found.")
+      return
+    end
+    if update_mendeley?
+      search
+    else
+      logger.info("mendeley papers for #{snp.name} do not need to be updated") 
+    end
+  end
 
-           if MendeleyPaper.where(uuid: uuid).count == 0
-             puts "-> paper is new"
-             @mendeley_paper = MendeleyPaper.new(
-               snp_id:       snp.id,
-               title:        document['title'],
-               mendeley_url: document['mendeley_url'],
-               first_author: first_author,
-               pub_year:     document['year'],
-               uuid:         uuid
-             )
-             doi = document["doi"]
-             @mendeley_paper.doi = doi  if doi.present?
-             @mendeley_paper.save
-             snp.ranking = snp.mendeley_paper.count +
-               2*snp.plos_paper.count + 5*snp.snpedia_paper.count +
-               2*snp.genome_gov_paper.count + 2*snp.pgp_annotation.count
-  
-             puts "-> Written paper"
-           else
-             puts "-> paper is old"
-             @mendeley_paper = MendeleyPaper.find_by_uuid(uuid)
-             if @mendeley_paper.title == ""
-               puts "-> paper is broken and will be replaced now"
-               @mendeley_paper.update_attributes(
-                 :title => document['title'],
-                 :snp_id => snp.id,
-                 :mendeley_url => document['mendeley_url'],
-                 :first_author => first_author,
-                 :pub_year => document['year']
-               ) 
-             end
-           end
-           Sidekiq::Client.enqueue(MendeleyDetails, @mendeley_paper.id)
-         end
-       else
-         puts "mendeley: No papers found"
-       end
-       snp.mendeley_updated = Time.zone.now
-       snp.save
-     else
-       puts "mendeley: time threshold not met"
-     end
-   end
+  def search
+    page = 0
+    items = 500
+    begin
+      result = Mendeley::API::Documents.
+        search("\"#{snp.name}\"", { items: items, page: page })
+      process_documents(result['documents'])
+      page += 1
+      sleep 1
+    end while result['total_pages'].to_i > 0 &&
+      result['total_pages'].to_i > result['current_page'].to_i
+
+    snp.mendeley_updated = Time.now
+    snp.ranking = snp.mendeley_paper.count +
+      2 * snp.plos_paper.count + 5 * snp.snpedia_paper.count +
+      2 * snp.genome_gov_paper.count + 2 * snp.pgp_annotation.count
+    snp.save or raise(
+      "could not save snp(#{snp.name}): #{snp.errors.full_messages.join(", ")}")
+
+    if result["error"].present?
+      logger.warn(
+        "Mendeley API seems to be down.\nError is: #{result["error"]}")
+    end
+  end
+
+  def process_documents(documents)
+    if documents.blank?
+      logger.info("mendeley: No papers found")
+      return
+    end
+    documents.each do |document|
+      uuid = document["uuid"].to_s
+      mendeley_paper = MendeleyPaper.find_or_initialize_by_uuid(uuid)
+      if mendeley_paper.new_record? || !mendeley_paper.valid?
+        first_author = document["authors"].first
+        if first_author.present?
+          first_author = "#{first_author["forename"]} #{first_author["surname"]}"
+        end
+
+        logger.info("creating or updating paper")
+        mendeley_paper.attributes = mendeley_paper.attributes.merge(
+          snp:          snp,
+          title:        document['title'],
+          mendeley_url: document['mendeley_url'],
+          first_author: first_author,
+          pub_year:     document['year'],
+          uuid:         uuid,
+          doi:          document["doi"].presence,
+        )
+        if !(mendeley_paper.valid? && mendeley_paper.save)
+          logger.error("MendeleyPaper for #{snp.name} invalid.\n" <<
+                       mendeley_paper.errors.full_messages.join(", "))
+        end
+        Sidekiq::Client.enqueue(MendeleyDetails, mendeley_paper.id)
+      end
+    end
+  end
+
+  def update_mendeley?
+    (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) &&
+      snp.name.index("vg").nil? && snp.name.index("mt-").nil?
+  end
 end
