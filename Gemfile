@@ -11,6 +11,7 @@ gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
 gem 'rvm-capistrano'
+gem 'exceptional'
 
 # apis
 gem 'fitgem'

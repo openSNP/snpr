@@ -10,6 +10,7 @@ namespace :deploy do
     ln("#{shared_path}/data", "#{release_path}/public/data")
     mkdir("#{shared_path}/assets")
     ln("#{shared_path}/assets", "#{release_path}/public/assets")
+    ln("#{shared_path}/config/exceptional.yml", "#{release_path}/config/exceptional.yml")
   end
   after "deploy:create_shared_dirs", "deploy:set_symlinks"
 
