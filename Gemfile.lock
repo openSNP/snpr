@@ -125,6 +125,8 @@ GEM
       warden (~> 1.2.3)
     dynamic_form (1.1.4)
     erubis (2.7.0)
+    exceptional (2.0.33)
+      rack
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -315,6 +317,7 @@ DEPENDENCIES
   coffee-script
   debugger
   dynamic_form
+  exceptional
   execjs
   factory_girl
   fitgem
