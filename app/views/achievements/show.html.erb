@@ -10,10 +10,12 @@
     <th>Received on</th>
   </tr>
   <%@achievement.user_achievements.each do |ua|%>
-    <tr>
-      <td><%= ua.id %></td>
-      <td><%=link_to ua.user.name, ua.user%></td>
-      <td><%= ua.created_at %></td>
-    </tr>
+    <% if ua.user %>
+        <tr>
+        <td><%= ua.id %></td>
+        <td><%= link_to ua.user.name, ua.user %></td>
+        <td><%= ua.created_at %></td>
+        </tr>
+    <% end %>
   <%end%>
 </table>
