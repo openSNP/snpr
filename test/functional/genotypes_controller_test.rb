@@ -25,7 +25,7 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "get the rss feed" do
-        get :feed, format: 'xml'
+        get :feed, format: 'rss'
         assert_response :success
         assert_equal [@genotype], assigns(:genotypes)
       end

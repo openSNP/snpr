@@ -49,7 +49,7 @@ class PhenotypesControllerTest < ActionController::TestCase
       end
 
       should "get the feed" do
-        get :feed, id: @phenotype.id, format: 'xml'
+        get :feed, id: @phenotype.id, format: 'rss'
         assert_response :success
       end
 
