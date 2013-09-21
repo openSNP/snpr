@@ -1,4 +1,4 @@
-<legend>Phenotype: <%= @phenotype.characteristic %></legend><%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>
+<legend>Phenotype: <%= @phenotype.characteristic %></legend><%=auto_discovery_link_tag(:rss, "/rss", {:title => "RSS for #{@phenotype.characteristic}"})%>
 
 <% if current_user %>
   <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
@@ -6,7 +6,7 @@
   <%end%>
 <% end %>
 <div class="container">
-<%=link_to(image_tag("rss_small.png"),:action =>"feed")%>
+<%=link_to(image_tag("rss_small.png"),"/phenotypes/" + @phenotype.id.to_s + "/rss")%>
 <h5>Known Phenotypes:</h5>
 <ul>
   <%@phenotype.known_phenotypes.each do |p|%>

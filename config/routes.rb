@@ -53,14 +53,14 @@ Snpr::Application.routes.draw do
   match '/faq', :to => 'static#faq'
   match '/disclaimer', :to => 'static#disclaimer'
   match '/user_index', :to => 'users#index'
-  match '/rss', :to => 'genotypes#feed'
+  match '/rss', :to => 'genotypes#feed', :as => :feed, :defaults => {:format => 'rss' }
   match '/search', :to => 'search_results#search'
   match '/users/:id/remove_help_one', :to => 'users#remove_help_one'
   match '/users/:id/remove_help_two', :to => 'users#remove_help_two'
   match '/users/:id/remove_help_three', :to => 'users#remove_help_three'
   match '/phenotypes/get_genotypes/:phenotype_id/:variation', :to => 'phenotypes#get_genotypes'
   match 'get_dump', :to => 'genotypes#get_dump'
-  match '/phenotypes/:id/rss', :to => 'phenotypes#feed'
+  match '/phenotypes/:id/rss', :to => 'phenotypes#feed', :defaults => { :format => 'rss' }
   match '/dump_download', :to => 'genotypes#dump_download'
   match '/snps/json/annotation/:snp_name', :to => 'snps#json_annotation'
   match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
@@ -69,7 +69,7 @@ Snpr::Application.routes.draw do
   match '/das/:id/features', :to => 'das#show'
   match '/das/sources', :to => 'das#sources'
   match '/das/:id/', :to => 'das#startpoint'
-  match '/paper/rss', :to => 'news#paper_rss'
+  match '/paper/rss', :to => 'news#paper_rss', :defaults => { :format => 'rss' }
   match '/recommend_phenotype/:id/', :to => 'phenotypes#recommend_phenotype'
   match '/press', :to => 'static#press'
   match '/blog' => redirect("http://opensnp.wordpress.com")
