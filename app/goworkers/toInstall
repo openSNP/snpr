@@ -1,0 +1,2 @@
+go get github.com/benmanns/goworker
+go get github.com/bmizerany/pq
