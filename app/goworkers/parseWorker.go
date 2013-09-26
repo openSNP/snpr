@@ -141,6 +141,10 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			return err
 		}
 
+		// Turn off AUTOCOMMIT by using BEGIN / INSERTs / COMMIT
+		// More tips at http://www.postgresql.org/docs/current/interactive/populate.html,
+		// TODO: Implement more improvements, maybe use PREPARE or even just COPY?
+		db.Exec("BEGIN")
 		// Now, finally, open the single_temp_file and create userSNPs
 		tmp_file := args[1].(string)
 		var file *os.File
@@ -184,17 +188,25 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			if !ok {
 				// Create a new SNP
 				time := time.Now().Format(time.RFC3339)
+				// TODO: Initialize the genotype frequencies, allele frequencies
 				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
 				fmt.Println(insertion_string)
 				result, err := db.Exec(insertion_string) // Notice the difference here - I call Exec instead of Query
-				fmt.Println(result, err)
+				if err != nil {
+					fmt.Println(err)
+					return err
+				}
 			}
 			// Is this a known userSNP?
 			_, ok := known_user_snps[snp_name]
 			if !ok {
 				// Create a new user-snp
+				// TODO: actually do this
 			}
-
+		} // End of file-parsing
+		result, err := db.Exec("COMMIT")
+		if err != nil {
+			return err
 		}
 		return nil // Parsing the file went fine
 	}, nil // Worker-creation went fine
