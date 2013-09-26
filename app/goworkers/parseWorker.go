@@ -120,6 +120,8 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		}
 
 		// Now load the known user-snps
+		// Comment: I took this idea from the Rails-parser,
+		//          it might be faster to always query the DB instead of creating a dictionary first?
 		known_user_snps := make(map[string]bool)
 		rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id + ";")
 		if err != nil {
@@ -156,8 +158,8 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				continue
 			}
 			line = strings.ToLower(strings.Trim(line, "\n"))
-			ll := strings.Split(line, "\t")
-			// Fix the ll for all different filetypes
+			linelist := strings.Split(line, "\t")
+			// Fix the linelist for all different filetypes
 			if filetype == "23andme" {
 				fmt.Println("23andme")
 			} else if filetype == "ancestry" {
@@ -174,18 +176,23 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				fmt.Println("unknown filetype", filetype)
 			}
 
-			snp_name := ll[0]
-			chromosome := ll[1]
-			position := ll[2]
+			snp_name := linelist[0]
+			chromosome := linelist[1]
+			position := linelist[2]
 			// Is this a known SNP?
 			_, ok := known_snps[snp_name]
 			if !ok {
 				// Create a new SNP
 				time := time.Now().Format(time.RFC3339)
-				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0',cast('" + time + "' as timestamp), cast('" + time + "' as timestamp));"
+				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
 				fmt.Println(insertion_string)
 				result, err := db.Exec(insertion_string) // Notice the difference here - I call Exec instead of Query
 				fmt.Println(result, err)
+			}
+			// Is this a known userSNP?
+			_, ok := known_user_snps[snp_name]
+			if !ok {
+				// Create a new user-snp
 			}
 
 		}
