@@ -180,35 +180,44 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				fmt.Println("unknown filetype", filetype)
 			}
 
+			// Example:
+			// ["rs123", "11", "421412", "AA"]
 			snp_name := linelist[0]
 			chromosome := linelist[1]
 			position := linelist[2]
+			allele := strings.ToUpper(linelist[3])
 			// Is this a known SNP?
 			_, ok := known_snps[snp_name]
 			if !ok {
 				// Create a new SNP
 				time := time.Now().Format(time.RFC3339)
-				// TODO: Initialize the genotype frequencies, allele frequencies
+				// possibly TODO: Initialize the genotype frequencies, allele frequencies
 				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
-				fmt.Println(insertion_string)
-				result, err := db.Exec(insertion_string) // Notice the difference here - I call Exec instead of Query
+				_, err := db.Exec(insertion_string) // Notice the difference here - using Exec instead of Query, we don't need any rows returned
 				if err != nil {
 					fmt.Println(err)
 					return err
 				}
 			}
 			// Is this a known userSNP?
-			_, ok := known_user_snps[snp_name]
+			_, ok = known_user_snps[snp_name]
 			if !ok {
-				// Create a new user-snp
-				// TODO: actually do this
+				// Create a new userSNP
+				time := time.Now().Format(time.RFC3339)
+				// snp_id is deprecated AFAIK, just use snp_name
+				user_snp_insertion_string := "INSERT INTO user_snps (local_genotype, genotype_id, user_id, created_at, updated_at, snp_name) VALUES ('" + allele + "','" + genotype_id + "','" + user_id + "','" + time + "','" + time + "','" + snp_name + "');"
+				_, err := db.Exec(user_snp_insertion_string)
+				if err != nil {
+					fmt.Println(err)
+					return err
+				}
 			}
 		} // End of file-parsing
-		result, err := db.Exec("COMMIT")
+		_, err = db.Exec("COMMIT")
 		if err != nil {
 			return err
 		}
-		return nil // Parsing the file went fine
+		return nil // Parsing the file went fine, return "nil" as error
 	}, nil // Worker-creation went fine
 }
 
