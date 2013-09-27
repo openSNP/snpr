@@ -4,10 +4,10 @@ import (
 	"bufio"
 	"database/sql"
 	"flag"
-	"fmt"
 	"github.com/benmanns/goworker"
 	_ "github.com/bmizerany/pq"
 	"io/ioutil"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -22,8 +22,14 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 	db_snp_snps := map[string]string{"MT-T3027C": "rs199838004", "MT-T4336C": "rs41456348", "MT-G4580A": "rs28357975", "MT-T5004C": "rs41419549", "MT-C5178a": "rs28357984", "MT-A5390G": "rs41333444", "MT-C6371T": "rs41366755", "MT-G8697A": "rs28358886", "MT-G9477A": "rs2853825", "MT-G10310A": "rs41467651", "MT-A10550G": "rs28358280", "MT-C10873T": "rs2857284", "MT-C11332T": "rs55714831", "MT-A11947G": "rs28359168", "MT-A12308G": "rs2853498", "MT-A12612G": "rs28359172", "MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031", "MT-T14783C": "rs28357680"}
 	_ = db_snp_snps
 
+	// TODO: Make file-opening less error-prone
+	// Initialize logger
+	logFile, _ := os.Open("../../log/goworker.log")
+	log := log.New(logFile, "goworker-", 0)
+	log.Println("Started worker-pool")
 	// Get username, password for database from database.yml
-	configFile := "../../config/database.yml" // TODO: Make this less error-prone
+	configFile := "../../config/database.yml"
+
 	// Read all lines from the configFile into a slice (list) of type []byte
 	config, err := ioutil.ReadFile(configFile)
 	if err != nil {
@@ -82,7 +88,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 	for rows.Next() {
 		var name string
 		if err := rows.Scan(&name); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 		known_snps[name] = true
 	}
@@ -104,14 +110,14 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		query_string := "SELECT genotypes.filetype, genotypes.user_id FROM genotypes WHERE genotypes.id = " + genotype_id + " LIMIT 1;"
 		rows, err := db.Query(query_string)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return err
 		}
 
 		for rows.Next() {
 			if err := rows.Scan(&filetype, &user_id); err != nil {
 				// TODO: Sometimes, this err isn't properly propagated? Print it for now
-				fmt.Println(err)
+				log.Println(err)
 				return err
 			}
 		}
@@ -125,13 +131,13 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		known_user_snps := make(map[string]bool)
 		rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id + ";")
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return err
 		}
 		for rows.Next() {
 			var snp_name string
 			if err := rows.Scan(&snp_name); err != nil {
-				fmt.Println(err)
+				log.Println(err)
 				return err
 			}
 			known_user_snps[snp_name] = true
@@ -149,7 +155,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		tmp_file := args[1].(string)
 		var file *os.File
 		if file, err = os.Open(tmp_file); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return err
 		}
 		defer file.Close()
@@ -165,19 +171,19 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			linelist := strings.Split(line, "\t")
 			// Fix the linelist for all different filetypes
 			if filetype == "23andme" {
-				fmt.Println("23andme")
+				log.Println("23andme")
 			} else if filetype == "ancestry" {
-				fmt.Println("ancestry")
+				log.Println("ancestry")
 			} else if filetype == "decodeme" {
-				fmt.Println("decodeme")
+				log.Println("decodeme")
 			} else if filetype == "ftdna-illumina" {
-				fmt.Println("ftdna")
+				log.Println("ftdna")
 			} else if filetype == "23andme-exome-vcf" {
-				fmt.Println("exome")
+				log.Println("exome")
 			} else if filetype == "IYG" {
-				fmt.Println("IYG")
+				log.Println("IYG")
 			} else {
-				fmt.Println("unknown filetype", filetype)
+				log.Println("unknown filetype", filetype)
 			}
 
 			// Example:
@@ -195,7 +201,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
 				_, err := db.Exec(insertion_string) // Notice the difference here - using Exec instead of Query, we don't need any rows returned
 				if err != nil {
-					fmt.Println(err)
+					log.Println(err)
 					return err
 				}
 			}
@@ -208,7 +214,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				user_snp_insertion_string := "INSERT INTO user_snps (local_genotype, genotype_id, user_id, created_at, updated_at, snp_name) VALUES ('" + allele + "','" + genotype_id + "','" + user_id + "','" + time + "','" + time + "','" + snp_name + "');"
 				_, err := db.Exec(user_snp_insertion_string)
 				if err != nil {
-					fmt.Println(err)
+					log.Println(err)
 					return err
 				}
 			}
@@ -228,7 +234,7 @@ func init() {
 	// Create workers
 	parseWorker, err := newParseWorker(environment)
 	if err != nil {
-		fmt.Println("Error creating worker:", err)
+		log.Println("Error creating worker:", err)
 		return
 	}
 	// Register workers
@@ -241,6 +247,6 @@ func main() {
 	// TODO: If we have several go-workers with different jobs, only one "main"-worker needed with main()-function.
 	err := goworker.Work()
 	if err != nil {
-		fmt.Println("Error running worker:", err)
+		log.Println("Error running worker:", err)
 	}
 }
