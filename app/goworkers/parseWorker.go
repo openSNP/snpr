@@ -12,19 +12,25 @@ import (
 	"strconv"
 	"strings"
 	"time"
+    "fmt"
 )
 
 // To test this worker:
 // redis-cli RPUSH resque:queue:goParse '{"class":"goParse", "args":["1","bla.txt"]}'
 
 func newParseWorker(environment string, args ...interface{}) (func(string, ...interface{}) error, error) {
+	// This function returns a pool of workers, by default 25
+
 	// A map to switch names for known SNPs
 	db_snp_snps := map[string]string{"MT-T3027C": "rs199838004", "MT-T4336C": "rs41456348", "MT-G4580A": "rs28357975", "MT-T5004C": "rs41419549", "MT-C5178a": "rs28357984", "MT-A5390G": "rs41333444", "MT-C6371T": "rs41366755", "MT-G8697A": "rs28358886", "MT-G9477A": "rs2853825", "MT-G10310A": "rs41467651", "MT-A10550G": "rs28358280", "MT-C10873T": "rs2857284", "MT-C11332T": "rs55714831", "MT-A11947G": "rs28359168", "MT-A12308G": "rs2853498", "MT-A12612G": "rs28359172", "MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031", "MT-T14783C": "rs28357680"}
 	_ = db_snp_snps
 
 	// TODO: Make file-opening less error-prone
 	// Initialize logger
-	logFile, _ := os.Open("../../log/goworker.log")
+	logFile, err := os.Create("../../log/goworker.log")
+    if err != nil {
+        fmt.Println(err)
+    }
 	log := log.New(logFile, "goworker-", 0)
 	log.Println("Started worker-pool")
 	// Get username, password for database from database.yml
@@ -89,13 +95,15 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		var name string
 		if err := rows.Scan(&name); err != nil {
 			log.Println(err)
+			return nil, err
 		}
 		known_snps[name] = true
 	}
 
 	// Return the worker, and return nil for the error
 	return func(queue string, args ...interface{}) error {
-		// The actual parsing happens here
+		// This is the actual worker, the parsing happens here
+		// This worker inherits all variables etc. from newInsertWorker()
 		// The arguments are:
 		// @genotype.id, single_temp_file
 
@@ -116,7 +124,6 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 
 		for rows.Next() {
 			if err := rows.Scan(&filetype, &user_id); err != nil {
-				// TODO: Sometimes, this err isn't properly propagated? Print it for now
 				log.Println(err)
 				return err
 			}
@@ -210,17 +217,21 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			if !ok {
 				// Create a new userSNP
 				time := time.Now().Format(time.RFC3339)
-				// snp_id is deprecated AFAIK, just use snp_name
+				// snp_id is deprecated, just use snp_name
 				user_snp_insertion_string := "INSERT INTO user_snps (local_genotype, genotype_id, user_id, created_at, updated_at, snp_name) VALUES ('" + allele + "','" + genotype_id + "','" + user_id + "','" + time + "','" + time + "','" + snp_name + "');"
 				_, err := db.Exec(user_snp_insertion_string)
 				if err != nil {
 					log.Println(err)
 					return err
 				}
+			} else {
+				log.Println("User-SNP " + snp_name + " with allele " + allele + " already exists")
 			}
+
 		} // End of file-parsing
 		_, err = db.Exec("COMMIT")
 		if err != nil {
+			log.Println(err)
 			return err
 		}
 		return nil // Parsing the file went fine, return "nil" as error
