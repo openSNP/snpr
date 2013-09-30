@@ -16,10 +16,8 @@ class Parsing
 
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
-      known_snps = {}
-      Snp.find_each {|s| known_snps[s.name] = true }
-      
-      known_user_snps = UserSnp.where(user_id: @genotype.user_id).pluck(:snp_name)
+      known_snps = Snp.pluck(:name).to_set
+      known_user_snps = UserSnp.where(user_id: @genotype.user_id).pluck(:snp_name).to_set
         
       new_snps = []
       new_user_snps = []
@@ -98,8 +96,7 @@ class Parsing
           end
           snp_array = [temp_array[2].downcase,temp_array[0],temp_array[1],@genotype_parsed.upcase]
           
-          snp = known_snps[snp_array[0].downcase]
-          if snp.nil?
+          unless known_snps.include?(snp_array[0].downcase)
             next
           end    
         end
@@ -107,7 +104,7 @@ class Parsing
         if snp_array[0] != nil and snp_array[1] != nil and snp_array[2] != nil and snp_array[3] != nil
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
-          if known_snps[snp_array[0].downcase].blank?
+          unless known_snps.include?(snp_array[0].downcase)
             snp = Snp.new(:name => snp_array[0].downcase, :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
             snp.default_frequencies
             new_snps << snp
