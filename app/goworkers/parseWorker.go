@@ -204,7 +204,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			_, ok := known_snps[snp_name]
 			if !ok {
 				// Create a new SNP
-				time := time.Now().Format(time.RFC3339)
+				time := time.Now().UTC().Format(time.RFC3339)
 				// possibly TODO: Initialize the genotype frequencies, allele frequencies
 				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
 				_, err := db.Exec(insertion_string) // Notice the difference here - using Exec instead of Query, we don't need any rows returned
