@@ -24,9 +24,11 @@ You need to have the following running to ensure that everything works:
 
   redis-server
 
-  rake environment resque:work QUEUE=*
-
   rake sunspot:solr:run OR rake sunspot:solr:start (runs in background)
+
+  bundle exec sidekiq -q preparse,2 -q parse,2 -q deletegenotype -q fitbit -q fixphenotypes -q frequency -q genomegov -q mailnewgenotype -q mendeley_details -q mendeley -q pgp -q plos_details -q plos -q zipfulldata -q snpedia -q zipgenotyping -C config/sidekiq.yml
+
+  ./goworkers -queues=goParse
 
   rails s(erver)
 
@@ -41,3 +43,9 @@ Check the issues-page for things to fix/finish/do.
 For Fedora 19:
 
   yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libxslt libxml2 libxml2-devel
+
+For the goworkers:
+
+ go get github.com/benmanns/goworker
+ go get github.com/bmizerany/pq
+

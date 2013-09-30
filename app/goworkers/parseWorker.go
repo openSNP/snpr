@@ -12,7 +12,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-    "fmt"
 )
 
 // To test this worker:
@@ -28,9 +27,9 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 	// TODO: Make file-opening less error-prone
 	// Initialize logger
 	logFile, err := os.Create("../../log/goworker.log")
-    if err != nil {
-        fmt.Println(err)
-    }
+	if err != nil {
+		log.Println(err)
+	}
 	log := log.New(logFile, "goworker-", 0)
 	log.Println("Started worker-pool")
 	// Get username, password for database from database.yml
@@ -157,9 +156,11 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		// Turn off AUTOCOMMIT by using BEGIN / INSERTs / COMMIT
 		// More tips at http://www.postgresql.org/docs/current/interactive/populate.html,
 		// TODO: Implement more improvements, maybe use PREPARE or even just COPY?
+
 		db.Exec("BEGIN")
 		// Now, finally, open the single_temp_file and create userSNPs
 		tmp_file := args[1].(string)
+		log.Println("Started work on " + tmp_file)
 		var file *os.File
 		if file, err = os.Open(tmp_file); err != nil {
 			log.Println(err)
@@ -178,7 +179,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			linelist := strings.Split(line, "\t")
 			// Fix the linelist for all different filetypes
 			if filetype == "23andme" {
-				log.Println("23andme")
+				log.Println("Filetype is 23andme.")
 			} else if filetype == "ancestry" {
 				log.Println("ancestry")
 			} else if filetype == "decodeme" {
@@ -194,9 +195,9 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			}
 
 			// Example:
-			// ["rs123", "11", "421412", "AA"]
+			// ["rs123", "11", "421412", "aa"]
 			snp_name := linelist[0]
-			chromosome := linelist[1]
+			chromosome := strings.ToUpper(linelist[1]) // mt -> MT
 			position := linelist[2]
 			allele := strings.ToUpper(linelist[3])
 			// Is this a known SNP?
@@ -229,11 +230,18 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			}
 
 		} // End of file-parsing
+		log.Println("Running COMMIT")
 		_, err = db.Exec("COMMIT")
 		if err != nil {
 			log.Println(err)
 			return err
 		}
+		// Update our indexes
+		// Both of these should only take a few seconds
+		log.Println("Vacuuming...")
+		db.Exec("VACUUM ANALYZE snps")
+		db.Exec("VACUUM ANALYZE user_snps")
+		log.Println("Done!")
 		return nil // Parsing the file went fine, return "nil" as error
 	}, nil // Worker-creation went fine
 }
