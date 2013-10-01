@@ -176,20 +176,84 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				continue
 			}
 			line = strings.ToLower(strings.Trim(line, "\n"))
-			linelist := strings.Split(line, "\t")
 			// Fix the linelist for all different filetypes
+			// Nothing much to do for 23andme
+			var linelist []string
 			if filetype == "23andme" {
-				log.Println("Filetype is 23andme.")
+				linelist = strings.Split(line, "\t")
 			} else if filetype == "ancestry" {
-				log.Println("ancestry")
+				linelist := strings.Split(line, "\t")
+				if linelist[0] != "rsid" {
+					linelist = []string{linelist[0], linelist[1], linelist[3], linelist[4] + linelist[5]}
+				} else {
+					continue
+				}
 			} else if filetype == "decodeme" {
-				log.Println("decodeme")
+				linelist := strings.Split(line, ",")
+				if linelist[0] == "Name" {
+					// skip header
+					continue
+				}
+				linelist = []string{linelist[0], linelist[2], linelist[3], linelist[5]}
 			} else if filetype == "ftdna-illumina" {
-				log.Println("ftdna")
+				// Remove "
+				line = strings.Replace(line, `"`, "", -1) // Backticks are needed here.
+				linelist := strings.Split(line, ",")
+				if linelist[0] == "RSID" {
+					// skip header
+					continue
+				}
+				// Interestingly, from here on ftdna has the same format as 23andme
 			} else if filetype == "23andme-exome-vcf" {
-				log.Println("exome")
+				// This is a valid VCF so a bit more work is needed
+				linelist := strings.Split(line, "\t")
+				format_array := strings.Split(linelist[8], ":")
+				genotype_index := -1
+				for index, element := range format_array {
+					if element == "GT" {
+						genotype_index = index
+						break
+					}
+				}
+				non_genotype_parsed := strings.Split(strings.Split(linelist[9], ":")[genotype_index], "/")
+				genotype_parsed := ""
+				for _, allele := range non_genotype_parsed {
+					if allele == "0" {
+						genotype_parsed = genotype_parsed + linelist[3]
+					} else if allele == "1" {
+						genotype_parsed = genotype_parsed + linelist[4]
+					}
+				}
+				linelist = []string{strings.ToLower(linelist[2]), linelist[0], linelist[1], strings.ToUpper(genotype_parsed)}
+
 			} else if filetype == "IYG" {
-				log.Println("IYG")
+				linelist := strings.Split(line, "\t")
+				name := linelist[0]
+				// Have to get the position from the name
+				// TODO: This is an ugly hack - first, replace all runes
+				// which are letters by X, then replace that X by nothing
+				replace_letters := func(r rune) rune {
+					switch {
+					case r >= 'A' && r <= 'Z':
+						return 'X'
+					case r >= 'a' && r <= 'z':
+						return 'X'
+					}
+					return r
+				}
+				position := strings.Map(replace_letters, name)
+				position = strings.Replace(position, "X", "", -1)
+				if strings.HasPrefix(name, "MT") {
+					// Check whether we have to replace the name with the correct rs ID
+					new_name, ok := db_snp_snps[name]
+					if ok {
+						name = new_name
+					}
+					linelist = []string{name, "MT", position, linelist[1]}
+				} else {
+					linelist = []string{linelist[0], "1", "1", linelist[1]}
+				}
+
 			} else {
 				log.Println("unknown filetype", filetype)
 			}
