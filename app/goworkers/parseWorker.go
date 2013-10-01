@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"database/sql"
+	"errors"
 	"flag"
 	"github.com/benmanns/goworker"
 	_ "github.com/bmizerany/pq"
@@ -19,10 +20,10 @@ import (
 
 func newParseWorker(environment string, args ...interface{}) (func(string, ...interface{}) error, error) {
 	// This function returns a pool of workers, by default 25
+	// First, make all the variables shared by all workers
 
 	// A map to switch names for known SNPs
 	db_snp_snps := map[string]string{"MT-T3027C": "rs199838004", "MT-T4336C": "rs41456348", "MT-G4580A": "rs28357975", "MT-T5004C": "rs41419549", "MT-C5178a": "rs28357984", "MT-A5390G": "rs41333444", "MT-C6371T": "rs41366755", "MT-G8697A": "rs28358886", "MT-G9477A": "rs2853825", "MT-G10310A": "rs41467651", "MT-A10550G": "rs28358280", "MT-C10873T": "rs2857284", "MT-C11332T": "rs55714831", "MT-A11947G": "rs28359168", "MT-A12308G": "rs2853498", "MT-A12612G": "rs28359172", "MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031", "MT-T14783C": "rs28357680"}
-	_ = db_snp_snps
 
 	// TODO: Make file-opening less error-prone
 	// Initialize logger
@@ -132,8 +133,6 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		}
 
 		// Now load the known user-snps
-		// Comment: I took this idea from the Rails-parser,
-		//          it might be faster to always query the DB instead of creating a dictionary first?
 		known_user_snps := make(map[string]bool)
 		rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id + ";")
 		if err != nil {
@@ -177,17 +176,16 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			}
 			line = strings.ToLower(strings.Trim(line, "\n"))
 			// Fix the linelist for all different filetypes
-			// Nothing much to do for 23andme
 			var linelist []string
 			if filetype == "23andme" {
+				// Nothing much to do for 23andme
 				linelist = strings.Split(line, "\t")
 			} else if filetype == "ancestry" {
 				linelist := strings.Split(line, "\t")
-				if linelist[0] != "rsid" {
-					linelist = []string{linelist[0], linelist[1], linelist[3], linelist[4] + linelist[5]}
-				} else {
+				if linelist[0] == "rsid" {
 					continue
 				}
+				linelist = []string{linelist[0], linelist[1], linelist[3], linelist[4] + linelist[5]}
 			} else if filetype == "decodeme" {
 				linelist := strings.Split(line, ",")
 				if linelist[0] == "Name" {
@@ -256,6 +254,8 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 
 			} else {
 				log.Println("unknown filetype", filetype)
+				err := errors.New("Unknown filetype in parsing")
+				return err
 			}
 
 			// Example:
