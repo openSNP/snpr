@@ -3,75 +3,38 @@ require 'digest'
 
 class Preparsing
   include Sidekiq::Worker
-  sidekiq_options :queue => :preparse, :retry => 5, :unique => true
+  sidekiq_options :queue => :preparse, :retry => 10, :unique => true # only retry 10 times - after that, the genotyping probably has already been deleted
 
   def perform(genotype_id)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/preparsing_#{Rails.env}.log")
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
     @genotype = Genotype.find(genotype_id)
-    if not @genotype
-      log "Genotype #{genotype_id} has already been deleted"
-      return
-    end
     filename = "#{Rails.root}/public/data/#{@genotype.fs_filename}"
     
     log "Starting preparse"
-
+    biggest = ''
+    biggest_size = 0
     begin
-      Zip::ZipFile.foreach(filename) do |entry|
-        # if decodeme-file try to find the csv-file that includes all the data
-        log "Checking for proper-filename"
-        if @genotype.filetype == "decodeme"
-          if entry.to_s.include?(".csv") == true
-            log "decodeme: found csv-file"
-            Zip::ZipFile.open(filename) {
-              |zipfile|
-              zipfile.extract(entry,"#{Rails.root}/tmp/#{@genotype.fs_filename}.csv")
-              zipfile.close()
-              log "extracted file"
-            }
-            system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.csv #{Rails.root}/public/data/#{@genotype.fs_filename}")
-            log "copied file"
+      Zip::ZipFile.open(filename) do |zipfile|
+        # find the biggest file, since that's going to be the genotyping
+        zipfile.each do |entry|
+          if entry.size > biggest_size
+            biggest = entry
+            biggest_size = entry.size
           end
-        
-        elsif @genotype.filetype == "23andme"
-          log "23andme"
-          if entry.to_s.include?("genome") == true
-            log "23andme: found genotyping-file"
-            Zip::ZipFile.open(filename) {
-              |zipfile|
-              zipfile.extract(entry,"#{Rails.root}/tmp/#{@genotype.fs_filename}.tsv")
-              zipfile.close()
-              log "extracted file"
-            }
-            system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.tsv #{Rails.root}/public/data/#{@genotype.fs_filename}")
-            log "copied file"
-          end
-
-        elsif @genotype.filetype == "ftdna-illumina"
-          log "ftdna"
-          if entry.to_s.include?("csv")
-            log "ftdna: found genotyping-file"
-            Zip::ZipFile.open(filename) {
-                |zipfile|
-                zipfile.extract(entry,"#{Rails.root}/tmp/#{@genotype.fs_filename}.csv")
-                zipfile.close()
-                log "extracted file"
-            }
-            system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.csv #{Rails.root}/public/data/#{@genotype.fs_filename}")
-            log "copied file"
-          end
-            
         end
+        
+        zipfile.extract(biggest,"#{Rails.root}/tmp/#{@genotype.fs_filename}.csv")
+        system("mv #{Rails.root}/tmp/#{@genotype.fs_filename}.csv #{Rails.root}/public/data/#{@genotype.fs_filename}")
+        log "copied file"
       end
-      
+        
     rescue
       log "nothing to unzip, seems to be a text-file in the first place"
     end
     
     # now that they are unzipped, check if they're actually proper files
-    
     file_is_ok = false
     fh = File.open("#{Rails.root}/public/data/#{@genotype.fs_filename}")
     l = fh.readline()
@@ -108,7 +71,7 @@ class Preparsing
             log "file is ftdna and is ok!"
         end
     elsif @genotype.filetype == "23andme-exome-vcf"
-        #first line is ???
+        #first line is 
         if l.split("\t").length == 10
             file_is_ok = true
             log "file is 23andme-exome and is ok!"
@@ -134,8 +97,6 @@ class Preparsing
     end
 
 
-
-
     # not proper file!
     if not file_is_ok
         if file_is_duplicate
@@ -147,6 +108,7 @@ class Preparsing
             log "file is not ok, sending email"
             # should delete the uploaded file here, leaving that for now
             # might be better to keep the file for debugging
+            Genotype.find_by_id(@genotype.id).delete
          end
     else
         log "Updating genotype with md5sum #{md5}"
