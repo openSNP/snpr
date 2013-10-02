@@ -181,19 +181,27 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 			actual_filetype = "IYG"
 		}
 		// In all other cases, actual_filetype stays "", then trust the user's setting
+		// Some users take unorthodox genotypings and write parsers to change their formatting to 23andme's (or others)
+		// Other users just break the whole thing by uploading something broken
 		if actual_filetype != "" && actual_filetype != filetype {
 			// Update the field in the database to actual_filetype, and use the proper filetype
-			db.Exec("UPDATE genotypes SET filetype = " + actual_filetype + " WHERE id = " + genotypes_id + ";")
+			log.Println("Genotyping " + genotype_id + " is supposed to have type " + filetype + " , but it's actually " + actual_filetype)
+			// Notice the difference here - using Exec instead of Query, we don't need any rows returned
+			_, err = db.Exec("UPDATE genotypes SET filetype = " + actual_filetype + " WHERE id = " + genotype_id + ";")
+			if err != nil {
+				log.Println("Couldn't change the filetype of " + genotype_id + ", reason:")
+				log.Println(err)
+				return err
+			}
 			filetype = actual_filetype
 		}
 
 		// Turn off AUTOCOMMIT by using BEGIN / INSERTs / COMMIT
 		// More tips at http://www.postgresql.org/docs/current/interactive/populate.html,
 		// TODO: Implement more improvements, maybe use PREPARE or even just COPY?
-
 		db.Exec("BEGIN")
 
-		// Reset the scanner
+		// Reset the scanner to the very first line, for example, IYG has already data in the first line
 		scanner = bufio.NewScanner(file)
 		for scanner.Scan() {
 			line := scanner.Text()
@@ -298,7 +306,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 				time := time.Now().UTC().Format(time.RFC3339)
 				// possibly TODO: Initialize the genotype frequencies, allele frequencies
 				insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
-				_, err := db.Exec(insertion_string) // Notice the difference here - using Exec instead of Query, we don't need any rows returned
+				_, err := db.Exec(insertion_string)
 				if err != nil {
 					log.Println(err)
 					return err
@@ -329,7 +337,7 @@ func newParseWorker(environment string, args ...interface{}) (func(string, ...in
 		}
 		// Update our indexes
 		// Both of these should only take a few seconds
-		log.Println("Vacuuming...")
+		log.Println("VACUUMing...")
 		db.Exec("VACUUM ANALYZE snps")
 		db.Exec("VACUUM ANALYZE user_snps")
 		log.Println("Done!")
@@ -360,5 +368,3 @@ func main() {
 		log.Println("Error running worker:", err)
 	}
 }
-<standard input>:186:84: expected operand, found ')'
-<standard input>:198:3: expected ')', found 'for'
