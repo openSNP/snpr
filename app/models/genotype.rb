@@ -10,6 +10,7 @@ class Genotype < ActiveRecord::Base
   before_post_process :is_image?
   validates_attachment :genotype,
     presence: true,
+    content_type: { content_type: ['text/plain', 'application/zip'] },
     size: { in: 0..100.megabytes }
 
   attr_accessible :genotype, :filetype, :user_id, :md5sum
