@@ -51,7 +51,7 @@ class Parsing
         elsif @genotype.filetype == "ancestry"
           temp_array = single_snp.split("\t")
           if temp_array[0] != "rsid"
-            snp_array = [temp_array[0],temp_array[1],temp_array[3],temp_array[4]+temp_array[5]]
+            snp_array = [temp_array[0],temp_array[1],temp_array[2],temp_array[3]+temp_array[4]]
           else
             next
           end
