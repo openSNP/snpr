@@ -9,6 +9,7 @@ default: &default
   sidekiq:
     user: admin
     password: password
+  devise: password
 
 
 production:

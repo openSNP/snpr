@@ -5,18 +5,21 @@ production:
     max_memory: 1G
     port: 8983
     log_level: WARNING
+    solr_home: ./solr
 
 development:
   solr:
     hostname: localhost
     port: 8982
     log_level: INFO
+    solr_home: ./solr
 
 test:
   solr:
     hostname: localhost
-    port: 8981
+    port: 8982
     log_level: WARNING
+    solr_home: ./solr
 
 cucumber:
   solr:
