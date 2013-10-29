@@ -318,6 +318,7 @@ DEPENDENCIES
   authlogic
   bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
+  capistrano
   coffee-script
   debugger
   dynamic_form
