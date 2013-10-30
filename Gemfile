@@ -11,7 +11,7 @@ gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
 gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'rvm-capistrano', '1.4.4'
 gem 'exceptional'
 
 # apis
@@ -29,8 +29,8 @@ gem 'minitest', '~> 4.3.2'
 gem 'pg', :require => 'pg'
 
 # for solr (indexing, searching)
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'sunspot_rails', '2.0.0'
+gem 'sunspot_solr', '2.0.0'
 
 # so we can create zip-files for genotypes
 gem 'rubyzip','0.9.5', :require => 'zip/zip'
@@ -51,7 +51,8 @@ gem 'slim', '~> 1.3.8'
 gem 'sinatra'
 
 # for activeadmin-interface
-gem "activeadmin"
+gem 'devise', '3.0.0'
+gem "activeadmin", '0.6.0'
 gem 'sass-rails'
 gem "meta_search",    '>= 1.1.0.pre'
 gem 'coffee-script'
