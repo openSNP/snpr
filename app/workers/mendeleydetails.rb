@@ -27,6 +27,8 @@ class MendeleyDetails
      detail_data = detail_resp.body
      detail_result = JSON.parse(detail_data)
 
+     return if detail_result.nil?
+
      if detail_result["oa_journal"] != false
         mendeley_paper.open_access = true
      else
