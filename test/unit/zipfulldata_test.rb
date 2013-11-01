@@ -104,7 +104,7 @@ TXT
       upp = mock('user_picture_phenotype')
       Dir.expects(:exists?).with(@job.tmp_dir).returns(false)
       Dir.expects(:mkdir).with(@job.tmp_dir)
-      Zip::ZipFile.expects(:open).with(@job.zip_fs_path, Zip::ZipFile::CREATE).
+      Zip::File.expects(:open).with(@job.zip_fs_path, Zip::File::CREATE).
         yields(@zipfile)
       FileLink.any_instance.expects(:save)
       @job.expects(:create_user_csv).with([@genotype], @zipfile)

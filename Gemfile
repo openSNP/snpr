@@ -33,7 +33,7 @@ gem 'sunspot_rails', '2.0.0'
 gem 'sunspot_solr', '2.0.0'
 
 # so we can create zip-files for genotypes
-gem 'rubyzip','0.9.5', :require => 'zip/zip'
+gem 'rubyzip','1.0.0'
 
 gem "will_paginate"
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'

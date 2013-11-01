@@ -236,7 +236,7 @@ GEM
       mime-types (>= 1.16)
     rsolr (1.0.9)
       builder (>= 2.1.2)
-    rubyzip (0.9.5)
+    rubyzip (1.0.0)
     rvm-capistrano (1.4.4)
       capistrano (>= 2.15.4)
     sanitize (2.0.6)
@@ -341,7 +341,7 @@ DEPENDENCIES
   rails3-generators
   recaptcha
   recommendify!
-  rubyzip (= 0.9.5)
+  rubyzip (= 1.0.0)
   rvm-capistrano (= 1.4.4)
   sanitize
   sass-rails

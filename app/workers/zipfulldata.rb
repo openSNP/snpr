@@ -1,5 +1,6 @@
 
 require 'csv'
+require 'zip'
 
 class Zipfulldata
   include Sidekiq::Worker
@@ -46,7 +47,7 @@ class Zipfulldata
       log "Making tmpdir #{tmp_dir}"
       Dir.mkdir(tmp_dir)
       log "Starting zipfile #{zip_fs_path}"
-      Zip::ZipFile.open(zip_fs_path, Zip::ZipFile::CREATE) do |zipfile|
+      Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
         create_fitbit_csv(zipfile)
         list_of_pics = create_picture_phenotype_csv(zipfile)
@@ -210,7 +211,7 @@ class Zipfulldata
 
   def create_picture_zip(list_of_pics, zipfile)
     pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
-    Zip::ZipFile.open("#{Rails.root}/public/#{pic_zipname}", Zip::ZipFile::CREATE) do |z|
+    Zip::File.open("#{Rails.root}/public/#{pic_zipname}", Zip::File::CREATE) do |z|
       list_of_pics.each do |tmp|
         begin
           file_name = tmp.phenotype_picture.path
