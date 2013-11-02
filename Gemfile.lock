@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: git://github.com/rubyzip/rubyzip.git
-  revision: 875bb8ded648a341587efd3c075d805f85a3c98c
+  revision: 3917dedbb5bf92db71e1804ea2e8dbac3d2891dd
   specs:
-    rubyzip (1.0.0)
+    rubyzip (1.1.0)
 
 GIT
   remote: git://github.com/ryanb/nested_form.git
