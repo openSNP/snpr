@@ -1,4 +1,4 @@
-
+require 'zip'
 require 'digest'
 
 class Preparsing
@@ -16,7 +16,7 @@ class Preparsing
     biggest = ''
     biggest_size = 0
     begin
-      Zip::ZipFile.open(filename) do |zipfile|
+      Zip::File.open(filename) do |zipfile|
         # find the biggest file, since that's going to be the genotyping
         zipfile.each do |entry|
           if entry.size > biggest_size
