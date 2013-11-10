@@ -88,7 +88,7 @@ class Preparsing
     file_is_duplicate = false
     Genotype.all.each do |g|
         other_md5 = g.md5sum
-        if other_md5 == md5
+        if other_md5 == md5 and g.id != @genotype.id
             log "Genotyping #{filename} is already uploaded!\n"
             log "Genotyping #{g.fs_filename} has the same md5sum.\n"
             file_is_ok = false
