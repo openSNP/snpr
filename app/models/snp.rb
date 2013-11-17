@@ -7,6 +7,8 @@ class Snp < ActiveRecord::Base
   has_many :snp_comments
   has_many :genome_gov_paper
   has_many :pgp_annotation
+  has_many :references
+  has_many :papers, through: :references
   serialize :allele_frequency
   serialize :genotype_frequency
 
@@ -43,5 +45,9 @@ class Snp < ActiveRecord::Base
     Snp.find_each do |s|
       Sidekiq::Client.enqueue(Frequency,s.id)
     end
+  end
+
+  def papers
+    references.map(&:paper)
   end
 end

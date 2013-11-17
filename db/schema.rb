@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904010950) do
+ActiveRecord::Schema.define(:version => 20131117101353) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -248,6 +248,14 @@ ActiveRecord::Schema.define(:version => 20130904010950) do
     t.datetime "updated_at",   :null => false
     t.integer  "reader"
     t.integer  "snp_id"
+  end
+
+  create_table "references", :force => true do |t|
+    t.integer  "snp_id"
+    t.integer  "paper_id"
+    t.string   "paper_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "snp_comments", :force => true do |t|

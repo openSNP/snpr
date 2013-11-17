@@ -1,7 +1,8 @@
 class SnpediaPaper < ActiveRecord::Base
-   belongs_to :snp
+  has_many :references, as: :paper
+  has_many :snps, through: :references
 
-   searchable do
-      text :summary
-   end
+  searchable do
+    text :summary
+  end
 end
