@@ -4,6 +4,7 @@ require_relative '../test_helper'
 class SnpsControllerTest < ActionController::TestCase
   context "Snps" do
     setup do
+      stub_solr
       activate_authlogic
       Sidekiq::Client.stubs(:enqueue)
       @user = FactoryGirl.create(:user)

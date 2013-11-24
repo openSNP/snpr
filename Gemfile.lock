@@ -170,7 +170,6 @@ GEM
     metaclass (0.0.1)
     mime-types (1.25)
     mini_portile (0.5.2)
-    minitest (4.3.3)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.8.2)
@@ -331,7 +330,6 @@ DEPENDENCIES
   mediawiki-gateway
   mendeley!
   meta_search (>= 1.1.0.pre)
-  minitest (~> 4.3.2)
   mocha
   nested_form!
   newrelic_rpm

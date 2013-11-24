@@ -62,7 +62,6 @@ class MendeleySearch
 
         logger.info("creating or updating paper")
         mendeley_paper.attributes = mendeley_paper.attributes.merge(
-          snp:          snp,
           title:        document['title'],
           mendeley_url: document['mendeley_url'],
           first_author: first_author,
@@ -73,6 +72,8 @@ class MendeleySearch
         if !(mendeley_paper.valid? && mendeley_paper.save)
           logger.error("MendeleyPaper for #{snp.name} invalid.\n" <<
                        mendeley_paper.errors.full_messages.join(", "))
+        else
+          mendeley_paper.snps << snp
         end
         Sidekiq::Client.enqueue(MendeleyDetails, mendeley_paper.id)
       end

@@ -3,7 +3,8 @@ require_relative '../test_helper'
 class MendeleySearchTest < ActiveSupport::TestCase
   context "worker" do
     setup do
-      @snp = FactoryGirl.build_stubbed(:snp, id: 1)
+      stub_solr
+      @snp = FactoryGirl.create(:snp, id: 1)
       @worker = MendeleySearch.new
       @document = {
         "uuid"         => UUIDTools::UUID.random_create.to_s,
@@ -84,7 +85,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
 
         @worker.process_documents([@document])
 
-        assert_equal @snp.id, new_mendeley_paper.snp_id
+        assert_equal [@snp], new_mendeley_paper.snps
         assert_equal @document["title"], new_mendeley_paper.title
         assert_equal @document["mendeley_url"], new_mendeley_paper.mendeley_url
         assert_equal "Max Mustermann", new_mendeley_paper.first_author
@@ -96,7 +97,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
       should "not update existing valid papers" do
         uuid = @document["uuid"]
         existing_mendeley_paper = FactoryGirl.
-          build_stubbed(:mendeley_paper, uuid: uuid, snp: @snp)
+          build_stubbed(:mendeley_paper, uuid: uuid, snps: [@snp])
         MendeleyPaper.expects(:find_or_initialize_by_uuid).with(uuid).
           returns(existing_mendeley_paper)
         MendeleyPaper.any_instance.expects(:save).never
@@ -107,16 +108,15 @@ class MendeleySearchTest < ActiveSupport::TestCase
 
       should "update existing invalid papers" do
         uuid = @document["uuid"]
-        existing_mendeley_paper = FactoryGirl.
-          build_stubbed(:mendeley_paper, snp: nil)
-        existing_mendeley_paper.expects(:save).returns(true)
-        MendeleyPaper.expects(:find_or_initialize_by_uuid).with(uuid).
-          returns(existing_mendeley_paper)
+        existing_mendeley_paper = FactoryGirl.create(:mendeley_paper, uuid: uuid)
+        existing_mendeley_paper.update_column(:title, nil)
         Sidekiq::Client.expects(:enqueue)
-
-        @worker.process_documents([@document])
-
-        assert_equal @snp.id, existing_mendeley_paper.snp_id
+        assert_difference(lambda { Reference.count }) do
+          @worker.process_documents([@document])
+        end
+        existing_mendeley_paper.reload
+        assert_equal [@snp], existing_mendeley_paper.snps
+        assert_equal @document['title'], existing_mendeley_paper.title
       end
     end
   end

@@ -4,6 +4,7 @@ require_relative '../test_helper'
 class UsersControllerTest < ActionController::TestCase
   context "Users" do
     setup do
+      stub_solr
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       assert_nil @controller.send(:current_user)
@@ -112,6 +113,8 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "be able to update" do
+        Sidekiq::Client.expects(:enqueue).with(Recommendvariations)
+        Sidekiq::Client.expects(:enqueue).with(Recommendphenotypes)
         post :update, id: @user.id, user:
           { name: "Blah Keks", user_phenotypes_attributes: [],
             homepages_attributes: { new_123: { url: "" }}}
@@ -122,6 +125,7 @@ class UsersControllerTest < ActionController::TestCase
       end
          
       should "be able to destroy" do
+        Sidekiq::Client.expects(:enqueue).with(Fixphenotypes)
         assert_difference 'User.count', -1 do
           post :destroy, id: @user.id
         end

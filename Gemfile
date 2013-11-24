@@ -22,7 +22,6 @@ gem 'mendeley', git: 'git://github.com/tsujigiri/mendeley.git', branch: 'paging_
 gem 'newrelic_rpm'
 
 # workaround for bug in Fedora
-gem 'minitest', '~> 4.3.2'
 
 # gem 'sqlite3'
 # use postgresql instead:
