@@ -8,7 +8,7 @@ class ParsingTest < ActiveSupport::TestCase
       UserSnp.delete_all
 
       @file_23andMe = "#{Rails.root}/test/data/23andMe_test.csv"
-      Sidekiq::Client.expects(:enqueue).with(Preparsing, instance_of(Fixnum))
+      Sidekiq::Client.stubs(:enqueue).with(Preparsing, instance_of(Fixnum))
       @genotype_23andme = FactoryGirl.create(:genotype,
         genotype_file_name: @file_23andMe.split('/').last, filetype: '23andme')
 
