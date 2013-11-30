@@ -34,9 +34,9 @@ class MendeleySearch
       result['total_pages'].to_i > result['current_page'].to_i
 
     snp.mendeley_updated = Time.now
-    snp.ranking = snp.mendeley_paper.count +
-      2 * snp.plos_paper.count + 5 * snp.snpedia_paper.count +
-      2 * snp.genome_gov_paper.count + 2 * snp.pgp_annotation.count
+    snp.ranking = snp.mendeley_papers.count +
+      2 * snp.plos_papers.count + 5 * snp.snpedia_papers.count +
+      2 * snp.genome_gov_papers.count + 2 * snp.pgp_annotation.count
     snp.save or raise(
       "could not save snp(#{snp.name}): #{snp.errors.full_messages.join(", ")}")
 

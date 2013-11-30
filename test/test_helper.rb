@@ -8,7 +8,7 @@ require "mocha/setup"
 require 'rails/test_help'
 require "authlogic/test_case"
 #SunspotTest.solr_startup_timeout = 30
-#require 'sunspot_test/test_unit'
+require 'sunspot_test/test_unit'
 require 'factory_girl'
 FactoryGirl.find_definitions
 require 'paperclip/matchers'

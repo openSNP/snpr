@@ -64,18 +64,18 @@
 
 <div id="tab-container">
   <ul class="nav nav-tabs">
-    <li><a href="#snpedia">SNPedia (<%=@snp.snpedia_paper.length%>)</a></li>
-    <li><a href="#plos">PLoS (<%=@snp.plos_paper.length%>)</a></li>
-    <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_paper.length%>)</a></li>
+    <li><a href="#snpedia">SNPedia (<%= @snp.snpedia_papers.count %>)</a></li>
+    <li><a href="#plos">PLoS (<%= @snp.plos_papers.length %>)</a></li>
+    <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_papers.length%>)</a></li>
     <li><a href="#pgp">Personal Genome Project (<%=@snp.pgp_annotation.length%>)</a></li>
-    <li><a href="#genomegov">Genome.gov (<%=@snp.genome_gov_paper.length%>)</a></li>
+    <li><a href="#genomegov">Genome.gov (<%=@snp.genome_gov_papers.length%>)</a></li>
     <li><a href="#users">Other users (<%= @user_count %>)</a></li>
     <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
   </ul>
 
   <div id="plos">
     <h3>Publications on this SNP on the Public Library of Science:</h3>
-    <% if @snp.plos_paper != [] %>
+    <% if @snp.plos_papers != [] %>
       <table class="table table-striped" id="PaperPlos">
         <thead>
           <tr>
@@ -86,10 +86,10 @@
           </tr>
         </thead>
         <tbody>
-          <% @snp.plos_paper.limit(100).each do |p|%>
+          <% @snp.plos_papers.limit(100).each do |p|%>
             <tr>
               <td><%=p.first_author%></td> 
-              <td><%=link_to(p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
+              <td><%=link_to(p.title.html_safe, "http://dx.doi.org/#{p.doi}")%></td>
               <td><%=p.pub_date.to_s[6,4]%></td>
               <td><%=p.reader%></td>
             </tr>
@@ -103,7 +103,7 @@
 
   <div id="genomegov">
     <h3>Publications listed by <em>Genome.gov</em></h3>
-    <% if @snp.genome_gov_paper != []%>
+    <% if @snp.genome_gov_papers != []%>
       <table class="table table-striped" id="PaperGenomeGov">
         <thead>
           <tr>
@@ -117,7 +117,7 @@
           </tr>
         </thead>
         <tbody>
-          <%@snp.genome_gov_paper.limit(100).each do |p|%>
+          <%@snp.genome_gov_papers.limit(100).each do |p|%>
             <tr>
               <td><%=p.first_author%></td>
               <td><%=link_to(p.title.html_safe,p.pubmed_link)%></td>
@@ -165,7 +165,7 @@
   </div>
   <div id="mendeley">
     <h3>Publications on this SNP on Mendeley</h3>
-    <% if @snp.mendeley_paper != [] %>
+    <% if @snp.mendeley_papers != [] %>
       <table class="table table-striped" id="PaperMendeley">
         <thead>
           <tr>
@@ -177,7 +177,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @snp.mendeley_paper.limit(100).each do |p|%>
+          <% @snp.mendeley_papers.limit(100).each do |p|%>
             <tr>
               <td><%=p.first_author%></td>
               <td><%=link_to( p.title, p.mendeley_url)%></td>
@@ -202,21 +202,21 @@
   </div>
   <div id="snpedia">
     <h3>Links to SNPedia</h3>
-    <% if @snp.snpedia_paper != [] %>
+    <% if @snp.snpedia_papers != [] %>
       <table class="table table-striped">
         <tr>
           <th>Title</th>
           <th>Summary</th>
         </tr>
-        <% @snp.snpedia_paper.limit(100).each do |p| %>
-          <% if current_user && @user_snp && p.url[-2].to_s+p.url[-4].to_s == @user_snp.local_genotype || current_user && @user_snp && p.url[-4].to_s+p.url[-2].to_s == @user_snp.local_genotype %>
+        <% @snp.snpedia_papers.limit(100).each do |p| %>
+          <% if current_user && @user_snp && "#{p.url[-2]}#{p.url[-4]}" == @user_snp.local_genotype || current_user && @user_snp && "#{p.url[-4]}#{p.url[-2]}" == @user_snp.local_genotype %>
             <tr>
               <td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
               <td><b><%= p.summary.capitalize %></b></td>
           </b></tr>
-        <%else%>
+        <% elsif p.url.present? %>
           <tr>
-            <td><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></td>
+            <td><%= link_to "#{@snp.name} #{p.url[-4]}/#{p.url[-2]}", p.url %></td>
             <td><%= p.summary.capitalize %></td>
           </tr>
         <% end%>

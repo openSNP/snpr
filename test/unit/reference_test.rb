@@ -5,18 +5,18 @@ class ReferenceTest < ActiveSupport::TestCase
     setup do
       stub_solr
       @snps = FactoryGirl.create_list(:snp, 2)
-      @mendeley_paper = FactoryGirl.create(:mendeley_paper)
-      @plos_paper = FactoryGirl.create(:plos_paper)
     end
 
-    should "associate snps with papers" do
-      assert_difference(lambda { Reference.count }, 2) do
-        @mendeley_paper.snps = @snps
+    %w(mendeley plos snpedia genome_gov).each do |paper|
+      should "associate snps with #{paper} papers" do
+        @paper = FactoryGirl.create("#{paper}_paper".to_sym)
+
+        assert_difference(lambda { Reference.count }) do
+          @paper.snps << @snps.first
+        end
+        assert_equal [@paper], @snps.first.send(:"#{paper}_papers")
+        assert_equal [@snps.first], @paper.snps
       end
-      assert_difference(lambda { Reference.count }, 2) do
-        @plos_paper.snps = @snps
-      end
-      assert_equal [@mendeley_paper, @plos_paper], @snps.first.papers
     end
   end
 end

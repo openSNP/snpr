@@ -15,7 +15,12 @@ class SnpsControllerTest < ActionController::TestCase
     end
 
     should "be shown" do
+      FactoryGirl.create(:mendeley_paper, snps: [@snp])
+      FactoryGirl.create(:plos_paper, snps: [@snp])
+      FactoryGirl.create(:snpedia_paper, snps: [@snp])
+      FactoryGirl.create(:genome_gov_paper, snps: [@snp])
       get(:show, id: @snp.name)
+      assert_response :success
     end
 
     context "when logged-in" do
