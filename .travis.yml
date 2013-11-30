@@ -6,6 +6,7 @@ rvm:
 env: DB=postgres CI=1
 bundler_args: --without development
 before_install: 
+  - git clone git://github.com/redis/hiredis.git && cd hiredis && make && sudo make install && sudo ldconfig && cd ..
 before_script:
   - cp config/database.yml.ci config/database.yml
   - cp config/app_config.yml.example config/app_config.yml
@@ -14,5 +15,7 @@ before_script:
   - echo "anyOleBollocks" > secret_token
   - psql -c 'create database snpr_test;' -U postgres
 # script: "bundle install" # this is automatically run by travis-ci
+services:
+  - redis-server
 script: "bundle exec rake --trace db:migrate test"
 
