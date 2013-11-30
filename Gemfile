@@ -75,10 +75,13 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'debugger'
   gem 'sunspot_test', git: 'git://github.com/tsujigiri/sunspot_test.git', branch: 'dirty_quickfix'
   #gem "turn", "< 0.8.3" # truncates backtraces in the tests (bad)
   gem 'simplecov', require: false
+end
+
+group :debug do
+  gem 'debugger'
 end
 
 group :development, :test do
