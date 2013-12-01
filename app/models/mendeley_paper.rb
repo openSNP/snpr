@@ -1,6 +1,6 @@
 class MendeleyPaper < ActiveRecord::Base
-  has_many :references, as: :paper
-  has_many :snps, through: :references
+  has_many :snp_references, as: :paper
+  has_many :snps, through: :snp_references
   validates_presence_of :title, :uuid
   validates_uniqueness_of :uuid
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131117101353) do
+ActiveRecord::Schema.define(:version => 20131130123430) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -250,14 +250,6 @@ ActiveRecord::Schema.define(:version => 20131117101353) do
     t.integer  "snp_id"
   end
 
-  create_table "references", :force => true do |t|
-    t.integer  "snp_id"
-    t.integer  "paper_id"
-    t.string   "paper_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "snp_comments", :force => true do |t|
     t.text     "comment_text"
     t.text     "subject"
@@ -267,6 +259,16 @@ ActiveRecord::Schema.define(:version => 20131117101353) do
     t.datetime "updated_at",   :null => false
     t.integer  "reply_to_id"
   end
+
+  create_table "snp_references", :force => true do |t|
+    t.integer  "snp_id",     :null => false
+    t.integer  "paper_id",   :null => false
+    t.string   "paper_type", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "snp_references", ["snp_id", "paper_id", "paper_type"], :name => "index_snp_references_on_snp_id_and_paper_id_and_paper_type", :unique => true
 
   create_table "snpedia_papers", :force => true do |t|
     t.string   "url"

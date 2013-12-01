@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
-class ReferenceTest < ActiveSupport::TestCase
-  context "Reference" do
+class SnpReferenceTest < ActiveSupport::TestCase
+  context "SnpReference" do
     setup do
       stub_solr
       @snps = FactoryGirl.create_list(:snp, 2)
@@ -11,7 +11,7 @@ class ReferenceTest < ActiveSupport::TestCase
       should "associate snps with #{paper} papers" do
         @paper = FactoryGirl.create("#{paper}_paper".to_sym)
 
-        assert_difference(lambda { Reference.count }) do
+        assert_difference(lambda { SnpReference.count }) do
           @paper.snps << @snps.first
         end
         assert_equal [@paper], @snps.first.send(:"#{paper}_papers")

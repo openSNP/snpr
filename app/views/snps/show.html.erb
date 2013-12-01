@@ -65,17 +65,17 @@
 <div id="tab-container">
   <ul class="nav nav-tabs">
     <li><a href="#snpedia">SNPedia (<%= @snp.snpedia_papers.count %>)</a></li>
-    <li><a href="#plos">PLoS (<%= @snp.plos_papers.length %>)</a></li>
-    <li><a href="#mendeley">Mendeley (<%=@snp.mendeley_papers.length%>)</a></li>
-    <li><a href="#pgp">Personal Genome Project (<%=@snp.pgp_annotation.length%>)</a></li>
-    <li><a href="#genomegov">Genome.gov (<%=@snp.genome_gov_papers.length%>)</a></li>
+    <li><a href="#plos">PLoS (<%= @snp.plos_papers.count %>)</a></li>
+    <li><a href="#mendeley">Mendeley (<%= @snp.mendeley_papers.count %>)</a></li>
+    <li><a href="#pgp">Personal Genome Project (<%= @snp.pgp_annotation.count %>)</a></li>
+    <li><a href="#genomegov">Genome.gov (<%= @snp.genome_gov_papers.count %>)</a></li>
     <li><a href="#users">Other users (<%= @user_count %>)</a></li>
-    <li><a href="#comments">Comments (<%=@snp.snp_comments.length%>)</a></li>
+    <li><a href="#comments">Comments (<%= @snp.snp_comments.count %>)</a></li>
   </ul>
 
   <div id="plos">
     <h3>Publications on this SNP on the Public Library of Science:</h3>
-    <% if @snp.plos_papers != [] %>
+    <% if @snp.plos_papers.present? %>
       <table class="table table-striped" id="PaperPlos">
         <thead>
           <tr>
@@ -103,7 +103,7 @@
 
   <div id="genomegov">
     <h3>Publications listed by <em>Genome.gov</em></h3>
-    <% if @snp.genome_gov_papers != []%>
+    <% if @snp.genome_gov_papers.present? %>
       <table class="table table-striped" id="PaperGenomeGov">
         <thead>
           <tr>
@@ -136,7 +136,7 @@
   </div>
   <div id="pgp">
     <h3>Evidence compiled by the <em>Personal Genome Project</em></h3>
-    <% if @snp.pgp_annotation != []%>
+    <% if @snp.pgp_annotation.present? %>
       <table class="table table-striped" id="PgpAnnotation">
         <thead>
           <tr>
@@ -165,7 +165,7 @@
   </div>
   <div id="mendeley">
     <h3>Publications on this SNP on Mendeley</h3>
-    <% if @snp.mendeley_papers != [] %>
+    <% if @snp.mendeley_papers.present? %>
       <table class="table table-striped" id="PaperMendeley">
         <thead>
           <tr>
@@ -202,7 +202,7 @@
   </div>
   <div id="snpedia">
     <h3>Links to SNPedia</h3>
-    <% if @snp.snpedia_papers != [] %>
+    <% if @snp.snpedia_papers.present? %>
       <table class="table table-striped">
         <tr>
           <th>Title</th>

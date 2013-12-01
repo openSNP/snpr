@@ -2,12 +2,12 @@ class Snp < ActiveRecord::Base
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name,
     dependent: :destroy
   has_many :pgp_annotation
-  has_many :references
+  has_many :snp_references
   #has_many :papers, through: :references
-  has_many :snpedia_papers, through: :references
-  has_many :plos_papers, through: :references
-  has_many :mendeley_papers, through: :references
-  has_many :genome_gov_papers, through: :references
+  #has_many :snpedia_papers, through: :references
+  #has_many :plos_papers, through: :references
+  #has_many :mendeley_papers, through: :references
+  #has_many :genome_gov_papers, through: :references
   has_many :snp_comments
 
   serialize :allele_frequency
@@ -51,7 +51,7 @@ class Snp < ActiveRecord::Base
   %w(snpedia mendeley genome_gov plos).each do |source|
     define_method(:"#{source}_papers") do
       klass = "#{source.camelize}Paper".constantize
-      klass.includes(:references).where(references: { snp_id: id })
+      klass.includes(:snp_references).where(snp_references: { snp_id: id })
     end
   end
 end

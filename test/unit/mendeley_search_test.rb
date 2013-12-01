@@ -111,7 +111,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
         existing_mendeley_paper = FactoryGirl.create(:mendeley_paper, uuid: uuid)
         existing_mendeley_paper.update_column(:title, nil)
         Sidekiq::Client.expects(:enqueue)
-        assert_difference(lambda { Reference.count }) do
+        assert_difference(lambda { SnpReference.count }) do
           @worker.process_documents([@document])
         end
         existing_mendeley_paper.reload
