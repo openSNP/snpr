@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 3.2.15'
 gem 'authlogic' # lots of user-related magic
+gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
 gem "jquery-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'

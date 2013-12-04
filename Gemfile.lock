@@ -146,7 +146,7 @@ GEM
       activesupport (>= 3.2, < 5)
     highline (1.6.20)
     hike (1.2.3)
-    i18n (0.6.5)
+    i18n (0.6.9)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
@@ -330,6 +330,7 @@ DEPENDENCIES
   factory_girl
   fitgem
   friendly_id!
+  i18n (>= 0.6.6)
   jquery-rails
   jquery-ui-rails
   json
