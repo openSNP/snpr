@@ -1,6 +1,8 @@
 ENV["RAILS_ENV"] = "test"
-require 'simplecov' unless ENV['CI']
-SimpleCov.start('rails')
+unless ENV['CI']
+  require 'simplecov'
+  SimpleCov.start('rails')
+end
 require File.expand_path('../../config/environment', __FILE__)
 require "test/unit"
 require "shoulda-context"
