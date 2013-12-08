@@ -78,9 +78,9 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'debugger'
+  gem 'debugger' unless ENV['CI']
   gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
-  gem 'simplecov', require: false
+  gem 'simplecov', require: false unless ENV['CI']
   gem 'webmock'
 end
 
