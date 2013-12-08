@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+  <result name="response" numFound="47" start="0" maxScore="1.2268105">
+    <doc>
+      <str name="id">10.1371/journal.pone.0013771</str>
+      <str name="journal">PLoS ONE</str>
+      <str name="eissn">1932-6203</str>
+      <date name="publication_date">2010-10-29T00:00:00Z</date>
+      <str name="article_type">Research Article</str>
+      <arr name="author_display">
+        <str>Ester Aparicio</str>
+        <str>Mariona Parera</str>
+        <str>Sandra Franco</str>
+        <str>Nuria Pérez-Alvarez</str>
+        <str>Cristina Tural</str>
+        <str>Bonaventura Clotet</str>
+        <str>Miguel Angel Martínez</str>
+      </arr>
+      <arr name="abstract">
+        <str>
+          Recent genome-wide association studies report that the SNP rs8099917, located 8.9 kb upstream of the start codon of IL28B, is associated with both disease chronicity and therapeutic response to pegIFN-α and RBV in patients infected with genotype 1 HCV. To determine the effect of rs8099917 variation on the response of HCV to therapy, we genotyped this variant in a cohort of 160 HCV/HIV-1 coinfected patients in our clinic unit who received combined peg-IFN-α/RBV therapy. The rs8099917 T/G or G/G genotypes were observed in 56 patients (35%). Treatment failure occurred in 80% of G-allele carriers versus 48% of non-carriers (P&lt;0.0001). This result reveals that the G allele was strongly associated with treatment failure in this patient cohort. Importantly, a highly significant association was found between the G-allele and response to therapy in HCV genotype 1-infected patients (P&lt;0.0001) but not in HCV genotype 3-infected patients. Multivariate analysis (odds ratio; 95% confidence interval; P value) indicated that the rs8099917 TT genotype was a strong predictor of treatment success (5.83; 1.26–26.92; P = 0.021), independent of baseline plasma HCV-RNA load less than 500 000 IU/ml (4.85; 1.18–19.95; P = 0.025) and absence of advanced liver fibrosis (5.24; 1.20–22.91; P = 0.025). These results reveal the high prevalence of the rs8099917 G allele in HCV/HIV-1 coinfected patients as well as its strong association with treatment failure in HCV genotype 1-infected patients. rs8099917 SNP genotyping may be a valid pre-treatment predictor of which patients are likely to respond to treatment in this group of difficult-to-treat HCV/HIV-infected patients.
+        </str>
+      </arr>
+      <str name="title_display">IL28B SNP rs8099917 Is Strongly Associated with Pegylated Interferon-α and Ribavirin Therapy Treatment Failure in HCV/HIV-1 Coinfected Patients</str>
+      <float name="score">1.2268105</float>
+    </doc>
+  </result>
+</response>

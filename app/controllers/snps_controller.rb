@@ -29,7 +29,7 @@ class SnpsController < ApplicationController
     @total_genotypes = @snp.genotype_frequency.map {|k,v| v }.sum
     @total_alleles = @snp.allele_frequency.map {|k,v| v }.sum
 
-    Sidekiq::Client.enqueue(Plos, @snp.id)
+    Sidekiq::Client.enqueue(PlosSearch, @snp.id)
     Sidekiq::Client.enqueue(MendeleySearch, @snp.id)
     Sidekiq::Client.enqueue(Snpedia, @snp.id)
 
