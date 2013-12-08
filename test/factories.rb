@@ -92,4 +92,7 @@ FactoryGirl.define do
     doi "10.1000/182"
     pub_year 2013
   end
+
+  factory :plos_paper do
+  end
 end
