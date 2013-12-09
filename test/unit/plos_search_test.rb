@@ -8,7 +8,7 @@ class PlosSearchTest < ActiveSupport::TestCase
   should "create new PlosPapers for results from PLOS API" do
     response = File.read(Rails.root.join('test/data/plos_search_response.xml'))
     stub_request(:post, "api.plos.org/search").
-      with(body: { 'api_key' => 'xxx', 'q' => @snp.name, 'rows' => '50', 'start' => '0' }).
+      with(body: { 'api_key' => 'xxx', 'q' => @snp.name, 'rows' => '999', 'start' => '0' }).
       to_return(status: 200, body: response)
     PlosSearch.stubs(:api_key).returns('xxx')
     Sidekiq::Client.expects(:enqueue).with(PlosDetails, instance_of(Fixnum))

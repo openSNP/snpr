@@ -35,7 +35,7 @@ class PlosSearch
   def perform_search
     # honoring API limits
     Timeout.timeout(5) do
-      client.search(snp.name)
+      client.search(snp.name, 0, 999)
     end
   end
 
