@@ -36,9 +36,9 @@ class Snp < ActiveRecord::Base
     snps = Snp.select([ :id, :mendeley_updated, :snpedia_updated, :plos_updated ]).
       where([ 'mendeley_updated < ? or snpedia_updated < ? or plos_updated < ?',
               max_age, max_age, max_age ]).find_each do |snp|
-      Sidekiq::Client.enqueue(Mendeley, snp.id) if snp.mendeley_updated < max_age
-      Sidekiq::Client.enqueue(Snpedia,  snp.id) if snp.snpedia_updated  < max_age
-      Sidekiq::Client.enqueue(Plos,     snp.id) if snp.plos_updated     < max_age
+      Sidekiq::Client.enqueue(Mendeley,   snp.id) if snp.mendeley_updated < max_age
+      Sidekiq::Client.enqueue(Snpedia,    snp.id) if snp.snpedia_updated  < max_age
+      Sidekiq::Client.enqueue(PlosSearch, snp.id) if snp.plos_updated     < max_age
     end
   end
   
@@ -53,5 +53,22 @@ class Snp < ActiveRecord::Base
       klass = "#{source.camelize}Paper".constantize
       klass.includes(:snp_references).where(snp_references: { snp_id: id })
     end
+  end
+
+  # TODO: move to after hook, checking whether one of the *_updated attributes
+  # has changed and updating the ranking if so.
+  def update_ranking
+    self.ranking =
+            mendeley_paper.count
+      + 2 * plos_paper.count
+      + 5 * snpedia_paper.count
+      + 2 * genome_gov_paper.count
+      + 2 * pgp_annotation.count
+  end
+
+  def plos_updated!
+    self.plos_updated = Time.current
+    update_ranking
+    save
   end
 end

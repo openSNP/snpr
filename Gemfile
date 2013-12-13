@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.15'
+gem 'rails', '~> 3.2.16'
 gem 'authlogic' # lots of user-related magic
+gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
 gem "jquery-rails"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
@@ -10,13 +11,14 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
-gem 'capistrano'
+gem 'capistrano', '~> 2.0'
 gem 'rvm-capistrano', '1.4.4'
 gem 'exceptional'
 
 # apis
 gem 'fitgem'
-gem 'mendeley', git: 'git://github.com/tsujigiri/mendeley.git', branch: 'paging_search'
+gem 'mendeley', github: 'tsujigiri/mendeley', branch: 'paging_search'
+gem 'plos', github: 'tsujigiri/plos', branch: 'master', require: false
 
 # New Relic monitoring, off by default in development
 gem 'newrelic_rpm'
@@ -32,16 +34,16 @@ gem 'sunspot_rails', '2.0.0'
 gem 'sunspot_solr', '2.0.0'
 
 # so we can create zip-files for genotypes
-gem 'rubyzip','1.0.0'
+gem 'rubyzip', :git => 'git://github.com/rubyzip/rubyzip.git'
 
 gem "will_paginate"
-gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
+gem 'nested_form', github: 'ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
 gem 'paperclip', '~> 3.0'
-gem 'friendly_id', :git => 'git://github.com/FriendlyId/friendly_id.git', branch: '4.0-stable' # the branch is for Rails 3
-gem 'recommendify',:git => 'git://github.com/paulasmuth/recommendify.git', :ref => "34308c4"
+gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: '4.0-stable' # the branch is for Rails 3
+gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
 
 # for jobs
 gem 'sidekiq'
@@ -75,9 +77,9 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'sunspot_test', git: 'git://github.com/tsujigiri/sunspot_test.git', branch: 'dirty_quickfix'
-  #gem "turn", "< 0.8.3" # truncates backtraces in the tests (bad)
+  gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 group :debug do
