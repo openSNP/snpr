@@ -67,7 +67,7 @@
     <li><a href="#snpedia">SNPedia (<%= @snp.snpedia_papers.count %>)</a></li>
     <li><a href="#plos">PLoS (<%= @snp.plos_papers.count %>)</a></li>
     <li><a href="#mendeley">Mendeley (<%= @snp.mendeley_papers.count %>)</a></li>
-    <li><a href="#pgp">Personal Genome Project (<%= @snp.pgp_annotation.count %>)</a></li>
+    <li><a href="#pgp">Personal Genome Project (<%= @snp.pgp_annotations.count %>)</a></li>
     <li><a href="#genomegov">Genome.gov (<%= @snp.genome_gov_papers.count %>)</a></li>
     <li><a href="#users">Other users (<%= @user_count %>)</a></li>
     <li><a href="#comments">Comments (<%= @snp.snp_comments.count %>)</a></li>
@@ -136,7 +136,7 @@
   </div>
   <div id="pgp">
     <h3>Evidence compiled by the <em>Personal Genome Project</em></h3>
-    <% if @snp.pgp_annotation.present? %>
+    <% if @snp.pgp_annotations.present? %>
       <table class="table table-striped" id="PgpAnnotation">
         <thead>
           <tr>
@@ -148,7 +148,7 @@
           </tr>
         </thead>
         <tbody>
-          <%@snp.pgp_annotation.limit(100).each do |p|%>
+          <%@snp.pgp_annotations.limit(100).each do |p|%>
             <tr>
               <td><%=p.gene%></td>
               <td><%=p.qualified_impact%></td>

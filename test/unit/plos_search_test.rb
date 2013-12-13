@@ -18,7 +18,7 @@ class PlosSearchTest < ActiveSupport::TestCase
     @snp.reload
     assert @snp.plos_updated
     plos_paper = PlosPaper.last
-    assert_equal @snp, plos_paper.snp
+    assert plos_paper.snps.include?(@snp)
     assert_equal 'Ester Aparicio', plos_paper.first_author
     assert_equal '10.1371/journal.pone.0013771', plos_paper.doi
     assert_equal DateTime.new(2010, 10, 29), plos_paper.pub_date

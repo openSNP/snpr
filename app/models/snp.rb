@@ -1,7 +1,7 @@
 class Snp < ActiveRecord::Base
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name,
     dependent: :destroy
-  has_many :pgp_annotation
+  has_many :pgp_annotations
   has_many :snp_references
   #has_many :papers, through: :references
   #has_many :snpedia_papers, through: :references
@@ -59,11 +59,11 @@ class Snp < ActiveRecord::Base
   # has changed and updating the ranking if so.
   def update_ranking
     self.ranking =
-            mendeley_paper.count
-      + 2 * plos_paper.count
-      + 5 * snpedia_paper.count
-      + 2 * genome_gov_paper.count
-      + 2 * pgp_annotation.count
+            mendeley_papers.count
+      + 2 * plos_papers.count
+      + 5 * snpedia_papers.count
+      + 2 * genome_gov_papers.count
+      + 2 * pgp_annotations.count
   end
 
   def plos_updated!

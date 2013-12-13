@@ -42,7 +42,7 @@ class PgpAnnotationjob
         annotation.inheritance = inheritance
         annotation.summary = summary
         annotation.trait = trait
-        snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotation.count
+        snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotations.count
         if qualified_impact != "Insufficiently evaluated not reviewed" and qualified_impact != "Insufficiently evaluated pharmacogenetic"
 	  annotation.save
           snp.save()

@@ -59,7 +59,7 @@ class GenomeGov
           paper.trait = trait
           paper.save
           puts paper
-          snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotation.count
+          snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotations.count
           snp.save
         end
       end
