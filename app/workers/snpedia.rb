@@ -53,25 +53,26 @@ class Snpedia
                               summary = summary[0...summary.index("}}")-1]
                            end
                         end
-                        @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary, :revision => rev_id)
-                        @snpedia_link.save
-                        if @snp.mendeley_paper.count == nil
+                        @snpedia_link = SnpediaPaper.new(:url => url, :summary => summary, :revision => rev_id)
+                        @snpedia_link.save!
+                        @snpedia_link.snps << @snp
+                        if @snp.mendeley_papers.count == nil
                            mendeley_count = 0
                         else
-                           mendeley_count = @snp.mendeley_paper.count
+                           mendeley_count = @snp.mendeley_papers.count
                         end
-                        if @snp.plos_paper.count == nil
+                        if @snp.plos_papers.count == nil
                            plos_count = 0
                         else
-                           plos_count = @snp.plos_paper.count
+                           plos_count = @snp.plos_papers.count
                         end
-                        if @snp.snpedia_paper.count == nil
+                        if @snp.snpedia_papers.count == nil
                            snpedia_count = 0
                         else
-                           snpedia_count = @snp.snpedia_paper.count
+                           snpedia_count = @snp.snpedia_papers.count
                         end
 
-                        @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count + 2*@snp.genome_gov_paper.count + 2*@snp.pgp_annotations.count
+                        @snp.ranking = @snp.mendeley_papers.count + 2*@snp.plos_papers.count + 5*@snp.snpedia_papers.count + 2*@snp.genome_gov_papers.count + 2*@snp.pgp_annotations.count
                      else
                         puts "-> old site\n"
                      end
@@ -82,8 +83,10 @@ class Snpedia
             end
             @snp.snpedia_updated = Time.zone.now
             @snp.save
-            print "snpedia: sleep for 5 seconds\n"
-            sleep(5)
+            if Rails.env == 'production'
+              print "snpedia: sleep for 5 seconds\n"
+              sleep(5)
+            end
          else
             print "snpedia: time threshold not met\n"
          end

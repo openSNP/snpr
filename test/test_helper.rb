@@ -18,6 +18,11 @@ FactoryGirl.find_definitions
 require 'paperclip/matchers'
 require 'plos'
 
+VCR.configure do |c|
+  c.cassette_library_dir = 'test/data/vcr_cassettes'
+  c.hook_into :webmock
+end
+
 class ActiveSupport::TestCase
   extend Paperclip::Shoulda::Matchers
 

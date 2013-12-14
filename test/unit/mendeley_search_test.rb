@@ -4,7 +4,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
   context "worker" do
     setup do
       stub_solr
-      @snp = FactoryGirl.create(:snp, id: 1)
+      @snp = FactoryGirl.create(:snp)
       @worker = MendeleySearch.new
       @document = {
         "uuid"         => UUIDTools::UUID.random_create.to_s,
@@ -31,19 +31,19 @@ class MendeleySearchTest < ActiveSupport::TestCase
       should "search for papers if the last update was too long ago" do
         @worker.expects(:search)
         @snp.stubs(:mendeley_updated).returns(32.days.ago)
-        @worker.perform(1)
+        @worker.perform(@snp.id)
       end
 
       should "not search for papers if the last update was not too long ago" do
         @worker.expects(:search).never
         @snp.stubs(:mendeley_updated).returns(30.days.ago)
-        @worker.perform(1)
+        @worker.perform(@snp.id)
       end
 
       should "search for papers if snp was never searched for" do
         @worker.expects(:search)
         @snp.stubs(:mendeley_updated).returns(nil)
-        @worker.perform(1)
+        @worker.perform(@snp.id)
       end
     end
 

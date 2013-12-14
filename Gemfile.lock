@@ -315,6 +315,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuidtools (2.1.4)
+    vcr (2.8.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -379,6 +380,7 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier
   uuidtools
+  vcr
   vegas
   webmock
   will_paginate

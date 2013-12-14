@@ -80,6 +80,7 @@ group :test do
   gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'vcr'
 end
 
 group :debug do
