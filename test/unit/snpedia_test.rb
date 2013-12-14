@@ -14,7 +14,8 @@ class SnpediaTest < ActiveSupport::TestCase
       end
     end
     @snp.reload
-    assert_equal 15, @snp.reload.ranking
+    assert @snp.snpedia_updated
+    assert_equal 15, @snp.ranking
     SnpediaPaper.find_each do |sp|
       assert_match '% of such hepatitis C patients respond to treatment', sp.summary
     end
@@ -36,7 +37,7 @@ class SnpediaTest < ActiveSupport::TestCase
       end
     end
     @snp.reload
-    assert_equal 15, @snp.reload.ranking
+    assert_equal 15, @snp.ranking
   end
 
   should 'put a placeholder text into the summary if there is none' do

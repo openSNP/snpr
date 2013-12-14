@@ -5,4 +5,8 @@ class SnpediaPaper < ActiveRecord::Base
   searchable do
     text :summary
   end
+
+  def summary
+    read_attribute(:summary).presence || "No summary provided."
+  end
 end

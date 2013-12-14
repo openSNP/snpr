@@ -41,7 +41,7 @@ class Snp < ActiveRecord::Base
       Sidekiq::Client.enqueue(PlosSearch, snp.id) if snp.plos_updated     < max_age
     end
   end
-  
+
   def self.update_frequencies
     Snp.find_each do |s|
       Sidekiq::Client.enqueue(Frequency,s.id)
@@ -53,22 +53,20 @@ class Snp < ActiveRecord::Base
       klass = "#{source.camelize}Paper".constantize
       klass.includes(:snp_references).where(snp_references: { snp_id: id })
     end
+
+    define_method(:"#{source}_updated!") do
+      send(:"#{source}_updated=", Time.current)
+      update_ranking
+      save!
+    end
   end
 
-  # TODO: move to after hook, checking whether one of the *_updated attributes
-  # has changed and updating the ranking if so.
   def update_ranking
     self.ranking =
-            mendeley_papers.count
-      + 2 * plos_papers.count
-      + 5 * snpedia_papers.count
-      + 2 * genome_gov_papers.count
-      + 2 * pgp_annotations.count
-  end
-
-  def plos_updated!
-    self.plos_updated = Time.current
-    update_ranking
-    save
+          mendeley_papers.count   +
+      2 * plos_papers.count       +
+      5 * snpedia_papers.count    +
+      2 * genome_gov_papers.count +
+      2 * pgp_annotations.count
   end
 end
