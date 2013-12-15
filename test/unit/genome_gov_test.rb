@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class GenoveGovTest < ActiveSupport::TestCase
+class GenomeGovTest < ActiveSupport::TestCase
   setup do
     stub_solr
     @snp = FactoryGirl.create(:snp, name: 'rs9277554')
@@ -25,5 +25,21 @@ class GenoveGovTest < ActiveSupport::TestCase
     assert_equal "Wegener's granulomatosis", paper.trait
     @snp.reload
     assert_equal 2, @snp.ranking
+    assert @snp.genome_gov_papers.include?(paper)
+  end
+
+  should 'update existing GenomeGovPapers' do
+    paper = FactoryGirl.create(:genome_gov_paper,
+      title: "Association of granulomatosis with polyangiitis (Wegener's) with HLA-DPB1*04 and SEMA6A gene variants: evidence from genome-wide analysis.",
+      pubmed_link: 'http://www.ncbi.nlm.nih.gov/pubmed/23740775')
+    paper.snps << @snp
+
+    VCR.use_cassette('genome_gov_worker') do
+      assert_no_difference(-> { GenomeGovPaper.count }) do
+        GenomeGov.new.perform
+      end
+    end
+    paper.reload
+    assert_equal 'Xie G', paper.first_author
   end
 end
