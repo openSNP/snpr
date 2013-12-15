@@ -38,11 +38,11 @@ class GenomeGov
         
         if pvalue < 1e-8
           snp = Snp.find_by_name(snp_id)
-          paper = snp.genome_gov_paper.find_by_title_and_pubmed_link(title,pubmed_link)
+          paper = snp.genome_gov_papers.find_by_title_and_pubmed_link(title,pubmed_link)
           puts paper
           if paper == nil
             paper = GenomeGovPaper.new()
-            paper.snp_id = snp.id
+            paper.snps << snp
           end
           # enter all the information here and update if needed, just to keep everything fresh 
           paper.confidence_interval = confidence_interval
@@ -57,9 +57,10 @@ class GenomeGov
           paper.title = title
           paper.journal = journal
           paper.trait = trait
-          paper.save
+          paper.save!
           puts paper
-          snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotations.count
+          snp.update_ranking
+          #snp.ranking = snp.mendeley_paper.count + 2*snp.plos_paper.count + 5*snp.snpedia_paper.count + 2*snp.genome_gov_paper.count + 2*snp.pgp_annotations.count
           snp.save
         end
       end
