@@ -21,7 +21,7 @@ class PlosSearch
 
   def import_article(article)
     plos_paper_attributes = {
-      first_author: article.authors.first.to_s,
+      first_author: article.try(:authors).try(:first).try(:to_s),
       doi:          article.id,
       pub_date:     article.published_at,
       title:        article.title,
