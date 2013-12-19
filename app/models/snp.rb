@@ -3,11 +3,6 @@ class Snp < ActiveRecord::Base
     dependent: :destroy
   has_many :pgp_annotations
   has_many :snp_references
-  #has_many :papers, through: :references
-  #has_many :snpedia_papers, through: :references
-  #has_many :plos_papers, through: :references
-  #has_many :mendeley_papers, through: :references
-  #has_many :genome_gov_papers, through: :references
   has_many :snp_comments
 
   serialize :allele_frequency
