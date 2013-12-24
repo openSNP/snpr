@@ -260,15 +260,15 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.integer  "reply_to_id"
   end
 
-  create_table "snp_references", :force => true do |t|
-    t.integer  "snp_id",     :null => false
-    t.integer  "paper_id",   :null => false
-    t.string   "paper_type", :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "snp_references", :id => false, :force => true do |t|
+    t.integer "snp_id",     :null => false
+    t.integer "paper_id",   :null => false
+    t.string  "paper_type", :null => false
   end
 
+  add_index "snp_references", ["paper_id", "paper_type"], :name => "index_snp_references_on_paper_id_and_paper_type"
   add_index "snp_references", ["snp_id", "paper_id", "paper_type"], :name => "index_snp_references_on_snp_id_and_paper_id_and_paper_type", :unique => true
+  add_index "snp_references", ["snp_id"], :name => "index_snp_references_on_snp_id"
 
   create_table "snpedia_papers", :force => true do |t|
     t.string   "url"
@@ -287,9 +287,9 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2013-09-23 12:35:03'
-    t.datetime "plos_updated",       :default => '2013-09-23 12:35:03'
-    t.datetime "snpedia_updated",    :default => '2013-09-23 12:35:03'
+    t.datetime "mendeley_updated",   :default => '2013-11-19 19:33:59'
+    t.datetime "plos_updated",       :default => '2013-11-19 19:33:59'
+    t.datetime "snpedia_updated",    :default => '2013-11-19 19:33:59'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end

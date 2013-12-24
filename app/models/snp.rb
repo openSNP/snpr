@@ -46,7 +46,7 @@ class Snp < ActiveRecord::Base
   %w(snpedia mendeley genome_gov plos).each do |source|
     define_method(:"#{source}_papers") do
       klass = "#{source.camelize}Paper".constantize
-      klass.includes(:snp_references).where(snp_references: { snp_id: id })
+      klass.joins(:snp_references).where(snp_references: { snp_id: id })
     end
 
     define_method(:"#{source}_updated!") do
