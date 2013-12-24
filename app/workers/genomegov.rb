@@ -37,9 +37,8 @@ class GenomeGov
     if pvalue < 1e-100
       pvalue = 1e-100
     end
-    paper = snp.genome_gov_papers.
-      where(title: title, pubmed_link: pubmed_link).
-      first_or_initialize(snps: [snp])
+    paper = GenomeGovPaper.
+      first_or_initialize(title: title, pubmed_link: pubmed_link)
     paper.update_attributes!(
       title:               title,
       pubmed_link:         pubmed_link,
@@ -50,6 +49,7 @@ class GenomeGov
       pub_date:            pub_date,
       journal:             journal,
       trait:               trait,
+      snps:                [snp],
     )
     snp.update_ranking
     snp.save
