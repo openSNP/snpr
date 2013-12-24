@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.text     "confidence_interval"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "snp_id"
   end
 
   create_table "genotypes", :force => true do |t|
@@ -161,10 +160,7 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.integer  "reader"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "snp_id"
   end
-
-  add_index "mendeley_papers", ["snp_id"], :name => "index_mendeley_papers_on_snp_id"
 
   create_table "messages", :force => true do |t|
     t.text     "subject"
@@ -247,7 +243,6 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "reader"
-    t.integer  "snp_id"
   end
 
   create_table "snp_comments", :force => true do |t|
@@ -275,7 +270,6 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.text     "summary"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.integer  "snp_id"
     t.integer  "revision",   :default => 0
   end
 
@@ -287,9 +281,9 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2013-11-19 19:33:59'
-    t.datetime "plos_updated",       :default => '2013-11-19 19:33:59'
-    t.datetime "snpedia_updated",    :default => '2013-11-19 19:33:59'
+    t.datetime "mendeley_updated",   :default => '2013-11-19 20:34:14'
+    t.datetime "plos_updated",       :default => '2013-11-19 20:34:14'
+    t.datetime "snpedia_updated",    :default => '2013-11-19 20:34:14'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end

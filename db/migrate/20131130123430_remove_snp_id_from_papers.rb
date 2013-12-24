@@ -9,7 +9,7 @@ class RemoveSnpIdFromPapers < ActiveRecord::Migration
             WHERE snp_id IS NOT NULL
           )
       SQL
-      #remove_column :"#{source}_papers", :snp_id
+      remove_column :"#{source}_papers", :snp_id
     end
   end
 
