@@ -34,9 +34,9 @@ class MendeleySearch
       result['total_pages'].to_i > result['current_page'].to_i
 
     snp.mendeley_updated = Time.now
-    snp.ranking = snp.mendeley_paper.count +
-      2 * snp.plos_paper.count + 5 * snp.snpedia_paper.count +
-      2 * snp.genome_gov_paper.count + 2 * snp.pgp_annotation.count
+    snp.ranking = snp.mendeley_papers.count +
+      2 * snp.plos_papers.count + 5 * snp.snpedia_papers.count +
+      2 * snp.genome_gov_papers.count + 2 * snp.pgp_annotations.count
     snp.save or raise(
       "could not save snp(#{snp.name}): #{snp.errors.full_messages.join(", ")}")
 
@@ -62,7 +62,6 @@ class MendeleySearch
 
         logger.info("creating or updating paper")
         mendeley_paper.attributes = mendeley_paper.attributes.merge(
-          snp:          snp,
           title:        document['title'],
           mendeley_url: document['mendeley_url'],
           first_author: first_author,
@@ -73,6 +72,8 @@ class MendeleySearch
         if !(mendeley_paper.valid? && mendeley_paper.save)
           logger.error("MendeleyPaper for #{snp.name} invalid.\n" <<
                        mendeley_paper.errors.full_messages.join(", "))
+        else
+          mendeley_paper.snps << snp
         end
         Sidekiq::Client.enqueue(MendeleyDetails, mendeley_paper.id)
       end

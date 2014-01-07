@@ -24,7 +24,6 @@ gem 'plos', github: 'tsujigiri/plos', branch: 'master', require: false
 gem 'newrelic_rpm'
 
 # workaround for bug in Fedora
-gem 'minitest', '~> 4.3.2'
 
 # gem 'sqlite3'
 # use postgresql instead:
@@ -78,10 +77,14 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'debugger' unless ENV['CI']
   gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
-  gem 'simplecov', require: false unless ENV['CI']
+  gem 'simplecov', require: false
   gem 'webmock'
+  gem 'vcr'
+end
+
+group :debug do
+  gem 'debugger'
 end
 
 group :development, :test do

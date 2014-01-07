@@ -18,7 +18,7 @@ class PlosSearchTest < ActiveSupport::TestCase
     @snp.reload
     assert @snp.plos_updated
     plos_paper = PlosPaper.last
-    assert_equal @snp, plos_paper.snp
+    assert plos_paper.snps.include?(@snp)
     assert_equal 'Ester Aparicio', plos_paper.first_author
     assert_equal '10.1371/journal.pone.0013771', plos_paper.doi
     assert_equal DateTime.new(2010, 10, 29), plos_paper.pub_date
@@ -56,5 +56,22 @@ class PlosSearchTest < ActiveSupport::TestCase
     @snp.update_attribute(:plos_updated, 30.days.ago)
     worker.instance_variable_set(:@snp, @snp)
     PlosSearch.new.perform(@snp.id)
+  end
+
+  should "not break when there are no authors" do
+    article = mock(
+      authors:      nil,
+      id:           'x',
+      published_at: DateTime.new(2013, 12, 8),
+      title:        'Musterartikel',
+    )
+    worker = PlosSearch.new
+    worker.instance_variable_set(:@snp, @snp)
+    Sidekiq::Client.stubs(:enqueue)
+    assert_difference(-> { PlosPaper.count }) do
+      worker.import_article(article)
+    end
+    plos_paper = PlosPaper.last
+    assert_nil plos_paper.first_author
   end
 end

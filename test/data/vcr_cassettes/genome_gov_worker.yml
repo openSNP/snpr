@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.genome.gov/admin/gwascatalog.txt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain
+      Last-Modified:
+      - Sat, 14 Dec 2013 09:11:37 GMT
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"c4f0277eacf8ce1:0"'
+      Vary:
+      - Accept-Encoding
+      Server:
+      - Microsoft-IIS/7.5
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Sun, 15 Dec 2013 12:24:02 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        Date Added to Catalog	PUBMEDID	First Author	Date	Journal	Link	Study	Disease/Trait	Initial Sample Size	Replication Sample Size	Region	Chr_id	Chr_pos	Reported Gene(s)	Mapped_gene	Upstream_gene_id	Downstream_gene_id	Snp_gene_ids	Upstream_gene_distance	Downstream_gene_distance	Strongest SNP-Risk Allele	SNPs	Merged	Snp_id_current	Context	Intergenic	Risk Allele Frequency	p-Value	Pvalue_mlog	p-Value (text)	OR or beta	95% CI (text)	Platform [SNPs passing QC]	CNV
+        12/10/2013	23740775	Xie G	09/01/2013	Arthritis Rheum	http://www.ncbi.nlm.nih.gov/pubmed/23740775	Association of granulomatosis with polyangiitis (Wegener's) with HLA-DPB1*04 and SEMA6A gene variants: evidence from genome-wide analysis.	Wegener's granulomatosis	459 European ancestry cases, 1,503 European ancestry controls	291 European ancestry cases, 317 European ancestry controls	6p21.32	6	33055538	HLA-DPB1, HLA-DPB2, HSD17B8, RING1, COL11A2, RXRB, HLA-DOA, HLA-DPB1*04	HLA-DPB1			3115			rs9277554-C	rs9277554	0	9277554	UTR-3	0	0.708	2E-50	49.69897000433602	pvalue description test	   4.17	[3.33-5.00] 	Illumina [287,802]	N
+    http_version: 
+  recorded_at: Sun, 15 Dec 2013 12:24:06 GMT
+recorded_with: VCR 2.8.0

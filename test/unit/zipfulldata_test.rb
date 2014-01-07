@@ -3,10 +3,12 @@ require_relative '../test_helper'
 class ZipfulldataTest < ActiveSupport::TestCase
   context "Zipfulldata" do
     setup do
+      stub_solr
       @user = FactoryGirl.create(:user)
       @phenotype = FactoryGirl.create(:phenotype, characteristic: "jump height")
       @user_phenotype = FactoryGirl.create(:user_phenotype, user_id: @user.id,
         phenotype_id: @phenotype.id, variation: "1km")
+      Sidekiq::Client.stubs(:enqueue).with(Preparsing, instance_of(Fixnum))
       @genotype = FactoryGirl.create(:genotype, user_id: @user.id)
       FileUtils.cp("#{Rails.root}/test/data/23andMe_test.csv",
         "#{Rails.root}/public/data/#{@user.id}.23andme.#{@genotype.id}")

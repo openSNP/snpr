@@ -3,6 +3,7 @@ require_relative '../test_helper'
 class PhenotypesControllerTest < ActionController::TestCase
   context "Phenotypes" do
     setup do
+      stub_solr
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       @phenotype = FactoryGirl.create(:phenotype)
@@ -74,6 +75,13 @@ class PhenotypesControllerTest < ActionController::TestCase
       end
 
       should "create them" do
+        Sidekiq::Client.expects(:enqueue).with do |worker, phenotype_id, user_id|
+          worker == Mailnewphenotype &&
+            phenotype_id.is_a?(Fixnum) &&
+            user_id == @other_user.id
+        end
+        Sidekiq::Client.expects(:enqueue).with(Recommendvariations)
+        Sidekiq::Client.expects(:enqueue).with(Recommendphenotypes)
         FactoryGirl.create(:achievement, award: "Created a new phenotype")
         assert_difference 'Phenotype.count' do
           assert_difference 'UserPhenotype.count' do

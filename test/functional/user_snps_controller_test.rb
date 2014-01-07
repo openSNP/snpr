@@ -4,6 +4,7 @@ require_relative '../test_helper'
 class UserSnpsControllerTest < ActionController::TestCase
   context "UserSnps" do
     setup do
+      stub_solr
       @snp = FactoryGirl.create(:snp)
       @user_snp = FactoryGirl.create(:user_snp, snp: @snp)
     end

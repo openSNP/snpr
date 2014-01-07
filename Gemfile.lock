@@ -188,7 +188,6 @@ GEM
     metaclass (0.0.1)
     mime-types (1.25.1)
     mini_portile (0.5.2)
-    minitest (4.3.3)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.8.2)
@@ -316,6 +315,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuidtools (2.1.4)
+    vcr (2.8.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -353,7 +353,6 @@ DEPENDENCIES
   mediawiki-gateway
   mendeley!
   meta_search (>= 1.1.0.pre)
-  minitest (~> 4.3.2)
   mocha
   nested_form!
   newrelic_rpm
@@ -381,6 +380,7 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier
   uuidtools
+  vcr
   vegas
   webmock
   will_paginate

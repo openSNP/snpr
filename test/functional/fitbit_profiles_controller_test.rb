@@ -3,6 +3,7 @@ require_relative '../test_helper'
 class FitbitProfilesControllerTest < ActionController::TestCase
   context "Fitbit profiles" do
     setup do
+      stub_solr
       @user = FactoryGirl.create(:user)
       @fitbit_profile = FactoryGirl.create(:fitbit_profile, user: @user)
     end

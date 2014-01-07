@@ -94,5 +94,13 @@ FactoryGirl.define do
   end
 
   factory :plos_paper do
+    title 'A PLOS Paper'
+  end
+
+  factory :snpedia_paper do
+  end
+
+  factory :genome_gov_paper do
+    title 'A Genome.gov Paper'
   end
 end

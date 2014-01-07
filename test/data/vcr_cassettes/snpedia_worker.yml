@@ -1,0 +1,469 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&meta=siteinfo&siprop=namespaces
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '2331'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:09 GMT
+      X-Varnish:
+      - 2007274517 2007273299
+      Age:
+      - '420'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><query><namespaces><ns id="-2" case="first-letter"
+        canonical="Media" xml:space="preserve">Media</ns><ns id="-1" case="first-letter"
+        canonical="Special" xml:space="preserve">Special</ns><ns id="0" case="first-letter"
+        subpages="" content="" xml:space="preserve" /><ns id="1" case="first-letter"
+        subpages="" canonical="Talk" xml:space="preserve">Talk</ns><ns id="2" case="first-letter"
+        subpages="" canonical="User" xml:space="preserve">User</ns><ns id="3" case="first-letter"
+        subpages="" canonical="User talk" xml:space="preserve">User talk</ns><ns id="4"
+        case="first-letter" subpages="" canonical="Project" xml:space="preserve">SNPedia</ns><ns
+        id="5" case="first-letter" subpages="" canonical="Project talk" xml:space="preserve">SNPedia
+        talk</ns><ns id="6" case="first-letter" canonical="File" xml:space="preserve">File</ns><ns
+        id="7" case="first-letter" subpages="" canonical="File talk" xml:space="preserve">File
+        talk</ns><ns id="8" case="first-letter" subpages="" canonical="MediaWiki"
+        xml:space="preserve">MediaWiki</ns><ns id="9" case="first-letter" subpages=""
+        canonical="MediaWiki talk" xml:space="preserve">MediaWiki talk</ns><ns id="10"
+        case="first-letter" canonical="Template" xml:space="preserve">Template</ns><ns
+        id="11" case="first-letter" subpages="" canonical="Template talk" xml:space="preserve">Template
+        talk</ns><ns id="12" case="first-letter" subpages="" canonical="Help" xml:space="preserve">Help</ns><ns
+        id="13" case="first-letter" subpages="" canonical="Help talk" xml:space="preserve">Help
+        talk</ns><ns id="14" case="first-letter" canonical="Category" xml:space="preserve">Category</ns><ns
+        id="15" case="first-letter" subpages="" canonical="Category talk" xml:space="preserve">Category
+        talk</ns><ns id="102" case="first-letter" canonical="Property" xml:space="preserve">Property</ns><ns
+        id="103" case="first-letter" subpages="" canonical="Property talk" xml:space="preserve">Property
+        talk</ns><ns id="106" case="first-letter" canonical="Form" xml:space="preserve">Form</ns><ns
+        id="107" case="first-letter" subpages="" canonical="Form talk" xml:space="preserve">Form
+        talk</ns><ns id="108" case="first-letter" canonical="Concept" xml:space="preserve">Concept</ns><ns
+        id="109" case="first-letter" canonical="Concept talk" xml:space="preserve">Concept
+        talk</ns></namespaces></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:09 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&apfrom=&aplimit=500&apnamespace=0&apprefix=rs12979860(&format=xml&list=allpages&maxlag=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '221'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:10 GMT
+      X-Varnish:
+      - 2007274518 2007273300
+      Age:
+      - '420'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><query><allpages><p pageid="15929" ns="0"
+        title="Rs12979860(C;C)" /><p pageid="15930" ns="0" title="Rs12979860(C;T)"
+        /><p pageid="15931" ns="0" title="Rs12979860(T;T)" /></allpages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:10 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BC)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '250'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:10 GMT
+      X-Varnish:
+      - 2007274521 2007273302
+      Age:
+      - '420'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131458"
+        /></query-continue><query><pages><page pageid="15929" ns="0" title="Rs12979860(C;C)"><revisions><rev
+        revid="445428" parentid="131458" /></revisions></page></pages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:10 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BC)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '368'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:10 GMT
+      X-Varnish:
+      - 2007274523 2007273306
+      Age:
+      - '420'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?><api><query><pages><page pageid="15929" ns="0" title="Rs12979860(C;C)"><revisions><rev contentformat="text/x-wiki" contentmodel="wikitext" xml:space="preserve">{{Genotype
+        |allele1=C
+        |allele2=C
+        |rsid=12979860
+        |magnitude=2
+        |repute=Good
+        |summary=~80% of such hepatitis C patients respond to treatment
+        }}</rev></revisions></page></pages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:10 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '250'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:10 GMT
+      X-Varnish:
+      - '2007274524'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131460"
+        /></query-continue><query><pages><page pageid="15930" ns="0" title="Rs12979860(C;T)"><revisions><rev
+        revid="445430" parentid="131460" /></revisions></page></pages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:11 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '372'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:11 GMT
+      X-Varnish:
+      - '2007274528'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?><api><query><pages><page pageid="15930" ns="0" title="Rs12979860(C;T)"><revisions><rev contentformat="text/x-wiki" contentmodel="wikitext" xml:space="preserve">{{Genotype
+        |allele1=C
+        |allele2=T
+        |rsid=12979860
+        |magnitude=2.5
+        |repute=Bad
+        |summary=~20-40% of such hepatitis C patients respond to treatment
+        }}</rev></revisions></page></pages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:11 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(T%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '250'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:11 GMT
+      X-Varnish:
+      - '2007274533'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131462"
+        /></query-continue><query><pages><page pageid="15931" ns="0" title="Rs12979860(T;T)"><revisions><rev
+        revid="445429" parentid="131462" /></revisions></page></pages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:11 GMT
+- request:
+    method: get
+    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(T%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip
+      User-Agent:
+      - MediaWiki::Gateway/0.5.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache/2.2.25 (Amazon)
+      X-Powered-By:
+      - PHP/5.3.27
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '370'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 14 Dec 2013 14:45:11 GMT
+      X-Varnish:
+      - '2007274535'
+      Age:
+      - '0'
+      Via:
+      - 1.1 varnish
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?><api><query><pages><page pageid="15931" ns="0" title="Rs12979860(T;T)"><revisions><rev contentformat="text/x-wiki" contentmodel="wikitext" xml:space="preserve">{{Genotype
+        |allele1=T
+        |allele2=T
+        |rsid=12979860
+        |magnitude=3
+        |repute=Bad
+        |summary=~20-25% of such hepatitis C patients respond to treatment
+        }}</rev></revisions></page></pages></query></api>
+    http_version: 
+  recorded_at: Sat, 14 Dec 2013 14:45:12 GMT
+recorded_with: VCR 2.8.0

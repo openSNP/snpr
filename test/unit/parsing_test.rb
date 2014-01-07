@@ -3,10 +3,12 @@ require_relative '../test_helper'
 class ParsingTest < ActiveSupport::TestCase
   context "parser" do
     setup do
+      stub_solr
       Snp.delete_all
       UserSnp.delete_all
 
       @file_23andMe = "#{Rails.root}/test/data/23andMe_test.csv"
+      Sidekiq::Client.stubs(:enqueue).with(Preparsing, instance_of(Fixnum))
       @genotype_23andme = FactoryGirl.create(:genotype,
         genotype_file_name: @file_23andMe.split('/').last, filetype: '23andme')
 

@@ -3,90 +3,44 @@ require 'rexml/document'
 require 'media_wiki'
 
 class Snpedia
-   include Sidekiq::Worker
-   sidekiq_options :queue => :snpedia, :retry => 5, :unique => true
+  include Sidekiq::Worker
+  sidekiq_options :queue => :snpedia, :retry => 5, :unique => true
+  attr_reader :snp, :client
 
-   def perform(snp_id)
-      @snp = Snp.find(snp_id)
-      # get the marshalled array
-      namearray = []
-      File.open("#{Rails.root}/marshalled_snpedia_array", "r") do |file|
-         namearray = Marshal.load(file)
-      end
+  def perform(snp_id)
+    @snp = Snp.find(snp_id)
+    if snp && valid_snp_names.include?(snp.name) && snp.snpedia_updated < 31.days.ago
+      @client = MediaWiki::Gateway.new("http://www.snpedia.com/api.php")
+      perform_search
+    end
+  end
 
-      if !namearray.include?(@snp.name)
-         puts @snp.name + " not included in the array"
-      else
-         if @snp.snpedia_updated < 31.days.ago
-            mw = MediaWiki::Gateway.new("http://www.snpedia.com/api.php")
-            # return an array of page-titles
-            pages = mw.list(@snp.name + "(")
-            if pages != nil
-               pages.each do |p|
-                  if p.index("(") != nil
-                     puts "snpedia: Got page\n"
-                     url = "http://www.snpedia.com/index.php/" + p.to_s
-                     # revision returns an int which grows with changes
-                     rev_id = mw.revision(p).to_i
-                     s = SnpediaPaper.find_by_url(url)
-                     if SnpediaPaper.find_all_by_url(url) == [] or (s != nil and s.revision != rev_id)
-                        puts "-> Parsing new or changed site\n"
-                        puts "url: " + url
-                        # delete the old entries
-                        SnpediaPaper.find_all_by_url(url).each do |s|
-                            SnpediaPaper.delete(s)
-                        end
+  def perform_search
+    # return an array of page-titles
+    pages = client.list("#{snp.name}(")
+    snpedia_updated = false
+    (pages || []).each do |page|
+      next unless page.include?('(')
+      url = "http://www.snpedia.com/index.php/#{page}"
+      # revision returns an int which grows with changes
+      rev_id = client.revision(page).to_i
+      snpedia_paper = SnpediaPaper.find_or_initialize_by_url(url)
+      next if snpedia_paper.persisted? && snpedia_paper.revision == rev_id
+      to_parse = client.get(page)
+      next if to_parse.to_s.include?('#REDIRECT')
+      /summary=(?<summary>.*)\}\}/m =~ to_parse
+      snpedia_paper.update_attributes!(
+        url: url, summary: summary, revision: rev_id)
+      snpedia_paper.snps << snp
+      snpedia_updated = true
+    end
+    snp.snpedia_updated! if snpedia_updated
+    if Rails.env == 'production'
+      sleep(5)
+    end
+  end
 
-                        toparse = mw.get(p)
-                        if toparse.to_s.include? "#REDIRECT"
-                           # Don't include redirect-descriptions 
-                           puts "#{p} is a redirect"
-                           next # jump to next SNPedia-entry
-                        elsif not toparse.include? "summary="
-                           puts "#{p} is empty"
-                           # Handle empty summaries
-                           summary = "No summary provided."
-                        else
-                           puts "#{p} has stuff"
-                           summary = toparse[toparse.index("summary=")+8..toparse.length()-4]
-                           if summary.index("}}") != nil
-                              summary = summary[0...summary.index("}}")-1]
-                           end
-                        end
-                        @snpedia_link = SnpediaPaper.new(:url => url, :snp_id => @snp.id, :summary => summary, :revision => rev_id)
-                        @snpedia_link.save
-                        if @snp.mendeley_paper.count == nil
-                           mendeley_count = 0
-                        else
-                           mendeley_count = @snp.mendeley_paper.count
-                        end
-                        if @snp.plos_paper.count == nil
-                           plos_count = 0
-                        else
-                           plos_count = @snp.plos_paper.count
-                        end
-                        if @snp.snpedia_paper.count == nil
-                           snpedia_count = 0
-                        else
-                           snpedia_count = @snp.snpedia_paper.count
-                        end
-
-                        @snp.ranking = @snp.mendeley_paper.count + 2*@snp.plos_paper.count + 5*@snp.snpedia_paper.count + 2*@snp.genome_gov_paper.count + 2*@snp.pgp_annotation.count
-                     else
-                        puts "-> old site\n"
-                     end
-                  else
-                     puts "snpedia: No pages\n"
-                  end
-               end
-            end
-            @snp.snpedia_updated = Time.zone.now
-            @snp.save
-            print "snpedia: sleep for 5 seconds\n"
-            sleep(5)
-         else
-            print "snpedia: time threshold not met\n"
-         end
-      end
-   end
+  def valid_snp_names
+    Marshal.load(File.read(Rails.root.join('marshalled_snpedia_array')))
+  end
 end

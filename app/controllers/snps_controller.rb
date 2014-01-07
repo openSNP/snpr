@@ -117,7 +117,7 @@ class SnpsController < ApplicationController
     end
     puts "got snpedia-details"
     result[name]["annotations"]["pgp_annotations"] = []
-    snp.pgp_annotation.each do |p|
+    snp.pgp_annotations.each do |p|
       @pgp = {}
       @pgp["gene"] = p.gene
       @pgp["impact"] = p.qualified_impact

@@ -18,6 +18,16 @@ FactoryGirl.find_definitions
 require 'paperclip/matchers'
 require 'plos'
 
+VCR.configure do |c|
+  c.cassette_library_dir = 'test/data/vcr_cassettes'
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
+end
+
 class ActiveSupport::TestCase
   extend Paperclip::Shoulda::Matchers
+
+  def stub_solr
+    RSolr::Connection.any_instance.stubs(:execute)
+  end
 end
