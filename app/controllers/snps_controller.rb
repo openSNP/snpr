@@ -84,7 +84,7 @@ class SnpsController < ApplicationController
     result[name]["annotations"] = {}
     result[name]["annotations"]["mendeley"] = []
     puts "got snp-details"
-    snp.mendeley_paper.each do |mp|
+    snp.mendeley_papers.each do |mp|
       @mendeley = {}
       @mendeley["author"] = mp.first_author
       @mendeley["title"] = mp.title
@@ -97,7 +97,7 @@ class SnpsController < ApplicationController
     end
     puts "got mendeley-details"
     result[name]["annotations"]["plos"] = []
-    snp.plos_paper.each do |mp|
+    snp.plos_papers.each do |mp|
       @plos = {}
       @plos["author"] = mp.first_author
       @plos["title"] = mp.title
@@ -109,7 +109,7 @@ class SnpsController < ApplicationController
     end
     puts "got plos-details"
     result[name]["annotations"]["snpedia"] = []
-    snp.snpedia_paper.each do |mp|
+    snp.snpedia_papers.each do |mp|
       snpedia = {}
       snpedia["url"] = mp.url
       snpedia["summary"] = mp.summary
@@ -128,7 +128,7 @@ class SnpsController < ApplicationController
     end
     puts "got pgp details"
     result[name]["annotations"]["genome_gov_publications"] = []
-    snp.genome_gov_paper.each do |g|
+    snp.genome_gov_papers.each do |g|
       @gov = {}
       @gov["title"] = g.title
       @gov["first_author"] = g.first_author
