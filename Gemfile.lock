@@ -199,7 +199,7 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.6.8.168)
-    nokogiri (1.6.0)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
     orm_adapter (0.4.0)
