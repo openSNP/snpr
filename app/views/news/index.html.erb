@@ -184,7 +184,7 @@
       </tr>
       <%@newest_paper.each do |np|%>
         <tr>
-          <td><%=link_to np.snp.name, np.snp%></td>
+          <td><%=link_to np.snps[0].name, np.snps[0]%></td>
           <td><%=np.first_author%></td>
           <%if np.class == PlosPaper%>
             <td><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
