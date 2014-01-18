@@ -177,14 +177,14 @@
     <br/>
     <table class="table table-striped">
       <tr>
-        <th>SNP</th>
+        <th>SNPs</th>
         <th>Author</th>
         <th>Title</th>
         <th>Found at</th>
       </tr>
       <%@newest_paper.each do |np|%>
         <tr>
-          <td><%=link_to np.snps[0].name, np.snps[0]%></td>
+            <td><% np.snps.each do |s| %><%=link_to s.name, s%> <% end %></td>
           <td><%=np.first_author%></td>
           <%if np.class == PlosPaper%>
             <td><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
