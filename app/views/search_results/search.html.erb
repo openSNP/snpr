@@ -44,7 +44,7 @@
 <% end %>
 <% if not @snps.results == [] %>
 <div id="snps">
-	<h5>Snps</h5>
+	<h5>SNPs</h5>
     <table class="table table-striped">
         <tr>
             <th>SNP name</th>
@@ -153,7 +153,7 @@
 		<tr>
 			<td><%= p.first_author%></td>
 			<td><%=link_to( p.title, p.mendeley_url)%></td>
-			<td><%=link_to(p.snp.name,p.snp)%></td>
+            <td><% p.snps.each do |s| %> <%=link_to(s.name, s)%> <% end %></td>
 			<td><%=p.pub_year%></td>
 			<td><%=p.reader%></td>
 			<% if p.open_access == true and p.doi != nil%>
@@ -183,7 +183,7 @@
 			<tr>
 				<td><%= p.first_author%></td>
 				<td><%= link_to( p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
-				<td><%= link_to( p.snp.name,p.snp)%>
+                <td><% p.snps.each do |x| %> <%= link_to( x.name, x)%> <% end %></td>
 				<td><%= p.pub_date.to_s[6,4]%></td>
 				<td><%= p.reader%></td>
 			</tr>
@@ -199,7 +199,7 @@
 			</tr>
 <% for p in @snpedia_papers.results %>
 			<tr>
-				<td><%=link_to p.snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url%></td>
+                <td><% p.snps.each do |m| %> <%=link_to m.name+" "+p.url[-4]+"/"+p.url[-2], p.url%> <% end %></td>
 				<td><%=p.summary%></td>
 			</tr>
 <% end %>
