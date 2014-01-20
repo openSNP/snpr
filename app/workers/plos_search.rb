@@ -12,7 +12,7 @@ class PlosSearch
     @client = PLOS::Client.new(self.class.api_key)
     articles = perform_search
     articles.each do |article|
-      import_article(article)
+      import_article(article) if not article.nil?
     end
     snp.plos_updated!
     logger.info('sleeping for 6 seconds in honor of the API limits')
