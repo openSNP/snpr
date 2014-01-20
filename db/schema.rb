@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131130123430) do
+ActiveRecord::Schema.define(:version => 20140120005457) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -52,6 +52,33 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "curated_phenotype_answers", :force => true do |t|
+    t.text     "variation_name"
+    t.integer  "curated_phenotype_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  create_table "curated_phenotypes", :force => true do |t|
+    t.string   "name"
+    t.boolean  "timeseries"
+    t.text     "description"
+    t.boolean  "is_series"
+    t.boolean  "is_multiple"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "curated_user_phenotypes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "curated_phenotype_id"
+    t.integer  "curated_phenotype_answer_id"
+    t.datetime "time_of_data_point"
+    t.text     "comment"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
 
   create_table "file_links", :force => true do |t|
     t.text     "description"
@@ -262,7 +289,6 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
   end
 
   add_index "snp_references", ["paper_id", "paper_type"], :name => "index_snp_references_on_paper_id_and_paper_type"
-  add_index "snp_references", ["snp_id", "paper_id", "paper_type"], :name => "index_snp_references_on_snp_id_and_paper_id_and_paper_type", :unique => true
   add_index "snp_references", ["snp_id"], :name => "index_snp_references_on_snp_id"
 
   create_table "snpedia_papers", :force => true do |t|
@@ -281,9 +307,9 @@ ActiveRecord::Schema.define(:version => 20131130123430) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2013-11-19 20:34:14'
-    t.datetime "plos_updated",       :default => '2013-11-19 20:34:14'
-    t.datetime "snpedia_updated",    :default => '2013-11-19 20:34:14'
+    t.datetime "mendeley_updated",   :default => '2013-09-23 12:35:03'
+    t.datetime "plos_updated",       :default => '2013-09-23 12:35:03'
+    t.datetime "snpedia_updated",    :default => '2013-09-23 12:35:03'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end
