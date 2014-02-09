@@ -2,13 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper :all
   helper_method :current_user_session, :current_user
-  if Rails.env.production?
-      include ::SslRequirement
-      ssl_allowed :all
-  end
 
   def not_found
-      raise ActionController::RoutingError.new("Not found")
+    raise ActionController::RoutingError.new("Not found")
   end
 
   private
