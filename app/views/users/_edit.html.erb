@@ -28,7 +28,7 @@
 		<%= f.text_field :name %>
 	</div>
 	
-    <h5><%=link_to "Change eMail/Password",{:controller => "users", :action => "changepassword",:id =>@user.id, :secure => true}%></h5>
+    <h5><%=link_to "Change eMail/Password",{ :controller => "users", :action => "changepassword",:id => @user.id }%></h5>
 	            
     <% if current_user.genotypes.length >= 1%><%= link_to "Add another genotyping!", :controller => "genotypes", :action => "new"%><% end %>
 	</div>

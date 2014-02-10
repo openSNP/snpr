@@ -4,10 +4,6 @@ class UsersController < ApplicationController
   before_filter :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
   before_filter :require_no_user, :only => [:new, :create]
 
-  if Rails.env.production?
-    ssl_allowed :index, :show, :edit, :create, :new, :update
-  end
-      
   def new
     @user = User.new
     @title = "Sign up"
@@ -40,32 +36,32 @@ class UsersController < ApplicationController
     @users = User.order(sort_column + " " + sort_direction)
     @users_paginate = @users.paginate(:page => params[:page], :per_page => 10)
     @title = "Listing all users"
-    
+
     if request.format.json?
-        @result = []
-        begin
+      @result = []
+      begin
         @users = User.find(:all)
         @users.each do |u|
-            @user = {}
-            @user["name"] = u.name
-            @user["id"] = u.id
-            @user["genotypes"] = []
-            Genotype.find_all_by_user_id(u.id).each do |g|
+          @user = {}
+          @user["name"] = u.name
+          @user["id"] = u.id
+          @user["genotypes"] = []
+          Genotype.find_all_by_user_id(u.id).each do |g|
             @genotype = {}
             @genotype["id"] = g.id
             @genotype["filetype"] = g.filetype
             @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
             @user["genotypes"] << @genotype
-            end
-        @result << @user
+          end
+          @result << @user
         end
 
-        rescue
+      rescue
         @result = {}
         @result["error"] = "Sorry, we couldn't find any users"
-        end
+      end
     end
-        
+
     respond_to do |format|
       format.html
       format.json { render :json => @result }
@@ -131,12 +127,8 @@ class UsersController < ApplicationController
 
   def changepassword
     @user = User.find_by_id(params[:id])
-      respond_to do |format|
-        format.html
-        format.xml
-    end
   end
-    
+
   def update
     @user = User.find(params[:id])
 
@@ -151,18 +143,18 @@ class UsersController < ApplicationController
         end
       end
     end
-   
+
     if params[:user][:description].present?
-        params[:user][:description] = Sanitize.clean(params[:user][:description], Sanitize::Config::RESTRICTED)
+      params[:user][:description] = Sanitize.clean(params[:user][:description], Sanitize::Config::RESTRICTED)
     end
 
     if @user.update_attributes(params[:user])
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
-      
+
       Sidekiq::Client.enqueue(Recommendvariations)
       Sidekiq::Client.enqueue(Recommendphenotypes)
-      
+
       flash[:notice] =  "Successfully updated"
 
       if params[:user][:password] or params[:user][:avatar]
@@ -173,9 +165,9 @@ class UsersController < ApplicationController
           format.html 
         end
       end
-    
+
     else 
-      
+
       respond_to do |format|
         format.html do
           if request.xhr?
@@ -193,16 +185,16 @@ class UsersController < ApplicationController
     # does the phenotype exist?
     @phenotype = Phenotype.find_by_characteristic(characteristic)
     if @phenotype == nil
-        # createphenotype if it doesn't exist
-        @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1)
+      # createphenotype if it doesn't exist
+      @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1)
     end
     @user_phenotype = UserPhenotype.find_by_phenotype_id(@phenotype.id)
     if @user_phenotype == nil
-        # create user_phenotype if it doesn't exist
-        @user_phenotype = UserPhenotype.create(:user_id => user_id, :variation => variation, :phenotype_id => @phenotype.id)
+      # create user_phenotype if it doesn't exist
+      @user_phenotype = UserPhenotype.create(:user_id => user_id, :variation => variation, :phenotype_id => @phenotype.id)
     else
-        # if user_phenotype exists, update
-        @user_phenotype.update_attributes(:variation => variation)
+      # if user_phenotype exists, update
+      @user_phenotype.update_attributes(:variation => variation)
     end
   end
 
@@ -212,12 +204,12 @@ class UsersController < ApplicationController
     @user.genotypes.each do |ug|
       ug.destroy
     end
-    
+
     flash[:notice] = "Thank you for using openSNP. Goodbye!"
 
     # disconnect from fitbit if needed
     if @user.fitbit_profile != nil
-        Sidekiq::Client.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
+      Sidekiq::Client.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
     end
 
     @user.destroy
@@ -230,15 +222,15 @@ class UsersController < ApplicationController
   def remove_help_one
     current_user.update_attribute("help_one",true)
   end
-  
+
   def remove_help_two
     current_user.update_attribute("help_two",true)
   end
-  
+
   def remove_help_three
     current_user.update_attribute("help_three",true)
   end
-    
+
   private
 
   def sort_column

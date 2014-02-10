@@ -104,7 +104,6 @@ GEM
     authlogic (3.3.0)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
-    bartt-ssl_requirement (1.4.2)
     bcrypt-ruby (3.1.2)
     bourbon (3.1.8)
       sass (>= 3.2.0)
@@ -334,7 +333,6 @@ DEPENDENCIES
   activeadmin (= 0.6.0)
   activerecord-import (~> 0.2.11)
   authlogic
-  bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
   capistrano (~> 2.0)
   coffee-script
