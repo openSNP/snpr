@@ -105,7 +105,7 @@ class Parsing
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
           unless known_snps.include?(snp_array[0].downcase)
-            snp = Snp.new(:name => snp_array[0].downcase, :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0)
+            snp = Snp.new(:name => snp_array[0].downcase, :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0, :user_snps_count => 1)
             snp.default_frequencies
             new_snps << snp
           end
