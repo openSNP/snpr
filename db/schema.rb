@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140120005457) do
+ActiveRecord::Schema.define(:version => 20140221060607) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(:version => 20140120005457) do
     t.datetime "snpedia_updated",    :default => '2013-09-23 12:35:03'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
+    t.integer  "user_snps_count",    :default => 0
   end
 
   add_index "snps", ["chromosome", "position"], :name => "index_snps_chromosome_position"
