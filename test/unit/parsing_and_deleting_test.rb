@@ -50,6 +50,18 @@ class ParsingTest < ActiveSupport::TestCase
       end
     end
 
+    # could put these deleting tests into their own file;
+    # however, the genotyping exists at this point in time and we don't have to do any extra work
+    # to pull it from the test DB
+    should "delete 23andMe data" do
+      DeleteGenotype.new.perform(@genotype_23andme)
+
+      expected = 0
+      number_of_snps = Snp.all.count
+
+      assert_equal expected, number_of_snps
+    end
+
     should "parse deCODEme data" do
       FileUtils.cp @file_deCODEme, @temp_file
       Parsing.new.perform(@genotype_decodeme.id, @temp_file)
@@ -79,5 +91,16 @@ class ParsingTest < ActiveSupport::TestCase
         assert Snp.pluck(:name).include?(s.snp_name)
       end
     end
+
+    should "delete deCODEme data" do
+      DeleteGenotype.new.perform(@genotype_decodeme)
+
+      expected = 0
+      number_of_snps = Snp.all.count
+
+      assert_equal expected, number_of_snps
+    end
+
+
   end
 end
