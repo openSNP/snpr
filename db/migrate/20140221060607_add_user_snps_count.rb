@@ -1,6 +1,6 @@
 class AddUserSnpsCount < ActiveRecord::Migration
   def up
-    add_column :snps, :user_snps_count, :integer, :default => 0
+    add_column :snps, :user_snps_count, :integer
     Snp.reset_column_information
     user_snp_counts = execute(
       'select snp_name, count(*) as count from user_snps group by snp_name'
