@@ -7,8 +7,14 @@ class Parsing
   def perform(genotype_id, temp_file)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
+
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
-    command = "#{Rails.root}/app/workers/goworkers development #{genotype_id} #{temp_file}"
+
+    # in test, database != env, in development, database == env
+    database = Rails.configuration.database_configuration[Rails.env]["database"]
+    # TODO: use rest of database_configuration so we can skip YAML parsing in goparser?
+    command = "#{Rails.root}/app/workers/goParser -database=#{database} -genotype_id=#{genotype_id} -temp_file=#{temp_file} -root_path=#{Rails.root}"
+    log command
     log "Parsing file #{temp_file}"
     stdout,stderr,status = Open3.capture3(command)
     log stdout

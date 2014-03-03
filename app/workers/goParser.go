@@ -18,15 +18,18 @@ import (
 const VERSION = 1.0
 
 func main() {
-	// Get the environment, possible values: development, production, test
+	// Get the database, possible values: development, production, test
 	var (
-		environment string
+		database    string
 		genotype_id string
 		temp_file   string
+		root_path   string
 	)
-	flag.StringVar(&environment, "environment", "development", "Name of the Rails environment this worker runs in.")
+
+	flag.StringVar(&database, "database", "", "Name of the Rails database this worker runs in.")
 	flag.StringVar(&genotype_id, "genotype_id", "-1", "ID of the genotype we're parsing")
-	flag.StringVar(&temp_file, "temp_file", "xxx", "Path of the file we're parsing")
+	flag.StringVar(&temp_file, "temp_file", "", "Path of the file we're parsing")
+	flag.StringVar(&root_path, "root_path", "", "Root path of Rails database")
 	version := flag.Bool("v", false, "prints current version")
 
 	flag.Parse()
@@ -41,14 +44,15 @@ func main() {
 
 	// TODO: Make file-opening less error-prone
 	// Initialize logger
-	logFile, err := os.Create("../../log/goworker.log")
+	logfilename := root_path + "/log/goparser.log"
+	logFile, err := os.Create(logfilename)
 	if err != nil {
 		log.Println(err)
 	}
 	log := log.New(logFile, "goworker-", 0)
-	log.Println("Started worker-pool")
+	log.Println("Started worker")
 	// Get username, password for database from database.yml
-	configFile := "../../config/database.yml"
+	configFile := root_path + "/config/database.yml"
 
 	// Read all lines from the configFile into a slice (list) of type []byte
 	config, err := ioutil.ReadFile(configFile)
@@ -57,18 +61,27 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Now open the single_temp_file and create userSNPs
+	log.Println("Started work on " + temp_file)
+	var file *os.File
+	if file, err = os.Open(temp_file); err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+	defer file.Close()
+
 	// TODO: parsing the db-config like this is ugly. Unfortunately, all YAML packages for Go are ugly, too.
 	// As an upside, all of the following is run only once.
 	configs := strings.Split(string(config), "\n")
 	inside := false
-	database_name := "snpr_development"
+	database_name := database
 	username := ""
 	password := ""
 	port := "5432"
 	max_conns := 25
 	for _, line := range configs {
-		// Are we in the right environment?
-		if line == environment+":" {
+		// Are we in the right database?
+		if line == database+":" {
 			// Flip the switch so that the next field containining "database" is the name of our database
 			inside = true
 		}
@@ -95,56 +108,66 @@ func main() {
 	}
 	// Connect to database
 	connection_string := "user=" + username + " password=" + password + " dbname=" + database_name + " sslmode=disable port=" + port
+	log.Println("Connecting to DB with ", connection_string)
 	db, err := sql.Open("postgres", connection_string)
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
 	db.SetMaxIdleConns(max_conns)
+	log.Println("Connected.")
 
 	// Now load the known SNPs
 	known_snps := make(map[string]bool) // There is no set-type, so this is a workaround
+	log.Println("Loading all SNPs...")
 	rows, err := db.Query("SELECT name FROM snps;")
 	if err != nil {
-		log.Println(err)
+		log.Println("NO SNPS YO", err)
 		os.Exit(1)
 	}
 	for rows.Next() {
 		var name string
 		if err := rows.Scan(&name); err != nil {
-			log.Println(err)
+			log.Println("SHIT BE EMPTY YO", err)
 			os.Exit(1)
 		}
 		known_snps[name] = true
 	}
 
-	// The arguments are:
+	log.Println("Got all SNPs.")
 
-	// Get the genotype from the database using @genotype.id
-	// We're only interested in genotype.filetype and genotype.user_id
 	var (
-		filetype string
 		user_id  string
+		filetype string
 	)
-
-	fmt.Println(genotype_id)
-	query_string := "SELECT genotypes.filetype, genotypes.user_id FROM genotypes WHERE genotypes.id = " + genotype_id + " LIMIT 1;"
-	rows, err = db.Query(query_string)
+	log.Println(genotype_id)
+	/////////////////////7
+	rows, err = db.Query("SELECT filetype, user_id, md5sum, genotype_file_name FROM genotypes;")
+	if err != nil {
+		log.Println("TETS", err)
+		os.Exit(1)
+	}
+	for rows.Next() {
+		var filetype string
+		var user_id string
+		var md5sum string
+		var filename string
+		if err := rows.Scan(&filetype, &user_id, &md5sum, &filename); err != nil {
+			log.Println("TEST", err)
+			os.Exit(1)
+		}
+		fmt.Println(filetype, user_id, md5sum, filename)
+	}
+	/////////////////////7
+	row := db.QueryRow("SELECT user_id, filetype FROM genotypes WHERE genotypes.id = " + genotype_id + ";")
+    log.Println("curap")
+	err = row.Scan(&user_id, &filetype)
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
-
-	for rows.Next() {
-		if err := rows.Scan(&filetype, &user_id); err != nil {
-			log.Println(err)
-			os.Exit(1)
-		}
-	}
-	if err := rows.Err(); err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
+	log.Println("Got filetype '" + filetype + "' and user-id '" + user_id + "'.")
+	log.Println("Getting all user-SNPs.")
 
 	// Now load the known user-snps
 	known_user_snps := make(map[string]bool)
@@ -153,6 +176,7 @@ func main() {
 		log.Println(err)
 		os.Exit(1)
 	}
+
 	for rows.Next() {
 		var snp_name string
 		if err := rows.Scan(&snp_name); err != nil {
@@ -166,15 +190,6 @@ func main() {
 		log.Println(err)
 		os.Exit(1)
 	}
-
-	// Now, finally, open the single_temp_file and create userSNPs
-	log.Println("Started work on " + temp_file)
-	var file *os.File
-	if file, err = os.Open(temp_file); err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 	// Guess the filetype of the genotyping. If it's different than the "official" filetype, change the filetype in the database.
