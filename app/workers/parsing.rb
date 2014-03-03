@@ -10,8 +10,7 @@ class Parsing
 
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
 
-    # in test, database != env, in development, database == env
-    log Rails.configuration.database_configuration[Rails.env]
+    # get database configuration for goparser
     database = Rails.configuration.database_configuration[Rails.env]["database"]
     password = Rails.configuration.database_configuration[Rails.env]["password"]
     port =  Rails.configuration.database_configuration[Rails.env]["port"]
@@ -19,15 +18,15 @@ class Parsing
       port = "5432"
     end
     username = Rails.configuration.database_configuration[Rails.env]["username"]
-    # TODO: use rest of database_configuration so we can skip YAML parsing in goparser?
+
     command = "#{Rails.root}/app/workers/goParser -database=#{database} -genotype_id=#{genotype_id} -temp_file=#{temp_file} -root_path=#{Rails.root} -port=#{port} -username=#{username} -password=#{password}"
-    log command
     log "Parsing file #{temp_file}"
-    stdout,stderr,status = Open3.capture3(command)
+    stdout, stderr, status = Open3.capture3(command)
     log stdout
     log stderr
-    log status
-    #UserMailer.parsing_error(@genotype.user_id).deliver
+    if not status.success?
+      UserMailer.parsing_error(@genotype.user_id).deliver
+    end
     log "done with #{temp_file}"
     #system("rm #{temp_file}")
   end
