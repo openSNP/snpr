@@ -8,7 +8,7 @@ class Parsing
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
-    command = "./goworker #{genotype_id} #{temp_file}"
+    command = "#{Rails.root}/app/workers/goworkers development #{genotype_id} #{temp_file}"
     log "Parsing file #{temp_file}"
     stdout,stderr,status = Open3.capture3(command)
     log stdout
