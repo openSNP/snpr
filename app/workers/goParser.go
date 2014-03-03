@@ -7,10 +7,8 @@ import (
 	"flag"
 	"fmt"
 	_ "github.com/bmizerany/pq"
-	"io/ioutil"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -21,12 +19,18 @@ func main() {
 	// Get the database, possible values: development, production, test
 	var (
 		database    string
+		username    string
+		password    string
+		port        string
 		genotype_id string
 		temp_file   string
 		root_path   string
 	)
 
 	flag.StringVar(&database, "database", "", "Name of the Rails database this worker runs in.")
+	flag.StringVar(&password, "password", "", "Password for db")
+	flag.StringVar(&username, "username", "", "Username for db")
+	flag.StringVar(&port, "port", "", "Port for db")
 	flag.StringVar(&genotype_id, "genotype_id", "-1", "ID of the genotype we're parsing")
 	flag.StringVar(&temp_file, "temp_file", "", "Path of the file we're parsing")
 	flag.StringVar(&root_path, "root_path", "", "Root path of Rails database")
@@ -42,7 +46,6 @@ func main() {
 	// A map to switch names for known SNPs
 	db_snp_snps := map[string]string{"MT-T3027C": "rs199838004", "MT-T4336C": "rs41456348", "MT-G4580A": "rs28357975", "MT-T5004C": "rs41419549", "MT-C5178a": "rs28357984", "MT-A5390G": "rs41333444", "MT-C6371T": "rs41366755", "MT-G8697A": "rs28358886", "MT-G9477A": "rs2853825", "MT-G10310A": "rs41467651", "MT-A10550G": "rs28358280", "MT-C10873T": "rs2857284", "MT-C11332T": "rs55714831", "MT-A11947G": "rs28359168", "MT-A12308G": "rs2853498", "MT-A12612G": "rs28359172", "MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031", "MT-T14783C": "rs28357680"}
 
-	// TODO: Make file-opening less error-prone
 	// Initialize logger
 	logfilename := root_path + "/log/goparser.log"
 	logFile, err := os.Create(logfilename)
@@ -51,15 +54,6 @@ func main() {
 	}
 	log := log.New(logFile, "goworker-", 0)
 	log.Println("Started worker")
-	// Get username, password for database from database.yml
-	configFile := root_path + "/config/database.yml"
-
-	// Read all lines from the configFile into a slice (list) of type []byte
-	config, err := ioutil.ReadFile(configFile)
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
 
 	// Now open the single_temp_file and create userSNPs
 	log.Println("Started work on " + temp_file)
@@ -70,44 +64,9 @@ func main() {
 	}
 	defer file.Close()
 
-	// TODO: parsing the db-config like this is ugly. Unfortunately, all YAML packages for Go are ugly, too.
-	// As an upside, all of the following is run only once.
-	configs := strings.Split(string(config), "\n")
-	inside := false
-	database_name := database
-	username := ""
-	password := ""
-	port := "5432"
 	max_conns := 25
-	for _, line := range configs {
-		// Are we in the right database?
-		if line == database+":" {
-			// Flip the switch so that the next field containining "database" is the name of our database
-			inside = true
-		}
-		if strings.Contains(line, "database:") && inside {
-			database_name = strings.Trim(strings.Split(line, ": ")[1], " ")
-			inside = false
-		}
-		if strings.Contains(line, "port:") {
-			port = strings.Trim(strings.Split(line, ": ")[1], " ")
-		}
-		if strings.Contains(line, "username:") {
-			username = strings.Trim(strings.Split(line, ": ")[1], " ")
-		}
-		if strings.Contains(line, "password:") {
-			password = strings.Trim(strings.Split(line, ": ")[1], " ")
-		}
-		if strings.Contains(line, "pool:") {
-			max_conns, err = strconv.Atoi(strings.Trim(strings.Split(line, ": ")[1], " "))
-			if err != nil {
-				log.Println(err)
-				os.Exit(1)
-			}
-		}
-	}
 	// Connect to database
-	connection_string := "user=" + username + " password=" + password + " dbname=" + database_name + " sslmode=disable port=" + port
+	connection_string := "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable port=" + port
 	log.Println("Connecting to DB with ", connection_string)
 	db, err := sql.Open("postgres", connection_string)
 	if err != nil {
@@ -122,13 +81,13 @@ func main() {
 	log.Println("Loading all SNPs...")
 	rows, err := db.Query("SELECT name FROM snps;")
 	if err != nil {
-		log.Println("NO SNPS YO", err)
+		log.Println(err)
 		os.Exit(1)
 	}
 	for rows.Next() {
 		var name string
 		if err := rows.Scan(&name); err != nil {
-			log.Println("SHIT BE EMPTY YO", err)
+			log.Println(err)
 			os.Exit(1)
 		}
 		known_snps[name] = true
@@ -140,28 +99,8 @@ func main() {
 		user_id  string
 		filetype string
 	)
-	log.Println(genotype_id)
-	/////////////////////7
-	rows, err = db.Query("SELECT filetype, user_id, md5sum, genotype_file_name FROM genotypes;")
-	if err != nil {
-		log.Println("TETS", err)
-		os.Exit(1)
-	}
-	for rows.Next() {
-		var filetype string
-		var user_id string
-		var md5sum string
-		var filename string
-		if err := rows.Scan(&filetype, &user_id, &md5sum, &filename); err != nil {
-			log.Println("TEST", err)
-			os.Exit(1)
-		}
-		fmt.Println(filetype, user_id, md5sum, filename)
-	}
-	/////////////////////7
 	row := db.QueryRow("SELECT user_id, filetype FROM genotypes WHERE genotypes.id = " + genotype_id + ";")
-    log.Println("curap")
-	err = row.Scan(&user_id, &filetype)
+    err = row.Scan(&user_id, &filetype) // TODO: This breaks. I have no clue why.
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
