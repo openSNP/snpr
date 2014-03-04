@@ -100,7 +100,7 @@ func main() {
 		filetype string
 	)
 	row := db.QueryRow("SELECT user_id, filetype FROM genotypes WHERE genotypes.id = " + genotype_id + ";")
-    err = row.Scan(&user_id, &filetype) // TODO: This breaks. I have no clue why.
+	err = row.Scan(&user_id, &filetype) // TODO: This breaks. I have no clue why.
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
@@ -129,6 +129,8 @@ func main() {
 		log.Println(err)
 		os.Exit(1)
 	}
+
+	log.Println("Now doing actual parsing.")
 
 	scanner := bufio.NewScanner(file)
 	// Guess the filetype of the genotyping. If it's different than the "official" filetype, change the filetype in the database.
@@ -274,7 +276,10 @@ func main() {
 			// Create a new SNP
 			time := time.Now().UTC().Format(time.RFC3339)
 			// possibly TODO: Initialize the genotype frequencies, allele frequencies
-			insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, user_snps_count, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','1','" + time + "', '" + time + "');"
+			allele_frequency := "---\nA: 0\nT: 0\nG: 0\nC: 0\n"
+			genotype_frequency := "---\na: b\n"
+			insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, allele_frequency, genotype_frequency, user_snps_count, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + allele_frequency + "', '" + genotype_frequency + "', '1','" + time + "', '" + time + "');"
+            log.Println(insertion_string)
 			_, err := db.Exec(insertion_string)
 			if err != nil {
 				log.Println(err)
