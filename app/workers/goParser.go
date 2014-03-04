@@ -274,7 +274,7 @@ func main() {
 			// Create a new SNP
 			time := time.Now().UTC().Format(time.RFC3339)
 			// possibly TODO: Initialize the genotype frequencies, allele frequencies
-			insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + time + "', '" + time + "');"
+			insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, user_snps_count, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','1','" + time + "', '" + time + "');"
 			_, err := db.Exec(insertion_string)
 			if err != nil {
 				log.Println(err)
