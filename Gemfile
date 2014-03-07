@@ -64,7 +64,6 @@ group :assets do
   gem 'yui-compressor'
   gem "twitter-bootstrap-rails"
   gem "jquery-ui-rails"
-  gem 'uglifier'
 end
 
 #group :production do
