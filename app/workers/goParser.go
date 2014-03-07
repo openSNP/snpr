@@ -6,25 +6,29 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	_ "github.com/bmizerany/pq"
+	_ "github.com/lib/pq"
 	"log"
 	"os"
 	"strings"
 	"time"
 )
 
-const VERSION = 1.0
+const (
+	VERSION   = 1.0
+	MAX_CONNS = 25
+)
 
 func main() {
 	// Get the database, possible values: development, production, test
 	var (
-		database    string
-		username    string
-		password    string
-		port        string
-		genotype_id string
-		temp_file   string
-		root_path   string
+		database          string
+		username          string
+		password          string
+		port              string
+		genotype_id       string
+		temp_file         string
+		root_path         string
+		connection_string string
 	)
 
 	flag.StringVar(&database, "database", "", "Name of the Rails database this worker runs in.")
@@ -50,7 +54,7 @@ func main() {
 	logfilename := root_path + "/log/goparser.log"
 	logFile, err := os.Create(logfilename)
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
 	log := log.New(logFile, "goworker-", 0)
 	log.Println("Started worker")
@@ -59,21 +63,23 @@ func main() {
 	log.Println("Started work on " + temp_file)
 	var file *os.File
 	if file, err = os.Open(temp_file); err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 	defer file.Close()
 
-	max_conns := 25
 	// Connect to database
-	connection_string := "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable port=" + port
-	log.Println("Connecting to DB with ", connection_string)
+	if password != "" {
+		// This is super-weird - if we supply an empty password everything goes haywire. No error messages?
+		connection_string = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable port=" + port
+	} else {
+		connection_string = "user=" + username + " dbname=" + database + " sslmode=disable port=" + port
+	}
 	db, err := sql.Open("postgres", connection_string)
 	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
-	db.SetMaxIdleConns(max_conns)
+	db.SetMaxIdleConns(MAX_CONNS)
+
 	log.Println("Connected.")
 
 	// Now load the known SNPs
@@ -81,53 +87,56 @@ func main() {
 	log.Println("Loading all SNPs...")
 	rows, err := db.Query("SELECT name FROM snps;")
 	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 	for rows.Next() {
 		var name string
 		if err := rows.Scan(&name); err != nil {
-			log.Println(err)
-			os.Exit(1)
+			log.Fatal(err)
 		}
 		known_snps[name] = true
 	}
 
 	log.Println("Got all SNPs.")
 
+	row, err := db.Query("SELECT * FROM genotypes WHERE id = $1", genotype_id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	var (
 		user_id  string
 		filetype string
+		id       string
 	)
-	row := db.QueryRow("SELECT user_id, filetype FROM genotypes WHERE genotypes.id = " + genotype_id + ";")
-	err = row.Scan(&user_id, &filetype) // TODO: This breaks. I have no clue why.
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+	for row.Next() {
+		err = row.Scan(&id, &user_id, &filetype) // TODO: This breaks. I have no clue why.
+		log.Println(id + " " + user_id + " " + filetype)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
+
 	log.Println("Got filetype '" + filetype + "' and user-id '" + user_id + "'.")
 	log.Println("Getting all user-SNPs.")
 
 	// Now load the known user-snps
 	known_user_snps := make(map[string]bool)
-	rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id + ";")
+	rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = $1", user_id)
 	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	for rows.Next() {
 		var snp_name string
 		if err := rows.Scan(&snp_name); err != nil {
-			log.Println(err)
-			os.Exit(1)
+			log.Fatal(err)
 		}
 		known_user_snps[snp_name] = true
 	}
 
 	if err := rows.Err(); err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	log.Println("Now doing actual parsing.")
@@ -160,8 +169,7 @@ func main() {
 		_, err = db.Exec("UPDATE genotypes SET filetype = " + actual_filetype + " WHERE id = " + genotype_id + ";")
 		if err != nil {
 			log.Println("Couldn't change the filetype of " + genotype_id + ", reason:")
-			log.Println(err)
-			os.Exit(1)
+			log.Fatal(err)
 		}
 		filetype = actual_filetype
 	}
@@ -260,8 +268,7 @@ func main() {
 		} else {
 			log.Println("unknown filetype", filetype)
 			err := errors.New("Unknown filetype in parsing")
-			log.Println(err)
-			os.Exit(1)
+			log.Fatal(err)
 		}
 
 		// Example:
@@ -282,8 +289,7 @@ func main() {
 			log.Println(insertion_string)
 			_, err := db.Exec(insertion_string)
 			if err != nil {
-				log.Println(err)
-				os.Exit(1)
+				log.Fatal(err)
 			}
 		}
 		// Is this a known userSNP?
@@ -295,8 +301,7 @@ func main() {
 			user_snp_insertion_string := "INSERT INTO user_snps (local_genotype, genotype_id, user_id, created_at, updated_at, snp_name) VALUES ('" + allele + "','" + genotype_id + "','" + user_id + "','" + time + "','" + time + "','" + snp_name + "');"
 			_, err := db.Exec(user_snp_insertion_string)
 			if err != nil {
-				log.Println(err)
-				os.Exit(1)
+				log.Fatal(err)
 			}
 		} else {
 			log.Println("User-SNP " + snp_name + " with allele " + allele + " already exists")
@@ -306,8 +311,8 @@ func main() {
 	log.Println("Running COMMIT")
 	_, err = db.Exec("COMMIT")
 	if err != nil {
-		log.Println(err)
-		os.Exit(1)
+		log.Println("Error during COMMIT:")
+		log.Fatal(err)
 	}
 	// Update our indexes
 	// Both of these should only take a few seconds
