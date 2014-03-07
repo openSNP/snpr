@@ -79,13 +79,14 @@ func main() {
 		log.Fatal(err)
 	}
 	db.SetMaxIdleConns(MAX_CONNS)
+    defer db.Close()
 
 	log.Println("Connected.")
 
 	// Now load the known SNPs
 	known_snps := make(map[string]bool) // There is no set-type, so this is a workaround
 	log.Println("Loading all SNPs...")
-	rows, err := db.Query("SELECT name FROM snps;")
+    rows, err := db.Query("SELECT name FROM snps;")
 	if err != nil {
 		log.Fatal(err)
 	}
