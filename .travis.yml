@@ -1,8 +1,7 @@
 language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
 rvm:
   - 1.9.2
-  - 1.9.3
-  - 2.0.0
+  - 2.1.0
 go:
   - 1.1
 env: DB=postgres CI=1
