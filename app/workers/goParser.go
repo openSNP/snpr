@@ -68,12 +68,8 @@ func main() {
 	defer file.Close()
 
 	// Connect to database
-	if password != "" {
-		// This is super-weird - if we supply an empty password everything goes haywire. No error messages?
-		connection_string = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable port=" + port
-	} else {
-		connection_string = "user=" + username + " dbname=" + database + " sslmode=disable port=" + port
-	}
+	connection_string = buildDbConnectionString(username, password, database, port)
+	log.Println("trying to connect to the db with params: " + connection_string)
 	db, err := sql.Open("postgres", connection_string)
 	if err != nil {
 		log.Fatal(err)
@@ -323,3 +319,20 @@ func main() {
 	log.Println("Done!")
 	os.Exit(0)
 }
+
+func buildDbConnectionString(username string, password string, database string, port string) (string) {
+  params := make([]string, 0, 5)
+  if len(username) > 0 {
+    params = append(params, "user=" + username)
+  }
+  if len(password) > 0 {
+    params = append(params, "password=" + password)
+  }
+  if len(port) > 0 {
+    params = append(params, "port=" + port)
+  }
+  params = append(params, "dbname=" + database)
+  params = append(params, "sslmode=disable")
+  return strings.Join(params, " ")
+}
+
