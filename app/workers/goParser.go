@@ -68,7 +68,7 @@ func main() {
 
 	// Connect to database
 	connection_string = buildDbConnectionString(username, password, database, port)
-	logger.Info("trying to connect to the db with params: " + connection_string)
+	logger.Debug("trying to connect to the db with params: " + connection_string)
 	db, err := sql.Open("postgres", connection_string)
 	if err != nil {
 		logger.Fatal(err.Error())
