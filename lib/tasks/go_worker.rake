@@ -5,6 +5,7 @@ namespace :go_worker do
     system(<<-SH)
       cd #{working_dir}
       go get github.com/lib/pq
+      go get github.com/jcelliott/lumber
       go build -o goParser goParser.go
     SH
   end
