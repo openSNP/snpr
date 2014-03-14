@@ -17,7 +17,7 @@ gem 'exceptional'
 # apis
 gem 'fitgem'
 gem 'mendeley', github: 'tsujigiri/mendeley', branch: 'paging_search'
-gem 'plos', github: 'tsujigiri/plos', branch: 'master', require: false
+gem 'plos'
 
 # New Relic monitoring, off by default in development
 gem 'newrelic_rpm'
@@ -64,7 +64,6 @@ group :assets do
   gem 'yui-compressor'
   gem "twitter-bootstrap-rails"
   gem "jquery-ui-rails"
-  gem 'uglifier'
 end
 
 #group :production do

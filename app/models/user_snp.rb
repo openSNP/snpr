@@ -4,4 +4,6 @@ class UserSnp < ActiveRecord::Base
   belongs_to :genotype
 
   validates_presence_of :snp
+  validates_presence_of :user
+  validates_presence_of :genotype
 end
