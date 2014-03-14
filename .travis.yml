@@ -1,8 +1,9 @@
 language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
 rvm:
   - 1.9.2
-  - 1.9.3
-  - 2.0.0
+  - 2.1.0
+go:
+  - 1.1
 env: DB=postgres CI=1
 bundler_args: --without development debug
 before_install: 
@@ -17,5 +18,5 @@ before_script:
 # script: "bundle install" # this is automatically run by travis-ci
 services:
   - redis-server
-script: "bundle exec rake --trace db:migrate test"
+script: "bundle exec rake --trace go_worker:build db:migrate test"
 

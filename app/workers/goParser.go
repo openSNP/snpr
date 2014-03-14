@@ -7,7 +7,7 @@ import (
 	"flag"
 	"fmt"
 	_ "github.com/lib/pq"
-	"log"
+	lumber "github.com/jcelliott/lumber"
 	"os"
 	"strings"
 	"time"
@@ -18,7 +18,11 @@ const (
 	MAX_CONNS = 25
 )
 
+var logger *lumber.FileLogger
+
 func main() {
+	logger, _ = lumber.NewFileLogger("log/go_parser.log", lumber.INFO, lumber.ROTATE, 5000, 9, 0)
+
 	// Get the database, possible values: development, production, test
 	var (
 		database          string
@@ -48,61 +52,62 @@ func main() {
 	}
 
 	// A map to switch names for known SNPs
-	db_snp_snps := map[string]string{"MT-T3027C": "rs199838004", "MT-T4336C": "rs41456348", "MT-G4580A": "rs28357975", "MT-T5004C": "rs41419549", "MT-C5178a": "rs28357984", "MT-A5390G": "rs41333444", "MT-C6371T": "rs41366755", "MT-G8697A": "rs28358886", "MT-G9477A": "rs2853825", "MT-G10310A": "rs41467651", "MT-A10550G": "rs28358280", "MT-C10873T": "rs2857284", "MT-C11332T": "rs55714831", "MT-A11947G": "rs28359168", "MT-A12308G": "rs2853498", "MT-A12612G": "rs28359172", "MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031", "MT-T14783C": "rs28357680"}
-
-	// Initialize logger
-	logfilename := root_path + "/log/goparser.log"
-	logFile, err := os.Create(logfilename)
-	if err != nil {
-		log.Fatal(err)
+	db_snp_snps := map[string]string{
+		"MT-T3027C":  "rs199838004", "MT-T4336C":  "rs41456348",
+		"MT-G4580A":  "rs28357975",  "MT-T5004C":  "rs41419549",
+		"MT-C5178a":  "rs28357984",  "MT-A5390G":  "rs41333444",
+		"MT-C6371T":  "rs41366755",  "MT-G8697A":  "rs28358886",
+		"MT-G9477A":  "rs2853825",   "MT-G10310A": "rs41467651",
+		"MT-A10550G": "rs28358280",  "MT-C10873T": "rs2857284",
+		"MT-C11332T": "rs55714831",  "MT-A11947G": "rs28359168",
+		"MT-A12308G": "rs2853498",   "MT-A12612G": "rs28359172",
+		"MT-T14318C": "rs28357675",  "MT-T14766C": "rs3135031",
+		"MT-T14783C": "rs28357680"
 	}
-	log := log.New(logFile, "goworker-", 0)
-	log.Println("Started worker")
+
+	logger.Info("Started worker")
 
 	// Now open the single_temp_file and create userSNPs
-	log.Println("Started work on " + temp_file)
-	var file *os.File
-	if file, err = os.Open(temp_file); err != nil {
-		log.Fatal(err)
+	logger.Info("Started work on " + temp_file)
+	//var file *os.File
+	file, err := os.Open(temp_file)
+	if err != nil {
+		logger.Fatal(err.Error())
 	}
 	defer file.Close()
 
 	// Connect to database
-	if password != "" {
-		// This is super-weird - if we supply an empty password everything goes haywire. No error messages?
-		connection_string = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable port=" + port
-	} else {
-		connection_string = "user=" + username + " dbname=" + database + " sslmode=disable port=" + port
-	}
+	connection_string = buildDbConnectionString(username, password, database, port)
+	logger.Debug("Trying to connect to the db with params: " + connection_string)
 	db, err := sql.Open("postgres", connection_string)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 	db.SetMaxIdleConns(MAX_CONNS)
-    defer db.Close()
+	defer db.Close()
 
-	log.Println("Connected.")
+	logger.Info("Connected.")
 
 	// Now load the known SNPs
 	known_snps := make(map[string]bool) // There is no set-type, so this is a workaround
-	log.Println("Loading all SNPs...")
-    rows, err := db.Query("SELECT name FROM snps;")
+	logger.Info("Loading all SNPs...")
+	rows, err := db.Query("SELECT name FROM snps;")
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 	for rows.Next() {
 		var name string
 		if err := rows.Scan(&name); err != nil {
-			log.Fatal(err)
+			logger.Fatal(err.Error())
 		}
 		known_snps[name] = true
 	}
 
-	log.Println("Got all SNPs.")
+	logger.Info("Got all SNPs.")
 
 	row, err := db.Query("SELECT * FROM genotypes WHERE id = $1", genotype_id)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 
 	var (
@@ -112,35 +117,35 @@ func main() {
 	)
 	for row.Next() {
 		err = row.Scan(&id, &user_id, &filetype) // TODO: This breaks. I have no clue why.
-		log.Println(id + " " + user_id + " " + filetype)
+		logger.Info(id + " " + user_id + " " + filetype)
 		if err != nil {
-			log.Fatal(err)
+			logger.Fatal(err.Error())
 		}
 	}
 
-	log.Println("Got filetype '" + filetype + "' and user-id '" + user_id + "'.")
-	log.Println("Getting all user-SNPs.")
+	logger.Info("Got filetype '" + filetype + "' and user-id '" + user_id + "'.")
+	logger.Info("Getting all user-SNPs.")
 
 	// Now load the known user-snps
 	known_user_snps := make(map[string]bool)
 	rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = $1", user_id)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 
 	for rows.Next() {
 		var snp_name string
 		if err := rows.Scan(&snp_name); err != nil {
-			log.Fatal(err)
+			logger.Fatal(err.Error())
 		}
 		known_user_snps[snp_name] = true
 	}
 
 	if err := rows.Err(); err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 
-	log.Println("Now doing actual parsing.")
+	logger.Info("Now doing actual parsing.")
 
 	scanner := bufio.NewScanner(file)
 	// Guess the filetype of the genotyping. If it's different than the "official" filetype, change the filetype in the database.
@@ -165,12 +170,12 @@ func main() {
 	// Other users just break the whole thing by uploading something broken
 	if actual_filetype != "" && actual_filetype != filetype {
 		// Update the field in the database to actual_filetype, and use the proper filetype
-		log.Println("Genotyping " + genotype_id + " is supposed to have type " + filetype + " , but it's actually " + actual_filetype)
+		logger.Info("Genotyping " + genotype_id + " is supposed to have type " + filetype + " , but it's actually " + actual_filetype)
 		// Notice the difference here - using Exec instead of Query, we don't need any rows returned
 		_, err = db.Exec("UPDATE genotypes SET filetype = " + actual_filetype + " WHERE id = " + genotype_id + ";")
 		if err != nil {
-			log.Println("Couldn't change the filetype of " + genotype_id + ", reason:")
-			log.Fatal(err)
+			logger.Info("Couldn't change the filetype of " + genotype_id + ", reason:")
+			logger.Fatal(err.Error())
 		}
 		filetype = actual_filetype
 	}
@@ -267,9 +272,9 @@ func main() {
 			}
 
 		} else {
-			log.Println("unknown filetype", filetype)
+			logger.Info("unknown filetype", filetype)
 			err := errors.New("Unknown filetype in parsing")
-			log.Fatal(err)
+			logger.Fatal(err.Error())
 		}
 
 		// Example:
@@ -287,10 +292,10 @@ func main() {
 			allele_frequency := "---\nA: 0\nT: 0\nG: 0\nC: 0\n"
 			genotype_frequency := "--- {}\n"
 			insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, allele_frequency, genotype_frequency, user_snps_count, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + allele_frequency + "', '" + genotype_frequency + "', '1','" + time + "', '" + time + "');"
-			log.Println(insertion_string)
+			logger.Info(insertion_string)
 			_, err := db.Exec(insertion_string)
 			if err != nil {
-				log.Fatal(err)
+				logger.Fatal(err.Error())
 			}
 		}
 		// Is this a known userSNP?
@@ -302,24 +307,41 @@ func main() {
 			user_snp_insertion_string := "INSERT INTO user_snps (local_genotype, genotype_id, user_id, created_at, updated_at, snp_name) VALUES ('" + allele + "','" + genotype_id + "','" + user_id + "','" + time + "','" + time + "','" + snp_name + "');"
 			_, err := db.Exec(user_snp_insertion_string)
 			if err != nil {
-				log.Fatal(err)
+				logger.Fatal(err.Error())
 			}
 		} else {
-			log.Println("User-SNP " + snp_name + " with allele " + allele + " already exists")
+			logger.Info("User-SNP " + snp_name + " with allele " + allele + " already exists")
 		}
 
 	} // End of file-parsing
-	log.Println("Running COMMIT")
+	logger.Info("Running COMMIT")
 	_, err = db.Exec("COMMIT")
 	if err != nil {
-		log.Println("Error during COMMIT:")
-		log.Fatal(err)
+		logger.Info("Error during COMMIT:")
+		logger.Fatal(err.Error())
 	}
 	// Update our indexes
 	// Both of these should only take a few seconds
-	log.Println("VACUUMing...")
+	logger.Info("VACUUMing...")
 	db.Exec("VACUUM ANALYZE snps")
 	db.Exec("VACUUM ANALYZE user_snps")
-	log.Println("Done!")
+	logger.Info("Done!")
 	os.Exit(0)
 }
+
+func buildDbConnectionString(username string, password string, database string, port string) (string) {
+	params := make([]string, 0, 5)
+	if len(username) > 0 {
+		params = append(params, "user=" + username)
+	}
+	if len(password) > 0 {
+		params = append(params, "password=" + password)
+	}
+	if len(port) > 0 {
+		params = append(params, "port=" + port)
+	}
+	params = append(params, "dbname=" + database)
+	params = append(params, "sslmode=disable")
+	return strings.Join(params, " ")
+}
+

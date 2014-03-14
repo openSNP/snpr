@@ -13,7 +13,7 @@ class Parsing
     # get database configuration for goparser
     database = Rails.configuration.database_configuration[Rails.env]["database"]
     password = Rails.configuration.database_configuration[Rails.env]["password"]
-    port =  Rails.configuration.database_configuration[Rails.env]["port"] || "5432"
+    port =  Rails.configuration.database_configuration[Rails.env]["port"]
     username = Rails.configuration.database_configuration[Rails.env]["username"]
 
     command = "#{Rails.root}/app/workers/goParser -database=#{database} -genotype_id=#{genotype_id} -temp_file=#{temp_file} -root_path=#{Rails.root} -port=#{port} -username=#{username} -password=#{password}"
