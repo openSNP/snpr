@@ -31,9 +31,9 @@ FactoryGirl.define do
 
   factory :user_snp do
     local_genotype 'AG'
-    genotype_id 1
-    user_id 1
-    snp_id 1
+    genotype
+    user
+    snp
   end
 
   factory :achievement do
