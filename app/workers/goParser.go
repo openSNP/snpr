@@ -62,7 +62,7 @@ func main() {
 		"MT-C11332T": "rs55714831",  "MT-A11947G": "rs28359168",
 		"MT-A12308G": "rs2853498",   "MT-A12612G": "rs28359172",
 		"MT-T14318C": "rs28357675",  "MT-T14766C": "rs3135031",
-		"MT-T14783C": "rs28357680"
+		"MT-T14783C": "rs28357680",
 	}
 
 	logger.Info("Started worker")
