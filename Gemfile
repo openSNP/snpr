@@ -17,7 +17,7 @@ gem 'exceptional'
 # apis
 gem 'fitgem'
 gem 'mendeley', github: 'tsujigiri/mendeley', branch: 'paging_search'
-gem 'plos'
+gem 'plos', require: false
 
 # New Relic monitoring, off by default in development
 gem 'newrelic_rpm'
