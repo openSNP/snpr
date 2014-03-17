@@ -21,7 +21,6 @@ const (
 var logger *lumber.FileLogger
 
 func main() {
-	logger, _ = lumber.NewFileLogger("log/go_parser.log", lumber.INFO, lumber.ROTATE, 5000, 9, 0)
 
 	// Get the database, possible values: development, production, test
 	var (
@@ -64,6 +63,7 @@ func main() {
 		"MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031",
 		"MT-T14783C": "rs28357680",
 	}
+	logger, _ = lumber.NewFileLogger(root_path+"/log/go_parser.log", lumber.INFO, lumber.ROTATE, 5000, 9, 0)
 
 	logger.Info("Started worker")
 
@@ -71,7 +71,6 @@ func main() {
 	logger.Info("Started work on " + temp_file)
 	//var file *os.File
 	file, err := os.Open(temp_file)
-	logger.Info(err.Error())
 	if err != nil {
 		die(err.Error())
 	}
@@ -98,7 +97,6 @@ func main() {
 	}
 	for rows.Next() {
 		var name string
-		err := rows.Scan(&name)
 		if err := rows.Scan(&name); err != nil {
 			die(err.Error())
 		}
