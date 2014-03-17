@@ -84,7 +84,7 @@ func main() {
 	if err != nil {
 		die(err.Error())
 	}
-	//db.SetMaxIdleConns(MAX_CONNS)
+	db.SetMaxIdleConns(MAX_CONNS)
 	defer db.Close()
 
 	logger.Info("Connected.")
@@ -99,10 +99,9 @@ func main() {
 	for rows.Next() {
 		var name string
 		err := rows.Scan(&name)
-		logger.Info(err.Error())
-		//if err := rows.Scan(&name); err != nil {
-		//die(err.Error())
-		//}
+		if err := rows.Scan(&name); err != nil {
+			die(err.Error())
+		}
 		known_snps[name] = true
 	}
 
