@@ -21,6 +21,7 @@ class Parsing
     stdout, stderr, status = Open3.capture3(command)
     log stderr
     log stdout
+    log status
     if not status.success?
       genotype = Genotype.find(genotype_id)
       UserMailer.parsing_error(genotype.user_id).deliver

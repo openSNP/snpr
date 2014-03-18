@@ -63,6 +63,10 @@ func main() {
 		"MT-T14318C": "rs28357675", "MT-T14766C": "rs3135031",
 		"MT-T14783C": "rs28357680",
 	}
+	if root_path == "" {
+		fmt.Println("ERROR: Root-path is empty")
+		os.Exit(1)
+	}
 	logger, _ = lumber.NewFileLogger(root_path+"/log/go_parser.log", lumber.INFO, lumber.ROTATE, 5000, 9, 0)
 
 	logger.Info("Started worker")
@@ -121,6 +125,10 @@ func main() {
 		if err != nil {
 			die(err.Error())
 		}
+	}
+
+	if filetype == "" {
+		die("ERROR: Couldn't get genotyping from database")
 	}
 
 	logger.Info("Got filetype '" + filetype + "' and user-id '" + user_id + "'.")
@@ -258,7 +266,6 @@ func main() {
 			allele_frequency := "---\nA: 0\nT: 0\nG: 0\nC: 0\n"
 			genotype_frequency := "--- {}\n"
 			insertion_string := "INSERT INTO snps (name, chromosome, position, ranking, allele_frequency, genotype_frequency, user_snps_count, created_at, updated_at) VALUES ('" + snp_name + "','" + chromosome + "','" + position + "','0','" + allele_frequency + "', '" + genotype_frequency + "', '1','" + time + "', '" + time + "');"
-			logger.Info(insertion_string)
 			_, err := db.Exec(insertion_string)
 			if err != nil {
 				die(err.Error())
