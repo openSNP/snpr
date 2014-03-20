@@ -20,8 +20,65 @@ const (
 
 var logger *lumber.FileLogger
 
-func main() {
+func getGenotype(db *sql.DB, genotype_id string) (id, user_id, filetype string) {
+	row, err := db.Query("SELECT id, user_id, filetype FROM genotypes WHERE id = " + genotype_id)
+	if err != nil {
+		die(err.Error())
+	}
 
+	for row.Next() {
+		err = row.Scan(&id, &user_id, &filetype) // TODO: This breaks. I have no clue why.
+		logger.Info(id + " " + user_id + " " + filetype)
+		if err != nil {
+			die(err.Error())
+		}
+	}
+
+	if filetype == "" {
+		die("ERROR: Couldn't get genotyping from database")
+	}
+	return
+}
+
+func getUserSNPs(db *sql.DB, user_id string) (known_user_snps map[string]bool) {
+	//  load the known user-snps
+	known_user_snps = make(map[string]bool)
+	rows, err := db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id)
+	if err != nil {
+		die(err.Error())
+	} else if rows != nil {
+		for rows.Next() {
+			var snp_name string
+			if err := rows.Scan(&snp_name); err != nil {
+				die(err.Error())
+			}
+			known_user_snps[snp_name] = true
+		}
+		if err := rows.Err(); err != nil {
+			die(err.Error())
+		}
+	}
+	return known_user_snps
+}
+
+func getSNPs(db *sql.DB) (known_snps map[string]bool) {
+	known_snps = make(map[string]bool) // There is no set-type, so this is a workaround
+	logger.Info("Loading all SNPs...")
+	rows, err := db.Query("SELECT name FROM snps;")
+	if err != nil {
+		die(err.Error())
+	}
+	for rows.Next() {
+		var name string
+		if err := rows.Scan(&name); err != nil {
+			die(err.Error())
+		}
+		known_snps[name] = true
+	}
+	return
+}
+
+func main() {
 	// Get the database, possible values: development, production, test
 	var (
 		database          string
@@ -70,6 +127,7 @@ func main() {
 	logger, _ = lumber.NewFileLogger(root_path+"/log/go_parser.log", lumber.INFO, lumber.ROTATE, 5000, 9, 0)
 
 	logger.Info("Started worker")
+	logger.Info("Checking for genotype with id " + genotype_id)
 
 	// Now open the single_temp_file and create userSNPs
 	logger.Info("Started work on " + temp_file)
@@ -93,65 +151,16 @@ func main() {
 	logger.Info("Connected.")
 
 	// Now load the known SNPs
-	known_snps := make(map[string]bool) // There is no set-type, so this is a workaround
-	logger.Info("Loading all SNPs...")
-	rows, err := db.Query("SELECT name FROM snps;")
-	if err != nil {
-		die(err.Error())
-	}
-	for rows.Next() {
-		var name string
-		if err := rows.Scan(&name); err != nil {
-			die(err.Error())
-		}
-		known_snps[name] = true
-	}
-
+	known_snps := getSNPs(db)
 	logger.Info("Got all SNPs.")
 
-	row, err := db.Query("SELECT id, user_id, filetype FROM genotypes WHERE id = " + genotype_id)
-	if err != nil {
-		die(err.Error())
-	}
-
-	var (
-		id       string
-		user_id  string
-		filetype string
-	)
-	for row.Next() {
-		err = row.Scan(&id, &user_id, &filetype) // TODO: This breaks. I have no clue why.
-		logger.Info(id + " " + user_id + " " + filetype)
-		if err != nil {
-			die(err.Error())
-		}
-	}
-
-	if filetype == "" {
-		die("ERROR: Couldn't get genotyping from database")
-	}
-
+	logger.Info("Getting genotype")
+	geno_id, user_id, filetype := getGenotype(db, genotype_id)
+	fmt.Println(geno_id, user_id, filetype)
 	logger.Info("Got filetype '" + filetype + "' and user-id '" + user_id + "'.")
 	logger.Info("Getting all user-SNPs.")
 
-	// Now load the known user-snps
-	known_user_snps := make(map[string]bool)
-	rows, err = db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id)
-	if err != nil {
-		die(err.Error())
-	} else if rows != nil {
-		for rows.Next() {
-			var snp_name string
-			if err := rows.Scan(&snp_name); err != nil {
-				die(err.Error())
-			}
-			known_user_snps[snp_name] = true
-		}
-		if err := rows.Err(); err != nil {
-			die(err.Error())
-		}
-	}
-
+	known_user_snps := getUserSNPs(db, user_id)
 	logger.Info("Now doing actual parsing.")
 
 	// Turn off AUTOCOMMIT by using BEGIN / INSERTs / COMMIT

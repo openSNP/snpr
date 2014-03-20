@@ -9,7 +9,7 @@ class Preparsing
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/preparsing_#{Rails.env}.log")
     genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
-    @genotype = Genotype.find(genotype_id)
+    genotype = Genotype.find(genotype_id)
     filename = "#{Rails.root}/public/data/#{@genotype.fs_filename}"
     
     log "Starting preparse"

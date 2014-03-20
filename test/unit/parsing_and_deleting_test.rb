@@ -6,15 +6,21 @@ class ParsingTest < ActiveSupport::TestCase
       stub_solr
       Snp.delete_all
       UserSnp.delete_all
+      Genotype.delete_all
 
       @file_23andMe = "#{Rails.root}/test/data/23andMe_test.csv"
       Sidekiq::Client.stubs(:enqueue).with(Preparsing, instance_of(Fixnum))
       @genotype_23andme = FactoryGirl.create(:genotype,
-        genotype_file_name: @file_23andMe.split('/').last, filetype: '23andme')
+        genotype_file_name: @file_23andMe.split('/').last, filetype: '23andme',
+        md5sum: '820f0bd9fda947860859260a7b9b12d3', genotype_content_type: 'text/plain',
+        genotype_updated_at: '2014-03-18 06:58:00' , genotype_file_size: 1012)
+                                            
 
       @file_deCODEme = "#{Rails.root}/test/data/deCODEme_test.csv"
       @genotype_decodeme = FactoryGirl.create(:genotype,
-        genotype_file_name: @file_deCODEme.split('/').last, filetype: 'decodeme')
+        genotype_file_name: @file_deCODEme.split('/').last, filetype: 'decodeme', 
+        md5sum: '7e3ed88e811da812ffbbb406c0376ebf', genotype_content_type: 'text/plain',
+        genotype_updated_at: '2014-03-18 06:58:00' , genotype_file_size: 197)
 
       @temp_file = "#{Rails.root}/tmp/snp_file.txt"
       FileUtils.rm(@temp_file) if File.exist?(@temp_file)
@@ -23,18 +29,27 @@ class ParsingTest < ActiveSupport::TestCase
     should "parse 23andMe data" do
       FileUtils.cp @file_23andMe, @temp_file
       Parsing.new.perform(@genotype_23andme.id, @temp_file)
+      
+      # paranoia test - do the genotypes even exist?
+      genotypes = Genotype.all.map do |g|
+        [ g.id ]
+      end.sort_by { |g| g[0] }
+
+      expected = [ [5], [6] ] 
+
+      assert_equal expected, genotypes
 
       # Snp
       snp_data = Snp.all.map do |s|
-        [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking ]
+        [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking, s.user_snps_count ]
       end.sort_by { |s| s[0] }
 
       expected =
-        [ [ "rs11240777", "788822", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0 ],
-          [ "rs12124819", "766409", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0 ],
-          [ "rs3094315",  "742429", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0 ],
-          [ "rs3131972",  "742584", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0 ],
-          [ "rs4477212",  "72017",  "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0 ]]
+        [ [ "rs11240777", "788822", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1 ],
+          [ "rs12124819", "766409", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1 ],
+          [ "rs3094315",  "742429", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1 ],
+          [ "rs3131972",  "742584", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1 ],
+          [ "rs4477212",  "72017",  "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1 ]]
 
       assert_equal expected, snp_data
 
@@ -65,6 +80,16 @@ class ParsingTest < ActiveSupport::TestCase
     should "parse deCODEme data" do
       FileUtils.cp @file_deCODEme, @temp_file
       Parsing.new.perform(@genotype_decodeme.id, @temp_file)
+
+      # Genotypes
+      genotypes = Genotype.all.map do |g|
+        [ g.id ]
+      end.sort_by { |g| g[0] }
+
+      expected = [ [7], [8] ] 
+
+      assert_equal expected, genotypes
+
 
       # Snp
       snp_data = Snp.all.map do |s|

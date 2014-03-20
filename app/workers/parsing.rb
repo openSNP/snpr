@@ -18,13 +18,17 @@ class Parsing
 
     command = "#{Rails.root}/app/workers/goParser -database=#{database} -genotype_id=#{genotype_id} -temp_file=#{temp_file} -root_path=#{Rails.root} -port=#{port} -username=#{username} -password=#{password}"
     log "Parsing file #{temp_file}"
-    stdout, stderr, status = Open3.capture3(command)
-    log stderr
-    log stdout
-    log status
-    if not status.success?
-      genotype = Genotype.find(genotype_id)
-      UserMailer.parsing_error(genotype.user_id).deliver
+    Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+      # this waits for the subprocess to finish
+      stderr.each_line { |line| log line } if stderr
+      stdout.each_line { |line| log line } if stdout
+      log "wait_thr #{wait_thr.value}"
+      stdin.close # don't need stdin
+
+      if not wait_thr.value.success?
+        genotype = Genotype.find(genotype_id)
+        UserMailer.parsing_error(genotype.user_id).deliver
+      end
     end
     log "done with #{temp_file}"
     system("rm #{temp_file}")
