@@ -42,7 +42,7 @@
 
   <div class="span3 columns">
     <center><h6><a href="#" rel="tooltip" data-html="true" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">Genotype Frequency</a></h6></center>
-    <%if @total_genotypes != 0%>
+    <% if @snp.total_genotypes != 0 %>
       <center>
         <div id="freq_chart" style="height:200px; width:200px;"></div>
       </center>
@@ -53,7 +53,7 @@
 
   <div class="span3 columns">
     <center><h6><a href="#" rel="tooltip" data-html="true" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">Allele Frequency</a></h6></center>
-    <%if @total_alleles != 0%>
+    <% if @snp.total_alleles != 0 %>
       <div id="allele_chart" style="height:200px; width:200px;"></div>
     <%else%>
       We don't have enough users yet.
@@ -69,7 +69,7 @@
     <li><a href="#mendeley">Mendeley (<%= @snp.mendeley_papers.count %>)</a></li>
     <li><a href="#pgp">Personal Genome Project (<%= @snp.pgp_annotations.count %>)</a></li>
     <li><a href="#genomegov">Genome.gov (<%= @snp.genome_gov_papers.count %>)</a></li>
-    <li><a href="#users">Other users (<%= @user_count %>)</a></li>
+    <li><a href="#users">Other users (<%= @snp.user_snps.size %>)</a></li>
     <li><a href="#comments">Comments (<%= @snp.snp_comments.count %>)</a></li>
   </ul>
 
@@ -229,7 +229,7 @@
 </div>
 <div id="users">
   <h3>Users who share this SNP:</h3>
-  <% if @user_count > 0 %>
+  <% if @snp.user_snps.size > 0 %>
     <div id="user-list"></div>
     <script type="text/javascript">
       $.ajax({
@@ -300,12 +300,12 @@
       $("[rel=tooltip]").tooltip({placement:'left'});
       $("[rel=woe]").tooltip({placement:'right'});
 
-      <%if @total_genotypes != 0%>
+      <% if @snp.total_genotypes != 0 %>
         <% counter = 0 %>
         var freq_data=[
         <%@snp.genotype_frequency.each do |key,value|%>
           <% counter += 1 %>
-          ['<%=key%>',<%=(value.to_f/@total_genotypes).to_s[0,4]%>]<% if counter != @snp.genotype_frequency.length %>,<%end%>
+          ['<%=key%>',<%=(value.to_f/@snp.total_genotypes).to_s[0,4]%>]<% if counter != @snp.genotype_frequency.length %>,<%end%>
       <%end%>
       ];
       var plot1 = jQuery.jqplot ('freq_chart', [freq_data], 
@@ -328,7 +328,7 @@ background: '#ffffff'}
       var allele_data=[
       <%@snp.allele_frequency.each do |key,value|%>
         <% counter += 1 %>
-        ['<%=key%>', <%=(value.to_f/@total_alleles).to_s[0,4]%>]<% if counter != @snp.allele_frequency.length %>,<%end%>
+        ['<%=key%>', <%= (value.to_f/@snp.total_alleles).to_s[0,4] %>]<% if counter != @snp.allele_frequency.length %>,<%end%>
     <%end%>
     ];
     var plot2 = jQuery.jqplot ('allele_chart', [allele_data],

@@ -1,6 +1,7 @@
 class Snp < ActiveRecord::Base
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name,
     dependent: :destroy
+  has_many :users, through: :user_snps
   has_many :pgp_annotations
   has_many :snp_references
   has_many :snp_comments
@@ -9,7 +10,7 @@ class Snp < ActiveRecord::Base
   serialize :genotype_frequency
 
   extend FriendlyId
-  friendly_id :name, :use => :history, :slug_column => :name
+  friendly_id :name, use: :history, slug_column: :name
 
   validates_uniqueness_of :name
 
@@ -63,5 +64,13 @@ class Snp < ActiveRecord::Base
       5 * snpedia_papers.count    +
       2 * genome_gov_papers.count +
       2 * pgp_annotations.count
+  end
+
+  def total_genotypes
+    genotype_frequency.values.sum
+  end
+
+  def total_alleles
+    allele_frequency.values.sum
   end
 end

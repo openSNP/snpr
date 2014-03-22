@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 
   def index
     # showing all users
+    # TODO: Refactor this. - Helge
     @users = User.order(sort_column + " " + sort_direction)
     @users_paginate = @users.paginate(:page => params[:page], :per_page => 10)
     @title = "Listing all users"
