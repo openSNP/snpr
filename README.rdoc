@@ -2,7 +2,7 @@
 
 = openSNP 
 
-a repository to which users can upload their SNP-sets (and exome-VCFs) from 23andme, deCODEme and FamilyTreeDNA. On upload, SNPs are annotated using the PLoS and Mendeley-APIs to show users the newest scientific research results on their SNPs. Each SNP is also linked to the relevant page on SNPedia. SNPs are ranked according to how many results could be gathered for SNPedia, PLoS and Mendeley (in that order). Users can send each other private messages as well as comment on SNPs and Phenotypes. 
+a repository to which users can upload their SNP-sets (and exome-VCFs) from 23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants of EBI genotyping). On upload, SNPs are annotated using the PLoS and Mendeley-APIs to show users the newest scientific research results on their SNPs. Each SNP is also linked to the relevant page on SNPedia. SNPs are ranked according to how many results could be gathered for SNPedia, PLoS and Mendeley (in that order). Users can send each other private messages as well as comment on SNPs and Phenotypes. 
 
 Users can enter phenotypes to assist future research. Search is implemented via the Solr-server. 
 
@@ -12,7 +12,7 @@ Reminder: When new search-indexes are defined on models please run
 
   rake sunspot:reindex
 
-Reminder 2: You can monitor the resque-server on localhost:3000/resque (useful in killing leftover tasks)
+Reminder 2: You can monitor the sidekiq-workers on localhost:3000/sidekiq (useful in killing leftover tasks)
 
 Reminder 3: To load all standard achievements into the database run 
   
@@ -24,13 +24,17 @@ You need to have the following running to ensure that everything works:
 
   redis-server
 
-  rake environment resque:work QUEUE=*
-
   rake sunspot:solr:run OR rake sunspot:solr:start (runs in background)
+
+  sidekiq -q preparse,2 -q parse,2 -q deletegenotype -q fitbit -q fixphenotypes -q frequency -q genomegov -q mailnewgenotype -q mendeley_details -q mendeley -q pgp -q plos_details -q plos -q zipfulldata -q snpedia -q zipgenotyping -C config/sidekiq.yml -e development
 
   rails s(erver)
 
 Note: "serverscript" starts all these in detached screen-sessions.
+
+To see all rake-tasks:
+
+  rake -vT
 
 = To do
 
