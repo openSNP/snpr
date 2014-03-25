@@ -22,26 +22,17 @@ const (
 var logger *lumber.FileLogger
 
 func getGenotype(db *sql.DB, genotype_id string) (id, user_id, filetype string) {
-	row, err := db.Query("SELECT (id, user_id, filetype) FROM genotypes WHERE id = " + genotype_id)
-	if err != nil {
-		die(err.Error())
-	}
-
-	for row.Next() {
-		err = row.Scan(&id, &user_id, &filetype) // TODO: This breaks. I have no clue why.
-		logger.Info(id + " " + user_id + " " + filetype)
-		if err != nil {
-			die(err.Error())
-		}
-	}
-	if err := row.Err(); err != nil {
-		die(err.Error())
-	}
-
-	if filetype == "" {
+	err := db.QueryRow("SELECT (id, user_id, filetype) FROM genotypes WHERE id="+genotype_id).Scan(&id, &user_id, &filetype)
+	switch {
+	case err == sql.ErrNoRows:
 		die("ERROR: Couldn't get genotyping from database")
+	case err != nil:
+		die(err.Error())
+	default:
+		logger.Debug("Got genotyping with id " + id + " and userID " + user_id)
 	}
-	return
+
+	return id, user_id, filetype
 }
 
 func getUserSNPs(db *sql.DB, user_id string) (known_user_snps map[string]bool) {
