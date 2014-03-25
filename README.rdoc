@@ -36,6 +36,22 @@ To see all rake-tasks:
 
   rake -vT
 
+= Deployment
+
+Deployment is handled via capistrano (thanks Helge!). The most important capistrano tasks:
+ 
+  cap deploy
+
+deploys the newest version to production.
+
+  cap solr:{start,stop,restart}
+
+handles the solr instance on production. Has to be started on reboot!
+
+  cap sidekiq:{start,stop,restart}
+
+handles the Sidekiq workers. Has to be started on reboot!
+
 = To do
 
 Check the issues-page for things to fix/finish/do.
