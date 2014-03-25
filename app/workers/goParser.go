@@ -8,6 +8,7 @@ import (
 	"fmt"
 	lumber "github.com/jcelliott/lumber"
 	_ "github.com/lib/pq"
+	"log"
 	"os"
 	"strings"
 	"time"
@@ -21,7 +22,7 @@ const (
 var logger *lumber.FileLogger
 
 func getGenotype(db *sql.DB, genotype_id string) (id, user_id, filetype string) {
-	row, err := db.Query("SELECT id, user_id, filetype FROM genotypes WHERE id = " + genotype_id)
+	row, err := db.Query("SELECT (id, user_id, filetype) FROM genotypes WHERE id = " + genotype_id)
 	if err != nil {
 		die(err.Error())
 	}
@@ -32,6 +33,9 @@ func getGenotype(db *sql.DB, genotype_id string) (id, user_id, filetype string) 
 		if err != nil {
 			die(err.Error())
 		}
+	}
+	if err := row.Err(); err != nil {
+		die(err.Error())
 	}
 
 	if filetype == "" {
@@ -74,6 +78,10 @@ func getSNPs(db *sql.DB) (known_snps map[string]bool) {
 			die(err.Error())
 		}
 		known_snps[name] = true
+	}
+
+	if err := row.Err(); err != nil {
+		die(err.Error())
 	}
 	return
 }
@@ -329,5 +337,6 @@ func buildDbConnectionString(username string, password string, database string, 
 
 func die(message string) {
 	logger.Fatal(message)
+	log.Println(message)
 	os.Exit(1)
 }
