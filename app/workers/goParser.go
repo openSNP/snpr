@@ -80,7 +80,7 @@ func getSNPs(db *sql.DB) (known_snps map[string]bool) {
 		known_snps[name] = true
 	}
 
-	if err := row.Err(); err != nil {
+	if err := rows.Err(); err != nil {
 		die(err.Error())
 	}
 	return
@@ -88,6 +88,7 @@ func getSNPs(db *sql.DB) (known_snps map[string]bool) {
 
 func main() {
 	// Get the database, possible values: development, production, test
+
 	var (
 		database          string
 		username          string
