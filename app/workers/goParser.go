@@ -22,10 +22,15 @@ const (
 var logger *lumber.FileLogger
 
 func getGenotype(db *sql.DB, genotype_id string) (id, user_id, filetype string) {
-	err := db.QueryRow("SELECT (id, user_id, filetype) FROM genotypes WHERE id="+genotype_id).Scan(&id, &user_id, &filetype)
+	stmt, err := db.Prepare("SELECT id, user_id, filetype FROM genotypes WHERE id = $1")
+	if err != nil {
+		die(err.Error())
+	}
+	err = stmt.QueryRow(genotype_id).Scan(&id, &user_id, &filetype)
+
 	switch {
 	case err == sql.ErrNoRows:
-		die("ERROR: Couldn't get genotyping from database")
+		die("ERROR: Couldn't get genotyping from database, no rows in result set")
 	case err != nil:
 		die(err.Error())
 	default:
@@ -38,7 +43,7 @@ func getGenotype(db *sql.DB, genotype_id string) (id, user_id, filetype string) 
 func getUserSNPs(db *sql.DB, user_id string) (known_user_snps map[string]bool) {
 	//  load the known user-snps
 	known_user_snps = make(map[string]bool)
-	rows, err := db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = " + user_id)
+	rows, err := db.Query("SELECT user_snps.snp_name FROM user_snps WHERE user_snps.user_id = $1", user_id)
 	if err != nil {
 		die(err.Error())
 	} else if rows != nil {
