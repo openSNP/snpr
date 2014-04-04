@@ -19,8 +19,7 @@ require 'paperclip/matchers'
 require 'plos'
 require 'database_cleaner'
 
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean_with(:truncation)
+DatabaseCleaner.strategy = :transaction
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/data/vcr_cassettes'

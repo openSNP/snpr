@@ -189,19 +189,19 @@ func main() {
 			linelist = strings.Split(line, "\t")
 		} else if filetype == "ancestry" {
 			linelist = strings.Split(line, "\t")
+			log.Println(linelist)
 			if linelist[0] == "rsid" {
 				continue
 			}
-			linelist = []string{linelist[0], linelist[1], linelist[3], linelist[4] + linelist[5]}
+			linelist = []string{linelist[0], linelist[1], linelist[2], linelist[3] + linelist[4]}
+			log.Println(linelist)
 		} else if filetype == "decodeme" {
 			linelist = strings.Split(line, ",")
-			log.Println(linelist)
 			if linelist[0] == "name" {
 				// skip header
 				continue
 			}
 			linelist = []string{linelist[0], linelist[2], linelist[3], linelist[5]}
-			log.Println(linelist)
 		} else if filetype == "ftdna-illumina" {
 			// Remove "
 			line = strings.Replace(line, `"`, "", -1) // Backticks are needed here.
@@ -336,6 +336,5 @@ func buildDbConnectionString(username string, password string, database string, 
 
 func die(message string) {
 	logger.Fatal(message)
-	log.Println(message)
 	os.Exit(1)
 }

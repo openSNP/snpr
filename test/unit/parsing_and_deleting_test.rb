@@ -5,6 +5,8 @@ class ParsingTest < ActiveSupport::TestCase
 
   context "parser" do
     setup do
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.clean_with(:truncation)
       stub_solr
       Snp.delete_all
       UserSnp.delete_all
@@ -24,6 +26,12 @@ class ParsingTest < ActiveSupport::TestCase
         md5sum: '7e3ed88e811da812ffbbb406c0376ebf', genotype_content_type: 'text/plain',
         genotype_updated_at: '2014-03-18 06:58:00' , genotype_file_size: 197)
 
+      @file_ancestry = "#{Rails.root}/test/data/ancestry_test.csv"
+      @genotype_ancestry = FactoryGirl.create(:genotype,
+        genotype_file_name: @file_ancestry.split('/').last, filetype: 'ancestry', 
+        md5sum: 'b8a18e174e6da6d2f81d86e6748d2baf', genotype_content_type: 'text/plain',
+        genotype_updated_at: '2014-03-18 06:58:00' , genotype_file_size: 1259)
+
       @temp_file = "#{Rails.root}/tmp/snp_file.txt"
       FileUtils.rm(@temp_file) if File.exist?(@temp_file)
     end
@@ -32,13 +40,6 @@ class ParsingTest < ActiveSupport::TestCase
       FileUtils.cp @file_23andMe, @temp_file
       Parsing.new.perform(@genotype_23andme.id, @temp_file)
       
-      # paranoia test - do the genotypes even exist?
-      genotypes = Genotype.all.length
-
-      expected = 2
-
-      assert_equal expected, genotypes
-
       # Snp
       snp_data = Snp.all.map do |s|
         [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking, s.user_snps_count ]
@@ -81,13 +82,6 @@ class ParsingTest < ActiveSupport::TestCase
       FileUtils.cp @file_deCODEme, @temp_file
       Parsing.new.perform(@genotype_decodeme.id, @temp_file)
 
-      # Genotypes
-      genotypes = Genotype.all.length
-      expected = 2
-
-      assert_equal expected, genotypes
-
-
       # Snp
       snp_data = Snp.all.map do |s|
         [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking, s.user_snps_count ]
@@ -122,6 +116,28 @@ class ParsingTest < ActiveSupport::TestCase
 
       assert_equal expected, number_of_snps
     end
+
+    should "parse Ancestry data" do
+      FileUtils.cp @file_ancestry, @temp_file
+      Parsing.new.perform(@genotype_ancestry.id, @temp_file)
+
+      # Snp
+      snp_data = Snp.all.map do |s|
+        [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking, s.user_snps_count ]
+      end.sort_by { |s| s[0] }
+
+
+      expected =
+        [ ["rs11240777", "798959", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
+          ["rs12562034", "768448", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
+          ["rs3131972", "752721", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
+          ["rs4477212", "82154", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
+          ["rs6681049", "800007", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1] ]
+
+      assert_equal expected, snp_data
+
+    end
+
 
 
   end
