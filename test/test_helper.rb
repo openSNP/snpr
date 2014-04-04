@@ -17,6 +17,10 @@ require 'factory_girl'
 FactoryGirl.find_definitions
 require 'paperclip/matchers'
 require 'plos'
+require 'database_cleaner'
+
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean_with(:truncation)
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/data/vcr_cassettes'
