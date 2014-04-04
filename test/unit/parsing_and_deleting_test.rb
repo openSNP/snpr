@@ -32,11 +32,9 @@ class ParsingTest < ActiveSupport::TestCase
       Parsing.new.perform(@genotype_23andme.id, @temp_file)
       
       # paranoia test - do the genotypes even exist?
-      genotypes = Genotype.all.map do |g|
-        [ g.id ]
-      end.sort_by { |g| g[0] }
+      genotypes = Genotype.all.length
 
-      expected = [ [5], [6] ] 
+      expected = 2
 
       assert_equal expected, genotypes
 
@@ -83,11 +81,8 @@ class ParsingTest < ActiveSupport::TestCase
       Parsing.new.perform(@genotype_decodeme.id, @temp_file)
 
       # Genotypes
-      genotypes = Genotype.all.map do |g|
-        [ g.id ]
-      end.sort_by { |g| g[0] }
-
-      expected = [ [7], [8] ] 
+      genotypes = Genotype.all.length
+      expected = 2
 
       assert_equal expected, genotypes
 
