@@ -1,6 +1,7 @@
 require_relative '../test_helper'
 
 class ParsingTest < ActiveSupport::TestCase
+  self.use_transactional_fixtures = false
   context "parser" do
     setup do
       stub_solr

@@ -188,34 +188,36 @@ func main() {
 			// Nothing much to do for 23andme
 			linelist = strings.Split(line, "\t")
 		} else if filetype == "ancestry" {
-			linelist := strings.Split(line, "\t")
+			linelist = strings.Split(line, "\t")
 			if linelist[0] == "rsid" {
 				continue
 			}
 			linelist = []string{linelist[0], linelist[1], linelist[3], linelist[4] + linelist[5]}
 		} else if filetype == "decodeme" {
-			linelist := strings.Split(line, ",")
-			if linelist[0] == "Name" {
+			linelist = strings.Split(line, ",")
+			log.Println(linelist)
+			if linelist[0] == "name" {
 				// skip header
 				continue
 			}
 			linelist = []string{linelist[0], linelist[2], linelist[3], linelist[5]}
+			log.Println(linelist)
 		} else if filetype == "ftdna-illumina" {
 			// Remove "
 			line = strings.Replace(line, `"`, "", -1) // Backticks are needed here.
-			linelist := strings.Split(line, ",")
-			if linelist[0] == "RSID" {
+			linelist = strings.Split(line, ",")
+			if linelist[0] == "rsid" {
 				// skip header
 				continue
 			}
 			// Interestingly, from here on ftdna has the same format as 23andme
 		} else if filetype == "23andme-exome-vcf" {
 			// This is a valid VCF so a bit more work is needed
-			linelist := strings.Split(line, "\t")
+			linelist = strings.Split(line, "\t")
 			format_array := strings.Split(linelist[8], ":")
 			genotype_index := -1
 			for index, element := range format_array {
-				if element == "GT" {
+				if element == "GT" || element == "gt" {
 					genotype_index = index
 					break
 				}
@@ -229,10 +231,10 @@ func main() {
 					genotype_parsed = genotype_parsed + linelist[4]
 				}
 			}
-			linelist = []string{strings.ToLower(linelist[2]), linelist[0], linelist[1], strings.ToUpper(genotype_parsed)}
+			linelist = []string{strings.ToLower(linelist[2]), linelist[0], linelist[1], genotype_parsed}
 
 		} else if filetype == "IYG" {
-			linelist := strings.Split(line, "\t")
+			linelist = strings.Split(line, "\t")
 			name := linelist[0]
 			// Have to get the position from the name
 			// TODO: This is an ugly hack - first, replace all runes
@@ -248,7 +250,7 @@ func main() {
 			}
 			position := strings.Map(replace_letters, name)
 			position = strings.Replace(position, "X", "", -1)
-			if strings.HasPrefix(name, "MT") {
+			if strings.HasPrefix(name, "MT") || strings.HasPrefix(name, "mt") {
 				// Check whether we have to replace the name with the correct rs ID
 				new_name, ok := db_snp_snps[name]
 				if ok {
