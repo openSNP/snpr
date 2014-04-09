@@ -1,8 +1,9 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.2.17'
-gem 'authlogic' # lots of user-related magic
-gem 'i18n', '>= 0.6.6'
+gem 'pg'
+gem 'authlogic', '~> 3.3.0'
+gem 'i18n'
 gem 'rails3-generators'
 gem "jquery-rails"
 gem 'vegas'
@@ -11,7 +12,7 @@ gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
 gem 'capistrano', '~> 2.0'
-gem 'rvm-capistrano', '1.4.4'
+gem 'rvm-capistrano', '~> 1.4.4'
 gem 'exceptional'
 
 # apis
@@ -22,15 +23,12 @@ gem 'plos', github: 'tsujigiri/plos', branch: 'master', require: false
 # New Relic monitoring, off by default in development
 gem 'newrelic_rpm'
 
-# workaround for bug in Fedora
-
-# gem 'sqlite3'
-# use postgresql instead:
-gem 'pg', :require => 'pg'
-
 # for solr (indexing, searching)
-gem 'sunspot_rails', '2.0.0'
-gem 'sunspot_solr', '2.0.0'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+group :test do
+  gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
+end
 
 # so we can create zip-files for genotypes
 gem 'rubyzip', :git => 'git://github.com/rubyzip/rubyzip.git'
@@ -75,7 +73,6 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl'
   gem 'mocha', require: false
-  gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'vcr'

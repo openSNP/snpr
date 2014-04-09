@@ -5,6 +5,7 @@ class ParsingTest < ActiveSupport::TestCase
 
   context "parser" do
     setup do
+      DatabaseCleaner.clean
       stub_solr
       Snp.delete_all
       UserSnp.delete_all

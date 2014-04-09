@@ -2,7 +2,6 @@ require_relative '../test_helper'
 
 class UserPhenotypeTest < ActiveSupport::TestCase
   context "UserPhenotype" do
-    # TODO: fix sunspot/solr in test
     setup do
       @phenotype = FactoryGirl.create(:phenotype)
       @user_phenotype_0 = FactoryGirl.create(:user_phenotype,
