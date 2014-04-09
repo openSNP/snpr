@@ -5,8 +5,6 @@ class ParsingTest < ActiveSupport::TestCase
 
   context "parser" do
     setup do
-      DatabaseCleaner.strategy = :truncation
-      DatabaseCleaner.clean_with(:truncation)
       stub_solr
       Snp.delete_all
       UserSnp.delete_all
@@ -18,7 +16,6 @@ class ParsingTest < ActiveSupport::TestCase
         genotype_file_name: @file_23andMe.split('/').last, filetype: '23andme',
         md5sum: '820f0bd9fda947860859260a7b9b12d3', genotype_content_type: 'text/plain',
         genotype_updated_at: '2014-03-18 06:58:00' , genotype_file_size: 1012)
-                                            
 
       @file_deCODEme = "#{Rails.root}/test/data/deCODEme_test.csv"
       @genotype_decodeme = FactoryGirl.create(:genotype,
@@ -36,10 +33,14 @@ class ParsingTest < ActiveSupport::TestCase
       FileUtils.rm(@temp_file) if File.exist?(@temp_file)
     end
 
+    teardown do
+      DatabaseCleaner.clean
+    end
+
     should "parse 23andMe data" do
       FileUtils.cp @file_23andMe, @temp_file
       Parsing.new.perform(@genotype_23andme.id, @temp_file)
-      
+
       # Snp
       snp_data = Snp.all.map do |s|
         [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking, s.user_snps_count ]

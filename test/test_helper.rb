@@ -19,7 +19,7 @@ require 'paperclip/matchers'
 require 'plos'
 require 'database_cleaner'
 
-DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.strategy = :truncation
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/data/vcr_cassettes'
@@ -29,6 +29,8 @@ end
 
 class ActiveSupport::TestCase
   extend Paperclip::Shoulda::Matchers
+
+  self.use_transactional_fixtures = true
 
   def stub_solr
     RSolr::Connection.any_instance.stubs(:execute)

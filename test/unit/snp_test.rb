@@ -4,7 +4,6 @@ class SnpTest < ActiveSupport::TestCase
   context "Snp" do
     setup do
       stub_solr
-      DatabaseCleaner.clean
       @snp = FactoryGirl.create(:snp)
     end
 

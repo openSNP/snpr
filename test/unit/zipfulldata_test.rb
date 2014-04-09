@@ -3,8 +3,6 @@ require_relative '../test_helper'
 class ZipfulldataTest < ActiveSupport::TestCase
   context "Zipfulldata" do
     setup do
-      DatabaseCleaner.clean
-
       stub_solr
       @user = FactoryGirl.create(:user)
       @phenotype = FactoryGirl.create(:phenotype, characteristic: "jump height")
