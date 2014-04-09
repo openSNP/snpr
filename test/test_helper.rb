@@ -30,6 +30,8 @@ end
 class ActiveSupport::TestCase
   extend Paperclip::Shoulda::Matchers
 
+  self.use_transactional_fixtures = true
+
   def stub_solr
     RSolr::Connection.any_instance.stubs(:execute)
   end
