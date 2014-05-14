@@ -10,8 +10,6 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
-gem 'capistrano', '~> 2.0'
-gem 'rvm-capistrano', '1.4.4'
 gem 'exceptional'
 
 # apis
@@ -40,7 +38,7 @@ gem 'nested_form', github: 'ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
-gem 'paperclip', '~> 4.0'
+gem 'paperclip', '~> 3.0 '
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
 
@@ -87,4 +85,6 @@ end
 
 group :development, :test do
   gem 'uuidtools'
+gem 'capistrano', '~> 2.0'
+gem 'rvm-capistrano', '1.4.4'
 end
