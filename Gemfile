@@ -38,7 +38,7 @@ gem 'nested_form', github: 'ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'activerecord-import', '~> 0.2.11'
-gem 'paperclip', '~> 3.0 '
+gem 'paperclip', '~> 4.0 '
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
 

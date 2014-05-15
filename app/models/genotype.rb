@@ -11,6 +11,7 @@ class Genotype < ActiveRecord::Base
   validates_attachment :genotype,
     presence: true,
     size: { in: 0..100.megabytes }
+  do_not_validate_attachment_file_type :genotype
 
   attr_accessible :genotype, :filetype, :user_id, :md5sum
   after_create :parse_genotype

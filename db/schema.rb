@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140221060607) do
+ActiveRecord::Schema.define(:version => 20140509001806) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -52,33 +52,6 @@ ActiveRecord::Schema.define(:version => 20140221060607) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
-
-  create_table "curated_phenotype_answers", :force => true do |t|
-    t.text     "variation_name"
-    t.integer  "curated_phenotype_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-  end
-
-  create_table "curated_phenotypes", :force => true do |t|
-    t.string   "name"
-    t.boolean  "timeseries"
-    t.text     "description"
-    t.boolean  "is_series"
-    t.boolean  "is_multiple"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "curated_user_phenotypes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "curated_phenotype_id"
-    t.integer  "curated_phenotype_answer_id"
-    t.datetime "time_of_data_point"
-    t.text     "comment"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-  end
 
   create_table "file_links", :force => true do |t|
     t.text     "description"
@@ -256,7 +229,7 @@ ActiveRecord::Schema.define(:version => 20140221060607) do
 
   create_table "picture_phenotypes", :force => true do |t|
     t.string   "characteristic"
-    t.string   "description"
+    t.text     "description"
     t.integer  "number_of_users", :default => 0
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
@@ -307,12 +280,12 @@ ActiveRecord::Schema.define(:version => 20140221060607) do
     t.string   "allele_frequency"
     t.integer  "ranking"
     t.integer  "number_of_users",    :default => 0
-    t.datetime "mendeley_updated",   :default => '2013-09-23 12:35:03'
-    t.datetime "plos_updated",       :default => '2013-09-23 12:35:03'
-    t.datetime "snpedia_updated",    :default => '2013-09-23 12:35:03'
+    t.datetime "mendeley_updated",   :default => '2014-04-10 11:46:50'
+    t.datetime "plos_updated",       :default => '2014-04-10 11:46:50'
+    t.datetime "snpedia_updated",    :default => '2014-04-10 11:46:50'
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
-    t.integer  "user_snps_count",    :default => 0
+    t.integer  "user_snps_count"
   end
 
   add_index "snps", ["chromosome", "position"], :name => "index_snps_chromosome_position"
