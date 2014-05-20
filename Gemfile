@@ -27,8 +27,8 @@ gem 'newrelic_rpm'
 gem 'pg', :require => 'pg'
 
 # for solr (indexing, searching)
-gem 'sunspot_rails', '2.0.0'
-gem 'sunspot_solr', '2.0.0'
+gem 'sunspot_rails'#, '2.0.0'
+gem 'sunspot_solr'#, '2.0.0'
 
 # so we can create zip-files for genotypes
 gem 'rubyzip', :git => 'git://github.com/rubyzip/rubyzip.git'
@@ -80,7 +80,7 @@ group :test do
 end
 
 group :debug do
-  gem 'debugger'
+  gem 'debugger2'
 end
 
 group :development, :test do

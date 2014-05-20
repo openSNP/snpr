@@ -1,28 +1,22 @@
 production:
   solr:
     hostname: localhost
-    min_memory: 512M
-    max_memory: 1G
     port: 8983
     log_level: WARNING
-    solr_home: ./solr
+    path: /solr/
+    # read_timeout: 2
+    # open_timeout: 0.5
 
 development:
   solr:
     hostname: localhost
     port: 8982
     log_level: INFO
-    solr_home: ./solr
-
+    path: /solr/
 test:
-  solr:
-    hostname: localhost
-    port: 8982
-    log_level: WARNING
-    solr_home: ./solr
-
-cucumber:
   solr:
     hostname: localhost
     port: 8981
     log_level: WARNING
+    path: /solr/
+    
