@@ -9,6 +9,7 @@ class MendeleySearch
   sidekiq_options :queue => :mendeley, :retry => 5, :unique => true
 
   def perform(snp_id)
+    return false # until OAuth2 implementation
     @snp = Snp.where(id: snp_id).first
     if snp.nil?
       logger.error("Snp(#{snp_id}) not found.")
