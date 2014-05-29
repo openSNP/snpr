@@ -9,11 +9,11 @@ class Zipfulldata
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
     :zip_fs_path, :tmp_dir
 
-  def perform(target_address)
+  def perform(target_address=nil)
     Rails.logger.level = 0
     Rails.logger = Logger.new("#{Rails.root}/log/zipfulldata_#{Rails.env}.log")
     log("job started")
-    run(target_address)
+    run
     log("job done")
   end
 
@@ -27,15 +27,9 @@ class Zipfulldata
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
   end
 
-  def run(target_address)
+  def run
     genotypes = Genotype.includes(user: :user_phenotypes).all
     log "Got #{genotypes.length} genotypes"
-
-    # only try to create csv & zip-file if there is data at all.
-    if genotypes.empty?
-      UserMailer.no_dump(target_address).deliver
-      return false
-    end
 
     # only create a new file if in the current minute none has been created yet
     if Dir.exists?(tmp_dir)
@@ -63,12 +57,9 @@ class Zipfulldata
         FileLink.find_by_description("all genotypes and phenotypes archive").update_attributes(:url => zip_public_path)
       end
 
-      FileUtils.chmod(0755, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
-      UserMailer.dump(target_address, "/data/zip/#{dump_file_name}.zip").deliver
+      FileUtils.chmod(0644, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
       log "created zip-file"
 
-      # make sure the file-permissions of the resulting zip-file are okay and send mail
-      log "sent mail"
     ensure
       FileUtils.rm_rf(tmp_dir)
     end

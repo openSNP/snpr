@@ -120,13 +120,8 @@ Thanks for using openSNP!
     expect(job).to receive(:create_readme).with(zipfile)
     expect(job).to receive(:zip_genotype_files).with([genotype], zipfile)
     expect(FileUtils).to receive(:chmod).
-      with(0755, "#{Rails.root}/public/data/zip/#{job.dump_file_name}.zip")
-    mail = double('mail')
-    expect(mail).to receive(:deliver)
-    expect(UserMailer).to receive(:dump).
-      with("fubert@example.com", "/data/zip/#{job.dump_file_name}.zip").
-      and_return(mail)
+      with(0644, "#{Rails.root}/public/data/zip/#{job.dump_file_name}.zip")
     expect(FileUtils).to receive(:rm_rf).with(job.tmp_dir)
-    expect(job.run("fubert@example.com")).to be_true
+    expect(job.run).to be_true
   end
 end
