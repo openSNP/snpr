@@ -50,15 +50,12 @@ class Zipfulldata
         zip_genotype_files(genotypes, zipfile)
       end
 
-      if FileLink.find_by_description("all genotypes and phenotypes archive").nil?
-        filelink = FileLink.new(:description => "all genotypes and phenotypes archive", :url => zip_public_path)
-        filelink.save
-      else
-        FileLink.find_by_description("all genotypes and phenotypes archive").update_attributes(:url => zip_public_path)
-      end
-
       FileUtils.chmod(0644, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
       log "created zip-file"
+
+      FileUtils.ln_sf(
+        Rails.root.join("public/data/zip/#{dump_file_name}.zip"),
+        Rails.root.join('public/data/zip/opensnp_datadump.current.zip'))
 
     ensure
       FileUtils.rm_rf(tmp_dir)

@@ -6,6 +6,7 @@ require 'rspec/autorun'
 require 'sidekiq/testing'
 require 'factory_girl_rails'
 require 'debugger'
+require 'sunspot_test/rspec'
 
 Sidekiq::Testing.inline!
 
@@ -14,7 +15,6 @@ Sidekiq::Testing.inline!
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
-  config.include SolrHelper
   config.include FactoryGirl::Syntax::Methods
 
   # ## Mock Framework

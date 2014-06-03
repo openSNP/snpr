@@ -6,20 +6,26 @@ describe Zipfulldata do
     create(:user_phenotype, phenotype_id: phenotype.id, variation: "1km", user_id: nil)
   end
   let(:user) { create(:user, user_phenotypes: [user_phenotype]) }
-  let(:genotype) { create(:genotype, user_id: user.id) }
+  let(:genotype) do
+    create(:genotype, user_id: user.id,
+           genotype: File.open("#{Rails.root}/test/data/23andMe_test.csv"))
+  end
   let(:job) { Zipfulldata.new }
   let(:csv_options) { { col_sep: ';' } }
   let(:zipfile) { double('zipfile') }
 
   before do
-    stub_solr
     allow(Sidekiq::Client).to receive(:enqueue).with(Preparsing, instance_of(Fixnum))
-    FileUtils.cp("#{Rails.root}/test/data/23andMe_test.csv",
-                 "#{Rails.root}/public/data/#{user.id}.23andme.#{genotype.id}")
     tmp_dir = job.instance_variable_get(:@tmp_dir) + '_test_' +
       Digest::SHA1.hexdigest("#{Time.now.to_i}#{rand}")
     job.instance_variable_set(:@tmp_dir, tmp_dir)
     Dir.mkdir(tmp_dir)
+    genotype
+  end
+
+  after do
+    link = Rails.root.join("public/data/zip/opensnp_datadump.current.zip")
+    FileUtils.rm(link) if File.exist?(link)
   end
 
   it "creates user CSVs" do
@@ -112,7 +118,6 @@ Thanks for using openSNP!
     expect(Dir).to receive(:mkdir).with(job.tmp_dir)
     expect(Zip::File).to receive(:open).with(job.zip_fs_path, Zip::File::CREATE).
       and_yield(zipfile)
-    expect_any_instance_of(FileLink).to receive(:save)
     expect(job).to receive(:create_user_csv).with([genotype], zipfile)
     expect(job).to receive(:create_fitbit_csv).with(zipfile)
     expect(job).to receive(:create_picture_phenotype_csv).with(zipfile).and_return([upp])
@@ -121,6 +126,9 @@ Thanks for using openSNP!
     expect(job).to receive(:zip_genotype_files).with([genotype], zipfile)
     expect(FileUtils).to receive(:chmod).
       with(0644, "#{Rails.root}/public/data/zip/#{job.dump_file_name}.zip")
+    expect(FileUtils).to receive(:ln_sf).with(
+      Rails.root.join("public/data/zip/#{job.dump_file_name}.zip"),
+      Rails.root.join("public/data/zip/opensnp_datadump.current.zip"))
     expect(FileUtils).to receive(:rm_rf).with(job.tmp_dir)
     expect(job.run).to be_true
   end
