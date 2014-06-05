@@ -78,10 +78,11 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'rspec-rails'
+  gem 'capybara'
 end
 
 group :debug do
-  gem 'debugger2'
+  gem 'pry-rails'
 end
 
 group :development, :test do

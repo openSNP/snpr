@@ -5,8 +5,8 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
 require 'factory_girl_rails'
-require 'debugger'
 require 'sunspot_test/rspec'
+require 'pry-rails'
 
 Sidekiq::Testing.inline!
 

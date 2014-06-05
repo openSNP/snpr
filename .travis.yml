@@ -17,5 +17,5 @@ before_script:
 # script: "bundle install" # this is automatically run by travis-ci
 services:
   - redis-server
-script: "bundle exec rake --trace db:migrate test"
+script: "bundle exec rake --trace db:migrate test spec"
 

@@ -256,4 +256,8 @@ TXT
   def log(msg)
     Rails.logger.info "#{DateTime.now}: #{msg}"
   end
+
+  def self.public_path
+    '/data/zip/opensnp_datadump.current.zip'
+  end
 end
