@@ -3,5 +3,8 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
+require 'rspec/core/rake_task'
 
+RSpec::Core::RakeTask.new(:spec)
 Snpr::Application.load_tasks
+
