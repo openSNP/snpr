@@ -42,11 +42,14 @@ gem 'paperclip', '~> 4.0 '
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
 
-# for jobs
+# background jobs
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra'
+
+# cron jobs
+gem 'whenever', require: false
 
 # for activeadmin-interface
 gem 'devise', '3.0.0'
