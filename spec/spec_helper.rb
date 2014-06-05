@@ -6,7 +6,7 @@ require 'rspec/autorun'
 require 'sidekiq/testing'
 require 'factory_girl_rails'
 require 'sunspot_test/rspec'
-require 'pry-rails'
+require 'pry-rails' unless ENV['CI']
 
 Sidekiq::Testing.inline!
 
