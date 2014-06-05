@@ -1,26 +1,19 @@
+# get VCF first from ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b141_GRCh38/VCF/All.vcf.gz (about 1.3GB) and gunzip
+# put into /var/www/all_positions.txt
+
 namespace :snps do
   desc "updates all positions of SNPs according to /var/www/all_positions.txt"
-  task :update => :environment do
+  task :update_positions => :environment do
         fh = open("/var/www/all_positions.txt")
-        # parse out positions first
-        pos_dict = Hash.new # key: SNP-name -> value [chrX, position]
         fh.each_line do |l|
+            next if l.start_with? '#'
             ll = l.split("\t")
-            name = ll[0]
-            chr = ll[1]
-            pos = ll[2]
-            pos_dict[name] = [chr, pos]
-        end
-        # now iterate over SNPs and fix
-        Snp.find_each do |s|
-            new = pos_dict[s.name]
-            if new != nil
-                new_pos = new[1]
-                new_chr = new[0].gsub("chr","")
-                s.position = new_pos
-                s.chromosome = new_chr
-                s.save
-            end
+            name = ll[2]
+            s = Snp.find_by_name(name)
+            next if s.nil?
+            pos = ll[1]
+            s.position = pos
+            s.save
         end
   end
 end
