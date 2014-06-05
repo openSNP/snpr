@@ -20,5 +20,5 @@
 # Learn more: http://github.com/javan/whenever
 
 every :day, at: '1am' do
-  rake 'dump:full'
+  rake 'dump:full', environment: 'production'
 end
