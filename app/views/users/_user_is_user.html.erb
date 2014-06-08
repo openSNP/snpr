@@ -36,6 +36,7 @@
 
 <%if @unentered_phenotypes != []%>
 	<div id="unentered_variations">
+    <p><%= link_to "Go here for the full list of phenotypes!", :controller => "phenotypes", :action => "index" %></p>
 	<table class="table table-striped">
 		<thead>
 			<tr>
