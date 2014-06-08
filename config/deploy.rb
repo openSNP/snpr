@@ -12,6 +12,10 @@ require 'bundler/capistrano'
 require 'rvm/capistrano'
 require 'sidekiq/capistrano'
 
+set :whenever_environment, defer { stage }
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 set :rvm_ruby_string, "ruby-2.0.0-p247"
 set :rvm_type, :system
 

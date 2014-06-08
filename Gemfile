@@ -42,11 +42,14 @@ gem 'paperclip', '~> 4.0 '
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
 
-# for jobs
+# background jobs
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra'
+
+# cron jobs
+gem 'whenever', require: false
 
 # for activeadmin-interface
 gem 'devise', '3.0.0'
@@ -71,16 +74,18 @@ end
 
 group :test do
   gem 'shoulda-context', require: false
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'mocha', require: false
   gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'vcr'
+  gem 'rspec-rails'
+  gem 'capybara'
 end
 
 group :debug do
-  gem 'debugger2'
+  gem 'pry-rails'
 end
 
 group :development, :test do

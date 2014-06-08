@@ -12,10 +12,10 @@ before_script:
   - cp config/app_config.yml.example config/app_config.yml
   - echo "foo" > mail_username.txt
   - echo "bar" > mail_password.txt
-  - echo "anyOleBollocks" > secret_token
+  - echo "f7264dd590e09007703723a75550c748" > secret_token
   - psql -c 'create database snpr_test;' -U postgres
 # script: "bundle install" # this is automatically run by travis-ci
 services:
   - redis-server
-script: "bundle exec rake --trace db:migrate test"
+script: "bundle exec rake --trace db:migrate spec test"
 
