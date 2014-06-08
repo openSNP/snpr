@@ -80,7 +80,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'vcr'
-  gem 'rspec-rails'
   gem 'capybara'
 end
 
@@ -90,6 +89,7 @@ end
 
 group :development, :test do
   gem 'uuidtools'
-gem 'capistrano', '~> 2.0'
-gem 'rvm-capistrano', '1.4.4'
+  gem 'rspec-rails'
+  gem 'capistrano', '~> 2.0'
+  gem 'rvm-capistrano', '1.4.4'
 end

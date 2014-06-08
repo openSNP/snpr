@@ -130,6 +130,6 @@ Thanks for using openSNP!
       Rails.root.join("public/data/zip/#{job.dump_file_name}.zip"),
       Rails.root.join("public/data/zip/opensnp_datadump.current.zip"))
     expect(FileUtils).to receive(:rm_rf).with(job.tmp_dir)
-    expect(job.run).to be_true
+    expect(job.run).to be(true)
   end
 end
