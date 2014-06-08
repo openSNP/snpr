@@ -11,16 +11,6 @@ class GenotypesController < ApplicationController
       where(description: "all genotypes and phenotypes archive").first.try(:url)
   end
 
-  def dump_download
-    if filelink = FileLink.find_by_description("all genotypes and phenotypes archive")
-	    redirect_to filelink.url
-    else
-      flash[:notice] = "Sorry, there is no data-dump yet. " +
-        "If you register with openSNP you could be the first one to create one!"
-      redirect_to :action => :index
-    end
-  end
-
   def new
     @genotype = Genotype.new
     @title = "Add Genotype-File"
@@ -36,15 +26,14 @@ class GenotypesController < ApplicationController
                                  user_id: current_user.id }
       if UserAchievement.where(user_achievement_attrs).count.zero?
         UserAchievement.create(user_achievement_attrs)
-			  flash[:achievement] = "Congratulations! You've unlocked an achievement:" +
+        flash[:achievement] = "Congratulations! You've unlocked an achievement:" +
           " <a href=\"#{url_for(@award)}\">#{@award.award}</a>"
       end
 
       if current_user.has_sequence == false
         current_user.toggle!(:has_sequence)
       end
-      redirect_to(current_user, notice:
-        'Genotype was successfully uploaded! Parsing and annotating might take a couple of hours.')
+      redirect_to(current_user, notice: 'Genotype was successfully uploaded! Parsing and annotating might take a couple of hours.')
     else
       render :action => "new"
     end
@@ -70,7 +59,7 @@ class GenotypesController < ApplicationController
       if @user.genotypes.count == 0
         # update user-attributes
         @user.update_attributes(has_sequence: false, sequence_link: nil)
-        
+
         # delete Uploaded Genotyping-achievement
         @achievement_id = Achievement.find_by_award("Published genotyping").id
         @to_delete = UserAchievement.find_by_achievement_id_and_user_id(@achievement_id, @user.id)
@@ -78,10 +67,6 @@ class GenotypesController < ApplicationController
       end
       redirect_to current_user
     end
-  end
-
-  def get_dump
-    Sidekiq::Client.enqueue(Zipfulldata, current_user.email)
   end
 
   private 

@@ -1,40 +1,36 @@
 <legend>Listing all genotypes
-<%=link_to(image_tag("rss_small.png"),"/rss")%>
+  <%=link_to(image_tag("rss_small.png"),"/rss")%>
 </legend>
 
 <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
 
-<%if current_user%>
-    <h4>
-        <%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "genotypes", :action => "get_dump"})%> <%=link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users",{:controller => "genotypes", :action => "get_dump"}, :title => "Request download")%>
-    </h4>
+<h4>
+<%= link_to(Zipfulldata.public_path, title: "Request download") do %>
+  <%= image_tag("filedownload_small.png", style: "vertical-align:middle") %>
+  Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users
 <% end %>
-<br/>
-<% if not current_user and @filelink != nil%>
-    <h4>
-        <%= link_to(image_tag("filedownload_small.png", :style => "vertical-align:middle"), {:controller => "genotypes",:action => "dump_download"})%> <%= link_to("Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users",{:controller => "genotypes", :action => "dump_download"}, :title => "Download the dump") %>
-    </h4>
-<%end%>
+</h4>
+</br>
 <h4><a href="https://github.com/superbobry/snpy">Python-library to parse the provided files</a>, courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
 <br/>
 <table class="table table-striped" id="all_genotypes">
-<tr>
+  <tr>
     <th>#</th>
     <th><%= sortable "id", "ID"%></th>
-	<th>User</th>
+    <th>User</th>
     <th><%= sortable "filetype", "Type"%></th>
     <th><%= sortable "created_at", "Created"%></th>
-	<th>Download</th>
-</tr>
-<% @genotypes_paginate.each do |g| %>
-	<tr>
+    <th>Download</th>
+  </tr>
+  <% @genotypes_paginate.each do |g| %>
+    <tr>
     <td><%= Genotype.all.sort! { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
     <td><%= g.id %></td>
-	<td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(g.user.name, g.user)%></td>
+    <td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(g.user.name, g.user)%></td>
     <td><%= g.filetype %></td>
-	<td><%= g.created_at%></td>
-	<td><%= link_to "Right-click and 'Save as..'", '../data/' + g.fs_filename  %></td>
-</tr>
+    <td><%= g.created_at%></td>
+    <td><%= link_to "Right-click and 'Save as..'", '../data/' + g.fs_filename  %></td>
+  </tr>
 <% end %>
 </table>
 <%= page_navigation_links @genotypes_paginate %>
