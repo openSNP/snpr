@@ -260,4 +260,8 @@ TXT
   def self.public_path
     '/data/zip/opensnp_datadump.current.zip'
   end
+  
+  def self.gb_size
+    (File.size(File.join(Rails.root, 'public', self.public_path)) / (1024.0**3)).round(2)
+  end
 end
