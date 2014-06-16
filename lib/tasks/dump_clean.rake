@@ -5,7 +5,9 @@ namespace :dump do
     # Don't ever delete the link and what is linked to
     datadump = File.join(dir, 'opensnp_datadump.current.zip')
     forbidden_files = [datadump]
-    forbidden_files << File.readlink(datadump) unless not File.file? datadump
+    if File.file? datadump
+      forbidden_files << File.readlink(datadump)
+    end
 
     Dir.entries(dir).each do |f|
       f = File.join(dir, f)
