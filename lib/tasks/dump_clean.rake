@@ -20,5 +20,5 @@ namespace :dump do
 end
 
 def get_file_age_in_days(file)
-  (Time.now - File.mtime(file)) / (60 * 60 * 24) 
+  (Time.now - File.mtime(file)) / 1.day
 end
