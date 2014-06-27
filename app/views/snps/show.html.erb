@@ -258,29 +258,35 @@
     viewStart:    <%=@snp.position.to_i-10000%>,
     viewEnd:      <%=@snp.position.to_i+10000%>,
     cookieKey:    '<%=@snp.name%>',
-    pageName:     "<%=@snp.name%>", 
+    pageName:     '<%=@snp.name%>', 
 
-    sources:     [{name:                 'Genome',      
-      desc:                 'Human reference genome build NCBI37',
-      uri:                  'http://www.derkholm.net:8080/das/hg19comp/',        
-      tier_type:            'sequence',
-      provides_entrypoints: true},
-    {name:                 'Genes',     
-      desc:                 'Gene structures from Ensembl 54',
-      uri:                  'http://www.derkholm.net:8080/das/hsa_59_37d/',      
+    coordSystem: {
+        speciesName: 'Human',
+        taxon: 9606,
+        auth: 'GrCh',
+        version: '39',
+        ucscName: 'hg19'
+    },
+
+    sources:     [{name:    'Genome',      
+      twoBitUri:            'https://www.biodalliance.org/datasets/hg19.2bit',
+      tier_type:            'sequence'},
+    {name:                  'Genes',     
+      desc:                 'Gene structures from GENCODE 19',
+      bwgURI:               'https://www.biodalliance.org/datasets/gencode.bb',
+      stylesheet_uri:       'https://www.biodalliance.org/stylesheets/gencode.xml',
       collapseSuperGroups:  true,
-      provides_karyotype:   true,
-      provides_search:      true}
+      trixURI:              'https://www.biodalliance.org/datasets/geneIndex.ix'}
     <%if current_user%>
       <%if current_user.genotypes != []%>
         ,{name:                 'Your SNPs',
           desc:                 'SNPs @ openSNP',
-          uri:                  '<%="http://opensnp.org/das/"+current_user.id.to_s+"/"%>'}
+          uri:                  '<%= request.base_url + "/das/" +current_user.id.to_s+"/"%>'}
       <%end%>
     <%end%>
     ],
 
-    searchEndpoint: new DASSource('http://www.derkholm.net:8080/das/hsa_59_37d'),
+    searchEndpoint: new DASSource('https://www.biodalliance.org/das/hsa_59_37d'),
     browserLinks: {
       Ensembl: 'http://www.ensembl.org/Homo_sapiens/Location/View?r=${chr}:${start}-${end}',
       UCSC: 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&position=chr${chr}:${start}-${end}',
@@ -290,7 +296,6 @@
     noPersist: true,
     disablePoweredBy: true
   });
-
 </script>
 <div id="<%=@snp.name%>"></div>
 
