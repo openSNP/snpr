@@ -262,10 +262,11 @@ TXT
   end
   
   def self.gb_size
-    if File.file? (File.join(Rails.root, 'public', self.public_path))
-      return (File.size(File.join(Rails.root, 'public', self.public_path)) / (1024.0**3)).round(2)
+    file = Rails.root.join('public', self.public_path)
+    if File.file? file
+      "(Size: #{(File.size(file).to_f / (2**30)).round(2)})"
     else
-      return 0
+      ""
     end
   end
 end
