@@ -73,6 +73,8 @@ class SnpsController < ApplicationController
     result[name]["name"] = snp.name
     result[name]["chromosome"] = snp.chromosome
     result[name]["position"] = snp.position
+    result[name]["allele_frequency"] = snp.allele_frequency
+    result[name]["genotype_frequency"] = snp.genotype_frequency
     result[name]["annotations"] = {}
     result[name]["annotations"]["mendeley"] = []
     puts "got snp-details"
