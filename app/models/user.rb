@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many :user_picture_phenotypes, :dependent => :destroy
   has_many :picture_phenotypes, :through => :user_picture_phenotypes
   has_many :genotypes, :dependent => :destroy
-  has_many :user_snps
+  has_many :user_snps, through: :genotypes
   has_many :snps, through: :user_snps
   has_many :homepages, dependent: :destroy
   has_many :messages, dependent: :destroy
