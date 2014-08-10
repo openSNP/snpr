@@ -115,7 +115,7 @@ class Parsing
           if known_user_snps.include?(snp_array[0].downcase)
             log "already known user-snp"
           else
-            new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
+            new_user_snps << [ @genotype.id, snp_array[0].downcase, snp_array[3].rstrip ]
           end
         else
           UserMailer.parsing_error(@genotype.user_id).deliver
@@ -126,7 +126,7 @@ class Parsing
       Snp.import new_snps
 
       log "Importing new UserSnps"
-      user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
+      user_snp_columns = [:genotype_id, :snp_name, :local_genotype]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
       log "Done."
       puts "done with #{temp_file}"
