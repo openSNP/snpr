@@ -17,7 +17,9 @@ class Parsing
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
       known_snps = Snp.pluck(:name).to_set
-      known_user_snps = UserSnp.where(user_id: @genotype.user_id).pluck(:snp_name).to_set
+      user_genotype_ids = @genotype.user.genotypes.pluck(:id)
+      known_user_snps = UserSnp.where(genotype_id: user_genotype_ids).
+        pluck('distinct(snp_name)').to_set
         
       new_snps = []
       new_user_snps = []
