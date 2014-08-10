@@ -45,7 +45,6 @@ class ParsingTest < ActiveSupport::TestCase
       assert_equal expected_genotypes, user_snp_genotypes
       user_snps.each do |s|
         assert_equal @genotype_23andme.id, s.genotype_id
-        assert_equal @genotype_23andme.user.id, s.user_id
         assert Snp.pluck(:name).include?(s.snp_name)
       end
     end
@@ -87,7 +86,6 @@ class ParsingTest < ActiveSupport::TestCase
       assert_equal expected_genotypes, user_snp_genotypes
       user_snps.each do |s|
         assert_equal @genotype_decodeme.id, s.genotype_id
-        assert_equal @genotype_decodeme.user.id, s.user_id
         assert Snp.pluck(:name).include?(s.snp_name)
       end
     end
