@@ -103,7 +103,7 @@ class Parsing
           end    
         end
 
-        if snp_array[0] && snp_array[1] && snp_array[2] && snp_array[3] && snp_array[3].length == 2
+        if snp_array[0] && snp_array[1] && snp_array[2] && snp_array[3] && snp_array[3].strip.length == 2
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
           unless known_snps.include?(snp_array[0].downcase)
