@@ -17,8 +17,8 @@
 	<td><%= link_to(s.name, s) %></td>
 	<td><%= s.position %></td>
 	<td><%= s.chromosome %></td>
-  <% if current_user && s.user_snps.where(user_id: current_user.id).count > 0 %>
-	  <td><%= s.user_snps.find_by_user_id(current_user.id).local_genotype %></td>
+  <% if current_user && current_user.genotypes.present? && s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).present? %>
+    <td><%= s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).local_genotype %></td>
 	<%else%>
 	  <td>-</td>
 	<%end%>
