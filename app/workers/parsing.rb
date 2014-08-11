@@ -17,7 +17,9 @@ class Parsing
       genotype_file = File.open(temp_file, "r")
       log "Loading known Snps."
       known_snps = Snp.pluck(:name).to_set
-      known_user_snps = UserSnp.where(user_id: @genotype.user_id).pluck(:snp_name).to_set
+      user_genotype_ids = @genotype.user.genotypes.pluck(:id)
+      known_user_snps = UserSnp.where(genotype_id: user_genotype_ids).
+        pluck('distinct(snp_name)').to_set
         
       new_snps = []
       new_user_snps = []
@@ -101,7 +103,7 @@ class Parsing
           end    
         end
 
-        if snp_array[0] != nil and snp_array[1] != nil and snp_array[2] != nil and snp_array[3] != nil
+        if snp_array[0] && snp_array[1] && snp_array[2] && snp_array[3] && snp_array[3].strip.length == 2
           # if we do not have the fitting SNP, make one and parse all paper-types for it
           
           unless known_snps.include?(snp_array[0].downcase)
@@ -113,7 +115,7 @@ class Parsing
           if known_user_snps.include?(snp_array[0].downcase)
             log "already known user-snp"
           else
-            new_user_snps << [ @genotype.id, @genotype.user_id, snp_array[0].downcase, snp_array[3].rstrip ]
+            new_user_snps << [ @genotype.id, snp_array[0].downcase, snp_array[3].rstrip ]
           end
         else
           UserMailer.parsing_error(@genotype.user_id).deliver
@@ -124,7 +126,7 @@ class Parsing
       Snp.import new_snps
 
       log "Importing new UserSnps"
-      user_snp_columns = [ :genotype_id, :user_id, :snp_name, :local_genotype ]
+      user_snp_columns = [:genotype_id, :snp_name, :local_genotype]
       UserSnp.import user_snp_columns, new_user_snps, validate: false
       log "Done."
       puts "done with #{temp_file}"
