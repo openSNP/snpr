@@ -4,7 +4,7 @@ class SnpsController < ApplicationController
 
   def index
     @snps = Snp.order(sort_column + " "+ sort_direction)
-    @snps_paginate = @snps.paginate(page: params[:page],per_page: 10)
+    @snps_paginate = @snps.paginate(page: params[:page], per_page: 10)
     @title = "Listing all SNPs"
   end
 
