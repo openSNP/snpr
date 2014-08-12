@@ -33,7 +33,12 @@ class SnpsController < ApplicationController
 
     if current_user
       # Refactor the following - fixes it for now. Problem with several genotypes. - Philipp
-      @user_snp = @snp.user_snps.where(genotype_id: current_user.genotypes.first.id).first || ''
+      @current_genotypes = current_user.genotypes
+      if @current_genotypes != []
+        @user_snp = @snp.user_snps.where(genotype_id: @current_genotypes.first.id).first
+      else
+        @user_snp = ''
+      end
       @local_genotype = @user_snp.try(:local_genotype) || ''
     end
   end
@@ -193,8 +198,14 @@ class SnpsController < ApplicationController
       @result["snp"]["chromosome"] = @snp.chromosome
       @result["snp"]["position"] = @snp.position
 
-      @user_snps = @snp.user_snps.where(user_id: params[:user_id])
       @user = User.find_by_id(params[:user_id])
+      # Same hacky fix as above on line 35 - Philipp
+      @genotypes = @user.genotypes
+      if genotypes != []
+        @user_snps = @snp.user_snps.where(genotype_id: @genotypes.first.id)
+      else
+        @user_snps = []
+      end
       @genotypes_array = []
 
       @user_snps.each do |us|
