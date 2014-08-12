@@ -202,7 +202,7 @@ class SnpsController < ApplicationController
       @user = User.find_by_id(params[:user_id])
       # Same hacky fix as above on line 35 - Philipp
       @genotypes = @user.genotypes
-      if genotypes != []
+      if @genotypes != []
         @user_snps = @snp.user_snps.where(genotype_id: @genotypes.first.id)
       else
         @user_snps = []
