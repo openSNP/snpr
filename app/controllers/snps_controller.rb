@@ -32,7 +32,8 @@ class SnpsController < ApplicationController
     @snp_comment = SnpComment.new
 
     if current_user
-      @user_snp = @snp.user_snps.where(user_id: current_user.id).first
+      # Refactor the following - fixes it for now. Problem with several genotypes. - Philipp
+      @user_snp = @snp.user_snps.where(genotype_id: current_user.genotypes.first.id).first || ''
       @local_genotype = @user_snp.try(:local_genotype) || ''
     end
   end
