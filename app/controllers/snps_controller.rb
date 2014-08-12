@@ -38,8 +38,8 @@ class SnpsController < ApplicationController
         @user_snp = @snp.user_snps.where(genotype_id: @current_genotypes.first.id).first
         @local_genotype = @user_snp.try(:local_genotype) || ''
       else
-        @user_snp = ''
-        @local_genotype = ''
+        @user_snp = nil
+        @local_genotype = nil
       end
     end
   end
