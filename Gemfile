@@ -90,6 +90,12 @@ end
 group :development, :test do
   gem 'uuidtools'
   gem 'rspec-rails'
+end
+
+group :development do
+  gem 'guard-rspec'
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'capistrano', '~> 2.0'
   gem 'rvm-capistrano', '1.4.4'
 end
