@@ -22,9 +22,9 @@ gem 'newrelic_rpm'
 
 # workaround for bug in Fedora
 
-# gem 'sqlite3'
-# use postgresql instead:
-gem 'pg', :require => 'pg'
+# DB
+gem 'pg'
+gem 'activerecord-import', '~> 0.2.11'
 
 # for solr (indexing, searching)
 gem 'sunspot_rails'#, '2.0.0'
@@ -37,7 +37,6 @@ gem "will_paginate"
 gem 'nested_form', github: 'ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
-gem 'activerecord-import', '~> 0.2.11'
 gem 'paperclip', '~> 4.0 '
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: '4.0-stable' # the branch is for Rails 3
 gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
@@ -81,15 +80,13 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'capybara'
-end
-
-group :debug do
-  gem 'pry-rails'
+  gem 'database_cleaner'
 end
 
 group :development, :test do
   gem 'uuidtools'
   gem 'rspec-rails'
+  gem 'pry-rails' unless ENV['CI']
 end
 
 group :development do
