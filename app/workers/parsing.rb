@@ -1,140 +1,81 @@
+require 'open3'
+
 class Parsing
   include Sidekiq::Worker
   sidekiq_options :queue => :parse, :retry => 5, :unique => true
 
-  def perform(genotype_id, temp_file)
-    Rails.logger.level = 0
-    Rails.logger = Logger.new("#{Rails.root}/log/parsing_#{Rails.env}.log")
-    genotype_id = genotype_id["genotype"]["id"].to_i if genotype_id.is_a?(Hash)
+  attr_reader :genotype, :temp_table_name, :tempfile
+
+  def perform(genotype_id)
     @genotype = Genotype.find(genotype_id)
-    
-    if @genotype.filetype != "other"
-      # IYG filetype needs proper dbSNP-names
-      if @genotype.filetype == "IYG"
-        db_snp_snps = {"MT-T3027C"=>"rs199838004", "MT-T4336C"=>"rs41456348", "MT-G4580A"=>"rs28357975", "MT-T5004C"=>"rs41419549", "MT-C5178a"=>"rs28357984", "MT-A5390G"=>"rs41333444", "MT-C6371T"=>"rs41366755", "MT-G8697A"=>"rs28358886", "MT-G9477A"=>"rs2853825", "MT-G10310A"=>"rs41467651", "MT-A10550G"=>"rs28358280", "MT-C10873T"=>"rs2857284", "MT-C11332T"=>"rs55714831", "MT-A11947G"=>"rs28359168", "MT-A12308G"=>"rs2853498", "MT-A12612G"=>"rs28359172", "MT-T14318C"=>"rs28357675", "MT-T14766C"=>"rs3135031", "MT-T14783C"=>"rs28357680"}
-      end
-
-      genotype_file = File.open(temp_file, "r")
-      log "Loading known Snps."
-      known_snps = Snp.pluck(:name).to_set
-      user_genotype_ids = @genotype.user.genotypes.pluck(:id)
-      known_user_snps = UserSnp.where(genotype_id: user_genotype_ids).
-        pluck('distinct(snp_name)').to_set
-        
-      new_snps = []
-      new_user_snps = []
-
-      log "Parsing file #{temp_file}"
-      # open that file, go through each line
-      genotype_file.each do |single_snp|
-        next if single_snp[0] == "#" 
-
-        # make a nice array if line is no comment
-        if @genotype.filetype == "IYG"
-          prior_snp_array = single_snp.gsub("\n","").split("\t")
-          name = prior_snp_array[0]
-          if name.starts_with? "MT"
-            # check whether it's in db_snp_snps, use that name
-            position = name.tr('A-Za-z-','') # MT-G1234G -> 1234
-
-            if db_snp_snps[name] # do we have a dbSNP-name?
-                name = db_snp_snps[name]
-            end
-            
-            snp_array = [name, "MT", position, prior_snp_array[1]]
-          else
-            snp_array = [prior_snp_array[0], "1", "1", prior_snp_array[1]]
-          end
-          log "SNP_ARRAY IS" 
-          log snp_array
-        elsif @genotype.filetype == "23andme"
-          snp_array = single_snp.split("\t")
-          
-        elsif @genotype.filetype == "ancestry"
-          temp_array = single_snp.split("\t")
-          if temp_array[0] != "rsid"
-            snp_array = [temp_array[0],temp_array[1],temp_array[2],temp_array[3]+temp_array[4]]
-          else
-            next
-          end
-          
-        elsif @genotype.filetype == "decodeme"
-          temp_array = single_snp.split(",")
-          if temp_array[0] != "Name"
-            snp_array = [temp_array[0],temp_array[2],temp_array[3],temp_array[5]]
-          else
-            next
-          end
-          
-        elsif @genotype.filetype == "ftdna-illumina"
-          temp_array = single_snp.split("\",\"")
-          if temp_array[0].index("RSID") == nil
-            if temp_array[0] != nil and temp_array[1] != nil and temp_array[2] != nil and temp_array[3] != nil
-            snp_array = [temp_array[0].gsub("\"",""),temp_array[1].gsub("\"",""),temp_array[2].gsub("\"",""),temp_array[3].gsub("\"","").rstrip]
-            else
-              UserMailer.parsing_error(@genotype.user_id).deliver
-              break
-            end
-          else
-            next
-          end
-          
-        elsif @genotype.filetype == "23andme-exome-vcf"
-          temp_array = single_snp.split("\t")
-          @format_array = temp_array[-2].split(":")
-          @format_array.each_with_index do |element,index|
-            if element == "GT"
-              @genotype_position = index
-            end
-          end
-          @genotype_non_parsed = temp_array[-1].split(":")[@genotype_position].split("/")
-          @genotype_parsed = ""
-          @genotype_non_parsed.each do |allele|
-            if allele == "0"
-              @genotype_parsed = @genotype_parsed + temp_array[3]
-            elsif allele == "1"
-              @genotype_parsed = @genotype_parsed + temp_array[4]
-            end
-          end
-          snp_array = [temp_array[2].downcase,temp_array[0],temp_array[1],@genotype_parsed.upcase]
-          
-          unless known_snps.include?(snp_array[0].downcase)
-            next
-          end    
-        end
-
-        if snp_array[0] && snp_array[1] && snp_array[2] && snp_array[3] && snp_array[3].strip.length == 2
-          # if we do not have the fitting SNP, make one and parse all paper-types for it
-          
-          unless known_snps.include?(snp_array[0].downcase)
-            snp = Snp.new(:name => snp_array[0].downcase, :chromosome => snp_array[1], :position => snp_array[2], :ranking => 0, :user_snps_count => 1)
-            snp.default_frequencies
-            new_snps << snp
-          end
-          
-          if known_user_snps.include?(snp_array[0].downcase)
-            log "already known user-snp"
-          else
-            new_user_snps << [ @genotype.id, snp_array[0].downcase, snp_array[3].rstrip ]
-          end
-        else
-          UserMailer.parsing_error(@genotype.user_id).deliver
-          break
-        end
-      end
-      log "Importing #{new_snps.length} new Snps"
-      Snp.import new_snps
-
-      log "Importing new UserSnps"
-      user_snp_columns = [:genotype_id, :snp_name, :local_genotype]
-      UserSnp.import user_snp_columns, new_user_snps, validate: false
-      log "Done."
-      puts "done with #{temp_file}"
-      system("rm #{temp_file}")
-    end
+    return unless genotype
+    @temp_table_name = "user_snps_temp_#{genotype.id}"
+    @tempfile = Tempfile.new("snpr_genotype_#{genotype.id}_")
+    create_temp_table
+    normalize_csv
+    copy_csv_into_temp_table
+    insert_into_user_snps
+  ensure
+    drop_temp_table
+    # TODO: Why doesn't `tempfile.unlink` work here?
+    File.delete(tempfile.path)
   end
 
-  def log msg
-    Rails.logger.info "#{DateTime.now}: #{msg}"
+  def create_temp_table
+    execute("drop table if exists #{temp_table_name}")
+    execute("create table #{temp_table_name} (like user_snps)")
+  end
+
+  def drop_temp_table
+    execute("drop table #{temp_table_name}")
+  end
+
+  def normalize_csv
+    csv = File.readlines(genotype.genotype.path).
+      reject { |line| line.start_with?('#') }.
+      map do |line|
+        fields = line.strip.split(config[:separator])
+        [
+          genotype.id,
+          fields[config[:snp_name]],
+          fields[config[:local_genotype]]
+        ].join(',')
+      end.
+      join("\n")
+
+    tempfile.write(csv)
+    tempfile.close
+    FileUtils.chmod(0644, tempfile.path)
+  end
+
+  def copy_csv_into_temp_table
+    execute(<<-SQL)
+      copy #{temp_table_name} (genotype_id,snp_name,local_genotype)
+      from '#{tempfile.path}'
+      with (FORMAT CSV, HEADER FALSE, DELIMITER ',')
+    SQL
+  end
+
+  def insert_into_user_snps
+    execute(<<-SQL)
+      insert into user_snps (
+        select #{temp_table_name}.* from #{temp_table_name}
+        left join user_snps
+          on user_snps.snp_name = #{temp_table_name}.snp_name
+          and user_snps.genotype_id = #{temp_table_name}.genotype_id
+        where user_snps.snp_name is null
+      )
+    SQL
+  end
+
+  def config
+    {
+      '23andme' => { separator: "\t", snp_name: 0, local_genotype: 3 },
+    }.fetch(genotype.filetype) { raise "Unknown filetype: #{genotype.filetype}" }
+  end
+
+  def execute(sql)
+    Genotype.connection.execute(sql)
   end
 end
+
