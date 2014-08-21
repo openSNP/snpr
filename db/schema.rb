@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140509001806) do
+ActiveRecord::Schema.define(:version => 20140820071334) do
 
   create_table "achievements", :force => true do |t|
     t.text     "award"
@@ -276,9 +276,9 @@ ActiveRecord::Schema.define(:version => 20140509001806) do
     t.string   "name"
     t.string   "position"
     t.string   "chromosome"
-    t.string   "genotype_frequency"
-    t.string   "allele_frequency"
-    t.integer  "ranking"
+    t.string   "genotype_frequency", :default => "--- {}\n"
+    t.string   "allele_frequency",   :default => "---\nA: 0\nT: 0\nG: 0\nC: 0\n"
+    t.integer  "ranking",            :default => 0
     t.integer  "number_of_users",    :default => 0
     t.datetime "mendeley_updated",   :default => '2011-08-24 03:44:32'
     t.datetime "plos_updated",       :default => '2011-08-24 03:44:32'

@@ -8,9 +8,15 @@ describe 'genotype parsing' do
     FileUtils.rm(temp_file) if File.exist?(temp_file)
   end
 
-  it "parse 23andMe data", truncate: true do
-    FileUtils.cp(file_23andMe, temp_file)
-    Parsing.new.perform(genotype_23andme.id)
+  context '23andMe' do
+    let(:file) { File.open(Rails.root.join('test/data/23andMe_test.csv')) }
+    let(:genotype) do
+      create(:genotype, genotype: file, filetype: '23andme')
+    end
+
+    it 'parse 23andMe data', truncate: true do
+      FileUtils.cp(file, temp_file)
+      Parsing.new.perform(genotype.id)
 
       # Snp
       snp_data = Snp.all.map do |s|
@@ -49,33 +55,29 @@ describe 'genotype parsing' do
     end
   end
 
-  # could put these deleting tests into their own file;
-  # however, the genotyping exists at this point in time and we don't have to do any extra work
-  # to pull it from the test DB
-  it "delete 23andMe data" do
-    DeleteGenotype.new.perform(genotype_23andme)
+  context 'deCODEme' do
+    let(:file) { File.open(Rails.root.join('test/data/deCODEme_test.csv')) }
+    let(:genotype) do
+      create(:genotype, genotype: file, filetype: 'decodeme')
+    end
 
-    expected = 0
-    number_of_snps = Snp.all.count
+    it 'parse deCODEme data', truncate: true do
+      FileUtils.cp file, temp_file
+      Parsing.new.perform(genotype.id)
 
-    expect(number_of_snps).to eq(expected)
-  end
+      # Snp
+      snp_data = Snp.all.map do |s|
+        [s.name, s.position, s.chromosome, s.genotype_frequency,
+         s.allele_frequency, s.ranking, s.user_snps_count]
+      end.sort_by { |s| s[0] }
 
-  it "parse deCODEme data", truncate: true do
-    FileUtils.cp file_deCODEme, temp_file
-    Parsing.new.perform(genotype_decodeme.id)
-
-    # Snp
-    snp_data = Snp.all.map do |s|
-      [ s.name, s.position, s.chromosome, s.genotype_frequency, s.allele_frequency, s.ranking, s.user_snps_count ]
-    end.sort_by { |s| s[0] }
-
-    expected =
-      [ [ "rs11240767", "718814", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
-        [ "rs2185539",  "556738", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
-        [ "rs3094315",  "742429", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
-        [ "rs4477212",  "72017",  "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1],
-        [ "rs6681105",  "581938", "1", {}, {"A"=>0, "T"=>0, "G"=>0, "C"=>0}, 0, 1] ]
+      expected = [
+        ['rs11240767', '718814', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs2185539',  '556738', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs3094315',  '742429', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs4477212',  '72017',  '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs6681105',  '581938', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1]
+      ]
 
       expect(snp_data).to eq(expected)
 

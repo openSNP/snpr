@@ -14,6 +14,7 @@ class Parsing
     create_temp_table
     normalize_csv
     copy_csv_into_temp_table
+    insert_into_snps
     insert_into_user_snps
   ensure
     drop_temp_table
@@ -23,21 +24,32 @@ class Parsing
 
   def create_temp_table
     execute("drop table if exists #{temp_table_name}")
-    execute("create table #{temp_table_name} (like user_snps)")
+    execute(<<-SQL)
+      create table #{temp_table_name} (
+        genotype_id int,
+        snp_name varchar(32),
+        chromosome int,
+        position int,
+        local_genotype char(2)
+      )
+    SQL
   end
 
   def drop_temp_table
-    execute("drop table #{temp_table_name}")
+    #execute("drop table #{temp_table_name}")
   end
 
   def normalize_csv
     csv = File.readlines(genotype.genotype.path).
       reject { |line| line.start_with?('#') }.
+      drop(config.fetch(:skip, 0)).
       map do |line|
         fields = line.strip.split(config[:separator])
         [
           genotype.id,
           fields[config[:snp_name]],
+          fields[config[:chromosome]],
+          fields[config[:position]],
           fields[config[:local_genotype]]
         ].join(',')
       end.
@@ -50,16 +62,48 @@ class Parsing
 
   def copy_csv_into_temp_table
     execute(<<-SQL)
-      copy #{temp_table_name} (genotype_id,snp_name,local_genotype)
+      copy #{temp_table_name} (
+        genotype_id,
+        snp_name,
+        chromosome,
+        position,
+        local_genotype
+      )
       from '#{tempfile.path}'
       with (FORMAT CSV, HEADER FALSE, DELIMITER ',')
     SQL
   end
 
+  def insert_into_snps
+    time = Time.now.utc.iso8601
+    execute(<<-SQL)
+      insert into snps (name, chromosome, position, created_at, updated_at, user_snps_count)
+      (
+        select
+          #{temp_table_name}.snp_name,
+          #{temp_table_name}.chromosome,
+          #{temp_table_name}.position,
+          '#{time}',
+          '#{time}',
+          1
+        from #{temp_table_name}
+        left join snps
+          on #{temp_table_name}.snp_name = snps.name
+        where
+          snps.name is null
+      )
+    SQL
+  end
+
   def insert_into_user_snps
     execute(<<-SQL)
-      insert into user_snps (
-        select #{temp_table_name}.* from #{temp_table_name}
+      insert into user_snps (snp_name, local_genotype, genotype_id)
+      (
+        select
+          #{temp_table_name}.snp_name,
+          #{temp_table_name}.local_genotype,
+          #{temp_table_name}.genotype_id
+        from #{temp_table_name}
         left join user_snps
           on user_snps.snp_name = #{temp_table_name}.snp_name
           and user_snps.genotype_id = #{temp_table_name}.genotype_id
@@ -70,7 +114,21 @@ class Parsing
 
   def config
     {
-      '23andme' => { separator: "\t", snp_name: 0, local_genotype: 3 },
+      '23andme' => {
+        separator: "\t",
+        snp_name: 0,
+        chromosome: 1,
+        position: 2,
+        local_genotype: 3,
+      },
+      'decodeme' => {
+        separator: ',',
+        snp_name: 0,
+        chromosome: 2,
+        position: 3,
+        local_genotype: 5,
+        skip: 1,
+      }
     }.fetch(genotype.filetype) { raise "Unknown filetype: #{genotype.filetype}" }
   end
 
