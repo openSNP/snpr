@@ -7,8 +7,8 @@ class Parsing
   attr_reader :genotype, :temp_table_name, :tempfile
 
   def perform(genotype_id)
+    logger.info("Started parsing genotype with id #{genotype_id}")
     @genotype = Genotype.find(genotype_id)
-    return unless genotype
     @temp_table_name = "user_snps_temp_#{genotype.id}"
     @tempfile = Tempfile.new("snpr_genotype_#{genotype.id}_")
     create_temp_table
@@ -16,6 +16,10 @@ class Parsing
     copy_csv_into_temp_table
     insert_into_snps
     insert_into_user_snps
+    logger.info("Finished parsing genotype with id #{genotype.id}, cleaning up.")
+  rescue => e
+    logger.error("Failed with #{e.class}: #{e.message}")
+    raise
   ensure
     drop_temp_table
     # TODO: Why doesn't `tempfile.unlink` work here?
@@ -28,7 +32,7 @@ class Parsing
       create table #{temp_table_name} (
         genotype_id int,
         snp_name varchar(32),
-        chromosome int,
+        chromosome varchar(32),
         position int,
         local_genotype char(2)
       )
@@ -36,7 +40,7 @@ class Parsing
   end
 
   def drop_temp_table
-    #execute("drop table #{temp_table_name}")
+    execute("drop table #{temp_table_name}")
   end
 
   def normalize_csv
@@ -134,6 +138,13 @@ class Parsing
 
   def execute(sql)
     Genotype.connection.execute(sql)
+  end
+
+  def logger
+    return @logger if @logger
+    @logger = Logger.new(Rails.root.join("log/parsing_#{Rails.env}.log"))
+    @logger.formatter = Logger::Formatter.new
+    @logger
   end
 end
 
