@@ -14,8 +14,9 @@ before_script:
   - echo "bar" > mail_password.txt
   - echo "f7264dd590e09007703723a75550c748" > secret_token
   - psql -c 'create database snpr_test;' -U postgres
-# script: "bundle install" # this is automatically run by travis-ci
+  - bundle exec rake db:setup
 services:
   - redis-server
-script: "bundle exec rake --trace db:setup test"
-
+addons:
+  postgresql: "9.2"
+script: "bundle exec rake test"
