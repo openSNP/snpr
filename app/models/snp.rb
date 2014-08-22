@@ -51,19 +51,18 @@ class Snp < ActiveRecord::Base
     end
 
     define_method(:"#{source}_updated!") do
-      send(:"#{source}_updated=", Time.current)
+      update_column(:"#{source}_updated", Time.current)
       update_ranking
-      save!
     end
   end
 
   def update_ranking
-    self.ranking =
-          mendeley_papers.count   +
+    rank = mendeley_papers.count   +
       2 * plos_papers.count       +
       5 * snpedia_papers.count    +
       2 * genome_gov_papers.count +
       2 * pgp_annotations.count
+    update_column(:ranking, rank)
   end
 
   def total_genotypes
