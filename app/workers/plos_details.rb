@@ -7,7 +7,6 @@ class PlosDetails
   sidekiq_options :queue => :plos_details, :retry => 5, :unique => true
 
   def perform(plos_paper)
-    return false
     plos_paper_id =
       if plos_paper.is_a?(Hash)
         plos_paper["plos_paper"]["id"].to_i
