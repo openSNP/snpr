@@ -29,3 +29,5 @@ after 'deploy:update', 'deploy:migrate'
 after 'deploy:restart', 'passenger:restart'
 after 'deploy:restart', 'sidekiq:restart'
 
+require './config/boot'
+require 'airbrake/capistrano'
