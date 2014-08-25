@@ -5,7 +5,7 @@ describe UserSnpsController do
 
   describe 'GET #index' do
     it 'assigns user_snps' do
-      expect(Snp).to receive(:find_by).with(name: 'rs1').and_return(Snp)
+      expect(Snp).to receive(:find_by_name).with('rs1').and_return(Snp)
       expect(Snp).to receive(:user_snps).and_return(Snp)
       expect(Snp).to receive(:includes).with(:user).and_return([user_snp])
       get :index, local_genotype: 'AG', snp_name: 'rs1'
