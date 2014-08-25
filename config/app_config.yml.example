@@ -10,7 +10,9 @@ default: &default
     user: admin
     password: password
   devise: password
-
+  errbit:
+    api_key: gobbledigook
+    host: url
 
 production:
   <<: *default

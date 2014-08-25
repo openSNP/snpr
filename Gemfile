@@ -10,7 +10,9 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
-gem 'exceptional'
+gem 'exceptional' # TODO: Delete once errbit is fully up
+# for errbit
+gem 'airbrake'
 
 # apis
 gem 'fitgem'

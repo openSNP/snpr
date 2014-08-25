@@ -89,6 +89,9 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.5)
+    airbrake (4.0.0)
+      builder
+      multi_json
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (3.0.3)
@@ -388,6 +391,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin (= 0.6.0)
   activerecord-import (~> 0.2.11)
+  airbrake
   authlogic
   bcrypt-ruby
   capistrano (~> 2.0)
