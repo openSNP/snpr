@@ -7,7 +7,6 @@ class PlosDetails
   sidekiq_options :queue => :plos_details, :retry => 5, :unique => true
 
   def perform(plos_paper)
-    return false
     plos_paper_id =
       if plos_paper.is_a?(Hash)
         plos_paper["plos_paper"]["id"].to_i
@@ -19,7 +18,7 @@ class PlosDetails
     key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")
     api_key = key_handle.readline.rstrip
 
-    detail_url = "http://alm.plos.org/articles/" + plos_paper.doi + ".json?api_key="+api_key
+    detail_url = "http://alm.plos.org/api/v3/articles/" + plos_paper.doi + "?api_key="+api_key
     begin
       detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
     rescue
@@ -30,8 +29,11 @@ class PlosDetails
     detail_result = JSON.parse(detail_data)
 
     print "plos details: updated reader-status\n"
-    print detail_result
-    readers_total = detail_result["article"]["events_count"].to_i
+    # detail can be several results, take first one
+    readers_total = detail_result[0]["views"]
+
+    # Others to get are 'shares', 'bookmarks', 'citations',
+    #   and a ton of other interesting things
 
     plos_paper.reader = readers_total.to_i
     plos_paper.save
