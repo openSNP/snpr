@@ -2,6 +2,7 @@ class DasController < ApplicationController
 
     def show
         @user = User.find_by_id(params[:id])
+        @genotype = @user.genotypes.first
 
         # make arrays of positions and ids in case we have several
         # segments defined
@@ -15,6 +16,7 @@ class DasController < ApplicationController
         @start_and_end = []
 
         # first, split up all segments if they are present
+        # TODO: Refactor this - Philipp
         if request.query_string
             @query_string = CGI.parse request.query_string
             @types = []
@@ -41,14 +43,14 @@ class DasController < ApplicationController
                        @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @pos[0])
                        @tmp_user_snps = []
                        @snps.each do |s|
-                           # there is only one user_snp for each snps
+                           # 2014-8-26 There are several UserSNPs. Just take first one. - Philipp
                            if @types != []
-                             @single_user_snp = s.user_snps.find_by_user_id(@user.id)
+                             @single_user_snp = s.user_snps.find_by_genotype_id(@genotype.id)
                              if @types.include? @single_user_snp.local_genotype
                                @tmp_user_snps << @single_user_snp
                              end
                            else
-                             @tmp_user_snps << s.user_snps.find_by_user_id(@user.id)
+                             @tmp_user_snps << s.user_snps.find_by_genotype_id(@genotype.id)
                            end
                        end
 
@@ -61,12 +63,12 @@ class DasController < ApplicationController
                        @snps.each do |s|
                            # there is only one user_snp for each snps
                            if @types != []
-                             @single_user_snp = s.user_snps.find_by_user_id(@user.id)
+                             @single_user_snp = s.user_snps.find_by_genotype_id(@genotype.id)
                              if @types.include? @single_user_snp.local_genotype
                                @tmp_user_snps << @single_user_snp
                              end
                            else
-                             @tmp_user_snps << s.user_snps.find_by_user_id(@user.id)
+                             @tmp_user_snps << s.user_snps.find_by_genotype_id(@genotype.id)
                            end
                        end
                        
