@@ -16,33 +16,46 @@ class FitbitProfilesController < ApplicationController
   
   def show
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
+    @title = "Fitbit profile"
     
     #grab activity measures for graphs
-    if @fitbit_profile.activities == true
+    if @fitbit_profile.activities
       @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
-      @total_length = 0 # sum of all steps which are not 0
+      @total_length = 0 # sum of all steps which are not 0 and not nil
+
+      @total_floors = []
+      @floors = []
+      @steps = []
+      @floor_counter = 0
+      @step_counter = 0
+
       @activity.each do |a|
-          if a.steps != 0  # the change of type from string to int means this works
-              @total_length += 1
-          end
+        # Sometimes, floors is nil and not a number - API problem?
+        # Dismiss these entries
+        if a.steps.nil? or a.floors.nil?
+          next
+        end
+
+        if a.steps != 0
+          @total_length += 1
+        end
+
+        @total_floors << [a.date_logged, @floor_counter += a.floors]
+        @floors << [a.date_logged, a.floors]
+        @steps << [a.date_logged, a.steps]
+        @total_steps << [a.date_logged, @step_counter += fa.steps]
       end
 
-      @step_counter = 0
-      @floor_counter = 0
-      @steps = @activity.map {|fa| [fa.date_logged, fa.steps]}
-      @total_steps = @activity.map {|fa| [fa.date_logged, @step_counter += fa.steps]}
-      if @total_steps.length != 0
+      if not @total_steps.empty?
         begin
           @mean_steps = @total_steps[-1][-1] / @total_length #@activity.length
         rescue
         end
       end
-      @total_floors = @activity.map {|fa| [fa.date_logged, @floor_counter += fa.floors]}
-      @floors = @activity.map {|fa| [fa.date_logged, fa.floors]}
     end
     
     #grab body measurements for graphs
-    if @fitbit_profile.body == true
+    if @fitbit_profile.body
       @body = FitbitBody.find_all_by_fitbit_profile_id(@fitbit_profile.id, :order => "date_logged")
       @bmi = @body.map {|fa| [fa.date_logged, fa.bmi]}
     end
