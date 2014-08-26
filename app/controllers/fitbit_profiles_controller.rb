@@ -24,6 +24,7 @@ class FitbitProfilesController < ApplicationController
       @total_length = 0 # sum of all steps which are not 0 and not nil
 
       @total_floors = []
+      @total_steps = []
       @floors = []
       @steps = []
       @floor_counter = 0
