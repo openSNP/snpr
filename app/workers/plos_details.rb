@@ -15,10 +15,11 @@ class PlosDetails
       end
 
     plos_paper = PlosPaper.find_by_id(plos_paper_id)
+    # TODO: Put this key into app_config
     key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")
     api_key = key_handle.readline.rstrip
 
-    detail_url = "http://alm.plos.org/api/v3/articles/" + plos_paper.doi + "?api_key="+api_key
+    detail_url = "http://alm.plos.org/api/v3/articles/#{plos_paper.doi}?api_key=#{api_key}"
     begin
       detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
     rescue
@@ -28,8 +29,8 @@ class PlosDetails
     detail_data = detail_resp.body
     detail_result = JSON.parse(detail_data)
 
-    print "plos details: updated reader-status\n"
     # detail can be several results, take first one
+    # looks like it's always one?
     readers_total = detail_result[0]["views"]
 
     # Others to get are 'shares', 'bookmarks', 'citations',
@@ -37,7 +38,6 @@ class PlosDetails
 
     plos_paper.reader = readers_total.to_i
     plos_paper.save
-    print "-> sleep for 6 secs\n\n"
     sleep(6)
   end
 end
