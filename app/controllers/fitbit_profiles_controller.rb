@@ -62,24 +62,42 @@ class FitbitProfilesController < ApplicationController
     end
     
     #grab sleep measurements for graphs
-    if @fitbit_profile.sleep == true
+    if @fitbit_profile.sleep
       @sleep = FitbitSleep.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
-      @no_sleep = FitbitSleep.find_all_by_fitbit_profile_id_and_minutes_asleep(@fitbit_profile.id,"0")
-      
+
+      @total_minutes_asleep = []
+      @total_minutes_to_sleep = []
+      @minutes_asleep = []
+      @minutes_to_sleep = []
+      @awakenings = []
+      @total_to_sleep_counter = 0
       @total_asleep_counter = 0
-      @total_minutes_asleep = @sleep.map {|fa| [fa.date_logged, @total_asleep_counter += fa.minutes_asleep]}
-      @minutes_asleep = @sleep.map {|fa| [fa.date_logged, fa.minutes_asleep]}
-      if @total_minutes_asleep.length != 0
+      @no_sleep = 0
+
+      @sleep.each do |s|
+        # Here again, some have nils
+        # Skip these
+        if s.minutes_to_sleep.nil? or s.minutes_asleep.nil?
+          next
+        end
+
+        if s.minutes_asleep == 0
+          @no_sleep += 1
+        end
+
+        @total_minutes_to_sleep << [s.date_logged, @total_to_sleep_counter += s.minutes_to_sleep]
+        @total_minutes_asleep << [s.date_logged, @total_asleep_counter += s.minutes_asleep]
+        @minutes_asleep << [s.date_logged, s.minutes_asleep]
+        @minutes_to_sleep << [s.date_logged, s.minutes_to_sleep]
+        @awakenings << [s.date_logged, s.number_awakenings]
+      end
+
+      if not @total_minutes_asleep.empty?
         begin
-          @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep.length)
+          @mean_sleep = @total_minutes_asleep[-1][-1] / (@sleep.length - @no_sleep)
         rescue
         end
       end
-      @total_to_sleep_counter = 0
-      @total_minutes_to_sleep = @sleep.map {|fa| [fa.date_logged, @total_to_sleep_counter += fa.minutes_to_sleep]}
-      @minutes_to_sleep = @sleep.map {|fa| [fa.date_logged, fa.minutes_to_sleep]}
-      
-      @awakenings = @sleep.map {|fa| [fa.date_logged, fa.number_awakenings]}
     end
   end
   
