@@ -43,7 +43,7 @@ class FitbitProfilesController < ApplicationController
         @total_floors << [a.date_logged, @floor_counter += a.floors]
         @floors << [a.date_logged, a.floors]
         @steps << [a.date_logged, a.steps]
-        @total_steps << [a.date_logged, @step_counter += fa.steps]
+        @total_steps << [a.date_logged, @step_counter += a.steps]
       end
 
       if not @total_steps.empty?
