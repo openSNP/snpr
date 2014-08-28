@@ -8,20 +8,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -33,19 +33,23 @@ http_interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:
-      - '2331'
+      - '2533'
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:09 GMT
+      - Thu, 28 Aug 2014 06:26:52 GMT
       X-Varnish:
-      - 2007274517 2007273299
+      - 2090605832 2090605709
       Age:
-      - '420'
+      - '49'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query><namespaces><ns id="-2" case="first-letter"
@@ -74,31 +78,33 @@ http_interactions:
         id="107" case="first-letter" subpages="" canonical="Form talk" xml:space="preserve">Form
         talk</ns><ns id="108" case="first-letter" canonical="Concept" xml:space="preserve">Concept</ns><ns
         id="109" case="first-letter" canonical="Concept talk" xml:space="preserve">Concept
+        talk</ns><ns id="828" case="first-letter" subpages="" canonical="Module" xml:space="preserve">Module</ns><ns
+        id="829" case="first-letter" subpages="" canonical="Module talk" xml:space="preserve">Module
         talk</ns></namespaces></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:09 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:46 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&apfrom=&aplimit=500&apnamespace=0&apprefix=rs12979860(&format=xml&list=allpages&maxlag=5
+    uri: http://www.snpedia.com/api.php?action=query&aplimit=500&apnamespace=0&apprefix=rs12979860(&format=xml&list=allpages&maxlag=5
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -114,22 +120,26 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:10 GMT
+      - Thu, 28 Aug 2014 06:26:52 GMT
       X-Varnish:
-      - 2007274518 2007273300
+      - '2090605833'
       Age:
-      - '420'
+      - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query><allpages><p pageid="15929" ns="0"
         title="Rs12979860(C;C)" /><p pageid="15930" ns="0" title="Rs12979860(C;T)"
         /><p pageid="15931" ns="0" title="Rs12979860(T;T)" /></allpages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:10 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:47 GMT
 - request:
     method: get
     uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BC)
@@ -138,20 +148,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -167,22 +177,26 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:10 GMT
+      - Thu, 28 Aug 2014 06:26:53 GMT
       X-Varnish:
-      - 2007274521 2007273302
+      - '2090605841'
       Age:
-      - '420'
+      - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131458"
         /></query-continue><query><pages><page pageid="15929" ns="0" title="Rs12979860(C;C)"><revisions><rev
         revid="445428" parentid="131458" /></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:10 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:47 GMT
 - request:
     method: get
     uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BC)
@@ -191,20 +205,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -220,15 +234,19 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:10 GMT
+      - Thu, 28 Aug 2014 06:26:53 GMT
       X-Varnish:
-      - 2007274523 2007273306
+      - '2090605844'
       Age:
-      - '420'
+      - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: |-
@@ -241,7 +259,7 @@ http_interactions:
         |summary=~80% of such hepatitis C patients respond to treatment
         }}</rev></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:10 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:47 GMT
 - request:
     method: get
     uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BT)
@@ -250,20 +268,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -279,22 +297,26 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:10 GMT
+      - Thu, 28 Aug 2014 06:26:53 GMT
       X-Varnish:
-      - '2007274524'
+      - '2090605847'
       Age:
       - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131460"
         /></query-continue><query><pages><page pageid="15930" ns="0" title="Rs12979860(C;T)"><revisions><rev
         revid="445430" parentid="131460" /></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:11 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:48 GMT
 - request:
     method: get
     uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BT)
@@ -303,20 +325,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -332,15 +354,19 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:11 GMT
+      - Thu, 28 Aug 2014 06:26:54 GMT
       X-Varnish:
-      - '2007274528'
+      - '2090605848'
       Age:
       - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: |-
@@ -353,7 +379,7 @@ http_interactions:
         |summary=~20-40% of such hepatitis C patients respond to treatment
         }}</rev></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:11 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:48 GMT
 - request:
     method: get
     uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(T%3BT)
@@ -362,20 +388,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -391,22 +417,26 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:11 GMT
+      - Thu, 28 Aug 2014 06:26:54 GMT
       X-Varnish:
-      - '2007274533'
+      - '2090605851'
       Age:
       - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131462"
         /></query-continue><query><pages><page pageid="15931" ns="0" title="Rs12979860(T;T)"><revisions><rev
         revid="445429" parentid="131462" /></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:11 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:48 GMT
 - request:
     method: get
     uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(T%3BT)
@@ -415,20 +445,20 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - "*/*; q=0.5, application/xml"
       Accept-Encoding:
       - gzip
       User-Agent:
-      - MediaWiki::Gateway/0.5.2
+      - MediaWiki::Gateway/0.6.1
   response:
     status:
       code: 200
       message: OK
     headers:
       Server:
-      - Apache/2.2.25 (Amazon)
+      - Apache/2.2.27 (Amazon)
       X-Powered-By:
-      - PHP/5.3.27
+      - PHP/5.3.28
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -444,15 +474,19 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Date:
-      - Sat, 14 Dec 2013 14:45:11 GMT
+      - Thu, 28 Aug 2014 06:26:54 GMT
       X-Varnish:
-      - '2007274535'
+      - '2090605853'
       Age:
       - '0'
+      X-Cache:
+      - MISS from proxy10.uq.edu.au
+      X-Cache-Lookup:
+      - MISS from proxy10.uq.edu.au:80
       Via:
-      - 1.1 varnish
+      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - keep-alive
+      - close
     body:
       encoding: UTF-8
       string: |-
@@ -465,5 +499,5 @@ http_interactions:
         |summary=~20-25% of such hepatitis C patients respond to treatment
         }}</rev></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Sat, 14 Dec 2013 14:45:12 GMT
+  recorded_at: Thu, 28 Aug 2014 06:26:49 GMT
 recorded_with: VCR 2.8.0
