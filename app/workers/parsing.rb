@@ -56,6 +56,18 @@ class Parsing
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
     csv = send(:"parse_#{genotype.filetype}", rows)
+    csv.select! do |row|
+      # snp name
+      row[1].present? &&
+      # chromosome
+      ['MT', 'X', 'Y', (1..22).to_a].flatten.include?(row[2]) &&
+      # position
+      row[3].to_i < 0
+      # local genotype
+      row[4].is_a?(String) &&
+      row[4].length > 0 &&
+      (1..2).include?(row[4].length)
+    end
     stats[:rows_after_parsing] = csv.length
     tempfile.write(csv.join("\n"))
     tempfile.close
