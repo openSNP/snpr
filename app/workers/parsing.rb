@@ -4,18 +4,24 @@ class Parsing
   include Sidekiq::Worker
   sidekiq_options :queue => :parse, :retry => 5, :unique => true
 
-  attr_reader :genotype, :temp_table_name, :tempfile
+  attr_reader :genotype, :temp_table_name, :tempfile, :stats, :start_time
 
   def perform(genotype_id)
+    @stats = {}
+    @start_time = Time.current
     logger.info("Started parsing genotype with id #{genotype_id}")
     @genotype = Genotype.find(genotype_id)
+    stats[:filetype] = genotype.filetype
+    stats[:genotype_id] = genotype.id
     @temp_table_name = "user_snps_temp_#{genotype.id}"
     @tempfile = Tempfile.new("snpr_genotype_#{genotype.id}_")
+
     create_temp_table
     normalize_csv
     copy_csv_into_temp_table
     insert_into_snps
     insert_into_user_snps
+
     logger.info("Finished parsing genotype with id #{genotype.id}, cleaning up.")
   rescue => e
     logger.error("Failed with #{e.class}: #{e.message}")
@@ -24,6 +30,8 @@ class Parsing
     drop_temp_table
     # TODO: Why doesn't `tempfile.unlink` work here?
     File.delete(tempfile.path)
+    stats[:duration] = "#{(Time.current - start_time).round(3)}s"
+    logger.info("Stats: #{stats.to_a.map { |s| s.join('=') }.join(', ')}")
   end
 
   def create_temp_table
@@ -33,7 +41,7 @@ class Parsing
         genotype_id int,
         snp_name varchar(32),
         chromosome varchar(32),
-        position int,
+        position varchar(32),
         local_genotype char(2)
       )
     SQL
@@ -44,22 +52,12 @@ class Parsing
   end
 
   def normalize_csv
-    csv = File.readlines(genotype.genotype.path).
-      reject { |line| line.start_with?('#') }.
-      drop(config.fetch(:skip, 0)).
-      map do |line|
-        fields = line.strip.split(config[:separator])
-        [
-          genotype.id,
-          fields[config[:snp_name]],
-          fields[config[:chromosome]],
-          fields[config[:position]],
-          fields[config[:local_genotype]]
-        ].join(',')
-      end.
-      join("\n")
-
-    tempfile.write(csv)
+    rows = File.readlines(genotype.genotype.path)
+      .reject { |line| line.start_with?('#') } # Skip comments
+    stats[:rows_without_comments] = rows.length
+    csv = send(:"parse_#{genotype.filetype}", rows)
+    stats[:rows_after_parsing] = csv.length
+    tempfile.write(csv.join("\n"))
     tempfile.close
     FileUtils.chmod(0644, tempfile.path)
   end
@@ -116,24 +114,31 @@ class Parsing
     SQL
   end
 
-  def config
-    {
-      '23andme' => {
-        separator: "\t",
-        snp_name: 0,
-        chromosome: 1,
-        position: 2,
-        local_genotype: 3,
-      },
-      'decodeme' => {
-        separator: ',',
-        snp_name: 0,
-        chromosome: 2,
-        position: 3,
-        local_genotype: 5,
-        skip: 1,
-      }
-    }.fetch(genotype.filetype) { raise "Unknown filetype: #{genotype.filetype}" }
+  def parse_23andme(rows)
+    rows.map do |row|
+      fields = row.strip.split("\t")
+      [
+        genotype.id,
+        fields[0],
+        fields[1],
+        fields[2],
+        fields[3]
+      ].join(',')
+    end
+  end
+
+  def parse_decodeme(rows)
+    rows.shift if rows.first.start_with?('Name')
+    rows.map do |row|
+      fields = row.strip.split(',')
+      [
+        genotype.id,
+        fields[0],
+        fields[2],
+        fields[3],
+        fields[5]
+      ].join(',')
+    end
   end
 
   def execute(sql)
