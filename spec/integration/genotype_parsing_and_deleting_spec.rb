@@ -1,11 +1,21 @@
 require 'spec_helper'
 
-describe 'genotype parsing' do
-  let(:temp_file) { Rails.root.join('tmp/snp_file.txt') }
-
+describe 'genotype parsing', sidekiq: :inline do
   before do
-    allow(Sidekiq::Client).to receive(:enqueue).with(Preparsing, an_instance_of(Fixnum))
-    FileUtils.rm(temp_file) if File.exist?(temp_file)
+    # When running the background jobs inline, Paperclip hasn't saved the file,
+    # yet. So we mock the after create hook and run the job manually.
+    allow_any_instance_of(Genotype).to receive(:parse_genotype)
+    Preparsing.new.perform(genotype.id)
+  end
+
+  after do
+    expect(Genotype.count).to be(1)
+    expect(UserSnp.count).to be(5)
+    expect(Snp.count).to be(5)
+    genotype.destroy
+    expect(Genotype.count).to be_zero
+    expect(UserSnp.count).to be_zero
+    expect(Snp.count).to be_zero
   end
 
   context '23andMe' do
@@ -14,10 +24,7 @@ describe 'genotype parsing' do
       create(:genotype, genotype: file, filetype: '23andme')
     end
 
-    it 'parse 23andMe data', truncate: true do
-      FileUtils.cp(file, temp_file)
-      Parsing.new.perform(genotype.id)
-
+    it 'parses 23andMe data', truncate: true do
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,
@@ -45,14 +52,6 @@ describe 'genotype parsing' do
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
-
-    # could put these deleting tests into their own file;
-    # however, the genotyping exists at this point in time and we don't have to do any extra work
-    # to pull it from the test DB
-    it 'delete data' do
-      DeleteGenotype.new.perform(genotype)
-      expect(Snp.count).to eq(0)
-    end
   end
 
   context 'deCODEme' do
@@ -62,9 +61,6 @@ describe 'genotype parsing' do
     end
 
     it 'parse deCODEme data', truncate: true do
-      FileUtils.cp file, temp_file
-      Parsing.new.perform(genotype.id)
-
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,
@@ -91,11 +87,6 @@ describe 'genotype parsing' do
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
-
-    it 'delete deCODEme data' do
-      DeleteGenotype.new.perform(genotype)
-      expect(Snp.count).to eq(0)
-    end
   end
 
   context 'ancestry' do
@@ -105,9 +96,6 @@ describe 'genotype parsing' do
     end
 
     it 'parse ancestry data', truncate: true do
-      FileUtils.cp file, temp_file
-      Parsing.new.perform(genotype.id)
-
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,

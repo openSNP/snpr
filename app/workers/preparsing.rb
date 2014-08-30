@@ -7,13 +7,12 @@ class Preparsing
 
   def perform(genotype_id)
     genotype = Genotype.find(genotype_id)
-    filename = "#{Rails.root}/public/data/#{genotype.fs_filename}"
 
     logger.info "Starting preparse"
     biggest = ''
     biggest_size = 0
     begin
-      Zip::File.open(filename) do |zipfile|
+      Zip::File.open(genotype.genotype.path) do |zipfile|
         # find the biggest file, since that's going to be the genotyping
         zipfile.each do |entry|
           if entry.size > biggest_size
@@ -85,7 +84,7 @@ class Preparsing
     file_is_duplicate = false
     if Genotype.where(md5sum: md5).where('id != ?', genotype.id).count > 0
       file_is_duplicate = true
-      logger.info "Genotyping #{filename} is already uploaded!\n"
+      logger.info "Genotyping #{genotype.genotype.path} is already uploaded!\n"
       logger.info "Genotyping #{g.fs_filename} has the same md5sum.\n"
       file_is_ok = false
       file_is_duplicate = true
