@@ -1,5 +1,3 @@
-require 'open3'
-
 class Parsing
   include Sidekiq::Worker
   sidekiq_options :queue => :parse, :retry => 5, :unique => true
