@@ -158,4 +158,40 @@ describe 'genotype parsing', sidekiq: :inline do
       end
     end
   end
+
+  context 'IYG' do
+    let(:file) { File.open(Rails.root.join('test/data/iyg_sample.csv')) }
+    let(:genotype) do
+      create(:genotype, genotype: file, filetype: 'IYG')
+    end
+
+    it 'parse ancestry data', truncate: true do
+      # Snp
+      snp_data = Snp.all.map do |s|
+        [s.name, s.position, s.chromosome, s.genotype_frequency,
+         s.allele_frequency, s.ranking, s.user_snps_count]
+      end.sort_by { |s| s[0] }
+
+      expected = [
+        ['rs2131925', '1', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs2815752', '1', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs10924081', '1', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs199838004', '3027',  'MT', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs41456348', '4336', 'MT', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1]
+      ]
+
+      expect(snp_data).to match_array(expected)
+
+      # UserSnp
+      user_snps = UserSnp.all
+      user_snp_genotypes = user_snps.map(&:local_genotype)
+      expected_genotypes = %w(GT AA AA T T)
+      expect(user_snp_genotypes).to eq(expected_genotypes)
+      user_snps.each do |s|
+        expect(s.genotype_id).to eq(genotype.id)
+        expect(Snp.pluck(:name)).to include(s.snp_name)
+      end
+    end
+  end
+
 end

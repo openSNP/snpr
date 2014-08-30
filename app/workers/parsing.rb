@@ -55,7 +55,7 @@ class Parsing
     rows = File.readlines(genotype.genotype.path)
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
-    csv = send(:"parse_#{genotype.filetype.sub('-', '_')}", rows)
+    csv = send(:"parse_#{genotype.filetype.sub('-', '_').downcase}", rows)
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     csv.select! do |row|
       # snp name
@@ -176,6 +176,37 @@ class Parsing
         fields[1].gsub('"', ''),
         fields[2].gsub('"', ''),
         fields[3].gsub('"', '')
+      ]
+    end
+  end
+
+  def parse_iyg(rows)
+    db_snp_names = {
+      "MT-T3027C" => "rs199838004", "MT-T4336C" => "rs41456348",
+      "MT-G4580A" => "rs28357975", "MT-T5004C" => "rs41419549",
+      "MT-C5178a" => "rs28357984", "MT-A5390G" => "rs41333444",
+      "MT-C6371T" => "rs41366755", "MT-G8697A" => "rs28358886",
+      "MT-G9477A" => "rs2853825", "MT-G10310A" => "rs41467651",
+      "MT-A10550G" => "rs28358280", "MT-C10873T" => "rs2857284",
+      "MT-C11332T" => "rs55714831", "MT-A11947G" => "rs28359168",
+      "MT-A12308G" => "rs2853498", "MT-A12612G" => "rs28359172",
+      "MT-T14318C" => "rs28357675", "MT-T14766C" => "rs3135031",
+      "MT-T14783C" => "rs28357680"
+    }
+    rows.map do |row|
+      snp_name, local_genotype = row.split("\t")
+      if snp_name.start_with?('MT')
+        position = snp_name[/[0-9]+/]
+        chromosome = 'MT'
+      else
+        position = chromosome = '1'
+      end
+      [
+        genotype.id,
+        db_snp_names.fetch(snp_name, snp_name),
+        chromosome,
+        position,
+        local_genotype.strip
       ]
     end
   end
