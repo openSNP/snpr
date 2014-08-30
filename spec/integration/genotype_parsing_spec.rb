@@ -33,7 +33,7 @@ describe 'genotype parsing' do
         ['rs4477212',  '72017',  '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0]
       ]
 
-      expect(snp_data).to eq(expected)
+      expect(snp_data).to match_array(expected)
 
       # UserSnp
       user_snps = UserSnp.all
@@ -79,7 +79,7 @@ describe 'genotype parsing' do
         ['rs6681105',  '581938', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1]
       ]
 
-      expect(snp_data).to eq(expected)
+      expect(snp_data).to match_array(expected)
 
       # UserSnp
       user_snps = UserSnp.all
@@ -95,6 +95,44 @@ describe 'genotype parsing' do
     it 'delete deCODEme data' do
       DeleteGenotype.new.perform(genotype)
       expect(Snp.count).to eq(0)
+    end
+  end
+
+  context 'ancestry' do
+    let(:file) { File.open(Rails.root.join('test/data/ancestry_test.csv')) }
+    let(:genotype) do
+      create(:genotype, genotype: file, filetype: 'ancestry')
+    end
+
+    it 'parse ancestry data', truncate: true do
+      FileUtils.cp file, temp_file
+      Parsing.new.perform(genotype.id)
+
+      # Snp
+      snp_data = Snp.all.map do |s|
+        [s.name, s.position, s.chromosome, s.genotype_frequency,
+         s.allele_frequency, s.ranking, s.user_snps_count]
+      end.sort_by { |s| s[0] }
+
+      expected = [
+        ['rs4477212', '82154', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs3131972',  '752721', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs12562034',  '768448', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs11240777',  '798959',  '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1],
+        ['rs6681049',  '800007', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0, 1]
+      ]
+
+      expect(snp_data).to match_array(expected)
+
+      # UserSnp
+      user_snps = UserSnp.all
+      user_snp_genotypes = user_snps.map(&:local_genotype)
+      expected_genotypes = %w(CC CC CC CC CC)
+      expect(user_snp_genotypes).to eq(expected_genotypes)
+      user_snps.each do |s|
+        expect(s.genotype_id).to eq(genotype.id)
+        expect(Snp.pluck(:name)).to include(s.snp_name)
+      end
     end
   end
 end

@@ -153,6 +153,20 @@ class Parsing
     end
   end
 
+  def parse_ancestry(rows)
+    rows.shift if rows.first.start_with?('rsid')
+    rows.map do |row|
+      fields = row.strip.split("\t")
+      [
+        genotype.id,
+        fields[0],
+        fields[1],
+        fields[2],
+        "#{fields[3]}#{fields[4]}"
+      ].join(',')
+    end
+  end
+
   def execute(sql)
     Genotype.connection.execute(sql)
   end
