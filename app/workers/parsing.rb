@@ -55,7 +55,7 @@ class Parsing
     rows = File.readlines(genotype.genotype.path)
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
-    csv = send(:"parse_#{genotype.filetype}", rows)
+    csv = send(:"parse_#{genotype.filetype.sub('-', '_')}", rows)
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     csv.select! do |row|
       # snp name
@@ -162,6 +162,20 @@ class Parsing
         fields[1],
         fields[2],
         "#{fields[3]}#{fields[4]}"
+      ]
+    end
+  end
+
+  def parse_ftdna_illumina(rows)
+    rows.shift if rows.first.start_with?('RSID')
+    rows.map do |row|
+      fields = row.strip.split(',')
+      [
+        genotype.id,
+        fields[0].gsub('"', ''),
+        fields[1].gsub('"', ''),
+        fields[2].gsub('"', ''),
+        fields[3].gsub('"', '')
       ]
     end
   end
