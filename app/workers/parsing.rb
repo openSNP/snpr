@@ -56,20 +56,19 @@ class Parsing
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
     csv = send(:"parse_#{genotype.filetype}", rows)
+    known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     csv.select! do |row|
       # snp name
       row[1].present? &&
       # chromosome
-      ['MT', 'X', 'Y', (1..22).to_a].flatten.include?(row[2]) &&
+      known_chromosomes.include?(row[2]) &&
       # position
-      row[3].to_i < 0
+      row[3].to_i >= 1 && row[3].to_i <= 249_250_621 &&
       # local genotype
-      row[4].is_a?(String) &&
-      row[4].length > 0 &&
-      (1..2).include?(row[4].length)
+      row[4].is_a?(String) && (1..2).include?(row[4].length)
     end
     stats[:rows_after_parsing] = csv.length
-    tempfile.write(csv.join("\n"))
+    tempfile.write(csv.map { |row| row.join(',') }.join("\n"))
     tempfile.close
     FileUtils.chmod(0644, tempfile.path)
   end
@@ -135,7 +134,7 @@ class Parsing
         fields[1],
         fields[2],
         fields[3]
-      ].join(',')
+      ]
     end
   end
 
@@ -149,7 +148,7 @@ class Parsing
         fields[2],
         fields[3],
         fields[5]
-      ].join(',')
+      ]
     end
   end
 
@@ -163,7 +162,7 @@ class Parsing
         fields[1],
         fields[2],
         "#{fields[3]}#{fields[4]}"
-      ].join(',')
+      ]
     end
   end
 
