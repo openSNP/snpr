@@ -19,6 +19,7 @@ class Parsing
     copy_csv_into_temp_table
     insert_into_snps
     insert_into_user_snps
+    notify_user
 
     logger.info("Finished parsing genotype with id #{genotype.id}, cleaning up.")
   rescue => e
@@ -207,6 +208,10 @@ class Parsing
         local_genotype.strip
       ]
     end
+  end
+
+  def notify_user
+    UserMailer.delay.finished_parsing(genotype.id, stats)
   end
 
   def execute(sql)
