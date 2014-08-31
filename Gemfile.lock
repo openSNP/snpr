@@ -127,6 +127,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    composite_primary_keys (5.0.14)
+      activerecord (~> 3.2.0, >= 3.2.9)
     connection_pool (1.1.0)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -396,6 +398,7 @@ DEPENDENCIES
   capistrano (~> 2.0)
   capybara
   coffee-script
+  composite_primary_keys
   database_cleaner
   devise (= 3.0.0)
   dynamic_form

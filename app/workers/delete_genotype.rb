@@ -11,9 +11,8 @@ class DeleteGenotype
         # This user_snp is the only one, so, destroy the Snp,
         # which destroys the UserSnp implicitly
         us.snp.destroy
-      else
-        us.destroy
       end
+      us.destroy
     end
   end
 end

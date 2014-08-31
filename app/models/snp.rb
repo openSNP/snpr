@@ -1,6 +1,5 @@
 class Snp < ActiveRecord::Base
-  has_many :user_snps, foreign_key: :snp_name, primary_key: :name,
-    dependent: :destroy
+  has_many :user_snps, foreign_key: :snp_name, primary_key: :name
   has_many :users, through: :user_snps
   has_many :pgp_annotations
   has_many :snp_references
