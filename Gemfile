@@ -22,8 +22,6 @@ gem 'plos', require: false
 # New Relic monitoring, off by default in development
 gem 'newrelic_rpm'
 
-# workaround for bug in Fedora
-
 # DB
 gem 'pg'
 gem 'activerecord-import', '~> 0.2.11'
