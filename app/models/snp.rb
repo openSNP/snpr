@@ -13,7 +13,7 @@ class Snp < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  searchable do
+  searchable :ignore_attribute_changes_of => [:genotype_frequency, :allele_frequency, :ranking, :number_of_users, :mendeley_updated, :plos_updated, :snpedia_updated, :user_snps_count, :updated_at] do
     text :name
   end
 
