@@ -1,3 +1,8 @@
+# Commit is automatically performed by Solr every 10s OR 1000 new objects.
+# See ../solr/conf/solrconfig.xml around line 212
+# This greatly increases response of app at the cost of how 'fresh' the index is.
+auto_commit_after_request: false 
+
 production:
   solr:
     hostname: localhost
