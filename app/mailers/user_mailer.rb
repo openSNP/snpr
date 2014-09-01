@@ -84,4 +84,19 @@ default :from => "donotreply@opensnp.org"
     puts "http://"+ActionMailer::Base.default_url_options[:host]+@link
   end
   
+  def finished_parsing(genotype_id, stats)
+    genotype = Genotype.find(genotype_id)
+    @user = genotype.user
+    @stats = stats
+    @vendor = {
+      'ftdna-illumina' => 'FamilyTreeDNA',
+      '23andme' => '23andMe',
+      'IYG' => 'Inside Your Genome',
+      'decodeme' => 'deCODEme',
+      '23andme-exome-vcf' => '23andMe',
+      'ancestry' => 'Ancestry',
+    }.fetch(genotype.filetype)
+
+    mail(to: @user.email, subject: 'Finished parsing your genotyping')
+  end
 end

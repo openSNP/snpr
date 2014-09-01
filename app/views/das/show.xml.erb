@@ -6,6 +6,9 @@
 	 <% if @unkown_chromosome[i] == false %>
 	<SEGMENT id="<%= @id[i] %>" version="1.0" <%if @has_start[i] == true %> start="<%= @start_and_end[i][0] %>" stop="<%= @start_and_end[i][1] %>"<%else%> start="1" stop="" <%end%>>
         <% @user_snps[i].each do |us| %>
+                <% if us.snp.nil? %>
+                    <% next %>
+                <% end %>
                 <FEATURE id="<%= us.snp.name %>">
                     <TYPE id="<%= us.local_genotype %>" />
                     <METHOD id="" />

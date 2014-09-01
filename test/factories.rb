@@ -14,7 +14,7 @@ unless $factories_already_read
 
     factory :genotype do
       genotype_file_name "foo.txt"
-      association :user
+      user
     end
 
     factory :snp do

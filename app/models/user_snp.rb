@@ -1,6 +1,6 @@
 class UserSnp < ActiveRecord::Base
-  belongs_to :snp, foreign_key: :snp_name, primary_key: :name,
-    counter_cache: true
+  self.primary_keys = [:genotype_id, :snp_name]
+  belongs_to :snp, foreign_key: :snp_name, primary_key: :name, counter_cache: true
   has_one :user, through: :genotype
   belongs_to :genotype
 

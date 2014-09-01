@@ -22,11 +22,10 @@ gem 'plos', require: false
 # New Relic monitoring, off by default in development
 gem 'newrelic_rpm'
 
-# workaround for bug in Fedora
-
 # DB
 gem 'pg'
 gem 'activerecord-import', '~> 0.2.11'
+gem 'composite_primary_keys'
 
 # for solr (indexing, searching)
 gem 'sunspot_rails'#, '2.0.0'
