@@ -45,7 +45,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :homepages, allow_destroy: true
   accepts_nested_attributes_for :user_phenotypes, allow_destroy: true
 
-  searchable do
+  # The following should turn off auto-reindex of user on login
+  searchable :ignore_attribute_changes_of => [:persistence_token, :perishable_token, :updated_at] do
     text :description, :name
   end
 
