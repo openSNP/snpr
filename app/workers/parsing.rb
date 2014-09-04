@@ -88,23 +88,18 @@ class Parsing
 
   def insert_into_snps
     time = Time.now.utc.iso8601
-    execute(<<-SQL)
-      insert into snps (name, chromosome, position, created_at, updated_at, user_snps_count)
-      (
-        select
-          #{temp_table_name}.snp_name,
-          #{temp_table_name}.chromosome,
-          #{temp_table_name}.position,
-          '#{time}',
-          '#{time}',
-          1
-        from #{temp_table_name}
-        left join snps
-          on #{temp_table_name}.snp_name = snps.name
-        where
-          snps.name is null
-      )
+
+    snps = execute(<<-SQL)
+      select
+        #{temp_table_name}.snp_name as name,
+        #{temp_table_name}.chromosome,
+        #{temp_table_name}.position,
+        1 as user_snps_count
+      from #{temp_table_name}
+      left join snps on #{temp_table_name}.snp_name = snps.name
+      where snps.name is null
     SQL
+    Snp.create!(snps.to_a)
   end
 
   def insert_into_user_snps
