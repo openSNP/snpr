@@ -103,6 +103,7 @@ class Parsing
   end
 
   def insert_into_user_snps
+    known_user_snps = UserSnp.select(:snp_name).where(genotype_id: genotype.id)
     execute(<<-SQL)
       insert into user_snps (snp_name, local_genotype, genotype_id)
       (
@@ -111,10 +112,7 @@ class Parsing
           #{temp_table_name}.local_genotype,
           #{temp_table_name}.genotype_id
         from #{temp_table_name}
-        left join user_snps
-          on user_snps.snp_name = #{temp_table_name}.snp_name
-          and user_snps.genotype_id = #{temp_table_name}.genotype_id
-        where user_snps.snp_name is null
+        where #{temp_table_name}.snp_name not in (#{known_user_snps.to_sql})
       )
     SQL
   end
