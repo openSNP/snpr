@@ -125,7 +125,7 @@ class Parsing
         fields[0],
         fields[1],
         fields[2],
-        fields[3]
+        fields[3].rstrip
       ]
     end
   end
