@@ -37,7 +37,6 @@ class Parsing
     execute("drop table if exists #{temp_table_name}")
     execute(<<-SQL)
       create table #{temp_table_name} (
-        genotype_id int,
         snp_name varchar(32),
         chromosome varchar(32),
         position varchar(32),
@@ -58,13 +57,13 @@ class Parsing
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     csv.select! do |row|
       # snp name
-      row[1].present? &&
+      row[0].present? &&
       # chromosome
-      known_chromosomes.include?(row[2]) &&
+      known_chromosomes.include?(row[1]) &&
       # position
-      row[3].to_i >= 1 && row[3].to_i <= 249_250_621 &&
+      row[2].to_i >= 1 && row[2].to_i <= 249_250_621 &&
       # local genotype
-      row[4].is_a?(String) && (1..2).include?(row[4].length)
+      row[3].is_a?(String) && (1..2).include?(row[3].length)
     end
     stats[:rows_after_parsing] = csv.length
     tempfile.write(csv.map { |row| row.join(',') }.join("\n"))
@@ -75,7 +74,6 @@ class Parsing
   def copy_csv_into_temp_table
     execute(<<-SQL)
       copy #{temp_table_name} (
-        genotype_id,
         snp_name,
         chromosome,
         position,
@@ -110,7 +108,7 @@ class Parsing
         select
           #{temp_table_name}.snp_name,
           #{temp_table_name}.local_genotype,
-          #{temp_table_name}.genotype_id
+          #{genotype.id} as genotype_id
         from #{temp_table_name}
         where #{temp_table_name}.snp_name not in (#{known_user_snps.to_sql})
       )
@@ -121,11 +119,10 @@ class Parsing
     rows.map do |row|
       fields = row.strip.split("\t")
       [
-        genotype.id,
         fields[0],
         fields[1],
         fields[2],
-        fields[3]
+        fields[3].rstrip
       ]
     end
   end
@@ -135,7 +132,6 @@ class Parsing
     rows.map do |row|
       fields = row.strip.split(',')
       [
-        genotype.id,
         fields[0],
         fields[2],
         fields[3],
@@ -149,7 +145,6 @@ class Parsing
     rows.map do |row|
       fields = row.strip.split("\t")
       [
-        genotype.id,
         fields[0],
         fields[1],
         fields[2],
@@ -163,7 +158,6 @@ class Parsing
     rows.map do |row|
       fields = row.strip.split(',')
       [
-        genotype.id,
         fields[0].gsub('"', ''),
         fields[1].gsub('"', ''),
         fields[2].gsub('"', ''),
@@ -194,7 +188,6 @@ class Parsing
         position = chromosome = '1'
       end
       [
-        genotype.id,
         db_snp_names.fetch(snp_name, snp_name),
         chromosome,
         position,
