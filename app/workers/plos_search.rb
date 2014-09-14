@@ -35,11 +35,16 @@ class PlosSearch
   def perform_search
     # honoring API limits
     result = nil
-    Timeout.timeout(5) do
-      result = client.search(snp.name, 0, 999)
+    begin 
+      Timeout.timeout(5) do
+        result = client.search(snp.name, 0, 999)
+      end
+    rescue Timeout::Error
+      false
     end
     logger.info('Successfully called the API')
     result
+  # the following rescue never seems to fire? can't find the error in the logs - Philipp
   rescue => e
     logger.error("API call unsuccessful: Error was: #{e.class}: #{e.message}")
     raise e
