@@ -12,7 +12,6 @@ class Zipgenotypingfiles
     @genotyping_files = []
     @user_phenotypes.each do |up|
       @user = User.find_by_id(up.user_id)
-      print @user
       if @user.genotypes.length != 0
         @user.genotypes.each do |g|
           @genotyping_files << g
