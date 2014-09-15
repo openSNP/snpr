@@ -40,6 +40,7 @@ class PlosSearch
         result = client.search(snp.name, 0, 999)
       end
     rescue Timeout::Error
+      logger.error("API call timed out")
       false
     end
     logger.info('Successfully called the API')

@@ -54,7 +54,6 @@ class Parsing
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
     csv = send(:"parse_#{genotype.filetype.gsub('-', '_').downcase}", rows)
-    logger.info(csv)
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     csv.select! do |row|
       # snp name
@@ -143,8 +142,8 @@ class Parsing
       alleles = names.map{ |a| trans_dict[a]}.sort.join # becomes AC
       [
         fields[2],
-        fields[1],
         fields[0],
+        fields[1],
         alleles
       ]
     end.compact # because the above next introduces nil.
