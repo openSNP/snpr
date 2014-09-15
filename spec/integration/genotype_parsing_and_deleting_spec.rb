@@ -18,6 +18,44 @@ describe 'genotype parsing', sidekiq: :inline do
     expect(Snp.count).to be_zero
   end
 
+  context '23andMe-exome-vcf' do
+    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) } 
+    let(:genotype) do
+      create(:genotype, genotype: file, filetype: '23andme-exome-vcf')
+    end
+
+    it 'parses 23andMe exome vcf data', truncate: true do
+      snp_data = Snp.all.map do |s|
+        [s.name, s.position, s.chromosome, s.genotype_frequency,
+         s.allele_frequency, s.ranking]
+      end
+      snp_data = snp_data.sort_by { |s| s[0] }
+      expected = [
+        ['rs79585140', '14907', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs75454623', '14930', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs71252250', '15118', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs75062661', '69511', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs142727405', '663097', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs144155419', '717587', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs3131972', '752721', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs61770172', '753269', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs61770173', '753405', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0]
+      ]
+
+      expect(snp_data).to match_array(expected)
+      user_snps = UserSnp.all
+      user_snp_genotypes = user_snps.map(&:local_genotype)
+
+      expected_genotypes = %w(AG AG AG GG CC AA AG GG AA)
+      expect(user_snp_genotypes).to eq(expected_genotypes)
+      user_snps.each do |s|
+        expect(s.genotype_id).to eq(genotype.id)
+        expect(Snp.pluck(:name)).to include(s.snp_name)
+      end
+    end
+  end
+
+
   context '23andMe' do
     let(:file) { File.open(Rails.root.join('test/data/23andMe_test.csv')) }
     let(:genotype) do
