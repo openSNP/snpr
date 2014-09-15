@@ -53,7 +53,8 @@ class Parsing
     rows = File.readlines(genotype.genotype.path)
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
-    csv = send(:"parse_#{genotype.filetype.sub('-', '_').downcase}", rows)
+    csv = send(:"parse_#{genotype.filetype.gsub('-', '_').downcase}", rows)
+    logger.info(csv)
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     csv.select! do |row|
       # snp name
@@ -125,6 +126,29 @@ class Parsing
         fields[3].rstrip
       ]
     end
+  end
+
+  def parse_23andme_exome_vcf(rows)
+    # Rules:
+    # Skip lines with IndelType in them
+    # Skip lines were SNP name is '.', these are non-standard SNPs
+    rows.map do |row|
+      next if row.include? 'IndelType'
+      fields = row.strip.split("\t")
+      next if fields[2] == '.'
+      major_allele = fields[3] # C
+      minor_allele = fields[4] # A
+      trans_dict = {"0" => major_allele, "1" => minor_allele}
+      names = fields[-1].split(":")[0].split("/") # ["0", "1"], meaning A/C
+      alleles = names.map{ |a| trans_dict[a]}.sort.join # becomes AC
+      [
+        fields[2],
+        fields[1],
+        fields[0],
+        alleles
+      ]
+    end.compact # because the above next introduces nil.
+    # Slower alternative is to use reject first, but then we'll iterate > 2 times
   end
 
   def parse_decodeme(rows)
