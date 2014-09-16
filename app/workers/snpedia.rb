@@ -36,7 +36,10 @@ class Snpedia
     end
     snp.snpedia_updated! if snpedia_updated
     if Rails.env == 'production'
-      sleep(5)
+      # Increase this value if the following error keeps on showing up
+      # 'MediaWiki::APIError: API error: code 'internal_api_error_DBConnectionError', 
+      # info 'Exception Caught: DB connection error: Too many connections'
+      sleep(10)
     end
   end
 
