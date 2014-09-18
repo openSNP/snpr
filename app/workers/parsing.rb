@@ -122,7 +122,7 @@ class Parsing
         fields[0],
         fields[1],
         fields[2],
-        fields[3].rstrip
+        fields[3].to_s.rstrip
       ]
     end
   end
@@ -181,10 +181,10 @@ class Parsing
     rows.map do |row|
       fields = row.strip.split(',')
       [
-        fields[0].gsub('"', ''),
-        fields[1].gsub('"', ''),
-        fields[2].gsub('"', ''),
-        fields[3].gsub('"', '')
+        fields[0].to_s.gsub('"', ''),
+        fields[1].to_s.gsub('"', ''),
+        fields[2].to_s.gsub('"', ''),
+        fields[3].to_s.gsub('"', '')
       ]
     end
   end
