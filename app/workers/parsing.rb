@@ -7,8 +7,8 @@ class Parsing
   def perform(genotype_id)
     @stats = {}
     @start_time = Time.current
-    logger.info("Started parsing genotype with id #{genotype_id}")
     @genotype = Genotype.find(genotype_id)
+    logger.info("Started parsing #{genotype.filetype} genotype with id #{genotype_id}")
     stats[:filetype] = genotype.filetype
     stats[:genotype_id] = genotype.id
     @temp_table_name = "user_snps_temp_#{genotype.id}"
@@ -21,16 +21,14 @@ class Parsing
     insert_into_user_snps
     notify_user
 
-    logger.info("Finished parsing genotype with id #{genotype.id}, cleaning up.")
+    stats[:duration] = "#{(Time.current - start_time).round(3)}s"
+    logger.info("Finished parsing: #{stats.to_a.map { |s| s.join('=') }.join(', ')}")
   rescue => e
     logger.error("Failed with #{e.class}: #{e.message}")
     raise
   ensure
     drop_temp_table
-    # TODO: Why doesn't `tempfile.unlink` work here?
     File.delete(tempfile.path)
-    stats[:duration] = "#{(Time.current - start_time).round(3)}s"
-    logger.info("Stats: #{stats.to_a.map { |s| s.join('=') }.join(', ')}")
   end
 
   def create_temp_table
