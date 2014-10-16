@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&meta=siteinfo&siprop=namespaces
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&meta=siteinfo&siprop=namespaces
     body:
       encoding: US-ASCII
       string: ''
@@ -18,38 +18,34 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
-      Content-Length:
-      - '2533'
-      Accept-Ranges:
-      - bytes
       Date:
-      - Thu, 28 Aug 2014 06:26:52 GMT
-      X-Varnish:
-      - 2090605832 2090605709
-      Age:
-      - '49'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
+      - Thu, 16 Oct 2014 13:30:51 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
       Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009298'
+      Content-Length:
+      - '2715'
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query><namespaces><ns id="-2" case="first-letter"
@@ -74,6 +70,8 @@ http_interactions:
         id="15" case="first-letter" subpages="" canonical="Category talk" xml:space="preserve">Category
         talk</ns><ns id="102" case="first-letter" canonical="Property" xml:space="preserve">Property</ns><ns
         id="103" case="first-letter" subpages="" canonical="Property talk" xml:space="preserve">Property
+        talk</ns><ns id="104" case="first-letter" canonical="Type" xml:space="preserve">Type</ns><ns
+        id="105" case="first-letter" subpages="" canonical="Type talk" xml:space="preserve">Type
         talk</ns><ns id="106" case="first-letter" canonical="Form" xml:space="preserve">Form</ns><ns
         id="107" case="first-letter" subpages="" canonical="Form talk" xml:space="preserve">Form
         talk</ns><ns id="108" case="first-letter" canonical="Concept" xml:space="preserve">Concept</ns><ns
@@ -82,10 +80,10 @@ http_interactions:
         id="829" case="first-letter" subpages="" canonical="Module talk" xml:space="preserve">Module
         talk</ns></namespaces></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:46 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:51 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&aplimit=500&apnamespace=0&apprefix=rs12979860(&format=xml&list=allpages&maxlag=5
+    uri: http://bots.snpedia.com/api.php?action=query&aplimit=500&apnamespace=0&apprefix=rs12979860(&format=xml&list=allpages&maxlag=5
     body:
       encoding: US-ASCII
       string: ''
@@ -101,48 +99,44 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:52 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009300'
       Content-Length:
       - '221'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:52 GMT
-      X-Varnish:
-      - '2090605833'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query><allpages><p pageid="15929" ns="0"
         title="Rs12979860(C;C)" /><p pageid="15930" ns="0" title="Rs12979860(C;T)"
         /><p pageid="15931" ns="0" title="Rs12979860(T;T)" /></allpages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:47 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:52 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BC)
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BC)
     body:
       encoding: US-ASCII
       string: ''
@@ -158,48 +152,44 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:53 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009302'
       Content-Length:
       - '250'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:53 GMT
-      X-Varnish:
-      - '2090605841'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131458"
         /></query-continue><query><pages><page pageid="15929" ns="0" title="Rs12979860(C;C)"><revisions><rev
         revid="445428" parentid="131458" /></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:47 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:53 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BC)
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BC)
     body:
       encoding: US-ASCII
       string: ''
@@ -215,38 +205,34 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:54 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009304'
       Content-Length:
       - '368'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:53 GMT
-      X-Varnish:
-      - '2090605844'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: |-
@@ -259,10 +245,10 @@ http_interactions:
         |summary=~80% of such hepatitis C patients respond to treatment
         }}</rev></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:47 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:54 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BT)
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BT)
     body:
       encoding: US-ASCII
       string: ''
@@ -278,48 +264,44 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:55 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009306'
       Content-Length:
       - '250'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:53 GMT
-      X-Varnish:
-      - '2090605847'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131460"
         /></query-continue><query><pages><page pageid="15930" ns="0" title="Rs12979860(C;T)"><revisions><rev
         revid="445430" parentid="131460" /></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:48 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:55 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BT)
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(C%3BT)
     body:
       encoding: US-ASCII
       string: ''
@@ -335,38 +317,34 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:56 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009309'
       Content-Length:
       - '372'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:54 GMT
-      X-Varnish:
-      - '2090605848'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: |-
@@ -379,10 +357,10 @@ http_interactions:
         |summary=~20-40% of such hepatitis C patients respond to treatment
         }}</rev></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:48 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:56 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(T%3BT)
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(T%3BT)
     body:
       encoding: US-ASCII
       string: ''
@@ -398,48 +376,44 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:57 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009311'
       Content-Length:
       - '250'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:54 GMT
-      X-Varnish:
-      - '2090605851'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><api><query-continue><revisions rvcontinue="131462"
         /></query-continue><query><pages><page pageid="15931" ns="0" title="Rs12979860(T;T)"><revisions><rev
         revid="445429" parentid="131462" /></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:48 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:57 GMT
 - request:
     method: get
-    uri: http://www.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(T%3BT)
+    uri: http://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&titles=Rs12979860(T%3BT)
     body:
       encoding: US-ASCII
       string: ''
@@ -455,38 +429,34 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Apache/2.2.27 (Amazon)
-      X-Powered-By:
-      - PHP/5.3.28
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      Vary:
-      - Accept-Encoding
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
       Cache-Control:
       - private
       Content-Type:
       - text/xml; charset=utf-8
+      Date:
+      - Thu, 16 Oct 2014 13:30:59 GMT
+      Server:
+      - Apache/2.4.10 (Amazon) PHP/5.5.17
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 varnish
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Powered-By:
+      - PHP/5.5.17
+      X-Varnish:
+      - '502009313'
       Content-Length:
       - '370'
-      Accept-Ranges:
-      - bytes
-      Date:
-      - Thu, 28 Aug 2014 06:26:54 GMT
-      X-Varnish:
-      - '2090605853'
-      Age:
-      - '0'
-      X-Cache:
-      - MISS from proxy10.uq.edu.au
-      X-Cache-Lookup:
-      - MISS from proxy10.uq.edu.au:80
-      Via:
-      - 1.1 varnish, 1.1 proxy10.uq.edu.au:80 (squid/2.7.STABLE9)
       Connection:
-      - close
+      - keep-alive
     body:
       encoding: UTF-8
       string: |-
@@ -499,5 +469,5 @@ http_interactions:
         |summary=~20-25% of such hepatitis C patients respond to treatment
         }}</rev></revisions></page></pages></query></api>
     http_version: 
-  recorded_at: Thu, 28 Aug 2014 06:26:49 GMT
+  recorded_at: Thu, 16 Oct 2014 13:30:59 GMT
 recorded_with: VCR 2.8.0
