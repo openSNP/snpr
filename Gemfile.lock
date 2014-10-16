@@ -149,7 +149,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.3)
-    fitgem (0.8.0)
+    fitgem (0.10.0)
       oauth
     formatador (0.2.5)
     formtastic (2.2.1)
