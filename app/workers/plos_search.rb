@@ -11,7 +11,12 @@ class PlosSearch
     return false if @snp.nil? || snp_illegal? || recently_updated?
     @client = PLOS::Client.new(self.class.api_key)
     articles = perform_search
-    articles.each do |article|
+    # In many weird cases on production, articles is nil
+    # (can't reproduce on development)
+    # For now the workaround is to use Array.wrap to make empty list
+    # i.e, nil => []
+    # - Philipp
+    Array.wrap(articles).each do |article|
       import_article(article) if not article.nil?
     end
     snp.plos_updated!
