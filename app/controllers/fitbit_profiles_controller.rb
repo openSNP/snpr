@@ -8,6 +8,8 @@ class FitbitProfilesController < ApplicationController
     @title = "Listing all connected Fitbit accounts"
     @fitbit = FitbitProfile.order(sort_column + " " + sort_direction)
     @fitbit_paginate = @fitbit.paginate(:page => params[:page],:per_page => 20)
+    @filelink = FileLink.
+      where(description: "all genotypes and phenotypes archive").first.try(:url)
     respond_to do |format|
       format.html
       format.xml 
