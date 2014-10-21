@@ -1,10 +1,8 @@
 <legend><%=image_tag("fitbit-icon.png")%> Listing all connected <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> accounts </legend>
 
-<%if current_user%>
-    <h4>
-        <%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "genotypes", :action => "get_dump"})%> <%=link_to("Download the dump: Includes all Fitbit data with all other phenotypes & genotyping files",{:controller => "genotypes", :action => "get_dump"}, :title => "Request download")%>
-    </h4>
-<% end %>
+<%= link_to(Zipfulldata.public_path, title: "Request download") do %>
+<%= image_tag("filedownload_small.png", style: "vertical-align:middle") %>
+Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users <%= Zipfulldata.gb_size %>
 <br/>
 <% if not current_user and @filelink != nil%>
     <h4>

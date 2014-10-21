@@ -1,10 +1,10 @@
 GIT
-  remote: git://github.com/tsujigiri/sunspot_test.git
-  revision: eb70e7cb2a7bc9b57ac892c901cac47a6ab04ad6
-  branch: dirty_quickfix
+  remote: git://github.com/FriendlyId/friendly_id.git
+  revision: 9b00a1120ada9b3bf1c79edc0cf67f192d28a3ee
+  branch: 4.0-stable
   specs:
-    sunspot_test (0.4.0)
-      sunspot_rails (>= 1.2.1)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
 
 GIT
   remote: git://github.com/paulasmuth/recommendify.git
@@ -15,24 +15,16 @@ GIT
       redis (>= 2.2.2)
 
 GIT
-  remote: git://github.com/FriendlyId/friendly_id.git
-  revision: 9b00a1120ada9b3bf1c79edc0cf67f192d28a3ee
-  branch: 4.0-stable
+  remote: git://github.com/rubyzip/rubyzip.git
+  revision: 3917dedbb5bf92db71e1804ea2e8dbac3d2891dd
   specs:
-    friendly_id (4.0.10.1)
-      activerecord (>= 3.0, < 4.0)
+    rubyzip (1.1.0)
 
 GIT
   remote: git://github.com/ryanb/nested_form.git
   revision: 42028bc06e72a848d297edc1467a969a7c9def57
   specs:
     nested_form (0.3.2)
-
-GIT
-  remote: git://github.com/rubyzip/rubyzip.git
-  revision: 3917dedbb5bf92db71e1804ea2e8dbac3d2891dd
-  specs:
-    rubyzip (1.1.0)
 
 GIT
   remote: git://github.com/tsujigiri/mendeley.git
@@ -42,6 +34,14 @@ GIT
     mendeley (0.0.3)
       rest-client
       yajl-ruby
+
+GIT
+  remote: git://github.com/tsujigiri/sunspot_test.git
+  revision: eb70e7cb2a7bc9b57ac892c901cac47a6ab04ad6
+  branch: dirty_quickfix
+  specs:
+    sunspot_test (0.4.0)
+      sunspot_rails (>= 1.2.1)
 
 GEM
   remote: http://rubygems.org/
