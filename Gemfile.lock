@@ -225,6 +225,10 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.17.0)
+    pg_search (0.7.8)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     plos (0.0.7)
       nokogiri
       rest-client
@@ -348,7 +352,6 @@ GEM
       nokogiri
       rails (>= 3)
       sunspot (= 2.1.1)
-    sunspot_solr (2.0.0)
     temple (0.6.7)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
@@ -419,6 +422,7 @@ DEPENDENCIES
   newrelic_rpm
   paperclip (~> 4.0)
   pg
+  pg_search
   plos
   pry-rails
   rails (~> 3.2.18)
@@ -438,8 +442,6 @@ DEPENDENCIES
   slim (~> 1.3.8)
   spring
   spring-commands-rspec
-  sunspot_rails
-  sunspot_solr
   sunspot_test!
   therubyracer
   twitter-bootstrap-rails

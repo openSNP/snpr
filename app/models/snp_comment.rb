@@ -1,8 +1,8 @@
 class SnpComment < ActiveRecord::Base
-   belongs_to :snp
-   belongs_to :user
-   
-   searchable do
-      text :comment_text, :subject
-   end
+  include PgSearch
+
+  belongs_to :snp
+  belongs_to :user
+
+  pg_search_scope :search, against: :subject
 end

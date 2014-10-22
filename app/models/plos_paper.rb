@@ -1,8 +1,8 @@
 class PlosPaper < ActiveRecord::Base
+  include PgSearch
+
   has_many :snp_references, as: :paper
   has_many :snps, through: :snp_references
 
-  searchable do
-    text :title
-  end
+  pg_search_scope :search, against: :title
 end

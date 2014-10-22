@@ -1,9 +1,7 @@
 class PgpAnnotation < ActiveRecord::Base
+  include PgSearch
+
    belongs_to :snp
 
-   searchable do
-	   text :gene
-	   text :summary
-	   text :trait
-   end
+  pg_search_scope :search, against: [:search, :summary, :trait]
 end

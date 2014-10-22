@@ -2,24 +2,24 @@
 <%if @all_len != 0 %>
 <div id="tab-container">
   <ul class="nav nav-tabs">
-	<%if not @users.results == [] %>
-	<li><a href="#users">Users (<%=@users.results.length%>)</a></li>
+	<%if not @users == [] %>
+	<li><a href="#users">Users (<%=@users.length%>)</a></li>
 	<%end%>
-	<%if not @phenotypes.results == []%>
-	<li><a href="#phenotypes">Phenotypes (<%=@phenotypes.results.length%>)</a></li>
+	<%if not @phenotypes == []%>
+	<li><a href="#phenotypes">Phenotypes (<%=@phenotypes.length%>)</a></li>
 	<%end%>
-	<%if not @snps.results == []%>
-	<li><a href="#snps">SNPs (<%=@snps.results.length%>)</a></li>
+	<%if not @snps == []%>
+	<li><a href="#snps">SNPs (<%=@snps.length%>)</a></li>
 	<%end%>
-	<% if not (@mendeley_papers.results == [] and @plos_papers.results == [])%>
-    <li><a href="#papers">Papers (<%=@plos_papers.results.length + @mendeley_papers.results.length%>)</a></li>
+	<% if not (@mendeley_papers == [] and @plos_papers == [])%>
+    <li><a href="#papers">Papers (<%=@plos_papers.length + @mendeley_papers.length%>)</a></li>
 	<%end%>
-    <%if not (@snp_comments.results == [] and @phenotype_comments.results == [])%>
-    <li><a href="#comments">Comments (<%=@snp_comments.results.length + @phenotype_comments.results.length%>)</a></li>
+    <%if not (@snp_comments == [] and @phenotype_comments == [])%>
+    <li><a href="#comments">Comments (<%=@snp_comments.length + @phenotype_comments.length%>)</a></li>
 	<%end%>	
   </ul>
 <% end %>
-<% if not @phenotypes.results == [] %>
+<% if not @phenotypes == [] %>
 <div id="phenotypes">
 	<table class="table table-striped">
 			<tr>
@@ -27,7 +27,7 @@
 				<th># of Users</th>
 				<th>Known Variation</th>
 			</tr>
-<% for p in @phenotypes.results %>
+<% for p in @phenotypes %>
 		<tr>
 			<td><%= link_to p.characteristic, p %></td>
 			<td><%= p.number_of_users%></td>
@@ -42,7 +42,7 @@
 </table>
 </div>
 <% end %>
-<% if not @snps.results == [] %>
+<% if not @snps == [] %>
 <div id="snps">
 	<h5>SNPs</h5>
     <table class="table table-striped">
@@ -51,7 +51,7 @@
             <th>Chromosome</th>
             <th>Position</th>
         </tr>
-        <% for p in @snps.results %>
+        <% for p in @snps %>
         <tr>
             <td><%= link_to p.name, p %></td>
             <td><%= p.chromosome %></td>
@@ -62,7 +62,7 @@
 </div>
 <% end %>
 
-<% if not @users.results == [] %>
+<% if not @users == [] %>
 <div id="users">
 	<table class="table table-striped">
 			<tr>
@@ -71,7 +71,7 @@
 				<th># of Phenotypes</th>
 				<th># of Achievements</th>
 			</tr>
-<% for u in @users.results %>
+<% for u in @users %>
 			<tr>
 				<td><%= image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to u.name, u %></td>
 				<%if u.has_sequence%>
@@ -86,9 +86,9 @@
 </table>
 </div>
 <% end %>
-<%if not (@snp_comments.results == [] and @phenotype_comments.results == [])%>
+<%if not (@snp_comments == [] and @phenotype_comments == [])%>
 <div id="comments">
-<% if not @snp_comments.results == [] %>
+<% if not @snp_comments == [] %>
 	<h5>On SNPs</h5>
 	<table class="table table-striped">
 			<tr>
@@ -97,7 +97,7 @@
 				<th>Subject</th>
 				<th>Text</th>
 			</tr>
-<% for p in @snp_comments.results %>
+<% for p in @snp_comments %>
 	<tr>
 		<td><%if p.snp != nil%><%=link_to(p.snp.name,"/snps/"+p.snp.id.to_s+"#comments")%><%else%>SNP was deleted<%end%></td>
         <% if p.user %>
@@ -111,7 +111,7 @@
 <% end %>
 </table>
 <% end %>
-<% if not @phenotype_comments.results == [] %>
+<% if not @phenotype_comments == [] %>
 	<h5>On Phenotypes</h5>
 	<table class="table table-striped">
 			<tr>
@@ -120,7 +120,7 @@
 				<th>Subject</th>
 				<th>Text</th>
 			</tr>
-<% for p in @phenotype_comments.results %>
+<% for p in @phenotype_comments %>
 	<tr>
 		<td><%if p.phenotype != nil%><%=link_to(p.phenotype.characteristic,"/snps/"+p.phenotype.id.to_s+"#comments")%><%else%>Phenotype was deleted<%end%></td>
         <% if p.user %>
@@ -136,9 +136,9 @@
 <% end %>
 </div>
 <% end %>
-<% if not (@mendeley_papers.results == [] and @plos_papers.results == [] and @snpedia_papers.results == [])%>
+<% if not (@mendeley_papers == [] and @plos_papers == [] and @snpedia_papers == [])%>
 <div id="papers">                  
-<% if not @mendeley_papers.results == [] %>
+<% if not @mendeley_papers == [] %>
 	<h5>Papers on Mendeley</h5>
 	<table class="table table-striped">
 		<tr>
@@ -149,7 +149,7 @@
 			<th># of Readers</th>
 			<th>DOI</th>
 		</tr>
-<% for p in @mendeley_papers.results %>
+<% for p in @mendeley_papers %>
 		<tr>
 			<td><%= p.first_author%></td>
 			<td><%=link_to( p.title, p.mendeley_url)%></td>
@@ -169,7 +169,7 @@
 <% end %>
 </table>
 <% end %>
-<% if not @plos_papers.results == [] %>
+<% if not @plos_papers == [] %>
 	<h5>Papers at the Public Library of Science</h5>
 	<table class="table table-striped">
 			<tr>
@@ -179,7 +179,7 @@
 				<th>Year of Publication</th>
 				<th># of Readers</th>
 			</tr>
-<% for p in @plos_papers.results %>
+<% for p in @plos_papers %>
 			<tr>
 				<td><%= p.first_author%></td>
 				<td><%= link_to( p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
@@ -190,14 +190,14 @@
 <% end %>
 	</table>
 <% end %>        
-<% if not @snpedia_papers.results == [] %>
+<% if not @snpedia_papers == [] %>
 	<h5>Entries in the SNPedia</h5>
 	<table class="table table-striped">
 			<tr>
 				<th>Title</th>
 				<th>Summary</th>
 			</tr>
-<% for p in @snpedia_papers.results %>
+<% for p in @snpedia_papers %>
 			<tr>
                 <td><% p.snps.each do |m| %> <%=link_to m.name+" "+p.url[-4]+"/"+p.url[-2], p.url%> <% end %></td>
 				<td><%=p.summary%></td>
