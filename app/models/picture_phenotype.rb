@@ -1,5 +1,5 @@
 class PicturePhenotype < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   has_many :user_picture_phenotypes, dependent: :destroy
   has_many :picture_phenotype_comments, dependent: :destroy
@@ -7,5 +7,5 @@ class PicturePhenotype < ActiveRecord::Base
 
   validates_presence_of :characteristic
 
-  pg_search_scope :search, against: :characteristic
+  pg_search_common_scope against: :characteristic
 end

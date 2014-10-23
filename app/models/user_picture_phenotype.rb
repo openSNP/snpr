@@ -1,5 +1,5 @@
 class UserPicturePhenotype < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   belongs_to :picture_phenotype
   belongs_to :user
@@ -13,7 +13,7 @@ class UserPicturePhenotype < ActiveRecord::Base
   validates_attachment_content_type :phenotype_picture ,
     :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
-  pg_search_scope :search, against: :picture_phenotype_id
+  pg_search_common_scope against: :picture_phenotype_id
 
   def give_me_user_phenotype(phenotype_id, user_id)
     # needed for the phenotype_set_forms

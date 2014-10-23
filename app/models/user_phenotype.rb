@@ -1,5 +1,5 @@
 class UserPhenotype < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   belongs_to :phenotype
   belongs_to :user
@@ -7,7 +7,7 @@ class UserPhenotype < ActiveRecord::Base
 
   attr_accessible :variation,:phenotype_id,:js_modal
 
-  pg_search_scope :search, against: [:variation, :phenotype_id]
+  pg_search_common_scope against: [:variation, :phenotype_id]
 
   def give_me_user_phenotype(phenotype_id, user_id)
       # needed for the phenotype_set_forms

@@ -1,8 +1,8 @@
 class PhenotypeComment < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   belongs_to :phenotype
   belongs_to :user
 
-  pg_search_scope :search, against: [:comment_text, :subject]
+  pg_search_common_scope against: [:comment_text, :subject]
 end

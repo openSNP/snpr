@@ -1,5 +1,5 @@
 class Phenotype < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   has_many :user_phenotypes, dependent: :destroy
   has_many :phenotype_comments, dependent: :destroy
@@ -7,7 +7,7 @@ class Phenotype < ActiveRecord::Base
 
   validates_presence_of :characteristic
 
-  pg_search_scope :search, against: :characteristic
+  pg_search_common_scope against: :characteristic
 
   def known_phenotypes
     if @known_phenotypes.nil?

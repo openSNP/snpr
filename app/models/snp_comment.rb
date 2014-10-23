@@ -1,8 +1,8 @@
 class SnpComment < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   belongs_to :snp
   belongs_to :user
 
-  pg_search_scope :search, against: :subject
+  pg_search_common_scope against: :subject
 end

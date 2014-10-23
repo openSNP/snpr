@@ -1,5 +1,5 @@
 class Snp < ActiveRecord::Base
-  include PgSearch
+  include PgSearchCommon
 
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name
   has_many :users, through: :user_snps
@@ -15,7 +15,7 @@ class Snp < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  pg_search_scope :search, against: :name
+  pg_search_common_scope against: :name
 
   after_create :default_frequencies
 
