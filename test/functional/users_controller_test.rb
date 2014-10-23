@@ -4,7 +4,6 @@ require_relative '../test_helper'
 class UsersControllerTest < ActionController::TestCase
   context "Users" do
     setup do
-      stub_solr
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       assert_nil @controller.send(:current_user)

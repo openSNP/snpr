@@ -73,7 +73,6 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl_rails'
   gem 'mocha', require: false
-  gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'vcr'

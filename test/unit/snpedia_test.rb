@@ -2,7 +2,6 @@ require_relative '../test_helper'
 
 class SnpediaTest < ActiveSupport::TestCase
   setup do
-    stub_solr
     @snp = FactoryGirl.create(:snp, name: 'rs12979860',
                               snpedia_updated: 32.days.ago)
   end

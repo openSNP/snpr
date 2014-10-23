@@ -2,7 +2,6 @@ require_relative '../test_helper'
 
 class GenomeGovTest < ActiveSupport::TestCase
   setup do
-    stub_solr
     @snp = FactoryGirl.create(:snp, name: 'rs9277554')
   end
 

@@ -4,7 +4,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'sidekiq/testing'
 require 'factory_girl_rails'
-require 'sunspot_test/rspec'
 require 'pry-rails' unless ENV['CI']
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -42,10 +41,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.infer_spec_type_from_file_location!
-
-  config.before(:suite) do
-    RSolr::Connection.any_instance.stubs(:execute)
-  end
 
   config.before(:example) do
     DatabaseCleaner.strategy = :transaction
