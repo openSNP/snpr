@@ -90,7 +90,7 @@
 <div id="comments">
 <% if not @snp_comments == [] %>
 	<h5>On SNPs</h5>
-	<table class="table table-striped">
+	<table id="snp-comments" class="table table-striped">
 			<tr>
 				<th>SNP</th>
 				<th>From</th>
@@ -113,7 +113,7 @@
 <% end %>
 <% if not @phenotype_comments == [] %>
 	<h5>On Phenotypes</h5>
-	<table class="table table-striped">
+	<table id="phenotype-comments" class="table table-striped">
 			<tr>
 				<th>Phenotype</th>
 				<th>From</th>
@@ -140,7 +140,7 @@
 <div id="papers">                  
 <% if not @mendeley_papers == [] %>
 	<h5>Papers on Mendeley</h5>
-	<table class="table table-striped">
+	<table id="mendeley-papers" class="table table-striped">
 		<tr>
 			<th>Author</th>
 			<th>Title</th>
@@ -171,7 +171,7 @@
 <% end %>
 <% if not @plos_papers == [] %>
 	<h5>Papers at the Public Library of Science</h5>
-	<table class="table table-striped">
+	<table id="plos-papers" class="table table-striped">
 			<tr>
 				<th>Author</th>
 				<th>Title</th>
@@ -182,7 +182,7 @@
 <% for p in @plos_papers %>
 			<tr>
 				<td><%= p.first_author%></td>
-				<td><%= link_to( p.title.html_safe, "http://dx.doi.org/"+p.doi)%></td>
+        <td><%= link_to( p.title.html_safe, "http://dx.doi.org/#{p.doi}")%></td>
                 <td><% p.snps.each do |x| %> <%= link_to( x.name, x)%> <% end %></td>
 				<td><%= p.pub_date.to_s[6,4]%></td>
 				<td><%= p.reader%></td>
@@ -192,7 +192,7 @@
 <% end %>        
 <% if not @snpedia_papers == [] %>
 	<h5>Entries in the SNPedia</h5>
-	<table class="table table-striped">
+	<table id="snpedia-papers" class="table table-striped">
 			<tr>
 				<th>Title</th>
 				<th>Summary</th>

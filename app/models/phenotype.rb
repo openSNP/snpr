@@ -17,5 +17,5 @@ class Phenotype < ActiveRecord::Base
     end
     @known_phenotypes
   end
-
 end
+

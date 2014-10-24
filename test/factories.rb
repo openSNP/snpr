@@ -107,5 +107,8 @@ unless $factories_already_read
     factory :genome_gov_paper do
       title 'A Genome.gov Paper'
     end
+
+    factory :phenotype_comment do
+    end
   end
 end
