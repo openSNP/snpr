@@ -87,7 +87,7 @@ end
 group :development, :test do
   gem 'uuidtools'
   gem 'rspec-rails'
-  gem 'pry-rails' unless ENV['CI']
+  gem 'pry-rails', require: 'pry' unless ENV['CI']
 end
 
 group :development do
