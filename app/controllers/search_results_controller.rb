@@ -1,24 +1,14 @@
 class SearchResultsController < ApplicationController
 
-  def search_type(type)
-	  return type.solr_search { |p| p.keywords params[:search] }
-  end
-
   def search
-	  @title = "Search results"
-	  @snps = search_type Snp
-	  @phenotypes = search_type Phenotype
-	  @users  = search_type User
-	  @user_phenotypes = search_type UserPhenotype
-	  @snp_comments  = search_type SnpComment
-	  @phenotype_comments  = search_type PhenotypeComment
-	  @mendeley_papers  = search_type MendeleyPaper
-	  @plos_papers  = search_type PlosPaper
-	  @snpedia_papers   = search_type SnpediaPaper
-      @all_len = @snps.results.length + @phenotypes.results.length + @users.results.length +
-          @user_phenotypes.results.length + @snp_comments.results.length + @phenotype_comments.results.length +
-          @mendeley_papers.results.length + @plos_papers.results.length + @snpedia_papers.results.length
+    @title = "Search results"
+    @all_len = 0
+    [
+      :snps, :phenotypes, :users, :snp_comments, :phenotype_comments,
+      :mendeley_papers, :plos_papers, :snpedia_papers,
+    ].each do |type|
+      instance_variable_set(:"@#{type}", type.to_s.singularize.camelize.constantize.search(params[:search]))
+      @all_len += instance_variable_get(:"@#{type}").length
+    end
   end
- 
-
 end

@@ -11,8 +11,6 @@ require 'rails/test_help'
 require "authlogic/test_case"
 require 'webmock/test_unit'
 WebMock.disable_net_connect!(:allow_localhost => true)
-SunspotTest.solr_startup_timeout = 30
-require 'sunspot_test/test_unit'
 require 'factory_girl'
 FactoryGirl.find_definitions
 require 'paperclip/matchers'
@@ -26,8 +24,4 @@ end
 
 class ActiveSupport::TestCase
   extend Paperclip::Shoulda::Matchers
-
-  def stub_solr
-    RSolr::Connection.any_instance.stubs(:execute)
-  end
 end

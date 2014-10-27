@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class PhenotypeTest < ActiveSupport::TestCase
   context "Phenotype" do
     setup do
-      stub_solr
       @phenotype = FactoryGirl.create(:phenotype)
       @phenotype.instance_variable_set(:@known_phenotypes, nil)
     end

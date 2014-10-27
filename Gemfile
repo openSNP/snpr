@@ -26,10 +26,7 @@ gem 'newrelic_rpm'
 gem 'pg'
 gem 'activerecord-import', '~> 0.2.11'
 gem 'composite_primary_keys'
-
-# for solr (indexing, searching)
-gem 'sunspot_rails'#, '2.0.0'
-gem 'sunspot_solr'#, '2.0.0'
+gem 'pg_search'
 
 # so we can create zip-files for genotypes
 gem 'rubyzip', :git => 'git://github.com/rubyzip/rubyzip.git'
@@ -69,7 +66,6 @@ group :test do
   gem 'shoulda-context', require: false
   gem 'factory_girl_rails'
   gem 'mocha', require: false
-  gem 'sunspot_test', github: 'tsujigiri/sunspot_test', branch: 'dirty_quickfix'
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'vcr'

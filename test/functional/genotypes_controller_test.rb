@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class GenotypesControllerTest < ActionController::TestCase
   context "Genotypes" do
     setup do
-      stub_solr
       Genotype.any_instance.expects(:parse_genotype)
       @genotype = FactoryGirl.create(:genotype)
       UserAchievement.delete_all

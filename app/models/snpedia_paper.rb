@@ -1,10 +1,10 @@
 class SnpediaPaper < ActiveRecord::Base
+  include PgSearchCommon
+
   has_many :snp_references, as: :paper
   has_many :snps, through: :snp_references
 
-  searchable do
-    text :summary
-  end
+  pg_search_common_scope against: :summary
 
   def summary
     read_attribute(:summary).presence || "No summary provided."

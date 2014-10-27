@@ -1,4 +1,6 @@
 class Snp < ActiveRecord::Base
+  include PgSearchCommon
+
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name
   has_many :users, through: :user_snps
   has_many :pgp_annotations
@@ -13,9 +15,7 @@ class Snp < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  searchable :ignore_attribute_changes_of => [:genotype_frequency, :allele_frequency, :ranking, :number_of_users, :mendeley_updated, :plos_updated, :snpedia_updated, :user_snps_count, :updated_at] do
-    text :name
-  end
+  pg_search_common_scope against: :name
 
   after_create :default_frequencies
 

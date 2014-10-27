@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class PhenotypesControllerTest < ActionController::TestCase
   context "Phenotypes" do
     setup do
-      stub_solr
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       @phenotype = FactoryGirl.create(:phenotype)

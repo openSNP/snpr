@@ -34,6 +34,7 @@
           </ul>
           <%= form_tag "/search", :method => "get",:class => "navbar-search pull-left", :authenticity_token => true do %>
             <%= text_field_tag :search, nil, :placeholder => "Search here", :class => "search-query input-medium" %>
+            <%= submit_tag 'Search', class: 'hidden' %>
           <% end %>
           <ul class="nav pull-right"> 
             <% if current_user %>

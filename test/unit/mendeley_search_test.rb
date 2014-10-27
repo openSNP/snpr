@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class MendeleySearchTest < ActiveSupport::TestCase
   context "worker" do
     setup do
-      stub_solr
       @snp = FactoryGirl.create(:snp)
       @worker = MendeleySearch.new
       @document = {

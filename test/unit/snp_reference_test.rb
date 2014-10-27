@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class SnpReferenceTest < ActiveSupport::TestCase
   context "SnpReference" do
     setup do
-      stub_solr
       @snps = FactoryGirl.create_list(:snp, 2)
     end
 

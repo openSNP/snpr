@@ -1,8 +1,8 @@
 class Achievement < ActiveRecord::Base
+  include PgSearchCommon
+
   attr_accessible :award,:short_name
   has_many :user_achievements
 
-  searchable do
-    text :award
-  end
+  pg_search_common_scope against: :award
 end
