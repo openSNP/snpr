@@ -54,6 +54,7 @@ group :assets do
   gem 'uglifier'
   gem 'yui-compressor'
   gem "twitter-bootstrap-rails"
+  gem 'sass'
   gem "jquery-ui-rails"
 end
 
