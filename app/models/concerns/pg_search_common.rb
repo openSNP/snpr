@@ -4,10 +4,10 @@ module PgSearchCommon
 
   module ClassMethods
     def pg_search_common_scope(config = {})
-      pg_search_scope :search, default_config.merge(config)
+      pg_search_scope :search, pg_search_common_config.merge(config)
     end
 
-    def default_config
+    def pg_search_common_config
       {
         using: { 
           tsearch: { 
