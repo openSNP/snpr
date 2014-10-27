@@ -252,7 +252,6 @@ GEM
     safe_yaml (0.9.7)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
-    sass (3.2.12)
     shoulda-context (1.1.5)
     sidekiq (2.16.0)
       celluloid (>= 0.15.2)
@@ -357,7 +356,6 @@ DEPENDENCIES
   rubyzip!
   rvm-capistrano (= 1.4.4)
   sanitize
-  sass
   shoulda-context
   sidekiq
   sidekiq-limit_fetch
