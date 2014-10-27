@@ -1,7 +1,5 @@
 Snpr::Application.routes.draw do
   root :to => 'index#index' # change this, maybe
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
 
   resources :static
   resources :phenotypes do

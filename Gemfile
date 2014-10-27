@@ -51,13 +51,6 @@ gem 'sinatra'
 # cron jobs
 gem 'whenever', require: false
 
-# for activeadmin-interface
-gem 'devise', '3.0.0'
-gem "activeadmin", '0.6.0'
-gem 'sass-rails'
-gem "meta_search",    '>= 1.1.0.pre'
-gem 'coffee-script'
-
 group :assets do
   gem 'therubyracer'
   gem 'execjs'
@@ -87,7 +80,7 @@ end
 group :development, :test do
   gem 'uuidtools'
   gem 'rspec-rails'
-  gem 'pry-rails' unless ENV['CI']
+  gem 'pry-rails', require: 'pry' unless ENV['CI']
 end
 
 group :development do
