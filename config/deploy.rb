@@ -21,7 +21,6 @@ set :rvm_type, :system
 load 'lib/capistrano/helpers'
 load 'lib/capistrano/tasks/base'
 load 'lib/capistrano/tasks/assets'
-load 'lib/capistrano/tasks/solr'
 load 'lib/capistrano/tasks/passenger'
 load 'lib/capistrano/tasks/sidekiq'
 
