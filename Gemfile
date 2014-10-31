@@ -10,6 +10,7 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
+gem 'lograge'
 
 # for errbit
 gem 'airbrake'
