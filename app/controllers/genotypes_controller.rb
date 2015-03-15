@@ -47,7 +47,7 @@ class GenotypesController < ApplicationController
 
   def feed
     # for rss-feeds
-    @genotypes = Genotype.all(:order => "created_at DESC", :limit => 20)
+    @genotypes = Genotype.order('created_at DESC').limit(20)
     render :action => "rss", :layout => false
   end
 

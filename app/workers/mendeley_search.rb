@@ -54,7 +54,7 @@ class MendeleySearch
     end
     documents.each do |document|
       uuid = document["uuid"].to_s
-      mendeley_paper = MendeleyPaper.find_or_initialize_by_uuid(uuid)
+      mendeley_paper = MendeleyPaper.find_or_initialize_by(uuid: uuid)
       if mendeley_paper.new_record? || !mendeley_paper.valid?
         first_author = document["authors"].first
         if first_author.present?

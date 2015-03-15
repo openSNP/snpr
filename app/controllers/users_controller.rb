@@ -76,8 +76,8 @@ class UsersController < ApplicationController
     @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes
     #@snps = @user.snps.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page])
-    @received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
-    @sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
+    @received_messages = @user.messages.where(sent: false).order('created_at DESC')
+    @sent_messages = @user.messages.where(:sent => true).order('created_at DESC')
     @phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
     @snp_comments = SnpComment.where(:user_id => @user.id)
 
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end
     @snp_comment_replies = []
     @user_snp_comment_ids.each do |ui| 
-      @replies_for_snp = SnpComment.find_all_by_reply_to_id(ui)
+      @replies_for_snp = SnpComment.where(reply_to_id: ui)
       @replies_for_snp.each do |rs|
         @snp_comment_replies << rs
       end
@@ -150,7 +150,7 @@ class UsersController < ApplicationController
     end
 
     if @user.update_attributes(user_params)
-      @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
+      @empty_websites = Homepage.where(user_id: current_user.id, url: '')
       @empty_websites.each do |ew| ew.delete end
 
       Sidekiq::Client.enqueue(Recommendvariations)

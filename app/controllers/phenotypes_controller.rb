@@ -61,7 +61,7 @@ class PhenotypesController < ApplicationController
         @user_phenotype.phenotype = @phenotype
 
         if @user_phenotype.save
-          @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
+          @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
           @phenotype.save
           flash[:notice] = "Phenotype sucessfully saved."
 
@@ -92,7 +92,9 @@ class PhenotypesController < ApplicationController
 
   def show
     @phenotype = Phenotype.find(params[:id]) || not_found
-    @comments = PhenotypeComment.where(:phenotype_id => params[:id]).all(:order => "created_at ASC")
+    @comments = PhenotypeComment
+      .where(phenotype_id: params[:id])
+      .order('created_at ASC')
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
 

@@ -28,7 +28,7 @@ class Zipfulldata
   end
 
   def run
-    genotypes = Genotype.includes(user: :user_phenotypes).all
+    genotypes = Genotype.includes(user: :user_phenotypes)
     log "Got #{genotypes.length} genotypes"
 
     # only create a new file if in the current minute none has been created yet
@@ -94,7 +94,7 @@ class Zipfulldata
   def create_fitbit_csv(zipfile)
     # Create a file of fitbit-data for each user with fitbit-data
     fitbit_profiles = FitbitProfile.
-      includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps).all
+      includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps)
     fitbit_profiles.each do |fp|
       csv_file_name =
         "#{tmp_dir}/dump_user#{fp.user.id}_fitbit_data_#{time_str}.csv"
@@ -166,8 +166,7 @@ class Zipfulldata
 
       # create lines in csv-file for each user who has uploaded his data
 
-
-      User.includes(:user_picture_phenotypes).all.each do |u|
+      User.includes(:user_picture_phenotypes).each do |u|
         log "Looking at user #{u.id}"
         row = [u.id, u.yearofbirth, u.sex]
         picture_phenotypes.each do |pp|

@@ -24,7 +24,7 @@ class Snpedia
       url = "http://www.snpedia.com/index.php/#{page}"
       # revision returns an int which grows with changes
       rev_id = client.revision(page).to_i
-      snpedia_paper = SnpediaPaper.find_or_initialize_by_url(url)
+      snpedia_paper = SnpediaPaper.find_or_initialize_by(url: url)
       next if snpedia_paper.persisted? && snpedia_paper.revision == rev_id
       to_parse = client.get(page)
       next if to_parse.to_s.include?('#REDIRECT')

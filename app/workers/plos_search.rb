@@ -31,7 +31,7 @@ class PlosSearch
       pub_date:     article.published_at,
       title:        article.title,
     }
-    plos_paper = PlosPaper.find_or_initialize_by_doi(plos_paper_attributes[:doi])
+    plos_paper = PlosPaper.find_or_initialize_by(doi: plos_paper_attributes[:doi])
     plos_paper.update_attributes!(plos_paper_attributes)
     plos_paper.snps << snp
     Sidekiq::Client.enqueue(PlosDetails, plos_paper.id)
