@@ -12,7 +12,8 @@ before_script:
   - cp config/app_config.yml.example config/app_config.yml
   - echo "foo" > mail_username.txt
   - echo "bar" > mail_password.txt
-  - echo "f7264dd590e09007703723a75550c748" > secret_token
+  - echo "secret-token" > secret_token
+  - echo "secret-key-base" > secret_key_base
   - psql -c 'create database snpr_test;' -U postgres
   - bundle exec rake db:setup
 services:

@@ -16,7 +16,7 @@ function sendCommentId(e, text)
       <% end %>
       <%= simple_format(c.comment_text) %>
       <br/>
-      <%= link_to_function "reply to", "sendCommentId(document.new_comment.snp_comment_comment_text,'@#"+c.id.to_s+": ')"%>
+      <a onclick="sendCommentId(document.new_comment.snp_comment_comment_text,'@#<%= c.id.to_s %>: '); return false;" href="#">reply to</a>
     </div>
   </div>
 <% end %>
