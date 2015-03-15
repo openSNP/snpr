@@ -60,4 +60,7 @@ Snpr::Application.configure do
   config.assets.digest = true
 
   config.lograge.enabled = true
+
+  # Eager load code on boot.
+  config.eager_load = true
 end

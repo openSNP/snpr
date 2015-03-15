@@ -4,17 +4,17 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
     styles: { medium: "300x300>", thumb: "100x100>#", head: "32x32#" },
     default_url: 'standard_:style.png'
- 
+
   before_validation :clear_avatar
-  
+
   validates_attachment_size :avatar, less_than: 1.megabyte
   validates_attachment_content_type :avatar,
     content_type: ['image/jpeg', 'image/png', 'image/gif']
   # call on authlogic
   acts_as_authentic do |c| 
-      # replace SHA512 by bcrypt
-      c.transition_from_crypto_providers = Authlogic::CryptoProviders::Sha512
-      c.crypto_provider = Authlogic::CryptoProviders::BCrypt
+    # replace SHA512 by bcrypt
+    c.transition_from_crypto_providers = Authlogic::CryptoProviders::Sha512
+    c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
   #after_create :make_standard_phenotypes
 
@@ -47,17 +47,17 @@ class User < ActiveRecord::Base
   end
 
   def phenotype_length
-     # tiny workaround for user-index
-     phenotypes.length
+    # tiny workaround for user-index
+    phenotypes.length
   end
 
   def user_has_sequence_string
-     # used in the user-index-page instead of ugly true/false
-     if has_sequence
-         "Yes"
-     else
-         "No"
-     end
+    # used in the user-index-page instead of ugly true/false
+    if has_sequence
+      "Yes"
+    else
+      "No"
+    end
   end
 
   def check_if_phenotype_exists(charact)
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
       UserPhenotype.create(phenotype_id: @phen_id, variation: '', user_id: id)
     end
   end
-   
+
   def make_standard_phenotypes
     check_and_make_standard_phenotypes('Hair color')
     check_and_make_standard_phenotypes('Eye color')
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     !!@delete_avatar
   end
   alias_method :delete_avatar?, :delete_avatar
-  
+
   def clear_avatar
     self.avatar = nil if delete_avatar?
   end

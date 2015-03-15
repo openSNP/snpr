@@ -31,104 +31,46 @@ Snpr::Application.routes.draw do
   resources :user_achievements
   resources :index
 
-  match '/fitbit/notification/', :to => 'fitbit_profiles#new_notification'
-  match '/fitbit/start_auth', :to => 'fitbit_profiles#start_auth'
-  match '/fitbit/verify', :to => 'fitbit_profiles#verify_auth'
-  match '/fitbit/info', :to => 'fitbit_profiles#info'
-  match '/fitbit/edit', :to => 'fitbit_profiles#edit'
-  match '/fitbit/init', :to => 'fitbit_profiles#init'
-  match '/fitbit/update/', :to => 'fitbit_profiles#update'
-  match '/fitbit/delete/', :to => 'fitbit_profiles#destroy'
-  match '/fitbit/show/:id', :to => 'fitbit_profiles#show', :as => :fitbit_show
-  match '/fitbit/dump/:id', :to => 'fitbit_profiles#dump', :as => :fitbit_dump
-  match '/fitbit/', :to => 'fitbit_profiles#index', :as => :fitbit_index
-  match '/phenotypesets/enter/:id', :to => "phenotype_sets#enter_userphenotypes"
-  match '/phenotypesets/user_phenotypes/save', :to => "phenotype_sets#save_user_phenotypes"
-  match '/users/:id/changepassword', :to => 'users#changepassword'
-  match '/signup', :to => 'users#new', as: :signup
-  match '/signin', :to => 'user_sessions#new', :as => :login
-  match '/signout', :to => 'user_sessions#destroy', :as => :logout
-  match '/faq', :to => 'static#faq'
-  match '/disclaimer', :to => 'static#disclaimer'
-  match '/user_index', :to => 'users#index'
-  match '/rss', :to => 'genotypes#feed', :as => :feed, :defaults => {:format => 'rss' }
-  match '/search', :to => 'search_results#search'
-  match '/users/:id/remove_help_one', :to => 'users#remove_help_one'
-  match '/users/:id/remove_help_two', :to => 'users#remove_help_two'
-  match '/users/:id/remove_help_three', :to => 'users#remove_help_three'
-  match '/phenotypes/get_genotypes/:phenotype_id/:variation', :to => 'phenotypes#get_genotypes'
-  match 'get_dump', :to => 'genotypes#get_dump'
-  match '/phenotypes/:id/rss', :to => 'phenotypes#feed', :defaults => { :format => 'rss' }
-  match '/dump_download', :to => 'genotypes#dump_download'
-  match '/snps/json/annotation/:snp_name', :to => 'snps#json_annotation'
-  match '/snps/json/:snp_name/:user_id', :to => 'snps#json'
-  match '/phenotypes/json/variations/:phenotype_id', :to => 'phenotypes#json_variation'
-  match '/phenotypes/json/:user_id', :to => 'phenotypes#json'
-  match '/das/:id/features', :to => 'das#show'
-  match '/das/sources', :to => 'das#sources'
-  match '/das/:id/', :to => 'das#startpoint'
-  match '/paper/rss', :to => 'news#paper_rss', :defaults => { :format => 'rss' }
-  match '/recommend_phenotype/:id/', :to => 'phenotypes#recommend_phenotype'
-  match '/press', :to => 'static#press'
-  match '/blog' => redirect("http://opensnp.wordpress.com")
-  match '/user_picture_phenotypes/:id/edit', :to => 'user_picture_phenotypes#edit'
-  match '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
-  
-
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => "welcome#index"
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  get '/fitbit/notification/', :to => 'fitbit_profiles#new_notification'
+  get '/fitbit/start_auth', :to => 'fitbit_profiles#start_auth'
+  get '/fitbit/verify', :to => 'fitbit_profiles#verify_auth'
+  get '/fitbit/info', :to => 'fitbit_profiles#info'
+  get '/fitbit/edit', :to => 'fitbit_profiles#edit'
+  get '/fitbit/init', :to => 'fitbit_profiles#init'
+  get '/fitbit/update/', :to => 'fitbit_profiles#update'
+  get '/fitbit/delete/', :to => 'fitbit_profiles#destroy'
+  get '/fitbit/show/:id', :to => 'fitbit_profiles#show', :as => :fitbit_show
+  get '/fitbit/dump/:id', :to => 'fitbit_profiles#dump', :as => :fitbit_dump
+  get '/fitbit/', :to => 'fitbit_profiles#index', :as => :fitbit_index
+  get '/phenotypesets/enter/:id', :to => "phenotype_sets#enter_userphenotypes"
+  get '/phenotypesets/user_phenotypes/save', :to => "phenotype_sets#save_user_phenotypes"
+  get '/users/:id/changepassword', :to => 'users#changepassword'
+  get '/signup', :to => 'users#new', as: :signup
+  get '/signin', :to => 'user_sessions#new', :as => :login
+  get '/signout', :to => 'user_sessions#destroy', :as => :logout
+  get '/faq', :to => 'static#faq'
+  get '/disclaimer', :to => 'static#disclaimer'
+  get '/user_index', :to => 'users#index'
+  get '/rss', :to => 'genotypes#feed', :as => :feed, :defaults => {:format => 'rss' }
+  get '/search', :to => 'search_results#search'
+  get '/users/:id/remove_help_one', :to => 'users#remove_help_one'
+  get '/users/:id/remove_help_two', :to => 'users#remove_help_two'
+  get '/users/:id/remove_help_three', :to => 'users#remove_help_three'
+  get '/phenotypes/get_genotypes/:phenotype_id/:variation', :to => 'phenotypes#get_genotypes'
+  get 'get_dump', :to => 'genotypes#get_dump'
+  get '/phenotypes/:id/rss', :to => 'phenotypes#feed', :defaults => { :format => 'rss' }
+  get '/dump_download', :to => 'genotypes#dump_download'
+  get '/snps/json/annotation/:snp_name', :to => 'snps#json_annotation'
+  get '/snps/json/:snp_name/:user_id', :to => 'snps#json'
+  get '/phenotypes/json/variations/:phenotype_id', :to => 'phenotypes#json_variation'
+  get '/phenotypes/json/:user_id', :to => 'phenotypes#json'
+  get '/das/:id/features', :to => 'das#show'
+  get '/das/sources', :to => 'das#sources'
+  get '/das/:id/', :to => 'das#startpoint'
+  get '/paper/rss', :to => 'news#paper_rss', :defaults => { :format => 'rss' }
+  get '/recommend_phenotype/:id/', :to => 'phenotypes#recommend_phenotype'
+  get '/press', :to => 'static#press'
+  get '/blog' => redirect("http://opensnp.wordpress.com")
+  get '/user_picture_phenotypes/:id/edit', :to => 'user_picture_phenotypes#edit'
+  get '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
 end

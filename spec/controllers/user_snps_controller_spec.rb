@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserSnpsController do
   let(:user_snp) { double('user_snp') }
 

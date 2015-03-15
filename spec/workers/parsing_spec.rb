@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Parsing do
   describe '#notify_user' do
     let(:mail) { double('mail') }

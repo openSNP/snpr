@@ -90,7 +90,7 @@ unless $factories_already_read
 
     factory :mendeley_paper do
       title "Musterstudie"
-      uuid { UUIDTools::UUID.random_create }
+      uuid { UUIDTools::UUID.random_create.to_s }
       first_author "Max Mustermann"
       mendeley_url "http://example.com"
       doi "10.1000/182"

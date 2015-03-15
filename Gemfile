@@ -64,6 +64,9 @@ gem "sass"
 #end
 
 group :test do
+  gem 'test-unit' # TODO: Remove me
+  gem 'minitest' # TODO: Remove me
+  gem 'rspec-rails'
   gem 'shoulda-context', require: false
   gem 'factory_girl_rails'
   gem 'mocha', require: false
@@ -76,7 +79,6 @@ end
 
 group :development, :test do
   gem 'uuidtools'
-  gem 'rspec-rails'
   gem 'pry-rails', require: 'pry' unless ENV['CI']
 end
 
@@ -85,5 +87,5 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'capistrano', '~> 2.0'
-  gem 'rvm-capistrano', '1.4.4'
+  gem 'rvm-capistrano', '1.4.4', require: false
 end

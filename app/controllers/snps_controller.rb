@@ -228,7 +228,8 @@ class SnpsController < ApplicationController
   end
 
   def find_snp
-    @snp = Snp.find(params[:id].downcase) || not_found
+    @snp = Snp.friendly.find(params[:id].downcase)
+    @snp ||= Snp.find(params[:id])
 
     # If an old id or a numeric id was used to find the record, then
     # the request path will not match the post_path, and we should do
