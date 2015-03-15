@@ -17,7 +17,7 @@ class GenotypesController < ApplicationController
   end
 
   def create
-    @genotype = Genotype.create(params[:genotype])
+    @genotype = Genotype.create(genotype_params)
     @genotype.user = current_user
     if @genotype.valid? && @genotype.save
       # award for genotyping-upload
@@ -77,6 +77,10 @@ class GenotypesController < ApplicationController
 
   def sort_direction
     %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  def genotype_params
+    params.require(:genotype).permit(:genotype, :filetype)
   end
 
 end

@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     if not params[:read]
       flash[:warning] = "You must tick the box to proceed!"
@@ -149,7 +149,7 @@ class UsersController < ApplicationController
       params[:user][:description] = Sanitize.clean(params[:user][:description], Sanitize::Config::RESTRICTED)
     end
 
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
       @empty_websites.each do |ew| ew.delete end
 
@@ -256,4 +256,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_params
+    params.require(:user).permit(
+      :name,
+      :email,
+      :password,
+      :password_confirmation,
+    )
+  end
 end

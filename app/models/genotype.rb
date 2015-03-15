@@ -13,7 +13,6 @@ class Genotype < ActiveRecord::Base
     size: { in: 0..100.megabytes }
   do_not_validate_attachment_file_type :genotype
 
-  attr_accessible :genotype, :filetype, :user_id, :md5sum
   after_create :parse_genotype
   before_destroy :delete_genotype
 
