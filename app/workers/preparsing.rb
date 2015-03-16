@@ -90,6 +90,17 @@ class Preparsing
       file_is_duplicate = true
     end
 
+    logger.info "Checking whether genotyping contains email addresses"
+    # this should be the fastest way to do it
+    cmd = "LANG=C grep -F '@' #{Rails.root}/public/data/#{genotype.fs_filename}"
+    matches = system( cmd )
+
+    file_has_mails = false
+    if matches
+      logger.info "Genotyping #{genotype.genotype.path} contains email addresses!"
+      file_is_ok = false
+      file_has_mails = true
+    end
 
     # not proper file!
     if not file_is_ok
@@ -97,11 +108,14 @@ class Preparsing
         UserMailer.duplicate_file(genotype.user_id).deliver
         system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
         Genotype.find_by_id(genotype.id).delete
+      elsif file_has_mails
+        UserMailer.file_has_mails(genotype.user_id).deliver
+        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
+        Genotype.find_by_id(genotype.id).delete
       else
         UserMailer.parsing_error(genotype.user_id).deliver
         logger.info "file is not ok, sending email"
-        # should delete the uploaded file here, leaving that for now
-        # might be better to keep the file for debugging
+        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
         Genotype.find_by_id(genotype.id).delete
       end
     else

@@ -34,6 +34,11 @@ default :from => "donotreply@opensnp.org"
     mail(:subject => "openSNP.org: You uploaded a duplicate genotyping", :to=> @user.email)
   end
 
+  def file_has_mails(user_id)
+    @user = User.find_by_id(user_id)
+    mail(:subject => "openSNP.org: You uploaded a genotyping with email addresses", :to => @user.email)
+  end
+
   def new_message(user_id,message_id)
     @user = User.find_by_id(user_id)
     @message = Message.find_by_id(message_id)
