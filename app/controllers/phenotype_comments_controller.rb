@@ -33,7 +33,7 @@ class PhenotypeCommentsController < ApplicationController
   		    @reply_user = PhenotypeComment.find_by_id(@phenotype_comment.reply_to_id).user
   		    if@reply_user != nil
   		      if @reply_user.message_on_phenotype_comment_reply == true
-  		        UserMailer.new_phenotype_comment(@phenotype_comment,@reply_user).deliver
+  		        UserMailer.new_phenotype_comment(@phenotype_comment,@reply_user).deliver_later
 		        end
 	        end
         end

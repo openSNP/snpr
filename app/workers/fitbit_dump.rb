@@ -56,6 +56,6 @@ class FitbitDump
        @fitbit_handle.close
        puts "Saved fibit-date for "
        system("chmod 777 "+::Rails.root.to_s+"/public/data/fitbit/user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv")
-       UserMailer.fitbit_dump(target_address,"/data/fitbit/user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv").deliver
+       UserMailer.fitbit_dump(target_address,"/data/fitbit/user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv").deliver_later
      end
 end

@@ -37,7 +37,7 @@ class SnpCommentsController < ApplicationController
   		    @reply_user = SnpComment.find_by_id(@snp_comment.reply_to_id).user
   		    if@reply_user != nil
   		      if @reply_user.message_on_snp_comment_reply == true
-  		        UserMailer.new_snp_comment(@snp_comment,@reply_user).deliver
+  		        UserMailer.new_snp_comment(@snp_comment,@reply_user).deliver_later
 		        end
 	        end
         end

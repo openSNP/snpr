@@ -28,5 +28,8 @@ Snpr::Application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+
+  # Serve files from /public directory
+  config.serve_static_files = true
 end
 

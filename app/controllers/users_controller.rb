@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     if params[:read] && verify_recaptcha(model: @user) && @user.save
       flash[:notice] = "Account registered!"
-      UserMailer.welcome_user(@user).deliver
+      UserMailer.welcome_user(@user).deliver_later
       redirect_to @user
     else
       render :new

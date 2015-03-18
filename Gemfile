@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
@@ -26,7 +26,7 @@ gem 'newrelic_rpm'
 # DB
 gem 'pg'
 gem 'activerecord-import', '>= 0.4.0'
-gem 'composite_primary_keys', '~> 7.0'
+gem 'composite_primary_keys', '~> 8.0'
 gem 'pg_search'
 
 # so we can create zip-files for genotypes
