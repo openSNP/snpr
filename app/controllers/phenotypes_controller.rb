@@ -35,7 +35,7 @@ class PhenotypesController < ApplicationController
 
   def create
     unless @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
-      @phenotype = Phenotype.create(params[:phenotype])
+      @phenotype = Phenotype.create(phenotype_params)
 
       # award: created one (or more) phenotypes
       current_user.update_attributes(:phenotype_creation_counter => (current_user.phenotype_creation_counter + 1)  )
@@ -45,14 +45,14 @@ class PhenotypesController < ApplicationController
       check_and_award_new_phenotypes(10, "Created 10 new phenotypes")
     end
 
-    if params[:phenotype][:characteristic] == ""
+    if params[:phenotype][:characteristic].blank?
       flash[:warning] = "Phenotype characteristic may not be empty"
       redirect_to :action => "new"
     else
 
       @phenotype.save
-      @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
-      Sidekiq::Client.enqueue(Mailnewphenotype, @phenotype.id,current_user.id)
+      @phenotype = Phenotype.find_by(characteristic: params[:phenotype][:characteristic])
+      Sidekiq::Client.enqueue(Mailnewphenotype, @phenotype.id, current_user.id)
 
       if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id).nil?
 
@@ -61,7 +61,7 @@ class PhenotypesController < ApplicationController
         @user_phenotype.phenotype = @phenotype
 
         if @user_phenotype.save
-          @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length 
+          @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
           @phenotype.save
           flash[:notice] = "Phenotype sucessfully saved."
 
@@ -92,7 +92,9 @@ class PhenotypesController < ApplicationController
 
   def show
     @phenotype = Phenotype.find(params[:id]) || not_found
-    @comments = PhenotypeComment.where(:phenotype_id => params[:id]).all(:order => "created_at ASC")
+    @comments = PhenotypeComment
+      .where(phenotype_id: params[:id])
+      .order('created_at ASC')
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
 
@@ -182,7 +184,7 @@ class PhenotypesController < ApplicationController
 
   def get_genotypes
     Sidekiq::Client.enqueue(Zipgenotypingfiles, params[:id],
-                   params[:variation], current_user.email)
+                            params[:variation], current_user.email)
     @phenotype = Phenotype.find(params[:id])
     @variation = params[:variation]
     respond_to do |format|
@@ -300,5 +302,9 @@ class PhenotypesController < ApplicationController
       UserAchievement.create(:user_id => current_user.id, :achievement_id => @achievement.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
+  end
+
+  def phenotype_params
+    params.require(:phenotype).permit(:description, :characteristic)
   end
 end

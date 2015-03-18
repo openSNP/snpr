@@ -218,7 +218,7 @@ class Parsing
   end
 
   def notify_user
-    UserMailer.delay.finished_parsing(genotype.id, stats)
+    UserMailer.finished_parsing(genotype.id, stats).deliver_later
   end
 
   def execute(sql)

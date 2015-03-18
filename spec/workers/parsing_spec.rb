@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Parsing do
   describe '#notify_user' do
     let(:mail) { double('mail') }
@@ -9,8 +7,9 @@ describe Parsing do
     it 'sends an email to the user' do
       subject.instance_variable_set(:@stats, stats)
       subject.instance_variable_set(:@genotype, genotype)
-      expect(UserMailer).to receive(:delay).and_return(UserMailer)
       expect(UserMailer).to receive(:finished_parsing).with(genotype.id, stats)
+        .and_return(mail)
+      expect(mail).to receive(:deliver_later)
 
       subject.notify_user
     end

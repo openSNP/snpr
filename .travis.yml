@@ -1,8 +1,8 @@
 language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.2
+  - 2.0
+  - 2.1
+  - 2.2
 env: DB=postgres CI=1
 bundler_args: --without development debug
 before_install: 
@@ -12,7 +12,8 @@ before_script:
   - cp config/app_config.yml.example config/app_config.yml
   - echo "foo" > mail_username.txt
   - echo "bar" > mail_password.txt
-  - echo "f7264dd590e09007703723a75550c748" > secret_token
+  - echo "secret-token" > secret_token
+  - echo "secret-key-base" > secret_key_base
   - psql -c 'create database snpr_test;' -U postgres
   - bundle exec rake db:setup
 services:

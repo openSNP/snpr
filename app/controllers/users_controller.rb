@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     if not params[:read]
       flash[:warning] = "You must tick the box to proceed!"
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     if params[:read] && verify_recaptcha(model: @user) && @user.save
       flash[:notice] = "Account registered!"
-      UserMailer.welcome_user(@user).deliver
+      UserMailer.welcome_user(@user).deliver_later
       redirect_to @user
     else
       render :new
@@ -76,8 +76,8 @@ class UsersController < ApplicationController
     @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes
     #@snps = @user.snps.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page])
-    @received_messages = @user.messages.where(:sent => false).all(:order => "created_at DESC")
-    @sent_messages = @user.messages.where(:sent => true).all(:order => "created_at DESC")
+    @received_messages = @user.messages.where(sent: false).order('created_at DESC')
+    @sent_messages = @user.messages.where(:sent => true).order('created_at DESC')
     @phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
     @snp_comments = SnpComment.where(:user_id => @user.id)
 
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end
     @snp_comment_replies = []
     @user_snp_comment_ids.each do |ui| 
-      @replies_for_snp = SnpComment.find_all_by_reply_to_id(ui)
+      @replies_for_snp = SnpComment.where(reply_to_id: ui)
       @replies_for_snp.each do |rs|
         @snp_comment_replies << rs
       end
@@ -149,8 +149,8 @@ class UsersController < ApplicationController
       params[:user][:description] = Sanitize.clean(params[:user][:description], Sanitize::Config::RESTRICTED)
     end
 
-    if @user.update_attributes(params[:user])
-      @empty_websites = Homepage.find_all_by_user_id_and_url(current_user.id,"")
+    if @user.update_attributes(user_params)
+      @empty_websites = Homepage.where(user_id: current_user.id, url: '')
       @empty_websites.each do |ew| ew.delete end
 
       Sidekiq::Client.enqueue(Recommendvariations)
@@ -256,4 +256,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_params
+    params.require(:user).permit(
+      :name,
+      :email,
+      :password,
+      :password_confirmation,
+    )
+  end
 end

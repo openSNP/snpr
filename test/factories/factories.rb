@@ -1,6 +1,6 @@
+# TODO: One file per model.
+
 # Needed (?) when test/unit and Rspec tests are run
-unless $factories_already_read
-  $factories_already_read = true
 
   FactoryGirl.define do
     factory :user do
@@ -90,7 +90,7 @@ unless $factories_already_read
 
     factory :mendeley_paper do
       title "Musterstudie"
-      uuid { UUIDTools::UUID.random_create }
+      uuid { UUIDTools::UUID.random_create.to_s }
       first_author "Max Mustermann"
       mendeley_url "http://example.com"
       doi "10.1000/182"
@@ -111,4 +111,3 @@ unless $factories_already_read
     factory :phenotype_comment do
     end
   end
-end

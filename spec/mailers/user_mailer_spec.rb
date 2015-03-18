@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserMailer do
   let(:user) { double(:user, name: 'Lord Schmorgoroth', email: 'ls@example.com') }
   let(:genotype) { double('genotype', id: 1, user: user, filetype: '23andme') }
@@ -8,7 +6,7 @@ describe UserMailer do
   describe '#finished_parsing' do
     it 'notifies the user about his genotype having been parsed' do
       expect(Genotype).to receive(:find).with(genotype.id).and_return(genotype)
-      described_class.finished_parsing(genotype.id, stats).deliver
+      described_class.finished_parsing(genotype.id, stats).deliver_later
       mail = ActionMailer::Base.deliveries.last
       expect(mail.body.raw_source).to include(user.name)
       expect(mail.body.raw_source).to include('23andMe')

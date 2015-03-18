@@ -8,7 +8,7 @@ class Mailnewphenotype
     @phenotype = Phenotype.find_by_id(phenotype_id)
     User.where(:message_on_new_phenotype => true).find_each do |u|
       if u.id != user_id
-        UserMailer.new_phenotype(@phenotype,u).deliver
+        UserMailer.new_phenotype(@phenotype,u).deliver_later
       end
     end
   end

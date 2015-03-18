@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Zipfulldata do
   let(:phenotype) { create(:phenotype, characteristic: "jump height") }
   let(:user_phenotype) do

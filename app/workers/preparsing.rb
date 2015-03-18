@@ -105,7 +105,7 @@ class Preparsing
     # not proper file!
     if not file_is_ok
       if file_is_duplicate
-        UserMailer.duplicate_file(genotype.user_id).deliver
+        UserMailer.duplicate_file(genotype.user_id).deliver_later
         system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
         Genotype.find_by_id(genotype.id).delete
       elsif file_has_mails
@@ -113,7 +113,7 @@ class Preparsing
         system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
         Genotype.find_by_id(genotype.id).delete
       else
-        UserMailer.parsing_error(genotype.user_id).deliver
+        UserMailer.parsing_error(genotype.user_id).deliver_later
         logger.info "file is not ok, sending email"
         system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
         Genotype.find_by_id(genotype.id).delete

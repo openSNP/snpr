@@ -22,7 +22,9 @@ class FitbitProfilesController < ApplicationController
     
     #grab activity measures for graphs
     if @fitbit_profile.activities
-      @activity = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
+      @activity = FitbitActivity
+        .where(fitbit_profile_id: @fitbit_profile.id)
+        .order(:date_logged)
       @total_length = 0 # sum of all steps which are not 0 and not nil
 
       @total_floors = []
@@ -59,13 +61,17 @@ class FitbitProfilesController < ApplicationController
     
     #grab body measurements for graphs
     if @fitbit_profile.body
-      @body = FitbitBody.find_all_by_fitbit_profile_id(@fitbit_profile.id, :order => "date_logged")
+      @body = FitbitBody
+        .where(fitbit_profile_id: @fitbit_profile.id)
+        .order(:date_logged)
       @bmi = @body.map {|fa| [fa.date_logged, fa.bmi]}
     end
     
     #grab sleep measurements for graphs
     if @fitbit_profile.sleep
-      @sleep = FitbitSleep.find_all_by_fitbit_profile_id(@fitbit_profile.id,:order => "date_logged")
+      @sleep = FitbitSleep
+        .where(fitbit_profile_id: @fitbit_profile.id)
+        .order(:date_logged)
 
       @total_minutes_asleep = []
       @total_minutes_to_sleep = []

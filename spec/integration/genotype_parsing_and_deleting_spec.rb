@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'genotype parsing', sidekiq: :inline do
   before do
     # When running the background jobs inline, Paperclip hasn't saved the file,

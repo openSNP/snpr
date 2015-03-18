@@ -1,26 +1,27 @@
 <legend>Listing all phenotypes</legend>
 <%if current_user%>
-    <h4>
-        <%=link_to(image_tag("addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The phenotype of your interest is missing? Add a new one!",:action => "new"%>
-    </h4>
+  <h4>
+    <%= link_to(image_tag("addphenotype_small.png", style: 'vertical-align: middle;' ), action: 'new')%>
+    <%= link_to "The phenotype of your interest is missing? Add a new one!", action: 'new' %>
+  </h4>
 <%end%>
 <br/>
 <table class="table table-striped" id="no_snp_overview">
-<tr>
- 	<th>#</th>
-	<th><%= sortable "id", "ID"%></th>
-	<th><%= sortable "characteristic","Phenotype"%></th>
-	<th><%= sortable "number_of_users","Number of users"%></th>
-	<th><%= sortable "created_at", "Created"%>
-</tr>
-<% @phenotypes_paginate.each do |s| %>
-	<tr>
-    <td><%= Phenotype.all.sort! { |a,b| a.id <=> b.id}.index(s) + 1%></td>
-    <td><%= s.id %></td>
-	<td><%= link_to(s.characteristic, s) %></td>
-	<td><%=s.number_of_users%></td>
-	<td><%=s.created_at%></td>
-</tr>
-<% end %>
+  <tr>
+    <th>#</th>
+    <th><%= sortable "id", "ID" %></th>
+    <th><%= sortable "characteristic", "Phenotype" %></th>
+    <th><%= sortable "number_of_users", "Number of users" %></th>
+    <th><%= sortable "created_at", "Created" %></th>
+  </tr>
+  <% @phenotypes_paginate.each_with_index do |phenotype, i| %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= phenotype.id %></td>
+      <td><%= link_to(phenotype.characteristic, phenotype) %></td>
+      <td><%= phenotype.number_of_users %></td>
+      <td><%= phenotype.created_at %></td>
+    </tr>
+  <% end %>
 </table>
 <%= page_navigation_links @phenotypes_paginate %>

@@ -3,7 +3,7 @@ class DeleteGenotype
   sidekiq_options :queue => :deletegenotype, :retry => 5, :unique => true
 
   def perform(params)
-    user_snps = UserSnp.where(genotype_id: params["genotype_id"].to_i).all
+    user_snps = UserSnp.where(genotype_id: params["genotype_id"].to_i)
     # now parse through all user_snps, delete the relevant SNP if the user_snp
     # is the only one, then delete the user_snp
     user_snps.each do |us|

@@ -77,7 +77,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
       should "create papers that do not already exist" do
         uuid = @document["uuid"]
         new_mendeley_paper = MendeleyPaper.new(uuid: uuid)
-        MendeleyPaper.expects(:find_or_initialize_by_uuid).with(uuid).
+        MendeleyPaper.expects(:find_or_initialize_by).with(uuid: uuid).
           returns(new_mendeley_paper)
         new_mendeley_paper.expects(:save).returns(true)
         Sidekiq::Client.expects(:enqueue).with do |klass, id|
@@ -99,7 +99,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
         uuid = @document["uuid"]
         existing_mendeley_paper = FactoryGirl.
           build_stubbed(:mendeley_paper, uuid: uuid, snps: [@snp])
-        MendeleyPaper.expects(:find_or_initialize_by_uuid).with(uuid).
+        MendeleyPaper.expects(:find_or_initialize_by).with(uuid: uuid).
           returns(existing_mendeley_paper)
         MendeleyPaper.any_instance.expects(:save).never
         Sidekiq::Client.expects(:enqueue).never

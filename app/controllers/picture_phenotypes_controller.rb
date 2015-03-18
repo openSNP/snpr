@@ -36,7 +36,7 @@ class PicturePhenotypesController < ApplicationController
   def create
     unless @phenotype = PicturePhenotype.find_by_characteristic(params[:picture_phenotype][:characteristic])
       puts params[:picture_phenotype]
-      @phenotype = PicturePhenotype.create(params[:picture_phenotype])
+      @phenotype = PicturePhenotype.create(picture_phenotype_params)
 
       # award: created one (or more) phenotypes
       current_user.update_attributes(:phenotype_creation_counter => (current_user.phenotype_creation_counter + 1)  )
@@ -157,5 +157,8 @@ class PicturePhenotypesController < ApplicationController
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end
-  
+
+  def picture_phenotype_params
+    params.require(:picture_phenotype).permit(:characteristic, :description)
+  end
 end

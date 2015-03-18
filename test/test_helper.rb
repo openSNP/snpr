@@ -9,10 +9,9 @@ require "shoulda-context"
 require "mocha/setup"
 require 'rails/test_help'
 require "authlogic/test_case"
-require 'webmock/test_unit'
+require 'webmock'
 WebMock.disable_net_connect!(:allow_localhost => true)
-require 'factory_girl'
-FactoryGirl.find_definitions
+require 'factory_girl_rails'
 require 'paperclip/matchers'
 require 'plos'
 
@@ -24,4 +23,6 @@ end
 
 class ActiveSupport::TestCase
   extend Paperclip::Shoulda::Matchers
+  include Authlogic::TestCase
+  include WebMock::API
 end
