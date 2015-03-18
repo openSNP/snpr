@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.1.0'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
@@ -26,7 +26,7 @@ gem 'newrelic_rpm'
 # DB
 gem 'pg'
 gem 'activerecord-import', '>= 0.4.0'
-gem 'composite_primary_keys', '~> 6.0'
+gem 'composite_primary_keys', '~> 7.0'
 gem 'pg_search'
 
 # so we can create zip-files for genotypes
@@ -67,8 +67,7 @@ group :test do
   gem 'test-unit' # TODO: Remove me
   gem 'minitest' # TODO: Remove me
   gem 'rspec-rails'
-  gem 'shoulda-context', require: false
-  gem 'factory_girl_rails'
+  gem 'shoulda-context'
   gem 'mocha', require: false
   gem 'simplecov', require: false
   gem 'webmock'
@@ -80,6 +79,7 @@ end
 group :development, :test do
   gem 'uuidtools'
   gem 'pry-rails', require: 'pry' unless ENV['CI']
+  gem 'factory_girl_rails'
 end
 
 group :development do

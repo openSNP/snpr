@@ -1,6 +1,6 @@
+# TODO: One file per model.
+
 # Needed (?) when test/unit and Rspec tests are run
-unless $factories_already_read
-  $factories_already_read = true
 
   FactoryGirl.define do
     factory :user do
@@ -111,4 +111,3 @@ unless $factories_already_read
     factory :phenotype_comment do
     end
   end
-end

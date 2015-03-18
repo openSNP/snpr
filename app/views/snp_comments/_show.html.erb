@@ -7,22 +7,17 @@ function sendCommentId(e, text)
 
 <% @comments.each do |c|%>
 
-  <div id="<%="comment"+c.id.to_s%>">
-    <b><%= c.subject %></b> by user <%if User.find_by_id(c.user_id) != nil%><%= link_to User.find_by_id(c.user_id).name, User.find_by_id(c.user_id)%><%else%>Deleted User<%end%> on <%= c.created_at %><br/>
-    <div class="well">
-      <a href="#" rel="comment_tooltip" title="<%if c.reply_to_id != -1 and c.reply_to_id != nil%><%if SnpComment.find_by_id(c.reply_to_id).user != nil%><b><%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>Deleted User<%end%></b> wrote:"data-content="<%=SnpComment.find_by_id(c.reply_to_id).comment_text%><%end%>"><% if c.reply_to_id != -1 and c.reply_to_id != nil%><%if SnpComment.find_by_id(c.reply_to_id).user%>@<%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>@Deleted User<%end%><% end %></a>
-      <% if User.where(id: c.user_id).count > 0 # TODO: Move to controller %>
-        <%=image_tag c.user.avatar.url(:head),:style => "vertical-align:middle;margin: 10px;float:left"%>
-      <% end %>
-      <%= simple_format(c.comment_text) %>
-      <br/>
-      <a onclick="sendCommentId(document.new_comment.snp_comment_comment_text,'@#<%= c.id.to_s %>: '); return false;" href="#">reply to</a>
-    </div>
-  </div>
+	<div id="<%="comment"+c.id.to_s%>">
+	<b><%= c.subject %></b> by user <%if User.find_by_id(c.user_id) != nil%><%= link_to User.find_by_id(c.user_id).name, User.find_by_id(c.user_id)%><%else%>Deleted User<%end%> on <%= c.created_at %><br/>
+	<div class="well">
+		<a href="#" rel="comment_tooltip" title="<%if c.reply_to_id != -1 and c.reply_to_id != nil%><%if SnpComment.find_by_id(c.reply_to_id).user != nil%><b><%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>Deleted User<%end%></b> wrote:"data-content="<%=SnpComment.find_by_id(c.reply_to_id).comment_text%><%end%>"><% if c.reply_to_id != -1 and c.reply_to_id != nil%><%if SnpComment.find_by_id(c.reply_to_id).user%>@<%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>@Deleted User<%end%><% end %></a>
+    <%if User.find_by_id(c.user_id) != nil%><%=image_tag c.user.avatar.url(:head),:style => "vertical-align:middle;margin: 10px;float:left"%><%end%>  <%= simple_format(c.comment_text) %><br/><a onclick="sendCommentId(document.new_comment.snp_comment_comment_text,'@#<%= c.id %>: '); return false;" href="#">reply to</a>
+	</div>
+</div>
 <% end %>
 
 <script type="text/javascript">
   $(document).ready(function () {
-    $("[rel=comment_tooltip]").popover({ placement:'right' });
+    $("[rel=comment_tooltip]").popover({placement:'right'});
   });
 </script>
