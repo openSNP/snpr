@@ -1,2 +1,5 @@
 Style/DotPosition:
   EnforcedStyle: leading
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
