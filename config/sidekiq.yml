@@ -13,16 +13,16 @@
  - [recommend,5]
  - [preparse,3]
  - [parse,3]
- - [fitbit,1]
+ - [fitbit,3]
  - [frequency,1]
- - [genomegov,1]
- - [mendeley_details,1]
- - [mendeley,1]
- - [pgp,1]
- - [plos_details,1]
- - [plos,1]
- - [snpedia,1]
  - [fixphenotypes,1]
+# - [mendeley_details,1]
+# - [mendeley,1]
+# - [genomegov,1]
+# - [pgp,1]
+# - [plos_details,1]
+# - [plos,1]
+# - [snpedia,1]
 :limits:
     recommend: 1
     preparse: 2
@@ -31,12 +31,12 @@
     zipfulldata: 1
     fitbit: 3
     frequency: 10
-    genomegov: 1
-    mailnewgenotype: 1
-    mendeley_details: 1
-    mendeley: 1
-    pgp: 1
-    plos_details: 1
-    plos: 1
-    snpedia: 1
     fixphenotypes: 1
+    mailnewgenotype: 1
+#    genomegov: 1
+#    mendeley_details: 1
+#    mendeley: 1
+#    pgp: 1
+#    plos_details: 1
+#    plos: 1
+#    snpedia: 1
