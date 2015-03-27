@@ -20,11 +20,11 @@ GIT
 
 GIT
   remote: git://github.com/tsujigiri/mendeley.git
-  revision: 79e8b8417c6245a999aa2e46968f16be5c883bbd
+  revision: 03c51168872429bfa039735dfd3054faaa95868e
   branch: paging_search
   specs:
     mendeley (0.0.3)
-      rest-client
+      rest-client (>= 1.8.0)
       yajl-ruby
 
 GEM
@@ -110,6 +110,8 @@ GEM
     database_cleaner (1.4.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.23)
+      unf (>= 0.0.5, < 1.0.0)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.4.0)
@@ -146,6 +148,8 @@ GEM
     highline (1.7.1)
     hike (1.2.3)
     hitimes (1.2.2)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
@@ -257,7 +261,8 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
     request_store (1.1.0)
-    rest-client (1.7.3)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rspec (3.2.0)
@@ -348,6 +353,9 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     uuidtools (2.1.5)
     vcr (2.9.3)
     vegas (0.1.11)
