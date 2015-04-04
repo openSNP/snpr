@@ -1,17 +1,31 @@
 Hi <%=@user.name%>,
-we know we're a bit late, but we still want to wish you a happy new year! We have been busy over the last couple of weeks and added some new features to openSNP.
 
-First of all, there has been a major rewrite of the parts of openSNP which go through your genotyping files to make sure that your variations are shown correctly on the website. This also includes support for a new file format: The raw data as delivered by the "Inside Your Genome", an internal project of the Sanger Institute/European Bioinformatics Institute. While this project is not open to the general public, participants of the project can now opt-in to share their data with the rest of the world as well as receive the annotation we have stored for their SNPs.
+We think it's time to reach out to you again. Since the last newsletter openSNP has grown in size quite drastically. Our database now holding over 1700 data sets! Thanks to everyone who made this possible! And today we have a couple of topics to present, which we hope might be of interest to you: 
 
-The second big change is that we've added picture phenotypes. If you ever ended up wondering how to describe your phenotypic variation in text form you can now simply upload a picture. Those picture phenotypes are an addition to the text phenotype-questions which you are used to and do not replace them. So if you don't mind sharing a description of your eye color but don't want to upload a picture of your eyes: That's still possible. As usual with openSNP: If a picture phenotype you would like to see on the platform is missing you can create it straight away so that other people can add pictures about themselves. A first example of a picture phenotype, for eye color, can be found here: https://opensnp.org/picture_phenotypes/2
+# THEDRESS
 
-Besides this we've also made contact to some of the Personal Genomics / Quantified Self campaigns which are currently fundraising on Indiegogo. With Talking20, a startup for personal proteomics, and uBiome, a startup for personal microbiomes, there are two projects which might be of special interest to you as well. We've contacted both campaigns and you can read more about them on our blog: http://opensnp.wordpress.com/2013/01/10/crowdfunding-dtc-microbiomics-proteomics/
-If they are successful we are looking forward to add support for their data to openSNP as well.
+You might have followed the media buzz around #TheDress, the viral phenomenon that started around the end of February: http://en.wikipedia.org/wiki/The_dress_%28viral_phenomenon%29 It lead to one of the new big questions of our time: Is the dress black & blue or is it white & gold? Lots of scientific explanations have been put forward and of course, genetics has also been thrown in the mix in order to explain why people so vehemently disagree about it.  
 
-If you have any questions regarding openSNP, ideas for new features or find any bugs: Please contact us. We're really interested in your feedback!
+23andMe recently started to investigate this question amongst their user base and thanks to Michael Whitehead (https://michaelrwhitehead.wordpress.com/2015/02/27/the-genetics-of-white-and-gold-blue-and-black-a-holler-to-23andme/) you can now also contribute on openSNP. So if you want to participate in research about the genetics of #TheDress you can enter this phenotype: https://opensnp.org/phenotypes/338
+
+Mike briefly spoke to us about his motivation to dive into the topic: 
+"We know that there are numerous elements of colour vision that are influenced by genetics. Red/green colour blindness is the most famous, but there are a variety of heritable colour-blindness phenotypes, as well as tetrachromats who can see a richer pallette of colours than the rest of us. It is therefore conceivable that variation in our perception of the dress is influenced by underlying variation in our genes."
+
+23andMe already has some first results in: http://blog.23andme.com/23andme-research/genetics-and-that-striped-dress/, but having an open data source for this would still be fun. So please, help us out. So far it looks like team blue/black is taking the lead: https://opensnp.org/phenotypes/338
+
+# RESEARCH HACKDAYS
+
+The people running openresearchdata.ch are organising research hack days on June 5th & 6th at the ETH in Zurich and at the FORS in Lausanne. Participating in those days is free and genetic data will also play a role, with our own Bastian attending in Zurich. You can find more information on this on their websites: http://make.opendata.ch/wiki/event:2015-06
+
+# A SOCIAL CONTRACT FOR A NEW KIND OF RESEARCH
+
+Performing open, participant-lead research is not only exciting for the science that is done, but also for a whole lot of ethical questions it brings up. The workshop "Towards developing best practice for ethical participant-led health research" asked what a new social contract for such kind of research should include. The results of this workshops are now published as an open access article in the Journal of Medical Ethics: http://jme.bmj.com/content/early/2015/03/30/medethics-2015-102663.full?view=full&uritype=cgi
+
+# SOME CHANGES IN THE BACKEND
+Helge Rausch has kindly updated openSNP's code base to Ruby on Rails 4.2, so you might experience some problems on the site. As usual, if you encounter any problems, please send us a mail to info@opensnp.org or just reply to this mail.
 
 Cheers,
-Bastian, Philipp & Helge.
+the openSNP team
 
 --
 You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team. You can change this setting really easy at https://opensnp.org/users/<%=@user.id%>/edit#notifications

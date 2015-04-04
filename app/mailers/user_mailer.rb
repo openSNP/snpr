@@ -71,7 +71,7 @@ default :from => "donotreply@opensnp.org"
   
   def newsletter(user)
     @user = user
-    mail(:subject => "openSNP.org: The new year brings new features", :to => @user.email)
+    mail(:subject => "openSNP.org: #thedress, ethics for participant-lead research, research hack days", :to => @user.email)
   end
   
   def dump(target_address,link)
