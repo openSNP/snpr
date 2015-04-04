@@ -77,7 +77,7 @@
       </tr>
       <% @new_genotypes.each do |ng| %>
         <tr>
-          <td><%= Genotype.all.sort! {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
+          <td><%= Genotype.all.sort {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
           <td><%= ng.id %></td>
           <td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
           <td><%= ng.created_at %></td>
@@ -99,7 +99,7 @@
       </tr>
       <% @new_users.each do |nu| %>
         <tr>
-          <td><%= User.all.sort! {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
+          <td><%= User.all.sort {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
           <td><%= nu.id %></td>
           <td><%=image_tag nu.avatar.url(:head),:style => "vertical-align:middle"%> <%= nu.name %></td>
           <td><%= nu.created_at %></td>

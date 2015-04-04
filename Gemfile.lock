@@ -7,16 +7,16 @@ GIT
       redis (>= 2.2.2)
 
 GIT
-  remote: git://github.com/rubyzip/rubyzip.git
-  revision: 070411ef5c60891356f5b539fc8969884f740487
-  specs:
-    rubyzip (1.1.7)
-
-GIT
   remote: git://github.com/ryanb/nested_form.git
   revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
   specs:
     nested_form (0.3.2)
+
+GIT
+  remote: git://github.com/rubyzip/rubyzip.git
+  revision: 070411ef5c60891356f5b539fc8969884f740487
+  specs:
+    rubyzip (1.1.7)
 
 GIT
   remote: git://github.com/tsujigiri/mendeley.git
