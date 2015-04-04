@@ -24,7 +24,7 @@
   </tr>
   <% @genotypes_paginate.each do |g| %>
     <tr>
-    <td><%= Genotype.all.sort! { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
+    <td><%= Genotype.all.sort { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
     <td><%= g.id %></td>
     <td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(g.user.name, g.user)%></td>
     <td><%= g.filetype %></td>

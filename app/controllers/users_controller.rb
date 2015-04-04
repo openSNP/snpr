@@ -104,7 +104,7 @@ class UsersController < ApplicationController
     @phenotype_comments.each do |pc| @user_phenotype_comment_ids << pc.id end
     @phenotype_comment_replies = []
     @user_phenotype_comment_ids.each do |pi|
-      @replies_for_phenotype = PhenotypeComment.find_all_by_reply_to_id(pi)
+      @replies_for_phenotype = PhenotypeComment.where(reply_to_id: pi).all
       @replies_for_phenotype.each do |rp|
         @phenotype_comment_replies << rp
       end
