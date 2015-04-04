@@ -1,6 +1,6 @@
 namespace :deploy do
   task :set_symlinks do
-    ln("#{shared_path}/secret_key_base", "#{release_path}/secret_key_base}")
+    ln("#{shared_path}/secret_key_base", "#{release_path}/secret_key_base")
     ln("#{shared_path}/config/app_config.yml", "#{release_path}/config/app_config.yml")
     ln("#{shared_path}/config/database.yml", "#{release_path}/config/database.yml")
     ln("#{shared_path}/config/secret_token", "#{release_path}/secret_token")
