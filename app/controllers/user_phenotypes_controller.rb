@@ -46,7 +46,7 @@ class UserPhenotypesController < ApplicationController
         check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
 
 
-        @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
+        @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).length
         @phenotype.save
         Sidekiq::Client.enqueue(Recommendvariations)
         Sidekiq::Client.enqueue(Recommendphenotypes)

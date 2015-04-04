@@ -5,7 +5,7 @@ class Zipgenotypingfiles
   sidekiq_options :queue => :zipgenotyping, :retry => 5, :unique => true
 
   def perform(phenotype_id, variation, target_address)
-    @user_phenotypes = Sunspot.search(UserPhenotype) do
+    @user_phenotypes = UserPhenotype.search do
       with :phenotype_id, phenotype_id
       fulltext variation
     end.results
