@@ -6,11 +6,11 @@ class CreatePgpAnnotations < ActiveRecord::Migration
       t.text :inheritance
       t.text :summary
       t.text :trait
-      t.timestamps 
+      t.timestamps
       t.belongs_to :snp
     end
   end
-  
+
   def self.down
     drop_table :pgp_annotations
   end

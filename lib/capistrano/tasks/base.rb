@@ -15,10 +15,10 @@ namespace :deploy do
     ln("#{shared_path}/assets", "#{release_path}/public/assets")
     ln("#{shared_path}/config/exceptional.yml", "#{release_path}/config/exceptional.yml")
   end
-  after "deploy:create_shared_dirs", "deploy:set_symlinks"
+  after 'deploy:create_shared_dirs', 'deploy:set_symlinks'
 
   task :create_shared_dirs do
     mkdir("#{shared_path}/config")
   end
-  after "deploy:update_code", "deploy:create_shared_dirs"
+  after 'deploy:update_code', 'deploy:create_shared_dirs'
 end

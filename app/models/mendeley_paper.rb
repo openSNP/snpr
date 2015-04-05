@@ -9,6 +9,6 @@ class MendeleyPaper < ActiveRecord::Base
   pg_search_common_scope against: :title
 
   def first_author
-    read_attribute(:first_author).presence || "Unknown"
+    read_attribute(:first_author).presence || 'Unknown'
   end
 end

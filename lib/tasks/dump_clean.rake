@@ -12,7 +12,7 @@ namespace :dump do
     Dir.entries(dir).each do |f|
       f = File.join(dir, f)
       # Has to be older than 2 days, don't delete important files, only delete archives
-      if (get_file_age_in_days(f) > 2) and (not forbidden_files.include? f) and (f.ends_with? 'zip')
+      if (get_file_age_in_days(f) > 2) && (!forbidden_files.include? f) && (f.ends_with? 'zip')
         File.delete(f)
       end
     end

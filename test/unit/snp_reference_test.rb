@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 class SnpReferenceTest < ActiveSupport::TestCase
-  context "SnpReference" do
+  context 'SnpReference' do
     setup do
       @snps = FactoryGirl.create_list(:snp, 2)
     end
@@ -10,7 +10,7 @@ class SnpReferenceTest < ActiveSupport::TestCase
       should "associate snps with #{paper} papers" do
         @paper = FactoryGirl.create("#{paper}_paper".to_sym)
 
-        assert_difference(lambda { SnpReference.count }) do
+        assert_difference(-> { SnpReference.count }) do
           @paper.snps << @snps.first
         end
         assert_equal [@paper], @snps.first.send(:"#{paper}_papers")

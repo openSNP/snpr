@@ -17,7 +17,7 @@ class PlosSearch
     # i.e, nil => []
     # - Philipp
     Array.wrap(articles).each do |article|
-      import_article(article) if not article.nil?
+      import_article(article) unless article.nil?
     end
     snp.plos_updated!
     logger.info('sleeping for 6 seconds in honor of the API limits')
@@ -40,12 +40,12 @@ class PlosSearch
   def perform_search
     # honoring API limits
     result = nil
-    begin 
+    begin
       Timeout.timeout(5) do
         result = client.search(snp.name, 0, 999)
       end
     rescue Timeout::Error
-      logger.error("API call timed out")
+      logger.error('API call timed out')
       false
     end
     logger.info('Successfully called the API')
@@ -59,7 +59,7 @@ class PlosSearch
   def snp_illegal?
     # we don't need mitochondrial or VG-SNPs as these just result in noise
     # from the PLOS API
-    forbidden_names = ["mt-", "vg"]
+    forbidden_names = ['mt-', 'vg']
     if forbidden_names.any? { |part| snp.name[part] }
       logger.info("Snp #{snp.name} is a mitochondrial or vg snp")
       true
@@ -85,6 +85,6 @@ class PlosSearch
 
   def self.api_key
     # TODO: put in APP_CONFIG
-    File.read(Rails.root.join("key_plos.txt")).strip
+    File.read(Rails.root.join('key_plos.txt')).strip
   end
 end

@@ -5,11 +5,11 @@ class PlosSearchTest < ActiveSupport::TestCase
     @snp = FactoryGirl.create(:snp)
   end
 
-  should "create new PlosPapers for results from PLOS API" do
+  should 'create new PlosPapers for results from PLOS API' do
     response = File.read(Rails.root.join('test/data/plos_search_response.xml'))
-    stub_request(:post, "api.plos.org/search").
-      with(body: { 'api_key' => 'xxx', 'q' => @snp.name, 'rows' => '999', 'start' => '0' }).
-      to_return(status: 200, body: response)
+    stub_request(:post, 'api.plos.org/search')
+      .with(body: { 'api_key' => 'xxx', 'q' => @snp.name, 'rows' => '999', 'start' => '0' })
+      .to_return(status: 200, body: response)
     PlosSearch.stubs(:api_key).returns('xxx')
     Sidekiq::Client.expects(:enqueue).with(PlosDetails, instance_of(Fixnum))
     assert_difference(-> { PlosPaper.count }) do
@@ -25,7 +25,7 @@ class PlosSearchTest < ActiveSupport::TestCase
     assert_match 'rs8099917', plos_paper.title
   end
 
-  should "update existing PlosPapers" do
+  should 'update existing PlosPapers' do
     plos_paper = FactoryGirl.create(:plos_paper, doi: 'x')
     article = mock(
       authors:      ['Max Mustermann'],
@@ -58,7 +58,7 @@ class PlosSearchTest < ActiveSupport::TestCase
     PlosSearch.new.perform(@snp.id)
   end
 
-  should "not break when there are no authors" do
+  should 'not break when there are no authors' do
     article = mock(
       authors:      nil,
       id:           'x',

@@ -3,7 +3,7 @@ require 'open-uri'
 
 class GenomeGov
   include Sidekiq::Worker
-  sidekiq_options :queue => :genomegov, :retry => 5, :unique => true
+  sidekiq_options queue: :genomegov, retry: 5, unique: true
   attr_reader :known_snps
 
   def perform
@@ -14,9 +14,9 @@ class GenomeGov
     end
     gwas_catalog.shift # remove CSV header
     gwas_catalog.each do |row|
-      split_row = row.
-        encode("UTF-8", invalid: :replace, undef: :replace, replace: "?").
-        split("\t")
+      split_row = row
+        .encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+        .split("\t")
       process_row(split_row)
     end
   end
@@ -37,8 +37,8 @@ class GenomeGov
     if pvalue < 1e-100
       pvalue = 1e-100
     end
-    paper = GenomeGovPaper.
-      first_or_initialize(title: title, pubmed_link: pubmed_link)
+    paper = GenomeGovPaper
+      .first_or_initialize(title: title, pubmed_link: pubmed_link)
     paper.update_attributes!(
       title:               title,
       pubmed_link:         pubmed_link,
@@ -55,6 +55,3 @@ class GenomeGov
     snp.save
   end
 end
-
-
-

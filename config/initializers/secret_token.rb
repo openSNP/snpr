@@ -1,5 +1,5 @@
 # TODO: Move to environment variables
-begin 
+begin
   Snpr::Application.configure do
     config.secret_token = File.read(Rails.root.join('secret_token'))
     config.secret_key_base = File.read(Rails.root.join('secret_key_base'))

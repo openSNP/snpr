@@ -21,16 +21,16 @@ class Snp < ActiveRecord::Base
 
   def default_frequencies
     # if variations is empty, put in our default array
-    self.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
+    self.allele_frequency ||= { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }
     self.genotype_frequency ||= {}
   end
 
   def self.update_papers
     max_age = 31.days.ago
 
-    snps = Snp.select([ :id, :mendeley_updated, :snpedia_updated, :plos_updated ]).
-      where([ 'mendeley_updated < ? or snpedia_updated < ? or plos_updated < ?',
-              max_age, max_age, max_age ]).find_each do |snp|
+    snps = Snp.select([:id, :mendeley_updated, :snpedia_updated, :plos_updated])
+      .where(['mendeley_updated < ? or snpedia_updated < ? or plos_updated < ?',
+              max_age, max_age, max_age]).find_each do |snp|
       Sidekiq::Client.enqueue(Mendeley,   snp.id) if snp.mendeley_updated < max_age
       Sidekiq::Client.enqueue(Snpedia,    snp.id) if snp.snpedia_updated  < max_age
       Sidekiq::Client.enqueue(PlosSearch, snp.id) if snp.plos_updated     < max_age
@@ -39,7 +39,7 @@ class Snp < ActiveRecord::Base
 
   def self.update_frequencies
     Snp.find_each do |s|
-      Sidekiq::Client.enqueue(Frequency,s.id)
+      Sidekiq::Client.enqueue(Frequency, s.id)
     end
   end
 

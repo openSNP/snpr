@@ -7,6 +7,6 @@ class SnpediaPaper < ActiveRecord::Base
   pg_search_common_scope against: :summary
 
   def summary
-    read_attribute(:summary).presence || "No summary provided."
+    read_attribute(:summary).presence || 'No summary provided.'
   end
 end

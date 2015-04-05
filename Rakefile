@@ -6,4 +6,4 @@ require 'rake'
 
 Snpr::Application.load_tasks
 
-task :test => :spec
+task test: :spec

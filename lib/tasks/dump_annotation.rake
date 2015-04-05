@@ -1,8 +1,8 @@
 require 'csv'
 namespace :snps do
-  desc "Iterates over all SNPs, writes a CSV of annotation into public/"
-  task :dump => :environment do
-    readme = File.new("#{Rails.root}/tmp/readme.txt", "w")
+  desc 'Iterates over all SNPs, writes a CSV of annotation into public/'
+  task dump: :environment do
+    readme = File.new("#{Rails.root}/tmp/readme.txt", 'w')
     # get date
     readme.write("File created at: #{Time.now}\n")
     readme.write("PLOS data is licensed under Creative Commons Attribution.\nhttp://creativecommons.org/licenses/by/3.0/\nWebsite: http://api.plos.org\n")
@@ -10,10 +10,10 @@ namespace :snps do
     readme.write("SNPedia data is licensed under Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported.\nhttp://creativecommons.org/licenses/by-nc-sa/3.0/us/\nWebsite: http://snpedia.com/index.php/SNPedia:FAQ#Legal_.2F_Licensing\n")
     readme.write("Genome.gov data is in the public domain.\nWebsite: http://www.genome.gov/copyright.cfm\n")
     readme.write("Personal Genome Project is licensed under CC0.\nhttp://creativecommons.org/publicdomain/zero/1.0/\nWebsite: http://evidence.personalgenomes.org/about\n")
-    readme.close()
+    readme.close
     # dump mendeley
-    CSV.open("#{Rails.root}/tmp/mendeley.csv", "wb") do |csv|
-      csv << ["Name", "Position", "Chromosome", "Year", "First author", "Title", "DOI", "Open Access status", "Link"]
+    CSV.open("#{Rails.root}/tmp/mendeley.csv", 'wb') do |csv|
+      csv << ['Name', 'Position', 'Chromosome', 'Year', 'First author', 'Title', 'DOI', 'Open Access status', 'Link']
       MendeleyPaper.find_each do |m|
         parental = m.snp
         position = parental.position.strip
@@ -26,11 +26,11 @@ namespace :snps do
         oa = m.open_access
         link = m.mendeley_url
         csv << [name, position, chrom, year, first_author, title, doi, oa, link]
-      end 
+      end
     end
     # dump snpedia
-    CSV.open("#{Rails.root}/tmp/snpedia.csv", "wb") do |csv|
-      csv << ["Name", "Position", "Chromosome", "Summary", "Link"]
+    CSV.open("#{Rails.root}/tmp/snpedia.csv", 'wb') do |csv|
+      csv << %w(Name Position Chromosome Summary Link)
       SnpediaPaper.find_each do |sn|
         parental = sn.snp
         position = parental.position.strip
@@ -42,8 +42,8 @@ namespace :snps do
       end
     end
     # dump plos
-    CSV.open("#{Rails.root}/tmp/plos.csv","wb") do |csv|
-      csv << ["Name", "Position", "Chromosome", "Year", "First author", "Title", "DOI"]
+    CSV.open("#{Rails.root}/tmp/plos.csv", 'wb') do |csv|
+      csv << ['Name', 'Position', 'Chromosome', 'Year', 'First author', 'Title', 'DOI']
       PlosPaper.find_each do |sp|
         parental = sp.snp
         position = parental.position.strip
@@ -57,8 +57,8 @@ namespace :snps do
       end
     end
     # dump pgp
-    CSV.open("#{Rails.root}/tmp/pgp.csv", "wb") do |csv|
-      csv << ["Name", "Position", "Chromosome", "Gene", "Qualified Impact", "Inheritance", "Summary", "Trait"]
+    CSV.open("#{Rails.root}/tmp/pgp.csv", 'wb') do |csv|
+      csv << ['Name', 'Position', 'Chromosome', 'Gene', 'Qualified Impact', 'Inheritance', 'Summary', 'Trait']
       PgpAnnotation.find_each do |spg|
         parental = spg.snp
         position = parental.position.strip
@@ -73,8 +73,8 @@ namespace :snps do
       end
     end
     # dump genome_gov
-    CSV.open("#{Rails.root}/tmp/genome_gov.csv", "wb") do |csv|
-      csv << ["Name", "Position", "Chromosome", "First Author", "Title", "Pubmed link", "Year", "Journal", "Trait", "p-value", "p-value description", "Confidence Interval"]
+    CSV.open("#{Rails.root}/tmp/genome_gov.csv", 'wb') do |csv|
+      csv << ['Name', 'Position', 'Chromosome', 'First Author', 'Title', 'Pubmed link', 'Year', 'Journal', 'Trait', 'p-value', 'p-value description', 'Confidence Interval']
       GenomeGovPaper.find_each do |gg|
         parental = gg.snp
         position = parental.position.strip
@@ -100,12 +100,12 @@ namespace :snps do
 
     # now zip the CSVs and put the zip into /public
     Zip::ZipFile.open("#{Rails.root}/public/data/annotation.zip", Zip::ZipFile::CREATE) do |zipfile|
-      zipfile.add("genome_gov.csv", "#{Rails.root}/tmp/genome_gov.csv")
-      zipfile.add("readme.txt", "#{Rails.root}/tmp/readme.txt")
-      zipfile.add("pgp.csv", "#{Rails.root}/tmp/pgp.csv")
-      zipfile.add("mendeley.csv", "#{Rails.root}/tmp/mendeley.csv")
-      zipfile.add("plos.csv", "#{Rails.root}/tmp/plos.csv")
-      zipfile.add("snpedia.csv", "#{Rails.root}/tmp/snpedia.csv")
+      zipfile.add('genome_gov.csv', "#{Rails.root}/tmp/genome_gov.csv")
+      zipfile.add('readme.txt', "#{Rails.root}/tmp/readme.txt")
+      zipfile.add('pgp.csv', "#{Rails.root}/tmp/pgp.csv")
+      zipfile.add('mendeley.csv', "#{Rails.root}/tmp/mendeley.csv")
+      zipfile.add('plos.csv', "#{Rails.root}/tmp/plos.csv")
+      zipfile.add('snpedia.csv', "#{Rails.root}/tmp/snpedia.csv")
     end
     FileUtils.chmod(0665, "#{Rails.root}/public/data/annotation.zip")
     # delete the CSVs?

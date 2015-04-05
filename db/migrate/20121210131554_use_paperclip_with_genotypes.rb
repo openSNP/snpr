@@ -4,7 +4,7 @@ class UsePaperclipWithGenotypes < ActiveRecord::Migration
     ActiveRecord::Base.connection.execute(<<-SQL)
       update genotypes set genotype_file_name = originalfilename,
         genotype_content_type = 'test/plain',
-        genotype_updated_at = uploadtime 
+        genotype_updated_at = uploadtime
         where genotype_file_name is null
     SQL
     remove_column :genotypes, :originalfilename

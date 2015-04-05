@@ -2,7 +2,7 @@
 require_relative '../test_helper'
 
 class SnpsControllerTest < ActionController::TestCase
-  context "Snps" do
+  context 'Snps' do
     setup do
       activate_authlogic
       Sidekiq::Client.stubs(:enqueue)
@@ -13,7 +13,7 @@ class SnpsControllerTest < ActionController::TestCase
       @controller.send(:reset_session)
     end
 
-    should "be shown" do
+    should 'be shown' do
       FactoryGirl.create(:mendeley_paper, snps: [@snp])
       FactoryGirl.create(:plos_paper, snps: [@snp])
       FactoryGirl.create(:snpedia_paper, snps: [@snp])
@@ -22,13 +22,13 @@ class SnpsControllerTest < ActionController::TestCase
       assert_response :success
     end
 
-    context "when logged-in" do
+    context 'when logged-in' do
       setup do
         @controller.stubs(:current_user).returns(@user)
         assert_equal @user, @controller.send(:current_user)
       end
 
-      should "be shown" do
+      should 'be shown' do
         get(:show, id: @snp.name)
       end
     end

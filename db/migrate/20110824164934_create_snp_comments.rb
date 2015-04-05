@@ -9,7 +9,7 @@ class CreateSnpComments < ActiveRecord::Migration
       t.integer :reply_to_id
     end
   end
-  
+
   def self.down
     drop_table :snp_comments
   end
