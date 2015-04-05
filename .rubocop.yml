@@ -3,3 +3,15 @@ Style/DotPosition:
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/TrailingComma:
+  Enabled: false
