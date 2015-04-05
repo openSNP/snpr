@@ -75,9 +75,9 @@ class PicturePhenotypesController < ApplicationController
           check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
           check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
           check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
-          
+
           #Sidekiq::Client.enqueue(Recommendvariations)
-      	  #Sidekiq::Client.enqueue(Recommendphenotypes)
+          #Sidekiq::Client.enqueue(Recommendphenotypes)
 
           redirect_to current_user
         else
@@ -96,14 +96,16 @@ class PicturePhenotypesController < ApplicationController
     #@phenotypes = Phenotype.where(:user_id => current_user.id).all
     #@title = "Phenotypes"
     @phenotype = PicturePhenotype.find(params[:id]) || not_found
-    @comments = PicturePhenotypeComment.where(:picture_phenotype_id => params[:id]).all(:order => "created_at ASC")
+    @comments = PicturePhenotypeComment
+      .where(:picture_phenotype_id => params[:id])
+      .order(:created_at)
     @phenotype_comment = PicturePhenotypeComment.new
     if current_user and UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(current_user.id,@phenotype.id)
       @user_phenotype = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(current_user.id,@phenotype.id)
     else
       @user_phenotype = UserPicturePhenotype.new
     end
-    
+
     respond_to do |format|
       format.html
       format.xml
@@ -140,7 +142,7 @@ class PicturePhenotypesController < ApplicationController
   def sort_direction
     %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
   end
-  
+
   def check_and_award_new_phenotypes(amount, achievement_string)
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
