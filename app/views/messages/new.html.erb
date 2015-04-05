@@ -1,4 +1,4 @@
-<% if @answering and @allowed %>
+<% if @answering %>
   <h2>Answering:</h2>
   <div class="well">
     <p><b>Subject: <%= @answering.subject %></b></p>
@@ -9,7 +9,7 @@
 <%= form_for @message do |f| %>
   <%= render 'shared/error_messages', :target => @message %>
   <div class="clearfix">
-    <%= f.label :to_id, "To" %>
+    <%= f.label :to_id, 'To' %>
     <%= f.select(:to_id, @users.map { |user| [user.name, user.id] }, selected: params[:user_to_send]) %>
   </div>
   <div class="clearfix">
