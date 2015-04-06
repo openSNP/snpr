@@ -4,7 +4,7 @@ class UserPhenotype < ActiveRecord::Base
   belongs_to :phenotype
   belongs_to :user
   validates_presence_of :variation
-  pg_search_common_scope against: [:variation, :phenotype_id]
+  pg_search_common_scope against: :variation
 
   def give_me_user_phenotype(phenotype_id, user_id)
     # needed for the phenotype_set_forms

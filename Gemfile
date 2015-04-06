@@ -74,6 +74,7 @@ group :test do
   gem 'vcr'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'timecop'
 end
 
 group :development, :test do

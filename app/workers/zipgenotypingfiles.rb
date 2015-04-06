@@ -5,10 +5,9 @@ class Zipgenotypingfiles
   sidekiq_options :queue => :zipgenotyping, :retry => 5, :unique => true
 
   def perform(phenotype_id, variation, target_address)
-    @user_phenotypes = UserPhenotype.search do
-      with :phenotype_id, phenotype_id
-      fulltext variation
-    end.results
+    @user_phenotypes = UserPhenotype
+      .where(phenotype_id: phenotype_id)
+      .search(variation)
     @genotyping_files = []
     @user_phenotypes.each do |up|
       @user = User.find_by_id(up.user_id)
