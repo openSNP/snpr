@@ -16,7 +16,7 @@ class FitbitEdit
      end
      
      if @fitbit_profile.body == false
-       @entries = FitbitBody.find_all_by_fitbit_profile_id(@fitbit_profile.id)
+       @entries = FitbitBody.where(fitbit_profile_id: @fitbit_profile.id)
        @entries.each do |e|
          e.delete
        end
@@ -39,7 +39,7 @@ class FitbitEdit
      
      # check for sleep data & subscriptions
      if @fitbit_profile.sleep == false
-       @entries = FitbitSleep.find_all_by_fitbit_profile_id(@fitbit_profile.id)
+       @entries = FitbitSleep.where(fitbit_profile_id: @fitbit_profile.id)
        @entries.each do |e|
          e.delete
        end
@@ -73,7 +73,7 @@ class FitbitEdit
      
      # check for activities data
      if @fitbit_profile.activities == false
-       @entries = FitbitActivity.find_all_by_fitbit_profile_id(@fitbit_profile.id)
+       @entries = FitbitActivity.where(fitbit_profile_id: @fitbit_profile.id)
        @entries.each do |e|
          e.delete
        end
