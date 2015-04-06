@@ -1,19 +1,19 @@
-# TODO: One file per model.
+  # TODO: One file per model.
 
-# Needed (?) when test/unit and Rspec tests are run
+  # Needed (?) when test/unit and Rspec tests are run
 
   FactoryGirl.define do
     factory :user do
-      name "Dogbert"
+      name 'Dogbert'
       sequence(:email) { |i| "fubert#{i}@example.org" }
-      password "jeheim"
-      password_confirmation "jeheim"
+      password 'jeheim'
+      password_confirmation 'jeheim'
       sex 'yes please'
       yearofbirth '1970'
     end
 
     factory :genotype do
-      genotype_file_name "foo.txt"
+      genotype_file_name 'foo.txt'
       user
     end
 
@@ -21,14 +21,14 @@
       sequence(:name) { |i| "rs#{i}" }
       sequence(:position) { |i| i }
       sequence(:chromosome) { |i| i }
-      genotype_frequency("AA" => 1)
-      allele_frequency("A" => 0, "T" => 0, "G" => 0, "C" => 0)
+      genotype_frequency('AA' => 1)
+      allele_frequency('A' => 0, 'T' => 0, 'G' => 0, 'C' => 0)
       ranking 0
     end
 
     factory :snp_comment do
-      comment_text "This is a great SNP!"
-      subject "Great!"
+      comment_text 'This is a great SNP!'
+      subject 'Great!'
       user_id 1
       snp_id 1
     end
@@ -41,17 +41,17 @@
     end
 
     factory :achievement do
-      award "Foooooooo"
+      award 'Foooooooo'
     end
 
     factory :phenotype do
-      characteristic "Penis length"
+      characteristic 'Penis length'
     end
 
     factory :user_phenotype do
       association :user
       association :phenotype
-      variation "pink"
+      variation 'pink'
     end
 
     factory :picture_phenotype do
@@ -63,7 +63,7 @@
     end
 
     factory :fitbit_profile do
-      after(:create) do |fp, evaluator|
+      after(:create) do |fp, _evaluator|
         params = { fitbit_profile: fp, date_logged: '2013-01-14' }
         FactoryGirl.create(:fitbit_body, params)
         FactoryGirl.create(:fitbit_sleep, params)
@@ -72,8 +72,8 @@
     end
 
     factory :fitbit_body do
-      weight "100"
-      bmi "200"
+      weight '100'
+      bmi '200'
     end
 
     factory :fitbit_sleep do
@@ -89,11 +89,11 @@
     end
 
     factory :mendeley_paper do
-      title "Musterstudie"
+      title 'Musterstudie'
       uuid { UUIDTools::UUID.random_create.to_s }
-      first_author "Max Mustermann"
-      mendeley_url "http://example.com"
-      doi "10.1000/182"
+      first_author 'Max Mustermann'
+      mendeley_url 'http://example.com'
+      doi '10.1000/182'
       pub_year 2013
     end
 

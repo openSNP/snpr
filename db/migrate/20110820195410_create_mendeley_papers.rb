@@ -9,11 +9,11 @@ class CreateMendeleyPapers < ActiveRecord::Migration
       t.string :uuid
       t.boolean :open_access
       t.integer :reader
-      t.timestamps 
+      t.timestamps
       t.belongs_to :snp
     end
   end
-  
+
   def self.down
     drop_table :mendeley_papers
   end

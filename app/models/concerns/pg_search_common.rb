@@ -9,8 +9,8 @@ module PgSearchCommon
 
     def pg_search_common_config
       {
-        using: { 
-          tsearch: { 
+        using: {
+          tsearch: {
             prefix: true
           }
         }

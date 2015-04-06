@@ -1,16 +1,16 @@
-ENV["RAILS_ENV"] = "test"
+ENV['RAILS_ENV'] = 'test'
 unless ENV['CI']
   require 'simplecov'
   SimpleCov.start('rails')
 end
 require File.expand_path('../../config/environment', __FILE__)
-require "test/unit"
-require "shoulda-context"
-require "mocha/setup"
+require 'test/unit'
+require 'shoulda-context'
+require 'mocha/setup'
 require 'rails/test_help'
-require "authlogic/test_case"
+require 'authlogic/test_case'
 require 'webmock'
-WebMock.disable_net_connect!(:allow_localhost => true)
+WebMock.disable_net_connect!(allow_localhost: true)
 require 'factory_girl_rails'
 require 'paperclip/matchers'
 require 'plos'

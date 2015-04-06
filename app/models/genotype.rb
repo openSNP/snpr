@@ -9,8 +9,8 @@ class Genotype < ActiveRecord::Base
                                path: "#{Rails.root}/public/data/:fs_filename"
   before_post_process :is_image?
   validates_attachment :genotype,
-    presence: true,
-    size: { in: 0..100.megabytes }
+                       presence: true,
+                       size: { in: 0..100.megabytes }
   do_not_validate_attachment_file_type :genotype
 
   after_create :parse_genotype
@@ -32,7 +32,7 @@ class Genotype < ActiveRecord::Base
     DeleteGenotype.perform_async(genotype_id: id)
   end
 
-  Paperclip.interpolates :fs_filename do |attachment, style|
+  Paperclip.interpolates :fs_filename do |attachment, _style|
     attachment.instance.fs_filename
   end
 end

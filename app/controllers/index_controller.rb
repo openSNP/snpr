@@ -4,9 +4,9 @@ class IndexController < ApplicationController
       redirect_to current_user
     else
       respond_to do |format|
-  		  format.html
-  		  format.xml 
-  	  end
+        format.html
+        format.xml
+      end
     end
   end
 end

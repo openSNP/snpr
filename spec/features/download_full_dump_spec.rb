@@ -7,8 +7,8 @@ feature 'downloading the full dump' do
   let(:public_path) { '/data/zip/opensnp_datadump.current.zip' }
 
   background do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).
-      and_return(current_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user)
+      .and_return(current_user)
   end
 
   before do

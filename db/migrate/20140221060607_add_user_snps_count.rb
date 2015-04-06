@@ -4,7 +4,7 @@ class AddUserSnpsCount < ActiveRecord::Migration
     Snp.reset_column_information
     user_snp_counts = execute(
       'select snp_name, count(*) as count from user_snps group by snp_name'
-    ).to_a.reduce({}) {|m,us| m[us['snp_name']] = us['count']; m }
+    ).to_a.reduce({}) { |m, us| m[us['snp_name']] = us['count']; m }
     Snp.find_each do |s|
       s.user_snps_count = user_snp_counts[s.name]
       s.save!

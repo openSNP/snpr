@@ -2,28 +2,28 @@ class User < ActiveRecord::Base
   include PgSearchCommon
 
   has_attached_file :avatar,
-    styles: { medium: "300x300>", thumb: "100x100>#", head: "32x32#" },
-    default_url: 'standard_:style.png'
+                    styles: { medium: '300x300>', thumb: '100x100>#', head: '32x32#' },
+                    default_url: 'standard_:style.png'
 
   before_validation :clear_avatar
 
   validates_attachment_size :avatar, less_than: 1.megabyte
   validates_attachment_content_type :avatar,
-    content_type: ['image/jpeg', 'image/png', 'image/gif']
+                                    content_type: ['image/jpeg', 'image/png', 'image/gif']
   # call on authlogic
-  acts_as_authentic do |c| 
+  acts_as_authentic do |c|
     # replace SHA512 by bcrypt
     c.transition_from_crypto_providers = Authlogic::CryptoProviders::Sha512
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
-  #after_create :make_standard_phenotypes
+  # after_create :make_standard_phenotypes
 
   # dependent so stuff gets destroyed on delete
-  has_many :user_phenotypes, :dependent => :destroy
-  has_many :phenotypes, :through => :user_phenotypes
-  has_many :user_picture_phenotypes, :dependent => :destroy
-  has_many :picture_phenotypes, :through => :user_picture_phenotypes
-  has_many :genotypes, :dependent => :destroy
+  has_many :user_phenotypes, dependent: :destroy
+  has_many :phenotypes, through: :user_phenotypes
+  has_many :user_picture_phenotypes, dependent: :destroy
+  has_many :picture_phenotypes, through: :user_picture_phenotypes
+  has_many :genotypes, dependent: :destroy
   has_many :user_snps, through: :genotypes
   has_many :snps, through: :user_snps
   has_many :homepages, dependent: :destroy
@@ -54,15 +54,15 @@ class User < ActiveRecord::Base
   def user_has_sequence_string
     # used in the user-index-page instead of ugly true/false
     if has_sequence
-      "Yes"
+      'Yes'
     else
-      "No"
+      'No'
     end
   end
 
   def check_if_phenotype_exists(charact)
     # checks so we don't create duplicate phenotypes
-    if Phenotype.find_by_characteristic(charact) != nil
+    if !Phenotype.find_by_characteristic(charact).nil?
       true
     else
       false
@@ -100,5 +100,4 @@ class User < ActiveRecord::Base
   def clear_avatar
     self.avatar = nil if delete_avatar?
   end
-
 end

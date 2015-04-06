@@ -1,5 +1,5 @@
 Snpr::Application.configure do
-  Paperclip.options[:command_path] = "/usr/local/bin/"
+  Paperclip.options[:command_path] = '/usr/local/bin/'
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -32,4 +32,3 @@ Snpr::Application.configure do
   # Serve files from /public directory
   config.serve_static_files = true
 end
-

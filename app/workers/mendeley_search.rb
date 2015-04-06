@@ -1,12 +1,12 @@
-require "rubygems"
-require "net/http"
-require "json"
+require 'rubygems'
+require 'net/http'
+require 'json'
 
 class MendeleySearch
   include Sidekiq::Worker
   attr_reader :snp
 
-  sidekiq_options :queue => :mendeley, :retry => 5, :unique => true
+  sidekiq_options queue: :mendeley, retry: 5, unique: true
 
   def perform(snp_id)
     return false # until OAuth2 implementation
@@ -18,7 +18,7 @@ class MendeleySearch
     if update_mendeley?
       search
     else
-      logger.info("mendeley papers for #{snp.name} do not need to be updated") 
+      logger.info("mendeley papers for #{snp.name} do not need to be updated")
     end
   end
 
@@ -26,8 +26,8 @@ class MendeleySearch
     page = 0
     items = 500
     begin
-      result = Mendeley::API::Documents.
-        search("\"#{snp.name}\"", { items: items, page: page })
+      result = Mendeley::API::Documents
+               .search("\"#{snp.name}\"", items: items, page: page)
       process_documents(result['documents'])
       page += 1
       sleep 1
@@ -38,41 +38,41 @@ class MendeleySearch
     snp.ranking = snp.mendeley_papers.count +
       2 * snp.plos_papers.count + 5 * snp.snpedia_papers.count +
       2 * snp.genome_gov_papers.count + 2 * snp.pgp_annotations.count
-    snp.save or raise(
-      "could not save snp(#{snp.name}): #{snp.errors.full_messages.join(", ")}")
+    snp.save || fail(
+      "could not save snp(#{snp.name}): #{snp.errors.full_messages.join(', ')}")
 
-    if result["error"].present?
+    if result['error'].present?
       logger.warn(
-        "Mendeley API seems to be down.\nError is: #{result["error"]}")
+        "Mendeley API seems to be down.\nError is: #{result['error']}")
     end
   end
 
   def process_documents(documents)
     if documents.blank?
-      logger.info("mendeley: No papers found")
+      logger.info('mendeley: No papers found')
       return
     end
     documents.each do |document|
-      uuid = document["uuid"].to_s
+      uuid = document['uuid'].to_s
       mendeley_paper = MendeleyPaper.find_or_initialize_by(uuid: uuid)
       if mendeley_paper.new_record? || !mendeley_paper.valid?
-        first_author = document["authors"].first
+        first_author = document['authors'].first
         if first_author.present?
-          first_author = "#{first_author["forename"]} #{first_author["surname"]}"
+          first_author = "#{first_author['forename']} #{first_author['surname']}"
         end
 
-        logger.info("creating or updating paper")
+        logger.info('creating or updating paper')
         mendeley_paper.attributes = mendeley_paper.attributes.merge(
           title:        document['title'],
           mendeley_url: document['mendeley_url'],
           first_author: first_author,
           pub_year:     document['year'],
           uuid:         uuid,
-          doi:          document["doi"].presence,
+          doi:          document['doi'].presence,
         )
         if !(mendeley_paper.valid? && mendeley_paper.save)
           logger.error("MendeleyPaper for #{snp.name} invalid.\n" <<
-                       mendeley_paper.errors.full_messages.join(", "))
+                       mendeley_paper.errors.full_messages.join(', '))
         else
           mendeley_paper.snps << snp
         end
@@ -83,6 +83,6 @@ class MendeleySearch
 
   def update_mendeley?
     (snp.mendeley_updated.nil? || snp.mendeley_updated < 31.days.ago) &&
-      snp.name.index("vg").nil? && snp.name.index("mt-").nil?
+      snp.name.index('vg').nil? && snp.name.index('mt-').nil?
   end
 end

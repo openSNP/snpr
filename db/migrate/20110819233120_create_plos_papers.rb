@@ -5,12 +5,12 @@ class CreatePlosPapers < ActiveRecord::Migration
       t.text :title
       t.text :doi
       t.timestamp :pub_date
-      t.timestamps 
+      t.timestamps
       t.integer :reader
       t.belongs_to :snp
     end
   end
-  
+
   def self.down
     drop_table :plos_papers
   end

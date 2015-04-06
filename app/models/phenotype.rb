@@ -18,4 +18,3 @@ class Phenotype < ActiveRecord::Base
     @known_phenotypes
   end
 end
-

@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class SnpediaTest < ActiveSupport::TestCase
   setup do
     @snp = FactoryGirl.create(:snp, name: 'rs12979860',
-                              snpedia_updated: 32.days.ago)
+                                    snpedia_updated: 32.days.ago)
   end
 
   should 'create SnpediaPapers' do
@@ -27,8 +27,8 @@ class SnpediaTest < ActiveSupport::TestCase
 
   should 'skip existing papers' do
     FactoryGirl.create(:snpedia_paper,
-                       revision: 445428,
-                       url: "http://www.snpedia.com/index.php/Rs12979860(C;C)",
+                       revision: 445_428,
+                       url: 'http://www.snpedia.com/index.php/Rs12979860(C;C)',
                        snps: [@snp])
     VCR.use_cassette('snpedia_worker') do
       assert_difference(-> { SnpediaPaper.count }, 2) do
@@ -45,7 +45,7 @@ class SnpediaTest < ActiveSupport::TestCase
       Snpedia.new.perform(@snp.id)
     end
     SnpediaPaper.find_each do |sp|
-      assert_equal "No summary provided.", sp.summary
+      assert_equal 'No summary provided.', sp.summary
     end
   end
 

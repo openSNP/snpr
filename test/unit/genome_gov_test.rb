@@ -29,8 +29,8 @@ class GenomeGovTest < ActiveSupport::TestCase
 
   should 'update existing GenomeGovPapers' do
     paper = FactoryGirl.create(:genome_gov_paper,
-      title: "Association of granulomatosis with polyangiitis (Wegener's) with HLA-DPB1*04 and SEMA6A gene variants: evidence from genome-wide analysis.",
-      pubmed_link: 'http://www.ncbi.nlm.nih.gov/pubmed/23740775')
+                               title: "Association of granulomatosis with polyangiitis (Wegener's) with HLA-DPB1*04 and SEMA6A gene variants: evidence from genome-wide analysis.",
+                               pubmed_link: 'http://www.ncbi.nlm.nih.gov/pubmed/23740775')
     paper.snps << @snp
 
     VCR.use_cassette('genome_gov_worker') do

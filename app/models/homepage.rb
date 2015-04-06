@@ -1,11 +1,12 @@
 class Homepage < ActiveRecord::Base
-   belongs_to :user
-   after_save :destroy_if_blank
+  belongs_to :user
+  after_save :destroy_if_blank
 
-   validates_uniqueness_of :description, :url
-   private
+  validates_uniqueness_of :description, :url
 
-   def destroy_if_blank
-     self.destroy if url.blank?
-   end
+  private
+
+  def destroy_if_blank
+    destroy if url.blank?
+  end
 end

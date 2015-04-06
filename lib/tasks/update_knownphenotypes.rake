@@ -1,8 +1,8 @@
 # update Phenotype.known_phenotypes to remove empty/no longer used variations
 
 namespace :phenotypes do
-  desc "update Phenotype.known_phenotypes to remove empty/no longer used variations"
-  task :update_known_phenotypes => :environment do
+  desc 'update Phenotype.known_phenotypes to remove empty/no longer used variations'
+  task update_known_phenotypes: :environment do
     Phenotype.find_each do |p|
       variation_array = []
       p.user_phenotypes.each do |u|

@@ -17,7 +17,7 @@ describe 'genotype parsing', sidekiq: :inline do
   end
 
   context '23andMe-exome-vcf' do
-    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) } 
+    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) }
     let(:genotype) do
       create(:genotype, genotype: file, filetype: '23andme-exome-vcf')
     end
@@ -49,7 +49,6 @@ describe 'genotype parsing', sidekiq: :inline do
       end
     end
   end
-
 
   context '23andMe' do
     let(:file) { File.open(Rails.root.join('test/data/23andMe_test.csv')) }
@@ -226,5 +225,4 @@ describe 'genotype parsing', sidekiq: :inline do
       end
     end
   end
-
 end

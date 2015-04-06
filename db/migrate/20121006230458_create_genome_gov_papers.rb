@@ -10,11 +10,11 @@ class CreateGenomeGovPapers < ActiveRecord::Migration
       t.float :pvalue
       t.text :pvalue_description
       t.text :confidence_interval
-      t.timestamps 
+      t.timestamps
       t.belongs_to :snp
     end
   end
-  
+
   def self.down
     drop_table :genome_gov_papers
   end

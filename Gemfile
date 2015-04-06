@@ -4,11 +4,11 @@ gem 'rails', '~> 4.2.0'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
-gem "jquery-rails"
+gem 'jquery-rails'
 gem 'vegas'
-gem 'bcrypt-ruby', :require => "bcrypt"
+gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'sanitize'
-gem "recaptcha", :require => "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
 gem 'dynamic_form'
 gem 'lograge'
 
@@ -30,15 +30,15 @@ gem 'composite_primary_keys', '~> 8.0'
 gem 'pg_search'
 
 # so we can create zip-files for genotypes
-gem 'rubyzip', :git => 'git://github.com/rubyzip/rubyzip.git'
+gem 'rubyzip', git: 'git://github.com/rubyzip/rubyzip.git'
 
-gem "will_paginate"
+gem 'will_paginate'
 gem 'nested_form', github: 'ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'paperclip', '~> 4.0 '
 gem 'friendly_id'
-gem 'recommendify', github: 'paulasmuth/recommendify', :ref => "34308c4"
+gem 'recommendify', github: 'paulasmuth/recommendify', ref: '34308c4'
 
 # background jobs
 gem 'sidekiq'
@@ -54,14 +54,14 @@ gem 'therubyracer'
 gem 'execjs'
 gem 'uglifier'
 gem 'yui-compressor'
-gem "twitter-bootstrap-rails"
-gem "jquery-ui-rails"
-gem "sass"
+gem 'twitter-bootstrap-rails'
+gem 'jquery-ui-rails'
+gem 'sass'
 
-#group :production do
+# group :production do
 #	gem 'rpm_contrib'
 #	gem 'newrelic_rpm'
-#end
+# end
 
 group :test do
   gem 'test-unit' # TODO: Remove me

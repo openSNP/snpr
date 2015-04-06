@@ -4,13 +4,13 @@ require 'media_wiki'
 
 class Snpedia
   include Sidekiq::Worker
-  sidekiq_options :queue => :snpedia, :retry => 5, :unique => true
+  sidekiq_options queue: :snpedia, retry: 5, unique: true
   attr_reader :snp, :client
 
   def perform(snp_id)
     @snp = Snp.find(snp_id)
     if snp && valid_snp_names.include?(snp.name) && snp.snpedia_updated < 31.days.ago
-      @client = MediaWiki::Gateway.new("http://bots.snpedia.com/api.php")
+      @client = MediaWiki::Gateway.new('http://bots.snpedia.com/api.php')
       perform_search
     end
   end
@@ -37,7 +37,7 @@ class Snpedia
     snp.snpedia_updated! if snpedia_updated
     if Rails.env == 'production'
       # Increase this value if the following error keeps on showing up
-      # 'MediaWiki::APIError: API error: code 'internal_api_error_DBConnectionError', 
+      # 'MediaWiki::APIError: API error: code 'internal_api_error_DBConnectionError',
       # info 'Exception Caught: DB connection error: Too many connections'
       sleep(10)
     end
