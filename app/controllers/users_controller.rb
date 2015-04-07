@@ -47,7 +47,7 @@ class UsersController < ApplicationController
           @user["name"] = u.name
           @user["id"] = u.id
           @user["genotypes"] = []
-          Genotype.find_all_by_user_id(u.id).each do |g|
+          Genotype.where(user_id: u.id).each do |g|
             @genotype = {}
             @genotype["id"] = g.id
             @genotype["filetype"] = g.filetype
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
         @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
         # TODO: known_phenotypes compare different now
         if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
-          @phenotype.number_of_users = UserPhenotype.find_all_by_phenotype_id(@phenotype.id).length
+          @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
           @phenotype.save
         end
       end

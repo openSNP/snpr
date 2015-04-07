@@ -70,7 +70,7 @@ class UserPicturePhenotypesController < ApplicationController
         check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
 
 
-        @phenotype.number_of_users = UserPicturePhenotype.find_all_by_picture_phenotype_id(@phenotype.id).length
+        @phenotype.number_of_users = UserPicturePhenotype.where(picture_phenotype_id: @phenotype.id).count
         @phenotype.save
 
         if @js_modal == true

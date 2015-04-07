@@ -62,7 +62,7 @@ class PicturePhenotypesController < ApplicationController
         @user_phenotype.picture_phenotype = @phenotype
 
         if @user_phenotype.save
-          @phenotype.number_of_users = UserPicturePhenotype.find_all_by_picture_phenotype_id(@phenotype.id).length 
+          @phenotype.number_of_users = UserPicturePhenotype.where(picture_phenotype_id: @phenotype.id).count
           @phenotype.save
           flash[:notice] = "Picture Phenotype sucessfully saved."
 

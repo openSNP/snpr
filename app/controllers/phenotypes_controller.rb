@@ -249,7 +249,7 @@ class PhenotypesController < ApplicationController
     begin
       @user = User.find_by_id(params[:user_id])
       @result = {}
-      @user_phenotypes = UserPhenotype.find_all_by_user_id(@user.id)
+      @user_phenotypes = UserPhenotype.where(user_id: @user.id)
 
       @result["user"] = {}
       @result["user"]["name"] = @user.name
