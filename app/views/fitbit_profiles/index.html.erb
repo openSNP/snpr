@@ -21,7 +21,7 @@
   </tr>
   <% @fitbit_profiles.each_with_index do |fitbit_profile, i| %>
     <tr>
-      <td><%= @fitbit_profiles.per_page * (@fitbit_profiles.current_page - 1) + i + 1 %></td>
+      <td><%= table_row_sequence_number(@fitbit_profiles, i) %></td>
       <td><%= link_to(fitbit_profile.fitbit_user_id, {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id}) %></td>
       <td><%=image_tag fitbit_profile.user.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(fitbit_profile.user.name, fitbit_profile.user)%></td>
       <td><%if fitbit_profile.activities == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
