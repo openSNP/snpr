@@ -11,6 +11,7 @@ gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'dynamic_form'
 gem 'lograge'
+gem 'slop'
 
 # for errbit
 gem 'airbrake'
