@@ -1,38 +1,38 @@
 <legend><%=image_tag("fitbit-icon.png")%> Listing all connected <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> accounts </legend>
 
 <h4>
-<%= link_to(Zipfulldata.public_path, title: "Request download") do %>
-<%= image_tag("filedownload_small.png", style: "vertical-align:middle") %>
-Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users <%= Zipfulldata.gb_size %>
+  <%= link_to(Zipfulldata.public_path, title: "Request download") do %>
+    <%= image_tag("filedownload_small.png", style: "vertical-align:middle") %>
+    Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users <%= Zipfulldata.gb_size %>
 <% end %>
 </h4>
 <br/>
 <h4><a href="https://github.com/superbobry/snpy">Python-library to parse the provided files</a>, courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
 <br/>
 <table class="table table-striped" id="all_fitbit">
-<tr>
+  <tr>
     <th>#</th>
     <th><%= sortable "fitbit_user_id", "Fitbit ID"%></th>
-	<th>User</th>
+    <th>User</th>
     <th><%= sortable "activities", "Shares Activities"%></th>
     <th><%= sortable "body", "Shares Body Data"%></th>
     <th><%= sortable "sleep", "Shares Sleep Data"%></th>
-	<th>View Profile</th>
-</tr>
-<% @fitbit_paginate.each do |g| %>
-	<tr>
-    <td><%= FitbitProfile.all.sort! { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
-    <td><%= link_to(g.fitbit_user_id, {:controller => "fitbit_profiles", :action => "show", :id => g.id}) %></td>
-	<td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(g.user.name, g.user)%></td>
-    <td><%if g.activities == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
-	<td><%if g.body == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
-	<td><%if g.sleep == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
-	<td><%= link_to("view", {:controller => "fitbit_profiles", :action => "show", :id => g.id})%></td>
-</tr>
-<% end %>
+    <th>View Profile</th>
+  </tr>
+  <% @fitbit_profiles.each_with_index do |fitbit_profile, i| %>
+    <tr>
+      <td><%= table_row_sequence_number(@fitbit_profiles, i) %></td>
+      <td><%= link_to(fitbit_profile.fitbit_user_id, {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id}) %></td>
+      <td><%=image_tag fitbit_profile.user.avatar.url(:head),:style => "vertical-align:middle"%><%= link_to(fitbit_profile.user.name, fitbit_profile.user)%></td>
+      <td><%if fitbit_profile.activities == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
+      <td><%if fitbit_profile.body == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
+      <td><%if fitbit_profile.sleep == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
+      <td><%= link_to("view", {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id})%></td>
+    </tr>
+  <% end %>
 </table>
 
-<%= page_navigation_links @fitbit_paginate %>
+<%= page_navigation_links @fitbit_profiles %>
 
 <script type="text/javascript">
   $(document).ready(function () {
