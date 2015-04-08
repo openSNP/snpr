@@ -64,4 +64,7 @@ Snpr::Application.configure do
 
   # Eager load code on boot.
   config.eager_load = true
+
+  # Make ActiveJob and hence ActionMailer use Sidekiq
+  config.active_job.queue_adapter = :sidekiq
 end

@@ -59,8 +59,5 @@ module Snpr
     end
 
     config.active_record.raise_in_transactional_callbacks = true
-
-    # Make ActiveJob and hence ActionMailer use Sidekiq
-    config.active_job.queue_adapter = :sidekiq
   end
 end
