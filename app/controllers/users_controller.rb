@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if request.format.json?
       @result = []
       begin
-        @users = User.find(:all)
+        @users = User.all
         @users.each do |u|
           @user = {}
           @user["name"] = u.name
