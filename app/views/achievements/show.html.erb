@@ -1,7 +1,7 @@
 <h3>Achievement: <%=@achievement.award%> <%=image_tag("achievements/#{@achievement.short_name}_80px.png",:style => "vertical-align:middle",:height=>"70",:alt => @achievement.award)%></h3>
 
 <h6>Statistics</h6>
-<%=((@achievement.user_achievements.length.to_f / User.find(:all).length)*100).to_s[0,5]%> % of all users received this achievement.
+<%=((@achievement.user_achievements.length.to_f / User.all.count)*100).to_s[0,5]%> % of all users received this achievement.
 <h6>Users who received this achievement</h6>
 <table class="table table-striped">
   <tr>

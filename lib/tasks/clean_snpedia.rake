@@ -1,7 +1,7 @@
 namespace :snpedia do
 	desc "kick out those nasty extra-crap things"
 	task :clean => :environment do
-		SnpediaPaper.find(:all).each do |paper|
+		SnpediaPaper.all.each do |paper|
 			if paper.summary.index("}}") != nil
 				puts "OLD"
 				puts paper.summary

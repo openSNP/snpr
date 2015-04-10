@@ -3,7 +3,7 @@
     <%= form_for(@phenotype,:html => { :class => "form-stacked",:multipart => true  })  do |f| %>
     <%= render 'shared/error_messages', :target => @phenotype %>
     <%phenotype_array = []%>
-    <%PicturePhenotype.find(:all).each do |p| phenotype_array << p.characteristic end%>
+    <%PicturePhenotype.all.each do |p| phenotype_array << p.characteristic end%>
     <div class="clearfix">
         <div class="inline-inputs">
             <script type="text/javascript">
