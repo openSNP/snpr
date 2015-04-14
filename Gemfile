@@ -31,7 +31,7 @@ gem 'composite_primary_keys', '~> 8.0'
 gem 'pg_search'
 
 # so we can create zip-files for genotypes
-gem 'rubyzip', :git => 'git://github.com/rubyzip/rubyzip.git'
+gem 'rubyzip'
 
 gem "will_paginate"
 gem 'nested_form', github: 'ryanb/nested_form'
