@@ -85,7 +85,7 @@ class Preparsing
     if Genotype.where(md5sum: md5).where('id != ?', genotype.id).count > 0
       file_is_duplicate = true
       logger.info "Genotyping #{genotype.genotype.path} is already uploaded!\n"
-      logger.info "Genotyping #{g.fs_filename} has the same md5sum.\n"
+      logger.info "Genotyping #{genotype.fs_filename} has the same md5sum.\n"
       file_is_ok = false
       file_is_duplicate = true
     end
