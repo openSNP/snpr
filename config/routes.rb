@@ -31,13 +31,13 @@ Snpr::Application.routes.draw do
   resources :user_achievements
   resources :index
 
-  get '/fitbit/notification/', :to => 'fitbit_profiles#new_notification'
+  post '/fitbit/notification/', :to => 'fitbit_profiles#new_notification'
   get '/fitbit/start_auth', :to => 'fitbit_profiles#start_auth'
   get '/fitbit/verify', :to => 'fitbit_profiles#verify_auth'
   get '/fitbit/info', :to => 'fitbit_profiles#info'
   get '/fitbit/edit', :to => 'fitbit_profiles#edit'
   get '/fitbit/init', :to => 'fitbit_profiles#init'
-  get '/fitbit/update/', :to => 'fitbit_profiles#update'
+  post '/fitbit/update/', :to => 'fitbit_profiles#update'
   get '/fitbit/delete/', :to => 'fitbit_profiles#destroy'
   get '/fitbit/show/:id', :to => 'fitbit_profiles#show', :as => :fitbit_show
   get '/fitbit/dump/:id', :to => 'fitbit_profiles#dump', :as => :fitbit_dump
