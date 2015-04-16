@@ -40,15 +40,29 @@ class Zipfulldata
     begin
       log "Making tmpdir #{tmp_dir}"
       Dir.mkdir(tmp_dir)
-      log "Starting zipfile #{zip_fs_path}"
+      log "Starting zipfile #{zip_fs_path} with 6 steps"
       Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
+        log "1/6 Creating User CSV"
         create_user_csv(genotypes, zipfile)
+        log "1/6 User CSV created"
+        log "2/6 Creating FitBit CSV"
         create_fitbit_csv(zipfile)
+        log "2/6 Created FitBit CSV"
+        log "3/6 Getting list of picture phenotypes"
         list_of_pics = create_picture_phenotype_csv(zipfile)
+        log "3/6 Got list of pictures"
+        log "4/6 Making zip of picture phenotypes"
         create_picture_zip(list_of_pics, zipfile)
+        log "4/6 Created zip of pictures"
+        log "5/6 Creating README"
         create_readme(zipfile)
+        log "5/6 Created README"
+        log "6/6 Zipping genotype files"
         zip_genotype_files(genotypes, zipfile)
+        log "6/6 Finished zipping genotype file"
       end
+
+      log "Chmodding public zip"
 
       FileUtils.chmod(0644, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
       log "created zip-file"
@@ -234,7 +248,9 @@ TXT
   end
 
   def zip_genotype_files(genotypes, zipfile)
+    log "6/6 Inside genotype zipping"
     genotypes.each do |gen_file|
+      log "6/6 looking at genotype #{gen_file.id}"
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
       if yob == "rather not say"
@@ -245,6 +261,7 @@ TXT
       end
       zipfile.add("user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
                   "#{Rails.root}/public/data/#{gen_file.fs_filename}")
+      log "6/6 Added #{gen_file.id} to zipfile"
     end
   end
 
