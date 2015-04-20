@@ -11,7 +11,7 @@ class Zipfulldata
   # dead => false means don't send dead job to the dead queue, we don't care about that
 
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
-    :zip_fs_path, :tmp_dir
+    :zip_fs_path, :tmp_dir, :link_path
 
   def perform
     Rails.logger.level = 0
@@ -29,6 +29,7 @@ class Zipfulldata
     @zip_public_path = "/data/zip/#{dump_file_name}.zip"
     @zip_fs_path = "#{Rails.root}/public#{zip_public_path}"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
+    @link_path = Rails.root.join('public/data/zip/opensnp_datadump.current.zip')
   end
 
   def run
@@ -59,22 +60,13 @@ class Zipfulldata
 
       FileUtils.ln_sf(
         Rails.root.join("public/data/zip/#{dump_file_name}.zip"),
-        Rails.root.join('public/data/zip/opensnp_datadump.current.zip'))
-
+        link_path)
+        
       # everything went OK, now delete old zips
-      link = Rails.root.join('public/data/zip/opensnp_datadump.current.zip')
-      # don't delete link, don't delete zip we just made
-      forbidden_files = [link, zip_fs_path]
-      Dir.entries(Rails.root.join("public/data/zip/")).each do |f|
-        f = Rails.root.join("public/data/zip/", f)
-        # Has to be older than 1 day, don't delete important files, only delete archives
-        if (not forbidden_files.include? f) and (get_file_age_in_days(f) >= 1) and (f.to_s.end_with? 'zip')
-          File.delete(f)
-        end
-      end
+      delete_old_zips
 
-    ensure
-      FileUtils.rm_rf(tmp_dir)
+      ensure
+        FileUtils.rm_rf(tmp_dir)
     end
     true
   end
@@ -250,9 +242,7 @@ TXT
   end
 
   def zip_genotype_files(genotypes, zipfile)
-    log "6/6 Inside genotype zipping"
     genotypes.each do |gen_file|
-      log "6/6 looking at genotype #{gen_file.id}"
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
       if yob == "rather not say"
@@ -266,8 +256,13 @@ TXT
     end
   end
 
-  def get_file_age_in_days(file)
-    (Time.now - File.mtime(file)) / 1.day
+  def delete_old_zips
+    forbidden_files = [link_path, zip_fs_path, Rails.root.join("data/annotation.zip")]
+    Dir[Rails.root.join('public/data/zip/*.zip')].each do |f|
+      if not forbidden_files.include? f
+        File.delete(f)
+      end
+    end
   end
 
   def log(msg)

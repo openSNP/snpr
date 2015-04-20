@@ -22,7 +22,3 @@
 every :day, at: '1am' do
   rake 'dump:full', environment: 'production'
 end
-
-every 7.days, at: '1am' do
-  rake 'dump:clean', environment: 'production'
-end
