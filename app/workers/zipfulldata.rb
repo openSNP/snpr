@@ -62,7 +62,6 @@ class Zipfulldata
         Rails.root.join("public/data/zip/#{dump_file_name}.zip"),
         link_path)
         
-      puts Rails.root.join("public/data/zip/#{dump_file_name}.zip")
       # everything went OK, now delete old zips
       delete_old_zips
 
