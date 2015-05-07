@@ -1,6 +1,4 @@
-
 require "recommendify"
-Recommendify.redis = Redis.new
 
 # our recommender class
 class UserRecommender < Recommendify::Base

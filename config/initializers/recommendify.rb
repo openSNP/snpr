@@ -1,0 +1,1 @@
+Recommendify.redis = Redis.new
