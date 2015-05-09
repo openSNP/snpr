@@ -14,12 +14,12 @@ class Parsing
     @temp_table_name = "user_snps_temp_#{genotype.id}"
     @tempfile = Tempfile.new("snpr_genotype_#{genotype.id}_")
 
-    create_temp_table
-    normalize_csv
-    copy_csv_into_temp_table
-    insert_into_snps
-    insert_into_user_snps
-    notify_user
+    send_logged(:create_temp_table)
+    send_logged(:normalize_csv)
+    send_logged(:copy_csv_into_temp_table)
+    send_logged(:insert_into_snps)
+    send_logged(:insert_into_user_snps)
+    send_logged(:notify_user)
 
     stats[:duration] = "#{(Time.current - start_time).round(3)}s"
     logger.info("Finished parsing: #{stats.to_a.map { |s| s.join('=') }.join(', ')}")
@@ -230,6 +230,14 @@ class Parsing
     @logger = Logger.new(Rails.root.join("log/parsing_#{Rails.env}.log"))
     @logger.formatter = Logger::Formatter.new
     @logger
+  end
+
+  def send_logged(method)
+    start_time = Time.now
+    ret = send(method)
+    took = Time.now - start_time
+    logger.info("calling of method `#{method}` took #{took} s")
+    ret
   end
 end
 
