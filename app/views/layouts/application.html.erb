@@ -98,19 +98,19 @@
       <% if flash[:notice] %>
         <div class="alert alert-success" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
-          <strong><%= raw(flash[:notice]) %></strong>
+          <strong><%= flash[:notice].html_safe %></strong>
         </div> 
       <% end %>
       <% if flash[:warning] %>
         <div class="alert alert-error" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
-          <strong><%= raw(flash[:warning]) %></strong>
+          <strong><%= flash[:warning].html_safe %></strong>
         </div> 
       <% end %>
       <% if flash[:achievement] %>
         <div class="alert alert-info" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
-          <strong><%= raw(flash[:achievement]) %></strong>
+          <strong><%= flash[:achievement].html_safe %></strong>
         </div>
       <% end %>
     </div>
