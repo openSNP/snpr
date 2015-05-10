@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+case $1 in
+   config)
+        cat <<'CONF'
+graph_title Number of enqueued parse jobs
+graph_vlabel count
+parse.label count
+CONF
+        exit 0;;
+esac
+
+echo -n "parse.value "
+echo 'llen queue:parse' | redis-cli | tee
