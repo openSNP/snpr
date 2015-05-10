@@ -33,7 +33,7 @@ class GenotypesController < ApplicationController
       if current_user.has_sequence == false
         current_user.toggle!(:has_sequence)
       end
-      redirect_to(current_user, notice: 'Genotype was successfully uploaded! Parsing and annotating might take a couple of hours.')
+      redirect_to(current_user, notice: 'Genotype was successfully uploaded! Parsing and annotating might take a couple of <strike>hours</strike> days.')
     else
       render :action => "new"
     end
