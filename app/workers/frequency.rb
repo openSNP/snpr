@@ -1,8 +1,6 @@
-
-
 class Frequency
   include Sidekiq::Worker
-  sidekiq_options :queue => :frequency, :retry => 5, :unique => true
+  sidekiq_options queue: :user_snps, retry: 5, unique: true
 
   def perform(snp_id)
     s = Snp.find(snp_id)
