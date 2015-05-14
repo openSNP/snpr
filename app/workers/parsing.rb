@@ -1,6 +1,6 @@
 class Parsing
   include Sidekiq::Worker
-  sidekiq_options :queue => :parse, :retry => 5, :unique => true
+  sidekiq_options queue: :user_snps, retry: 5, unique: true
 
   attr_reader :genotype, :temp_table_name, :tempfile, :stats, :start_time
 
@@ -99,7 +99,6 @@ class Parsing
   end
 
   def insert_into_user_snps
-    known_user_snps = UserSnp.select(:snp_name).where(genotype_id: genotype.id)
     execute(<<-SQL)
       insert into user_snps (snp_name, local_genotype, genotype_id)
       (
@@ -108,7 +107,9 @@ class Parsing
           #{temp_table_name}.local_genotype,
           #{genotype.id} as genotype_id
         from #{temp_table_name}
-        where #{temp_table_name}.snp_name not in (#{known_user_snps.to_sql})
+        where #{temp_table_name}.snp_name not in (
+          select snp_name from user_snps where genotype_id = #{genotype.id}
+        )
       )
     SQL
   end
