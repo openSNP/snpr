@@ -38,7 +38,10 @@ class Parsing
 
   def create_partition_table
     execute(<<-SQL)
-      CREATE TABLE IF NOT EXISTS #{partition_table_name} () INHERITS (user_snps_master)
+      DROP TABLE IF EXISTS #{partition_table_name}
+    SQL
+    execute(<<-SQL)
+      CREATE TABLE #{partition_table_name} () INHERITS (user_snps_master)
     SQL
   end
 
