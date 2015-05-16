@@ -23,6 +23,7 @@ class Parsing
       send_logged(:copy_csv_into_temp_table)
       send_logged(:insert_into_snps)
       send_logged(:insert_into_user_snps)
+      send_logged(:create_index)
     end
     send_logged(:notify_user)
 
@@ -119,6 +120,12 @@ class Parsing
           SELECT snp_name FROM #{partition_table_name}
         )
       )
+    SQL
+  end
+
+  def create_index
+    execute(<<-SQL)
+      CREATE UNIQUE INDEX ON #{partition_table_name} (snp_name)
     SQL
   end
 
