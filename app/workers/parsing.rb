@@ -119,9 +119,8 @@ class Parsing
           #{temp_table_name}.snp_name,
           #{temp_table_name}.local_genotype
         FROM #{temp_table_name}
-        WHERE #{temp_table_name}.snp_name NOT IN (
-          SELECT snp_name FROM #{partition_table_name}
-        )
+        LEFT JOIN #{partition_table_name} USING (snp_name)
+        WHERE #{partition_table_name}.snp_name IS NULL
       )
     SQL
   end
