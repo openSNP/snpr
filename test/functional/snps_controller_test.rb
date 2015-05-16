@@ -9,7 +9,7 @@ class SnpsControllerTest < ActionController::TestCase
       @user = FactoryGirl.create(:user)
       @snp = FactoryGirl.create(:snp)
       @snp_comment = FactoryGirl.create(:snp_comment, snp: @snp, user: @user)
-      @user_snp = FactoryGirl.create(:user_snp, snp: @snp, user: @user)
+      @user_snp = FactoryGirl.create(:user_snp, snp: @snp)
       @controller.send(:reset_session)
     end
 

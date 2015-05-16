@@ -13,7 +13,6 @@ describe 'genotype parsing', sidekiq: :inline do
     genotype.destroy
     expect(Genotype.count).to be_zero
     expect(UserSnp.count).to be_zero
-    expect(Snp.count).to be_zero
   end
 
   context '23andMe-exome-vcf' do
@@ -37,6 +36,10 @@ describe 'genotype parsing', sidekiq: :inline do
       ]
 
       expect(snp_data).to match_array(expected)
+
+      expect(UserSnp.by_genotype(genotype.id).map(&:attributes))
+        .to eq(UserSnp.all.map(&:attributes))
+
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
 
@@ -44,7 +47,6 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
@@ -75,13 +77,14 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
+      expect(UserSnp.by_genotype(genotype.id).map(&:attributes))
+        .to eq(UserSnp.all.map(&:attributes))
+
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w(AA AA GG AG AG)
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
@@ -110,13 +113,14 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
+      expect(UserSnp.by_genotype(genotype.id).map(&:attributes))
+        .to eq(UserSnp.all.map(&:attributes))
+
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w(AA CC TT CC TT)
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
@@ -145,13 +149,14 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
+      expect(UserSnp.by_genotype(genotype.id).map(&:attributes))
+        .to eq(UserSnp.all.map(&:attributes))
+
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w(CC CC CC CC CC)
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
@@ -180,13 +185,14 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
+      expect(UserSnp.by_genotype(genotype.id).map(&:attributes))
+        .to eq(UserSnp.all.map(&:attributes))
+
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w(AA GG GG AA AG)
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end
@@ -215,13 +221,14 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
+      expect(UserSnp.by_genotype(genotype.id).map(&:attributes))
+        .to eq(UserSnp.all.map(&:attributes))
+
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w(GT AA AA T T)
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
         expect(Snp.pluck(:name)).to include(s.snp_name)
       end
     end

@@ -2,7 +2,8 @@ class Parsing
   include Sidekiq::Worker
   sidekiq_options queue: :user_snps, retry: 5, unique: true
 
-  attr_reader :genotype, :temp_table_name, :tempfile, :stats, :start_time
+  attr_reader :genotype, :temp_table_name, :tempfile, :stats, :start_time,
+    :partition_table_name
 
   def perform(genotype_id)
     @stats = {}
@@ -11,14 +12,18 @@ class Parsing
     logger.info("Started parsing #{genotype.filetype} genotype with id #{genotype_id}")
     stats[:filetype] = genotype.filetype
     stats[:genotype_id] = genotype.id
-    @temp_table_name = "user_snps_temp_#{genotype.id}"
+    @temp_table_name = "user_snps_#{genotype.id}_temp"
     @tempfile = Tempfile.new("snpr_genotype_#{genotype.id}_")
+    @partition_table_name = "user_snps_#{genotype.id}"
 
-    send_logged(:create_temp_table)
     send_logged(:normalize_csv)
-    send_logged(:copy_csv_into_temp_table)
-    send_logged(:insert_into_snps)
-    send_logged(:insert_into_user_snps)
+    ActiveRecord::Base.transaction do
+      send_logged(:create_partition_table)
+      send_logged(:create_temp_table)
+      send_logged(:copy_csv_into_temp_table)
+      send_logged(:insert_into_snps)
+      send_logged(:insert_into_user_snps)
+    end
     send_logged(:notify_user)
 
     stats[:duration] = "#{(Time.current - start_time).round(3)}s"
@@ -27,24 +32,24 @@ class Parsing
     logger.error("Failed with #{e.class}: #{e.message}")
     raise
   ensure
-    drop_temp_table
     File.delete(tempfile.path)
   end
 
-  def create_temp_table
-    execute("drop table if exists #{temp_table_name}")
+  def create_partition_table
     execute(<<-SQL)
-      create table #{temp_table_name} (
+      CREATE TABLE IF NOT EXISTS #{partition_table_name} () INHERITS (user_snps_master)
+    SQL
+  end
+
+  def create_temp_table
+    execute(<<-SQL)
+      CREATE TEMPORARY TABLE #{temp_table_name} (
         snp_name varchar(32),
         chromosome varchar(32),
         position varchar(32),
         local_genotype char(2)
-      )
+      ) ON COMMIT DROP
     SQL
-  end
-
-  def drop_temp_table
-    execute("drop table #{temp_table_name}")
   end
 
   def normalize_csv
@@ -71,14 +76,14 @@ class Parsing
 
   def copy_csv_into_temp_table
     execute(<<-SQL)
-      copy #{temp_table_name} (
+      COPY #{temp_table_name} (
         snp_name,
         chromosome,
         position,
         local_genotype
       )
-      from '#{tempfile.path}'
-      with (FORMAT CSV, HEADER FALSE, DELIMITER ',')
+      FROM '#{tempfile.path}'
+      WITH (FORMAT CSV, HEADER FALSE, DELIMITER ',')
     SQL
   end
 
@@ -86,29 +91,28 @@ class Parsing
     time = Time.now.utc.iso8601
 
     snps = execute(<<-SQL)
-      select
+      SELECT
         #{temp_table_name}.snp_name as name,
         #{temp_table_name}.chromosome,
         #{temp_table_name}.position,
-        1 as user_snps_count
-      from #{temp_table_name}
-      left join snps on #{temp_table_name}.snp_name = snps.name
-      where snps.name is null
+        1 AS user_snps_count
+      FROM #{temp_table_name}
+      LEFT JOIN snps ON #{temp_table_name}.snp_name = snps.name
+      WHERE snps.name IS NULL
     SQL
     Snp.create!(snps.to_a)
   end
 
   def insert_into_user_snps
     execute(<<-SQL)
-      insert into user_snps (snp_name, local_genotype, genotype_id)
+      INSERT INTO #{partition_table_name} (snp_name, local_genotype)
       (
-        select
+        SELECT
           #{temp_table_name}.snp_name,
-          #{temp_table_name}.local_genotype,
-          #{genotype.id} as genotype_id
-        from #{temp_table_name}
-        where #{temp_table_name}.snp_name not in (
-          select snp_name from user_snps where genotype_id = #{genotype.id}
+          #{temp_table_name}.local_genotype
+        FROM #{temp_table_name}
+        WHERE #{temp_table_name}.snp_name NOT IN (
+          SELECT snp_name FROM #{partition_table_name}
         )
       )
     SQL
