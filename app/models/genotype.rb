@@ -14,7 +14,7 @@ class Genotype < ActiveRecord::Base
   do_not_validate_attachment_file_type :genotype
 
   after_create :parse_genotype
-  before_destroy :delete_genotype
+  before_destroy :delete_user_snps
 
   def is_image?
     false
@@ -28,8 +28,8 @@ class Genotype < ActiveRecord::Base
     Preparsing.perform_async(id)
   end
 
-  def delete_genotype
-    DeleteGenotype.perform_async(genotype_id: id)
+  def delete_user_snps
+    self.class.connection.execute("DROP TABLE IF EXISTS user_snps_#{id}")
   end
 
   Paperclip.interpolates :fs_filename do |attachment, style|

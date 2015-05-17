@@ -1,9 +1,12 @@
 class UserSnp < ActiveRecord::Base
-  self.primary_keys = [:genotype_id, :snp_name]
+  self.table_name = 'user_snps_master'
+  self.primary_keys = [:snp_name, :genotype_id]
+
   belongs_to :snp, foreign_key: :snp_name, primary_key: :name, counter_cache: true
   has_one :user, through: :genotype
   belongs_to :genotype
 
-  validates_presence_of :snp
-  validates_presence_of :genotype
+  validates :snp, presence: true
+  validates :genotype, presence: true
+  validates :local_genotype, presence: true
 end

@@ -13,7 +13,6 @@ describe 'genotype parsing', sidekiq: :inline do
     genotype.destroy
     expect(Genotype.count).to be_zero
     expect(UserSnp.count).to be_zero
-    expect(Snp.count).to be_zero
   end
 
   context '23andMe-exome-vcf' do
