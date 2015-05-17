@@ -37,18 +37,17 @@ class Parsing
   end
 
   def create_partition_table
-    execute(<<-SQL)
-      DROP TABLE IF EXISTS #{partition_table_name}
-    SQL
-    execute(<<-SQL)
+    connection.execute(<<-SQL)
+      DROP TABLE IF EXISTS #{partition_table_name};
+
       CREATE TABLE #{partition_table_name} (
         CHECK ( genotype_id = #{genotype.id} )
-      ) INHERITS (user_snps_master)
+      ) INHERITS (user_snps_master);
     SQL
   end
 
   def create_temp_table
-    execute(<<-SQL)
+    connection.execute(<<-SQL)
       CREATE TEMPORARY TABLE #{temp_table_name} (
         snp_name varchar(32),
         chromosome varchar(32),
@@ -81,7 +80,7 @@ class Parsing
   end
 
   def copy_csv_into_temp_table
-    execute(<<-SQL)
+    connection.execute(<<-SQL)
       COPY #{temp_table_name} (
         snp_name,
         chromosome,
@@ -96,7 +95,7 @@ class Parsing
   def insert_into_snps
     time = Time.now.utc.iso8601
 
-    snps = execute(<<-SQL)
+    connection.execute(<<-SQL)
       INSERT INTO snps (name, chromosome, position, user_snps_count, created_at, updated_at)
       (
         SELECT
@@ -114,7 +113,7 @@ class Parsing
   end
 
   def insert_into_user_snps
-    execute(<<-SQL)
+    connection.execute(<<-SQL)
       INSERT INTO #{partition_table_name} (snp_name, genotype_id, local_genotype)
       (
         SELECT
@@ -127,11 +126,12 @@ class Parsing
   end
 
   def add_indexes_and_constraints
-    execute(<<-SQL)
-      CREATE UNIQUE INDEX ON #{partition_table_name} (snp_name);
+    connection.add_index(partition_table_name, :snp_name, unique: true)
+    connection.add_foreign_key(partition_table_name, :genotypes)
+    connection.add_foreign_key(partition_table_name, :snps,
+                               column: :snp_name, primary_key: :name)
+    connection.execute(<<-SQL)
       ALTER TABLE #{partition_table_name} ADD PRIMARY KEY (snp_name, genotype_id);
-      ALTER TABLE #{partition_table_name} ADD CONSTRAINT user_snps_#{genotype.id}_genotype_id_fkey FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
-      ALTER TABLE #{partition_table_name} ADD CONSTRAINT user_snps_#{genotype.id}_snp_name_fkey FOREIGN KEY (snp_name) REFERENCES snps(name);
     SQL
   end
 
@@ -243,8 +243,8 @@ class Parsing
     UserMailer.finished_parsing(genotype.id, stats).deliver_later
   end
 
-  def execute(sql)
-    Genotype.connection.execute(sql)
+  def connection
+    ActiveRecord::Base.connection
   end
 
   def logger

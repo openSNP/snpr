@@ -14,8 +14,6 @@ class CreateUserSnpsMaster < ActiveRecord::Migration
   end
 
   def down
-    connection.execute(<<-SQL)
-      DROP TABLE user_snps_master CASCADE
-    SQL
+    drop_table :user_snps_master, force: true
   end
 end
