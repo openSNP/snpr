@@ -1,8 +1,21 @@
 class CreateUserSnpsMaster < ActiveRecord::Migration
-  def change
-    create_table :user_snps_master, id: false do |t|
-      t.string :snp_name
-      t.string :local_genotype, 'char(2)'
-    end
+  def up
+    remove_index :snps, :name
+    add_index :snps, :name, unique: true
+
+    connection.execute(<<-SQL)
+      CREATE TABLE user_snps_master (
+        snp_name varchar(32) REFERENCES snps (name),
+        genotype_id integer REFERENCES genotypes,
+        local_genotype char(2) NOT NULL,
+        PRIMARY KEY (snp_name, genotype_id)
+      )
+    SQL
+  end
+
+  def down
+    connection.execute(<<-SQL)
+      DROP TABLE user_snps_master CASCADE
+    SQL
   end
 end

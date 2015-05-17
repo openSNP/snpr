@@ -293,7 +293,7 @@ ActiveRecord::Schema.define(version: 20150516072501) do
 
   add_index "snps", ["chromosome", "position"], name: "index_snps_chromosome_position", using: :btree
   add_index "snps", ["id"], name: "index_snps_on_id", unique: true, using: :btree
-  add_index "snps", ["name"], name: "index_snps_on_name", using: :btree
+  add_index "snps", ["name"], name: "index_snps_on_name", unique: true, using: :btree
   add_index "snps", ["position"], name: "snps_position_idx", using: :btree
   add_index "snps", ["ranking"], name: "index_snps_ranking", using: :btree
 
@@ -334,9 +334,9 @@ ActiveRecord::Schema.define(version: 20150516072501) do
   add_index "user_snps", ["snp_name"], name: "user_snps_new_snp_name", using: :btree
 
   create_table "user_snps_master", id: false, force: :cascade do |t|
-    t.string "snp_name"
-    t.string "local_genotype"
-    t.string "bit(4)"
+    t.string  "snp_name",       limit: 32, null: false
+    t.integer "genotype_id",               null: false
+    t.string  "local_genotype", limit: 2,  null: false
   end
 
   create_table "user_snps_old", force: :cascade do |t|
@@ -388,4 +388,6 @@ ActiveRecord::Schema.define(version: 20150516072501) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["persistence_token"], name: "index_users_on_persistence_token", unique: true, using: :btree
 
+  add_foreign_key "user_snps_master", "genotypes", name: "user_snps_master_genotype_id_fkey"
+  add_foreign_key "user_snps_master", "snps", column: "snp_name", primary_key: "name", name: "user_snps_master_snp_name_fkey"
 end

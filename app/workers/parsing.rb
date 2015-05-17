@@ -23,7 +23,7 @@ class Parsing
       send_logged(:copy_csv_into_temp_table)
       send_logged(:insert_into_snps)
       send_logged(:insert_into_user_snps)
-      send_logged(:create_index)
+      send_logged(:add_indexes_and_constraints)
     end
     send_logged(:notify_user)
 
@@ -41,7 +41,9 @@ class Parsing
       DROP TABLE IF EXISTS #{partition_table_name}
     SQL
     execute(<<-SQL)
-      CREATE TABLE #{partition_table_name} () INHERITS (user_snps_master)
+      CREATE TABLE #{partition_table_name} (
+        CHECK ( genotype_id = #{genotype.id} )
+      ) INHERITS (user_snps_master)
     SQL
   end
 
@@ -113,19 +115,23 @@ class Parsing
 
   def insert_into_user_snps
     execute(<<-SQL)
-      INSERT INTO #{partition_table_name} (snp_name, local_genotype)
+      INSERT INTO #{partition_table_name} (snp_name, genotype_id, local_genotype)
       (
         SELECT
           #{temp_table_name}.snp_name,
+          #{genotype.id} AS genotype_id,
           #{temp_table_name}.local_genotype
         FROM #{temp_table_name}
       )
     SQL
   end
 
-  def create_index
+  def add_indexes_and_constraints
     execute(<<-SQL)
-      CREATE UNIQUE INDEX ON #{partition_table_name} (snp_name)
+      CREATE UNIQUE INDEX ON #{partition_table_name} (snp_name);
+      ALTER TABLE #{partition_table_name} ADD PRIMARY KEY (snp_name, genotype_id);
+      ALTER TABLE #{partition_table_name} ADD CONSTRAINT user_snps_#{genotype.id}_genotype_id_fkey FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
+      ALTER TABLE #{partition_table_name} ADD CONSTRAINT user_snps_#{genotype.id}_snp_name_fkey FOREIGN KEY (snp_name) REFERENCES snps(name);
     SQL
   end
 
