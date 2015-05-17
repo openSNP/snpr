@@ -29,7 +29,7 @@ class Genotype < ActiveRecord::Base
   end
 
   def delete_user_snps
-    self.class.connection.execute("DROP TABLE user_snps_#{id}")
+    self.class.connection.execute("DROP TABLE IF EXISTS user_snps_#{id}")
   end
 
   Paperclip.interpolates :fs_filename do |attachment, style|
