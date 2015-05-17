@@ -6,7 +6,7 @@ class UserSnp < ActiveRecord::Base
   has_one :user, through: :genotype
   belongs_to :genotype
 
-  validates_presence_of :snp
-  validates_presence_of :genotype
-  validates_presence_of :local_genotype
+  validates :snp, presence: true
+  validates :genotype, presence: true
+  validates :local_genotype, presence: true
 end

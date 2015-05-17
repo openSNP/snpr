@@ -3,7 +3,7 @@ class Parsing
   sidekiq_options queue: :user_snps, retry: 5, unique: true
 
   attr_reader :genotype, :temp_table_name, :tempfile, :stats, :start_time,
-    :partition_table_name
+              :partition_table_name
 
   def perform(genotype_id)
     @stats = {}
