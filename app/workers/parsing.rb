@@ -44,17 +44,13 @@ class Parsing
     rows = File.readlines(genotype.genotype.path)
       .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
-    csv = send(:"parse_#{genotype.filetype.gsub('-', '_').downcase}", rows)
+    user_snps = send(:"parse_#{genotype.filetype.gsub('-', '_').downcase}", rows)
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
-    csv.select! do |row|
-      # snp name
-      row[0].present? &&
-      # chromosome
-      known_chromosomes.include?(row[1]) &&
-      # position
-      row[2].to_i >= 1 && row[2].to_i <= 249_250_621 &&
-      # local genotype
-      row[3].is_a?(String) && (1..2).include?(row[3].length)
+    user_snps.select! do |row|
+      row[:snp_name].present? &&
+      known_chromosomes.include?(row[:chromosome]) &&
+      row[:position].to_i >= 1 && row[:position].to_i <= 249_250_621 &&
+      row[:local_genotype].is_a?(String) && (1..2).include?(row[:local_genotype].length)
     end
     @normalized_csv = csv.map { |row| row.join(',') }.join("\n")
     stats[:rows_after_parsing] = csv.length
@@ -113,12 +109,12 @@ class Parsing
   def parse_23andme(rows)
     rows.map do |row|
       fields = row.strip.split("\t")
-      [
-        fields[0],
-        fields[1],
-        fields[2],
-        fields[3].to_s.rstrip
-      ]
+      {
+        snp_name: fields[0],
+        chromosome: fields[1],
+        position: fields[2],
+        local_genotype: fields[3].to_s.rstrip,
+      }
     end
   end
 
@@ -135,12 +131,12 @@ class Parsing
       trans_dict = {"0" => major_allele, "1" => minor_allele}
       names = fields[-1].split(":")[0].split("/") # ["0", "1"], meaning A/C
       alleles = names.map{ |a| trans_dict[a]}.sort.join # becomes AC
-      [
-        fields[2],
-        fields[0],
-        fields[1],
-        alleles
-      ]
+      {
+        snp_name: fields[2],
+        chromosome: fields[0],
+        position: fields[1],
+        local_genotype: alleles,
+      }
     end.compact # because the above next introduces nil.
     # Slower alternative is to use reject first, but then we'll iterate > 2 times
   end
@@ -149,12 +145,12 @@ class Parsing
     rows.shift if rows.first.start_with?('Name')
     rows.map do |row|
       fields = row.strip.split(',')
-      [
-        fields[0],
-        fields[2],
-        fields[3],
-        fields[5]
-      ]
+      {
+        snp_name: fields[0],
+        chromosome: fields[2],
+        position: fields[3],
+        local_genotype: fields[5],
+      }
     end
   end
 
@@ -162,12 +158,12 @@ class Parsing
     rows.shift if rows.first.start_with?('rsid')
     rows.map do |row|
       fields = row.strip.split("\t")
-      [
-        fields[0],
-        fields[1],
-        fields[2],
-        "#{fields[3]}#{fields[4]}"
-      ]
+      {
+        snp_name: fields[0],
+        chromosome: fields[1],
+        position: fields[2],
+        local_genotype: "#{fields[3]}#{fields[4]}",
+      }
     end
   end
 
@@ -175,12 +171,12 @@ class Parsing
     rows.shift if rows.first.start_with?('RSID')
     rows.map do |row|
       fields = row.strip.split(',')
-      [
-        fields[0].to_s.gsub('"', ''),
-        fields[1].to_s.gsub('"', ''),
-        fields[2].to_s.gsub('"', ''),
-        fields[3].to_s.gsub('"', '')
-      ]
+      {
+        snp_name: fields[0].to_s.gsub('"', ''),
+        chromosome: fields[1].to_s.gsub('"', ''),
+        position: fields[2].to_s.gsub('"', ''),
+        local_genotype: fields[3].to_s.gsub('"', ''),
+      }
     end
   end
 
@@ -205,12 +201,12 @@ class Parsing
       else
         position = chromosome = '1'
       end
-      [
-        db_snp_names.fetch(snp_name, snp_name),
-        chromosome,
-        position,
-        local_genotype.strip
-      ]
+      {
+        snp_name: db_snp_names.fetch(snp_name, snp_name),
+        chromosome: chromosome,
+        position: position,
+        local_genotype: local_genotype.strip,
+      }
     end
   end
 
