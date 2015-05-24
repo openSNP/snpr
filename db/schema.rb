@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820071334) do
+ActiveRecord::Schema.define(version: 20150524081137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20140820071334) do
     t.string   "genotype_content_type", limit: 255
     t.integer  "genotype_file_size"
     t.datetime "genotype_updated_at"
+    t.hstore   "snps",                              default: {},        null: false
   end
 
   create_table "homepages", force: :cascade do |t|
@@ -291,6 +292,7 @@ ActiveRecord::Schema.define(version: 20140820071334) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_snps_count"
+    t.integer  "genotype_ids",                   default: [],                              null: false, array: true
   end
 
   add_index "snps", ["chromosome", "position"], name: "index_snps_chromosome_position", using: :btree

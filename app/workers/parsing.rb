@@ -14,11 +14,12 @@ class Parsing
     @temp_table_name = "user_snps_temp_#{genotype.id}"
 
     send_logged(:normalize_csv)
-    ActiveRecord::Base.transaction do
+    connection.transaction do
       send_logged(:create_temp_table)
       send_logged(:copy_csv_into_temp_table)
       send_logged(:insert_into_snps)
-      send_logged(:insert_into_user_snps)
+      send_logged(:update_snps)
+      send_logged(:update_genotype)
     end
     send_logged(:notify_user)
 
@@ -56,6 +57,24 @@ class Parsing
     stats[:rows_after_parsing] = csv.length
   end
 
+  def update_snps
+    connection.execute(<<-SQL)
+      UPDATE snps SET genotype_ids = genotype_ids || #{genotype.id}
+      WHERE name in (SELECT snp_name from #{temp_table_name})
+        AND NOT (genotype_ids @> ARRAY[#{genotype.id}])
+    SQL
+  end
+
+  def update_genotype
+    connection.execute(<<-SQL)
+      UPDATE genotypes SET snps = (
+        SELECT hstore(array_agg(t.snp_name), array_agg(t.local_genotype))
+        FROM #{temp_table_name} AS t
+      )
+      WHERE id = #{genotype.id}
+    SQL
+  end
+
   def copy_csv_into_temp_table
     sql = <<-SQL
       COPY #{temp_table_name} (
@@ -77,31 +96,19 @@ class Parsing
   def insert_into_snps
     time = Time.now.utc.iso8601
 
-    snps = execute(<<-SQL)
-      select
-        #{temp_table_name}.snp_name as name,
-        #{temp_table_name}.chromosome,
-        #{temp_table_name}.position,
-        1 as user_snps_count
-      from #{temp_table_name}
-      left join snps on #{temp_table_name}.snp_name = snps.name
-      where snps.name is null
-    SQL
-    Snp.create!(snps.to_a)
-  end
-
-  def insert_into_user_snps
-    execute(<<-SQL)
-      insert into user_snps (snp_name, local_genotype, genotype_id)
+    connection.execute(<<-SQL)
+      INSERT INTO snps (name, chromosome, position, user_snps_count, created_at, updated_at)
       (
-        select
+        SELECT
           #{temp_table_name}.snp_name,
-          #{temp_table_name}.local_genotype,
-          #{genotype.id} as genotype_id
-        from #{temp_table_name}
-        where #{temp_table_name}.snp_name not in (
-          select snp_name from user_snps where genotype_id = #{genotype.id}
-        )
+          #{temp_table_name}.chromosome,
+          #{temp_table_name}.position,
+          1,
+          '#{time}',
+          '#{time}'
+        FROM #{temp_table_name}
+        LEFT JOIN snps ON #{temp_table_name}.snp_name = snps.name
+        WHERE snps.name IS NULL
       )
     SQL
   end

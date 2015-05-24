@@ -16,7 +16,6 @@ class Genotype < ActiveRecord::Base
   do_not_validate_attachment_file_type :genotype
 
   after_create :parse_genotype
-  before_destroy :delete_genotype
 
   ignore_columns :snps
 
@@ -30,10 +29,6 @@ class Genotype < ActiveRecord::Base
 
   def parse_genotype
     Preparsing.perform_async(id)
-  end
-
-  def delete_genotype
-    DeleteGenotype.perform_async(genotype_id: id)
   end
 
   Paperclip.interpolates :fs_filename do |attachment, style|
