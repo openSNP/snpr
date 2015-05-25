@@ -30,7 +30,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(genotype.snps).to eq(
+      expect(genotype[:snps]).to eq(
         {
           'rs79585140' => 'AG',
           'rs75454623' => 'AG',
@@ -71,7 +71,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(genotype.snps).to eq(
+      expect(genotype[:snps]).to eq(
         {
           "rs11240777" => "AG",
           "rs12124819" => "AG",
@@ -110,7 +110,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(genotype.snps).to eq(
+      expect(genotype[:snps]).to eq(
         {
           "rs11240767" => "CC",
           "rs2185539" => "CC",
@@ -149,7 +149,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(genotype.snps).to eq(
+      expect(genotype[:snps]).to eq(
         {
           "rs11240777" => "CC",
           "rs12562034" => "CC",
@@ -188,7 +188,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(genotype.snps).to eq(
+      expect(genotype[:snps]).to eq(
         {
           "rs11240777" => "AG",
           "rs12124819" => "AA",
@@ -227,7 +227,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(genotype.snps).to eq(
+      expect(genotype[:snps]).to eq(
         {
           "rs10924081" => "AA",
           "rs199838004" => "T",

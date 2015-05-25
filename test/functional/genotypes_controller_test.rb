@@ -58,7 +58,7 @@ class GenotypesControllerTest < ActionController::TestCase
         genotype_file = fixture_file_upload('testdatensatz1_23andme.txt')
         genotype_file.content_type = 'text/plain'
         assert_difference 'UserAchievement.count' do
-          assert_difference 'Genotype.count' do
+          assert_difference 'Genotype.unscoped.count' do
             put :create, commit: "Upload", genotype:
               { genotype: genotype_file, filetype: "23andme"}
           end

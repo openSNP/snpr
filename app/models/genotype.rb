@@ -19,6 +19,10 @@ class Genotype < ActiveRecord::Base
 
   ignore_columns :snps
 
+  def snps
+    Snp.where(name: Genotype.unscoped.select('unnest(akeys(snps))').where(id: id))
+  end
+
   def is_image?
     false
   end

@@ -30,17 +30,6 @@ class Parsing
     raise
   end
 
-  def create_temp_table
-    execute(<<-SQL)
-      CREATE TEMPORARY TABLE #{temp_table_name} (
-        snp_name varchar(32),
-        chromosome varchar(32),
-        position varchar(32),
-        local_genotype char(2)
-      ) ON COMMIT DROP
-    SQL
-  end
-
   def normalize_csv
     rows = File.readlines(genotype.genotype.path)
       .reject { |line| line.start_with?('#') } # Skip comments
@@ -49,29 +38,22 @@ class Parsing
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
     user_snps.select! do |row|
       row[:snp_name].present? &&
-      known_chromosomes.include?(row[:chromosome]) &&
-      row[:position].to_i >= 1 && row[:position].to_i <= 249_250_621 &&
-      row[:local_genotype].is_a?(String) && (1..2).include?(row[:local_genotype].length)
+        known_chromosomes.include?(row[:chromosome]) &&
+        row[:position].to_i >= 1 && row[:position].to_i <= 249_250_621 &&
+        row[:local_genotype].is_a?(String) && (1..2).include?(row[:local_genotype].length)
     end
-    @normalized_csv = csv.map { |row| row.join(',') }.join("\n")
-    stats[:rows_after_parsing] = csv.length
+    stats[:rows_after_parsing] = user_snps.length
+    @normalized_csv = user_snps.map { |row| row.values.join(',') }.join("\n")
   end
 
-  def update_snps
+  def create_temp_table
     connection.execute(<<-SQL)
-      UPDATE snps SET genotype_ids = genotype_ids || #{genotype.id}
-      WHERE name in (SELECT snp_name from #{temp_table_name})
-        AND NOT (genotype_ids @> ARRAY[#{genotype.id}])
-    SQL
-  end
-
-  def update_genotype
-    connection.execute(<<-SQL)
-      UPDATE genotypes SET snps = (
-        SELECT hstore(array_agg(t.snp_name), array_agg(t.local_genotype))
-        FROM #{temp_table_name} AS t
-      )
-      WHERE id = #{genotype.id}
+      CREATE TEMPORARY TABLE #{temp_table_name} (
+        snp_name varchar(32),
+        chromosome varchar(32),
+        position varchar(32),
+        local_genotype char(2)
+      ) ON COMMIT DROP
     SQL
   end
 
@@ -110,6 +92,25 @@ class Parsing
         LEFT JOIN snps ON #{temp_table_name}.snp_name = snps.name
         WHERE snps.name IS NULL
       )
+    SQL
+  end
+
+  def update_snps
+    connection.execute(<<-SQL)
+      UPDATE snps SET genotype_ids = genotype_ids || #{genotype.id}
+      WHERE name in (SELECT snp_name from #{temp_table_name})
+        AND NOT (genotype_ids @> ARRAY[#{genotype.id}])
+    SQL
+  end
+
+  def update_genotype
+    connection.execute(<<-SQL)
+      UPDATE genotypes SET snps = (
+        SELECT hstore(array_agg(t.snp_name), array_agg(t.local_genotype))
+        FROM #{temp_table_name} AS t
+        WHERE t.snp_name IS NOT NULL AND t.local_genotype IS NOT NULL
+      )
+      WHERE id = #{genotype.id}
     SQL
   end
 
