@@ -12,15 +12,15 @@ class BeaconControllerTest < ActionController::TestCase
       @controller.send(:reset_session)
     end
     should "be YES" do
-      get(:responses, {pos: @snp.position,chrom: @snp.chromosome,allele: "A")
+      get(:responses, {pos: @snp.position,chrom: @snp.chromosome,allele: "A"})
       assert_equal("YES",response.body)
     end
     should "be NO" do
-      get(:responses, {pos: @snp.position,chrom: @snp.chromosome,allele: "C")
+      get(:responses, {pos: @snp.position,chrom: @snp.chromosome,allele: "C"})
         assert_equal("NO",response.body)
     end
     should "be NONE" do
-      get(:responses, {pos: @snp.position,chrom: @snp.chromosome)
+      get(:responses, {pos: @snp.position,chrom: @snp.chromosome})
         assert_equal("NONE",response.body)
     end
   end
