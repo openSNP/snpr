@@ -11,19 +11,19 @@ class BeaconController < ApplicationController
       @chromosome = params[:chrom]
       @allele = params[:allele].upcase
       # get all snps, iterate over them:
-      #if found the allele: return yes & break
-      @snps = Snp.where(position: @position,chromosome: @chromosome)
+      # if found the allele: return yes & break
+      @snps = Snp.where(position: @position, chromosome: @chromosome)
       @snps.each do |s|
         if s.allele_frequency[@allele] > 0
-          render :text => "YES" and return
+          render :text => 'YES' and return
           break
         end
       end
       # not found? return no
-      render :text => "NO" and return
+      render :text => 'NO' and return
     rescue
       # did something break: return none (not useful, but the API standard…)
-      render :text => "NONE"
+      render :text => 'NONE'
     end
   end
 end
