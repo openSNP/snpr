@@ -1,4 +1,5 @@
 # simple Beacon implementation according to the GA4GH v0.2 standard
+# see http://dnastack.com/ga4gh/bob/subscribe.html
 # chrom={chromosome}&
 # pos={position}&
 # allele={allele}

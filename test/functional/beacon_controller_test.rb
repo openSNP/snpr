@@ -9,6 +9,7 @@ class BeaconControllerTest < ActionController::TestCase
       @user = FactoryGirl.create(:user)
       @snp = FactoryGirl.create(:snp)
       @snp.allele_frequency["A"] = 2
+      @snp.save
       @controller.send(:reset_session)
     end
     should "be YES" do
