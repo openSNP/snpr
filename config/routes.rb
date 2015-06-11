@@ -73,4 +73,5 @@ Snpr::Application.routes.draw do
   get '/blog' => redirect("http://opensnp.wordpress.com")
   get '/user_picture_phenotypes/:id/edit', :to => 'user_picture_phenotypes#edit'
   get '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
+  get '/beacon/rest/responses', :to => 'beacon#responses'
 end
