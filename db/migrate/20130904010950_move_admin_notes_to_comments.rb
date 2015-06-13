@@ -9,9 +9,14 @@ class MoveAdminNotesToComments < ActiveRecord::Migration
     add_index     :active_admin_comments, [:author_type, :author_id]
 
     # Update all the existing comments to the default namespace
-    say "Updating any existing comments to the #{ActiveAdmin.application.default_namespace} namespace."
-    comments_table_name = ActiveRecord::Migrator.proper_table_name("active_admin_comments")
-    execute "UPDATE #{comments_table_name} SET namespace='#{ActiveAdmin.application.default_namespace}'"
+    $LOADED_FEATURES.each do |f|
+      fname = f.split('/').last
+      if fname == "activeadmin.rb"
+        say "Updating any existing comments to the #{ActiveAdmin.application.default_namespace} namespace."
+        comments_table_name = ActiveRecord::Migrator.proper_table_name("active_admin_comments")
+        execute "UPDATE #{comments_table_name} SET namespace='#{ActiveAdmin.application.default_namespace}'"
+      end
+    end
   end
 
   def self.down
