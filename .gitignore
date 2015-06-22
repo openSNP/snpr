@@ -30,3 +30,4 @@ tmp/pids/server.pid
 .vagrant
 vendor/bundle
 vendor/cache
+logfile
