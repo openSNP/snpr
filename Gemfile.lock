@@ -427,3 +427,6 @@ DEPENDENCIES
   whenever
   will_paginate
   yui-compressor
+
+BUNDLED WITH
+   1.10.2

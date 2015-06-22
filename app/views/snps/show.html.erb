@@ -264,19 +264,19 @@
         speciesName: 'Human',
         taxon: 9606,
         auth: 'GrCh',
-        version: '37',
-        ucscName: 'hg19'
+        version: '38',
+        ucscName: 'hg38'
     },
 
     sources:     [{name:    'Genome',      
-      twoBitURI:            'https://www.biodalliance.org/datasets/hg19.2bit',
+      twoBitURI:            'http://www.biodalliance.org/datasets/hg38.2bit',
       tier_type:            'sequence'},
     {name:                  'Genes',     
-      desc:                 'Gene structures from GENCODE 19',
-      bwgURI:               'https://www.biodalliance.org/datasets/gencode.bb',
-      stylesheet_uri:       'https://www.biodalliance.org/stylesheets/gencode.xml',
+      desc:                 'Gene structures from GENCODE 21',
+      bwgURI:               'https://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb',
+      stylesheet_uri:       'https://www.biodalliance.org/stylesheets/gencode2.xml',
       collapseSuperGroups:  true,
-      trixURI:              'https://www.biodalliance.org/datasets/geneIndex.ix'}
+      trixURI:              'https://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.ix'}
     <%if current_user%>
       <%if current_user.genotypes != []%>
         ,{name:                 'Your SNPs',
