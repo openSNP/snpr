@@ -1,6 +1,4 @@
-{<img src="https://secure.travis-ci.org/gedankenstuecke/snpr.png?branch=master" alt="Build Status" />}[https://travis-ci.org/gedankenstuecke/snpr]
-
-= openSNP 
+# openSNP [![Build Status](https://travis-ci.org/gedankenstuecke/snpr.svg?branch=master)](https://travis-ci.org/gedankenstuecke/snpr)
 
 a repository to which users can upload their SNP-sets (and exome-VCFs) from 23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants of EBI genotyping). On upload, SNPs are annotated using the PLoS and Mendeley-APIs to show users the newest scientific research results on their SNPs. Each SNP is also linked to the relevant page on SNPedia. SNPs are ranked according to how many results could be gathered for SNPedia, PLoS and Mendeley (in that order). Users can send each other private messages as well as comment on SNPs and Phenotypes. 
 
@@ -8,46 +6,60 @@ Users can enter phenotypes to assist future research. Search is handled using po
 
 RSS-feeds are provided for uploaded genotypes and new publications. 
 
-You can monitor the sidekiq-workers on localhost:3000/sidekiq (useful in killing leftover tasks)
+You can monitor the sidekiq-workers on [localhost:3000/sidekiq](http://localhost:3000/sidekiq) (useful in killing leftover tasks)
 
 To load all standard achievements into the database run 
   
-	rake db:seed OR rake db:setup (which also sets up the entire db)
+```
+  rake db:seed OR rake db:setup (which also sets up the entire db)
+```
 
-= Usage
+# Usage
 
 You need to have the following running to ensure that everything works:
 
-  redis-server
+```
+redis-server
 
-  sidekiq -q preparse,2 -q parse,2 -q deletegenotype -q fitbit -q fixphenotypes -q frequency -q genomegov -q mailnewgenotype -q mendeley_details -q mendeley -q pgp -q plos_details -q plos -q zipfulldata -q snpedia -q zipgenotyping -C config/sidekiq.yml -e development
+sidekiq -q preparse,2 -q parse,2 -q deletegenotype -q fitbit -q fixphenotypes -q frequency -q genomegov -q mailnewgenotype -q mendeley_details -q mendeley -q pgp -q plos_details -q plos -q zipfulldata -q snpedia -q zipgenotyping -C config/sidekiq.yml -e development
 
-  rails s(erver)
+rails s(erver)
+```
 
 Note: "serverscript" starts all these in detached screen-sessions.
 
 To see all rake-tasks:
 
-  rake -vT
+```
+rake -vT
+```
 
-= Deployment
+# Deployment
 
 Deployment is handled via capistrano (thanks Helge!). The most important capistrano tasks:
  
-  cap deploy
+```
+cap deploy
+```
 
 deploys the newest version to production.
 
-  cap sidekiq:{start,stop,restart}
+```
+cap sidekiq:{start,stop,restart}
+```
 
 handles the Sidekiq workers. Has to be started on reboot!
 
-= To do
-
-Check the issues-page for things to fix/finish/do.
-
-= Dependencies
+# Dependencies
 
 For Fedora 19:
 
-  yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libxslt libxml2 libxml2-devel
+```
+yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libxslt libxml2 libxml2-devel
+```
+
+# Contribute
+
+If you want to contribute to openSNP, you are more than welcome to do so. We use [the issue tracker at GitHub](https://github.com/gedankenstuecke/snpr/issues) for
+everything that needs to be done. Also, running `rake notes` may give you some
+hints about things that can be improved.
