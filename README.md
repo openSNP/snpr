@@ -1,17 +1,62 @@
 # openSNP [![Build Status](https://travis-ci.org/gedankenstuecke/snpr.svg?branch=master)](https://travis-ci.org/gedankenstuecke/snpr)
 
-a repository to which users can upload their SNP-sets (and exome-VCFs) from 23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants of EBI genotyping). On upload, SNPs are annotated using the PLoS and Mendeley-APIs to show users the newest scientific research results on their SNPs. Each SNP is also linked to the relevant page on SNPedia. SNPs are ranked according to how many results could be gathered for SNPedia, PLoS and Mendeley (in that order). Users can send each other private messages as well as comment on SNPs and Phenotypes. 
+a repository to which users can upload their SNP-sets (and exome-VCFs) from
+23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants
+of EBI genotyping). On upload, SNPs are annotated using the PLoS and
+Mendeley-APIs to show users the newest scientific research results on their
+SNPs. Each SNP is also linked to the relevant page on SNPedia. SNPs are ranked
+according to how many results could be gathered for SNPedia, PLoS and Mendeley
+(in that order). Users can send each other private messages as well as comment
+on SNPs and Phenotypes.
 
-Users can enter phenotypes to assist future research. Search is handled using postgres directly via pg_search.
+Users can enter phenotypes to assist future research. Search is handled using
+postgres directly via pg_search.
 
-RSS-feeds are provided for uploaded genotypes and new publications. 
+RSS-feeds are provided for uploaded genotypes and new publications.
 
-You can monitor the sidekiq-workers on [localhost:3000/sidekiq](http://localhost:3000/sidekiq) (useful in killing leftover tasks)
+You can monitor the sidekiq-workers on
+[localhost:3000/sidekiq](http://localhost:3000/sidekiq) (useful in killing
+leftover tasks)
 
-To load all standard achievements into the database run 
-  
+To load all standard achievements into the database run
+
 ```
-  rake db:seed OR rake db:setup (which also sets up the entire db)
+rake db:seed OR rake db:setup (which also sets up the entire db)
+```
+
+# Getting Started
+
+## Install Dependencies
+
+- redis
+- hiredis
+- postgres
+
+## Setup Config
+
+```
+# edit database.yml to point to your postgresql database
+cp config/database.yml.example config/database.yml
+
+cp config/app_config.yml.example config/app_config.yml
+```
+
+## Generate Secret Token
+
+```
+bundle rake secret > secret_token
+```
+
+## Initialize Database
+
+```
+bundle exec rake db:setup
+```
+
+## Run Tests
+
+```
+bundle exec rake
 ```
 
 # Usage
@@ -37,7 +82,7 @@ rake -vT
 # Deployment
 
 Deployment is handled via capistrano (thanks Helge!). The most important capistrano tasks:
- 
+
 ```
 cap deploy
 ```
@@ -60,6 +105,8 @@ yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libx
 
 # Contribute
 
-If you want to contribute to openSNP, you are more than welcome to do so. We use [the issue tracker at GitHub](https://github.com/gedankenstuecke/snpr/issues) for
-everything that needs to be done. Also, running `rake notes` may give you some
-hints about things that can be improved.
+If you want to contribute to openSNP, you are more than welcome to do so. We
+use [the issue tracker at
+GitHub](https://github.com/gedankenstuecke/snpr/issues) for everything that
+needs to be done. Also, running `rake notes` may give you some hints about
+things that can be improved.
