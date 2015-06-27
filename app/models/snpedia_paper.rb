@@ -9,4 +9,9 @@ class SnpediaPaper < ActiveRecord::Base
   def summary
     read_attribute(:summary).presence || "No summary provided."
   end
+
+  def local_genotype
+    url =~ /\((.*);(.*)\)$/
+    "#{$1}#{$2}"
+  end
 end

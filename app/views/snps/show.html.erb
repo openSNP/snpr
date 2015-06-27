@@ -200,33 +200,7 @@
       There are no Mendeley-results yet. Please come back again later.
     <% end %>
   </div>
-  <div id="snpedia">
-    <h3>Links to SNPedia</h3>
-    <% if @snp.snpedia_papers.present? %>
-      <table class="table table-striped">
-        <tr>
-          <th>Title</th>
-          <th>Summary</th>
-        </tr>
-        <% @snp.snpedia_papers.limit(100).each do |p| %>
-          <% if current_user && @user_snp && "#{p.url[-2]}#{p.url[-4]}" == @user_snp.local_genotype || current_user && @user_snp && "#{p.url[-4]}#{p.url[-2]}" == @user_snp.local_genotype %>
-            <tr>
-              <td><b><%= link_to @snp.name+" "+p.url[-4]+"/"+p.url[-2], p.url %></b></td>
-              <td><b><%= p.summary.capitalize %></b></td>
-          </b></tr>
-        <% elsif p.url.present? %>
-          <tr>
-            <td><%= link_to "#{@snp.name} #{p.url[-4]}/#{p.url[-2]}", p.url %></td>
-            <td><%= p.summary.capitalize %></td>
-          </tr>
-        <% end%>
-      <% end %>
-    </table>
-  <% else %>
-    There are no SNPedia-links yet. Please come back later.
-  <% end %>
-  <div class="small">Note: For some SNPs, testing providers detect the genotype from the opposite strand of DNA, so that the genotypes listed at openSNP don't appear here. In those cases, please replace "A" by "T" or "G" by "C" (and vice-versa). </div>
-</div>
+  <%= render 'snpedia_papers', snp: @snp, user_snp: @user_snp %>
 <div id="users">
   <h3>Users who share this SNP:</h3>
   <% if @snp.user_snps.size > 0 %>
