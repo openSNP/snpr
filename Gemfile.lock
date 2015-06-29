@@ -350,8 +350,6 @@ GEM
     unf_ext (0.0.7.1)
     uuidtools (2.1.5)
     vcr (2.9.3)
-    vegas (0.1.11)
-      rack (>= 1.0.0)
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -422,11 +420,7 @@ DEPENDENCIES
   uglifier
   uuidtools
   vcr
-  vegas
   webmock
   whenever
   will_paginate
   yui-compressor
-
-BUNDLED WITH
-   1.10.2
