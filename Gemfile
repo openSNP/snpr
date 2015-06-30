@@ -5,7 +5,6 @@ gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
 gem "jquery-rails"
-gem 'vegas'
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sanitize'
 gem "recaptcha", :require => "recaptcha/rails"
