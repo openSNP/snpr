@@ -2,7 +2,7 @@ RSpec.describe 'snps/_snpedia_papers.html.erb' do
   let(:snpedia_paper) do
     double(:snpedia_paper, url: 'http://www.snpedia.com/index.php/Rs1234(A;C)',
                            summary: 'Green hair',
-                           local_genotype: 'AC')
+                           snp_variation: 'AC')
   end
   let(:snp) { double('snp', name: 'rs1234', snpedia_papers: [snpedia_paper]) }
 
