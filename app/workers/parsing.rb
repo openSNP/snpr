@@ -2,7 +2,7 @@ class Parsing
   include Sidekiq::Worker
   sidekiq_options queue: :user_snps, retry: 5, unique: true
 
-  attr_reader :genotype, :temp_table_name, :tempfile, :stats, :start_time
+  attr_reader :genotype, :temp_table_name, :normalized_csv, :stats, :start_time
 
   def perform(genotype_id)
     @stats = {}
@@ -12,13 +12,14 @@ class Parsing
     stats[:filetype] = genotype.filetype
     stats[:genotype_id] = genotype.id
     @temp_table_name = "user_snps_temp_#{genotype.id}"
-    @tempfile = Tempfile.new("snpr_genotype_#{genotype.id}_")
 
-    send_logged(:create_temp_table)
     send_logged(:normalize_csv)
-    send_logged(:copy_csv_into_temp_table)
-    send_logged(:insert_into_snps)
-    send_logged(:insert_into_user_snps)
+    ActiveRecord::Base.transaction do
+      send_logged(:create_temp_table)
+      send_logged(:copy_csv_into_temp_table)
+      send_logged(:insert_into_snps)
+      send_logged(:insert_into_user_snps)
+    end
     send_logged(:notify_user)
 
     stats[:duration] = "#{(Time.current - start_time).round(3)}s"
@@ -26,25 +27,17 @@ class Parsing
   rescue => e
     logger.error("Failed with #{e.class}: #{e.message}")
     raise
-  ensure
-    drop_temp_table
-    File.delete(tempfile.path)
   end
 
   def create_temp_table
-    execute("drop table if exists #{temp_table_name}")
     execute(<<-SQL)
-      create table #{temp_table_name} (
+      CREATE TEMPORARY TABLE #{temp_table_name} (
         snp_name varchar(32),
         chromosome varchar(32),
         position varchar(32),
         local_genotype char(2)
-      )
+      ) ON COMMIT DROP
     SQL
-  end
-
-  def drop_temp_table
-    execute("drop table #{temp_table_name}")
   end
 
   def normalize_csv
@@ -63,23 +56,26 @@ class Parsing
       # local genotype
       row[3].is_a?(String) && (1..2).include?(row[3].length)
     end
+    @normalized_csv = csv.map { |row| row.join(',') }.join("\n")
     stats[:rows_after_parsing] = csv.length
-    tempfile.write(csv.map { |row| row.join(',') }.join("\n"))
-    tempfile.close
-    FileUtils.chmod(0644, tempfile.path)
   end
 
   def copy_csv_into_temp_table
-    execute(<<-SQL)
-      copy #{temp_table_name} (
+    sql = <<-SQL
+      COPY #{temp_table_name} (
         snp_name,
         chromosome,
         position,
         local_genotype
       )
-      from '#{tempfile.path}'
-      with (FORMAT CSV, HEADER FALSE, DELIMITER ',')
+      FROM STDIN
+      WITH (FORMAT CSV, HEADER FALSE, DELIMITER ',')
     SQL
+
+    raw = connection.raw_connection
+    raw.copy_data(sql) do
+      raw.put_copy_data(normalized_csv)
+    end
   end
 
   def insert_into_snps
@@ -223,7 +219,11 @@ class Parsing
   end
 
   def execute(sql)
-    Genotype.connection.execute(sql)
+    connection.execute(sql)
+  end
+
+  def connection
+    ActiveRecord::Base.connection
   end
 
   def logger
@@ -241,4 +241,3 @@ class Parsing
     ret
   end
 end
-
