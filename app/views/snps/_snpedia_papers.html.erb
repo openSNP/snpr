@@ -1,0 +1,27 @@
+<div id="snpedia">
+  <h3>Links to SNPedia</h3>
+  <% if snp.snpedia_papers.present? %>
+    <table class="table table-striped">
+      <tr>
+        <th>Title</th>
+        <th>Summary</th>
+      </tr>
+      <% snp.snpedia_papers.each do |p| %>
+        <tr>
+          <td>
+            <%= bold_if_matching_variation(p, user_snp) do %>
+              <%= link_to "#{snp.name} #{p.snp_variation.split('').join('/')}", p.url %>
+            <% end %>
+          </td>
+          <td><b><%= p.summary.capitalize %></b></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    There are no SNPedia-links yet. Please come back later.
+  <% end %>
+  <div class="small">
+    Note: For some SNPs, testing providers detect the genotype from the opposite strand of DNA, so that the genotypes listed at openSNP don't appear here. In those cases, please replace "A" by "T" or "G" by "C" (and vice-versa).
+  </div>
+</div>
+
