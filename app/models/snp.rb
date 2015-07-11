@@ -23,13 +23,17 @@ class Snp < ActiveRecord::Base
   ignore_columns :genotypes
 
   def genotypes
-    Genotype.where(id: Snp.unscoped.select('unnest(genotype_ids)').where(id: id))
+    Genotype.where(id: self.class.unscoped.select('unnest(genotype_ids)').where(id: id))
   end
 
   def genotypes_count
     @genotype_count ||= self.class.where(id: id)
                                   .pluck('coalesce(array_length(genotype_ids, 1), 0)')
                                   .first
+  end
+
+  def genotype_ids
+    @genotype_ids ||= self.class.unscoped.where(id: id).pluck('genotype_ids').first
   end
 
   def default_frequencies
