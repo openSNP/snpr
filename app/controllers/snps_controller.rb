@@ -35,7 +35,7 @@ class SnpsController < ApplicationController
       # Refactor the following - fixes it for now. Problem with several genotypes. - Philipp
       @current_genotypes = current_user.genotypes
       if @current_genotypes != []
-        @user_snp = @snp.user_snps.where(genotype_id: @current_genotypes.first.id).first
+        @user_snp = UserSnp.new(@snp, @current_genotypes.first)
         @local_genotype = @user_snp.try(:local_genotype) || ''
       else
         @user_snp = nil

@@ -26,6 +26,12 @@ class Snp < ActiveRecord::Base
     Genotype.where(id: Snp.unscoped.select('unnest(genotype_ids)').where(id: id))
   end
 
+  def genotypes_count
+    @genotype_count ||= self.class.where(id: id)
+                                  .pluck('coalesce(array_length(genotype_ids, 1), 0)')
+                                  .first
+  end
+
   def default_frequencies
     # if variations is empty, put in our default array
     self.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}

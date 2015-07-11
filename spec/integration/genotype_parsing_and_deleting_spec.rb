@@ -95,7 +95,7 @@ describe 'genotype parsing', sidekiq: :inline do
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,
-         s.allele_frequency, s.ranking, s.user_snps_count]
+         s.allele_frequency, s.ranking, s.genotypes_count]
       end.sort_by { |s| s[0] }
 
       expected = [
@@ -134,7 +134,7 @@ describe 'genotype parsing', sidekiq: :inline do
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,
-         s.allele_frequency, s.ranking, s.user_snps_count]
+         s.allele_frequency, s.ranking, s.genotypes_count]
       end.sort_by { |s| s[0] }
 
       expected = [
@@ -173,7 +173,7 @@ describe 'genotype parsing', sidekiq: :inline do
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,
-         s.allele_frequency, s.ranking, s.user_snps_count]
+         s.allele_frequency, s.ranking, s.genotypes_count]
       end.sort_by { |s| s[0] }
 
       expected = [
@@ -212,7 +212,7 @@ describe 'genotype parsing', sidekiq: :inline do
       # Snp
       snp_data = Snp.all.map do |s|
         [s.name, s.position, s.chromosome, s.genotype_frequency,
-         s.allele_frequency, s.ranking, s.user_snps_count]
+         s.allele_frequency, s.ranking, s.genotypes_count]
       end.sort_by { |s| s[0] }
 
       expected = [
