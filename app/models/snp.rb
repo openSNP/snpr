@@ -2,7 +2,6 @@ class Snp < ActiveRecord::Base
   include PgSearchCommon
   extend IgnoreColumns
 
-  has_many :users, through: :user_snps
   has_many :pgp_annotations
   has_many :snp_references
   has_many :snp_comments
@@ -33,6 +32,10 @@ class Snp < ActiveRecord::Base
 
   def genotype_ids
     @genotype_ids ||= self.class.unscoped.where(id: id).pluck('genotype_ids').first
+  end
+
+  def users
+    User.select('users.*').joins(:genotypes).merge(genotypes)
   end
 
   def default_frequencies

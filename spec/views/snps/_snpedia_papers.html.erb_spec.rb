@@ -39,7 +39,7 @@ RSpec.describe 'snps/_snpedia_papers.html.erb' do
       it 'displays the link bold' do
         render 'snps/snpedia_papers', snp: snp, user_snp: user_snp
 
-        expect(rendered).to have_css("td > b > a[href=\"#{snpedia_paper.url}\"]")
+        expect(rendered).to have_css("td > strong > a[href=\"#{snpedia_paper.url}\"]")
       end
     end
   end

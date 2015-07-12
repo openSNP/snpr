@@ -1,9 +1,11 @@
 class UserSnp
   attr_reader :snp, :genotype
+  delegate :user, to: :genotype
 
-  def initialize(snp, genotype)
+  def initialize(snp, genotype, local_genotype = nil)
     @snp = snp
     @genotype = genotype
+    @local_genotype = local_genotype if local_genotype
   end
 
   def local_genotype
@@ -15,5 +17,17 @@ class UserSnp
                               .where(id: genotype.id)
                               .first
                               .local_genotype
+  end
+
+  def local_genotype=(variation)
+    @local_genotype = variation
+  end
+
+  def save
+    ActiveRecord::Base.transaction do
+      snp.update(genotype_ids: snp.genotype_ids | [genotype.id])
+      genotype.update(snps: { snp.name => @local_genotype })
+    end
+    self
   end
 end

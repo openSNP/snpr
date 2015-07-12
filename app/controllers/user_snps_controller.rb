@@ -4,9 +4,12 @@ class UserSnpsController < ApplicationController
   end
 
   def index
-    @local_genotype = params[:local_genotype].presence
     if params[:snp_name].present?
-      @user_snps = Snp.find_by_name(params[:snp_name]).user_snps.includes(:user)
+      @local_genotype = params[:local_genotype].presence
+      snp_name = ActiveRecord::Base.sanitize(params[:snp_name])
+      @genotypes = Genotype.select("snps -> #{snp_name} AS local_genotype")
+                           .joins(:user)
+                           .where("akeys(snps) @> array[#{snp_name}]")
       render layout: false
     else
       render text: 'Something went wrong.', layout: false

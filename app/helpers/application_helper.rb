@@ -33,4 +33,8 @@ module ApplicationHelper
   def table_row_sequence_number(paginated, current_page_index)
     paginated.per_page * (paginated.current_page - 1) + current_page_index + 1
   end
+
+  def strong_if(predicate, &block)
+    predicate ? content_tag('strong', &block) : capture(&block)
+  end
 end

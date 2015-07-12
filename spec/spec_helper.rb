@@ -61,7 +61,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:each) do | example |
+  config.before(:each) do |example|
     Sidekiq::Worker.clear_all
 
     if example.metadata[:sidekiq] == :fake

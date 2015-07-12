@@ -1,9 +1,9 @@
 module SnpediaPapersHelper
-  def bold_if_matching_variation(snpedia_paper, user_snp, &block)
+  def strong_if_matching_variation(snpedia_paper, user_snp, &block)
     if snpedia_paper && user_snp &&
         snpedia_paper.snp_variation == user_snp.local_genotype.split('').sort.join
 
-      content_tag('b', &block)
+      content_tag('strong', &block)
     else
       capture(&block)
     end

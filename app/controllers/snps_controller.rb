@@ -19,7 +19,7 @@ class SnpsController < ApplicationController
     Sidekiq::Client.enqueue(Snpedia, @snp.id)
 
     if params[:format] == 'json'
-      users = User.joins(:genotypes).where('genotypes.id' => @snp.genotype_ids)
+      users = @snp.users
       json_results = users.map do |user|
         json_element(user: user, snp: @snp)
       end
