@@ -1,32 +1,28 @@
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE DASGFF SYSTEM "http://www.biodas.org/dtd/dasgff.dtd">
 <DASGFF>
-    <GFF version="1.0" href="<%= request.url %>">
+  <GFF version="1.0" href="<%= request.url %>">
     <% @user_snps.each_with_index do |s, i| %>
-	 <% if @unkown_chromosome[i] == false %>
-	<SEGMENT id="<%= @id[i] %>" version="1.0" <%if @has_start[i] == true %> start="<%= @start_and_end[i][0] %>" stop="<%= @start_and_end[i][1] %>"<%else%> start="1" stop="" <%end%>>
-        <% @user_snps[i].each do |us| %>
-                <% if us.nil? or us.snp.nil?%>
-                    <% next %>
-                <% end %>
-                <FEATURE id="<%= us.snp.name %>">
-                    <TYPE id="<%= us.local_genotype %>" />
-                    <METHOD id="" />
-                    <START>
-                        <%= us.snp.position %>
-                    </START>
-                    <END>
-                        <%= us.snp.position %>
-                    </END>
-                    <LINK href="<%= root_url+"snps/" + us.snp.name %>">
-                        <%= root_url+"snps/" + us.snp.name %>
-                    </LINK>
-                </FEATURE>
-    	<% end %>
+      <% if @unkown_chromosome[i] == false %>
+        <SEGMENT id="<%= @id[i] %>" version="1.0" <%if @has_start[i] == true %> start="<%= @start_and_end[i][0] %>" stop="<%= @start_and_end[i][1] %>"<%else%> start="1" stop="" <%end%>>
+          <% @user_snps[i].each do |us| %>
+            <% if us.nil? or us.snp.nil?%>
+              <% next %>
+            <% end %>
+            <FEATURE id="<%= us.snp.name %>">
+              <TYPE id="<%= us.local_genotype %>" />
+              <METHOD id="" />
+              <START><%= us.snp.position %></START>
+              <END> <%= us.snp.position %></END>
+              <LINK href="<%= root_url %>snps/<%= us.snp.name %>">
+                <%= root_url %>snps/<%= us.snp.name %>
+              </LINK>
+            </FEATURE>
+          <% end %>
         </SEGMENT> 
-	<%else%>
-	<UNKNOWNSEGMENT id="<%=@id%>" />
-	<%end%>
+      <%else%>
+        <UNKNOWNSEGMENT id="<%=@id%>" />
+      <%end%>
     <% end %>
-    </GFF>
+  </GFF>
 </DASGFF>

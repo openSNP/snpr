@@ -16,12 +16,15 @@ class DasController < ApplicationController
 
     # first, split up all segments if they are present
     # TODO: Refactor this - Philipp
+    # TODO: Do the `format` and `segment` params have a special format or why
+    # don't we use the `params` hash for that? Can they have more than one
+    # value? - Helge
     if request.query_string
       @query_string = CGI.parse request.query_string
       @types = []
 
-      @query_string['type'].each do |t|
-        @types << t
+      @query_string['type'].each do |type|
+        @types << type
       end
 
       @query_string['segment'].each do |q|
@@ -41,15 +44,15 @@ class DasController < ApplicationController
           @has_start << true
           @snps = @user.snps.where('CAST(position as integer) <= ? AND CAST(position as integer) >= ? AND CAST(chromosome as text) = ?', @end, @start, @pos[0])
           @tmp_user_snps = []
-          @snps.each do |s|
+          @snps.each do |snp|
             # 2014-8-26 There are several UserSNPs. Just take first one. - Philipp
             if @types != []
-              @single_user_snp = s.user_snps.find_by_genotype_id(@genotype.id)
+              @single_user_snp = UserSnp.new(snp, @genotype)
               if @types.include? @single_user_snp.local_genotype
                 @tmp_user_snps << @single_user_snp
               end
             else
-              @tmp_user_snps << s.user_snps.find_by_genotype_id(@genotype.id)
+              @tmp_user_snps << UserSnp.new(snp, @genotype)
             end
           end
 
@@ -59,15 +62,15 @@ class DasController < ApplicationController
           @snps = @user.snps.where('CAST(chromosome as text) = ?', @id)
           @tmp_user_snps = []
 
-          @snps.each do |s|
+          @snps.each do |snp|
             # there is only one user_snp for each snps
             if @types != []
-              @single_user_snp = s.user_snps.find_by_genotype_id(@genotype.id)
+              @single_user_snp = snp.user_snps.find_by_genotype_id(@genotype.id)
               if @types.include? @single_user_snp.local_genotype
                 @tmp_user_snps << @single_user_snp
               end
             else
-              @tmp_user_snps << s.user_snps.find_by_genotype_id(@genotype.id)
+              @tmp_user_snps << snp.user_snps.find_by_genotype_id(@genotype.id)
             end
           end
 

@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
 
   pg_search_common_scope against: [:description, :name]
 
+  def snps
+    Snp.where(name: Genotype.unscoped.select('unnest(akeys(snps))').where(user_id: id))
+  end
+
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.password_reset_instructions(self).deliver_later
