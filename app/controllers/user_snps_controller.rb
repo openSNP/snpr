@@ -7,9 +7,13 @@ class UserSnpsController < ApplicationController
     if params[:snp_name].present?
       @local_genotype = params[:local_genotype].presence
       snp_name = ActiveRecord::Base.sanitize(params[:snp_name])
+      genotype_ids = Snp.unscoped
+                        .select('unnest(genotype_ids) AS genotype_ids')
+                        .where(name: params[:snp_name])
+                        .limit(1)
       @genotypes = Genotype.select("snps -> #{snp_name} AS local_genotype")
                            .joins(:user)
-                           .where("akeys(snps) @> array[#{snp_name}]")
+                           .where(id: genotype_ids)
       render layout: false
     else
       render text: 'Something went wrong.', layout: false
