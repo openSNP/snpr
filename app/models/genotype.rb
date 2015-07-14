@@ -19,8 +19,17 @@ class Genotype < ActiveRecord::Base
 
   ignore_columns :snps
 
+  def self.by_snp_name(snp_name)
+    snp = Snp.unscoped
+             .select('unnest(genotype_ids) AS genotype_id')
+             .where("name = #{ActiveRecord::Base.sanitize(snp_name)}")
+             .as('genotype_ids')
+
+    joins("JOIN #{snp.to_sql} ON genotype_ids.genotype_id = genotypes.id")
+  end
+
   def snps
-    Snp.where(name: Genotype.unscoped.select('unnest(akeys(snps))').where(id: id))
+    @snps ||= Snp.where(name: Genotype.unscoped.select('unnest(akeys(snps))').where(id: id))
   end
 
   def is_image?
