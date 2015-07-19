@@ -21,17 +21,25 @@ class Snp < ActiveRecord::Base
   ignore_columns :genotypes
 
   def genotypes
-    Genotype.where(id: self.class.unscoped.select('unnest(genotype_ids)').where(id: id))
+    genotype_ids = self.class.unscoped
+                             .select('unnest(akeys(genotypes)::int[])')
+                             .where(id: id)
+    Genotype.where(id: genotype_ids)
   end
 
   def genotypes_count
     @genotype_count ||= self.class.where(id: id)
-                                  .pluck('coalesce(array_length(genotype_ids, 1), 0)')
+                                  .pluck('array_length(akeys(genotypes), 1)')
                                   .first
   end
 
-  def genotype_ids
-    @genotype_ids ||= self.class.unscoped.where(id: id).pluck('genotype_ids').first
+  def self.with_local_genotype_for(genotype)
+    genotype_id = case genotype
+                  when Genotype then genotype.id
+                  when Integer then genotype
+                  else fail TypeError, "Expected Genotype or Integer, got #{genotype.class}"
+                  end
+    select("genotypes -> #{ActiveRecord::Base.sanitize(genotype_id.to_s)} AS local_genotype")
   end
 
   def users

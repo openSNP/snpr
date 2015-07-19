@@ -25,8 +25,12 @@ class UserSnp
 
   def save
     ActiveRecord::Base.transaction do
-      snp.update(genotype_ids: snp.genotype_ids | [genotype.id])
-      genotype.update(snps: { snp.name => @local_genotype })
+      Snp.unscoped
+         .where(id: snp.id)
+         .update_all("genotypes = genotypes || hstore('#{genotype.id}', '#{@local_genotype}')")
+      Genotype.unscoped
+              .where(id: genotype.id)
+              .update_all("snps = snps || hstore('#{snp.name}', '#{@local_genotype}')")
     end
     self
   end

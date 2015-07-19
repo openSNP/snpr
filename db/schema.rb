@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(version: 20150524081137) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_snps_count"
-    t.integer  "genotype_ids",                   default: [],                              null: false, array: true
+    t.hstore   "genotypes",          default: {},                              null: false
   end
 
   add_index "snps", ["chromosome", "position"], name: "index_snps_chromosome_position", using: :btree

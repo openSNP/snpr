@@ -97,9 +97,11 @@ class Parsing
 
   def update_snps
     connection.execute(<<-SQL)
-      UPDATE snps SET genotype_ids = genotype_ids || #{genotype.id}
-      WHERE name in (SELECT snp_name from #{temp_table_name})
-        AND NOT (genotype_ids @> ARRAY[#{genotype.id}])
+      UPDATE snps SET genotypes = genotypes || (
+       SELECT hstore('#{genotype.id}', t.local_genotype)
+       FROM #{temp_table_name} AS t
+       WHERE t.snp_name = snps.name
+     )
     SQL
   end
 

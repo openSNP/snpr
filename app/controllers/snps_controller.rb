@@ -3,7 +3,11 @@ class SnpsController < ApplicationController
   before_filter :find_snp, except: [:index, :json,:json_annotation]
 
   def index
-    @snps = Snp.order(sort_column + " "+ sort_direction)
+    # TODO: Should we make this work for all of the user's Genotypes? If so,
+    # what if they have contradictory information?
+    genotype_id = current_user.try(:genotypes).try(:last).try(:id)
+    @snps = Snp.order("#{sort_column} #{sort_direction}")
+    @snps = @snps.with_local_genotype_for(genotype_id) if genotype_id
     @snps_paginate = @snps.paginate(page: params[:page], per_page: 10)
     @title = "Listing all SNPs"
   end
