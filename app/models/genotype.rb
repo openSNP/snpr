@@ -33,6 +33,13 @@ class Genotype < ActiveRecord::Base
     select("snps -> '#{snp_name}' AS local_genotype")
   end
 
+  def destroy
+    ActiveRecord::Base.transaction do
+      snps.update_all("genotypes = genotypes - '#{id}'::text")
+      super
+    end
+  end
+
   def is_image?
     false
   end

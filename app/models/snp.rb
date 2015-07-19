@@ -28,6 +28,13 @@ class Snp < ActiveRecord::Base
     Genotype.where(id: genotype_ids)
   end
 
+  def genotype_ids
+    self.class.
+         unscoped
+        .where(id: id)
+        .pluck('unnest(akeys(genotypes)::int[]) AS genotype_id')
+  end
+
   def genotypes_count
     @genotype_count ||= self.class
                             .where(id: id)
