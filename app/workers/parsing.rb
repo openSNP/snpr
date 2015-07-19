@@ -32,18 +32,21 @@ class Parsing
 
   def normalize_csv
     rows = File.readlines(genotype.genotype.path)
-      .reject { |line| line.start_with?('#') } # Skip comments
+               .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
     user_snps = send(:"parse_#{genotype.filetype.gsub('-', '_').downcase}", rows)
-    known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
-    user_snps.select! do |row|
-      row[:snp_name].present? &&
-        known_chromosomes.include?(row[:chromosome]) &&
-        row[:position].to_i >= 1 && row[:position].to_i <= 249_250_621 &&
-        row[:local_genotype].is_a?(String) && (1..2).include?(row[:local_genotype].length)
-    end
+    user_snps.select! { |row| valid_row?(row) }
     stats[:rows_after_parsing] = user_snps.length
     @normalized_csv = user_snps.map { |row| row.values.join(',') }.join("\n")
+  end
+
+  def valid_row?(row)
+    known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
+
+    row[:snp_name].present? &&
+      known_chromosomes.include?(row[:chromosome]) &&
+      row[:position].to_i >= 1 && row[:position].to_i <= 249_250_621 &&
+      row[:local_genotype].is_a?(String) && (1..2).include?(row[:local_genotype].length)
   end
 
   def create_temp_table

@@ -23,7 +23,7 @@ Metrics/AbcSize:
   Max: 20
 
 Style/MultilineOperationIndentation:
-  Enabled: false
+  EnforcedStyle: aligned
 
 Style/BracesAroundHashParameters:
   EnforcedStyle: context_dependent

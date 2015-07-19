@@ -21,16 +21,18 @@ class Snp < ActiveRecord::Base
   ignore_columns :genotypes
 
   def genotypes
-    genotype_ids = self.class.unscoped
-                             .select('unnest(akeys(genotypes)::int[])')
-                             .where(id: id)
+    genotype_ids = self.class
+                       .unscoped
+                       .select('unnest(akeys(genotypes)::int[])')
+                       .where(id: id)
     Genotype.where(id: genotype_ids)
   end
 
   def genotypes_count
-    @genotype_count ||= self.class.where(id: id)
-                                  .pluck('array_length(akeys(genotypes), 1)')
-                                  .first
+    @genotype_count ||= self.class
+                            .where(id: id)
+                            .pluck('array_length(akeys(genotypes), 1)')
+                            .first
   end
 
   def self.with_local_genotype_for(genotype)
