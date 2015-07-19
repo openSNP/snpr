@@ -16,6 +16,12 @@ class Genotype < ActiveRecord::Base
   after_create :parse_genotype
   before_destroy :delete_genotype
 
+  default_scope { select(column_names - ['snps']) }
+
+  def self.count
+    pluck('count(*)').first
+  end
+
   def is_image?
     false
   end

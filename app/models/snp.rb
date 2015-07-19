@@ -19,6 +19,12 @@ class Snp < ActiveRecord::Base
 
   after_create :default_frequencies
 
+  default_scope { select(column_names - ['genotypes']) }
+
+  def self.count
+    pluck('count(*)').first
+  end
+
   def default_frequencies
     # if variations is empty, put in our default array
     self.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
