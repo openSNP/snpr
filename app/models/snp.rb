@@ -1,5 +1,6 @@
 class Snp < ActiveRecord::Base
   include PgSearchCommon
+  extend IgnoreColumns
 
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name
   has_many :users, through: :user_snps
@@ -19,14 +20,7 @@ class Snp < ActiveRecord::Base
 
   after_create :default_frequencies
 
-  default_scope { select(column_names - ['genotypes']) }
-
-  def self.count
-    # The default scope breaks the regular `count` method, due to
-    # `COUNT(co1, col2, ...)` being invalid SQL syntax. This workaround seems to
-    # work for most cases.
-    pluck('count(*)').first
-  end
+  ignore_columns :genotypes
 
   def default_frequencies
     # if variations is empty, put in our default array

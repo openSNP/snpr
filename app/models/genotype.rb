@@ -1,6 +1,8 @@
 require 'fileutils'
 
 class Genotype < ActiveRecord::Base
+  extend IgnoreColumns
+
   belongs_to :user
   has_many :user_snps
   validates_presence_of :user
@@ -16,14 +18,7 @@ class Genotype < ActiveRecord::Base
   after_create :parse_genotype
   before_destroy :delete_genotype
 
-  default_scope { select(column_names - ['snps']) }
-
-  def self.count
-    # The default scope breaks the regular `count` method, due to
-    # `COUNT(co1, col2, ...)` being invalid SQL syntax. This workaround seems to
-    # work for most cases.
-    pluck('count(*)').first
-  end
+  ignore_columns :snps
 
   def is_image?
     false
