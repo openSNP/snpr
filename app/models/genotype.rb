@@ -19,6 +19,9 @@ class Genotype < ActiveRecord::Base
   default_scope { select(column_names - ['snps']) }
 
   def self.count
+    # The default scope breaks the regular `count` method, due to
+    # `COUNT(co1, col2, ...)` being invalid SQL syntax. This workaround seems to
+    # work for most cases.
     pluck('count(*)').first
   end
 
