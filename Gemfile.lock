@@ -170,6 +170,7 @@ GEM
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (2.6.1)
+    mimemagic (0.3.0)
     mini_portile (0.6.2)
     minitest (5.7.0)
     mocha (1.1.0)
@@ -193,11 +194,12 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     oauth (0.4.7)
-    paperclip (4.2.1)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
+    paperclip (4.3.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
       mime-types
+      mimemagic (= 0.3.0)
     pg (0.18.2)
     pg_search (1.0.3)
       activerecord (>= 3.1)
@@ -424,6 +426,3 @@ DEPENDENCIES
   whenever
   will_paginate
   yui-compressor
-
-BUNDLED WITH
-   1.10.5
