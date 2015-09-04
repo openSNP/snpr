@@ -1,6 +1,8 @@
 require 'fileutils'
 
 class Genotype < ActiveRecord::Base
+  extend IgnoreColumns
+
   belongs_to :user
   has_many :user_snps
   validates_presence_of :user
@@ -15,6 +17,8 @@ class Genotype < ActiveRecord::Base
 
   after_create :parse_genotype
   before_destroy :delete_genotype
+
+  ignore_columns :snps
 
   def is_image?
     false

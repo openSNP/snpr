@@ -1,5 +1,6 @@
 class Snp < ActiveRecord::Base
   include PgSearchCommon
+  extend IgnoreColumns
 
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name
   has_many :users, through: :user_snps
@@ -18,6 +19,8 @@ class Snp < ActiveRecord::Base
   pg_search_common_scope against: :name
 
   after_create :default_frequencies
+
+  ignore_columns :genotypes
 
   def default_frequencies
     # if variations is empty, put in our default array

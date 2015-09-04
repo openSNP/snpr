@@ -82,7 +82,7 @@ class Preparsing
     logger.info "Checking whether genotyping is duplicate"
     md5 = Digest::MD5.file("#{Rails.root}/public/data/#{genotype.fs_filename}").to_s
     file_is_duplicate = false
-    if Genotype.where(md5sum: md5).where('id != ?', genotype.id).count > 0
+    if Genotype.unscoped.where(md5sum: md5).where.not(id: genotype.id).count > 0
       file_is_duplicate = true
       logger.info "Genotyping #{genotype.genotype.path} is already uploaded!\n"
       logger.info "Genotyping #{genotype.fs_filename} has the same md5sum.\n"
