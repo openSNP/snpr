@@ -3,11 +3,14 @@ describe 'genotype parsing', sidekiq: :inline do
     create(:genotype, id: 1, genotype: file, filetype: filetype)
   end
 
+  let!(:exitsing_snp) { create(:snp, name: 'xyz') }
+
   before do
     # When running the background jobs inline, Paperclip hasn't saved the file,
     # yet. So we mock the after create hook and run the job manually.
     allow_any_instance_of(Genotype).to receive(:parse_genotype)
     Preparsing.new.perform(genotype.id)
+    exitsing_snp.delete
   end
 
   context '23andMe-exome-vcf' do
