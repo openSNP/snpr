@@ -108,10 +108,13 @@ class Parsing
 
   def update_genotype
     connection.execute(<<-SQL)
-      UPDATE genotypes SET snps = (
-        SELECT hstore(array_agg(t.snp_name), array_agg(t.local_genotype))
-        FROM #{temp_table_name} AS t
-        WHERE t.snp_name IS NOT NULL AND t.local_genotype IS NOT NULL
+      UPDATE genotypes SET snps = COALESCE(
+        (
+          SELECT hstore(array_agg(t.snp_name), array_agg(t.local_genotype))
+          FROM #{temp_table_name} AS t
+          WHERE t.snp_name IS NOT NULL AND t.local_genotype IS NOT NULL
+        ),
+        ''::HSTORE
       )
       WHERE id = #{genotype.id}
     SQL
