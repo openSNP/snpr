@@ -7,15 +7,15 @@
 
 :queues:
   - [deletegenotype, 10]
-  - [mailnewgenotype, 10]
   - [zipgenotyping,5]
   - [zipfulldata,5]
   - [recommend,5]
   - [fitbit,3]
   - [frequency,1]
   - [fixphenotypes,1]
-  - [mailers, 1]
   - [default, 1]
+# - [mailnewgenotype, 10]
+# - [mailers, 1]
 #  - [user_snps, 3]
 #- [preparse,3]
 #  - [parse,3]
@@ -33,7 +33,7 @@
   fitbit: 3
   frequency: 10
   fixphenotypes: 1
-  mailnewgenotype: 1
+#  mailnewgenotype: 1
 # user_snps: 1
 #  preparse: 2
 #  parse: 1
