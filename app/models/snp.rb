@@ -1,10 +1,10 @@
 class Snp < ActiveRecord::Base
   include PgSearchCommon
-  extend IgnoreColumns
 
   has_many :pgp_annotations
   has_many :snp_references
   has_many :snp_comments
+  has_one :genotypes_by_snp, primary_key: :name, foreign_key: :snp_name
 
   serialize :allele_frequency
   serialize :genotype_frequency
@@ -18,28 +18,21 @@ class Snp < ActiveRecord::Base
 
   after_create :default_frequencies
 
-  ignore_columns :genotypes
-
   def genotypes
-    genotype_ids = self.class
-                       .unscoped
-                       .select('unnest(akeys(genotypes)::int[])')
-                       .where(id: id)
+    genotype_ids = GenotypesBySnp.select('unnest(akeys(genotypes)::int[])')
+                                 .where(snp_name: name)
     Genotype.where(id: genotype_ids)
   end
 
   def genotype_ids
-    self.class.
-         unscoped
-        .where(id: id)
-        .pluck('unnest(akeys(genotypes)::int[]) AS genotype_id')
+    GenotypesBySnp.where(snp_name: name)
+                  .pluck('unnest(akeys(genotypes)::int[]) AS genotype_id')
   end
 
   def genotypes_count
-    @genotype_count ||= self.class
-                            .where(id: id)
-                            .pluck('array_length(akeys(genotypes), 1)')
-                            .first
+    @genotype_count ||= GenotypesBySnp.where(snp_name: name)
+                                      .pluck('array_length(akeys(genotypes), 1)')
+                                      .first
   end
 
   def self.with_local_genotype_for(genotype)
@@ -48,7 +41,8 @@ class Snp < ActiveRecord::Base
                   when Integer then genotype
                   else fail TypeError, "Expected Genotype or Integer, got #{genotype.class}"
                   end
-    select("genotypes -> #{ActiveRecord::Base.sanitize(genotype_id.to_s)} AS local_genotype")
+    select('snps.*', "genotypes -> '#{genotype_id}' AS local_genotype")
+      .joins(:genotypes_by_snp)
   end
 
   def users

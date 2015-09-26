@@ -18,8 +18,10 @@ class Parsing
       send_logged(:create_temp_table)
       send_logged(:copy_csv_into_temp_table)
       send_logged(:insert_into_snps)
-      send_logged(:update_snps)
-      send_logged(:update_genotype)
+      send_logged(:insert_into_genotypes_by_snp)
+      send_logged(:update_genotypes_by_snp)
+      send_logged(:insert_into_snps_by_genotype)
+      send_logged(:update_snps_by_genotype)
     end
     send_logged(:notify_user)
 
@@ -98,25 +100,39 @@ class Parsing
     SQL
   end
 
-  def update_snps
+  def insert_into_genotypes_by_snp
     connection.execute(<<-SQL)
-      UPDATE snps SET genotypes = genotypes || hstore('#{genotype.id}', t.local_genotype)
-      FROM #{temp_table_name} t
-      WHERE t.snp_name = snps.name
+      INSERT INTO genotypes_by_snp (
+        SELECT t.snp_name FROM #{temp_table_name} t
+        LEFT JOIN genotypes_by_snp gbs ON t.snp_name = gbs.snp_name
+        WHERE gbs.snp_name IS NULL
+      )
     SQL
   end
 
-  def update_genotype
+  def update_genotypes_by_snp
     connection.execute(<<-SQL)
-      UPDATE genotypes SET snps = COALESCE(
+      UPDATE genotypes_by_snp SET genotypes = genotypes || hstore('#{genotype.id}', t.local_genotype)
+      FROM #{temp_table_name} t
+      WHERE t.snp_name = genotypes_by_snp.snp_name
+    SQL
+  end
+
+  def insert_into_snps_by_genotype
+    SnpsByGenotype.find_or_create_by(genotype_id: genotype.id)
+  end
+
+  def update_snps_by_genotype
+    connection.execute(<<-SQL)
+      UPDATE snps_by_genotype SET snps = COALESCE(
         (
           SELECT hstore(array_agg(t.snp_name), array_agg(t.local_genotype))
           FROM #{temp_table_name} AS t
           WHERE t.snp_name IS NOT NULL AND t.local_genotype IS NOT NULL
         ),
-        ''::HSTORE
+        ''
       )
-      WHERE id = #{genotype.id}
+      WHERE genotype_id = #{genotype.id}
     SQL
   end
 

@@ -1,10 +1,9 @@
 require 'fileutils'
 
 class Genotype < ActiveRecord::Base
-  extend IgnoreColumns
-
   belongs_to :user
   has_many :user_snps
+  has_one :snps_by_genotype, dependent: :delete
   validates_presence_of :user
 
   has_attached_file :genotype, url: '/data/:fs_filename',
@@ -16,11 +15,12 @@ class Genotype < ActiveRecord::Base
   do_not_validate_attachment_file_type :genotype
 
   after_create :parse_genotype
-
-  ignore_columns :snps
+  before_destroy :delete_from_genotypes_by_snp
 
   def snps
-    snp_names = Genotype.unscoped.select('unnest(akeys(snps))').where(id: id)
+    snp_names = SnpsByGenotype.select('unnest(akeys(snps))')
+                              .from('snps_by_genotype')
+                              .where(genotype_id: id)
     @snps ||= Snp.where(name: snp_names)
   end
 
@@ -28,16 +28,10 @@ class Genotype < ActiveRecord::Base
     snp_name = case snp
                when Snp then snp.name
                when String then snp
-               else fail TypeError "Expected Snp or String, got #{snp.class}"
+               else fail TypeError, "Expected Snp or String, got #{snp.class}"
                end
-    select("snps -> '#{snp_name}' AS local_genotype")
-  end
-
-  def destroy
-    ActiveRecord::Base.transaction do
-      snps.update_all("genotypes = genotypes - '#{id}'::text")
-      super
-    end
+    joins(:snps_by_genotype)
+      .select('genotypes.*', "snps -> '#{snp_name}' AS local_genotype")
   end
 
   def is_image?
@@ -50,6 +44,14 @@ class Genotype < ActiveRecord::Base
 
   def parse_genotype
     Preparsing.perform_async(id)
+  end
+
+  private
+
+  def delete_from_genotypes_by_snp
+    GenotypesBySnp
+      .where("genotypes ? '#{id}'")
+      .update_all("genotypes = delete(genotypes, '#{id}')")
   end
 
   Paperclip.interpolates :fs_filename do |attachment, style|

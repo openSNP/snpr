@@ -14,7 +14,7 @@ describe 'genotype parsing', sidekiq: :inline do
   end
 
   context '23andMe-exome-vcf' do
-    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) } 
+    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) }
     let(:filetype) { '23andme-exome-vcf' }
 
     it 'parses 23andMe exome vcf data', truncate: true do
@@ -35,7 +35,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(Genotype.pluck(:snps)).to eq([
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
         {
           'rs71252250' => 'AG',
           'rs75062661' => 'GG',
@@ -45,13 +45,16 @@ describe 'genotype parsing', sidekiq: :inline do
         }
       ])
 
-      expect(Snp.pluck(:genotypes)).to eq([
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
         { '1' => 'AG' },
         { '1' => 'AG' },
         { '1' => 'AG' },
         { '1' => 'GG' },
         { '1' => 'CC' },
       ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs142727405 rs71252250 rs75062661 rs75454623 rs79585140))
     end
   end
 
@@ -80,7 +83,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(Genotype.pluck(:snps)).to eq([
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
         {
           'rs11240777' => 'AG',
           'rs12124819' => 'AG',
@@ -90,13 +93,16 @@ describe 'genotype parsing', sidekiq: :inline do
         }
       ])
 
-      expect(Snp.pluck(:genotypes)).to eq([
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
         { '1' => 'AA' },
         { '1' => 'AA' },
         { '1' => 'GG' },
         { '1' => 'AG' },
         { '1' => 'AG' },
       ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240777 rs12124819 rs3094315 rs3131972 rs4477212))
     end
   end
 
@@ -123,7 +129,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(Genotype.pluck(:snps)).to eq([
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
         {
           'rs11240767' => 'CC',
           'rs2185539' => 'CC',
@@ -133,13 +139,16 @@ describe 'genotype parsing', sidekiq: :inline do
         }
       ])
 
-      expect(Snp.pluck(:genotypes)).to eq([
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
         { '1' => 'AA' },
         { '1' => 'CC' },
         { '1' => 'TT' },
         { '1' => 'CC' },
         { '1' => 'TT' },
       ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240767 rs2185539 rs3094315 rs4477212 rs6681105))
     end
   end
 
@@ -166,7 +175,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(Genotype.pluck(:snps)).to eq([
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
         {
           'rs11240777' => 'CC',
           'rs12562034' => 'CC',
@@ -176,13 +185,16 @@ describe 'genotype parsing', sidekiq: :inline do
         }
       ])
 
-      expect(Snp.pluck(:genotypes)).to eq([
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
         { '1' => 'CC' },
         { '1' => 'CC' },
         { '1' => 'CC' },
         { '1' => 'CC' },
         { '1' => 'CC' },
       ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240777 rs12562034 rs3131972 rs4477212 rs6681049))
     end
   end
 
@@ -209,7 +221,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(Genotype.pluck(:snps)).to eq([
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
         {
           'rs11240777' => 'AG',
           'rs12124819' => 'AA',
@@ -219,13 +231,16 @@ describe 'genotype parsing', sidekiq: :inline do
         }
       ])
 
-      expect(Snp.pluck(:genotypes)).to eq([
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
         { '1' => 'AA' },
         { '1' => 'GG' },
         { '1' => 'GG' },
         { '1' => 'AA' },
         { '1' => 'AG' },
       ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240777 rs12124819 rs12562034 rs3094315 rs3131972))
     end
   end
 
@@ -252,7 +267,7 @@ describe 'genotype parsing', sidekiq: :inline do
 
       genotype.reload
 
-      expect(Genotype.pluck(:snps)).to eq([
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
         {
           'rs10924081' => 'AA',
           'rs199838004' => 'T',
@@ -262,13 +277,16 @@ describe 'genotype parsing', sidekiq: :inline do
         }
       ])
 
-      expect(Snp.pluck(:genotypes)).to eq([
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
         { '1' => 'GT' },
         { '1' => 'AA' },
         { '1' => 'AA' },
         { '1' => 'T' },
         { '1' => 'T' },
       ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs10924081 rs199838004 rs2131925 rs2815752 rs41456348))
     end
   end
 end

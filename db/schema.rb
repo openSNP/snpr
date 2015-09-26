@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524081137) do
+ActiveRecord::Schema.define(version: 20150916070052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,8 +144,14 @@ ActiveRecord::Schema.define(version: 20150524081137) do
     t.string   "genotype_content_type", limit: 255
     t.integer  "genotype_file_size"
     t.datetime "genotype_updated_at"
-    t.hstore   "snps",                              default: {},        null: false
   end
+
+  create_table "genotypes_by_snp", id: false, force: :cascade do |t|
+    t.string "snp_name",               null: false
+    t.hstore "genotypes", default: {}, null: false
+  end
+
+  add_index "genotypes_by_snp", ["snp_name"], name: "index_genotypes_by_snp_on_snp_name", unique: true, using: :btree
 
   create_table "homepages", force: :cascade do |t|
     t.text     "url"
@@ -292,14 +298,20 @@ ActiveRecord::Schema.define(version: 20150524081137) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_snps_count"
-    t.hstore   "genotypes",          default: {},                              null: false
   end
 
   add_index "snps", ["chromosome", "position"], name: "index_snps_chromosome_position", using: :btree
   add_index "snps", ["id"], name: "index_snps_on_id", unique: true, using: :btree
-  add_index "snps", ["name"], name: "index_snps_on_name", using: :btree
+  add_index "snps", ["name"], name: "index_snps_on_name", unique: true, using: :btree
   add_index "snps", ["position"], name: "snps_position_idx", using: :btree
   add_index "snps", ["ranking"], name: "index_snps_ranking", using: :btree
+
+  create_table "snps_by_genotype", id: false, force: :cascade do |t|
+    t.integer "genotype_id",              null: false
+    t.hstore  "snps",        default: {}, null: false
+  end
+
+  add_index "snps_by_genotype", ["genotype_id"], name: "index_snps_by_genotype_on_genotype_id", unique: true, using: :btree
 
   create_table "user_achievements", force: :cascade do |t|
     t.integer  "user_id"
@@ -392,4 +404,6 @@ ActiveRecord::Schema.define(version: 20150524081137) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["persistence_token"], name: "index_users_on_persistence_token", unique: true, using: :btree
 
+  add_foreign_key "genotypes_by_snp", "snps", column: "snp_name", primary_key: "name"
+  add_foreign_key "snps_by_genotype", "genotypes"
 end
