@@ -1,13 +1,19 @@
 language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
+sudo: false
+cache: bundler
+addons:
+  apt:
+    packages:
+    - libhiredis-dev
+  postgresql: "9.2"
+services:
+  - redis-server
 rvm:
   - 2.0
   - 2.1
   - 2.2
 env: DB=postgres CI=1
 bundler_args: --without development debug
-before_install: 
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libhiredis-dev
 before_script:
   - cp config/database.yml.ci config/database.yml
   - cp config/app_config.yml.example config/app_config.yml
@@ -17,8 +23,4 @@ before_script:
   - echo "secret-key-base" > secret_key_base
   - psql -c 'create database snpr_test;' -U postgres
   - bundle exec rake db:setup
-services:
-  - redis-server
-addons:
-  postgresql: "9.2"
 script: "bundle exec rake test"
