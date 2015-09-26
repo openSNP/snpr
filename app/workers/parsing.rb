@@ -112,7 +112,8 @@ class Parsing
 
   def update_genotypes_by_snp
     connection.execute(<<-SQL)
-      UPDATE genotypes_by_snp SET genotypes = genotypes || hstore('#{genotype.id}', t.local_genotype)
+      UPDATE genotypes_by_snp
+      SET genotypes = genotypes || hstore('#{genotype.id}', t.local_genotype)
       FROM #{temp_table_name} t
       WHERE t.snp_name = genotypes_by_snp.snp_name
     SQL
