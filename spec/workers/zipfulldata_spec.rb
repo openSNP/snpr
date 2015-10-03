@@ -80,7 +80,7 @@ describe Zipfulldata do
            "#{job.tmp_dir}/picture_dump#{job.time_str}.csv")
     job.create_picture_phenotype_csv(zipfile)
     csv = CSV.read("#{job.tmp_dir}/picture_dump#{job.time_str}.csv", csv_options)
-    expect(csv).to eq(
+    expect(csv).to match_array(
       [["user_id", "date_of_birth", "chrom_sex", "Eye color"],
        [user.id.to_s, user.yearofbirth, user.sex, "#{upp.id}.png"],
        [user2.id.to_s, user2.yearofbirth, user2.sex, '-']]

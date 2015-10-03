@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+load './spec/simplecov.rb'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'sidekiq/testing'
@@ -60,7 +61,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:each) do | example |
+  config.before(:each) do |example|
     Sidekiq::Worker.clear_all
 
     if example.metadata[:sidekiq] == :fake

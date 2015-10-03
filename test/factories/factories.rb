@@ -33,13 +33,6 @@
       snp_id 1
     end
 
-    factory :user_snp do
-      local_genotype 'AG'
-      genotype
-      user
-      snp
-    end
-
     factory :achievement do
       award "Foooooooo"
     end

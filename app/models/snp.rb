@@ -1,12 +1,10 @@
 class Snp < ActiveRecord::Base
   include PgSearchCommon
-  extend IgnoreColumns
 
-  has_many :user_snps, foreign_key: :snp_name, primary_key: :name
-  has_many :users, through: :user_snps
   has_many :pgp_annotations
   has_many :snp_references
   has_many :snp_comments
+  has_one :genotypes_by_snp, primary_key: :name, foreign_key: :snp_name
 
   serialize :allele_frequency
   serialize :genotype_frequency
@@ -20,7 +18,36 @@ class Snp < ActiveRecord::Base
 
   after_create :default_frequencies
 
-  ignore_columns :genotypes
+  def genotypes
+    genotype_ids = GenotypesBySnp.select('unnest(akeys(genotypes)::int[])')
+                                 .where(snp_name: name)
+    Genotype.where(id: genotype_ids)
+  end
+
+  def genotype_ids
+    GenotypesBySnp.where(snp_name: name)
+                  .pluck('unnest(akeys(genotypes)::int[]) AS genotype_id')
+  end
+
+  def genotypes_count
+    @genotype_count ||= GenotypesBySnp.where(snp_name: name)
+                                      .pluck('array_length(akeys(genotypes), 1)')
+                                      .first
+  end
+
+  def self.with_local_genotype_for(genotype)
+    genotype_id = case genotype
+                  when Genotype then genotype.id
+                  when Integer then genotype
+                  else fail TypeError, "Expected Genotype or Integer, got #{genotype.class}"
+                  end
+    select('snps.*', "genotypes -> '#{genotype_id}' AS local_genotype")
+      .joins(:genotypes_by_snp)
+  end
+
+  def users
+    User.select('users.*').joins(:genotypes).merge(genotypes)
+  end
 
   def default_frequencies
     # if variations is empty, put in our default array

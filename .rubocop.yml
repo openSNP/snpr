@@ -21,3 +21,9 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Max: 20
+
+Style/MultilineOperationIndentation:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent

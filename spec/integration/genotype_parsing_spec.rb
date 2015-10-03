@@ -1,26 +1,21 @@
 describe 'genotype parsing', sidekiq: :inline do
+  let(:genotype) do
+    create(:genotype, id: 1, genotype: file, filetype: filetype)
+  end
+
+  let!(:exitsing_snp) { create(:snp, name: 'xyz') }
+
   before do
     # When running the background jobs inline, Paperclip hasn't saved the file,
     # yet. So we mock the after create hook and run the job manually.
     allow_any_instance_of(Genotype).to receive(:parse_genotype)
     Preparsing.new.perform(genotype.id)
-  end
-
-  after do
-    expect(Genotype.count).to be(1)
-    expect(UserSnp.count).to be(5)
-    expect(Snp.count).to be(5)
-    genotype.destroy
-    expect(Genotype.count).to be_zero
-    expect(UserSnp.count).to be_zero
-    expect(Snp.count).to be_zero
+    exitsing_snp.delete
   end
 
   context '23andMe-exome-vcf' do
-    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) } 
-    let(:genotype) do
-      create(:genotype, genotype: file, filetype: '23andme-exome-vcf')
-    end
+    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) }
+    let(:filetype) { '23andme-exome-vcf' }
 
     it 'parses 23andMe exome vcf data', truncate: true do
       snp_data = Snp.all.map do |s|
@@ -37,25 +32,36 @@ describe 'genotype parsing', sidekiq: :inline do
       ]
 
       expect(snp_data).to match_array(expected)
-      user_snps = UserSnp.all
-      user_snp_genotypes = user_snps.map(&:local_genotype)
 
-      expected_genotypes = %w(AG AG AG GG CC)
+      genotype.reload
 
-      expect(user_snp_genotypes).to eq(expected_genotypes)
-      user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
-        expect(Snp.pluck(:name)).to include(s.snp_name)
-      end
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
+        {
+          'rs71252250' => 'AG',
+          'rs75062661' => 'GG',
+          'rs75454623' => 'AG',
+          'rs79585140' => 'AG',
+          'rs142727405' => 'CC',
+        }
+      ])
+
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
+        { '1' => 'AG' },
+        { '1' => 'AG' },
+        { '1' => 'AG' },
+        { '1' => 'GG' },
+        { '1' => 'CC' },
+      ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs142727405 rs71252250 rs75062661 rs75454623 rs79585140))
     end
   end
 
 
   context '23andMe' do
     let(:file) { File.open(Rails.root.join('test/data/23andMe_test.csv')) }
-    let(:genotype) do
-      create(:genotype, genotype: file, filetype: '23andme')
-    end
+    let(:filetype) { '23andme' }
 
     it 'parses 23andMe data', truncate: true do
       # Snp
@@ -75,23 +81,34 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
-      user_snps = UserSnp.all
-      user_snp_genotypes = user_snps.map(&:local_genotype)
-      expected_genotypes = %w(AA AA GG AG AG)
-      expect(user_snp_genotypes).to eq(expected_genotypes)
-      user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
-        expect(Snp.pluck(:name)).to include(s.snp_name)
-      end
+      genotype.reload
+
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
+        {
+          'rs11240777' => 'AG',
+          'rs12124819' => 'AG',
+          'rs3094315' => 'AA',
+          'rs3131972' => 'GG',
+          'rs4477212' => 'AA',
+        }
+      ])
+
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
+        { '1' => 'AA' },
+        { '1' => 'AA' },
+        { '1' => 'GG' },
+        { '1' => 'AG' },
+        { '1' => 'AG' },
+      ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240777 rs12124819 rs3094315 rs3131972 rs4477212))
     end
   end
 
   context 'deCODEme' do
     let(:file) { File.open(Rails.root.join('test/data/deCODEme_test.csv')) }
-    let(:genotype) do
-      create(:genotype, genotype: file, filetype: 'decodeme')
-    end
+    let(:filetype) { 'decodeme' }
 
     it 'parse deCODEme data', truncate: true do
       # Snp
@@ -110,23 +127,34 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
-      user_snps = UserSnp.all
-      user_snp_genotypes = user_snps.map(&:local_genotype)
-      expected_genotypes = %w(AA CC TT CC TT)
-      expect(user_snp_genotypes).to eq(expected_genotypes)
-      user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
-        expect(Snp.pluck(:name)).to include(s.snp_name)
-      end
+      genotype.reload
+
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
+        {
+          'rs11240767' => 'CC',
+          'rs2185539' => 'CC',
+          'rs3094315' => 'TT',
+          'rs4477212' => 'AA',
+          'rs6681105' => 'TT',
+        }
+      ])
+
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
+        { '1' => 'AA' },
+        { '1' => 'CC' },
+        { '1' => 'TT' },
+        { '1' => 'CC' },
+        { '1' => 'TT' },
+      ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240767 rs2185539 rs3094315 rs4477212 rs6681105))
     end
   end
 
   context 'ancestry' do
     let(:file) { File.open(Rails.root.join('test/data/ancestry_test.csv')) }
-    let(:genotype) do
-      create(:genotype, genotype: file, filetype: 'ancestry')
-    end
+    let(:filetype) { 'ancestry' }
 
     it 'parse ancestry data', truncate: true do
       # Snp
@@ -145,23 +173,34 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
-      user_snps = UserSnp.all
-      user_snp_genotypes = user_snps.map(&:local_genotype)
-      expected_genotypes = %w(CC CC CC CC CC)
-      expect(user_snp_genotypes).to eq(expected_genotypes)
-      user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
-        expect(Snp.pluck(:name)).to include(s.snp_name)
-      end
+      genotype.reload
+
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
+        {
+          'rs11240777' => 'CC',
+          'rs12562034' => 'CC',
+          'rs3131972' => 'CC',
+          'rs4477212' => 'CC',
+          'rs6681049' => 'CC',
+        }
+      ])
+
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
+        { '1' => 'CC' },
+        { '1' => 'CC' },
+        { '1' => 'CC' },
+        { '1' => 'CC' },
+        { '1' => 'CC' },
+      ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240777 rs12562034 rs3131972 rs4477212 rs6681049))
     end
   end
 
   context 'ftdna-illumina' do
     let(:file) { File.open(Rails.root.join('test/data/ftdna-illumina_sample.csv')) }
-    let(:genotype) do
-      create(:genotype, genotype: file, filetype: 'ftdna-illumina')
-    end
+    let(:filetype) { 'ftdna-illumina' }
 
     it 'parse ancestry data', truncate: true do
       # Snp
@@ -180,23 +219,34 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
-      user_snps = UserSnp.all
-      user_snp_genotypes = user_snps.map(&:local_genotype)
-      expected_genotypes = %w(AA GG GG AA AG)
-      expect(user_snp_genotypes).to eq(expected_genotypes)
-      user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
-        expect(Snp.pluck(:name)).to include(s.snp_name)
-      end
+      genotype.reload
+
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
+        {
+          'rs11240777' => 'AG',
+          'rs12124819' => 'AA',
+          'rs12562034' => 'GG',
+          'rs3094315' => 'AA',
+          'rs3131972' => 'GG',
+        }
+      ])
+
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
+        { '1' => 'AA' },
+        { '1' => 'GG' },
+        { '1' => 'GG' },
+        { '1' => 'AA' },
+        { '1' => 'AG' },
+      ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs11240777 rs12124819 rs12562034 rs3094315 rs3131972))
     end
   end
 
   context 'IYG' do
     let(:file) { File.open(Rails.root.join('test/data/iyg_sample.csv')) }
-    let(:genotype) do
-      create(:genotype, genotype: file, filetype: 'IYG')
-    end
+    let(:filetype) { 'IYG' }
 
     it 'parse ancestry data', truncate: true do
       # Snp
@@ -215,16 +265,28 @@ describe 'genotype parsing', sidekiq: :inline do
 
       expect(snp_data).to match_array(expected)
 
-      # UserSnp
-      user_snps = UserSnp.all
-      user_snp_genotypes = user_snps.map(&:local_genotype)
-      expected_genotypes = %w(GT AA AA T T)
-      expect(user_snp_genotypes).to eq(expected_genotypes)
-      user_snps.each do |s|
-        expect(s.genotype_id).to eq(genotype.id)
-        expect(Snp.pluck(:name)).to include(s.snp_name)
-      end
+      genotype.reload
+
+      expect(SnpsByGenotype.pluck(:snps)).to eq([
+        {
+          'rs10924081' => 'AA',
+          'rs199838004' => 'T',
+          'rs2131925' => 'GT',
+          'rs2815752' => 'AA',
+          'rs41456348' => 'T',
+        }
+      ])
+
+      expect(GenotypesBySnp.pluck(:genotypes)).to eq([
+        { '1' => 'GT' },
+        { '1' => 'AA' },
+        { '1' => 'AA' },
+        { '1' => 'T' },
+        { '1' => 'T' },
+      ])
+
+      expect(Snp.order(:name).pluck(:name))
+        .to eq(%w(rs10924081 rs199838004 rs2131925 rs2815752 rs41456348))
     end
   end
-
 end

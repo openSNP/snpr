@@ -9,7 +9,7 @@
       <% snp.snpedia_papers.each do |p| %>
         <tr>
           <td>
-            <%= bold_if_matching_variation(p, user_snp) do %>
+            <%= strong_if_matching_variation(p, user_snp) do %>
               <%= link_to "#{snp.name} #{p.snp_variation.split('').join('/')}", p.url %>
             <% end %>
           </td>
