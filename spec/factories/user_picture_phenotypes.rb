@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :user_picture_phenotype do
-    variation "pink"
+    variation 'pink'
   end
 end
