@@ -115,5 +115,4 @@ If you want to contribute to openSNP, you are more than welcome to do so:
   `.rubocop_todo.yml`. In order to learn what it is all about take a
   look at [rubocop](https://github.com/bbatsov/rubocop) and specifically
   [this section of the README](https://github.com/bbatsov/rubocop#automatically-generated-configuration)
-  to learn more about it. Rubocop needs to be run with the `-R` flag to
-  check for rules relevant to Rails as well.
+  to learn more about it.
