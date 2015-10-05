@@ -105,8 +105,14 @@ yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libx
 
 # Contribute
 
-If you want to contribute to openSNP, you are more than welcome to do so. We
-use [the issue tracker at
-GitHub](https://github.com/gedankenstuecke/snpr/issues) for everything that
-needs to be done. Also, running `rake notes` may give you some hints about
-things that can be improved.
+If you want to contribute to openSNP, you are more than welcome to do so:
+
+* We use [the issue tracker at GitHub](https://github.com/gedankenstuecke/snpr/issues)
+  for everything that needs to be done.
+* Running `rake notes` may give you some hints about things that can be
+  improved.
+* In order to help improving the overall code style, take a look into
+  `.rubocop_todo.yml`. In order to learn what it is all about take a
+  look at [rubocop](https://github.com/bbatsov/rubocop) and specifically
+  [this section of the README](https://github.com/bbatsov/rubocop#automatically-generated-configuration)
+  to learn more about it.
