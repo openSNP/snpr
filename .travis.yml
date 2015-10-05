@@ -1,7 +1,5 @@
 language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
 rvm:
-  - 2.0
-  - 2.1
   - 2.2
 env: DB=postgres CI=1
 bundler_args: --without development debug
