@@ -10,8 +10,6 @@ class FitbitProfilesController < ApplicationController
       .includes(:user)
       .order("#{sort_column} #{sort_direction}")
       .paginate(page: params[:page], per_page: 20)
-    @filelink = FileLink.
-      where(description: "all genotypes and phenotypes archive").first.try(:url)
   end
   
   def show
