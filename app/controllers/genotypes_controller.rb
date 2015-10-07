@@ -7,8 +7,6 @@ class GenotypesController < ApplicationController
     @title = "Listing all genotypings"
     @genotypes = Genotype.order("#{sort_column} #{sort_direction}")
     @genotypes_paginate = @genotypes.paginate(page: params[:page],per_page: 20)
-    @filelink = FileLink.
-      where(description: "all genotypes and phenotypes archive").first.try(:url)
   end
 
   def new
