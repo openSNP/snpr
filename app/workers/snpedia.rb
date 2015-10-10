@@ -31,7 +31,7 @@ class Snpedia
       /summary=(?<summary>.*)\}\}/m =~ to_parse
       snpedia_paper.update_attributes!(
         url: url, summary: summary, revision: rev_id)
-      snpedia_paper.snps << snp
+      snpedia_paper.snps << snp unless snpedia_paper.snps.include? snp
       snpedia_updated = true
     end
     snp.snpedia_updated! if snpedia_updated

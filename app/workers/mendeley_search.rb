@@ -74,7 +74,7 @@ class MendeleySearch
           logger.error("MendeleyPaper for #{snp.name} invalid.\n" <<
                        mendeley_paper.errors.full_messages.join(", "))
         else
-          mendeley_paper.snps << snp
+          mendeley_paper.snps << snp unless mendeley_paper.snps.include? snp
         end
         Sidekiq::Client.enqueue(MendeleyDetails, mendeley_paper.id)
       end
