@@ -3,8 +3,7 @@ api_key.txt
 config/app_config.yml
 config/database.yml
 config/newrelic.yml
-coverage/*
-!coverage/.last_run.json
+coverage
 db/*.sqlite3
 development.log
 dump.rdb

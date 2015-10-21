@@ -6,4 +6,8 @@ class UserSnp < ActiveRecord::Base
 
   validates_presence_of :snp
   validates_presence_of :genotype
+
+  def local_genotype
+    self[:local_genotype].strip
+  end
 end

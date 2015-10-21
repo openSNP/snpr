@@ -59,5 +59,8 @@ module Snpr
     end
 
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Dump schema as SQL to also capture functions
+    config.active_record.schema_format = :sql
   end
 end

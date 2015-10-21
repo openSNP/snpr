@@ -108,7 +108,7 @@ yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libx
 If you want to contribute to openSNP, you are more than welcome to do so:
 
 * We use [the issue tracker at GitHub](https://github.com/gedankenstuecke/snpr/issues)
-  for everything that needs to be done.
+  for everything that needs to be done. And there is the [mailing list](https://groups.google.com/forum/#!forum/snpr-development) which we use for discuss running openSNP.org and other issues not directly related to the code-base.
 * Running `rake notes` may give you some hints about things that can be
   improved.
 * In order to help improving the overall code style, take a look into
