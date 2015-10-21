@@ -226,5 +226,4 @@ describe 'genotype parsing', sidekiq: :inline do
       end
     end
   end
-
 end

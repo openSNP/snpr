@@ -95,19 +95,7 @@ class Parsing
   end
 
   def insert_into_user_snps
-    execute(<<-SQL)
-      insert into user_snps (snp_name, local_genotype, genotype_id)
-      (
-        select
-          #{temp_table_name}.snp_name,
-          #{temp_table_name}.local_genotype,
-          #{genotype.id} as genotype_id
-        from #{temp_table_name}
-        where #{temp_table_name}.snp_name not in (
-          select snp_name from user_snps where genotype_id = #{genotype.id}
-        )
-      )
-    SQL
+    execute("SELECT upsert_user_snps(#{genotype.id})")
   end
 
   def parse_23andme(rows)
