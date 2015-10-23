@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'dotenv-rails', groups: %i(development test)
+gem 'dotenv-rails'
 
 gem 'rails', '~> 4.2.0'
 gem 'authlogic' # lots of user-related magic
