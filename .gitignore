@@ -31,3 +31,4 @@ tmp/pids/server.pid
 vendor/bundle
 vendor/cache
 logfile
+.env

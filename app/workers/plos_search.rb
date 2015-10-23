@@ -84,7 +84,6 @@ class PlosSearch
   end
 
   def self.api_key
-    # TODO: put in APP_CONFIG
-    File.read(Rails.root.join("key_plos.txt")).strip
+    ENV.fetch('PLOS_API_KEY')
   end
 end

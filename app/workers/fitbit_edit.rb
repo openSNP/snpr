@@ -6,7 +6,8 @@ class FitbitEdit
 
    def perform(fitbit_profile_id)
      @fitbit_profile = FitbitProfile.find_by_id(fitbit_profile_id)
-     @client = Fitgem::Client.new(:consumer_key => APP_CONFIG[:fitbit_consumer_key], :consumer_secret => APP_CONFIG[:fitbit_consumer_secret])
+     @client = Fitgem::Client.new(consumer_key: ENV.fetch('FITBIT_CONSUMER_KEY'),
+                                  consumer_secret: ENV.fetch('FITBIT_CONSUMER_SECRET'))
      @client.reconnect(@fitbit_profile.access_token, @fitbit_profile.access_secret)
      @return_value = @client.create_subscription({:type => :all, :subscription_id => @fitbit_profile.id})
      puts "subscription returned: "+ @return_value[0]

@@ -1,1 +1,1 @@
-Mendeley.consumer_key = APP_CONFIG[:mendeley]['consumer_key']
+Mendeley.consumer_key = ENV.fetch('MENDELEY_CONSUMER_KEY')

@@ -38,13 +38,7 @@ rake db:seed OR rake db:setup (which also sets up the entire db)
 # edit database.yml to point to your postgresql database
 cp config/database.yml.example config/database.yml
 
-cp config/app_config.yml.example config/app_config.yml
-```
-
-## Generate Secret Token
-
-```
-bundle rake secret > secret_token
+cp .env.example .env
 ```
 
 ## Initialize Database
@@ -58,6 +52,7 @@ bundle exec rake db:setup
 ```
 bundle exec rake
 ```
+This runs RSpec tests as well as the **legacy** test/unit ones.
 
 # Usage
 
