@@ -54,6 +54,47 @@ COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQ
 SET search_path = public, pg_catalog;
 
 --
+-- Name: find_bad_row(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION find_bad_row(tablename text) RETURNS tid
+    LANGUAGE plpgsql
+    AS $_$
+DECLARE
+result tid;
+curs REFCURSOR;
+row1 RECORD;
+row2 RECORD;
+tabName TEXT;
+count BIGINT := 0;
+BEGIN
+SELECT reverse(split_part(reverse($1), '.', 1)) INTO tabName;
+OPEN curs FOR EXECUTE 'SELECT ctid FROM ' || tableName;
+count := 1;
+FETCH curs INTO row1;
+WHILE row1.ctid IS NOT NULL LOOP
+result = row1.ctid;
+count := count + 1;
+FETCH curs INTO row1;
+EXECUTE 'SELECT (each(hstore(' || tabName || '))).* FROM '
+|| tableName || ' WHERE ctid = $1' INTO row2
+USING row1.ctid;
+IF count % 100000 = 0 THEN
+RAISE NOTICE 'rows processed: %', count;
+END IF;
+END LOOP;
+CLOSE curs;
+RETURN row1.ctid;
+EXCEPTION
+WHEN OTHERS THEN
+RAISE NOTICE 'LAST CTID: %', result;
+RAISE NOTICE '%: %', SQLSTATE, SQLERRM;
+RETURN result;
+END
+$_$;
+
+
+--
 -- Name: upsert_user_snps(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -192,108 +233,6 @@ CREATE SEQUENCE admin_users_id_seq
 --
 
 ALTER SEQUENCE admin_users_id_seq OWNED BY admin_users.id;
-
-
---
--- Name: curated_phenotype_answers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE curated_phenotype_answers (
-    id integer NOT NULL,
-    variation_name text,
-    curated_phenotype_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: curated_phenotype_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE curated_phenotype_answers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: curated_phenotype_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE curated_phenotype_answers_id_seq OWNED BY curated_phenotype_answers.id;
-
-
---
--- Name: curated_phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE curated_phenotypes (
-    id integer NOT NULL,
-    name character varying(255),
-    timeseries boolean,
-    description text,
-    is_series boolean,
-    is_multiple boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: curated_phenotypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE curated_phenotypes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: curated_phenotypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE curated_phenotypes_id_seq OWNED BY curated_phenotypes.id;
-
-
---
--- Name: curated_user_phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE curated_user_phenotypes (
-    id integer NOT NULL,
-    user_id integer,
-    curated_phenotype_id integer,
-    curated_phenotype_answer_id integer,
-    time_of_data_point timestamp without time zone,
-    comment text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: curated_user_phenotypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE curated_user_phenotypes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: curated_user_phenotypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE curated_user_phenotypes_id_seq OWNED BY curated_user_phenotypes.id;
 
 
 --
@@ -559,6 +498,16 @@ CREATE TABLE genotypes (
     genotype_file_size integer,
     genotype_updated_at timestamp without time zone,
     snps hstore DEFAULT ''::hstore NOT NULL
+);
+
+
+--
+-- Name: genotypes_by_snp; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE genotypes_by_snp (
+    snp_name character varying NOT NULL,
+    genotypes hstore DEFAULT ''::hstore NOT NULL
 );
 
 
@@ -945,7 +894,7 @@ ALTER SEQUENCE plos_papers_id_seq OWNED BY plos_papers.id;
 --
 
 CREATE TABLE schema_migrations (
-    version character varying NOT NULL
+    version character varying(255) NOT NULL
 );
 
 
@@ -1000,9 +949,9 @@ CREATE TABLE snp_references (
 --
 
 CREATE TABLE snp_references_backup (
-    snp_id integer,
-    paper_id integer,
-    paper_type character varying(255)
+    snp_id integer NOT NULL,
+    paper_id integer NOT NULL,
+    paper_type character varying(255) NOT NULL
 );
 
 
@@ -1058,13 +1007,24 @@ C: 0
 '::character varying,
     ranking integer DEFAULT 0,
     number_of_users integer DEFAULT 0,
-    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
-    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
-    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
+    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459467'::timestamp without time zone,
+    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459582'::timestamp without time zone,
+    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459627'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_snps_count integer,
     genotypes hstore DEFAULT ''::hstore NOT NULL
+)
+WITH (autovacuum_enabled=false, toast.autovacuum_enabled=false);
+
+
+--
+-- Name: snps_by_genotype; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE snps_by_genotype (
+    genotype_id integer NOT NULL,
+    snps hstore DEFAULT ''::hstore NOT NULL
 );
 
 
@@ -1194,80 +1154,9 @@ ALTER SEQUENCE user_picture_phenotypes_id_seq OWNED BY user_picture_phenotypes.i
 --
 
 CREATE TABLE user_snps (
-    snp_name character varying(32),
-    genotype_id integer,
-    local_genotype character varying(2)
-);
-
-
---
--- Name: user_snps_old; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE user_snps_old (
-    id integer NOT NULL,
-    local_genotype character varying(255),
-    genotype_id integer,
-    user_id integer,
-    snp_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    snp_name character varying(255)
-);
-
-
---
--- Name: user_snps_old_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE user_snps_old_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: user_snps_old_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE user_snps_old_id_seq OWNED BY user_snps_old.id;
-
-
---
--- Name: user_snps_temp_2360; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE user_snps_temp_2360 (
-    snp_name character varying(32),
-    chromosome character varying(32),
-    "position" character varying(32),
-    local_genotype character varying(2)
-);
-
-
---
--- Name: user_snps_temp_2362; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE user_snps_temp_2362 (
-    snp_name character varying(32),
-    chromosome character varying(32),
-    "position" character varying(32),
-    local_genotype character varying(2)
-);
-
-
---
--- Name: user_snps_temp_2441; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE user_snps_temp_2441 (
-    snp_name character varying(32),
-    chromosome character varying(32),
-    "position" character varying(32),
-    local_genotype character varying(2)
+    snp_name character varying(32) NOT NULL,
+    genotype_id integer NOT NULL,
+    local_genotype bpchar
 );
 
 
@@ -1346,27 +1235,6 @@ ALTER TABLE ONLY active_admin_comments ALTER COLUMN id SET DEFAULT nextval('acti
 --
 
 ALTER TABLE ONLY admin_users ALTER COLUMN id SET DEFAULT nextval('admin_users_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY curated_phenotype_answers ALTER COLUMN id SET DEFAULT nextval('curated_phenotype_answers_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY curated_phenotypes ALTER COLUMN id SET DEFAULT nextval('curated_phenotypes_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY curated_user_phenotypes ALTER COLUMN id SET DEFAULT nextval('curated_user_phenotypes_id_seq'::regclass);
 
 
 --
@@ -1541,13 +1409,6 @@ ALTER TABLE ONLY user_picture_phenotypes ALTER COLUMN id SET DEFAULT nextval('us
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_snps_old ALTER COLUMN id SET DEFAULT nextval('user_snps_old_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -1560,11 +1421,11 @@ ALTER TABLE ONLY achievements
 
 
 --
--- Name: active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY active_admin_comments
-    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT admin_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1573,30 +1434,6 @@ ALTER TABLE ONLY active_admin_comments
 
 ALTER TABLE ONLY admin_users
     ADD CONSTRAINT admin_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: curated_phenotype_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY curated_phenotype_answers
-    ADD CONSTRAINT curated_phenotype_answers_pkey PRIMARY KEY (id);
-
-
---
--- Name: curated_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY curated_phenotypes
-    ADD CONSTRAINT curated_phenotypes_pkey PRIMARY KEY (id);
-
-
---
--- Name: curated_user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY curated_user_phenotypes
-    ADD CONSTRAINT curated_user_phenotypes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1792,11 +1629,11 @@ ALTER TABLE ONLY user_picture_phenotypes
 
 
 --
--- Name: user_snps_old_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY user_snps_old
-    ADD CONSTRAINT user_snps_old_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY user_snps
+    ADD CONSTRAINT user_snps_new_pkey PRIMARY KEY (genotype_id, snp_name);
 
 
 --
@@ -1807,7 +1644,13 @@ ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
-CREATE INDEX index_snp_references_on_paper_id_and_paper_type ON snp_references USING btree (paper_id, paper_type);
+--
+-- Name: idx_user_snps_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_user_snps_snp_name ON user_snps USING btree (snp_name);
+
+
 --
 -- Name: index_active_admin_comments_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
@@ -1865,6 +1708,48 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 
 
 --
+-- Name: index_genotypes_by_snp_on_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_genotypes_by_snp_on_snp_name ON genotypes_by_snp USING btree (snp_name);
+
+
+--
+-- Name: index_snp_references_backup_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_snp_references_backup_on_paper_id_and_paper_type ON snp_references_backup USING btree (paper_id, paper_type);
+
+
+--
+-- Name: index_snp_references_backup_on_snp_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_snp_references_backup_on_snp_id ON snp_references_backup USING btree (snp_id);
+
+
+--
+-- Name: index_snp_references_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_snp_references_on_paper_id_and_paper_type ON snp_references USING btree (paper_id, paper_type);
+
+
+--
+-- Name: index_snp_references_on_snp_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_snp_references_on_snp_id ON snp_references USING btree (snp_id);
+
+
+--
+-- Name: index_snps_by_genotype_on_genotype_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_snps_by_genotype_on_genotype_id ON snps_by_genotype USING btree (genotype_id);
+
+
+--
 -- Name: index_snps_chromosome_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1882,7 +1767,7 @@ CREATE UNIQUE INDEX index_snps_on_id ON snps USING btree (id);
 -- Name: index_snps_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_snps_on_name ON snps USING btree (name);
+CREATE UNIQUE INDEX index_snps_on_name ON snps USING btree (name);
 
 
 --
@@ -1890,27 +1775,6 @@ CREATE INDEX index_snps_on_name ON snps USING btree (name);
 --
 
 CREATE INDEX index_snps_ranking ON snps USING btree (ranking);
-
-
---
--- Name: index_user_snps_on_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_user_snps_on_snp_name ON user_snps_old USING btree (snp_name);
-
-
---
--- Name: index_user_snps_on_user_id_and_snp_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_user_snps_on_user_id_and_snp_id ON user_snps_old USING btree (user_id, snp_id);
-
-
---
--- Name: index_user_snps_on_user_id_and_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_user_snps_on_user_id_and_snp_name ON user_snps_old USING btree (snp_name, user_id);
 
 
 --
@@ -1942,24 +1806,19 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: user_snps_genotype_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: fk_rails_a383e6630e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-CREATE INDEX user_snps_genotype_id_idx ON user_snps_old USING btree (genotype_id);
-
-
---
--- Name: user_snps_new_genotype_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX user_snps_new_genotype_id ON user_snps USING btree (genotype_id);
+ALTER TABLE ONLY genotypes_by_snp
+    ADD CONSTRAINT fk_rails_a383e6630e FOREIGN KEY (snp_name) REFERENCES snps(name);
 
 
 --
--- Name: user_snps_new_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: fk_rails_b8184b81ff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-CREATE INDEX user_snps_new_snp_name ON user_snps USING btree (snp_name);
+ALTER TABLE ONLY snps_by_genotype
+    ADD CONSTRAINT fk_rails_b8184b81ff FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
 
 
 --
@@ -2087,6 +1946,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140509001806');
 INSERT INTO schema_migrations (version) VALUES ('20140820071334');
 
 INSERT INTO schema_migrations (version) VALUES ('20150524081137');
+
+INSERT INTO schema_migrations (version) VALUES ('20150916070052');
 
 INSERT INTO schema_migrations (version) VALUES ('20151019160643');
 
