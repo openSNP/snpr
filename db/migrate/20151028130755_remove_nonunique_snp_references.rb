@@ -1,5 +1,5 @@
-namespace :papers do
-  task :make_linked_snps_unique => :environment do
+class RemoveNonuniqueSnpReferences < ActiveRecord::Migration
+  def change
     ActiveRecord::Base.connection.execute(<<-SQL)
       SELECT DISTINCT * INTO new_table FROM snp_references;
       ALTER TABLE snp_references RENAME TO snp_references_backup;
