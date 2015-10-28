@@ -1,9 +1,9 @@
 namespace :papers do
   task :make_linked_snps_unique => :environment do
-    %w(MendeleyPaper SnpediaPaper PlosPaper).each do |source|
-      source.constantize.find_each do |s|
-        s.update(snps: s.snps.uniq)
-      end
-    end
+    ActiveRecord::Base.connection.execute(<<-SQL)
+      SELECT DISTINCT * INTO new_table FROM snp_references;
+      DROP TABLE snp_references;
+      ALTER TABLE new_table RENAME TO snp_references;
+    SQL
   end
 end
