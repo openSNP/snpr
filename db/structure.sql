@@ -93,6 +93,7 @@ RETURN result;
 END
 $_$;
 
+
 --
 -- Name: upsert_user_snps(integer); Type: FUNCTION; Schema: public; Owner: -
 --
@@ -937,6 +938,17 @@ ALTER SEQUENCE snp_comments_id_seq OWNED BY snp_comments.id;
 --
 
 CREATE TABLE snp_references (
+    snp_id integer,
+    paper_id integer,
+    paper_type character varying(255)
+);
+
+
+--
+-- Name: snp_references_backup; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE snp_references_backup (
     snp_id integer NOT NULL,
     paper_id integer NOT NULL,
     paper_type character varying(255) NOT NULL
@@ -1703,6 +1715,20 @@ CREATE UNIQUE INDEX index_genotypes_by_snp_on_snp_name ON genotypes_by_snp USING
 
 
 --
+-- Name: index_snp_references_backup_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_snp_references_backup_on_paper_id_and_paper_type ON snp_references_backup USING btree (paper_id, paper_type);
+
+
+--
+-- Name: index_snp_references_backup_on_snp_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_snp_references_backup_on_snp_id ON snp_references_backup USING btree (snp_id);
+
+
+--
 -- Name: index_snp_references_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1924,4 +1950,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150524081137');
 INSERT INTO schema_migrations (version) VALUES ('20150916070052');
 
 INSERT INTO schema_migrations (version) VALUES ('20151019160643');
+
+INSERT INTO schema_migrations (version) VALUES ('20151028130755');
 
