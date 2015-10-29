@@ -21,4 +21,4 @@ deploy:
   provider: script
   script: bin/deploy
   on:
-    branch: dockerize
+    branch: master
