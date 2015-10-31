@@ -34,12 +34,14 @@ rake db:seed OR rake db:setup (which also sets up the entire db)
 
 ## Setup Config
 
-```
-# edit database.yml to point to your postgresql database
-cp config/database.yml.example config/database.yml
+All configuration is done via environment variables. A file with a
+working environment for development can be found at `.env.example`.
+Simply copy it to `.env` to use it as is. The
+[dotenv](https://github.com/bkeepers/dotenv) gem will pick it up
+and set the environment variables.
 
-cp .env.example .env
-```
+Copy `config/database.yml.example` to `config/database.yml` and adapt to
+your database setup.
 
 ## Initialize Database
 
