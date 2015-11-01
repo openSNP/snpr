@@ -34,18 +34,14 @@ rake db:seed OR rake db:setup (which also sets up the entire db)
 
 ## Setup Config
 
-```
-# edit database.yml to point to your postgresql database
-cp config/database.yml.example config/database.yml
+All configuration is done via environment variables. A file with a
+working environment for development can be found at `.env.example`.
+Simply copy it to `.env` to use it as is. The
+[dotenv](https://github.com/bkeepers/dotenv) gem will pick it up
+and set the environment variables.
 
-cp config/app_config.yml.example config/app_config.yml
-```
-
-## Generate Secret Token
-
-```
-bundle rake secret > secret_token
-```
+Copy `config/database.yml.example` to `config/database.yml` and adapt to
+your database setup.
 
 ## Initialize Database
 
@@ -58,6 +54,7 @@ bundle exec rake db:setup
 ```
 bundle exec rake
 ```
+This runs RSpec tests as well as the **legacy** test/unit ones.
 
 # Usage
 

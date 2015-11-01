@@ -162,7 +162,8 @@ class FitbitProfilesController < ApplicationController
     print @user
     @fitbit_profile = @user.fitbit_profile 
     print @fitbit_profile
-    client = Fitgem::Client.new({:consumer_key => APP_CONFIG[:fitbit_consumer_key], :consumer_secret => APP_CONFIG[:fitbit_consumer_secret]})
+    client = Fitgem::Client.new(consumer_key: ENV.fetch('FITBIT_CONSUMER_KEY'),
+                                consumer_secret: ENV.fetch('FITBIT_CONSUMER_SECRET'))
     request_token = client.request_token
     @fitbit_profile.request_token = request_token.token
     @fitbit_profile.request_secret = request_token.secret
@@ -174,7 +175,8 @@ class FitbitProfilesController < ApplicationController
     @user = current_user
     @fitbit_profile = @user.fitbit_profile
     if params[:oauth_token] && params[:oauth_verifier]
-      @client = Fitgem::Client.new(:consumer_key => APP_CONFIG[:fitbit_consumer_key], :consumer_secret => APP_CONFIG[:fitbit_consumer_secret])
+      @client = Fitgem::Client.new(consumer_key: ENV.fetch('FITBIT_CONSUMER_KEY'),
+                                   consumer_secret: ENV.fetch('FITBIT_CONSUMER_SECRET'))
       token = params[:oauth_token]
       secret = @fitbit_profile.request_secret
       verifier = params[:oauth_verifier]

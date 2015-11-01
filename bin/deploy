@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+curl -X POST \
+     -d "build=true&source_type=Branch&source_name=master" \
+     https://registry.hub.docker.com/u/opensnp/rails/trigger/$DOCKERHUB_TRIGGER_TOKEN/ 

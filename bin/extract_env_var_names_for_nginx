@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+env_file_name = ARGV[0] || '.env.example'
+puts File.read(env_file_name)
+         .split(/ |=/)
+         .grep(/\A[_A-Z0-9]+\z/)
+         .map { |var| "env #{var};" }

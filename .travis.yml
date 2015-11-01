@@ -1,11 +1,11 @@
-language: ruby # Defaults to ruby, but travis-ci recommends making this explicit.
+language: ruby
 sudo: false
 cache: bundler
 addons:
   apt:
     packages:
     - libhiredis-dev
-  postgresql: "9.2"
+  postgresql: '9.3'
 services:
   - redis-server
 rvm:
@@ -14,11 +14,11 @@ env: DB=postgres CI=1
 bundler_args: --without development debug
 before_script:
   - cp config/database.yml.ci config/database.yml
-  - cp config/app_config.yml.example config/app_config.yml
-  - echo "foo" > mail_username.txt
-  - echo "bar" > mail_password.txt
-  - echo "secret-token" > secret_token
-  - echo "secret-key-base" > secret_key_base
-  - psql -c 'create database snpr_test;' -U postgres
+  - cp .env.example .env
   - bundle exec rake db:setup
-script: "bundle exec rake test"
+script: bundle exec rake
+deploy:
+  provider: script
+  script: bin/deploy
+  on:
+    branch: master
