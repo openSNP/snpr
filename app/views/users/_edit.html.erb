@@ -1,4 +1,4 @@
-<%= nested_form_for(@user, url: user_path, html: { multipart: true, class: "horizontal" }) do |f| %>
+<%= nested_form_for(@user, url: user_path, remote: true, authenticity_token: true, html: { multipart: true }) do |f| %>
 
 <%= render 'shared/error_messages', target: @user %>
 <div id="post_errors" style="display:none"></div>
