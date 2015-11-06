@@ -2,14 +2,14 @@ class User < ActiveRecord::Base
   include PgSearchCommon
 
   has_attached_file :avatar,
-    styles: { medium: "300x300>", thumb: "100x100>", head: "32x32#" },
+    styles: { medium: '300x300>', thumb: '100x100>', head: '32x32#'},
     default_url: 'standard_:style.png'
 
   before_validation :clear_avatar
 
   validates_attachment_size :avatar, less_than: 1.megabyte
   validates_attachment_content_type :avatar,
-    content_type: /\Aimage\/.*\Z/
+    content_type: %r/\Aimage\/.*\Z/
   # call on authlogic
   acts_as_authentic do |c| 
     # replace SHA512 by bcrypt
@@ -54,9 +54,9 @@ class User < ActiveRecord::Base
   def user_has_sequence_string
     # used in the user-index-page instead of ugly true/false
     if has_sequence
-      "Yes"
+      'Yes'
     else
-      "No"
+      'No'
     end
   end
 
