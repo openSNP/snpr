@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
 
   validates_attachment_size :avatar, less_than: 1.megabyte
   validates_attachment_content_type :avatar,
-    content_type: %r/\Aimage\/.*\Z/
+    content_type: %r(\Aimage/.*\Z)
+
   # call on authlogic
   acts_as_authentic do |c| 
     # replace SHA512 by bcrypt
