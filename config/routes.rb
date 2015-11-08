@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Snpr::Application.routes.draw do
   root :to => 'index#index' # change this, maybe
 
@@ -74,4 +76,6 @@ Snpr::Application.routes.draw do
   get '/user_picture_phenotypes/:id/edit', :to => 'user_picture_phenotypes#edit'
   get '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
   get '/beacon/rest/responses', :to => 'beacon#responses'
+
+  mount Sidekiq::Web => '/sidekiq'
 end
