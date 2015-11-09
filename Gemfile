@@ -46,7 +46,7 @@ gem 'recommendify', github: 'paulasmuth/recommendify', ref: '34308c4'
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
-gem 'sinatra'
+gem 'sinatra', require: false
 
 # cron jobs
 gem 'whenever', require: false

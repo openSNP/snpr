@@ -1,7 +1,6 @@
 ---
 :verbose: true
 :pidfile: tmp/pids/sidekiq.pid
-:logfile: ./log/sidekiq.log
 :global: true
 :concurrency: 10
 
@@ -14,18 +13,18 @@
   - [frequency,1]
   - [fixphenotypes,1]
   - [default, 1]
-# - [mailnewgenotype, 10]
-# - [mailers, 1]
-#  - [user_snps, 3]
-#- [preparse,3]
-#  - [parse,3]
-#  - [mendeley_details,1]
-#  - [mendeley,1]
-#  - [genomegov,1]
-#  - [pgp,1]
-#  - [plos_details,1]
-#  - [plos,1]
-#  - [snpedia,1]
+  - [mailnewgenotype, 10]
+  - [mailers, 1]
+  - [user_snps, 3]
+  - [preparse,3]
+  - [parse,3]
+  - [mendeley_details,1]
+  - [mendeley,1]
+  - [genomegov,1]
+  - [pgp,1]
+  - [plos_details,1]
+  - [plos,1]
+  - [snpedia,1]
 :limits:
   recommend: 1
   zipgenotyping: 1
@@ -33,14 +32,14 @@
   fitbit: 3
   frequency: 10
   fixphenotypes: 1
-#  mailnewgenotype: 1
-# user_snps: 1
-#  preparse: 2
-#  parse: 1
-#  genomegov: 1
-#  mendeley_details: 1
-#  mendeley: 1
-#  pgp: 1
-#  plos_details: 1
-#  plos: 1
-#  snpedia: 1
+  mailnewgenotype: 1
+  user_snps: 1
+  preparse: 2
+  parse: 1
+  genomegov: 1
+  mendeley_details: 1
+  mendeley: 1
+  pgp: 1
+  plos_details: 1
+  plos: 1
+  snpedia: 1
