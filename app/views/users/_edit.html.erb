@@ -1,6 +1,6 @@
-<% # helper thing so we don't have to put up fields into every page %>
-<%= nested_form_for(@user, :remote => true, :url => user_path, :html => { :class => "form-stacked",:multipart => true  } ) do |f| %>
-<%= render 'shared/error_messages', :target => @user %>
+<%= nested_form_for(@user, url: user_path, remote: true, authenticity_token: true, html: { multipart: true } ) do |f| %>
+
+<%= render 'shared/error_messages', target: @user %>
 <div id="post_errors" style="display:none"></div>
 <div id="tab-container">
   <ul class="nav nav-tabs">
@@ -14,37 +14,34 @@
 <div id="general">
 	<div class="well">
 		<h2>General Information</h2>
-		<%= image_tag @user.avatar.url(:thumb) %>
-		<%if @user.avatar_file_name != nil%>
-		<%= f.label(:delete_avatar, 'Delete current avatar') %><%= f.check_box(:delete_avatar) %>
-		<%end%>
-	<div class="clearfix">
-		<%= f.label :avatar, "Upload new avatar"%>
-		<%=f.file_field :avatar%>
-	</div>
-	
-	<div class="clearfix">
-		<%= f.label :name %>
+		<%= f.label :name, "Your username" %>
 		<%= f.text_field :name %>
-	</div>
+
+        <%= f.label :avatar, "Your current avatar" %>
+		<%= image_tag @user.avatar.url(:thumb) %>
+		<% if @user.avatar_file_name != nil %>
+            <div class="checkbox">
+            <%= f.check_box(:delete_avatar) %> Delete current avatar?
+            </div>
+		<% end %>
+
+		<%= f.label :avatar, "Upload new avatar"%>
+		<%= f.file_field :avatar %>
+
 	
-    <h5><%=link_to "Change eMail/Password",{ :controller => "users", :action => "changepassword",:id => @user.id }%></h5>
+    <h5><%= link_to "Change eMail/Password", { controller: "users", action: "changepassword", id: @user.id } %></h5>
 	            
-    <% if current_user.genotypes.length >= 1%><%= link_to "Add another genotyping!", :controller => "genotypes", :action => "new"%><% end %>
+    <% if current_user.genotypes.length >= 1%><%= link_to "Add another genotyping!", controller: "genotypes", action: "new"%><% end %>
 	</div>
 </div>
 
 <div id="phenotypes">
 	<div class="well">
 		<h2>Your Phenotypes</h2>
-		<div class="clearfix">
 		<%= f.label :sex, "Chromosomal Sex"%>
-		<%= f.select :sex, options_for_select(["XX", "XY", "other", "rather not say"], :selected => @user.sex) %>
-		</div>
-		<div class="clearfix">
+		<%= f.select :sex, options_for_select(["XX", "XY", "other", "rather not say"], selected: @user.sex) %>
 		<%= f.label :yearofbirth, "Year of Birth"%>
-		<%= f.select :yearofbirth, options_for_select(((1900..2011).to_a << "rather not say").reverse, :selected => @user.yearofbirth) %>
-		</div>
+		<%= f.select :yearofbirth, options_for_select(((1900..2015).to_a << "rather not say").reverse, selected: @user.yearofbirth) %>
        <h2>Additional phenotypes</h2>
 		<%= f.fields_for :user_phenotypes do |p| %>
             <% @phenotype = Phenotype.find_by_id(p.object.phenotype_id) %>
@@ -58,26 +55,22 @@
 		     });
 		   </script>
 		
-		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, :id => "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
+		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, id: "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
 	 	</div>
 <%end %>
 
- <%= link_to "Add a new phenotype", :controller => "phenotypes", :action => "new" %>
+ <%= link_to "Add a new phenotype", controller: "phenotypes", action: "new" %>
  	</div>
 </div>
 
 <div id="details">
 <div class="well">
 <h2>Details</h2>
-<div class="clearfix">
-	<p>Add or edit a description of yourself:<br/><%= f.text_area  :description, :size => "1x10" %></p>
-</div>
+	<p>Add or edit a description of yourself:<br/><%= f.text_area  :description, size: "1x10" %></p>
 <p>Please provide at least one homepage (or Twitter, Blog etc.) </p>
 <%= f.fields_for :homepages do |h| %>
-	<div class="clearfix">
 		Description <%= h.text_field :description %>
 		URL <%= h.url_field :url %><%= h.link_to_remove "Remove"%>
-	</div>
 <% end %>
 <%= f.link_to_add "Add a page", :homepages %>
 </div>
@@ -102,10 +95,10 @@
 	<h2>Deleting</h2>
 	<% if not @user.genotypes.empty? %>
         <% @user.genotypes.each do |ug| %>
-          <p><%= link_to "Delete genotype #{ug.genotype_file_name}", ug, :method => "delete", :confirm => "Are you sure you want to delete genotype " + ug.genotype_file_name.to_s + "?" %> </p>
+            <p><%= link_to "Delete genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?" %> </p>
         <% end %>
 	<% end %>
-  <p><%= link_to "Delete this account", @user, :method => "delete", data: { confirm: 'Are you sure you want to delete your account?' } %></p>
+  <p><%= link_to "Delete this account", @user, method: "delete", data: { confirm: 'Are you sure you want to delete your account?' } %></p>
 </div>
 </div>
 <div id="fitbit">
@@ -113,14 +106,14 @@
   <h2><%=image_tag("fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
   <%if @user.fitbit_profile != nil%>
     <p class="lead">You have connected your <em>Fitbit</em> account with <em>openSNP</em></p>
-    <p class="lead"><%=link_to("Edit your Fitbit connection" ,{:controller => "fitbit_profiles", :action => "edit"})%></p>
+    <p class="lead"><%=link_to("Edit your Fitbit connection" , { controller: "fitbit_profiles", action: "edit" } )%></p>
   <%else%>
-    <p class="lead">You haven't connected a <em>Fitbit</em> account with <em>openSNP</em> yet. <%=link_to("Do you want to learn more about how to do this?" ,{:controller => "fitbit_profiles", :action => "info"})%></p>
+    <p class="lead">You haven't connected a <em>Fitbit</em> account with <em>openSNP</em> yet. <%=link_to("Do you want to learn more about how to do this?" , { controller: "fitbit_profiles", action: "info" } )%></p>
   <%end%>
   </div>
 </div>
 
 <div class="actions">
-	<%= f.submit "Update Information", :class => "btn btn-primary", :id => "update_user" %>
+	<%= f.submit "Update Information", class: "btn btn-primary", id: "update_user" %>
 </div>
 <% end %> 

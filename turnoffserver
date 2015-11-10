@@ -1,5 +1,4 @@
 #/bin/bash
 screen -X -S Server quit
-screen -X -S Solr quit
 killall -9 redis-server
 screen -X -S Sidekiq quit

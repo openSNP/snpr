@@ -262,6 +262,17 @@ class UsersController < ApplicationController
       :email,
       :password,
       :password_confirmation,
+      :avatar,
+      :delete_avatar,
+      :sex,
+      :yearofbirth,
+      :description,
+      :homepages_attributes,
+      :message_on_newsletter,
+      :message_on_message,
+      :message_on_new_phenotype,
+      :message_on_phenotype_comment_reply,
+      :message_on_snp_comment_reply,
     )
   end
 end
