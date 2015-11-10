@@ -174,7 +174,7 @@ class Zipfulldata
 
       # create lines in csv-file for each user who has uploaded his data
 
-      User.includes(:user_picture_phenotypes).each do |u|
+      User.includes(:user_picture_phenotypes).order(:id).each do |u|
         log "Looking at user #{u.id}"
         row = [u.id, u.yearofbirth, u.sex]
         picture_phenotypes.each do |pp|
