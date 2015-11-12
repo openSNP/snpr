@@ -4,15 +4,18 @@ require 'digest'
 class Preparsing
   include Sidekiq::Worker
   sidekiq_options :queue => :preparse, :retry => 10, :unique => true # only retry 10 times - after that, the genotyping probably has already been deleted
+  attr_reader :genotype
+
+  GENOTYPE_FILE_BASE_URL = 'https://opensnp.org'
 
   def perform(genotype_id)
-    genotype = Genotype.find(genotype_id)
+    @genotype = Genotype.find(genotype_id)
 
     logger.info "Starting preparse"
     biggest = ''
     biggest_size = 0
     begin
-      Zip::File.open(genotype.genotype.path) do |zipfile|
+      Zip::File.open(genotype_file.path) do |zipfile|
         # find the biggest file, since that's going to be the genotyping
         zipfile.each do |entry|
           if entry.size > biggest_size
@@ -32,7 +35,7 @@ class Preparsing
 
     # now that they are unzipped, check if they're actually proper files
     file_is_ok = false
-    fh = File.open(genotype.genotype.path)
+    fh = genotype_file
     l = fh.readline()
     # some files, for some reason, start with the UTF-BOM-marker
     l = l.sub("\uFEFF","")
@@ -125,6 +128,14 @@ class Preparsing
       logger.info "Md5-updating-status is #{status}"
 
       Parsing.perform_async(genotype.id)
+    end
+  end
+
+  def genotype_file
+    if Rails.env.production?
+      open("#{GENOTYPE_FILE_BASE_URL}#{genotype.genotype.url}")
+    else
+      open(genotype.genotype.path)
     end
   end
 
