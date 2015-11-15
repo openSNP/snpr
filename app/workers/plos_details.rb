@@ -18,12 +18,8 @@ class PlosDetails
 
     detail_url = "http://alm.plos.org/api/v3/articles/#{plos_paper.doi}?" \
                  "api_key=#{ENV.fetch('PLOS_API_KEY')}"
-    begin
-      detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
-    rescue
-      retry
-    end
 
+    detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
     detail_data = detail_resp.body
     detail_result = JSON.parse(detail_data)
 
