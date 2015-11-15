@@ -1,7 +1,5 @@
 class Parsing
   include Sidekiq::Worker
-  GENOTYPE_FILE_BASE_URL = 'https://opensnp.org'
-
   sidekiq_options queue: :user_snps, retry: 5, unique: true
 
   attr_reader :genotype, :temp_table_name, :normalized_csv, :stats, :start_time
@@ -43,8 +41,8 @@ class Parsing
   end
 
   def normalize_csv
-    rows = genotype_file.each_line
-                        .reject { |line| line.start_with?('#') } # Skip comments
+    rows = File.readlines(genotype.genotype.path)
+      .reject { |line| line.start_with?('#') } # Skip comments
     stats[:rows_without_comments] = rows.length
     csv = send(:"parse_#{genotype.filetype.gsub('-', '_').downcase}", rows)
     known_chromosomes = ['MT', 'X', 'Y', (1..22).map(&:to_s)].flatten
@@ -60,14 +58,6 @@ class Parsing
     end
     @normalized_csv = csv.map { |row| row.join(',') }.join("\n")
     stats[:rows_after_parsing] = csv.length
-  end
-
-  def genotype_file
-    if Rails.env.production?
-      open("#{GENOTYPE_FILE_BASE_URL}#{genotype.genotype.url}")
-    else
-      open(genotype.genotype.path)
-    end
   end
 
   def copy_csv_into_temp_table
