@@ -15,17 +15,11 @@ class PlosDetails
       end
 
     plos_paper = PlosPaper.find_by_id(plos_paper_id)
-    # TODO: Put this key into app_config
-    key_handle = File.open(::Rails.root.to_s+"/key_plos.txt")
-    api_key = key_handle.readline.rstrip
 
-    detail_url = "http://alm.plos.org/api/v3/articles/#{plos_paper.doi}?api_key=#{api_key}"
-    begin
-      detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
-    rescue
-      retry
-    end
+    detail_url = "http://alm.plos.org/api/v3/articles/#{plos_paper.doi}?" \
+                 "api_key=#{ENV.fetch('PLOS_API_KEY')}"
 
+    detail_resp = Net::HTTP.get_response(URI.parse(detail_url))
     detail_data = detail_resp.body
     detail_result = JSON.parse(detail_data)
 
