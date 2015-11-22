@@ -127,11 +127,4 @@ class Preparsing
       Parsing.perform_async(genotype.id)
     end
   end
-
-  def logger
-    return @logger if @logger
-    @logger = Logger.new(Rails.root.join("log/preparsing_#{Rails.env}.log"))
-    @logger.formatter = Logger::Formatter.new
-    @logger
-  end
 end

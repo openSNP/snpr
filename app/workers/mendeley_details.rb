@@ -7,10 +7,6 @@ class MendeleyDetails
   sidekiq_options :queue => :mendeley_details, :retry => 5, :unique => true
 
   def perform(mendeley_paper_id)
-     # Logging stuff
-     Rails.logger.level = 0
-     Rails.logger = Logger.new("#{Rails.root}/log/mendeleydetails_#{Rails.env}.log")
-
      mendeley_paper = MendeleyPaper.find_by_id(mendeley_paper_id.to_i)
      return if mendeley_paper.nil?
 
@@ -35,7 +31,7 @@ class MendeleyDetails
         mendeley_paper.open_access = false
      end
 
-     log "mendeley details: updated oa- and reader-status\n"
+     logger.info('mendeley details: updated oa- and reader-status')
      if detail_result["stats"]
        mendeley_paper.reader = detail_result["stats"]["readers"]
      elsif detail_result["reader"]
@@ -45,11 +41,7 @@ class MendeleyDetails
      end
 
      mendeley_paper.save
-     log "-> sleep for 5 secs\n"
+     logger.info('sleep for 5 secs')
      sleep(5)
-  end
-
-  def log msg
-    Rails.logger.info "#{DateTime.now}: #{msg}"
   end
 end
