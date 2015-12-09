@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%=@user.name%>,</h1>
+    <p>
+      <%=@snp_comment.user.name%> just replied to a SNP comment on the SNP <%=@snp_comment.snp.name%> from you.
+      This is the text of the reply:
+    </p>
+     <p>
+    <blockquote>
+    --- SNIP ---
+
+    <%=@snp_comment.comment_text%>
+
+    --- SNAP ---
+    </blockquote>
+    </p>
+    <p>
+      <b>
+        You can read and reply to this comment by clicking this link: <%=snp_url(@snp_comment.snp)%>#comments
+      </b>
+    </p>
+    <p>
+      Cheers,</br>
+      your openSNP team
+    </p>
+      --
+      You receive this email because you enabled the phenotype-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications</br></br>
+      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+      and its biomedical data analysis platform –
+      along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+      hosting costs.</br>
+      <a href="https://www.sbgenomics.com">
+        <%= image_tag("SBG_logo.png") %>
+      </a>
+  </body>
+</html>
