@@ -11,7 +11,7 @@ default :from => "donotreply@opensnp.org"
 	  mail(:subject => "Welcome to openSNP.org", :to => user.email)
   end
 
-  def genotyping_results(target_address,link,phenotype_name,variation,user)
+  def genotyping_results(target_address,link,phenotype_name,variation)
     @link = link
     @phenotype_name = phenotype_name
     @variation = variation
