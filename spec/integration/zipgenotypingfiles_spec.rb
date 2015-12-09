@@ -21,8 +21,6 @@ RSpec.describe Zipgenotypingfiles do
 
     mail = ActionMailer::Base.deliveries.last
     
-    it_behaves_like "multipart email"
-
     expect(mail.subject).to include('The data you requested is ready to be downloaded')
     mail.parts.each do |part|
       expect(part.body).to include("http://opensnp.org/#{file_path}")
