@@ -411,7 +411,7 @@ DEPENDENCIES
   sanitize
   sass-rails
   shoulda-context
-  sidekiq (< 5)
+  sidekiq
   sidekiq-limit_fetch
   simplecov
   sinatra
