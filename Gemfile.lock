@@ -87,23 +87,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.17.2)
-      celluloid-essentials
-      celluloid-extras
-      celluloid-fsm
-      celluloid-pool
-      celluloid-supervision
-      timers (>= 4.1.1)
-    celluloid-essentials (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-extras (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-fsm (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-pool (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-supervision (0.20.5)
-      timers (>= 4.1.1)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -112,6 +95,7 @@ GEM
     coderay (1.1.0)
     composite_primary_keys (8.1.1)
       activerecord (~> 4.2.0)
+    concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -160,7 +144,6 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     hashdiff (0.2.3)
     highline (1.7.8)
-    hitimes (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -190,7 +173,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.6.2)
     mimemagic (0.3.0)
-    mini_portile (0.6.2)
+    mini_portile2 (2.0.0)
     minitest (5.8.2)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
@@ -205,8 +188,8 @@ GEM
       net-ssh (>= 2.6.5)
     netrc (0.11.0)
     newrelic_rpm (3.14.0.305)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7)
+      mini_portile2 (~> 2.0.0.rc2)
     nokogumbo (1.4.1)
       nokogiri
     notiffany (0.0.8)
@@ -270,9 +253,7 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     recaptcha (0.4.0)
-    redis (3.2.1)
-    redis-namespace (1.5.2)
-      redis (~> 3.0, >= 3.0.4)
+    redis (3.2.2)
     ref (2.0.0)
     request_store (1.2.0)
     rest-client (1.8.0)
@@ -320,14 +301,13 @@ GEM
       rake
     shellany (0.0.1)
     shoulda-context (1.2.1)
-    sidekiq (3.5.3)
-      celluloid (~> 0.17.2)
+    sidekiq (4.0.1)
+      concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
-      redis-namespace (~> 1.5, >= 1.5.2)
-    sidekiq-limit_fetch (2.4.2)
-      sidekiq (>= 2.6.5, < 4.0)
+    sidekiq-limit_fetch (3.0.1)
+      sidekiq (>= 4)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -360,8 +340,6 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.8.0)
-    timers (4.1.1)
-      hitimes
     twitter-bootstrap-rails (3.2.0)
       actionpack (~> 4.1)
       execjs (~> 2.2)
@@ -433,7 +411,7 @@ DEPENDENCIES
   sanitize
   sass-rails
   shoulda-context
-  sidekiq
+  sidekiq (< 5)
   sidekiq-limit_fetch
   simplecov
   sinatra
