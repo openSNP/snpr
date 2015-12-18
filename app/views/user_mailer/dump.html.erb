@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi <%=@user.name%>,</h1>
+    <b>Hi <%=@user.name%>,</b>
     <p>
       the data dump (including all the genotyping files and the associated
       phenotypes) you requested for download from openSNP are now available in
@@ -12,13 +12,13 @@
       <b><a href="<%="http://"+ActionMailer::Base.default_url_options[:host]+@link%>"Go and download them!</a></b>
     </p>
     <p>
-      --
+      --<br/>
       openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
       and its biomedical data analysis platform –
       along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
       hosting costs.</br>
       <a href="https://www.sbgenomics.com">
-        <%= image_tag("SBG_logo.png") %>
+        <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
       </a>
     </p>
   </body>

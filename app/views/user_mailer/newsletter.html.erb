@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi <%=@user.name%>,</h1>
+    <b>Hi <%=@user.name%>,</b>
     <p>
       We are collaborating with the Health Ethics and Policy Lab [1] at the University of Zurich, on a study that aims to investigate your experiences with sharing genetic and other kinds of data through openSNP (and other platforms). This is valuable knowledge for us in openSNP and for anyone interested in data sharing.
       We would be really grateful if you would participate in this short https://www.surveymonkey.com/r/openSNP survey. Below, you can see more information about the survey.
@@ -26,14 +26,14 @@
       Cheers,</br>
       your openSNP team
     </p>
-      --
+      --<br/>
       You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team. You can change this setting really easy at https://opensnp.org/users/<%=@user.id%>/edit#notifications</br></br>
       openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
       and its biomedical data analysis platform –
       along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
       hosting costs.</br>
       <a href="https://www.sbgenomics.com">
-        <%= image_tag("SBG_logo.png") %>
+        <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
       </a>
   </body>
 </html>

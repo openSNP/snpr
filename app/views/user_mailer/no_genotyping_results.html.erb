@@ -4,24 +4,24 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi,</h1>
+    <b>Hi,</b>
     <p>
 we're sorry to tell you that we don't have any users with uploaded genetic data that share the the variation <%=@variation%> for <%=@phenotype_name%> yet.
     </p>
     <p>
-      If you need help you can read the FAQ <%=faq_url()%> or contact us by replying to this mail.
+      If you need help <a href="<%=faq_url()%>">you can read the FAQ</a> or contact us by replying to this mail.
     </p>
     <p>
       Cheers,
       your openSNP-team.
     </p>
-      --
-      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
-      and its biomedical data analysis platform –
-      along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
-      hosting costs.</br>
-      <a href="https://www.sbgenomics.com">
-        <%= image_tag("SBG_logo.png") %>
-      </a>
+    --<br/>
+    openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+    and its biomedical data analysis platform –
+    along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+    hosting costs.</br>
+    <a href="https://www.sbgenomics.com">
+      <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+    </a>
   </body>
 </html>

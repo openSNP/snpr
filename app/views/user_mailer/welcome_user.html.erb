@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi <%=@user.name%>,</h1>
+    <b>Hi <%=@user.name%>,</b>
     <p>
       Welcome to openSNP.org – the platform for sharing genotyping raw data.
       We hope you enjoy using openSNP, can meet some interesting people and have the chance to learn some new things about our genome.
@@ -15,19 +15,19 @@
             <a href="<%=edit_user_url(@user)%>">To edit your settings visit <%=edit_user_url(@user)%></a>
     </p>
     <p>
-      If you need help you can read the FAQ <%=faq_url()%> or contact us by replying to this mail.
+      If you need help <a href="<%=faq_url()%>">you can read the FAQ</a> or contact us by replying to this mail.
     </p>
     <p>
       Cheers,
       your openSNP-team.
     </p>
-      --
-      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
-      and its biomedical data analysis platform –
-      along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
-      hosting costs.</br>
-      <a href="https://www.sbgenomics.com">
-        <%= image_tag("SBG_logo.png") %>
-      </a>
+    --<br/>
+    openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+    and its biomedical data analysis platform –
+    along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+    hosting costs.</br>
+    <a href="https://www.sbgenomics.com">
+      <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+    </a>
   </body>
 </html>
