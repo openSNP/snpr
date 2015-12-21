@@ -6,7 +6,7 @@
   <body>
     <b>Hi <%=@user.name%>,</b>
     <p>
-      you just got a new message from <%=User.find_by_id(@message.from_id).name%> with the following subject: <b><%=@message.subject%></b>
+      you just got a new message from <%=User.find_by_id(@message.from_id).name%> with the following subject: <b><%=@message.subject%></b><br/>
       Below you find the text of the message:
     </p>
      <p>
