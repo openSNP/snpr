@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <b>Hi <%=@user.name%>,</b>
+    <p>
+      We are collaborating with the Health Ethics and Policy Lab [1] at the University of Zurich, on a study that aims to investigate your experiences with sharing genetic and other kinds of data through openSNP (and other platforms). This is valuable knowledge for us in openSNP and for anyone interested in data sharing.
+      We would be really grateful if you would participate in this short https://www.surveymonkey.com/r/openSNP survey. Below, you can see more information about the survey.
+      Thanks a lot for your support,
+      the openSNP team
+
+      Dear openSNP user,
+      We would like to invite you to participate in an online survey that aims to explore attitudes and experiences of people who share their genetic and other data on publicly accessible networks. Our goal is to learn more about your experience with sharing your data, but also about your concerns and expectations from sharing.
+      The survey takes about 15 minutes to complete. It is run on the Surveymonkey platform. Surveymonkey won’t register the IP address of the device you are using for this survey. We at the University of Zurich do not have access to your email either, and we have no way to know who you are. In this sense this is an anonymous survey. You receive this email because when you registered with openSNP you chose the option to receive emails from the openSNP team. openSNP has kindly agreed to forward this survey link to you.
+
+      This survey is part of a research project at the University of Zurich led by Prof. Effy Vayena. Once we collect and analyse the data we will publish our findings in an open access format. We will also send all openSNP users a link to the publication(s).
+
+      We would be grateful if you participated in our project at https://www.surveymonkey.com/r/openSNP and thank you in advance for considering it.
+
+      If you have any questions about the survey please email us at : HEPLab@ebpi.uzh.ch
+       [1] http://www.ebpi.uzh.ch/en/aboutus/departments/publichealth/healthpol/healthethpollab.html
+    </p>
+    <p>
+      Cheers,</br>
+      your openSNP team
+    </p>
+      --<br/>
+      You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team. You can change this setting really easy at https://opensnp.org/users/<%=@user.id%>/edit#notifications</br></br>
+      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+      and its biomedical data analysis platform –
+      along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+      hosting costs.</br>
+      <a href="https://www.sbgenomics.com">
+        <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+      </a>
+  </body>
+</html>

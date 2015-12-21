@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <b>Hi <%=@user.name%>,</b>
+    <p>
+      you just got a new message from <%=User.find_by_id(@message.from_id).name%> with the following subject: <b><%=@message.subject%></b>
+      Below you find the text of the message:
+    </p>
+     <p>
+    <blockquote>
+    --- SNIP ---
+    <br/>
+    <%= @message.body %>
+    <br/>
+    --- SNAP ---
+    </blockquote>
+    </p>
+    <p>
+      <b>
+        PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. <a href="<%= message_url(@message) %>"You can read and reply to this message by clicking this link</a>.
+      </b>
+    </p>
+    <p>
+      Cheers,</br>
+      your openSNP team
+    </p>
+      --</br>
+      You receive this email because you enabled the message-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications</br></br>
+      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+      and its biomedical data analysis platform –
+      along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+      hosting costs.</br>
+      <a href="https://www.sbgenomics.com">
+        <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+      </a>
+  </body>
+</html>

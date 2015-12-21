@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <b>Hi <%=@user.name%>,</b>
+    <p>
+      the Fitbit data you requested for
+       <a href="<%="http://"+ActionMailer::Base.default_url_options[:host]+@link%>">
+         download from openSNP is now available as a CSV (Comma-separated value) file.
+       </a>
+     </p>
+     <p>
+    Have fun with it!
+    </p>
+    <p>
+      Cheers,</br>
+      your openSNP team
+    </p>
+    --<br/>
+    openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+    and its biomedical data analysis platform –
+    along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+    hosting costs.</br>
+    <a href="https://www.sbgenomics.com">
+      <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+    </a>
+  </body>
+</html>

@@ -42,6 +42,7 @@ module Snpr
     config.filter_parameters += [:password, :password_confirmation]
 
     config.action_mailer.default_url_options = { host: 'opensnp.org' }
+    #config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
     # Enable the asset pipeline
     config.assets.enabled = true

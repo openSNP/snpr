@@ -1,18 +1,24 @@
 Hello <%=@user.name%>,
-<%=@snp_comment.user.name%> just replied to a SNP comment on the SNP <%=@snp_comment.snp.name%> from you. 
+<%=@snp_comment.user.name%> just replied to a SNP comment on the SNP <%=@snp_comment.snp.name%> from you.
 
 This is the text of the reply:
 
 --- SNIP ---
+<br/>
 
 <%=@snp_comment.comment_text%>
 
 --- SNAP ---
 
-PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. You can read and reply to this message by clicking this link: <%= message_url(@message) %>
+PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. You can read and reply to this message by clicking this link: <%= snp_url(@snp) %>
 
 Cheers,
 your openSNP-team
 
--- 
+--
 You receive this email because you enabled the SNP-comment-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications
+
+openSNP thanks Seven Bridges – and its biomedical data analysis platform – along with our Patreons for supporting our hosting costs.
+
+https://www.sbgenomics.com/
+http://www.patreon.com/openSNP

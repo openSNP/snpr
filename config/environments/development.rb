@@ -12,6 +12,8 @@ Snpr::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
   config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger
@@ -32,4 +34,3 @@ Snpr::Application.configure do
   # Serve files from /public directory
   config.serve_static_files = true
 end
-

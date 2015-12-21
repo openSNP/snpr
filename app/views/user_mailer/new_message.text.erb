@@ -1,9 +1,10 @@
 
 Hello <%=@user.name%>,
-you just got a new message from <%=User.find_by_id(@message.from_id).name%> with the following subject: <%=@message.subject%> 
+you just got a new message from <%=User.find_by_id(@message.from_id).name%> with the following subject: <%=@message.subject%>
 Below you find the text of the message:
 
 --- SNIP ---
+<br/>
 
 <%= @message.body %>
 
@@ -14,5 +15,10 @@ PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. You can read and reply to this message 
 Cheers,
 your openSNP-team
 
--- 
+--
 You receive this email because you enabled the message-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications
+
+openSNP thanks Seven Bridges – and its biomedical data analysis platform – along with our Patreons for supporting our hosting costs.
+
+https://www.sbgenomics.com/
+http://www.patreon.com/openSNP

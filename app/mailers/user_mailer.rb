@@ -73,7 +73,7 @@ default :from => "donotreply@opensnp.org"
     @user = user
     mail(:subject => "openSNP.org: participate in a survey on the experiences of sharing genetic data", :to => @user.email)
   end
-  
+
   def dump(target_address,link)
     @link = link
     mail(:subject => "openSNP.org: The data dump you requested is ready to be downloaded",:to => target_address)

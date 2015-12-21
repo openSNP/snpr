@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <b>Hi <%=@user.name%>,</b>
+    <p>
+      We are sorry to inform you that there was at least one line in your genotyping-file, excluding the header, that could not be parsed correctly. This may be a minor problem or not. If you can't see your local genotypes for the SNPs or you encounter any other problems you could try to delete your genotyping file at <%=edit_user_url(@user)%>. Afterwards you can re-upload your genotyping file.
+
+      If you are sure that you set the correct filetype and everything else also should be okay, but this bug persists: Please let us know. Maybe your DTC-company changed the file-format they use.
+
+    </p>
+    <p>
+      If you need help <a href="<%=faq_url()%>">you can read the FAQ</a> or contact us by replying to this mail.
+    </p>
+    <p>
+      Cheers,
+      your openSNP-team.
+    </p>
+    --<br/>
+    openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+    and its biomedical data analysis platform –
+    along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+    hosting costs.</br>
+    <a href="https://www.sbgenomics.com">
+      <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+    </a>
+  </body>
+</html>

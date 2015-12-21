@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <b>Hi <%=@user.name%>,</b>
+    <p>
+The new phenotype "<%=@phenotype.characteristic%>" was just entered on openSNP.
+<a href="<%=phenotype_url(@phenotype)%>"If you want to, you can enter your variation for this phenotype</a>
+    </p>
+    <p>
+      Cheers,</br>
+      your openSNP team
+    </p>
+      --<br/>
+      You receive this email because you enabled the phenotype-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications<br/><br/>
+      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
+      and its biomedical data analysis platform –
+      along with <a href="patreon.com/openSNP">our Patreons</a> for supporting our
+      hosting costs.</br>
+      <a href="https://www.sbgenomics.com">
+        <%= image_tag("http://"+ActionMailer::Base.default_url_options[:host]+"/assets/SBG_logo.png") %>
+      </a>
+  </body>
+</html>
+
+
+
+Hello <%=@user.name%>,
+
+
+
+Cheers,
+your openSNP-team.
+
+--
+You receive this email because you enabled the phenotype-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications
