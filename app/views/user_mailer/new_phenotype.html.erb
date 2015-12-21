@@ -7,7 +7,7 @@
     <b>Hi <%=@user.name%>,</b>
     <p>
 The new phenotype "<%=@phenotype.characteristic%>" was just entered on openSNP.
-<a href="<%=phenotype_url(@phenotype)%>"If you want to, you can enter your variation for this phenotype</a>
+<a href="<%=phenotype_url(@phenotype)%>">If you want to, you can enter your variation for this phenotype</a>
     </p>
     <p>
       Cheers,</br>
@@ -24,15 +24,3 @@ The new phenotype "<%=@phenotype.characteristic%>" was just entered on openSNP.
       </a>
   </body>
 </html>
-
-
-
-Hello <%=@user.name%>,
-
-
-
-Cheers,
-your openSNP-team.
-
---
-You receive this email because you enabled the phenotype-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications
