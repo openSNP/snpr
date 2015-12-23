@@ -6,25 +6,47 @@
   <body>
     <b>Hi <%=@user.name%>,</b>
     <p>
-      We are collaborating with the Health Ethics and Policy Lab [1] at the University of Zurich, on a study that aims to investigate your experiences with sharing genetic and other kinds of data through openSNP (and other platforms). This is valuable knowledge for us in openSNP and for anyone interested in data sharing.
-      We would be really grateful if you would participate in this short https://www.surveymonkey.com/r/openSNP survey. Below, you can see more information about the survey.
-      Thanks a lot for your support,
-      the openSNP team
-
-      Dear openSNP user,
-      We would like to invite you to participate in an online survey that aims to explore attitudes and experiences of people who share their genetic and other data on publicly accessible networks. Our goal is to learn more about your experience with sharing your data, but also about your concerns and expectations from sharing.
-      The survey takes about 15 minutes to complete. It is run on the Surveymonkey platform. Surveymonkey won’t register the IP address of the device you are using for this survey. We at the University of Zurich do not have access to your email either, and we have no way to know who you are. In this sense this is an anonymous survey. You receive this email because when you registered with openSNP you chose the option to receive emails from the openSNP team. openSNP has kindly agreed to forward this survey link to you.
-
-      This survey is part of a research project at the University of Zurich led by Prof. Effy Vayena. Once we collect and analyse the data we will publish our findings in an open access format. We will also send all openSNP users a link to the publication(s).
-
-      We would be grateful if you participated in our project at https://www.surveymonkey.com/r/openSNP and thank you in advance for considering it.
-
-      If you have any questions about the survey please email us at : HEPLab@ebpi.uzh.ch
-       [1] http://www.ebpi.uzh.ch/en/aboutus/departments/publichealth/healthpol/healthethpollab.html
+      It's been a while since we sent out a regular newsletter with the latest updates on what's happening behind the scenes. Which, it turns out, has been quite a bit in 2015:
     </p>
     <p>
-      Cheers,</br>
-      your openSNP team
+      <b>Financial support</b>
+      <br/>
+      You can now <a href="patreon.com/openSNP">support openSNP on Patreon and pledge a small monthly amount</a> to help us out in running the service.
+      <br/>
+      <br/>
+      Even if you <a href="patreon.com/openSNP">just chip in a single dollar per month</a>, this would already help us a lot. Some of you already do, thanks for that! To give this move some context: Since 2011 we – Helge, Philipp and Bastian – have been running openSNP largely from the money we earn in our dayjobs. We do this because we believe in running a community project around personal genomics.
+      <br/><br/>
+      But with the growth of openSNP we had to move the project to a higher number of larger servers, which means that we have to spend more money as well. This is why we're now also going for the last step, marrying open source and open science with crowdfunding. Nearly 20 patrons are already contributing, including one of our larger contributors, <a href="https://www.sbgenomics.com/"><i>Seven Bridges</i></a>.
+    </p>
+    <p>
+      <b>Hardware updates</b>
+      <br/>
+      So far everything needed to run openSNP was living on a single machine with slow spinning disks -- this became more and more unsatisfactory the larger the database grew. We compartmentalized the architecture and moved the different parts to their own virtual servers.
+      <br/><br/>
+      The fact that the new servers are backed by SSD storage brought the most significant improvement in terms of performance, specifically for the database. The background jobs got their own machine as well, so they don't interfere with other applications by eating up all the resources.
+      <br/><br/>
+      In order to be more flexible in the future, the Rails app is now running within Docker containers, so they can be moved around without as much effort in the future, if needed. If you are interested in joining us in running openSNP: Feel free to <a href="https://github.com/gedankenstuecke/snpr">get in touch through GitHub</a> or via info@opensnp.org
+    </p>
+    <p>
+      <b>Survey</b>
+      <br/>
+      As you might have seen our last email, we're collaborating with the University of Zurich for <a href="https://www.surveymonkey.com/r/openSNP">a survey amongst openSNP users</a>. If you haven't participated so far, and are interested in giving feedback on why you are sharing your data (and what your experience has been with that) <a href="https://www.surveymonkey.com/r/openSNP">please do so</a>!
+    </p>
+    <p>
+      <b>Phenotype Request: SAT scores</b>
+      <br/>
+      The genetic basis for intelligence has been a hot topic for ages by now. For a primer on the topic you can <a href="https://www.youtube.com/watch?v=vr5n_ZOZ6E8">watch this video</a>. While visiting China and Hong Kong, we met up with Laurent Tellier, who is working at the BGI in Shenzhen. His research is into the genetic basis of intelligence and uses SAT scores as a quantitative proxy. So if you've taken the SATs and are willing to share, please help him by entering your variation for those phenotypes:<br/>
+      <a href="https://opensnp.org/phenotypes/37">Phenotype 1</a><br/>
+      <a href="https://opensnp.org/phenotypes/38">Phenotype 2</a><br/>
+      <a href="https://opensnp.org/phenotypes/39">Phenotype 3</a><br/>
+      <a href="https://opensnp.org/phenotypes/41">Phenotype 4</a><br/>
+    </p>
+    <p>
+      <b> With this we wish all of you happy holidays and some fun science in 2016!</b>
+      <br/>
+      Cheers,
+      <br/>
+      Philipp, Bastian, Lore and Helge for the openSNP team
     </p>
       --
       <br/>
