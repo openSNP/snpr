@@ -15,7 +15,7 @@ gem 'lograge'
 gem 'slop'
 
 # for errbit
-gem 'airbrake'
+gem 'airbrake', '~> 4.0'
 
 # apis
 gem 'fitgem'
