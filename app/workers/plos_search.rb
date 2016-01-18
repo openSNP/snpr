@@ -78,11 +78,6 @@ class PlosSearch
     end
   end
 
-  def logger
-    @plos_logger ||=
-      Logger.new(Rails.root.join("log/plos_#{Rails.env}.log"), 'weekly')
-  end
-
   def self.api_key
     ENV.fetch('PLOS_API_KEY')
   end

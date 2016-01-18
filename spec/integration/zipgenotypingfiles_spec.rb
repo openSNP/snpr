@@ -20,8 +20,11 @@ RSpec.describe Zipgenotypingfiles do
     subject.perform(phenotype.id, user_phenotype.variation, 'user@example.com')
 
     mail = ActionMailer::Base.deliveries.last
+    
     expect(mail.subject).to include('The data you requested is ready to be downloaded')
-    expect(mail.body).to include("http://opensnp.org/#{file_path}")
+    mail.parts.each do |part|
+      expect(part.body).to include("http://opensnp.org/#{file_path}")
+    end
     expect(File.exist?(fs_path)).to be(true)
   end
 end

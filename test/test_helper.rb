@@ -15,6 +15,8 @@ require 'factory_girl_rails'
 require 'paperclip/matchers'
 require 'plos'
 
+Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
+
 VCR.configure do |c|
   c.cassette_library_dir = 'test/data/vcr_cassettes'
   c.hook_into :webmock

@@ -1,9 +1,10 @@
 Hello <%=@user.name%>,
-<%=@phenotype_comment.user.name%> just replied to a phenotype comment on the Picture Phenotype <%=@phenotype_comment.picture_phenotype.characteristic%> from you. 
+<%=@phenotype_comment.user.name%> just replied to a phenotype comment on the Picture Phenotype <%=@phenotype_comment.picture_phenotype.characteristic%> from you.
 
 This is the text of the reply:
 
 --- SNIP ---
+<br/>
 
 <%=@phenotype_comment.comment_text%>
 
@@ -14,5 +15,10 @@ You can read and reply to this comment by clicking this link: <%=picture_phenoty
 Cheers,
 your openSNP-team
 
--- 
+--
 You receive this email because you enabled the phenotype-notification-settings. To change your notification-settings you can visit <%=edit_user_url(@user)%>#notifications
+
+openSNP thanks Seven Bridges – and its biomedical data analysis platform – along with our Patreons for supporting our hosting costs.
+
+https://www.sbgenomics.com/
+http://www.patreon.com/openSNP

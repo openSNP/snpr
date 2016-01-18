@@ -214,13 +214,6 @@ class Parsing
     ActiveRecord::Base.connection
   end
 
-  def logger
-    return @logger if @logger
-    @logger = Logger.new(Rails.root.join("log/parsing_#{Rails.env}.log"))
-    @logger.formatter = Logger::Formatter.new
-    @logger
-  end
-
   def send_logged(method)
     start_time = Time.now
     ret = send(method)
