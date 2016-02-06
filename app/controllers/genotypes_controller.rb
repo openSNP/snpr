@@ -59,9 +59,9 @@ class GenotypesController < ApplicationController
         @user.update_attributes(has_sequence: false, sequence_link: nil)
 
         # delete Uploaded Genotyping-achievement
-        @achievement_id = Achievement.find_by_award("Published genotyping").id
-        @to_delete = UserAchievement.find_by_achievement_id_and_user_id(@achievement_id, @user.id)
-        UserAchievement.destroy(@to_delete)
+        achievement = Achievement.where(award: 'Published genotyping')
+        UserAchievement.where(achievement: achievement, user: @user)
+                       .destroy_all
       end
       redirect_to current_user
     end
