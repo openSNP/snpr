@@ -104,7 +104,7 @@ yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libx
 
 If you want to contribute to openSNP, you are more than welcome to do so:
 
-* There's a [code of conduct](https://github.com/gedankenstuecke/snpr/blob/master/code_of_conduct.md) which lines out how we intereact with each other.
+* There's a [code of conduct](https://github.com/gedankenstuecke/snpr/blob/master/CODE_OF_CONDUCT.md) which lines out how we intereact with each other.
 * We use [the issue tracker at GitHub](https://github.com/gedankenstuecke/snpr/issues)
   for everything that needs to be done. And there is the [mailing list](https://groups.google.com/forum/#!forum/snpr-development) which we use for discuss running openSNP.org and other issues not directly related to the code-base.
 * Running `rake notes` may give you some hints about things that can be
