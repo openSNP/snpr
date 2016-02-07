@@ -34,6 +34,7 @@ The [issues page](https://github.com/gedankenstuecke/snpr/issues) has several op
 
 - Currently we have two different testing environments - the legacy ones in test/unit, and the RSpec tests. It would be great to have all tests inside RSpec.
 - There are many minor style-problems which live in .rubocop_todo.yml inside snpr/.
+- There are some feature ideas floating around in the issues, if you are interested in those please make sure you [implement tests for the new features at the same time](https://github.com/gedankenstuecke/snpr/issues/168). 
 
 ## Request enhancements
 
