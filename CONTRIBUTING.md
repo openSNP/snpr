@@ -10,7 +10,7 @@
 
 # How to contribute
 
-Thank you very much for your interest in helping openSNP! We're always happy to see new faces here. To make this a safe and inclusive space there is a [code of conduct for the project](https://github.com/gedankenstuecke/snpr/blob/master/CODE_OF_CONDUCT.md).
+Thank you very much for your interest in helping openSNP! We're always happy to see new faces here. To make this a safe and inclusive space there is a [code of conduct for the project](https://github.com/gedankenstuecke/snpr/blob/master/CODE_OF_CONDUCT.md). To see how to run openSNP in your development environment see [INSTALL.md](https://github.com/gedankenstuecke/snpr/blob/master/INSTALL.md)
 
 ## How to submit changes
 
