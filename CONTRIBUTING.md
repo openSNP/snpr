@@ -6,13 +6,6 @@
 - [What to work on](#what-to-work-on)
 - [Request enhancements](#request-enhancements)
 - [Talk to us](#talk-to-us)
-- [How the site works](#how-the-site-works)
-- [Setup](#setup)
-- [Install Dependencies](#install-dependencies)
-- [RVM](#rvm)
-- [Setup Config](#setup-config)
-- [Initialize Database](#initialize-database)
-- [Running the server](#running-the-server)
 - [Last words](#last-words)
 
 # How to contribute
