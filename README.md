@@ -14,7 +14,7 @@ Please see [INSTALL.md](https://github.com/gedankenstuecke/snpr/blob/master/INST
 
 ## Contributing to openSNP
 
-Please see [CONTRIBUTING.md](https://github.com/gedankenstuecke/snpr/blob/master/CONTRIBUTING.md) for more detailed instructions on how to contribute.
+Please see [CONTRIBUTING.md](https://github.com/gedankenstuecke/snpr/blob/master/CONTRIBUTING.md) for more detailed instructions on how to contribute. There's also a [Code of Conduct](https://github.com/gedankenstuecke/snpr/blob/master/CODE_OF_CONDUCT.md).
 
 ## Getting in contact
 You can always open an issue for specific problems, or send a mail to snpr-development@googlegroups.com if you want to discuss something or if you have any questions or need help with something. There's also info@opensnp.org if something broke on the webpage itself.
