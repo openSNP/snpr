@@ -38,6 +38,7 @@
         Julia Reda
         Lore Mroz
         Scott Chamberlain
+        @MozillaScience
         Caroline Brix
         Nikolay Kolev
         Marcel Salathe
