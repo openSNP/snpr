@@ -1830,6 +1830,14 @@ ALTER TABLE ONLY user_picture_phenotypes
 
 
 --
+-- Name: fk_rails_4efde02858; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_achievements
+    ADD CONSTRAINT fk_rails_4efde02858 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_7a842b8743; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
