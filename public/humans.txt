@@ -1,0 +1,71 @@
+#                          _____ _   _ _____
+#                         / ____| \ | |  __ \
+#   ___  _ __   ___ _ __ | (___ |  \| | |__) |
+#  / _ \| '_ \ / _ \ '_ \ \___ \| . ` |  ___/
+# | (_) | |_) |  __/ | | |____) | |\  | |
+#  \___/| .__/ \___|_| |_|_____/|_| \_|_|
+#       | |
+#       |_|
+
+/* TEAM /*
+        Philipp Bayer
+        Contact: philippbay@gmail.com
+        Site: philipp-bayer.net
+        Twitter: @philippbayer
+        Location: Perth, Australia
+
+        Bastian Greshake
+        Contact: bgreshake@gmail.com
+        Site: ruleofthirds.de
+        Twitter: @gedankenstuecke
+        Location: Frankfurt, Germany
+
+        Helge Rausch
+        Contact: helge@rausch.io
+        Twitter: @helgerausch
+        Location: Berlin, Germany
+
+/* Contributors /*
+        Calvyn82 (https://github.com/Calvyn82)
+        djab (https://github.com/djab)
+        Austin Davis-Richardson (https://github.com/audy)
+        Stephanie Smith-Unna (https://github.com/Treblesteph)
+
+/* THANKS /*
+        Fabian Zimmer (logo-designer!)
+        Madeleine Ball
+        John Wilbanks
+        Julia Reda
+        Lore Mroz
+        Scott Chamberlain
+        Caroline Brix
+        Nikolay Kolev
+        Marcel Salathe
+        Emanuel Moura
+        Thomas Landrain
+        Philip Brechler
+        Samantha Clark
+        Beau Gunderson
+        Thomas Schiewerling
+        Rhonda Lea Kirk Fries
+        Tom Hodder
+        Niclas Deißler
+        Niels Muenck
+        Cathal Garvey
+        Tristan
+        Daniel Ford
+        Ben Creasy
+        Mark Atwood
+        Albert Manson
+        Divya Mistry
+        Sergey
+        Nick
+        Brian Degger
+        Malin
+        Joerg Rings
+
+/* SITE /*
+        Where: https://opensnp.org
+        Last Update: 2016-02-07
+        Standards: HTML5, CSS
+        Components: Ruby on Rails, Bootstrap, jQuery

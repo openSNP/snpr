@@ -1,6 +1,6 @@
 # openSNP [![Build Status](https://travis-ci.org/gedankenstuecke/snpr.svg?branch=master)](https://travis-ci.org/gedankenstuecke/snpr)
 
-a repository to which users can upload their SNP-sets (and exome-VCFs) from
+Hello! [openSNP.org](https://opensnp.org) is a repository to which users can upload their SNP-sets (and exome-VCFs) from
 23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants
 of EBI genotyping). On upload, SNPs are annotated using the PLoS and
 Mendeley-APIs to show users the newest scientific research results on their
@@ -9,108 +9,20 @@ according to how many results could be gathered for SNPedia, PLoS and Mendeley
 (in that order). Users can send each other private messages as well as comment
 on SNPs and Phenotypes.
 
-Users can enter phenotypes to assist future research. Search is handled using
-postgres directly via pg_search.
+## Installing openSNP
+Please see [INSTALL.md](https://github.com/gedankenstuecke/snpr/blob/master/INSTALL.md) for more detailed instructions on how to run and setup openSNP.
 
-RSS-feeds are provided for uploaded genotypes and new publications.
+## Contributing to openSNP
 
-You can monitor the sidekiq-workers on
-[localhost:3000/sidekiq](http://localhost:3000/sidekiq) (useful in killing
-leftover tasks)
+Please see [CONTRIBUTING.md](https://github.com/gedankenstuecke/snpr/blob/master/CONTRIBUTING.md) for more detailed instructions on how to contribute.
 
-To load all standard achievements into the database run
+## Getting in contact
+You can always open an issue for specific problems, or send a mail to snpr-development@googlegroups.com if you want to discuss something or if you have any questions or need help with something. There's also info@opensnp.org if something broke on the webpage itself.
 
-```
-rake db:seed OR rake db:setup (which also sets up the entire db)
-```
+We're also available on Twitter:
 
-# Getting Started
+@gedankenstuecke
+@helgerausch
+@philippbayer
 
-## Install Dependencies
-
-- redis
-- hiredis
-- postgres
-
-## Setup Config
-
-All configuration is done via environment variables. A file with a
-working environment for development can be found at `.env.example`.
-Simply copy it to `.env` to use it as is. The
-[dotenv](https://github.com/bkeepers/dotenv) gem will pick it up
-and set the environment variables.
-
-Copy `config/database.yml.example` to `config/database.yml` and adapt to
-your database setup.
-
-## Initialize Database
-
-```
-bundle exec rake db:setup
-```
-
-## Run Tests
-
-```
-bundle exec rake
-```
-This runs RSpec tests as well as the **legacy** test/unit ones.
-
-# Usage
-
-You need to have the following running to ensure that everything works:
-
-```
-redis-server
-
-sidekiq -q preparse,2 -q parse,2 -q deletegenotype -q fitbit -q fixphenotypes -q frequency -q genomegov -q mailnewgenotype -q mendeley_details -q mendeley -q pgp -q plos_details -q plos -q zipfulldata -q snpedia -q zipgenotyping -C config/sidekiq.yml -e development
-
-rails s(erver)
-```
-
-Note: "serverscript" starts all these in detached screen-sessions.
-
-To see all rake-tasks:
-
-```
-rake -vT
-```
-
-# Deployment
-
-Deployment is handled via capistrano (thanks Helge!). The most important capistrano tasks:
-
-```
-cap deploy
-```
-
-deploys the newest version to production.
-
-```
-cap sidekiq:{start,stop,restart}
-```
-
-handles the Sidekiq workers. Has to be started on reboot!
-
-# Dependencies
-
-For Fedora 19:
-
-```
-yum install postgresql postgresql-devel hiredis hiredis-devel libxslt-devel libxslt libxml2 libxml2-devel
-```
-
-# Contribute
-
-If you want to contribute to openSNP, you are more than welcome to do so:
-
-* There's a [code of conduct](https://github.com/gedankenstuecke/snpr/blob/master/CODE_OF_CONDUCT.md) which lines out how we intereact with each other.
-* We use [the issue tracker at GitHub](https://github.com/gedankenstuecke/snpr/issues)
-  for everything that needs to be done. And there is the [mailing list](https://groups.google.com/forum/#!forum/snpr-development) which we use for discuss running openSNP.org and other issues not directly related to the code-base.
-* Running `rake notes` may give you some hints about things that can be
-  improved.
-* In order to help improving the overall code style, take a look into
-  `.rubocop_todo.yml`. In order to learn what it is all about take a
-  look at [rubocop](https://github.com/bbatsov/rubocop) and specifically
-  [this section of the README](https://github.com/bbatsov/rubocop#automatically-generated-configuration)
-  to learn more about it.
+Watch this space for a yet-to-be-created IRC channel.
