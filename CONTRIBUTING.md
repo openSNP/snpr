@@ -50,7 +50,7 @@ We're also available on Twitter:
 @helgerausch
 @philippbayer
 
-Watch this space for a yet-to-be-created IRC channel.
+[There's also a Gitter](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Last words
 
