@@ -1,5 +1,7 @@
 # openSNP [![Build Status](https://travis-ci.org/gedankenstuecke/snpr.svg?branch=master)](https://travis-ci.org/gedankenstuecke/snpr)
 
+[![Join the chat at https://gitter.im/openSNP/snpr](https://badges.gitter.im/openSNP/snpr.svg)](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Hello! [openSNP.org](https://opensnp.org) is a repository to which users can upload their SNP-sets (and exome-VCFs) from
 23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants
 of EBI genotyping). On upload, SNPs are annotated using the PLoS and
