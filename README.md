@@ -1,4 +1,4 @@
-# openSNP [![Build Status](https://travis-ci.org/gedankenstuecke/snpr.svg?branch=master)](https://travis-ci.org/gedankenstuecke/snpr)
+# openSNP [![Build Status](https://travis-ci.org/openSNP/snpr.svg?branch=master)](https://travis-ci.org/openSNP/snpr)
 
 [![Join the chat at https://gitter.im/openSNP/snpr](https://badges.gitter.im/openSNP/snpr.svg)](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
