@@ -27,4 +27,4 @@ We're also available on Twitter:
 @helgerausch
 @philippbayer
 
-Watch this space for a yet-to-be-created IRC channel.
+[You can also join us on Gitter](https://gitter.im/openSNP/snpr).
