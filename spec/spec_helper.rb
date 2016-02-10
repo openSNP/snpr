@@ -13,6 +13,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
 
+load "#{Rails.root}/db/seeds.rb"
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Authlogic::TestCase
