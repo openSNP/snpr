@@ -1806,6 +1806,62 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_0b16c00876; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY picture_phenotype_comments
+    ADD CONSTRAINT fk_rails_0b16c00876 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_39ab5e5568; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY phenotype_comments
+    ADD CONSTRAINT fk_rails_39ab5e5568 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_474a80b46d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_picture_phenotypes
+    ADD CONSTRAINT fk_rails_474a80b46d FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_4efde02858; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_achievements
+    ADD CONSTRAINT fk_rails_4efde02858 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_7a842b8743; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_phenotypes
+    ADD CONSTRAINT fk_rails_7a842b8743 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_86f548fd62; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY genotypes
+    ADD CONSTRAINT fk_rails_86f548fd62 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_91b70134d0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fitbit_profiles
+    ADD CONSTRAINT fk_rails_91b70134d0 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_a383e6630e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1819,6 +1875,22 @@ ALTER TABLE ONLY genotypes_by_snp
 
 ALTER TABLE ONLY snps_by_genotype
     ADD CONSTRAINT fk_rails_b8184b81ff FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
+
+
+--
+-- Name: fk_rails_c2cf6d0528; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_snps
+    ADD CONSTRAINT fk_rails_c2cf6d0528 FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
+
+
+--
+-- Name: fk_rails_cfb3ef9f20; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY homepages
+    ADD CONSTRAINT fk_rails_cfb3ef9f20 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1954,4 +2026,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151019160643');
 INSERT INTO schema_migrations (version) VALUES ('20151028130755');
 
 INSERT INTO schema_migrations (version) VALUES ('20151119070640');
+
+INSERT INTO schema_migrations (version) VALUES ('20160207043305');
 
