@@ -1,9 +1,10 @@
 RSpec.feature 'Delete a genotype' do
   let(:user) { create(:user) }
   let!(:genotype) { create(:genotype, user: user) }
+  let!(:achievement) { create(:achievement, award: 'Published genotyping') }
   let!(:user_achievement) do
-    create(:user_achievement, achievement: Achievement.find_by(award: 'Published genotyping'),
-                              user: user)
+    create(:user_achievement, achievement_id: Achievement.find_by(award: 'Published genotyping').id,
+                              user_id: user.id)
   end
 
   before do
