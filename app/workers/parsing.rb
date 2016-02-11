@@ -186,7 +186,7 @@ class Parsing
       "MT-T14783C" => "rs28357680"
     }
     rows.map do |row|
-      snp_name, local_genotype = row.split("\t")
+      snp_name, local_genotype = row.strip.split("\t")
       if snp_name.start_with?('MT')
         position = snp_name[/[0-9]+/]
         chromosome = 'MT'
