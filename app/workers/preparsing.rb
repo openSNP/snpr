@@ -44,36 +44,36 @@ class Preparsing
 
     if genotype.filetype == "23andme"
       # first non-comment line is of length 4 after split
-      if l.split("\t").length == 4
+      if l.strip.split("\t").length == 4
         logger.info "file is 23andme and is ok!"
         file_is_ok = true
       end
     elsif genotype.filetype == "ancestry"
       # first line is of length 5
-      if l.split("\t").length == 5
+      if l.strip.split("\t").length == 5
         file_is_ok = true
         logger.info "file is ancestry and is ok!"
       end
     elsif genotype.filetype == "decodeme"
       # first line is of length 6
-      if l.split(",").length == 6
+      if l.strip.split(",").length == 6
         file_is_ok = true
         logger.info "file is decodeme and is ok!"
       end
     elsif genotype.filetype == "ftdna-illumina"
       # first line is of length 4
-      if l.split(",").length == 4
+      if l.strip.split(",").length == 4
         file_is_ok = true
         logger.info "file is ftdna and is ok!"
       end
     elsif genotype.filetype == "23andme-exome-vcf"
-      #first line is 
-      if l.split("\t").length == 10
+      #first line is
+      if l.strip.split("\t").length == 10
         file_is_ok = true
         logger.info "file is 23andme-exome and is ok!"
       end
     elsif genotype.filetype == "IYG"
-      if l.split("\t").length == 2
+      if l.strip.split("\t").length == 2
         file_is_ok = true
         logger.info "file is IYG and is ok!"
       end
