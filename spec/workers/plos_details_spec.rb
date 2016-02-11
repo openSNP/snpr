@@ -16,5 +16,6 @@ describe PlosDetails do
     
     job.perform plos_paper.id
     expect(plos_paper.reader).to eq(23)
+    expect(plos_paper.reader).not_to eq(before)
   end
 end
