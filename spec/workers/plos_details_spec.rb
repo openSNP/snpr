@@ -10,9 +10,9 @@ describe PlosDetails do
     before = plos_paper.reader
 
     response = double('response', body: '{"views":23}')
-    expect(Net::HTTP).to receive(:get_response).
-        with(URI 'http://alm.plos.org/api/v3/articles/10.1371/journal.pone.0089204?api_key=foo').
-        and_return(response)
+    expect(Net::HTTP).to receive(:get_response)
+      .with(URI('http://alm.plos.org/api/v3/articles/10.1371/journal.pone.0089204?api_key=foo'))
+      .and_return(response)
     
     job.perform plos_paper.id
     expect(plos_paper.reader).to eq(23)
