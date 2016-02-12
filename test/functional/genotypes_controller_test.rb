@@ -42,8 +42,7 @@ class GenotypesControllerTest < ActionController::TestCase
         activate_authlogic
         @user = FactoryGirl.create(:user)
         UserSession.create(@user)
-        @publishing_award = FactoryGirl.
-          create(:achievement, award: "Published genotyping")
+        @publishing_award = Achievement.find_by!(award: 'Published genotyping')
       end
 
       should "see the upload form" do

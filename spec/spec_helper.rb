@@ -51,7 +51,7 @@ RSpec.configure do |config|
   end
 
   config.before(:example, truncate: true) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :truncation, { except: %w(achievements) }
   end
 
   config.before(:example) do
