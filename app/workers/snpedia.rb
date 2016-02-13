@@ -10,7 +10,7 @@ class Snpedia
   def perform(snp_id)
     @snp = Snp.find(snp_id)
     if snp && valid_snp_names.include?(snp.name) && snp.snpedia_updated < 31.days.ago
-      @client = MediaWiki::Gateway.new("http://bots.snpedia.com/api.php")
+      @client = MediaWiki::Gateway.new 'http://bots.snpedia.com/api.php', ignorewarnings: true
       perform_search
     end
   end
