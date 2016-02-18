@@ -52,6 +52,7 @@ Snpr::Application.routes.draw do
   get '/signout', :to => 'user_sessions#destroy', :as => :logout
   get '/faq', :to => 'static#faq'
   get '/disclaimer', :to => 'static#disclaimer'
+  get '/statistics', :to => 'static#statistics'
   get '/user_index', :to => 'users#index'
   get '/rss', :to => 'genotypes#feed', :as => :feed, :defaults => {:format => 'rss' }
   get '/search', :to => 'search_results#search'
