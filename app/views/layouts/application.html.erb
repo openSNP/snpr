@@ -13,13 +13,15 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
   </head>
-  <body>	
+  <body>
     <div class="navbar-inverse navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="/">openSNP</a>
-          <ul class="nav"> 
+          <ul class="nav">
             <li class=""><%= link_to("News", '/news') %></li>
+            <li class=""><%= link_to("Stats", '/statistics') %></li>
+            <li class="divider-vertical"></li>
             <li class=""><%= link_to("Genotypes", :controller => "genotypes", :action => "index")%></li>
             <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -30,13 +32,12 @@
               <li class=""><%= link_to("Fitbit connections", :controller => "fitbit_profiles", :action => "index")%></li>
             </ul>
             <li class=""><%= link_to("SNPs", :controller => "snps", :action => "index") %></li>
-            <li class=""><%= link_to("Users", '/user_index') %></li>
           </ul>
           <%= form_tag "/search", :method => "get",:class => "navbar-search pull-left", :authenticity_token => true do %>
-            <%= text_field_tag :search, nil, :placeholder => "Search here", :class => "search-query input-medium" %>
+            <%= text_field_tag :search, nil, :placeholder => "Search for Everything!", :class => "search-query input-medium" %>
             <%= submit_tag 'Search', class: 'hidden' %>
           <% end %>
-          <ul class="nav pull-right"> 
+          <ul class="nav pull-right">
             <% if current_user %>
               <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -70,7 +71,7 @@
                 <%=link_to "x",{:controller => "users", :action => "remove_help_one", :id => current_user}, :remote => true, id: "remove_help_one",:class => "close" %>
                 <h4 class="alert-heading">Upload Your Genotyping File</h4>
                 <%=link_to(image_tag("fileupload.png"), "/genotypes/new")%><br/>
-                <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em>, <em>deCODEme</em> or <em>FamilyTreeDNA</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world. 
+                <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em>, <em>deCODEme</em> or <em>FamilyTreeDNA</em> to the database of <em>openSNP</em> to share it with other personal genomics customers and scientists from all over the world.
               </div>
             <%end%>
             <%if current_user.user_phenotypes == [] and current_user.help_two == false%>
@@ -99,13 +100,13 @@
         <div class="alert alert-success" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:notice].html_safe %></strong>
-        </div> 
+        </div>
       <% end %>
       <% if flash[:warning] %>
         <div class="alert alert-error" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:warning].html_safe %></strong>
-        </div> 
+        </div>
       <% end %>
       <% if flash[:achievement] %>
         <div class="alert alert-info" data-dismiss="alert">
