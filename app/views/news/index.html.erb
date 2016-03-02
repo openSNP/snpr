@@ -74,6 +74,7 @@
       <div class="span2"><h3>Genotypes</h3></div><br/><div class="span1"><%=link_to(image_tag("rss_small.png"),"/rss")%></div>
     </div>
     <br/>
+    <b><%= link_to("Show All Genotypes", :controller => "genotypes", :action => "index")%></b>
     <table class="table table-striped">
       <tr>
         <th>#</th>
@@ -97,6 +98,7 @@
   </div>
   <div id="users">
     <h3>Users</h3><br/>
+    <b><%= link_to("Show All Users", :controller => "users", :action => "index")%></b>
     <table class="table table-striped">
       <tr>
         <th>#</th>
@@ -118,6 +120,7 @@
   </div>
   <div id="phenotypes">
     <h3>Phenotypes</h3><br/>
+    <b><%= link_to("Show All Phenotypes", :controller => "phenotypes", :action => "index")%></b>
     <table class="table table-striped">
       <tr>
         <th>Name</th>
