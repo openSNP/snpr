@@ -31,8 +31,9 @@ bundle exec rake
 This runs RSpec tests as well as the **legacy** test/unit ones.
 
 ## What to work on
+We do have a [Roadmap](https://github.com/gedankenstuecke/snpr/blob/master/ROADMAP.md) file to see what we want to achieve over the next weeks and months.
 
-The [issues page](https://github.com/gedankenstuecke/snpr/issues) has several open issues, some of which are [marked as "easy-first-bugs"](https://github.com/gedankenstuecke/snpr/issues?q=is%3Aopen+is%3Aissue+label%3Aeasy-first-bugs). Some other things to work on:
+Additionally the [issues page](https://github.com/gedankenstuecke/snpr/issues) has several open issues, some of which are [marked as "easy-first-bugs"](https://github.com/gedankenstuecke/snpr/issues?q=is%3Aopen+is%3Aissue+label%3Aeasy-first-bugs). Some other, general things to work on:
 
 - Currently we have two different testing environments - the legacy ones in test/unit, and the RSpec tests. It would be great to have all tests inside RSpec.
 - There are many minor style-problems which live in .rubocop_todo.yml inside snpr/.
@@ -48,12 +49,14 @@ You can always open an issue for specific problems, or send a mail to snpr-devel
 
 We're also available on Twitter:
 
-@gedankenstuecke
-@helgerausch
-@philippbayer
+@[gedankenstuecke](https://twitter.com/gedankenstuecke)
+@[helgerausch](https://twitter.com/helgerausch)
+@[philippbayer](https://twitter.com/philippbayer)
 
-[There's also a Gitter](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[There's also a Gitter](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) where you can talk with us.
 
 ## Last words
 
-Thank you very much for your interest in the project and for the help of all volunteers who've helped us so far! There is a [humans.txt](https://github.com/gedankenstuecke/snpr/blob/master/public/humans.txt) where we celebrate all of you.
+![Thank you!](https://media1.giphy.com/media/10NVUaFVKzbUpW/200.gif)
+
+Thank you very much for your interest in the project and for the help of all volunteers who've helped us so far! There is a [humans.txt](https://github.com/gedankenstuecke/snpr/blob/master/public/humans.txt) where we celebrate all of you!
