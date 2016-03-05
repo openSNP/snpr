@@ -12,20 +12,20 @@ according to how many results could be gathered for SNPedia, PLoS and Mendeley
 on SNPs and Phenotypes.
 
 ## Installing openSNP
-Please see [INSTALL.md](https://github.com/gedankenstuecke/snpr/blob/master/INSTALL.md) for more detailed instructions on how to run and setup openSNP.
+Please see [INSTALL.md](https://github.com/openSNP/snpr/blob/master/INSTALL.md) for more detailed instructions on how to run and setup openSNP.
 
 ## Contributing to openSNP
-Thanks for your interest in helping us out! You are awesome! Please see [CONTRIBUTING.md](https://github.com/gedankenstuecke/snpr/blob/master/CONTRIBUTING.md) for more detailed instructions on how to contribute. We also [have a ROADMAP.md](https://github.com/gedankenstuecke/snpr/blob/master/ROADMAP.md), containing your idea of where the project should head.
+Thanks for your interest in helping us out! You are awesome! Please see [CONTRIBUTING.md](https://github.com/openSNP/snpr/blob/master/CONTRIBUTING.md) for more detailed instructions on how to contribute. We also [have a ROADMAP.md](https://github.com/openSNP/snpr/blob/master/ROADMAP.md), containing your idea of where the project should head.
 
-The project has a [Code of Conduct](https://github.com/gedankenstuecke/snpr/blob/master/CODE_OF_CONDUCT.md) in order to make this a safe and inclusive space for everyone.
+The project has a [Code of Conduct](https://github.com/openSNP/snpr/blob/master/CODE_OF_CONDUCT.md) in order to make this a safe and inclusive space for everyone.
 
 ## Getting in contact
 You can always open an issue for specific problems, or send a mail to snpr-development@googlegroups.com if you want to discuss something or if you have any questions or need help with something. There's also info@opensnp.org if something broke on the webpage itself.
 
 We're also available on Twitter:
 
-@gedankenstuecke
-@helgerausch
-@philippbayer
+@[gedankenstuecke](https://twitter.com/gedankenstuecke)
+@[helgerausch](https://twitter.com/helgerausch)
+@[philippbayer](https://twitter.com/philippbayer)
 
 [You can also join us on Gitter](https://gitter.im/openSNP/snpr).

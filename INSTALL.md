@@ -1,5 +1,5 @@
 # Installing openSNP
-Hello and thanks so much for your interest in running our code! Maybe even to contribute to the project. For more details on this see [CONTRIBUTING.md](https://github.com/gedankenstuecke/snpr/blob/master/CONTRIBUTING.md)
+Hello and thanks so much for your interest in running our code! Maybe even to contribute to the project. For more details on this see [CONTRIBUTING.md](https://github.com/openSNP/snpr/blob/master/CONTRIBUTING.md)
 
 ## How the site works
 
@@ -10,7 +10,7 @@ The site itself is based on Ruby on Rails (RoR). We usually try to use the newes
 git is needed to download the newest sources:
 
 ```
-git clone git@github.com:gedankenstuecke/snpr.git
+git clone git@github.com:openSNP/snpr.git
 ```
 
 Afterwards you'll have a new folder called "snpr" (it's not opensnp for historical reasons) in which all the files reside.
