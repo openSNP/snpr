@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+docker stop postgres
+docker rm postgres
+docker stop redis
+docker rm redis
+docker stop snpr
+docker rm snpr
+docker stop sidekiq
+docker rm sidekiq
+
+docker run --name postgres -d postgres:9.3
+docker run --name redis -d redis
+
+bundle install --deployment
+
+docker run -P -d \
+           --name snpr \
+           --link postgres:postgres \
+           --link redis:redis \
+           -e REDIS_URL='redis://redis/' \
+           -e POSTGRES_URL='postgres://postgres@postgres/postgres' \
+           -v $(pwd):/home/app/snpr \
+           opensnp/rails-dev
+
+docker exec snpr chpst -u app bundle exec rake db:structure:load
+
+docker run -d \
+           --name sidekiq \
+           --link postgres:postgres \
+           --link redis:redis \
+           -e REDIS_URL='redis://redis/' \
+           -e POSTGRES_URL='postgres://postgres@postgres/postgres' \
+           -e SECRET_KEY_BASE=foo \
+           -e SECRET_TOKEN=bar \
+           -e FITBIT_CONSUMER_KEY=foo \
+           -e FITBIT_CONSUMER_SECRET=bar \
+           -e PLOS_API_KEY=foo \
+           -e RECAPTCHA_PRIVATE_KEY=foo \
+           -e RECAPTCHA_PUBLIC_KEY=bar \
+           -e SIDEKIQ_PASSWORD=foo \
+           -e MENDELEY_CONSUMER_KEY=foo \
+           -e ERRBIT_API_KEY=foo \
+           -e ERRBIT_HOST=localhost \
+           -v $(pwd):/home/app/snpr \
+           opensnp/rails-sidekiq
