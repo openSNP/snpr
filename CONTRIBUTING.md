@@ -53,7 +53,7 @@ We're also available on Twitter:
 @[helgerausch](https://twitter.com/helgerausch)
 @[philippbayer](https://twitter.com/philippbayer)
 
-[There's also a Gitter](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) where you can talk with us.
+[There's also a Gitter](https://gitter.im/openSNP/snpr) where you can talk with us.
 
 ## Last words
 
