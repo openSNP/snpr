@@ -55,6 +55,18 @@ bash serverscript.sh
 
 There are many background tasks which live in app/workers, such as file parsing or talking to various APIs, which are handled by Sidekiq workers. You can monitor the sidekiq-workers on [localhost:3000/sidekiq](http://localhost:3000/sidekiq) (useful in killing leftover tasks) once sidekiq is up and running.
 
+## Talk to us
+
+Please get in touch if you have trouble running openSNP on your end. You can send a mail to snpr-development@googlegroups.com if you want to discuss with us (or use the GH issues). There's also info@opensnp.org if something broke on the webpage itself.
+
+We're also available on Twitter:
+
+@[gedankenstuecke](https://twitter.com/gedankenstuecke)
+@[helgerausch](https://twitter.com/helgerausch)
+@[philippbayer](https://twitter.com/philippbayer)
+
+[There's also a Gitter](https://gitter.im/openSNP/snpr) where you can talk with us.
+
 ## Last words
 
 Thank you very much for your interest in the project and for the help of all volunteers who've helped us so far! There is a humans.txt where we celebrate all of you.
