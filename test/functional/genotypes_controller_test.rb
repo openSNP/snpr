@@ -3,7 +3,6 @@ require_relative '../test_helper'
 class GenotypesControllerTest < ActionController::TestCase
   context "Genotypes" do
     setup do
-      Genotype.any_instance.expects(:parse_genotype)
       @genotype = FactoryGirl.create(:genotype)
       UserAchievement.delete_all
     end
@@ -51,7 +50,7 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "be able to upload genotypes" do
-        Genotype.any_instance.expects(:parse_genotype)
+        Preparsing.expects(:perform_async)
         FileUtils.cp("#{Rails.root}/testdata/testdatensatz1_23andme.txt",
                      "#{Rails.root}/test/fixtures")
         genotype_file = fixture_file_upload('testdatensatz1_23andme.txt')
