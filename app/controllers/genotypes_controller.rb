@@ -18,6 +18,7 @@ class GenotypesController < ApplicationController
     @genotype = Genotype.create(genotype_params)
     @genotype.user = current_user
     if @genotype.valid? && @genotype.save
+      Preparsing.perform_async(@genotype.id)
       # award for genotyping-upload
       @award = Achievement.find_by_award("Published genotyping")
       user_achievement_attrs = { achievement_id: @award.id,
@@ -50,21 +51,19 @@ class GenotypesController < ApplicationController
   end
 
   def destroy
-    @user = current_user
-    @genotype = Genotype.find_by_id(params[:id])
-    if @genotype.destroy
-      flash[:notice] = "Genotyping was successfully deleted."
-      if @user.genotypes.count == 0
-        # update user-attributes
-        @user.update_attributes(has_sequence: false, sequence_link: nil)
+    user = current_user
+    genotype_count = user.genotypes.count
+    DeleteGenotype.perform_async(genotype_id: params[:id])
+    flash[:notice] = 'Your Genotyping will be deleted. This may take a few minutes.'
+    if genotype_count == 1
+      # update user-attributes
+      user.update_attributes(has_sequence: false, sequence_link: nil)
 
-        # delete Uploaded Genotyping-achievement
-        achievement = Achievement.where(award: 'Published genotyping')
-        UserAchievement.where(achievement: achievement, user: @user)
-                       .destroy_all
-      end
-      redirect_to current_user
+      # delete Uploaded Genotyping-achievement
+      achievement = Achievement.where(award: 'Published genotyping')
+      UserAchievement.where(achievement: achievement, user: user).destroy_all
     end
+    redirect_to current_user
   end
 
   private 
