@@ -10,6 +10,6 @@ class GenotypeTest < ActiveSupport::TestCase
     should validate_attachment_presence(:genotype)
     should validate_attachment_content_type(:genotype).
       allowing('text/plain', 'application/zip')
-    should validate_attachment_size(:genotype).less_than(100.megabytes)
+    should validate_attachment_size(:genotype).less_than(400.megabytes)
   end
 end
