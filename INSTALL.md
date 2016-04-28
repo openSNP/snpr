@@ -13,13 +13,14 @@ git is needed to download the newest sources:
 git clone git@github.com:openSNP/snpr.git
 ```
 
-Afterwards you'll have a new folder called "snpr" (it's not opensnp for historical reasons) in which all the files reside.
+Afterwards you'll have a new folder called "snpr" (it's not opensnp for historical reasons, the reason being startups ending with *R* were considered sexy back when) in which all the files reside.
 
 ## Install Dependencies
 
-- redis
-- hiredis
-- postgres
+- [redis](http://redis.io/)
+- [hiredis](https://github.com/redis/hiredis)
+- [postgres](http://www.postgresql.org/)
+- [mailcatcher](https://mailcatcher.me/)
 
 Depending on your operating system these are installed in different ways.
 
@@ -47,13 +48,15 @@ bundle exec rake db:setup
 
 ## Running the server
 
-For development there's a small bash script called `serverscript` which starts the Rails server, the Redis server as well as the Sidekiq workers.
+For development there's a small bash script called `serverscript` which starts the Rails server, the Redis server as well as the Sidekiq workers and Mailcatcher.
 
 ```
 bash serverscript.sh
 ```
 
 There are many background tasks which live in app/workers, such as file parsing or talking to various APIs, which are handled by Sidekiq workers. You can monitor the sidekiq-workers on [localhost:3000/sidekiq](http://localhost:3000/sidekiq) (useful in killing leftover tasks) once sidekiq is up and running.
+
+In the development environment the application will send the emails through Mailcatcher, which means all emails are just stored locally on your end and can easily be viewed at [http://127.0.0.1:1080](http://127.0.0.1:1080).
 
 ## Talk to us
 
