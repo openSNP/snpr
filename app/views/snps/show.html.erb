@@ -7,7 +7,7 @@
     <table class="table table-striped">
       <tr>
         <td><b>Name</b></td>
-        <td><%=@snp.name%></td>
+        <td><%=@snp.name%> </td>
       </tr>
       <tr>
         <td><b>Chromosome</b></td>
@@ -20,6 +20,18 @@
       <tr>
         <td><b><a href="#" rel="woe" data-html="true" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. And a paper on <em>Mendeley</em> 1 point.">Weight of evidence</a></b></td>
         <td><%=@snp.ranking%></td>
+      </tr>
+      <tr>
+        <td><b>Phenotypes</b></td>
+        <td><%=@snp.phenotypes.first.characteristic rescue '-'%></td>
+      </tr>
+      <tr>
+        <td><b>Score</b></td>
+        <td><%= PhenotypeSnp.where(snp_id: @snp.id).first.score rescue '-'%></td>
+      </tr>
+      <tr>
+        <td><b>Position</b></td>
+        <td><%=@snp.position%></td>
       </tr>
     </table>
   </div>

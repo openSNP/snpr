@@ -23,76 +23,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
---
--- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
-
-
---
--- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
 SET search_path = public, pg_catalog;
-
---
--- Name: find_bad_row(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION find_bad_row(tablename text) RETURNS tid
-    LANGUAGE plpgsql
-    AS $_$
-DECLARE
-result tid;
-curs REFCURSOR;
-row1 RECORD;
-row2 RECORD;
-tabName TEXT;
-count BIGINT := 0;
-BEGIN
-SELECT reverse(split_part(reverse($1), '.', 1)) INTO tabName;
-OPEN curs FOR EXECUTE 'SELECT ctid FROM ' || tableName;
-count := 1;
-FETCH curs INTO row1;
-WHILE row1.ctid IS NOT NULL LOOP
-result = row1.ctid;
-count := count + 1;
-FETCH curs INTO row1;
-EXECUTE 'SELECT (each(hstore(' || tabName || '))).* FROM '
-|| tableName || ' WHERE ctid = $1' INTO row2
-USING row1.ctid;
-IF count % 100000 = 0 THEN
-RAISE NOTICE 'rows processed: %', count;
-END IF;
-END LOOP;
-CLOSE curs;
-RETURN row1.ctid;
-EXCEPTION
-WHEN OTHERS THEN
-RAISE NOTICE 'LAST CTID: %', result;
-RAISE NOTICE '%: %', SQLSTATE, SQLERRM;
-RETURN result;
-END
-$_$;
-
 
 --
 -- Name: upsert_user_snps(integer); Type: FUNCTION; Schema: public; Owner: -
@@ -134,7 +65,7 @@ SET default_with_oids = false;
 CREATE TABLE achievements (
     id integer NOT NULL,
     award text,
-    short_name character varying(255),
+    short_name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -165,14 +96,14 @@ ALTER SEQUENCE achievements_id_seq OWNED BY achievements.id;
 
 CREATE TABLE active_admin_comments (
     id integer NOT NULL,
-    resource_id character varying(255) NOT NULL,
-    resource_type character varying(255) NOT NULL,
+    resource_id character varying NOT NULL,
+    resource_type character varying NOT NULL,
     author_id integer,
-    author_type character varying(255),
+    author_type character varying,
     body text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    namespace character varying(255)
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    namespace character varying
 );
 
 
@@ -201,18 +132,18 @@ ALTER SEQUENCE active_admin_comments_id_seq OWNED BY active_admin_comments.id;
 
 CREATE TABLE admin_users (
     id integer NOT NULL,
-    email character varying(255) DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
     sign_in_count integer DEFAULT 0,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -341,13 +272,13 @@ ALTER SEQUENCE fitbit_bodies_id_seq OWNED BY fitbit_bodies.id;
 
 CREATE TABLE fitbit_profiles (
     id integer NOT NULL,
-    fitbit_user_id character varying(255),
+    fitbit_user_id character varying,
     user_id integer,
-    request_token character varying(255),
-    request_secret character varying(255),
-    access_token character varying(255),
-    access_secret character varying(255),
-    verifier character varying(255),
+    request_token character varying,
+    request_secret character varying,
+    access_token character varying,
+    access_secret character varying,
+    verifier character varying,
     body boolean DEFAULT true,
     activities boolean DEFAULT true,
     sleep boolean DEFAULT true,
@@ -417,7 +348,7 @@ ALTER SEQUENCE fitbit_sleeps_id_seq OWNED BY fitbit_sleeps.id;
 
 CREATE TABLE friendly_id_slugs (
     id integer NOT NULL,
-    slug character varying(255) NOT NULL,
+    slug character varying NOT NULL,
     sluggable_id integer NOT NULL,
     sluggable_type character varying(40),
     created_at timestamp without time zone
@@ -488,26 +419,15 @@ ALTER SEQUENCE genome_gov_papers_id_seq OWNED BY genome_gov_papers.id;
 
 CREATE TABLE genotypes (
     id integer NOT NULL,
-    filetype character varying(255) DEFAULT '23andme'::character varying,
+    filetype character varying DEFAULT '23andme'::character varying,
     user_id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    md5sum character varying(255),
-    genotype_file_name character varying(255),
-    genotype_content_type character varying(255),
+    md5sum character varying,
+    genotype_file_name character varying,
+    genotype_content_type character varying,
     genotype_file_size integer,
-    genotype_updated_at timestamp without time zone,
-    snps hstore DEFAULT ''::hstore NOT NULL
-);
-
-
---
--- Name: genotypes_by_snp; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE genotypes_by_snp (
-    snp_name character varying NOT NULL,
-    genotypes hstore DEFAULT ''::hstore NOT NULL
+    genotype_updated_at timestamp without time zone
 );
 
 
@@ -574,7 +494,7 @@ CREATE TABLE mendeley_papers (
     mendeley_url text,
     doi text,
     pub_year integer,
-    uuid character varying(255),
+    uuid character varying,
     open_access boolean,
     reader integer,
     created_at timestamp without time zone,
@@ -716,7 +636,7 @@ ALTER SEQUENCE phenotype_comments_id_seq OWNED BY phenotype_comments.id;
 CREATE TABLE phenotype_sets (
     id integer NOT NULL,
     user_id integer,
-    title character varying(255),
+    title character varying,
     description text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -753,12 +673,45 @@ CREATE TABLE phenotype_sets_phenotypes (
 
 
 --
+-- Name: phenotype_snps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE phenotype_snps (
+    id integer NOT NULL,
+    snp_id integer,
+    phenotype_id integer,
+    score double precision,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: phenotype_snps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE phenotype_snps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: phenotype_snps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE phenotype_snps_id_seq OWNED BY phenotype_snps.id;
+
+
+--
 -- Name: phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE phenotypes (
     id integer NOT NULL,
-    characteristic character varying(255),
+    characteristic character varying,
     known_phenotypes text,
     number_of_users integer DEFAULT 0,
     created_at timestamp without time zone,
@@ -827,7 +780,7 @@ ALTER SEQUENCE picture_phenotype_comments_id_seq OWNED BY picture_phenotype_comm
 
 CREATE TABLE picture_phenotypes (
     id integer NOT NULL,
-    characteristic character varying(255),
+    characteristic character varying,
     description text,
     number_of_users integer DEFAULT 0,
     created_at timestamp without time zone,
@@ -894,7 +847,7 @@ ALTER SEQUENCE plos_papers_id_seq OWNED BY plos_papers.id;
 --
 
 CREATE TABLE schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -940,7 +893,7 @@ ALTER SEQUENCE snp_comments_id_seq OWNED BY snp_comments.id;
 CREATE TABLE snp_references (
     snp_id integer,
     paper_id integer,
-    paper_type character varying(255)
+    paper_type character varying
 );
 
 
@@ -951,7 +904,7 @@ CREATE TABLE snp_references (
 CREATE TABLE snp_references_backup (
     snp_id integer NOT NULL,
     paper_id integer NOT NULL,
-    paper_type character varying(255) NOT NULL
+    paper_type character varying NOT NULL
 );
 
 
@@ -961,7 +914,7 @@ CREATE TABLE snp_references_backup (
 
 CREATE TABLE snpedia_papers (
     id integer NOT NULL,
-    url character varying(255),
+    url character varying,
     summary text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -994,12 +947,12 @@ ALTER SEQUENCE snpedia_papers_id_seq OWNED BY snpedia_papers.id;
 
 CREATE TABLE snps (
     id integer NOT NULL,
-    name character varying(255),
-    "position" character varying(255),
-    chromosome character varying(255),
-    genotype_frequency character varying(255) DEFAULT '--- {}
+    name character varying,
+    "position" character varying,
+    chromosome character varying,
+    genotype_frequency character varying DEFAULT '--- {}
 '::character varying,
-    allele_frequency character varying(255) DEFAULT '---
+    allele_frequency character varying DEFAULT '---
 A: 0
 T: 0
 G: 0
@@ -1007,24 +960,12 @@ C: 0
 '::character varying,
     ranking integer DEFAULT 0,
     number_of_users integer DEFAULT 0,
-    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459467'::timestamp without time zone,
-    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459582'::timestamp without time zone,
-    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459627'::timestamp without time zone,
+    mendeley_updated timestamp without time zone DEFAULT '2016-04-02 04:57:39.499981'::timestamp without time zone,
+    plos_updated timestamp without time zone DEFAULT '2016-04-02 04:57:39.500042'::timestamp without time zone,
+    snpedia_updated timestamp without time zone DEFAULT '2016-04-02 04:57:39.500062'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_snps_count integer,
-    genotypes hstore DEFAULT ''::hstore NOT NULL
-)
-WITH (autovacuum_enabled=false, toast.autovacuum_enabled=false);
-
-
---
--- Name: snps_by_genotype; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE snps_by_genotype (
-    genotype_id integer NOT NULL,
-    snps hstore DEFAULT ''::hstore NOT NULL
+    user_snps_count integer
 );
 
 
@@ -1087,7 +1028,7 @@ CREATE TABLE user_phenotypes (
     id integer NOT NULL,
     user_id integer,
     phenotype_id integer,
-    variation character varying(255),
+    variation character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -1120,9 +1061,9 @@ CREATE TABLE user_picture_phenotypes (
     id integer NOT NULL,
     user_id integer,
     picture_phenotype_id integer,
-    variation character varying(255),
-    phenotype_picture_file_name character varying(255),
-    phenotype_picture_content_type character varying(255),
+    variation character varying,
+    phenotype_picture_file_name character varying,
+    phenotype_picture_content_type character varying,
     phenotype_picture_file_size integer,
     phenotype_picture_updated_at timestamp without time zone,
     created_at timestamp without time zone,
@@ -1154,10 +1095,34 @@ ALTER SEQUENCE user_picture_phenotypes_id_seq OWNED BY user_picture_phenotypes.i
 --
 
 CREATE TABLE user_snps (
-    snp_name character varying(32) NOT NULL,
-    genotype_id integer NOT NULL,
-    local_genotype bpchar
+    id bigint NOT NULL,
+    local_genotype character varying,
+    genotype_id integer,
+    user_id integer,
+    snp_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    snp_name character varying
 );
+
+
+--
+-- Name: user_snps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_snps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_snps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_snps_id_seq OWNED BY user_snps.id;
 
 
 --
@@ -1166,29 +1131,29 @@ CREATE TABLE user_snps (
 
 CREATE TABLE users (
     id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_salt character varying(255),
-    crypted_password character varying(255),
-    persistence_token character varying(255),
-    perishable_token character varying(255),
+    name character varying,
+    email character varying,
+    password_salt character varying,
+    crypted_password character varying,
+    persistence_token character varying,
+    perishable_token character varying,
     has_sequence boolean DEFAULT false,
-    sequence_link character varying(255),
+    sequence_link character varying,
     description text,
     finished_snp_parsing boolean DEFAULT false,
     phenotype_creation_counter integer DEFAULT 0,
     phenotype_additional_counter integer DEFAULT 0,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    avatar_file_name character varying(255),
-    avatar_content_type character varying(255),
+    avatar_file_name character varying,
+    avatar_content_type character varying,
     avatar_file_size integer,
     avatar_updated_at timestamp without time zone,
     help_one boolean DEFAULT false,
     help_two boolean DEFAULT false,
     help_three boolean DEFAULT false,
-    sex character varying(255) DEFAULT 'rather not say'::character varying,
-    yearofbirth character varying(255) DEFAULT 'rather not say'::character varying,
+    sex character varying DEFAULT 'rather not say'::character varying,
+    yearofbirth character varying DEFAULT 'rather not say'::character varying,
     message_on_message boolean DEFAULT true,
     message_on_snp_comment_reply boolean DEFAULT true,
     message_on_phenotype_comment_reply boolean DEFAULT true,
@@ -1339,6 +1304,13 @@ ALTER TABLE ONLY phenotype_sets ALTER COLUMN id SET DEFAULT nextval('phenotype_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY phenotype_snps ALTER COLUMN id SET DEFAULT nextval('phenotype_snps_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY phenotypes ALTER COLUMN id SET DEFAULT nextval('phenotypes_id_seq'::regclass);
 
 
@@ -1409,6 +1381,13 @@ ALTER TABLE ONLY user_picture_phenotypes ALTER COLUMN id SET DEFAULT nextval('us
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY user_snps ALTER COLUMN id SET DEFAULT nextval('user_snps_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -1421,11 +1400,11 @@ ALTER TABLE ONLY achievements
 
 
 --
--- Name: admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY active_admin_comments
-    ADD CONSTRAINT admin_notes_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1549,6 +1528,14 @@ ALTER TABLE ONLY phenotype_sets
 
 
 --
+-- Name: phenotype_snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY phenotype_snps
+    ADD CONSTRAINT phenotype_snps_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1629,11 +1616,11 @@ ALTER TABLE ONLY user_picture_phenotypes
 
 
 --
--- Name: user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_snps
-    ADD CONSTRAINT user_snps_new_pkey PRIMARY KEY (genotype_id, snp_name);
+    ADD CONSTRAINT user_snps_pkey PRIMARY KEY (id);
 
 
 --
@@ -1642,13 +1629,6 @@ ALTER TABLE ONLY user_snps
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: idx_user_snps_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_user_snps_snp_name ON user_snps USING btree (snp_name);
 
 
 --
@@ -1666,10 +1646,10 @@ CREATE INDEX index_active_admin_comments_on_namespace ON active_admin_comments U
 
 
 --
--- Name: index_admin_notes_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_active_admin_comments_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_admin_notes_on_resource_type_and_resource_id ON active_admin_comments USING btree (resource_type, resource_id);
+CREATE INDEX index_active_admin_comments_on_resource_type_and_resource_id ON active_admin_comments USING btree (resource_type, resource_id);
 
 
 --
@@ -1708,13 +1688,6 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 
 
 --
--- Name: index_genotypes_by_snp_on_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_genotypes_by_snp_on_snp_name ON genotypes_by_snp USING btree (snp_name);
-
-
---
 -- Name: index_snp_references_backup_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1743,13 +1716,6 @@ CREATE INDEX index_snp_references_on_snp_id ON snp_references USING btree (snp_i
 
 
 --
--- Name: index_snps_by_genotype_on_genotype_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_snps_by_genotype_on_genotype_id ON snps_by_genotype USING btree (genotype_id);
-
-
---
 -- Name: index_snps_chromosome_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1767,7 +1733,7 @@ CREATE UNIQUE INDEX index_snps_on_id ON snps USING btree (id);
 -- Name: index_snps_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_snps_on_name ON snps USING btree (name);
+CREATE INDEX index_snps_on_name ON snps USING btree (name);
 
 
 --
@@ -1775,6 +1741,20 @@ CREATE UNIQUE INDEX index_snps_on_name ON snps USING btree (name);
 --
 
 CREATE INDEX index_snps_ranking ON snps USING btree (ranking);
+
+
+--
+-- Name: index_user_snps_on_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_snps_on_snp_name ON user_snps USING btree (snp_name);
+
+
+--
+-- Name: index_user_snps_on_user_id_and_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_snps_on_user_id_and_snp_name ON user_snps USING btree (snp_name, user_id);
 
 
 --
@@ -1789,13 +1769,6 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_users_on_persistence_token ON users USING btree (persistence_token);
-
-
---
--- Name: snps_position_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX snps_position_idx ON snps USING btree ("position");
 
 
 --
@@ -1859,22 +1832,6 @@ ALTER TABLE ONLY genotypes
 
 ALTER TABLE ONLY fitbit_profiles
     ADD CONSTRAINT fk_rails_91b70134d0 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_a383e6630e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY genotypes_by_snp
-    ADD CONSTRAINT fk_rails_a383e6630e FOREIGN KEY (snp_name) REFERENCES snps(name);
-
-
---
--- Name: fk_rails_b8184b81ff; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY snps_by_genotype
-    ADD CONSTRAINT fk_rails_b8184b81ff FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
 
 
 --
@@ -2017,10 +1974,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140509001806');
 
 INSERT INTO schema_migrations (version) VALUES ('20140820071334');
 
-INSERT INTO schema_migrations (version) VALUES ('20150524081137');
-
-INSERT INTO schema_migrations (version) VALUES ('20150916070052');
-
 INSERT INTO schema_migrations (version) VALUES ('20151019160643');
 
 INSERT INTO schema_migrations (version) VALUES ('20151028130755');
@@ -2028,4 +1981,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151028130755');
 INSERT INTO schema_migrations (version) VALUES ('20151119070640');
 
 INSERT INTO schema_migrations (version) VALUES ('20160207043305');
+
+INSERT INTO schema_migrations (version) VALUES ('20160515212622');
 
