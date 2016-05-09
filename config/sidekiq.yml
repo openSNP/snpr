@@ -14,10 +14,8 @@
   - [fixphenotypes,1]
   - [default, 1]
   - [mailnewgenotype, 10]
-  - [mailers, 1]
   - [user_snps, 3]
   - [preparse,3]
-  - [parse,3]
   - [mendeley_details,1]
   - [mendeley,1]
   - [genomegov,1]
@@ -35,7 +33,6 @@
   mailnewgenotype: 1
   user_snps: 1
   preparse: 2
-  parse: 1
   genomegov: 1
   mendeley_details: 1
   mendeley: 1
