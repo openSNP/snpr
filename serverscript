@@ -2,5 +2,4 @@
 
 screen -d -m -S "Server" bundle exec rails s
 screen -d -m -S "Redis" redis-server
-screen -d -m -S "Sidekiq" bundle exec sidekiq -q preparse,2 -q parse,2 -q user_snps -q deletegenotype -q fitbit -q fixphenotypes -q frequency -q genomegov -q mailnewgenotype -q mendeley_details -q mendeley -q pgp -q plos_details -q plos -q zipfulldata -q snpedia -q zipgenotyping -C config/sidekiq.yml -e development
-mailcatcher
+screen -d -m -S "Sidekiq" bundle exec sidekiq -C config/sidekiq.yml -e development
