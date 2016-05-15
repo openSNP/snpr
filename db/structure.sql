@@ -496,18 +496,7 @@ CREATE TABLE genotypes (
     genotype_file_name character varying(255),
     genotype_content_type character varying(255),
     genotype_file_size integer,
-    genotype_updated_at timestamp without time zone,
-    snps hstore DEFAULT ''::hstore NOT NULL
-);
-
-
---
--- Name: genotypes_by_snp; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE genotypes_by_snp (
-    snp_name character varying NOT NULL,
-    genotypes hstore DEFAULT ''::hstore NOT NULL
+    genotype_updated_at timestamp without time zone
 );
 
 
@@ -1012,20 +1001,9 @@ C: 0
     snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459627'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_snps_count integer,
-    genotypes hstore DEFAULT ''::hstore NOT NULL
+    user_snps_count integer
 )
-WITH (autovacuum_enabled=false, toast.autovacuum_enabled=false);
-
-
---
--- Name: snps_by_genotype; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE snps_by_genotype (
-    genotype_id integer NOT NULL,
-    snps hstore DEFAULT ''::hstore NOT NULL
-);
+WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
 
 
 --
@@ -1157,7 +1135,8 @@ CREATE TABLE user_snps (
     snp_name character varying(32) NOT NULL,
     genotype_id integer NOT NULL,
     local_genotype bpchar
-);
+)
+WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
 
 
 --
@@ -1708,13 +1687,6 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 
 
 --
--- Name: index_genotypes_by_snp_on_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_genotypes_by_snp_on_snp_name ON genotypes_by_snp USING btree (snp_name);
-
-
---
 -- Name: index_snp_references_backup_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1740,13 +1712,6 @@ CREATE INDEX index_snp_references_on_paper_id_and_paper_type ON snp_references U
 --
 
 CREATE INDEX index_snp_references_on_snp_id ON snp_references USING btree (snp_id);
-
-
---
--- Name: index_snps_by_genotype_on_genotype_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_snps_by_genotype_on_genotype_id ON snps_by_genotype USING btree (genotype_id);
 
 
 --
@@ -1799,98 +1764,75 @@ CREATE INDEX snps_position_idx ON snps USING btree ("position");
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: fk_rails_0b16c00876; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY picture_phenotype_comments
-    ADD CONSTRAINT fk_rails_0b16c00876 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_39ab5e5568; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY phenotype_comments
-    ADD CONSTRAINT fk_rails_39ab5e5568 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_474a80b46d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_picture_phenotypes
-    ADD CONSTRAINT fk_rails_474a80b46d FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_4efde02858; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_achievements
-    ADD CONSTRAINT fk_rails_4efde02858 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_7a842b8743; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_phenotypes
-    ADD CONSTRAINT fk_rails_7a842b8743 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_86f548fd62; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY genotypes
-    ADD CONSTRAINT fk_rails_86f548fd62 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_91b70134d0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fitbit_profiles_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fitbit_profiles
-    ADD CONSTRAINT fk_rails_91b70134d0 FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fitbit_profiles_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: fk_rails_a383e6630e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: genotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY genotypes_by_snp
-    ADD CONSTRAINT fk_rails_a383e6630e FOREIGN KEY (snp_name) REFERENCES snps(name);
-
-
---
--- Name: fk_rails_b8184b81ff; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY snps_by_genotype
-    ADD CONSTRAINT fk_rails_b8184b81ff FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
+ALTER TABLE ONLY genotypes
+    ADD CONSTRAINT genotypes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: fk_rails_c2cf6d0528; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_snps
-    ADD CONSTRAINT fk_rails_c2cf6d0528 FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
-
-
---
--- Name: fk_rails_cfb3ef9f20; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: homepages_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY homepages
-    ADD CONSTRAINT fk_rails_cfb3ef9f20 FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT homepages_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY phenotype_comments
+    ADD CONSTRAINT phenotype_comments_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: picture_phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY picture_phenotype_comments
+    ADD CONSTRAINT picture_phenotype_comments_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: user_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_achievements
+    ADD CONSTRAINT user_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: user_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_phenotypes
+    ADD CONSTRAINT user_phenotypes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: user_picture_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_picture_phenotypes
+    ADD CONSTRAINT user_picture_phenotypes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: user_snps_genotype_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_snps
+    ADD CONSTRAINT user_snps_genotype_id_fk FOREIGN KEY (genotype_id) REFERENCES genotypes(id);
 
 
 --
