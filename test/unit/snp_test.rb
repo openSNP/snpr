@@ -11,8 +11,8 @@ class SnpTest < ActiveSupport::TestCase
         @snp.mendeley_updated = @snp.snpedia_updated = @snp.plos_updated = 32.days.ago
         @snp.save
         queue = sequence('queue')
-        Sidekiq::Client.expects(:enqueue).with(Mendeley,   @snp.id).in_sequence(queue)
-        Sidekiq::Client.expects(:enqueue).with(Snpedia,    @snp.id).in_sequence(queue)
+        Sidekiq::Client.expects(:enqueue).with(MendeleySearch, @snp.id).in_sequence(queue)
+        Sidekiq::Client.expects(:enqueue).with(Snpedia, @snp.id).in_sequence(queue)
         Sidekiq::Client.expects(:enqueue).with(PlosSearch, @snp.id).in_sequence(queue)
         Snp.update_papers
       end
