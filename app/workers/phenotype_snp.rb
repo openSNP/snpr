@@ -4,8 +4,9 @@ class SnpToPhenotype
   attr_reader :snp, :client
 
   def perform(snp_id)
+    # could possible use the max_age limit here
     @snp = Snp.find(snp_id)
-    if snp && valid_snp_names.include?(snp.name) && snp.phenotypes_updated < 31.days.ago
+    if snp && valid_snp_names.include?(snp.name)
       score_pehnotype
     end
   end

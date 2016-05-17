@@ -4,7 +4,6 @@ class Phenotype < ActiveRecord::Base
   has_many :user_phenotypes, dependent: :destroy
   has_many :phenotype_comments, dependent: :destroy
   has_and_belongs_to_many :phenotype_sets
-  has_and_belongs_to_many :snps
 
   has_many :phenotype_snps
   has_many :snps, through: :phenotype_snps

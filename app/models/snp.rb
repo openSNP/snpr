@@ -46,6 +46,15 @@ class Snp < ActiveRecord::Base
     end
   end
 
+  def self.update_phenotypes
+    max_age = 31.days.ago
+
+    Snp.select([:id, :phenotype_updated]).where(phenotype_updated < max_age)
+       .find_each do |snp|
+      Sidekiq::Client.enqueue(SnpToPhenotype, snp.id)
+    end
+  end
+
   %w(snpedia mendeley genome_gov plos).each do |source|
     define_method(:"#{source}_papers") do
       klass = "#{source.camelize}Paper".constantize
