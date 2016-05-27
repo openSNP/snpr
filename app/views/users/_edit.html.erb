@@ -55,7 +55,7 @@
 		     });
 		   </script>
 		
-		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation, id: "phenotype_"+p.object.phenotype_id.to_s%> <%= p.link_to_remove "Remove"%><br/>
+		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation %> <%= p.link_to_remove "Remove"%><br/>
 	 	</div>
 <%end %>
 
