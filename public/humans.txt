@@ -30,6 +30,7 @@
         djab (https://github.com/djab)
         Austin Davis-Richardson (https://github.com/audy)
         Stephanie Smith-Unna (https://github.com/Treblesteph)
+        Vivek Rai (https://github.com/vivekiitkgp)
 
 /* THANKS /*
         Fabian Zimmer (designer of our first logo!)
