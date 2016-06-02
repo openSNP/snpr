@@ -98,6 +98,18 @@ class Parsing
     execute("SELECT upsert_user_snps(#{genotype.id})")
   end
 
+  def parse_genes_for_good(rows)
+    rows.map do |row|
+      fields = row.strip.split("\t")
+      [
+        fields[0],
+        fields[1],
+        fields[2],
+        fields[3].to_s.rstrip
+      ]
+    end
+  end
+
   def parse_23andme(rows)
     rows.map do |row|
       fields = row.strip.split("\t")

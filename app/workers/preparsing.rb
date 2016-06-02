@@ -48,6 +48,12 @@ class Preparsing
         logger.info "file is 23andme and is ok!"
         file_is_ok = true
       end
+    elsif genotype.filetype == "genes-for-good"
+      # first non-comment line is of length 4 after split
+      if l.strip.split("\t").length == 4
+        logger.info "file is genes-for-good and is ok!"
+        file_is_ok = true
+      end
     elsif genotype.filetype == "ancestry"
       # first line is of length 5
       if l.strip.split("\t").length == 5

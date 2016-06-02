@@ -100,6 +100,7 @@ default :from => "donotreply@opensnp.org"
       'decodeme' => 'deCODEme',
       '23andme-exome-vcf' => '23andMe',
       'ancestry' => 'Ancestry',
+			'genes-for-good' => 'Genes for Good'
     }.fetch(genotype.filetype)
 
     mail(to: @user.email, subject: 'Finished parsing your genotyping')
