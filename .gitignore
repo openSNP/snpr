@@ -32,3 +32,4 @@ vendor/bundle
 vendor/cache
 logfile
 .env
+.DS_Store
