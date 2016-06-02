@@ -5,6 +5,7 @@
 :concurrency: 3
 
 :queues:
+  - [mailers, 11]
   - [deletegenotype, 10]
   - [zipgenotyping,5]
   - [zipfulldata,5]
@@ -24,6 +25,7 @@
   - [plos,1]
   - [snpedia,1]
 :limits:
+  mailers: 2
   recommend: 1
   zipgenotyping: 1
   zipfulldata: 1
