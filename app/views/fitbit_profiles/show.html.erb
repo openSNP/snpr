@@ -2,7 +2,7 @@
 <%if current_user%>
 <p class="lead"><%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
 <%else%>
-<p class="lead">If you log in to <em>openSNP</em> you can download a CSV-file with all the data.</p>
+<p class="lead">If you log in to <em>openSNP</em>, you can download a CSV file with all the data.</p>
 <%end%>
 
 <%if @activity != nil%>
