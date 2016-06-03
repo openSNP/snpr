@@ -222,14 +222,24 @@ class UsersController < ApplicationController
 
   def remove_help_one
     current_user.update_attribute("help_one",true)
+
+    respond_to do |format|
+      format.js {render nothing: true}
+    end
   end
 
   def remove_help_two
     current_user.update_attribute("help_two",true)
+    respond_to do |format|
+      format.js {render nothing: true}
+    end
   end
 
   def remove_help_three
     current_user.update_attribute("help_three",true)
+    respond_to do |format|
+      format.js {render nothing: true}
+    end
   end
 
   private
