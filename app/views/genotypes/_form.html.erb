@@ -12,8 +12,8 @@
               23andme-format
             </div>
             <div class="radio">
-              <%= f.radio_button :filetype,"decodeme"%>
-              deCODEme-format
+              <%= f.radio_button :filetype,"genes-for-good"%>
+              Genes for Good-format
             </div>
             <div class="radio">
               <%= f.radio_button :filetype,"ftdna-illumina"%>
@@ -30,6 +30,10 @@
             <div class="radio">
               <%= f.radio_button :filetype,"IYG"%>
               IYG-format (EBI genotyping participants)
+            </div>
+            <div class="radio">
+              <%= f.radio_button :filetype,"decodeme"%>
+              deCODEme-format
             </div>
             <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>.<br/><br/>
           <%= f.submit "Upload", :class => "btn btn-primary"  %>

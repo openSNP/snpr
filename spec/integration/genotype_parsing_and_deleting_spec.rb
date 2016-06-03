@@ -17,7 +17,7 @@ describe 'genotype parsing', sidekiq: :inline do
   end
 
   context '23andMe-exome-vcf' do
-    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) } 
+    let(:file) { File.open(Rails.root.join('test/data/23andmeexome_test.csv')) }
     let(:genotype) do
       create(:genotype, genotype: file, filetype: '23andme-exome-vcf')
     end
@@ -79,6 +79,42 @@ describe 'genotype parsing', sidekiq: :inline do
       user_snps = UserSnp.all
       user_snp_genotypes = user_snps.map(&:local_genotype)
       expected_genotypes = %w(AA AA GG AG AG)
+      expect(user_snp_genotypes).to eq(expected_genotypes)
+      user_snps.each do |s|
+        expect(s.genotype_id).to eq(genotype.id)
+        expect(Snp.pluck(:name)).to include(s.snp_name)
+      end
+    end
+  end
+
+  context 'GenesForGood' do
+    let(:file) { File.open(Rails.root.join('test/data/GenesForGood_test.csv')) }
+    let(:genotype) do
+      create(:genotype, genotype: file, filetype: 'genes-for-good')
+    end
+
+    it 'parses Genes for Good data', truncate: true do
+      # Snp
+      snp_data = Snp.all.map do |s|
+        [s.name, s.position, s.chromosome, s.genotype_frequency,
+         s.allele_frequency, s.ranking]
+      end
+      snp_data = snp_data.sort_by { |s| s[0] }
+
+      expected = [
+        ['1:762320C>T', '762320', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['1:798400A>G', '798400', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['rs11240777',  '798959', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['1:845635C>T',  '845635', '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0],
+        ['1:845938G>A',  '845938',  '1', {}, { 'A' => 0, 'T' => 0, 'G' => 0, 'C' => 0 }, 0]
+      ]
+
+      expect(snp_data).to match_array(expected)
+
+      # UserSnp
+      user_snps = UserSnp.all
+      user_snp_genotypes = user_snps.map(&:local_genotype)
+      expected_genotypes = %w(CC AG GA CC GG)
       expect(user_snp_genotypes).to eq(expected_genotypes)
       user_snps.each do |s|
         expect(s.genotype_id).to eq(genotype.id)
