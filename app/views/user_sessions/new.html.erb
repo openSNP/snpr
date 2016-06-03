@@ -1,33 +1,20 @@
 <legend>Login</legend>
-<%= form_for @user_session, :html => {:class => "well"}, :url => {:action => "create"} do |f| %>
-<%= render "shared/error_messages", :target => @user_session %>
-  <div class="clearfix">
-    <%= f.label :email %>
-	<div class="input">
-    <%= f.text_field :email %>
-	</div>
-	</div>
-  <div class="clearfix">
-    <%= f.label :password %>
-	<div class="input">
-    <%= f.password_field :password %>
-	</div>
-	</div>
-  <div class="clearfix">
-	  <div class="input">
-      <label class="checkbox">
-			  <%= f.check_box :remember_me %>
-			  Remember me
-		</label>              
-	 </div>
-  </div>
-  <div class="clearfix">
-	<%= f.submit "Login", :class => "btn btn-primary" %>
-</div>
+<%= form_for @user_session, html: {class: "well"}, url: {action: "create"} do |f| %>
+<%= render "shared/error_messages", target: @user_session %>
+    <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+    </div>
+    <div class="checkbox">
+        <%= f.check_box :remember_me %>
+        Remember me
+    </div>
+    <%= f.submit "Login", class: "btn btn-primary" %>
 <% end %>
 
-
-	<div class="row">
+<div class="row">
 	<div class="span3"><%= link_to("Not registered? Click here!", '/signup') %></div>  
-	<div class="span3 offset6"><%= link_to("Forgot password? Click here!", :controller => "password_resets", :action => "new") %></div>
+	<div class="span3 offset6"><%= link_to("Forgot password? Click here!", controller: "password_resets", action: "new") %></div>
 </div>
