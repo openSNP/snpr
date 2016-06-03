@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 
   def display_help_header?
     # minor help method called in layouts/application header
-    !self.help_one or !self.help_two or !self.help_three
+    !help_one || !help_two || !help_three
   end
 
 end
