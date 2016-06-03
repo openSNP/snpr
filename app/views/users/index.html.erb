@@ -1,18 +1,18 @@
 <legend>Listing all users</legend>
 <table class="table table-striped" id="all_users">
 	<tr>
-	      <th><%= sortable "id", "ID"%></th>
-        <th><%= sortable "name", "Name" %></th>
-        <th><%= sortable "has_sequence", "Has SNPs" %></th>
-        <th><%= sortable "phenotype_length", "# of Phenotypes"%></th>
+		<th><%= sortable "id", "ID"%></th>
+		<th><%= sortable "name", "Name" %></th>
+		<th><%= sortable "has_sequence", "Has SNPs" %></th>
+		<th><%= sortable "phenotype_length", "# of Phenotypes"%></th>
 	</tr>
-<% @users_paginate.each do |u| %>
-    <tr>
-    <td><%=link_to(u.id,u)%></td>
-		<td><%= image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
-		<td><%= u.user_has_sequence_string %></td>
-		<td><%= u.phenotype_length %></td>
-	</tr>
-<% end %>
+	<% @users_paginate.each do |u| %>
+		<tr>
+			<td><%=link_to(u.id,u)%></td>
+			<td><%= image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
+			<td><%= u.user_has_sequence_string %></td>
+			<td><%= u.phenotype_length %></td>
+		</tr>
+	<% end %>
 </table>
 <%= page_navigation_links @users_paginate %>
