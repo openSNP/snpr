@@ -2,7 +2,7 @@
   <div class="span6 columns">
     <%= form_for(@genotype,:html => {:class => "form-stacked", :multipart => true}) do |f| %>
       <%= render 'shared/error_messages', :target => @genotype %>
-      <div class="well">  
+      <div class="well">
         <div class="clearfix">
           <h5>Provide your genotyping file</h5>
           <p>Zipped genotypings are fine too.</p>
@@ -18,8 +18,8 @@
               <span>23andme-format</span>
             </label>
             <label class="radio">
-              <%= f.radio_button :filetype,"decodeme"%>
-              <span>deCODEme-format</span>
+              <%= f.radio_button :filetype,"genes-for-good"%>
+              <span>Genes for Good-format</span>
             </label>
             <label class="radio">
               <%= f.radio_button :filetype,"ftdna-illumina"%>
@@ -36,6 +36,10 @@
             <label class="radio">
               <%= f.radio_button :filetype,"IYG"%>
               <span>IYG-format (EBI genotyping participants)</span>
+            </label>
+            <label class="radio">
+              <%= f.radio_button :filetype,"decodeme"%>
+              <span>deCODEme-format</span>
             </label>
             <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>.<br/><br/>
           </div>
