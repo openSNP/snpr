@@ -22,7 +22,7 @@ The project has a [Code of Conduct](https://github.com/openSNP/snpr/blob/master/
 Thanks go to everyone who has contributed so far. May you be celebrated, [inside our humans.txt](https://github.com/openSNP/snpr/blob/master/public/humans.txt) and ourside of it!
 
 ## Getting in contact
-You can always open an issue for specific problems, or send a mail to snpr-development@googlegroups.com if you want to discuss something or if you have any questions or need help with something. There's also info@opensnp.org if something broke on the webpage itself.
+You can always open an issue for specific problems, or send a mail to snpr-development@googlegroups.com if you want to discuss something or if you have any questions or need help with something. There's also info@opensnp.org if something broke on the site itself.
 
 We're also available on Twitter:
 

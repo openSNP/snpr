@@ -18,7 +18,7 @@
         <td><%=@snp.position%></td>
       </tr>
       <tr>
-        <td><b><a href="#" rel="woe" data-html="true" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. And a paper on <em>Mendeley</em> 1 point.">Weight of evidence</a></b></td>
+        <td><b><a href="#" rel="woe" data-html="true" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. A paper on <em>Mendeley</em> is worth 1 point.">Weight of evidence</a></b></td>
         <td><%=@snp.ranking%></td>
       </tr>
     </table>
@@ -197,7 +197,7 @@
         </tbody>
       </table>
     <% else %>
-      There are no Mendeley-results yet. Please come back again later.
+      There are no Mendeley results yet. Please come back again later.
     <% end %>
   </div>
   <%= render 'snpedia_papers', snp: @snp, user_snp: @user_snp %>
