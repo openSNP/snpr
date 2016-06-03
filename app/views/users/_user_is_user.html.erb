@@ -42,7 +42,7 @@
 			<tr>
 				<th>Name of Phenotype</th>
 				<th>Enter variation</th>
-                <th>Number of users</th>
+				<th>Number of users</th>
 				<th>Created at</th>
 			</tr>
 		</thead>
@@ -136,40 +136,40 @@
 <div id="comments">
     <% if @paginated_phenotype_replies == [] and @paginated_snp_replies == [] %>
         <p>
-        You have received no replies on any comments yet.
+        You have not yet received replies on any comments.
         </p>
     <% end %>
 <% if @paginated_phenotype_replies != [] %>
 <h4>Latest replies on your comments on Phenotypes</h4>
 
-	<table class="table table-striped" id="phenotype_reply_comments">
-		<thead>
+<table class="table table-striped" id="phenotype_reply_comments">
+	<thead>
 		<tr>
-		<th>On Phenotype</th>
-		<th>Reply from</th>
-		<th>Subject</th>
-		<th>Text</th>
-		<th>Written at</th>
+			<th>On Phenotype</th>
+			<th>Reply from</th>
+			<th>Subject</th>
+			<th>Text</th>
+			<th>Written at</th>
 		</tr>
-		</thead>
-		<tbody>
-	<% @paginated_phenotype_replies.each do |pc|%>
-		<tr>
-			<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
-			<td><%=image_tag User.find_by_id(pc.user_id).avatar.url(:head)%><%=User.find_by_id(pc.user_id).name%></td>
-			<td><%= pc.subject %></td>
-			<td><%= pc.comment_text %></td>
-			<td><%= pc.created_at%></td>
-		</tr>
-	<% end %>
+	</thead>
+	<tbody>
+		<% @paginated_phenotype_replies.each do |pc|%>
+			<tr>
+				<td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
+				<td><%=image_tag User.find_by_id(pc.user_id).avatar.url(:head)%><%=User.find_by_id(pc.user_id).name%></td>
+				<td><%= pc.subject %></td>
+				<td><%= pc.comment_text %></td>
+				<td><%= pc.created_at%></td>
+			</tr>
+		<% end %>
 	</tbody>
 </table>
 <% end %>
 
 <% if @paginated_snp_replies != [] %>
 <h4>Latest replies on your comments on SNPs</h4>
-	<table class="table table-striped" id="snp_reply_comments">
-		<thead>
+<table class="table table-striped" id="snp_reply_comments">
+	<thead>
 		<tr>
 			<th>On SNP</th>
 			<th>Reply from</th>
@@ -177,17 +177,17 @@
 			<th>Text</th>
 			<th>Written at:</th>
 		</tr>
-		</thead>
-		<tbody>
-	<% @paginated_snp_replies.each do |snp|%>
-		<tr>
-			<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).name.to_s+"/#comments" %></td>
-			<td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
-			<td><%= snp.subject %></td>
-			<td><%= snp.comment_text %></td>
-			<td><%= snp.created_at%></td>
-		</tr>
-	<% end %>
+	</thead>
+	<tbody>
+		<% @paginated_snp_replies.each do |snp|%>
+			<tr>
+				<td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).name.to_s+"/#comments" %></td>
+				<td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
+				<td><%= snp.subject %></td>
+				<td><%= snp.comment_text %></td>
+				<td><%= snp.created_at%></td>
+			</tr>
+		<% end %>
 	</tbody>
 </table>
 <% end %>
