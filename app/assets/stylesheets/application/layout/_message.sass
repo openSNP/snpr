@@ -1,0 +1,33 @@
+.test-message__container
+  @include container
+
+.test-message__title
+  @include title
+
+.test-message__message-informations
+  position: relative
+  margin-bottom: 20px
+
+.test-message__message-date
+  position: absolute
+  top: 0px
+  right: 0
+
+.test-message__reply-button
+  float: left
+  margin: 0 10px 0 33%
+
+  @media #{$tablet-breakpoint}
+    margin: 0 10px 0 45%
+
+.test-message__delete-button
+  float: left
+
+.test-message__message
+  background-color: #fff !important
+
+.test-message__message-subject
+  margin: 0px 0 20px 0
+
+.test-message__message-body
+  font-size: 13pt
