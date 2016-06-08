@@ -6,16 +6,25 @@
   <%end%>
 <% end %>
 <div class="container">
+
 <%=link_to(image_tag("rss_small.png"),"/phenotypes/" + @phenotype.id.to_s + "/rss")%>
 <h5>Known Phenotypes:</h5>
 <ul>
   <%@phenotype.known_phenotypes.each do |p|%>
     <%if p and p != ""%>
-      <li><b><%=p%></b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%> <%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p})%> <%end%></li> 
+      <li><b><%=p%></b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%> <%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p})%> <%end%></li>
       <%end%>
     <%end%>
   </ul>
 
+  <div class="row">
+        <div class="col-md-2">
+          <ul class="nav nav-pills nav-stacked side-menu">
+            <li role="presentation" class="active side-menu-item"><a href="#">Normal Phenotype</a></li>
+            <li role="presentation" class="side-menu-item"><a href="#">Picture Phenotype</a></li>
+            <li role="presentation" class="side-menu-item"><a href="#">Fitbit Phenotype</a></li>
+          </ul>
+        </div>
   <div id="tab-container">
     <ul class="nav nav-tabs">
       <li><a href="#description">Description</a></li>
