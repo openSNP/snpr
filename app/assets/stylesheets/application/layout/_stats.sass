@@ -1,0 +1,24 @@
+.test-statistic__container
+  @include container
+
+.test-statistic__title
+  @include title
+
+.test-statistic__list-item
+  margin-bottom: 20px
+
+.test-statistic__list-item-button
+  margin-left: 34%
+  margin-top: 20px
+  background-color: $main-color1
+  border-color: $main-color1
+  transition: background-color .5s, border-color .5s
+
+.test-statistic__list-item-button:hover
+  background-color: darken($main-color1, 20) !important
+  border-color: darken($main-color1, 20) !important
+
+.test-statistic__images
+  width: 350px
+  @media #{$tablet-breakpoint}
+    width: 400px
