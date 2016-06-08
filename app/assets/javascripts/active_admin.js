@@ -3,4 +3,3 @@
 //= require jquery.ui.core
 //= require jquery.ui.widget
 //= require jquery.ui.datepicker
-//= require active_admin/application
