@@ -1,0 +1,43 @@
+.test-navbar-menu
+  position: relative
+  margin-bottom: 0
+  background-color: $main-color1
+  border-color: $main-color1
+  z-index: 2
+
+.test-navbar-menu__brand
+  color: white !important
+
+.test-navbar-menu__options
+  color: white !important
+  transition: background-color .7s
+
+.test-navbar-menu__options:hover
+  background-color: #6292b5 !important
+
+.test-navbar-menu__profile-option
+  padding: 9px !important
+
+.test-navbar-menu__search-input
+  position: absolute
+  top: 30px
+  z-index: 1
+  width: 200px
+  margin-left: 26%
+
+  @media #{$tablet-breakpoint}
+    width: 300px
+    top: 0
+    margin-left: 69%
+
+.test-navbar-menu__search-input-content
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
+
+.test-navbar-menu__info-menu
+  background-color: $main-color1
+
+.test-navbar-menu__hamburger-menu:hover, .test-navbar-menu__hamburger-menu:focus
+  background-color: $main-color1 !important
+
+.test-navbar-menu__hamburger-menu-icon
+  background-color: #fff !important
