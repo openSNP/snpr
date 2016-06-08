@@ -1,0 +1,14 @@
+@mixin container
+  margin-top: 30px
+  margin-bottom: 20px
+  @media #{$tablet-breakpoint}
+    margin-top: 20px
+    min-height: 700px
+
+@mixin title
+  padding-bottom: 15px
+  margin-bottom: 20px
+  border-bottom: 1px solid rgba(#000, 0.3)
+
+.table-cell
+  vertical-align: middle !important
