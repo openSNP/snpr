@@ -1,0 +1,50 @@
+.test-userpage__container
+  @include container
+
+.test-userpage__profile-picture
+  width: 125px
+  margin: 0px 20px 0px 0px
+
+  @media #{$tablet-breakpoint}
+    margin: 25px 20px 10px 10px
+    width: 170px
+
+.test-userpage__description
+  font-size: 15pt
+  @media #{$tablet-breakpoint}
+    font-size: 12pt
+
+.test-userpage__new-messages
+  margin-top: 10px
+  @media #{$tablet-breakpoint}
+    position: absolute
+    bottom: 10px
+    left: 215px
+    margin-top: 0
+
+.test-userpage__profile-informations
+  margin-bottom: 40px
+  position: relative
+
+.test-userpage__received-title, .test-userpage__sent-title
+  margin: 20px 0
+  padding-bottom: 10px
+  border-bottom: 1px solid rgba(#000, 0.2)
+
+.test-userpage__no-messages
+  margin: 30px 0
+
+.test-userpage__user-cell
+  width: 150px
+  @media #{$tablet-breakpoint}
+    width: 25%
+    
+.test-userpage__subject-cell
+  width: 300px
+  @media #{$tablet-breakpoint}
+    width: 60%
+
+.test-userpage__status-cell
+  width: 100px
+  @media #{$tablet-breakpoint}
+    width: 15%
