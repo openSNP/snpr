@@ -1,0 +1,21 @@
+.test-news__container
+  @include container
+  
+.test-news__list-title
+  @include title
+
+.test-news__single-news
+  position: relative
+  border-bottom: 1px solid black
+  padding-bottom: 20px
+
+.test-news__single-news-title
+  margin-bottom: 20px
+
+.test-news__single-news-date
+  position: absolute
+  bottom: 0
+  right: 0
+
+  @media #{$tablet-breakpoint}
+    top: 0
