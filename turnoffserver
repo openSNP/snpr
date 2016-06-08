@@ -1,4 +1,5 @@
-#/bin/bash
+#!/bin/bash
+
 screen -X -S Server quit
 killall -9 redis-server
 screen -X -S Sidekiq quit

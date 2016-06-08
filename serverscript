@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 screen -d -m -S "Server" bundle exec rails s
 screen -d -m -S "Redis" redis-server
