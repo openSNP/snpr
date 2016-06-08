@@ -1,31 +1,43 @@
-<legend>Listing all SNPs</legend>
-<h4>
-    <%= link_to image_tag("filedownload_small.png",:style => "vert   ical-align:middle"), "/data/annotation.zip"  %> <%= link_to "Download the annotation dump: Includes annotation for all SNPs from all sources", "/data/annotation.zip" %>
-</h4>
-<table class="table table-striped" id="no_snp_overview">
-<tr>
-	<th><%= sortable "id", "SNP-ID"%></th>
-	<th><%= sortable "name","Name"%></th>
-	<th><%= sortable "position","Position"%></th>
-	<th><%= sortable "chromosome","Chromosome"%></th>
-	<th>Your Genotype</th>
-	<th><%= sortable "ranking","Ranking*"%></th>
-</tr>
-<% @snps_paginate.each do |s| %>
-	<tr>
-	<td><%= s.id %></td>
-	<td><%= link_to(s.name, s) %></td>
-	<td><%= s.position %></td>
-	<td><%= s.chromosome %></td>
-  <% if current_user && current_user.genotypes.present? && s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).present? %>
-    <td><%= s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).local_genotype %></td>
-	<%else%>
-	  <td>-</td>
-	<%end%>
-	<td><%= s.ranking %></td>
-</tr>
-<% end %>
-</table>
-<p>* The Ranking reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. A paper on <em>Mendeley</em> is worth 1 point.</p> 
-<%= page_navigation_links @snps_paginate %>
-
+<div class="test-snps__container container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Listing all SNPs</h3>
+    </div>
+    <div class="test-snps__download-container col-md-4 col-md-offset-2">
+      <%= link_to Zipfulldata.public_path, title: "Request download", class: "btn btn-default center-block test-snps__download-button" do %>
+      Download dump
+      <% end %>
+      <p class="text-center test-snps__text-download">Includes annotation for all SNPs from all sources</p>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover test-snps__table" id="no_snp_overview">
+      <thead>
+        <tr>
+          <th><%= sortable "id", "SNP-ID"%></th>
+          <th><%= sortable "name","Name"%></th>
+          <th><%= sortable "position","Position"%></th>
+          <th><%= sortable "chromosome","Chromosome"%></th>
+          <th>Your Genotype</th>
+          <th><%= sortable "ranking","Ranking*"%></th>
+        </tr>
+      </thead>
+      <% @snps_paginate.each do |s| %>
+      <tr>
+        <td class="table-cell"><%= s.id %></td>
+        <td class="table-cell"><%= link_to(s.name, s) %></td>
+        <td class="table-cell"><%= s.position %></td>
+        <td class="table-cell"><%= s.chromosome %></td>
+        <% if current_user && current_user.genotypes.present? && s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).present? %>
+        <td class="table-cell"><%= s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).local_genotype %></td>
+        <%else%>
+        <td class="table-cell">-</td>
+        <%end%>
+        <td class="table-cell"><%= s.ranking %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <%= page_navigation_links @snps_paginate %>
+  <p>* The Ranking reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. A paper on <em>Mendeley</em> is worth 1 point.</p>
+</div>
