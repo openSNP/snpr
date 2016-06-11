@@ -1,9 +1,9 @@
-<div class="container test-phenotype__container">
+<div class="container test-pictures-phenotype__container">
 
-  <h3 class="test-phenotype__title" >Listing all picture phenotypes</h3>
+  <h3 class="test-pictures-phenotype__title" >Listing all picture phenotypes</h3>
   <%if current_user%>
       <h4>
-        <%=link_to " Add phenotype picture", {:action => "new"}, class: "btn btn-default test-phenotype__add-button" %>
+        <%=link_to " Add phenotype picture", {:action => "new"}, class: "btn btn-default test-pictures-phenotype__add-button" %>
       </h4>
   <%end%>
   <br/>
@@ -20,11 +20,11 @@
       </thead>
       <% @phenotypes_paginate.each do |s| %>
       <tr>
-        <td class="table-cell"><%= PicturePhenotype.all.sort { |a,b| a.id <=> b.id}.index(s) + 1%></td>
-        <td class="table-cell"><%= s.id %></td>
-        <td class="table-cell"><%= link_to(s.characteristic, s) %></td>
-        <td class="table-cell"><%=s.number_of_users%></td>
-        <td class="table-cell"><%=s.created_at%></td>
+        <td class="table-cell vertical-centered"><%= PicturePhenotype.all.sort { |a,b| a.id <=> b.id}.index(s) + 1%></td>
+        <td class="table-cell vertical-centered"><%= s.id %></td>
+        <td class="table-cell vertical-centered"><%= link_to(s.characteristic, s) %></td>
+        <td class="table-cell vertical-centered"><%=s.number_of_users%></td>
+        <td class="table-cell vertical-centered"><%=s.created_at%></td>
       </tr>
       <% end %>
     </table>
