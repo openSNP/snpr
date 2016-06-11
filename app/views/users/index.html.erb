@@ -12,10 +12,10 @@
 			</thead>
 			<% @users_paginate.each do |u| %>
 			<tr>
-				<td class="table-cell"><%= link_to(image_tag(u.avatar.url(:head), class: "img-circle", width: "50px") + " #{u.name}", u) %></td>
-				<td class="table-cell"><%=link_to(u.id,u)%></td>
-				<td class="table-cell"><%= u.user_has_sequence_string %></td>
-				<td class="table-cell"><%= u.phenotype_length %></td>
+				<td class="table-cell vertical-centered"><%= link_to(image_tag(u.avatar.url(:head), class: "img-circle", width: "50px") + " #{u.name}", u) %></td>
+				<td class="table-cell vertical-centered"><%=link_to(u.id,u)%></td>
+				<td class="table-cell vertical-centered"><%= u.user_has_sequence_string %></td>
+				<td class="table-cell vertical-centered"><%= u.phenotype_length %></td>
 			</tr>
 			<% end %>
 		</table>
