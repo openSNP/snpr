@@ -5,18 +5,28 @@
   border-color: $main-color1
   z-index: 2
 
-.test-navbar-menu__brand
-  color: white !important
+.container .navbar-header a.test-navbar-menu__brand
+  color: white
 
-.test-navbar-menu__options
-  color: white !important
+.container ul li a.test-navbar-menu__options,
+.nav .dropdown .dropdown-menu li a.test-navbar-menu__options
+  color: white
   transition: background-color .7s
 
-.test-navbar-menu__options:hover
-  background-color: #6292b5 !important
+.navbar-default .container ul li a.test-navbar-menu__options:hover,
+.navbar-default .container ul li a.test-navbar-menu__options:active,
+.nav .dropdown .dropdown-menu li a.test-navbar-menu__options:hover,
+.nav .dropdown .dropdown-menu li a.test-navbar-menu__options:active
+  background-color: #6292b5
+  color: white
 
-.test-navbar-menu__profile-option
-  padding: 9px !important
+.navbar-default .container ul li a.test-navbar-menu__options:focus,
+.nav .dropdown .dropdown-menu li a.test-navbar-menu__options:focus
+  color: white
+  background-color: $main-color1
+
+li a.test-navbar-menu__profile-option
+  padding: 9px
 
 .test-navbar-menu__search-input
   position: absolute
@@ -33,11 +43,11 @@
 .test-navbar-menu__search-input-content
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
 
-.test-navbar-menu__info-menu
+.test-navbar-menu__info-menu, .test-navbar-menu__profile-menu
   background-color: $main-color1
 
-.test-navbar-menu__hamburger-menu:hover, .test-navbar-menu__hamburger-menu:focus
-  background-color: $main-color1 !important
+.container .navbar-header .test-navbar-menu__hamburger-menu:hover, .container .navbar-header .test-navbar-menu__hamburger-menu:focus
+  background-color: $main-color1
 
-.test-navbar-menu__hamburger-menu-icon
-  background-color: #fff !important
+.navbar-header .test-navbar-menu__hamburger-menu .test-navbar-menu__hamburger-menu-icon
+  background-color: #fff
