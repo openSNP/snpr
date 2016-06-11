@@ -24,16 +24,16 @@
       </thead>
       <% @snps_paginate.each do |s| %>
       <tr>
-        <td class="table-cell"><%= s.id %></td>
-        <td class="table-cell"><%= link_to(s.name, s) %></td>
-        <td class="table-cell"><%= s.position %></td>
-        <td class="table-cell"><%= s.chromosome %></td>
+        <td class="table-cell vertical-centered"><%= s.id %></td>
+        <td class="table-cell vertical-centered"><%= link_to(s.name, s) %></td>
+        <td class="table-cell vertical-centered"><%= s.position %></td>
+        <td class="table-cell vertical-centered"><%= s.chromosome %></td>
         <% if current_user && current_user.genotypes.present? && s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).present? %>
-        <td class="table-cell"><%= s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).local_genotype %></td>
+        <td class="table-cell vertical-centered"><%= s.user_snps.find_by_genotype_id(current_user.genotypes.last.id).local_genotype %></td>
         <%else%>
-        <td class="table-cell">-</td>
+        <td class="table-cell vertical-centered">-</td>
         <%end%>
-        <td class="table-cell"><%= s.ranking %></td>
+        <td class="table-cell vertical-centered"><%= s.ranking %></td>
       </tr>
       <% end %>
     </table>
