@@ -2,7 +2,7 @@ require 'fileutils'
 
 class Genotype < ActiveRecord::Base
   belongs_to :user
-  has_many :user_snps, dependent: :destroy
+  has_many :user_snps, dependent: :delete_all
   validates_presence_of :user
 
   has_attached_file :genotype, url: '/data/:fs_filename',
