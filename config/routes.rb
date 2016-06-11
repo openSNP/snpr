@@ -4,6 +4,7 @@ Snpr::Application.routes.draw do
   root :to => 'index#index' # change this, maybe
 
   resources :static
+  resources :updates
   resources :phenotypes do
     member do
       get :feed
