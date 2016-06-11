@@ -51,18 +51,9 @@ class GenotypesController < ApplicationController
   end
 
   def destroy
-    user = current_user
-    genotype_count = user.genotypes.count
-    DeleteGenotype.perform_async(genotype_id: params[:id])
+    genotype = current_user.genotypes.find(params[:id])
+    DeleteGenotype.perform_async(genotype_id: genotype.id)
     flash[:notice] = 'Your Genotyping will be deleted. This may take a few minutes.'
-    if genotype_count == 1
-      # update user-attributes
-      user.update_attributes(has_sequence: false, sequence_link: nil)
-
-      # delete Uploaded Genotyping-achievement
-      achievement = Achievement.where(award: 'Published genotyping')
-      UserAchievement.where(achievement: achievement, user: user).destroy_all
-    end
     redirect_to current_user
   end
 
