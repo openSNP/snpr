@@ -2,7 +2,7 @@
   @include container
 
 .test-phenotype__title
-  margin-bottom: 20px
+  @include title
 
 .test-phenotype__add-button
   margin: 20px 0
@@ -12,6 +12,34 @@
   @media #{$tablet-breakpoint}
     margin: 20px 0 0 20px
 
-.test-phenotype__new-form
-  background-color: #fff !important
+form.test-phenotype__new-form
+  background-color: #fff
   padding: 30px 20px
+
+div.test-phenotype__download-area
+  background-color: #fff
+
+.test-phenotype__upload-date
+  font-size: 15pt
+  @media #{$tablet-breakpoint}
+    font-size: 13pt
+
+a.test-phenotype__download-button
+  margin-top: 20px
+  background-color: $main-color1
+  transition: background-color 0.7s
+
+a.test-phenotype__download-button:hover
+  background-color: $main-color2
+
+.test-phenotype__add-phenotype-text
+  margin-bottom: 20px
+
+.test-phenotype__add-phenotype-form
+  margin-bottom: 20px
+
+div.test-phenotype__add-phenotype-form-options:last-of-type
+  margin-bottom: 20px
+
+div.test-phenotype__variation-form
+  background-color: #fff
