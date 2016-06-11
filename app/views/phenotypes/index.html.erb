@@ -17,11 +17,11 @@
       </thead>
       <% @phenotypes_paginate.each_with_index do |phenotype, i| %>
       <tr>
-        <td class="table-cell"><%= i + 1 %></td>
-        <td class="table-cell"><%= phenotype.id %></td>
-        <td class="table-cell"><%= link_to(phenotype.characteristic, phenotype) %></td>
-        <td class="table-cell"><%= phenotype.number_of_users %></td>
-        <td class="table-cell"><%= phenotype.created_at %></td>
+        <td class="table-cell vertical-centered"><%= i + 1 %></td>
+        <td class="table-cell vertical-centered"><%= phenotype.id %></td>
+        <td class="table-cell vertical-centered"><%= link_to(phenotype.characteristic, phenotype) %></td>
+        <td class="table-cell vertical-centered"><%= phenotype.number_of_users %></td>
+        <td class="table-cell vertical-centered"><%= phenotype.created_at %></td>
       </tr>
       <% end %>
     </table>
