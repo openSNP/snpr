@@ -26,13 +26,13 @@
       </thead>
       <% @fitbit_profiles.each_with_index do |fitbit_profile, i| %>
       <tr>
-        <td class="table-cell"><%= link_to(image_tag(fitbit_profile.user.avatar.url(:head), :class => "img-circle", :width => "50px") + " #{fitbit_profile.user.name}", fitbit_profile.user) %></td>
-        <td class="table-cell"><%= table_row_sequence_number(@fitbit_profiles, i) %></td>
-        <td class="table-cell"><%= link_to(fitbit_profile.fitbit_user_id, {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id}) %></td>
-        <td class="table-cell"><%if fitbit_profile.activities == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
-        <td class="table-cell"><%if fitbit_profile.body == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
-        <td class="table-cell"><%if fitbit_profile.sleep == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
-        <td class="table-cell"><%= link_to("View", {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id}, class: "btn btn-default")%></td>
+        <td class="table-cell vertical-centered"><%= link_to(image_tag(fitbit_profile.user.avatar.url(:head), :class => "img-circle", :width => "50px") + " #{fitbit_profile.user.name}", fitbit_profile.user) %></td>
+        <td class="table-cell vertical-centered"><%= table_row_sequence_number(@fitbit_profiles, i) %></td>
+        <td class="table-cell vertical-centered"><%= link_to(fitbit_profile.fitbit_user_id, {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id}) %></td>
+        <td class="table-cell vertical-centered"><%if fitbit_profile.activities == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
+        <td class="table-cell vertical-centered"><%if fitbit_profile.body == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
+        <td class="table-cell vertical-centered"><%if fitbit_profile.sleep == true%><i class="icon-ok"></i><%else%><i class="icon-remove"></i><%end%></td>
+        <td class="table-cell vertical-centered"><%= link_to("View", {:controller => "fitbit_profiles", :action => "show", :id => fitbit_profile.id}, class: "btn btn-default")%></td>
       </tr>
       <% end %>
     </table>
