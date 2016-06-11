@@ -26,14 +26,14 @@
       </thead>
       <% @genotypes_paginate.each do |g| %>
       <tr>
-        <td class="table-cell">
+        <td class="table-cell vertical-centered">
           <%= link_to(image_tag(g.user.avatar.url(:head), :class => "img-circle", :width => "50px") + " #{g.user.name}", g.user) %>
         </td>
-        <td class="table-cell"><%= Genotype.all.sort { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
-        <td class="table-cell"><%= g.id %></td>
-        <td class="table-cell"><%= g.created_at%></td>
-        <td class="table-cell"><%= g.filetype %></td>
-        <td class="table-cell"><%= link_to "Download", '../data/' + g.fs_filename, class: "btn btn-default" %></td>
+        <td class="table-cell vertical-centered"><%= Genotype.all.sort { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
+        <td class="table-cell vertical-centered"><%= g.id %></td>
+        <td class="table-cell vertical-centered"><%= g.created_at%></td>
+        <td class="table-cell vertical-centered"><%= g.filetype %></td>
+        <td class="table-cell vertical-centered"><%= link_to "Download", '../data/' + g.fs_filename, class: "btn btn-default" %></td>
       </tr>
       <% end %>
     </table>
