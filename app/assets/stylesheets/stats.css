@@ -3,9 +3,11 @@ div.chart {
 }
 div.chart_subtitle {
 	text-align: right;
-	float: right;
 	border: 1px solid #ddd;
 	background-color: #eee;
 	border-radius: 2px;
 	padding: 3px;
+}
+div.chart_subtitle ul {
+	list-style-type: none;
 }

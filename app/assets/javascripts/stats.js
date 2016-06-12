@@ -3,9 +3,10 @@ google.charts.setOnLoadCallback(draw_plot);
 
 function draw_plot() {
 	var options = {
-		pointSize: 2.0,
-		lineWidth: 1.3,
-		legend: 'none',
+		lineWidth: 1.8,
+		legend: {
+			position: 'none'
+		},
 		hAxis: {
 			format: 'MMM yyyy',
 			title: 'time',
@@ -16,20 +17,27 @@ function draw_plot() {
 			title: 'total #',
 			format: '0',
 			minValue: 0
-		}, trendlines: {
-			0: {
-					 tooltip: false,
-				 }
 		}
 	}
 
-	var chart = new google.visualization.ScatterChart(document.getElementById('n_users'));
+	var user_chart = new google.visualization.LineChart(document.getElementById('n_users'));
 
-	var data = new google.visualization.DataTable();
-	data.addColumn('date', 'date');
-	data.addColumn('number', 'users');
-	//data.addColumn('number', 'genotypes');
-	data.addRows(WEEKLY_USERS);
+	var user_data = new google.visualization.DataTable();
+	user_data.addColumn('date', 'date');
+	user_data.addColumn('number', 'users');
+	user_data.addColumn('number', 'genotypes');
+	user_data.addRows(USERS_GENOS_VS_TIME);
 
-	chart.draw(data, options);
+	user_chart.draw(user_data, options);
+
+
+	var pheno_chart = new google.visualization.LineChart(document.getElementById('n_phenos'));
+
+	var pheno_data = new google.visualization.DataTable();
+	pheno_data.addColumn('date', 'date');
+	pheno_data.addColumn('number', 'phenotypes');
+	pheno_data.addColumn('number', 'user phenotypes');
+	pheno_data.addRows(PHENO_USER_PHENO_VS_TIME);
+
+	pheno_chart.draw(pheno_data, options);
 }

@@ -4,6 +4,7 @@
 <% content_for :single_use_js do %>
 	<script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="../data/plot_data/number_users.js"></script>
+	<script type="text/javascript" src="../data/plot_data/number_pheno.js"></script>
 	<%= javascript_include_tag "stats" %>
 <% end %>
 
@@ -12,42 +13,41 @@
 See how we've grown over the last few years. Graphs are updated daily; raw data is provided as well.
 
 <div class="row">
-	<div class="span12">
+	<div class="span9">
 		<h4>Users &amp; Genotypes</h4>
 		<div class=chart id=n_users></div>
+	</div>
+	<div class="span3">
 		<div class=chart_subtitle>
-			<i class=muted><sup>&dagger;</sup> points above are weekly aggregates; PNG has daily</i>
-			<a class="btn btn-default btn-xs" href="../data/plot_data/number_users.csv" role="button">Download raw data</a>
-			<a class="btn btn-default btn-xs" href="../data/plot_data/users.png" role="button">View as PNG</a>
+			<i class=muted><sup>&dagger;</sup> points are weekly aggregates; PNGs have daily data</i>
+			<ul>
+				<li><b style="color:blue">users</b> and <b style="color:red">genotypes</b></li>
+				<li><a href="../data/plot_data/number_users.csv">User data</a></li>
+				<li><a href="../data/plot_data/number_genotypes.csv">Genotype data</a></li>
+				<li><a href="../data/plot_data/users.png">Users PNG</a></li>
+				<li><a href="../data/plot_data/genotypes.png">Genotypes PNG</a></li>
+				<li><a href="../data/plot_data/geno_plus_phenotypes.png">Users and genotypes PNG</a></li>
+			</ul>
 		</div>
 	</div>
-	<div class="span6">
-		<h4>Genotypes</h4>
-		<img src="../data/plot_data/genotypes.png"/><br/>
-		<i><a href="../data/plot_data/number_genotypes.csv">Download raw data</a></i>
-	</div>
 </div>
 
 <div class="row">
-	<div class="span6">
-		<h4>Phenotypes</h4>
-		<img src="../data/plot_data/phenotypes.png"/><br/>
-		<i><a href="../data/plot_data/number_phenotypes.csv">Download raw data</a></i>
+	<div class="span9">
+		<h4>Phenotypes &amp; Phenotype Answers</h4>
+		<div class=chart id=n_phenos></div>
 	</div>
-	<div class="span6">
-		<h4>Phenotype Answers</h4>
-		<img src="../data/plot_data/user_phenotypes.png"/><br/>
-		<i><a href="../data/plot_data/number_user_phenotypes.csv">Download raw data</a></i>
-	</div>
-</div>
-
-<div class="row">
-	<div class="span6">
-		<h4>Users / Genotypes</h4>
-		<img src="../data/plot_data/geno_plus_phenotypes.png"/><br/>
-	</div>
-	<div class="span6">
-		<h4>Phenotypes / Answers</h4>
-		<img src="../data/plot_data/pheno_plus_userpheno.png"/><br/>
+	<div class="span3">
+		<div class=chart_subtitle>
+			<i class=muted><sup>&dagger;</sup> points are weekly aggregates; PNGs have daily data</i>
+			<ul>
+				<li><b style="color:blue">phenotypes</b> and <b style="color:red">phenotype-answers</b></li>
+				<li><a href="../data/plot_data/number_phenotypes.csv">Phenotype data</a></li>
+				<li><a href="../data/plot_data/number_user_phenotypes.csv">User phenotype data</a></li>
+				<li><a href="../data/plot_data/phenotypes.png">Phenotypes PNG</a></li>
+				<li><a href="../data/plot_data/user_phenotypes.png">User phenotypes PNG</a></li>
+				<li><a href="../data/plot_data/pheno_plus_userpheno.png">Phenotypes and user phenotypes PNG</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
