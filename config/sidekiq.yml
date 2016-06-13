@@ -6,6 +6,7 @@
 
 :queues:
   - [deletegenotype, 10]
+  - [link_snp_phenotype, 2]
   - [zipgenotyping,5]
   - [zipfulldata,5]
   - [recommend,5]
