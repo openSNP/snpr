@@ -10,6 +10,7 @@ function draw_plot() {
 		hAxis: {
 			format: 'MMM yyyy',
 			title: 'time',
+			curveType: 'function',
 			textStyle: {
 				fontSize: 8
 			}

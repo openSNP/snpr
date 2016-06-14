@@ -47,7 +47,7 @@ namespace :numbers do
 		first_user_date = User.first!.created_at.to_date
 		ug_n_wks = weeks_between(User.last!.created_at.to_date, first_user_date) + 1
 
-		ug_labels = make_week_labels(ug_n_wks, first_user_date)
+		ug_labels = make_week_labels(ug_n_wks, [first_user_date, Genotype.first!.created_at.to_date].min)
 
 		# format is [number users, number genos]
 		users_and_geno = Array.new(ug_n_wks){ Array.new(2) }
@@ -83,8 +83,9 @@ namespace :numbers do
 		# users and genos VS time
 		File.open("#{Rails.root}/public/data/plot_data/number_users.js", "w") { |file|
 			str_rep = "#{ug_labels.zip(*(sum_fill(users_and_geno)).transpose)}"
-			str_rep.gsub!('"', '')
-			file.write("var USERS_GENOS_VS_TIME = #{str_rep};")
+			file.write("var USERS_GENOS_VS_TIME = #{str_rep.gsub('"', '')};")
+			flattened = users_and_geno.flatten(2)
+			just_user = flattened.select.each_with_index{ |_, i| i.even? }
 		}
 
 
@@ -92,7 +93,7 @@ namespace :numbers do
 		# what else do we need? oh yes, phenotypes
 		first_pheno_date = Phenotype.first!.created_at.to_date
 		pp_n_wks = weeks_between(Phenotype.last!.created_at.to_date, first_pheno_date) + 1
-		pp_labels = make_week_labels(pp_n_wks, first_pheno_date)
+		pp_labels = make_week_labels(pp_n_wks, [first_pheno_date, UserPhenotype.first!.created_at.to_date].min)
 
 		# format is [number phenos, number user phenos]
 		pheno_and_upheno = Array.new(pp_n_wks){ Array.new(2) }
@@ -124,8 +125,7 @@ namespace :numbers do
 		# phenos and user phenos VS time
 		File.open("#{Rails.root}/public/data/plot_data/number_pheno.js", "w") { |file|
 			str_rep = "#{pp_labels.zip(*(sum_fill(pheno_and_upheno)).transpose)}"
-			str_rep.gsub!('"', '')
-			file.write("var PHENO_USER_PHENO_VS_TIME = #{str_rep};")
+			file.write("var PHENO_USER_PHENO_VS_TIME = #{str_rep.gsub('"', '')};")
 		}
 
 
