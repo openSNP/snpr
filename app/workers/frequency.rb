@@ -3,6 +3,7 @@ class Frequency
   sidekiq_options queue: :user_snps, retry: 5, unique: true
 
   def perform(snp_id)
+    Snp.reset_counters(snp_id, :user_snps)
     s = Snp.find(snp_id)
     s.allele_frequency ||= { "A" => 0, "T" => 0, "G" => 0, "C" => 0}
     s.genotype_frequency ||= {}
