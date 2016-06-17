@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      flash[:warning] = "You must be logged in to access this page!"
+      flash[:warning] = "You must be logged in to access this page"
       redirect_to root_url
       return false
     end

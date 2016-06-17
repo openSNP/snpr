@@ -6,7 +6,7 @@ class GenotypesController < ApplicationController
   def index
     @title = "Listing all genotypings"
     @genotypes = Genotype.order("#{sort_column} #{sort_direction}")
-    @genotypes_paginate = @genotypes.paginate(page: params[:page],per_page: 20)
+    @genotypes_paginate = @genotypes.paginate(page: params[:page],per_page: 15)
   end
 
   def new
@@ -54,7 +54,7 @@ class GenotypesController < ApplicationController
     user = current_user
     genotype_count = user.genotypes.count
     DeleteGenotype.perform_async(genotype_id: params[:id])
-    flash[:notice] = 'Your Genotyping will be deleted. This may take a few minutes.'
+    flash[:notice] = 'Your Genotyping will be deleted. This may take a few minutes...'
     if genotype_count == 1
       # update user-attributes
       user.update_attributes(has_sequence: false, sequence_link: nil)
@@ -66,7 +66,7 @@ class GenotypesController < ApplicationController
     redirect_to current_user
   end
 
-  private 
+  private
 
   def sort_column
     Genotype.column_names.include?(params[:sort]) ? params[:sort] : "created_at"

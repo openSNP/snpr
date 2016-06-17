@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
 
     if @message.save && @message.send_message(@message.from_id, @message.to_id)
-      flash[:notice] = 'Message sent!'
+      flash[:notice] = 'Message sent'
       redirect_to "/users/#{current_user.id}#messages"
     else
       render action: 'new'
@@ -46,7 +46,7 @@ class MessagesController < ApplicationController
     message = Message.where(from_id: current_user.id, id: params[:id]).first
     if message
       message.destroy
-      flash[:notice] = 'Message deleted.'
+      flash[:notice] = 'Message deleted'
       redirect_to '/users/' + current_user.id.to_s + '#messages'
     else
       render text: 'Unauthorized', status: :unauthorized

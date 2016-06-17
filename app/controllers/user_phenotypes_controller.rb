@@ -57,7 +57,7 @@ class UserPhenotypesController < ApplicationController
           redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
         end
       else
-        flash[:warning] = "Please enter a variation."
+        flash[:warning] = "Please enter a variation"
         redirect_to "/users/"+current_user.id.to_s
       end
     else
