@@ -19,26 +19,26 @@ function draw_plot() {
 			format: '0',
 			minValue: 0
 		}
-	}
+	};
 
-	var user_chart = new google.visualization.LineChart(document.getElementById('n_users'));
+	var userChart = new google.visualization.LineChart(document.getElementById('n_users'));
 
-	var user_data = new google.visualization.DataTable();
-	user_data.addColumn('date', 'date');
-	user_data.addColumn('number', 'users');
-	user_data.addColumn('number', 'genotypes');
-	user_data.addRows(USERS_GENOS_VS_TIME);
+	var userData = new google.visualization.DataTable();
+	userData.addColumn('date', 'date');
+	userData.addColumn('number', 'users');
+	userData.addColumn('number', 'genotypes');
+	userData.addRows(USERS_GENOS_VS_TIME);
 
-	user_chart.draw(user_data, options);
+	userChart.draw(userData, options);
 
 
-	var pheno_chart = new google.visualization.LineChart(document.getElementById('n_phenos'));
+	var phenoChart = new google.visualization.LineChart(document.getElementById('n_phenos'));
 
-	var pheno_data = new google.visualization.DataTable();
-	pheno_data.addColumn('date', 'date');
-	pheno_data.addColumn('number', 'phenotypes');
-	pheno_data.addColumn('number', 'user phenotypes');
-	pheno_data.addRows(PHENO_USER_PHENO_VS_TIME);
+	var phenoData = new google.visualization.DataTable();
+	phenoData.addColumn('date', 'date');
+	phenoData.addColumn('number', 'phenotypes');
+	phenoData.addColumn('number', 'user phenotypes');
+	phenoData.addRows(PHENO_USER_PHENO_VS_TIME);
 
-	pheno_chart.draw(pheno_data, options);
+	phenoChart.draw(phenoData, options);
 }
