@@ -8,11 +8,13 @@
     </h2>
     <% if @user.description != nil  %>
     <p class="test-userpage__description"><%= @user.description %></p>
+    <% else %>
+    <%= link_to "Add your description", "/users/" + current_user.id.to_s + "/edit"%>
     <% end %>
     <% if current_user.messages.where(:user_has_seen => false) != [] %>
     <p>
       <a href="#messages" data-toggle="tab" class="btn btn-primary test-userpage__new-messages">
-        <i class="glyphicon glyphicon-envelope"></i> New messages <span class="badge">4</span>
+        <i class="glyphicon glyphicon-envelope"></i> New messages <span class="badge"><%= current_user.messages.where(:user_has_seen => false).length.to_s %></span>
       </a>
     </p>
     <% end %>
@@ -25,12 +27,15 @@
   </div>
 </div>
 
+<%if @user.genotypes.length == 0%>
+<h3 class="alert alert-info">You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h3>
+<% end %>
+
 <ul class="nav nav-tabs" role="tablist">
   <%if @unentered_phenotypes != []%>
   <li role="presentation" class="active"><a href="#unentered_variations" aria-controls="unentered_variations" role="tab" data-toggle="tab">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
   <%end%>
-  <li role="presentation"><a href="#snps" aria-controls="snps" role="tab" data-toggle="tab">Your SNPs</a></li>
-  <li role="presentation"><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
+  <li role="presentation" <%if @unentered_phenotypes == []%> class="active" <% end %>><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
   <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Your messages</a></li>
   <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Replies to your comments</a></li>
 </ul>
@@ -65,18 +70,15 @@
   </div>
   <%end%>
 
-  <div role="tabpanel" class="tab-pane clearfix well tabs__one-tab" id="snps">
-    <%# if @user.has_sequence == true %>
-    	<%# render "snps" %>
-    <%# else %>
-    <%if @user.snps.length == 0%>
-    	<h3>You haven't uploaded your SNP-set <%= link_to("Please do so", {:controller => "genotypes", :action => "new"}) %></h3>
-    <% end %>
-  </div>
-
-  <div role="tabpanel" class="tab-pane clearfix well tabs__one-tab" id="variations">
+  <div role="tabpanel" class="tab-pane <%if @unentered_phenotypes == []%> active <% end %> clearfix well tabs__one-tab" id="variations">
     <h3 class="tabs__one-tab-title">Variations</h3>
-    <%= render "variations" %>
+    <% if @user_phenotypes.empty? %>
+      <h3>
+        You can create your own variations. <%= link_to "Just do it", "/users/"+current_user.id.to_s+"/edit" %>
+      </h3>
+    <% else %>
+      <%= render "variations" %>
+    <% end %>
   </div>
 
   <div role="tabpanel" class="tab-pane clearfix well tabs__one-tab" id="messages">

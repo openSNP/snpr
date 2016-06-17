@@ -1,12 +1,12 @@
 <div class="container test-signup__container">
   <div class="row">
     <h3 class="test-signup__title">Sign Up</h3>
+    <%= render 'shared/error_messages', :target => @user %>
     <%= render 'shared/warning' %>
   </div>
   <div class="row">
     <div class="col-md-4 well test-signup__form">
       <%= form_for @user, :html => {:class => "form"} do |f| %>
-        <%= render 'shared/error_messages', :target => @user %>
         <div class="form-group">
           <%= f.label :name %>
           <%= f.text_field :name , placeholder:"Username", class:"form-control"%>

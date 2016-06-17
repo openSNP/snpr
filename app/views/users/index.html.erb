@@ -20,5 +20,7 @@
 			<% end %>
 		</table>
 	</div>
-	<%= page_navigation_links @users_paginate %>
+	<div class="text-center">
+    <%= will_paginate @users_paginate, renderer: BootstrapPagination::Rails%>
+  </div>
 </div>
