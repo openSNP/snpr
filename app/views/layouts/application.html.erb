@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
   </head>
   <body>
@@ -52,19 +53,19 @@
     <div class="container" id="alert-messages">
       <div id="flash_notice" class="alert alert-success" style="display:none"></div>
       <% if flash[:notice] %>
-        <div class="alert alert-success" data-dismiss="alert">
+        <div class="test-warning__alert alert alert-success text-center" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:notice].html_safe %></strong>
         </div>
       <% end %>
       <% if flash[:warning] %>
-        <div class="alert alert-error" data-dismiss="alert">
+        <div class="test-warning__alert alert alert-danger text-center" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:warning].html_safe %></strong>
         </div>
       <% end %>
       <% if flash[:achievement] %>
-        <div class="alert alert-info" data-dismiss="alert">
+        <div class="test-warning__alert alert alert-info text-center" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:achievement].html_safe %></strong>
         </div>
@@ -97,6 +98,5 @@
       </div>
       <% end %>
     <%= render "layouts/footer"%>
-    <%= javascript_include_tag "application" %>
   </body>
 </html>
