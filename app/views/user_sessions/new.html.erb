@@ -1,7 +1,7 @@
+<%= render "shared/error_messages", :target => @user_session %>
 <div class="simple-form__container container">
   <h3 class="simple-form__title">Login</h3>
   <%= form_for @user_session, :html => {:class => "well simple-form__form center-block"}, :url => {:action => "create"} do |f| %>
-    <%= render "shared/error_messages", :target => @user_session %>
     <div class="form-group">
       <%= f.label :email %>
       <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
