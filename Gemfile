@@ -33,7 +33,7 @@ gem 'pg_search'
 # so we can create zip-files for genotypes
 gem 'rubyzip'
 
-gem 'will_paginate'
+gem "will_paginate-bootstrap"
 gem 'nested_form', github: 'ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
