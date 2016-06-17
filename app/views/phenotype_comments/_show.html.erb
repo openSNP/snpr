@@ -1,10 +1,3 @@
-<script language="JavaScript" type="text/JavaScript">
-function sendCommentId(e, text)
-{
-  e.value = text + e.value
-}
-</script>
-
 <% @comments.each do |c|%>
 
 <div id="<%="comment"+c.id.to_s%>">
@@ -22,7 +15,8 @@ function sendCommentId(e, text)
         <% if c.reply_to_id != -1 and c.reply_to_id != nil%>
         <%if PhenotypeComment.find_by_id(c.reply_to_id).user%>
         @<%=PhenotypeComment.find_by_id(c.reply_to_id).user.name%>
-        <%else%>@Deleted User
+        <%else%>
+        @Deleted User
         <%end%>
         <% end %>
       </a>
@@ -33,9 +27,3 @@ function sendCommentId(e, text)
 </div>
 
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("[rel=comment_tooltip]").popover({placement:'right'});
-  });
-</script>

@@ -37,6 +37,8 @@
       </tr>
       <% end %>
     </table>
-    <%= page_navigation_links @genotypes_paginate %>
+    <div class="text-center">
+      <%= will_paginate @genotypes_paginate, renderer: BootstrapPagination::Rails%>
+    </div>
   </div>
 </div>

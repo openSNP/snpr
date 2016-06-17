@@ -36,6 +36,8 @@
       </tr>
       <% end %>
     </table>
-    <%= page_navigation_links @fitbit_profiles %>
+    <div class="text-center">
+      <%= will_paginate @fitbit_profiles, renderer: BootstrapPagination::Rails%>
+    </div>
   </div>
 </div>
