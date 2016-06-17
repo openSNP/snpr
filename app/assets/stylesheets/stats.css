@@ -1,13 +1,13 @@
 div.chart {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 div.chart_subtitle {
-	text-align: right;
-	border: 1px solid #ddd;
-	background-color: #eee;
-	border-radius: 2px;
-	padding: 3px;
+  text-align: right;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 2px;
+  padding: 3px;
 }
 div.chart_subtitle ul {
-	list-style-type: none;
+  list-style-type: none;
 }
