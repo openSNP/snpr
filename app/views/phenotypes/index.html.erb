@@ -26,6 +26,7 @@
       <% end %>
     </table>
   </div>
-  <%= page_navigation_links @phenotypes_paginate %>
-
+  <div class="text-center">
+    <%= will_paginate @phenotypes_paginate, renderer: BootstrapPagination::Rails%>
+  </div>
 </div>

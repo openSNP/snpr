@@ -1,6 +1,6 @@
+<%= render 'shared/error_messages', :target => @genotype %>
 <div class="col-md-4 well test-new-genotype__form">
   <%= form_for(@genotype) do |f| %>
-  <%= render 'shared/error_messages', :target => @genotype %>
     <h3>Provide your genotyping file</h3>
     <small class="help-block">Zipped genotypings are fine too.</small>
     <%= f.file_field :genotype %>

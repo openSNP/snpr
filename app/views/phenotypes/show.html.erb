@@ -38,13 +38,13 @@
           <% @similar_phenotypes.each do |s|%>
           <tr>
             <%if current_user and (current_user.phenotypes.include?(s) == false)%>
-            <td><b><%=link_to(s.characteristic+"*",s)%></b></td>
-            <td><b><%=s.number_of_users%></b></td>
+            <td class="table-cell vertical-centered"><b><%=link_to(s.characteristic+"*",s)%></b></td>
+            <td class="table-cell vertical-centered"><b><%=s.number_of_users%></b></td>
             <%else%>
-            <td><%=link_to(s.characteristic,s)%></td>
-            <td><%=s.number_of_users%></td>
+            <td class="table-cell vertical-centered"><%=link_to(s.characteristic,s)%></td>
+            <td class="table-cell vertical-centered"><%=s.number_of_users%></td>
             <%end%>
-            <%end%>
+          <%end%>
           </table>
           <%if current_user %>
           *<b>Bold</b> phenotypes are those about which you haven't provided information yet
@@ -64,11 +64,11 @@
           <% @phenotype.user_phenotypes.each do |up| %>
           <tr>
             <%if current_user!= nil and UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id) != nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
-            <td><b> <%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></b></td>
-            <td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
+            <td class="table-cell vertical-centered"><b> <%=  %> <%= link_to(image_tag(up.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{up.user.name}", up.user) %></b></td>
+            <td class="table-cell vertical-centered"><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
             <%else%>
-            <td><%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></td>
-            <td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
+            <td class="table-cell vertical-centered"><%=  %> <%= link_to(image_tag(up.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{up.user.name}", up.user) %></td>
+            <td class="table-cell vertical-centered"><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
             <%end%>
           </tr>
           <% end %>

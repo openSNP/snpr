@@ -1,3 +1,4 @@
+<%= render 'shared/error_messages', :target => @message %>
 <div class="container test-new-message__container">
   <% if @answering %>
   <h3 class="test-new-message__title">Answering:</h3>
@@ -8,7 +9,6 @@
   <%end%>
   <h3 class="test-new-message__title">Compose Message</h3>
   <%= form_for @message do |f| %>
-  <%= render 'shared/error_messages', :target => @message %>
   <div class="form-group">
     <%= f.label :to_id, 'To' %>
     <%= f.select(:to_id, @users.map { |user| [user.name, user.id] },{selected: params[:user_to_send]}, {class: "test-new-message__select-input"})  %>
