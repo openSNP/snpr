@@ -1,7 +1,7 @@
 google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(draw_plot);
+google.charts.setOnLoadCallback(drawPlot);
 
-function draw_plot() {
+function drawPlot() {
 	var options = {
 		lineWidth: 1.8,
 		legend: {
