@@ -18,11 +18,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if not params[:read]
-      flash[:warning] = "You must tick the box to proceed!"
+      flash[:warning] = "You must tick the box to proceed"
     end
 
     if params[:read] && verify_recaptcha(model: @user) && @user.save
-      flash[:notice] = "Account registered!"
+      flash[:notice] = "Account registered"
       UserMailer.welcome_user(@user).deliver_later
       redirect_to @user
     else
@@ -90,12 +90,12 @@ class UsersController < ApplicationController
     @user_snp_comment_ids = []
     @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end
     @snp_comment_replies = []
-    @user_snp_comment_ids.each do |ui| 
+    @user_snp_comment_ids.each do |ui|
       @replies_for_snp = SnpComment.where(reply_to_id: ui)
       @replies_for_snp.each do |rs|
         @snp_comment_replies << rs
       end
-    end  
+    end
     @snp_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
     @paginated_snp_replies = @snp_comment_replies
 
@@ -134,7 +134,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if params[:user][:user_phenotypes_attributes].present?
-      params[:user][:user_phenotypes_attributes].each do |p|  
+      params[:user][:user_phenotypes_attributes].each do |p|
         @phenotype = UserPhenotype.find(p[1]["id"]).phenotype
         @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
         # TODO: known_phenotypes compare different now
@@ -162,12 +162,12 @@ class UsersController < ApplicationController
         redirect_to :action => "edit", :id => current_user.id
       else
         respond_to do |format|
-          format.js  
-          format.html 
+          format.js
+          format.html
         end
       end
 
-    else 
+    else
 
       respond_to do |format|
         format.html do
@@ -247,7 +247,7 @@ class UsersController < ApplicationController
       store_location
       if current_user
         flash[:notice] = "Redirected to your edit page"
-        redirect_to :controller => "users", :action => "edit", :id => current_user.id 
+        redirect_to :controller => "users", :action => "edit", :id => current_user.id
       else
         flash[:notice] = "You need to be logged in"
         redirect_to "/signin"

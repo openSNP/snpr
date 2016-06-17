@@ -9,7 +9,7 @@ class UserSnpsController < ApplicationController
       @user_snps = Snp.find_by_name(params[:snp_name]).user_snps.includes(:user)
       render layout: false
     else
-      render text: 'Something went wrong.', layout: false
+      render text: 'Something went wrong', layout: false
     end
   end
 end

@@ -17,8 +17,8 @@ class PicturePhenotypesController < ApplicationController
     #end
     respond_to do |format|
       format.html
-      format.xml 
-      #format.json {render :json => @phenotypes_json} 
+      format.xml
+      #format.json {render :json => @phenotypes_json}
     end
   end
 
@@ -64,7 +64,7 @@ class PicturePhenotypesController < ApplicationController
         if @user_phenotype.save
           @phenotype.number_of_users = UserPicturePhenotype.where(picture_phenotype_id: @phenotype.id).count
           @phenotype.save
-          flash[:notice] = "Picture Phenotype sucessfully saved."
+          flash[:notice] = "Picture Phenotype sucessfully saved"
 
           # check for additional phenotype awards
           current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))

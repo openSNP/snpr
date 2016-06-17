@@ -17,8 +17,8 @@ class PhenotypesController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml 
-      format.json {render :json => @phenotypes_json} 
+      format.xml
+      format.json {render :json => @phenotypes_json}
     end
   end
 
@@ -63,7 +63,7 @@ class PhenotypesController < ApplicationController
         if @user_phenotype.save
           @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
           @phenotype.save
-          flash[:notice] = "Phenotype sucessfully saved."
+          flash[:notice] = "Phenotype sucessfully saved"
 
           # check for additional phenotype awards
           current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
@@ -160,7 +160,7 @@ class PhenotypesController < ApplicationController
 
     if @similar_phenotypes == [] and @similar_variations == []
       redirect_to :action => "index"
-    else  
+    else
       respond_to do |format|
         format.html
       end
@@ -211,8 +211,8 @@ class PhenotypesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render :json => @result } 
-    end    
+      format.json { render :json => @result }
+    end
 
   end
 
@@ -236,12 +236,12 @@ class PhenotypesController < ApplicationController
         @results << json_element(@new_param)
       end
 
-    else 
-      @results = json_element(params)	  
-    end   
+    else
+      @results = json_element(params)
+    end
 
     respond_to do |format|
-      format.json { render :json => @results } 
+      format.json { render :json => @results }
     end
   end
 

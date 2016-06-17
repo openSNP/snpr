@@ -9,7 +9,7 @@ class FitbitProfilesController < ApplicationController
     @fitbit_profiles = FitbitProfile
       .includes(:user)
       .order("#{sort_column} #{sort_direction}")
-      .paginate(page: params[:page], per_page: 20)
+      .paginate(page: params[:page], per_page: 15)
   end
 
   def show
@@ -183,7 +183,7 @@ class FitbitProfilesController < ApplicationController
       begin
         access_token = @client.authorize(token, secret, { :oauth_verifier => verifier })
       rescue
-        flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again."
+        flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again"
         redirect_to :action => "info"
       end
       @fitbit_profile.access_token = access_token.token
@@ -191,10 +191,10 @@ class FitbitProfilesController < ApplicationController
       @fitbit_profile.verifier = verifier
       @fitbit_profile.save
       FitbitInit.perform_async(@fitbit_profile.id)
-      flash[:notice] = "Successful login with FitBit!"
+      flash[:notice] = "Successful login with FitBit"
       redirect_to :action => "init"
     else
-      flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again."
+      flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again"
       redirect_to :action => "info"
     end
   end

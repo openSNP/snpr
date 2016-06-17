@@ -36,7 +36,7 @@ class UserPicturePhenotypesController < ApplicationController
       @phenotype.save()
       redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Variation successfully deleted'
     else
-      redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Whops, something went wrong!'
+      redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Whops, something went wrong'
     end
   end
 
@@ -79,7 +79,7 @@ class UserPicturePhenotypesController < ApplicationController
           redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Variation successfully saved'
         end
       else
-        flash[:warning] = "Please enter a variation."
+        flash[:warning] = "Please enter a variation"
         redirect_to "/users/"+current_user.id.to_s
       end
     else
