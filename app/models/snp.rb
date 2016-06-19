@@ -25,18 +25,6 @@ class Snp < ActiveRecord::Base
     self.genotype_frequency ||= {}
   end
 
-  def self.update_papers
-    max_age = 31.days.ago
-
-    snps = Snp.select([ :id, :mendeley_updated, :snpedia_updated, :plos_updated ]).
-      where([ 'mendeley_updated < ? or snpedia_updated < ? or plos_updated < ?',
-              max_age, max_age, max_age ]).find_each do |snp|
-      Sidekiq::Client.enqueue(MendeleySearch, snp.id) if snp.mendeley_updated < max_age
-      Sidekiq::Client.enqueue(Snpedia, snp.id) if snp.snpedia_updated < max_age
-      Sidekiq::Client.enqueue(PlosSearch, snp.id) if snp.plos_updated < max_age
-    end
-  end
-
   def self.update_frequencies
     Snp.find_each do |s|
       Sidekiq::Client.enqueue(Frequency,s.id)
