@@ -1,5 +1,6 @@
 class UpdatePapers
   include Sidekiq::Worker
+  sidekiq_options retry: false, unique: true
   MAX_AGE = 31.days
 
   PAPER_UPDATED_COLUMNS = {
