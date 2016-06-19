@@ -6,7 +6,7 @@ class UpdatePapers
     MendeleySearch => 'mendeley_updated',
     PlosSearch => 'plos_updated',
     Snpedia => 'snpedia_updated'
-  }
+  }.freeze
 
   def perform
     PAPER_UPDATED_COLUMNS.each do |worker, column|
