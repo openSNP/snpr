@@ -1,7 +1,7 @@
 class FitbitProfilesController < ApplicationController
   before_filter :require_user, except: [:new_notification, :show, :index]
   before_filter :require_user, only: [:update,:destroy,:init,:edit,:start_auth,:verify_auth,:dump]
-  protect_from_forgery :except => :new_notification 
+  protect_from_forgery :except => :new_notification
   helper_method :sort_column, :sort_direction
 
   def index
@@ -11,11 +11,11 @@ class FitbitProfilesController < ApplicationController
       .order("#{sort_column} #{sort_direction}")
       .paginate(page: params[:page], per_page: 20)
   end
-  
+
   def show
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
     @title = "Fitbit profile"
-    
+
     #grab activity measures for graphs
     if @fitbit_profile.activities
       @activity = FitbitActivity
@@ -54,7 +54,7 @@ class FitbitProfilesController < ApplicationController
         end
       end
     end
-    
+
     #grab body measurements for graphs
     if @fitbit_profile.body
       @body = FitbitBody
@@ -62,7 +62,7 @@ class FitbitProfilesController < ApplicationController
         .order(:date_logged)
       @bmi = @body.map {|fa| [fa.date_logged, fa.bmi]}
     end
-    
+
     #grab sleep measurements for graphs
     if @fitbit_profile.sleep
       @sleep = FitbitSleep
@@ -104,28 +104,28 @@ class FitbitProfilesController < ApplicationController
       end
     end
   end
-  
+
   def dump
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
-    Sidekiq::Client.enqueue(FitbitDump,current_user.email,@fitbit_profile.id)
+    Sidekiq::Client.enqueue(FitbitDump,@fitbit_profile.id,current_user.id)
     respond_to do |format|
       format.html
     end
   end
-  
+
   def info
     respond_to do |format|
       format.html
     end
   end
-    
+
   def edit
     @fitbit_profile = current_user.fitbit_profile
     respond_to do |format|
       format.html
     end
   end
-  
+
   def destroy
     @fitbit_profile = current_user.fitbit_profile
     Sidekiq::Client.enqueue(FitbitEndSubscription,@fitbit_profile.id)
@@ -137,12 +137,12 @@ class FitbitProfilesController < ApplicationController
   def init
     @user = current_user
     @fitbit_profile = @user.fitbit_profile
-    
+
     respond_to do |format|
       format.html
     end
   end
-  
+
   def update
     @fitbit_profile = FitbitProfile.find_by_id(params[:fitbit_profile][:id])
     @fitbit_profile.body = params[:fitbit_profile]["body"]
@@ -160,7 +160,7 @@ class FitbitProfilesController < ApplicationController
       @user.save
     end
     print @user
-    @fitbit_profile = @user.fitbit_profile 
+    @fitbit_profile = @user.fitbit_profile
     print @fitbit_profile
     client = Fitgem::Client.new(consumer_key: ENV.fetch('FITBIT_CONSUMER_KEY'),
                                 consumer_secret: ENV.fetch('FITBIT_CONSUMER_SECRET'))
@@ -170,7 +170,7 @@ class FitbitProfilesController < ApplicationController
     @fitbit_profile.save
     redirect_to "http://www.fitbit.com/oauth/authorize?oauth_token=#{request_token.token}"
   end
-  
+
   def verify_auth
     @user = current_user
     @fitbit_profile = @user.fitbit_profile
@@ -180,7 +180,7 @@ class FitbitProfilesController < ApplicationController
       token = params[:oauth_token]
       secret = @fitbit_profile.request_secret
       verifier = params[:oauth_verifier]
-      begin 
+      begin
         access_token = @client.authorize(token, secret, { :oauth_verifier => verifier })
       rescue
         flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again."
@@ -198,7 +198,7 @@ class FitbitProfilesController < ApplicationController
       redirect_to :action => "info"
     end
   end
-  
+
   def new_notification
     puts params
     @json_object = params["updates"]
@@ -224,7 +224,7 @@ class FitbitProfilesController < ApplicationController
       return false
     end
   end
-  
+
   def sort_column
     Genotype.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
