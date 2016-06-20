@@ -22,14 +22,6 @@
         <td><%=@snp.ranking%></td>
       </tr>
       <tr>
-        <td><b>Phenotypes</b></td>
-        <td><%=@snp.phenotypes.first.characteristic rescue '-'%></td>
-      </tr>
-      <tr>
-        <td><b>Score</b></td>
-        <td><%= PhenotypeSnp.where(snp_id: @snp.id).first.score rescue '-'%></td>
-      </tr>
-      <tr>
         <td><b>Position</b></td>
         <td><%=@snp.position%></td>
       </tr>
@@ -69,6 +61,22 @@
       <div id="allele_chart" style="height:200px; width:200px;"></div>
     <%else%>
       We don't have enough users yet.
+    <%end%>
+  </div>
+
+  <div class="span3 columns">
+    <center><h6><a href="#" rel="tooltip" data-html="true" title="Phenotypes possibly associated with this SNP.">Phenotypes</a></h6></center>
+    <% if @snp.phenotypes.count %>
+      <table id="phenotype_table" class="table table-striped">
+        <% @snp.phenotypes.each do |p| %>
+          <tr>
+            <td><b><%= p.characteristic %></b></td>
+            <td><%= PhenotypeSnp.find(p).score %> </td>
+          </tr>
+        <% end %>
+      </table>
+    <%else%>
+      We don't have enough phenotype associations yet.
     <%end%>
   </div>
 </div>
