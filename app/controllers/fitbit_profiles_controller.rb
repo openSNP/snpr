@@ -107,7 +107,7 @@ class FitbitProfilesController < ApplicationController
 
   def dump
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
-    Sidekiq::Client.enqueue(FitbitDump,@fitbit_profile.id,current_user.id)
+    FitbitDump.perform_async(@fitbit_profile.id,current_user.id)
     respond_to do |format|
       format.html
     end
@@ -128,7 +128,7 @@ class FitbitProfilesController < ApplicationController
 
   def destroy
     @fitbit_profile = current_user.fitbit_profile
-    Sidekiq::Client.enqueue(FitbitEndSubscription,@fitbit_profile.id)
+    FitbitEndSubscription.perform_async(@fitbit_profile.id)
     respond_to do |format|
       format.html
     end
@@ -149,7 +149,7 @@ class FitbitProfilesController < ApplicationController
     @fitbit_profile.activities = params[:fitbit_profile]["activities"]
     @fitbit_profile.sleep = params[:fitbit_profile]["sleep"]
     @fitbit_profile.save
-    Sidekiq::Client.enqueue(FitbitEdit,@fitbit_profile.id)
+    FitbitEdit.perform_async(@fitbit_profile.id)
     redirect_to "/fitbit/edit"
   end
 
@@ -190,7 +190,7 @@ class FitbitProfilesController < ApplicationController
       @fitbit_profile.access_secret = access_token.secret
       @fitbit_profile.verifier = verifier
       @fitbit_profile.save
-      Sidekiq::Client.enqueue(FitbitInit,@fitbit_profile.id)
+      FitbitInit.perform_async(@fitbit_profile.id)
       flash[:notice] = "Successful login with FitBit!"
       redirect_to :action => "init"
     else
@@ -206,7 +206,7 @@ class FitbitProfilesController < ApplicationController
     @notification = JSON.parse(@json_unparsed)
     puts @notification[0]
     puts @notification[0]["collectionType"]
-    Sidekiq::Client.enqueue(FitbitNotification,@notification)
+    FitbitNotification.perform_async(@notification)
     render :nothing => true, :status => 204
   end
 

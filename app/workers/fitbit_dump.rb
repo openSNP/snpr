@@ -5,7 +5,6 @@ class FitbitDump
    sidekiq_options :queue => :fitbit, :retry => 5, :unique => true
 
    def perform(fitbit_profile_id,user_id)
-     @user = User.find_by_id(user_id)
      fp = FitbitProfile.find_by_id(fitbit_profile_id)
        # open handle
 
@@ -57,6 +56,6 @@ class FitbitDump
        @fitbit_handle.close
        puts "Saved fibit-date for "
        system("chmod 777 "+::Rails.root.to_s+"/public/data/fitbit/user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv")
-       UserMailer.fitbit_dump("/data/fitbit/user"+fp.user.id.to_s+"_fitbit_data_"+@time_str.to_s+".csv",@user).deliver_later
+       UserMailer.fitbit_dump("/data/fitbit/user#{fp.user.id.to_s}_fitbit_data_#{@time_str.to_s}.csv",user_id).deliver_later
      end
 end
