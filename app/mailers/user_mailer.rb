@@ -85,7 +85,7 @@ default :from => "donotreply@opensnp.org"
 
   def fitbit_dump(link, user_id)
     @link = link
-		@user = User.find(user_id)
+    @user = User.find(user_id)
     mail(:subject => "openSNP.org: The Fitbit-data you requested is now ready for download", :to => @user.email)
     puts "http://"+ActionMailer::Base.default_url_options[:host]+@link
   end
