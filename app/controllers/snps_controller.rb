@@ -12,12 +12,6 @@ class SnpsController < ApplicationController
     @snp = Snp.includes(:snp_comments).
       where(name: params[:id].downcase).first || not_found
 
-    # TODO: Let's remove this here and use Snp.update_papers from a cron job
-    # instead. Shall we? - Helge
-    Sidekiq::Client.enqueue(PlosSearch, @snp.id)
-    Sidekiq::Client.enqueue(MendeleySearch, @snp.id)
-    Sidekiq::Client.enqueue(Snpedia, @snp.id)
-
     if params[:format] == 'json'
       users = @snp.users
       json_results = users.map do |u|
