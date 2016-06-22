@@ -20,7 +20,7 @@
       if ($searchForm.hasClass('showed')) {
         $searchForm.animate({top: '0'});
       } else {
-        $searchForm.animate({top: '42px'});
+        $searchForm.animate({top: '50px'});
       }
       $searchForm.toggleClass('showed');
     });
