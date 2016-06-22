@@ -1,5 +1,5 @@
 <%= render 'shared/error_messages', :target => @phenotype %>
-<div class="test-phenotype__container container">
+<div class="test-phenotype__container">
   <h3 class="test-phenotype__title">Create a new phenotype</h3>
   <%= form_for @phenotype, html: {class: "test-phenotype__new-form form-horizontal well"} do |f| %>
   <%phenotype_array = []%>
@@ -13,30 +13,30 @@
       </script>
       <div class="form-group">
         <%= f.label :characteristic, class:"col-sm-1 control-label" %>
-        <div class="col-md-11">
+        <div class="col-md-11 col-sm-11 col-xs-11">
           <%= f.text_field :characteristic, class: "form-control" %>
         </div>
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-11 col-sm-11 col-xs-11 col-md-offset-1">
           <small class="help-block">Hair colour, Blood type, Skin colour etc. <br/>Please <b>enter only one phenotypic characteristic at once</b> and <b>make use of the auto-completion</b>, as this phenotype might be already in our database.</small>
         </div>
       </div>
       <div class="form-group">
         <%= f.label :description, class:"col-sm-1 control-label" %>
-        <div class="col-md-11">
+        <div class="col-md-11 col-sm-11 col-xs-11">
           <%= f.text_area :description, :rows => 5, class: "form-control"%>
         </div>
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-11 col-sm-11 col-xs-11 col-md-offset-1">
           <small class="help-block">Give users some more details:<ul><li>What are different variations of this phenotype?</li><li>Why this phenotype is interesting?</li><li>Some links to web resources on the topic?</li></ul></small>
         </div>
       </div>
       <div class="form-group">
         <%= fields_for @user_phenotype do |up| %>
         <%= up.label :variation, class:"col-sm-1 control-label" %>
-        <div class="col-md-11">
+        <div class="col-md-11 col-sm-11 col-xs-11">
           <%= up.text_field :variation, class: "form-control" %>
         </div>
         <% end %>
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-11 col-sm-11 col-xs-11 col-md-offset-1">
           <small class="help-block">Blonde, 00, Caucasian etc.<br/><b>Only enter your variation</b> for this phenotype, don't list all possible answers (you can use the description for this). Again: <b>please use the auto-completion.</b></small>
         </div>
       </div>
