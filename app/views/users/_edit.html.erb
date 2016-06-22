@@ -82,7 +82,7 @@
           <div class="col-md-6 test-settings__details-description">
             <h2 class="tabs__one-tab-title">Details</h2>
             <p>Add or edit a description of yourself:<br/>
-              <%= f.text_area  :description, size: "40x8" %></p>
+              <%= f.text_area  :description, size: "30x8" %></p>
             </div>
             <div class="col-md-6 test-settings__details-homepages">
               <h3>Add your homepages</h3>
@@ -122,7 +122,7 @@
       <h3>Genotypes</h3>
       <% if not @user.genotypes.empty? %>
         <% @user.genotypes.each do |ug| %>
-          <p><%= link_to "Delete genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?", class: "btn btn-default test-settings__deleting-button" %> </p>
+          <p><%= link_to "Genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?", class: "btn btn-default test-settings__deleting-button" %> </p>
         <% end %>
       <% end %>
       <h3>Account</h3>

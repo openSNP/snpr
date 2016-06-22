@@ -8,8 +8,8 @@
 		</thead>
 		<% @user_phenotypes.each do |p| %>
 		<tr>
-			<td><%= link_to Phenotype.find_by_id(p.phenotype_id).characteristic, Phenotype.find_by_id(p.phenotype.id) %></td>
-			<td><% if p.variation %><%= p.variation%><% else %>Undescribed.<% end %></td>
+			<td class="table-cell vertical-centered"><%= link_to Phenotype.find_by_id(p.phenotype_id).characteristic, Phenotype.find_by_id(p.phenotype.id) %></td>
+			<td class="table-cell vertical-centered"><% if p.variation %><%= p.variation%><% else %>Undescribed.<% end %></td>
 		</tr>
 		<% end %>
 	</table>
