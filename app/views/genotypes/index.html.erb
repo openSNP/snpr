@@ -1,7 +1,7 @@
-<div class="container test-genotype__container">
+<div class="test-genotype__container container">
   <div class="row">
     <div class="col-md-6">
-      <h3>All Genotypes <%=link_to(image_tag("rss.png"),"/paper/rss")%></h3>
+      <h3>All Genotypes <%=link_to(image_tag("rss.png"),"/rss")%></h3>
       <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
       <h4><a href="https://github.com/superbobry/snpy">Python library to parse the provided files,</a> courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
     </div>
@@ -37,8 +37,8 @@
       </tr>
       <% end %>
     </table>
-    <div class="text-center">
-      <%= will_paginate @genotypes_paginate, renderer: BootstrapPagination::Rails%>
-    </div>
+  </div>
+  <div class="text-center">
+    <%= will_paginate @genotypes_paginate, renderer: BootstrapPagination::Rails%>
   </div>
 </div>
