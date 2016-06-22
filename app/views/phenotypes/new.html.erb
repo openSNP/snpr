@@ -1,6 +1,6 @@
 <%= render 'shared/error_messages', :target => @phenotype %>
-<div class="test-phenotype__container">
-  <h3 class="test-phenotype__title">Create a new phenotype</h3>
+<div class="test-general__container">
+  <h3 class="test-general__title">Create a new phenotype</h3>
   <%= form_for @phenotype, html: {class: "test-phenotype__new-form form-horizontal well"} do |f| %>
   <%phenotype_array = []%>
   <% Phenotype.all.each { |p| phenotype_array << p.characteristic } # TODO: Move to instance variable %>

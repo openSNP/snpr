@@ -1,13 +1,13 @@
 <%= render 'shared/error_messages', :target => @message %>
-<div class="test-new-message__container container">
+<div class="test-general__container container">
   <% if @answering %>
-  <h3 class="test-new-message__title">Answering:</h3>
+  <h3 class="test-general__title">Answering:</h3>
   <div class="well test-new-message__received-message">
     <p><b>Subject: <%= @answering.subject %></b></p>
     <p><%= @answering.body %></p>
   </div>
   <%end%>
-  <h3 class="test-new-message__title">Compose Message</h3>
+  <h3 class="test-general__title">Compose Message</h3>
   <%= form_for @message do |f| %>
   <div class="form-group">
     <%= f.label :to_id, 'To' %>

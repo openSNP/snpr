@@ -1,5 +1,5 @@
-<div class="test-message__container container">
-  <h3 class="test-message__title">Message</h3>
+<div class="test-general__container container">
+  <h3 class="test-general__title">Message</h3>
   <div class="test-message__message-informations">
     <h4>From: <%if @from != "Deleted User"%><%= link_to @from.name, @from %><%else%>Deleted User<%end%></h4>
     <h4>To: <% if @to == @current_user %> You <% else %> <% if @to != "Deleted User" %><%= link_to @to.name, @to %></h4><% else %>Deleted User<% end %><% end %></h4>
