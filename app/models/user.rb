@@ -102,4 +102,9 @@ class User < ActiveRecord::Base
     self.avatar = nil if delete_avatar?
   end
 
+  def display_help_header?
+    # minor help method called in layouts/application header
+    !help_one || !help_two || !help_three
+  end
+
 end

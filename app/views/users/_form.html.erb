@@ -12,11 +12,10 @@
         <%= f.password_field :password %>
         <%= f.label :password_confirmation, "Confirmation" %>
         <%= f.password_field :password_confirmation %>
-        <br/>
-        <label class="checkbox">
-          <%= check_box_tag(:read, :type => "checkbox") %>
+        <div class="checkbox">
+          <%= check_box_tag(:read, type: "checkbox") %>
           I understand the warning and I am willing to take these risks.
-        </label>
+        </div>
         <p><%= recaptcha_tags %></p>
         <%= f.submit :class => "btn btn-primary"%>
       <% end %> 

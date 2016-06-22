@@ -1,17 +1,14 @@
 <h3>Write a comment on this SNP</h3>
-<%= form_for(@snp_comment, :html => {:class => "form-stacked", :name => "new_comment" }) do |f| %>
-<%= render 'shared/error_messages', :target => @snp %>
-<%= f.hidden_field :snp_id, :value => @snp.id %>
+<%= form_for(@snp_comment, html: {class: "form-horizontal", name: "new_comment" }) do |f| %>
+<%= render 'shared/error_messages', target: @snp %>
+<%= f.hidden_field :snp_id, value: @snp.id %>
 <div class="well">
-<div class="clearfix">
+    <div class="form-group">
 	<%= f.label :subject%>
 	<%= f.text_field :subject %>
-</div>
-<div class="clearfix">
 	<%= f.label :comment_text %>
-	<%= f.text_area :comment_text, :size => "20x5" %>
-</div>
-
-	<%= f.submit "Comment", :class => "btn btn-primary"  %>
+	<%= f.text_area :comment_text, size: "20x5" %>
+    </div>
+	<%= f.submit "Comment", class: "btn btn-default"  %>
 <% end %>
 </div>

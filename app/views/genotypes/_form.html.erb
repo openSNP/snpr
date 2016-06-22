@@ -1,52 +1,42 @@
 <div class="row">
   <div class="span6 columns">
-    <%= form_for(@genotype,:html => {:class => "form-stacked", :multipart => true}) do |f| %>
+    <%= form_for(@genotype, html: {class: "form-horizontal", multipart: true}) do |f| %>
       <%= render 'shared/error_messages', :target => @genotype %>
-      <div class="well">
-        <div class="clearfix">
+      <div class="well">  
           <h5>Provide your genotyping file</h5>
           <p>Zipped genotypings are fine too.</p>
           <p><%= f.file_field :genotype %></p>
-        </div>
-        <div class="clearfix">
-          <div class="input">
             <%= f.label :filetype %>
-          </div>
-          <div class="input">
-            <label class="radio">
+            <div class="radio">
               <%= f.radio_button :filetype,"23andme" %>
-              <span>23andme-format</span>
-            </label>
-            <label class="radio">
+              23andme-format
+            </div>
+            <div class="radio">
               <%= f.radio_button :filetype,"genes-for-good"%>
-              <span>Genes for Good-format</span>
-            </label>
-            <label class="radio">
+              Genes for Good-format
+            </div>
+            <div class="radio">
               <%= f.radio_button :filetype,"ftdna-illumina"%>
-              <span>FamilyTreeDNA, Illumina-Format</span>
-            </label>
-            <label class="radio">
+              FamilyTreeDNA, Illumina-Format
+            </div>
+            <div class="radio">
               <%= f.radio_button :filetype,"ancestry"%>
-              <span>AncestryDNA data</span>
-            </label>
-            <label class="radio">
+              AncestryDNA data
+            </div>
+            <div class="radio">
               <%= f.radio_button :filetype,"23andme-exome-vcf"%>
-              <span>23andMe-EXOME, VCF-format</span>
-            </label>
-            <label class="radio">
+              23andMe-EXOME, VCF-format
+            </div>
+            <div class="radio">
               <%= f.radio_button :filetype,"IYG"%>
-              <span>IYG-format (EBI genotyping participants)</span>
-            </label>
-            <label class="radio">
+              IYG-format (EBI genotyping participants)
+            </div>
+            <div class="radio">
               <%= f.radio_button :filetype,"decodeme"%>
-              <span>deCODEme-format</span>
-            </label>
+              deCODEme-format
+            </div>
             <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>.<br/><br/>
-          </div>
-        </div>
-        <div class="actions">
           <%= f.submit "Upload", :class => "btn btn-primary"  %>
-        </div>
       <% end %>
     </div>
   </div>

@@ -222,14 +222,17 @@ class UsersController < ApplicationController
 
   def remove_help_one
     current_user.update_attribute("help_one",true)
+    render nothing: true
   end
 
   def remove_help_two
     current_user.update_attribute("help_two",true)
+    render nothing: true
   end
 
   def remove_help_three
     current_user.update_attribute("help_three",true)
+    render nothing: true
   end
 
   private

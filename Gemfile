@@ -22,9 +22,6 @@ gem 'fitgem'
 gem 'mendeley', github: 'tsujigiri/mendeley', branch: 'paging_search'
 gem 'plos', require: false
 
-# New Relic monitoring, off by default in development
-gem 'newrelic_rpm'
-
 # DB
 gem 'pg'
 gem 'activerecord-import', '>= 0.4.0'
@@ -61,7 +58,6 @@ gem 'sass-rails'
 
 #group :production do
 #	gem 'rpm_contrib'
-#	gem 'newrelic_rpm'
 #end
 
 group :test do
