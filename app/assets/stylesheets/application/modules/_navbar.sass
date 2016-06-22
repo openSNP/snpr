@@ -30,23 +30,30 @@ li a.test-navbar-menu__profile-option
 
 .test-navbar-menu__search-input
   position: absolute
-  top: 30px
-  z-index: 1
-  width: 200px
-  margin-left: 26%
+  width: 150px
+  top: 0px
+  left: 30%
+  margin: 0
+
+  @media #{$mobile-breakpoint}
+    width: 180px
 
   @media #{$tablet-breakpoint}
-    width: 300px
-    top: 0
+    left: 0
     margin-left: 69%
+    width: 220px
 
 .test-navbar-menu__search-input-content
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
+  z-index: 2
+  @media #{$tablet-breakpoint}
+    z-index: 1
 
 .test-navbar-menu__info-menu, .test-navbar-menu__profile-menu
   background-color: $main-color1
 
-.container .navbar-header .test-navbar-menu__hamburger-menu:hover, .container .navbar-header .test-navbar-menu__hamburger-menu:focus
+.container .navbar-header .test-navbar-menu__hamburger-menu:hover,
+.container .navbar-header .test-navbar-menu__hamburger-menu:focus
   background-color: $main-color1
 
 .navbar-header .test-navbar-menu__hamburger-menu .test-navbar-menu__hamburger-menu-icon
