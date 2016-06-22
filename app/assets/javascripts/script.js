@@ -6,8 +6,8 @@
     var $searchForm = $('[data-js="search-form"]');
     var $panelHeader = $('[data-js="panel-header"]');
     var $extendButton = $('[data-js="extend-button"]');
-    var $replyToButton = $('[data-js="reply-to-button"]');
-
+    var $pictureReplyButton = $('[data-js="picture-reply-button"]');
+    var $snpReplyButton = $('[data-js="snp-reply-button"]');
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -43,8 +43,15 @@
       }
     });
 
-    $replyToButton.on('click', function (event) {
+    $pictureReplyButton.on('click', function (event) {
+      event.preventDefault();
       sendCommentId(document.new_comment.picture_phenotype_comment_comment_text, '@#' + this.id);
+      return false;
+    });
+
+    $snpReplyButton.on('click', function (event) {
+      event.preventDefault();
+      sendCommentId(document.new_comment.snp_comment_comment_text, '@#' + this.id);
       return false;
     });
 
