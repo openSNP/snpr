@@ -21,7 +21,7 @@
         <% end %>
       </a>
       <%= simple_format c.comment_text, class: "test-comments__comment-text" %>
-      <%=link_to "Reply", "#", class: "btn btn-default test-comments__comment-reply-button", id: "#{c.id.to_s}", data: {js: "reply-to-button"}%>
+      <%=link_to "Reply", "#", class: "btn btn-default test-comments__comment-reply-button", id: "#{c.id.to_s}", data: {js: "picture-reply-button"}%>
     </div>
   </div>
 </div>
