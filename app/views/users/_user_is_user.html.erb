@@ -28,14 +28,16 @@
 </div>
 
 <%if @user.genotypes.length == 0%>
-<h3 class="alert alert-info">You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h3>
 <% end %>
 
 <ul class="nav nav-tabs" role="tablist">
   <%if @unentered_phenotypes != []%>
   <li role="presentation" class="active"><a href="#unentered_variations" aria-controls="unentered_variations" role="tab" data-toggle="tab">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
   <%end%>
-  <li role="presentation" <%if @unentered_phenotypes == []%> class="active" <% end %>><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
+  <%if @user.genotypes.length == 0%>
+  <li role="presentation" <%if !(@unentered_phenotypes != [])%> class="active" <% end %>><a href="#snps" aria-controls="snps" role="tab" data-toggle="tab">SNP</a></li>
+  <% end %>
+  <li role="presentation" <%if !(@unentered_phenotypes != []) && !(@user.genotypes.length == 0) %> class="active" <% end %>><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
   <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Your messages</a></li>
   <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Replies to your comments</a></li>
 </ul>
@@ -70,7 +72,13 @@
   </div>
   <%end%>
 
-  <div role="tabpanel" class="tab-pane <%if @unentered_phenotypes == []%> active <% end %> clearfix well tabs__one-tab" id="variations">
+  <%if @user.genotypes.length == 0%>
+  <div role="tabpanel" class="tab-pane  <%if !(@unentered_phenotypes != [])%> active <% end %> well tabs__one-tab" id="snps">
+    <h3 class="alert alert-info">You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h3>
+  </div>
+  <% end %>
+
+  <div role="tabpanel" class="tab-pane <%if !(@unentered_phenotypes != []) && !(@user.genotypes.length == 0) %> active <% end %> well tabs__one-tab" id="variations">
     <h3 class="tabs__one-tab-title">Variations</h3>
     <% if @user_phenotypes.empty? %>
       <h3>
@@ -81,7 +89,7 @@
     <% end %>
   </div>
 
-  <div role="tabpanel" class="tab-pane clearfix well tabs__one-tab" id="messages">
+  <div role="tabpanel" class="tab-pane well tabs__one-tab" id="messages">
     <h3 class="tabs__one-tab-title">Messages</h3>
     <p><%= link_to "Write a new message", {:controller => "messages", :action => "new"}, class: "test-userpage__write-message btn btn-default" %></p>
 
@@ -163,7 +171,7 @@
     <% end %>
   </div>
 
-  <div role="tabpanel" class="tab-pane clearfix well tabs__one-tab" id="comments">
+  <div role="tabpanel" class="tab-pane well tabs__one-tab" id="comments">
     <% if @paginated_phenotype_replies == [] and @paginated_snp_replies == [] %>
     <p>
       You have not yet received replies on any comments.

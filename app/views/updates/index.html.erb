@@ -1,4 +1,4 @@
-<div class="container test-updates__container">
+<div class="test-updates__container container">
   <h3 class="test-updates__title">Updates</h3>
   <ul class="nav nav-tabs test-updates__tabs" role="tablist">
     <li role="presentation" class="active"><a href="#publications" aria-controls="publications" role="tab" data-toggle="tab">Lastest publications</a></li>
@@ -10,7 +10,7 @@
   </ul>
 
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="publications">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab active" id="publications">
       <h3 class="test-updates__tab-title">Last Publications <%=link_to(image_tag("rss.png"),"/paper/rss")%></h3>
       <div class="table-responsive">
         <table class="test-updates__tab-table table table-hover">
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="newusers">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="newusers">
       <h3 class="test-updates__tab-title">Users</h3>
       <div class="table-responsive">
         <table class="test-updates__tab-table table table-hover">
@@ -63,7 +63,7 @@
       <%= link_to("Show All Users", {:controller => "users", :action => "index"}, class: "btn btn-default center-block test-updates__tab-button") %>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="newgeno">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="newgeno">
       <h3 class="test-updates__tab-title">New genotypes <%=link_to(image_tag("rss.png"),"/rss")%></h3>
       <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
 
@@ -94,7 +94,7 @@
       <%= link_to("Show All Genotypes", {:controller => "genotypes", :action => "index"}, class: "btn btn-default btn btn-default center-block test-updates__tab-button")%>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="newpheno">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="newpheno">
       <h3 class="test-updates__tab-title">Phenotypes</h3>
       <div class="table-responsive">
         <table class="test-updates__tab-table table table-hover">
@@ -121,7 +121,7 @@
       <%= link_to("Show All Phenotypes", {:controller => "phenotypes", :action => "index"} ,class: "btn btn-default center-block test-updates__tab-button")%>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="snpcomments">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="snpcomments">
       <h3 class="test-updates__tab-title">SNP comments</h3>
       <div class="table-responsive">
         <table class="test-updates__tab-table table table-hover">
@@ -144,7 +144,7 @@
         </table>
       </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="phenocomments">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="phenocomments">
       <h3 class="test-updates__tab-title">Phenotypes comments</h3>
       <div class="table-responsive">
         <table class="test-updates__tab-table table table-hover">
