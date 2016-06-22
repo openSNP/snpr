@@ -1,9 +1,14 @@
-.test-warning__alert
-  width: 500px
-  position: absolute
-  left: 36.5%
-  top: 50px
+.test-warnings_container
   z-index: 4
+  position: absolute
+  width: 100%
+
+.test-warning__alert
+  width: 200px
+  margin-bottom: 0
+
+  @media #{$tablet-breakpoint}
+    width: 500px
 
 .test-warning__alert.alert.alert-danger
   background-color: rgba(#f2dede , 0.5)
