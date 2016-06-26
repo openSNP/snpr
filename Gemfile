@@ -86,4 +86,5 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'capistrano', '~> 2.0'
   gem 'rvm-capistrano', '1.4.4', require: false
+  gem 'rubocop'
 end
