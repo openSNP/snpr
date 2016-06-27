@@ -11,8 +11,6 @@ class Fixphenotypes
         # delete!
         logger.info("Deleting phenotype '" + p.characteristic)
         Phenotype.destroy(p)
-        Sidekiq::Client.enqueue(Recommendvariations)
-        Sidekiq::Client.enqueue(Recommendphenotypes)
         next
       end
 

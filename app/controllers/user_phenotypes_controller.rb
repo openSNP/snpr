@@ -48,8 +48,6 @@ class UserPhenotypesController < ApplicationController
 
         @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).length
         @phenotype.save
-        Sidekiq::Client.enqueue(Recommendvariations)
-        Sidekiq::Client.enqueue(Recommendphenotypes)
 
         if @js_modal == true
           redirect_to "/users/"+current_user.id.to_s

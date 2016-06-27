@@ -79,8 +79,6 @@ class PhenotypesControllerTest < ActionController::TestCase
             phenotype_id.is_a?(Fixnum) &&
             user_id == @other_user.id
         end
-        Sidekiq::Client.expects(:enqueue).with(Recommendvariations)
-        Sidekiq::Client.expects(:enqueue).with(Recommendphenotypes)
         FactoryGirl.create(:achievement, award: "Created a new phenotype")
         assert_difference 'Phenotype.count' do
           assert_difference 'UserPhenotype.count' do
