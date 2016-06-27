@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
-AllCops:
-  RunRailsCops: true
+Rails:
+  Enabled: true
 
 Style/DotPosition:
   EnforcedStyle: leading
@@ -18,7 +18,7 @@ Style/Documentation:
 Style/IfUnlessModifier:
   Enabled: false
 
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
   Enabled: false
 
 #Metrics/MethodLength:
