@@ -30,7 +30,7 @@
   zipgenotyping: 1
   zipfulldata: 1
   fitbit: 3
-  frequency: 10
+  frequency: 1
   fixphenotypes: 1
   mailnewgenotype: 1
   user_snps: 1
