@@ -112,8 +112,6 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "be able to update" do
-        Sidekiq::Client.expects(:enqueue).with(Recommendvariations)
-        Sidekiq::Client.expects(:enqueue).with(Recommendphenotypes)
         post :update, id: @user.id, user:
           { name: "Blah Keks", user_phenotypes_attributes: [],
             homepages_attributes: { new_123: { url: "" }}}

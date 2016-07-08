@@ -76,9 +76,6 @@ class PicturePhenotypesController < ApplicationController
           check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
           check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
 
-          #Sidekiq::Client.enqueue(Recommendvariations)
-          #Sidekiq::Client.enqueue(Recommendphenotypes)
-
           redirect_to current_user
         else
           flash[:warning] = "Something went wrong in creating the phenotype"

@@ -26,3 +26,7 @@ end
 every :day do
   rake 'papers:update'
 end
+
+every :week do
+  rake 'recommender:update_all'
+end

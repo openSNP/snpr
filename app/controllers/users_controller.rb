@@ -153,9 +153,6 @@ class UsersController < ApplicationController
       @empty_websites = Homepage.where(user_id: current_user.id, url: '')
       @empty_websites.each do |ew| ew.delete end
 
-      Sidekiq::Client.enqueue(Recommendvariations)
-      Sidekiq::Client.enqueue(Recommendphenotypes)
-
       flash[:notice] =  "Successfully updated"
 
       if params[:user][:password] or params[:user][:avatar]
