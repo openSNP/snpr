@@ -9,7 +9,7 @@ class PhenotypesController < ApplicationController
       .order(sort_column + ' ' + sort_direction)
       .includes(:user_phenotypes)
 
-    @phenotypes_paginate = @phenotypes.paginate(:page => params[:page], :per_page => 10)
+    @phenotypes_paginate = @phenotypes.paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html
@@ -17,12 +17,12 @@ class PhenotypesController < ApplicationController
       format.json do
         phenotypes_json =
           @phenotypes.find_each.map do |p|
-            phenotype = {}
-            phenotype['id'] = p.id
-            phenotype['characteristic'] = p.characteristic
-            phenotype['known_variations'] = p.known_phenotypes
-            phenotype['number_of_users'] = p.user_phenotypes.length
-            phenotypes_json << phenotype
+            {
+              id: p.id,
+              characteristic: p.characteristic,
+              known_variations: p.known_phenotypes,
+              number_of_users: p.user_phenotypes.count
+            }
           end
         render :json => phenotypes_json
       end
