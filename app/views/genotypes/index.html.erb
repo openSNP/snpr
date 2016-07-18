@@ -15,7 +15,6 @@
 <br/>
 <table class="table table-striped" id="all_genotypes">
   <tr>
-    <th>#</th>
     <th><%= sortable "id", "ID"%></th>
     <th>User</th>
     <th><%= sortable "filetype", "Type"%></th>
@@ -24,13 +23,12 @@
   </tr>
   <% @genotypes_paginate.each do |g| %>
     <tr>
-    <td><%= Genotype.all.sort { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
-    <td><%= g.id %></td>
-    <td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(g.user.name, g.user)%></td>
-    <td><%= g.filetype %></td>
-    <td><%= g.created_at%></td>
-    <td><%= link_to "Right-click and 'Save as..'", '../data/' + g.fs_filename  %></td>
-  </tr>
-<% end %>
+      <td><%= g.id %></td>
+      <td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(g.user.name, g.user)%></td>
+      <td><%= g.filetype %></td>
+      <td><%= g.created_at%></td>
+      <td><%= link_to "Right-click and 'Save as..'", '../data/' + g.fs_filename  %></td>
+    </tr>
+  <% end %>
 </table>
 <%= page_navigation_links @genotypes_paginate %>
