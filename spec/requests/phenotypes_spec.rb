@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'phenotypes API' do
+describe 'phenotypes API', focus: true do
   # Get all phenotypes entered
   it 'GET /phenotypes returns list of phenotypes' do
     create_list(:phenotype, 3)
@@ -27,7 +27,7 @@ describe 'phenotypes API' do
   # Get all phenotypes from a specific user(-ID)
   it 'get /phenotypes/json/:id.json' do
     phenotype = create(:phenotype_with_users)
-    get "/phenotypes/json/#{phenotype.user_phenotypes.first.id}.json"
+    get "/phenotypes/json/#{phenotype.user_phenotypes.first.user_id}.json"
     assert_response :success
     data = JSON.parse(response.body)
     expect(data.keys).to include('user')
