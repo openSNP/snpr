@@ -26,7 +26,7 @@ describe 'phenotypes API' do
 
   # Get all phenotypes from a specific user(-ID)
   it 'get /phenotypes/json/:id.json' do
-    create(:phenotype_with_users)
+    phenotype = create(:phenotype_with_users)
     get "/phenotypes/json/#{phenotype.user_phenotypes.first.id}.json"
     assert_response :success
     data = JSON.parse(response.body)
