@@ -5,8 +5,11 @@ class GenotypesController < ApplicationController
 
   def index
     @title = "Listing all genotypings"
-    @genotypes = Genotype.order("#{sort_column} #{sort_direction}")
-    @genotypes_paginate = @genotypes.paginate(page: params[:page],per_page: 20)
+    @genotypes =
+      Genotype
+        .includes(:user)
+        .order("#{sort_column} #{sort_direction}")
+    @genotypes_paginate = @genotypes.paginate(page: params[:page], per_page: 20)
   end
 
   def new
