@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'phenotypes API' do
-
   # Get all phenotypes entered
   it 'GET /phenotypes returns list of phenotypes' do
     create_list(:phenotype, 3)
@@ -13,7 +12,7 @@ describe 'phenotypes API' do
 
   # Get all known variations and all users sharing that phenotype for one phenotype(-ID)
   it 'GET /phenotypes/json/variations/:id' do
-    phenotype = create(:phenotype_with_users)
+    create(:phenotype_with_users)
     get "/phenotypes/json/variations/#{Phenotype.first.id}.json"
     assert_response :success
     data = JSON.parse(response.body)
@@ -27,7 +26,7 @@ describe 'phenotypes API' do
 
   # Get all phenotypes from a specific user(-ID)
   it 'get /phenotypes/json/:id.json' do
-    phenotype = create(:phenotype_with_users)
+    create(:phenotype_with_users)
     get "/phenotypes/json/#{phenotype.user_phenotypes.first.id}.json"
     assert_response :success
     data = JSON.parse(response.body)
