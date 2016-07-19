@@ -7,7 +7,7 @@
     <br/>
     <div align="right">
       <% unless @user.fitbit_profile.nil? %>
-        <%= link_to(image_tag('fitbit-icon.png'), @user.fitbit_profile, :rel => 'tooltip', :title => 'See your Fitbit data') %>
+        <%=link_to(image_tag("fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See your Fitbit data")%>
       <% end %>
       <% current_user.achievements.each do |a|%>
         <a href='/achievements/<%= a.id %>' rel='tooltip' title='Achievement: <%= a.award %>'>
