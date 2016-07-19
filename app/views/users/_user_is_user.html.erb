@@ -11,7 +11,7 @@
       <% end %>
       <% current_user.achievements.each do |a|%>
         <a href='/achievements/<%= a.id %>' rel='tooltip' title='Achievement: <%= a.award %>'>
-          <%= image_tag('achievements/#{a.short_name}_32px.png', :height=> '20px', :alt => a.award) %>
+          <%= image_tag("achievements/#{a.short_name}_32px.png", :height=> '20px', :alt => a.award) %>
         </a>
       <% end %>
     </div>
