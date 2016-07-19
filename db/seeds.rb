@@ -27,3 +27,5 @@ if Achievement.all.length == 0
 	    ('Created 10 new phenotypes', '10addphen', '#{time.iso8601}', '#{time.iso8601}')
   SQL
 end
+
+load 'db/development_seeds.rb' if Rails.env.development?
