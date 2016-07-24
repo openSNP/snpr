@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-  before_filter :require_user, only: [ :new, :create, :get_genotypes,:recommend_phenotype ]
+  before_filter :require_user, only: %i(new create get_genotypes recommend_phenotype)
   helper_method :sort_column, :sort_direction
 
   def index

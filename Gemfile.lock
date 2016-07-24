@@ -92,6 +92,7 @@ GEM
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     codeclimate-test-reporter (0.6.0)
@@ -159,6 +160,8 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (2.7.1)
@@ -224,6 +227,10 @@ GEM
     plos (0.0.7)
       nokogiri
       rest-client
+    poltergeist (1.10.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     power_assert (0.3.0)
     powerpack (0.1.1)
     pry (0.10.3)
@@ -384,6 +391,9 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    websocket-driver (0.6.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (3.1.0)
@@ -415,6 +425,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   json
+  launchy
   lograge
   mediawiki-gateway
   mendeley!
@@ -425,6 +436,7 @@ DEPENDENCIES
   pg
   pg_search
   plos
+  poltergeist
   pry-rails
   rails (~> 4.2.0)
   rails3-generators
