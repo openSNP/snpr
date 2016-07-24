@@ -1,7 +1,7 @@
 RSpec.feature 'Not-yet-entered variations list', :js do
   let!(:user) { create(:user) }
   let!(:phenotype1) { create(:phenotype, characteristic: 'Eye count') }
-  let!(:phenotype2) { create(:phenotype, characteristic: 'tentacle count') }
+  let!(:phenotype2) { create(:phenotype, characteristic: 'Tentacle count') }
   let!(:phenotype3) { create(:phenotype, characteristic: 'Beard Color') }
 
   before do
