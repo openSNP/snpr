@@ -62,7 +62,7 @@ class PhenotypesController < ApplicationController
 
       @phenotype.save
       @phenotype = Phenotype.find_by(characteristic: params[:phenotype][:characteristic])
-      Sidekiq::Client.enqueue(Mailnewphenotype, @phenotype.id, current_user.id)
+      Mailnewphenotype.perform_async(@phenotype.id, current_user.id)
 
       if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id).nil?
 

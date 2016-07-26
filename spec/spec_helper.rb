@@ -55,12 +55,11 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  truncate = proc do
-    DatabaseCleaner.strategy = :truncation, { except: %w(achievements) }
+  config.before(:example) do |example|
+    if example.metadata[:js] || example.metadata[:truncate]
+      DatabaseCleaner.strategy = :truncation, { except: %w(achievements) }
+    end
   end
-
-  config.before(:example, truncate: true, &truncate)
-  config.before(:example, js: true, &truncate)
 
   config.before(:example) do
     DatabaseCleaner.start
@@ -77,7 +76,7 @@ RSpec.configure do |config|
       Sidekiq::Testing.fake!
     elsif example.metadata[:sidekiq] == :inline
       Sidekiq::Testing.inline!
-    elsif example.metadata[:type] == :acceptance
+    elsif example.metadata[:type] == :feature
       Sidekiq::Testing.inline!
     else
       Sidekiq::Testing.fake!
