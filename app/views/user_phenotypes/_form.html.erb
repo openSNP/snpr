@@ -10,13 +10,13 @@
     // hides the input-box when user has selected a radio-button
     $(document).ready(function() {
             $('input[type=radio]').click(function() { 
-                $('#phenotype_field').hide();
+                $('#user_phenotype_variation').hide();
                 $("label[for=user_phenotype_variation]").hide();
                 });
     });
     // Autocomplete for variations in the input-box
     $(function () {
-        $("#phenotype_field").autocomplete({
+        $("#user_phenotype_variation").autocomplete({
             source: <%=raw(@phenotype.known_phenotypes.to_json)%>
         });
     });
@@ -34,7 +34,7 @@ alert("hi");
 	
 	<div class="clearfix">
 	<div id="enter-order"><%= f.label :variation, "Enter your phenotype now:" %>&nbsp;
-	<%= f.text_field :variation, :id => "phenotype_field"%></div>
+	<%= f.text_field :variation %></div>
 	</div><br/>
 	<em>You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</em>
   <div class="row">

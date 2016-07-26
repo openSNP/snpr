@@ -28,8 +28,7 @@ RSpec.feature 'Phenotype recommendation' do
   scenario 'the user enters a new variation' do
     visit('/phenotypes')
     click_on('Eye count')
-    # fill_in('Enter your phenotype now', with: '10') # TODO: Make this work
-    fill_in('user_phenotype[variation]', with: '10')
+    fill_in('Enter your phenotype now', with: '10') # TODO: Make this work
     click_on('Submit your variation')
 
     expect(page).to have_content('Similar Variations')
