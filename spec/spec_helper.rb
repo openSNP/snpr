@@ -63,6 +63,7 @@ RSpec.configure do |config|
 
   config.before(:example) do
     DatabaseCleaner.start
+    ActionMailer::Base.deliveries.clear
   end
 
   config.after(:example) do
