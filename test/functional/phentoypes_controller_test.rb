@@ -74,10 +74,8 @@ class PhenotypesControllerTest < ActionController::TestCase
       end
 
       should "create them" do
-        Sidekiq::Client.expects(:enqueue).with do |worker, phenotype_id, user_id|
-          worker == Mailnewphenotype &&
-            phenotype_id.is_a?(Fixnum) &&
-            user_id == @other_user.id
+        Mailnewphenotype.expects(:perform_async).with do |phenotype_id, user_id|
+          phenotype_id.is_a?(Fixnum) && user_id == @other_user.id
         end
         FactoryGirl.create(:achievement, award: "Created a new phenotype")
         assert_difference 'Phenotype.count' do
