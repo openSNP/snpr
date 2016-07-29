@@ -15,13 +15,20 @@ RSpec.feature 'Entering new phenotypes' do
     fill_in('Description', with: 'How many eyes do you have?')
     fill_in('Variation', with: 10)
     click_on('Create Phenotype')
+
     expect(page.current_path).to eq("/users/#{user.id}")
+
     phenotype = Phenotype.find_by(characteristic: 'Eye count')
     expect(phenotype).to be_present
     expect(phenotype.number_of_users).to eq(1)
+
     expect(UserPhenotype.find_by(phenotype: phenotype, user: user).variation).to eq('10')
+
+    user.reload
+    expect(user.phenotype_creation_counter).to eq(1)
     expect(user.achievements.map(&:award))
       .to match_array(['Created a new phenotype', 'Entered first phenotype'])
+
     expect(ActionMailer::Base.deliveries.count).to eq(1)
     expect(ActionMailer::Base.deliveries.first.body.parts.first.body.raw_source)
       .to include((<<-TXT).strip_heredoc.gsub(/ +/, ' '))
