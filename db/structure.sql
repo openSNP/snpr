@@ -749,7 +749,6 @@ CREATE TABLE phenotypes (
     id integer NOT NULL,
     characteristic character varying(255),
     known_phenotypes text,
-    number_of_users integer DEFAULT 0,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     description text
@@ -1156,7 +1155,6 @@ CREATE TABLE users (
     description text,
     finished_snp_parsing boolean DEFAULT false,
     phenotype_creation_counter integer DEFAULT 0,
-    phenotype_additional_counter integer DEFAULT 0,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     avatar_file_name character varying(255),
@@ -1972,4 +1970,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151119070640');
 INSERT INTO schema_migrations (version) VALUES ('20160207043305');
 
 INSERT INTO schema_migrations (version) VALUES ('20160626121340');
+
+INSERT INTO schema_migrations (version) VALUES ('20160806143618');
 

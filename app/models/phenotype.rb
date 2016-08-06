@@ -17,5 +17,9 @@ class Phenotype < ActiveRecord::Base
     end
     @known_phenotypes
   end
+
+  def number_of_users
+    user_phenotypes.count
+  end
 end
 
