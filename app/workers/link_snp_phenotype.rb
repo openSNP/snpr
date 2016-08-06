@@ -8,12 +8,14 @@ class LinkSnpPhenotype
     @snp = Snp.find(snp_id)
     @characteristics = Phenotype.all.map { |x| x.characteristic }
     @papers_count = 0
+
+    @snp.update_column(:phenotype_updated, Time.current)
     score_phenotype snp
   end
 
   def score_phenotype(snp)
-    plos = score_paper(:plos_papers, 2.0)
     snpedia = score_paper(:snpedia_papers, 5.0)
+    plos = score_paper(:plos_papers, 2.0)
     pgp = score_paper(:pgp_annotations, 2.0)
     genomegov = score_paper(:genome_gov_papers, 2.0)
     mendeley = score_paper(:mendeley_papers, 1.0)
