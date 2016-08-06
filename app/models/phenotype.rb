@@ -16,12 +16,10 @@ class Phenotype < ActiveRecord::Base
   end
 
   def known_phenotypes
-    if @known_phenotypes.nil?
-      @known_phenotypes = user_phenotypes.pluck(:variation).map(&:capitalize)
-      @known_phenotypes.uniq!
-      @known_phenotypes.compact
-    end
-    @known_phenotypes
+    user_phenotypes
+      .pluck(:variation)
+      .map(&:capitalize)
+      .uniq
   end
 
   def self.with_number_of_users
