@@ -966,7 +966,7 @@ C: 0
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_snps_count integer,
-    phenotype_updated timestamp without time zone
+    phenotype_updated timestamp without time zone DEFAULT '2016-07-03 05:59:03.209067'::timestamp without time zone
 );
 
 
