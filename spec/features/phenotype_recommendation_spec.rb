@@ -32,23 +32,23 @@ RSpec.feature 'Phenotype recommendation' do
     click_on('Submit your variation')
 
     expect(page).to have_content('Similar Variations')
-    expect(page).to have_content((<<-TXT).strip_heredoc)
+    expect(page).to have_content(<<-TXT.strip_heredoc)
       You have just entered that 10 is your variation for the phenotype Eye \
       count. Below you can find 2 phenotypes and the answers which are \
       most-often entered by users who also gave 10 as their variation for Eye \
       count.
     TXT
-    expect(page).to have_content((<<-TXT).strip_heredoc)
+    expect(page).to have_content(<<-TXT.strip_heredoc)
       Tentacle count Users with phenotypic variation similar to yours often \
       gave 1000 as variation for this phenotype. What about you?
     TXT
-    expect(page).to have_content((<<-TXT).strip_heredoc)
+    expect(page).to have_content(<<-TXT.strip_heredoc)
       Beard color Users with phenotypic variation similar to yours often gave \
       red as variation for this phenotype. What about you?
     TXT
 
     expect(page).to have_content('Similar Phenotypes')
-    expect(page).to have_content((<<-TXT).strip_heredoc)
+    expect(page).to have_content(<<-TXT.strip_heredoc)
       Below you can find 2 phenotypes which are often entered by users who \
       provided us with any information about Eye count.
     TXT
