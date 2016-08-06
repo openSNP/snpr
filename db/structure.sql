@@ -965,7 +965,8 @@ C: 0
     snpedia_updated timestamp without time zone DEFAULT '2016-04-02 04:57:39.500062'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_snps_count integer
+    user_snps_count integer,
+    phenotype_updated timestamp without time zone
 );
 
 
@@ -1983,4 +1984,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151119070640');
 INSERT INTO schema_migrations (version) VALUES ('20160207043305');
 
 INSERT INTO schema_migrations (version) VALUES ('20160515212622');
+
+INSERT INTO schema_migrations (version) VALUES ('20160517034748');
 

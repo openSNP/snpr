@@ -51,7 +51,7 @@ class Snp < ActiveRecord::Base
 
     Snp.select([:id, :phenotype_updated]).where(phenotype_updated < max_age)
        .find_each do |snp|
-      Sidekiq::Client.enqueue(SnpToPhenotype, snp.id)
+      Sidekiq::Client.enqueue(LinkSnpPhenotype, snp.id)
     end
   end
 
