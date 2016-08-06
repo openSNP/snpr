@@ -11,10 +11,16 @@ RSpec.feature 'Entering new phenotypes' do
   scenario 'the user enters a new phenotype' do
     visit('/phenotypes')
     click_on('Add a new one!')
+
     fill_in('Characteristic', with: 'Eye count')
     fill_in('Description', with: 'How many eyes do you have?')
     fill_in('Variation', with: 10)
     click_on('Create Phenotype')
+
+    expect(page).to have_content('Phenotype successfully created.')
+    expect(page).to have_content(
+      "Congratulations! You've unlocked an achievement: Entered first phenotype"
+    )
 
     expect(page.current_path).to eq("/users/#{user.id}")
 
@@ -46,5 +52,11 @@ RSpec.feature 'Entering new phenotypes' do
         setting. To change your notification settings, you can visit \
         http://opensnp.org/users/#{other_user.id}/edit#notifications
       TXT
+  end
+
+  scenario 'with missing fields' do
+    visit('/phenotypes/new')
+    click_on('Create Phenotype')
+    expect(page).not_to have_content('Congratulations!')
   end
 end

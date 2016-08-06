@@ -5,9 +5,15 @@ class Phenotype < ActiveRecord::Base
   has_many :phenotype_comments, dependent: :destroy
   has_and_belongs_to_many :phenotype_sets
 
-  validates_presence_of :characteristic
+  validates :characteristic, presence: true
+
+  accepts_nested_attributes_for :user_phenotypes
 
   pg_search_common_scope against: :characteristic
+
+  def number_of_users
+    user_phenotypes.count
+  end
 
   def known_phenotypes
     if @known_phenotypes.nil?

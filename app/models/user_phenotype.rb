@@ -3,7 +3,10 @@ class UserPhenotype < ActiveRecord::Base
 
   belongs_to :phenotype
   belongs_to :user
-  validates_presence_of :variation
+  validates :variation, presence: true
+  validates :user, presence: true
+  validates_uniqueness_of :phenotype, scope: :user
+
   pg_search_common_scope against: :variation
 
   def give_me_user_phenotype(phenotype_id, user_id)
