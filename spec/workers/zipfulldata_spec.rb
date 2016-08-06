@@ -2,7 +2,7 @@ describe Zipfulldata do
   let(:user) { create(:user) }
   let(:phenotype) { create(:phenotype, characteristic: "jump height") }
   let!(:user_phenotype) do
-    create(:user_phenotype, phenotype_id: phenotype.id, variation: "1km", user: user)
+    create(:user_phenotype, phenotype_id: phenotype.id, variation: '1km', user: user)
   end
   let(:genotype) do
     create(:genotype, user_id: user.id,

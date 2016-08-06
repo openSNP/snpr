@@ -55,22 +55,22 @@ class PhenotypesController < ApplicationController
         current_user.phenotype_creation_counter += 1
         current_user.save!
 
-        check_and_award_new_phenotypes(1, "Created a new phenotype")
-        check_and_award_new_phenotypes(5, "Created 5 new phenotypes")
-        check_and_award_new_phenotypes(10, "Created 10 new phenotypes")
+        check_and_award_new_phenotypes(1, 'Created a new phenotype')
+        check_and_award_new_phenotypes(5, 'Created 5 new phenotypes')
+        check_and_award_new_phenotypes(10, 'Created 10 new phenotypes')
 
         Mailnewphenotype.perform_async(@phenotype.id, current_user.id)
       end
 
       # check for additional phenotype awards
-      check_and_award_additional_phenotypes(1, "Entered first phenotype")
-      check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
-      check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
-      check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
-      check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
-      check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
+      check_and_award_additional_phenotypes(1, 'Entered first phenotype')
+      check_and_award_additional_phenotypes(5, 'Entered 5 additional phenotypes')
+      check_and_award_additional_phenotypes(10, 'Entered 10 additional phenotypes')
+      check_and_award_additional_phenotypes(20, 'Entered 20 additional phenotypes')
+      check_and_award_additional_phenotypes(50, 'Entered 50 additional phenotypes')
+      check_and_award_additional_phenotypes(100, 'Entered 100 additional phenotypes')
 
-      flash[:notice] = "Phenotype successfully created."
+      flash[:notice] = 'Phenotype successfully created.'
 
       redirect_to current_user
     else
