@@ -673,6 +673,39 @@ CREATE TABLE phenotype_sets_phenotypes (
 
 
 --
+-- Name: phenotype_snps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE phenotype_snps (
+    id integer NOT NULL,
+    snp_id integer,
+    phenotype_id integer,
+    score double precision,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: phenotype_snps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE phenotype_snps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: phenotype_snps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE phenotype_snps_id_seq OWNED BY phenotype_snps.id;
+
+
+--
 -- Name: phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -932,7 +965,8 @@ C: 0
     snpedia_updated timestamp without time zone DEFAULT '2016-04-02 04:57:39.500062'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_snps_count integer
+    user_snps_count integer,
+    phenotype_updated timestamp without time zone DEFAULT '2016-07-03 07:11:29.671457'::timestamp without time zone
 );
 
 
@@ -1271,6 +1305,13 @@ ALTER TABLE ONLY phenotype_sets ALTER COLUMN id SET DEFAULT nextval('phenotype_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY phenotype_snps ALTER COLUMN id SET DEFAULT nextval('phenotype_snps_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY phenotypes ALTER COLUMN id SET DEFAULT nextval('phenotypes_id_seq'::regclass);
 
 
@@ -1488,6 +1529,14 @@ ALTER TABLE ONLY phenotype_sets
 
 
 --
+-- Name: phenotype_snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY phenotype_snps
+    ADD CONSTRAINT phenotype_snps_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1637,6 +1686,13 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING 
 --
 
 CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
+
+
+--
+-- Name: index_phenotype_snps_on_snp_id_and_phenotype_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_phenotype_snps_on_snp_id_and_phenotype_id ON phenotype_snps USING btree (snp_id, phenotype_id);
 
 
 --
@@ -1933,4 +1989,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151028130755');
 INSERT INTO schema_migrations (version) VALUES ('20151119070640');
 
 INSERT INTO schema_migrations (version) VALUES ('20160207043305');
+
+INSERT INTO schema_migrations (version) VALUES ('20160515212622');
+
+INSERT INTO schema_migrations (version) VALUES ('20160517034748');
 
