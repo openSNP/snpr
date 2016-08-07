@@ -32,8 +32,6 @@ class UserPicturePhenotypesController < ApplicationController
     @phenotype = @user_phenotype.picture_phenotype
     if @user_phenotype.user_id == current_user.id
       @user_phenotype.delete()
-      @phenotype.number_of_users = @phenotype.user_picture_phenotypes.length
-      @phenotype.save()
       redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Variation successfully deleted'
     else
       redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Whops, something went wrong!'
@@ -59,19 +57,13 @@ class UserPicturePhenotypesController < ApplicationController
       @phenotype = PicturePhenotype.find_by_id(params[:user_picture_phenotype][:picture_phenotype_id])
 
       if @user_phenotype.save
-
         #check for new achievements
-        current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
         check_and_award_additional_phenotypes(1, "Entered first phenotype")
         check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
         check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
         check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
         check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
         check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
-
-
-        @phenotype.number_of_users = UserPicturePhenotype.where(picture_phenotype_id: @phenotype.id).count
-        @phenotype.save
 
         if @js_modal == true
           redirect_to "/users/"+current_user.id.to_s
@@ -96,7 +88,7 @@ class UserPicturePhenotypesController < ApplicationController
   end
 
   def check_and_award_additional_phenotypes(amount, achievement_string)
-    if current_user.phenotype_additional_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
+    if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
       UserAchievement.create(:user_id => current_user.id, :achievement_id => Achievement.find_by_award(achievement_string).id)
     end
   end

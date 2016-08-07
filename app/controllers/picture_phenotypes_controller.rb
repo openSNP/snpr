@@ -12,7 +12,7 @@ class PicturePhenotypesController < ApplicationController
     #  @phenotype["id"] = p.id
     #  @phenotype["characteristic"] = p.characteristic
     #  @phenotype["known_variations"] = p.known_phenotypes
-    #  @phenotype["number_of_users"] = p.user_phenotypes.length
+    #  @phenotype["number_of_users"] = p.number_of_users
     #  @phenotypes_json << @phenotype
     #end
     respond_to do |format|
@@ -62,13 +62,9 @@ class PicturePhenotypesController < ApplicationController
         @user_phenotype.picture_phenotype = @phenotype
 
         if @user_phenotype.save
-          @phenotype.number_of_users = UserPicturePhenotype.where(picture_phenotype_id: @phenotype.id).count
-          @phenotype.save
           flash[:notice] = "Picture Phenotype sucessfully saved."
 
           # check for additional phenotype awards
-          current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
-
           check_and_award_additional_phenotypes(1, "Entered first phenotype")
           check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
           check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
@@ -87,7 +83,6 @@ class PicturePhenotypesController < ApplicationController
       end
     end
   end
-
 
   def show
     #@phenotypes = Phenotype.where(:user_id => current_user.id).all
@@ -151,7 +146,7 @@ class PicturePhenotypesController < ApplicationController
 
   def check_and_award_additional_phenotypes(amount, achievement_string)
     @achievement = Achievement.find_by_award(achievement_string)
-    if current_user.phenotype_additional_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
+    if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
       UserAchievement.create(:user_id => current_user.id, :achievement_id => @achievement.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end

@@ -27,7 +27,6 @@ class PhenotypeSetsController < ApplicationController
         end
         @user_phenotype.variation = up["variation"]
         @user_phenotype.save
-        @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
         @phenotype.save
       end
     end

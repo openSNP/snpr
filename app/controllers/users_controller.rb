@@ -137,11 +137,6 @@ class UsersController < ApplicationController
       params[:user][:user_phenotypes_attributes].each do |p|  
         @phenotype = UserPhenotype.find(p[1]["id"]).phenotype
         @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
-        # TODO: known_phenotypes compare different now
-        if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
-          @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
-          @phenotype.save
-        end
       end
     end
 
@@ -184,7 +179,7 @@ class UsersController < ApplicationController
     @phenotype = Phenotype.find_by_characteristic(characteristic)
     if @phenotype == nil
       # createphenotype if it doesn't exist
-      @phenotype = Phenotype.create(:characteristic => characteristic, :number_of_users => 1)
+      @phenotype = Phenotype.create(characteristic: characteristic)
     end
     @user_phenotype = UserPhenotype.find_by_phenotype_id(@phenotype.id)
     if @user_phenotype == nil

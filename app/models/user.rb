@@ -107,4 +107,7 @@ class User < ActiveRecord::Base
     !help_one || !help_two || !help_three
   end
 
+  def phenotype_count
+    user_phenotypes.count
+  end
 end
