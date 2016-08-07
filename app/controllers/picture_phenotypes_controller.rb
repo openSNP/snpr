@@ -12,7 +12,7 @@ class PicturePhenotypesController < ApplicationController
     #  @phenotype["id"] = p.id
     #  @phenotype["characteristic"] = p.characteristic
     #  @phenotype["known_variations"] = p.known_phenotypes
-    #  @phenotype["number_of_users"] = p.user_phenotypes.length
+    #  @phenotype["number_of_users"] = p.number_of_users
     #  @phenotypes_json << @phenotype
     #end
     respond_to do |format|

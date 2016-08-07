@@ -21,7 +21,7 @@ class PhenotypesController < ApplicationController
               id: p.id,
               characteristic: p.characteristic,
               known_variations: p.known_phenotypes,
-              number_of_users: p.user_phenotypes.count
+              number_of_users: p.number_of_users
             }
           end
         render :json => phenotypes_json
