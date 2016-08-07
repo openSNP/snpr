@@ -7,6 +7,8 @@ class CreateJoinTablePhenotypeSnp < ActiveRecord::Migration
       t.float :score
       t.timestamps
     end
+
+    add_index :phenotype_snps, [:snp_id, :phenotype_id], :unique => true
   end
 
   def self.down
