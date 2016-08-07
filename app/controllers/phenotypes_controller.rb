@@ -4,9 +4,9 @@ class PhenotypesController < ApplicationController
 
   def index
     @title = 'Listing all phenotypes'
-
     @phenotypes = Phenotype
-      .order(sort_column + ' ' + sort_direction)
+      .with_number_of_users
+      .order("#{sort_column} #{sort_direction}")
       .includes(:user_phenotypes)
 
     @phenotypes_paginate = @phenotypes.paginate(page: params[:page], per_page: 10)
