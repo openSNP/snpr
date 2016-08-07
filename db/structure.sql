@@ -680,7 +680,7 @@ CREATE TABLE phenotype_snps (
     id integer NOT NULL,
     snp_id integer,
     phenotype_id integer,
-    score double precision,
+    score double precision DEFAULT 0.0,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -966,7 +966,7 @@ C: 0
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_snps_count integer,
-    phenotype_updated timestamp without time zone DEFAULT '2016-07-03 07:11:29.671457'::timestamp without time zone
+    phenotype_updated timestamp without time zone DEFAULT '2016-07-03 09:56:16.027106'::timestamp without time zone
 );
 
 
