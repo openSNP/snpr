@@ -107,7 +107,7 @@ RSpec.feature 'Entering new phenotypes' do
             "Congratulations! You've unlocked an achievement: Entered first phenotype"
           )
 
-          expect(page.current_path).to eq("/phenotypes")
+          expect(page.current_path).to eq('/phenotypes')
 
           expect(Phenotype.count).to eq(1)
           expect(UserPhenotype.count).to eq(1)
