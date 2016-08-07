@@ -4,7 +4,7 @@ class CreateJoinTablePhenotypeSnp < ActiveRecord::Migration
     create_table :phenotype_snps do |t|
       t.references :snp
       t.references :phenotype
-      t.float :score
+      t.float :score, :default => 0
       t.timestamps
     end
 
