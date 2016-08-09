@@ -4,7 +4,6 @@ class LinkSnpPhenotype
   attr_reader :snp, :characteristics, :papers_count
 
   def perform(snp_id)
-    # could possibly use the max_age limit here
     @snp = Snp.find(snp_id)
     @characteristics = Phenotype.all.map { |x| x.characteristic }
     @papers_count = 0
@@ -13,6 +12,8 @@ class LinkSnpPhenotype
     score_phenotype snp
   end
 
+  # Compute score corresponding to all references for a SNP and return top 10
+  # phenotypes sorted by score.
   def score_phenotype(snp)
     snpedia = score_paper(:snpedia_papers, 5.0)
     plos = score_paper(:plos_papers, 2.0)
@@ -36,6 +37,8 @@ class LinkSnpPhenotype
     end
   end
 
+  # Score each reference based on the number of phenotype keywords found in the
+  # metadata. The score for each count is received from the calling function.
   def score_paper(paper_type, weight)
     score = {}
 
