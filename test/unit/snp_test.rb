@@ -4,6 +4,7 @@ class SnpTest < ActiveSupport::TestCase
   context "Snp" do
     setup do
       @snp = FactoryGirl.create(:snp)
+      @phenotype = FactoryGirl.create(:phenotype)
     end
 
     context "papers" do
@@ -23,6 +24,22 @@ class SnpTest < ActiveSupport::TestCase
         Sidekiq::Client.expects(:enqueue).never
         Snp.update_papers
       end
+    end
+
+    context 'phenotypes' do
+      should 'be updated when older than 31 days' do
+        @snp.phenotype_updated = 32.days.ago
+        @snp.save
+        queue = sequence('queue')
+        Sidekiq::Client.expects(:enqueue).with(LinkSnpPhenotype, @snp.id).in_sequence(queue)
+        Snp.update_phenotypes
+      end
+
+      should 'have Phenotype objects' do
+        PhenotypeSnp.create :snp_id => @snp.id, :phenotype_id => @phenotype.id
+        assert_equal @phenotype, @snp.phenotypes.first
+      end
+
     end
 
     should 'sum up genotype frequencies' do
