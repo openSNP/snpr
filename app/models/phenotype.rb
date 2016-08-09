@@ -23,9 +23,12 @@ class Phenotype < ActiveRecord::Base
   end
 
   def self.with_number_of_users
-    select('phenotypes.*, count(user_phenotypes.*) as number_of_users')
-      .joins('LEFT JOIN user_phenotypes ON user_phenotypes.phenotype_id = phenotypes.id')
-      .group(1)
+    from(
+      select('phenotypes.*, count(user_phenotypes.*) as number_of_users')
+        .joins('LEFT JOIN user_phenotypes ON user_phenotypes.phenotype_id = phenotypes.id')
+        .group(1)
+        .as('phenotypes')
+    )
   end
 
   def number_of_users
