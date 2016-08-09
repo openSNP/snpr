@@ -1,6 +1,6 @@
 <legend>Create a new phenotype</legend> 
 <div class="row span6">
-  <%= form_for @phenotype  do |f| %>
+  <%= form_for @phenotype  do |phenotype_form| %>
     <%= render 'shared/error_messages', target: @phenotype %>
     <script type="text/javascript">
         $(function () {
@@ -10,16 +10,26 @@
         });
     </script>
 
-    <%= f.label :characteristic %> <%= f.text_field :characteristic %>
+    <%= phenotype_form.label :characteristic %>
+    <%= phenotype_form.text_field :characteristic %>
     <p class="help-block">Hair colour, Blood type, Skin colour etc. <br/>Please <b>enter only one phenotypic characteristic at once</b> and <b>make use of the auto-completion</b>, as this phenotype might be already in our database.</p>
 
-    <%= f.label :description %> <%= f.text_area :description, rows: 10%>
-    <p class="help-block">Give users some more details:<ul><li>What are different variations of this phenotype?</li><li>Why this phenotype is interesting?</li><li>Some links to web resources on the topic?</li></ul></p>
-        <%= fields_for @user_phenotype do |up| %>
-          <%= up.label :variation %> <%= up.text_field :variation %>
-          <p class="help-block">Blonde, 00, Caucasian etc.<br/><b>Only enter your variation</b> for this phenotype, don't list all possible answers (you can use the description for this). Again: <b>please use the auto-completion.</b></p>
+    <%= phenotype_form.label :description %> <%= phenotype_form.text_area :description, rows: 10%>
+    <p class="help-block">
+      Give users some more details:
+      <ul>
+        <li>What are different variations of this phenotype?</li>
+        <li>Why this phenotype is interesting?</li>
+        <li>Some links to web resources on the topic?</li>
+      </ul>
+    </p>
+    <%= phenotype_form.fields_for :user_phenotypes, UserPhenotype.new do |user_phenotype_fields| %>
+      <%= user_phenotype_fields.label :variation %>
+      <%= user_phenotype_fields.text_field :variation %>
+    <% end %>
+    <p class="help-block">
+      Blonde, 00, Caucasian etc.<br /><b>Only enter your variation</b> for this phenotype, don't list all possible answers (you can use the description for this). Again: <b>please use the auto-completion.</b>
+    </p>
+    <%= phenotype_form.submit class: "btn btn-primary" %>
   <% end %>
-
-  <%= f.submit class: "btn btn-primary" %>
-<% end %>
 </div>

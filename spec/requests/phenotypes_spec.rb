@@ -16,7 +16,7 @@ describe 'phenotypes API', focus: true do
     get "/phenotypes/json/variations/#{Phenotype.first.id}.json"
     assert_response :success
     data = JSON.parse(response.body)
-    %w{id characteristic description known_variations users}.each do |property|
+    %w(id characteristic description known_variations users).each do |property|
       expect(data.keys).to include(property)
     end
     expect(data['users']).to_not be_empty

@@ -9,6 +9,8 @@ module Authlogic
     def sign_in(user)
       visit '/signin'
 
+      expect(page).to have_content('Login')
+
       fill_in('Email', with: user.email)
       fill_in('Password', with: 'jeheim')
 

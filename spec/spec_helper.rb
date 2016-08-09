@@ -9,6 +9,8 @@ require 'sidekiq/testing'
 require 'factory_girl_rails'
 require 'pry-rails' unless ENV['CI']
 require 'authlogic/test_case'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -53,12 +55,15 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:example, truncate: true) do
-    DatabaseCleaner.strategy = :truncation, { except: %w(achievements) }
+  config.before(:example) do |example|
+    if example.metadata[:js] || example.metadata[:truncate]
+      DatabaseCleaner.strategy = :truncation, { except: %w(achievements) }
+    end
   end
 
   config.before(:example) do
     DatabaseCleaner.start
+    ActionMailer::Base.deliveries.clear
   end
 
   config.after(:example) do
@@ -72,7 +77,7 @@ RSpec.configure do |config|
       Sidekiq::Testing.fake!
     elsif example.metadata[:sidekiq] == :inline
       Sidekiq::Testing.inline!
-    elsif example.metadata[:type] == :acceptance
+    elsif example.metadata[:type] == :feature
       Sidekiq::Testing.inline!
     else
       Sidekiq::Testing.fake!

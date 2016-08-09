@@ -1,5 +1,5 @@
 class PhenotypesController < ApplicationController
-  before_filter :require_user, only: [ :new, :create, :get_genotypes,:recommend_phenotype ]
+  before_filter :require_user, only: %i(new create get_genotypes recommend_phenotype)
   helper_method :sort_column, :sort_direction
 
   def index
@@ -44,52 +44,37 @@ class PhenotypesController < ApplicationController
   end
 
   def create
-    unless @phenotype = Phenotype.find_by_characteristic(params[:phenotype][:characteristic])
-      @phenotype = Phenotype.create(phenotype_params)
-
-      # award: created one (or more) phenotypes
-      current_user.update_attributes(:phenotype_creation_counter => (current_user.phenotype_creation_counter + 1)  )
-
-      check_and_award_new_phenotypes(1, "Created a new phenotype")
-      check_and_award_new_phenotypes(5, "Created 5 new phenotypes")
-      check_and_award_new_phenotypes(10, "Created 10 new phenotypes")
+    @phenotype = Phenotype.find_or_initialize_by(phenotype_params.slice(:characteristic)) do |p|
+      p.assign_attributes(phenotype_params)
     end
+    new_phenotype = @phenotype.new_record?
+    @phenotype.user_phenotypes_attributes = user_phenotype_params
 
-    if params[:phenotype][:characteristic].blank?
-      flash[:warning] = "Phenotype characteristic may not be empty"
-      redirect_to :action => "new"
-    else
+    if @phenotype.save
+      if new_phenotype
+        current_user.phenotype_creation_counter += 1
+        current_user.save!
 
-      @phenotype.save
-      @phenotype = Phenotype.find_by(characteristic: params[:phenotype][:characteristic])
-      Sidekiq::Client.enqueue(Mailnewphenotype, @phenotype.id, current_user.id)
+        check_and_award_new_phenotypes(1, 'Created a new phenotype')
+        check_and_award_new_phenotypes(5, 'Created 5 new phenotypes')
+        check_and_award_new_phenotypes(10, 'Created 10 new phenotypes')
 
-      if UserPhenotype.find_by_phenotype_id_and_user_id(@phenotype.id,current_user.id).nil?
-
-        @user_phenotype = current_user.user_phenotypes.new(
-          variation: params[:user_phenotype][:variation])
-        @user_phenotype.phenotype = @phenotype
-
-        if @user_phenotype.save
-          flash[:notice] = "Phenotype sucessfully saved."
-
-          # check for additional phenotype awards
-          check_and_award_additional_phenotypes(1, "Entered first phenotype")
-          check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
-          check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
-          check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
-          check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
-          check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
-
-          redirect_to current_user
-        else
-          flash[:warning] = "Something went wrong in creating the phenotype"
-          redirect_to :action => "new"
-        end
-      else
-        flash[:warning] = "You have already entered your variation at this phenotype"
-        redirect_to :action => "new"
+        Mailnewphenotype.perform_async(@phenotype.id, current_user.id)
       end
+
+      # check for additional phenotype awards
+      check_and_award_additional_phenotypes(1, 'Entered first phenotype')
+      check_and_award_additional_phenotypes(5, 'Entered 5 additional phenotypes')
+      check_and_award_additional_phenotypes(10, 'Entered 10 additional phenotypes')
+      check_and_award_additional_phenotypes(20, 'Entered 20 additional phenotypes')
+      check_and_award_additional_phenotypes(50, 'Entered 50 additional phenotypes')
+      check_and_award_additional_phenotypes(100, 'Entered 100 additional phenotypes')
+
+      flash[:notice] = 'Phenotype successfully created.'
+
+      redirect_to current_user
+    else
+      render :new
     end
   end
 
@@ -309,5 +294,14 @@ class PhenotypesController < ApplicationController
 
   def phenotype_params
     params.require(:phenotype).permit(:description, :characteristic)
+  end
+
+  def user_phenotype_params
+    params
+      .require(:phenotype)
+      .permit(user_phenotypes_attributes: [[:variation]])
+      .require(:user_phenotypes_attributes)
+      .values
+      .map { |user_phenotype| user_phenotype.merge(user_id: current_user.id) }
   end
 end

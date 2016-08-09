@@ -1,5 +1,5 @@
-<%= form_for @user %>
-
-<%= fields_for current_user.phenotypes do |p| %>
-	<%= f.label :variation%>
+<%= form_for @phenotype |p| %>
+  <%= p.fields_for :user_phenotypes do |up| %>
+    <%= up.label :variation%>
+  <% end %>
 <% end %>

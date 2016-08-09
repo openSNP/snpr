@@ -70,6 +70,7 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
@@ -79,6 +80,7 @@ group :development, :test do
   gem 'uuidtools'
   gem 'pry-rails', require: 'pry' unless ENV['CI']
   gem 'factory_girl_rails'
+  gem 'launchy'
 end
 
 group :development do

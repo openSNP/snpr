@@ -1,9 +1,9 @@
 describe Zipfulldata do
+  let(:user) { create(:user) }
   let(:phenotype) { create(:phenotype, characteristic: "jump height") }
-  let(:user_phenotype) do
-    create(:user_phenotype, phenotype_id: phenotype.id, variation: "1km", user_id: nil)
+  let!(:user_phenotype) do
+    create(:user_phenotype, phenotype_id: phenotype.id, variation: '1km', user: user)
   end
-  let(:user) { create(:user, user_phenotypes: [user_phenotype]) }
   let(:genotype) do
     create(:genotype, user_id: user.id,
            genotype: File.open("#{Rails.root}/test/data/23andMe_test.csv"))
