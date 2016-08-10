@@ -27,6 +27,10 @@ class SnpTest < ActiveSupport::TestCase
     end
 
     context 'phenotypes' do
+      subject do
+        PhenotypeSnp.create :snp_id => @snp.id, :phenotype_id => @phenotype.id
+      end
+
       should 'be updated when older than 31 days' do
         @snp.phenotype_updated = 32.days.ago
         @snp.save
@@ -36,8 +40,11 @@ class SnpTest < ActiveSupport::TestCase
       end
 
       should 'have Phenotype objects' do
-        PhenotypeSnp.create :snp_id => @snp.id, :phenotype_id => @phenotype.id
         assert_equal @phenotype, @snp.phenotypes.first
+      end
+
+      should 'have less than or equal to ten phenotypes' do
+        assert @snp.phenotypes.length <= 10
       end
 
     end
