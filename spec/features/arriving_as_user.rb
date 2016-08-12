@@ -6,12 +6,11 @@ RSpec.describe 'Arriving as user' do
     double(:snpedia_paper, url: 'http://www.snpedia.com/index.php/Rs1234(A;C)',
                            summary: 'Green hair',
                            snp_variation: 'AC',
-                           created_at: Time.new(2016).to_s,
+                           created_at: '1969-07-20 20:17:40',
                            id: 1)
   end
 
   context 'as a signed-in user' do
-
     before do
       sign_in(user)
     end
@@ -26,5 +25,4 @@ RSpec.describe 'Arriving as user' do
       expect(page).to have_content('Received new data from Mendeley')
     end
   end
-
 end
