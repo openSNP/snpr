@@ -62,7 +62,7 @@ class Snp < ActiveRecord::Base
 
   def get_last_updated
     # Gets the paper that was last updated for this SNP
-    last_updated_time = Time.new 1970
+    last_updated_time = Time.new(1970)
     last_updated = nil
     %w(snpedia mendeley genome_gov plos).each do |source|
       klass = "#{source}_papers"
