@@ -75,7 +75,6 @@ class UsersController < ApplicationController
     @title = @user.name + "'s page"
     @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes
-    #@snps = @user.snps.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page])
     @received_messages = @user.messages.where(sent: false).order('created_at DESC')
     @sent_messages = @user.messages.where(:sent => true).order('created_at DESC')
     @phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
@@ -111,6 +110,9 @@ class UsersController < ApplicationController
     end
     @phenotype_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
     @paginated_phenotype_replies = @phenotype_comment_replies
+
+    # get the last 30 updated SNPs for this user
+    @last_updated_snps = @user.snps.order('updated_at desc').limit(30) unless @user.snps.nil?
 
     respond_to do |format|
       format.html

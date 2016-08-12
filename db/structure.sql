@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -128,7 +132,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: achievements; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE achievements (
@@ -160,7 +164,7 @@ ALTER SEQUENCE achievements_id_seq OWNED BY achievements.id;
 
 
 --
--- Name: active_admin_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: active_admin_comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE active_admin_comments (
@@ -196,7 +200,7 @@ ALTER SEQUENCE active_admin_comments_id_seq OWNED BY active_admin_comments.id;
 
 
 --
--- Name: admin_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_users (
@@ -236,7 +240,7 @@ ALTER SEQUENCE admin_users_id_seq OWNED BY admin_users.id;
 
 
 --
--- Name: file_links; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: file_links; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE file_links (
@@ -268,7 +272,7 @@ ALTER SEQUENCE file_links_id_seq OWNED BY file_links.id;
 
 
 --
--- Name: fitbit_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_activities; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE fitbit_activities (
@@ -302,7 +306,7 @@ ALTER SEQUENCE fitbit_activities_id_seq OWNED BY fitbit_activities.id;
 
 
 --
--- Name: fitbit_bodies; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_bodies; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE fitbit_bodies (
@@ -336,7 +340,7 @@ ALTER SEQUENCE fitbit_bodies_id_seq OWNED BY fitbit_bodies.id;
 
 
 --
--- Name: fitbit_profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE fitbit_profiles (
@@ -376,7 +380,7 @@ ALTER SEQUENCE fitbit_profiles_id_seq OWNED BY fitbit_profiles.id;
 
 
 --
--- Name: fitbit_sleeps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_sleeps; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE fitbit_sleeps (
@@ -412,7 +416,7 @@ ALTER SEQUENCE fitbit_sleeps_id_seq OWNED BY fitbit_sleeps.id;
 
 
 --
--- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE friendly_id_slugs (
@@ -444,7 +448,7 @@ ALTER SEQUENCE friendly_id_slugs_id_seq OWNED BY friendly_id_slugs.id;
 
 
 --
--- Name: genome_gov_papers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: genome_gov_papers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE genome_gov_papers (
@@ -483,7 +487,7 @@ ALTER SEQUENCE genome_gov_papers_id_seq OWNED BY genome_gov_papers.id;
 
 
 --
--- Name: genotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: genotypes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE genotypes (
@@ -520,7 +524,7 @@ ALTER SEQUENCE genotypes_id_seq OWNED BY genotypes.id;
 
 
 --
--- Name: homepages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: homepages; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE homepages (
@@ -553,7 +557,7 @@ ALTER SEQUENCE homepages_id_seq OWNED BY homepages.id;
 
 
 --
--- Name: mendeley_papers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: mendeley_papers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE mendeley_papers (
@@ -591,7 +595,7 @@ ALTER SEQUENCE mendeley_papers_id_seq OWNED BY mendeley_papers.id;
 
 
 --
--- Name: messages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: messages; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE messages (
@@ -628,7 +632,7 @@ ALTER SEQUENCE messages_id_seq OWNED BY messages.id;
 
 
 --
--- Name: pgp_annotations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: pgp_annotations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE pgp_annotations (
@@ -664,7 +668,7 @@ ALTER SEQUENCE pgp_annotations_id_seq OWNED BY pgp_annotations.id;
 
 
 --
--- Name: phenotype_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotype_comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE phenotype_comments (
@@ -699,7 +703,7 @@ ALTER SEQUENCE phenotype_comments_id_seq OWNED BY phenotype_comments.id;
 
 
 --
--- Name: phenotype_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotype_sets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE phenotype_sets (
@@ -732,7 +736,7 @@ ALTER SEQUENCE phenotype_sets_id_seq OWNED BY phenotype_sets.id;
 
 
 --
--- Name: phenotype_sets_phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotype_sets_phenotypes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE phenotype_sets_phenotypes (
@@ -742,7 +746,7 @@ CREATE TABLE phenotype_sets_phenotypes (
 
 
 --
--- Name: phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotypes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE phenotypes (
@@ -775,7 +779,7 @@ ALTER SEQUENCE phenotypes_id_seq OWNED BY phenotypes.id;
 
 
 --
--- Name: picture_phenotype_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: picture_phenotype_comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE picture_phenotype_comments (
@@ -810,7 +814,7 @@ ALTER SEQUENCE picture_phenotype_comments_id_seq OWNED BY picture_phenotype_comm
 
 
 --
--- Name: picture_phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: picture_phenotypes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE picture_phenotypes (
@@ -843,7 +847,7 @@ ALTER SEQUENCE picture_phenotypes_id_seq OWNED BY picture_phenotypes.id;
 
 
 --
--- Name: plos_papers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: plos_papers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE plos_papers (
@@ -878,7 +882,7 @@ ALTER SEQUENCE plos_papers_id_seq OWNED BY plos_papers.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -887,7 +891,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: snp_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: snp_comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE snp_comments (
@@ -922,7 +926,7 @@ ALTER SEQUENCE snp_comments_id_seq OWNED BY snp_comments.id;
 
 
 --
--- Name: snp_references; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: snp_references; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE snp_references (
@@ -933,7 +937,7 @@ CREATE TABLE snp_references (
 
 
 --
--- Name: snp_references_backup; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: snp_references_backup; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE snp_references_backup (
@@ -944,7 +948,7 @@ CREATE TABLE snp_references_backup (
 
 
 --
--- Name: snpedia_papers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: snpedia_papers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE snpedia_papers (
@@ -977,7 +981,7 @@ ALTER SEQUENCE snpedia_papers_id_seq OWNED BY snpedia_papers.id;
 
 
 --
--- Name: snps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: snps; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE snps (
@@ -1025,7 +1029,7 @@ ALTER SEQUENCE snps_id_seq OWNED BY snps.id;
 
 
 --
--- Name: user_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_achievements; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE user_achievements (
@@ -1057,7 +1061,7 @@ ALTER SEQUENCE user_achievements_id_seq OWNED BY user_achievements.id;
 
 
 --
--- Name: user_phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_phenotypes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE user_phenotypes (
@@ -1090,7 +1094,7 @@ ALTER SEQUENCE user_phenotypes_id_seq OWNED BY user_phenotypes.id;
 
 
 --
--- Name: user_picture_phenotypes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_picture_phenotypes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE user_picture_phenotypes (
@@ -1127,7 +1131,7 @@ ALTER SEQUENCE user_picture_phenotypes_id_seq OWNED BY user_picture_phenotypes.i
 
 
 --
--- Name: user_snps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_snps; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE user_snps (
@@ -1139,7 +1143,7 @@ WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -1390,7 +1394,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY achievements
@@ -1398,7 +1402,7 @@ ALTER TABLE ONLY achievements
 
 
 --
--- Name: admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY active_admin_comments
@@ -1406,7 +1410,7 @@ ALTER TABLE ONLY active_admin_comments
 
 
 --
--- Name: admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_users
@@ -1414,7 +1418,7 @@ ALTER TABLE ONLY admin_users
 
 
 --
--- Name: file_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: file_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY file_links
@@ -1422,7 +1426,7 @@ ALTER TABLE ONLY file_links
 
 
 --
--- Name: fitbit_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fitbit_activities
@@ -1430,7 +1434,7 @@ ALTER TABLE ONLY fitbit_activities
 
 
 --
--- Name: fitbit_bodies_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_bodies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fitbit_bodies
@@ -1438,7 +1442,7 @@ ALTER TABLE ONLY fitbit_bodies
 
 
 --
--- Name: fitbit_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fitbit_profiles
@@ -1446,7 +1450,7 @@ ALTER TABLE ONLY fitbit_profiles
 
 
 --
--- Name: fitbit_sleeps_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fitbit_sleeps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fitbit_sleeps
@@ -1454,7 +1458,7 @@ ALTER TABLE ONLY fitbit_sleeps
 
 
 --
--- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY friendly_id_slugs
@@ -1462,7 +1466,7 @@ ALTER TABLE ONLY friendly_id_slugs
 
 
 --
--- Name: genome_gov_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: genome_gov_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY genome_gov_papers
@@ -1470,7 +1474,7 @@ ALTER TABLE ONLY genome_gov_papers
 
 
 --
--- Name: genotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: genotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY genotypes
@@ -1478,7 +1482,7 @@ ALTER TABLE ONLY genotypes
 
 
 --
--- Name: homepages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: homepages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY homepages
@@ -1486,7 +1490,7 @@ ALTER TABLE ONLY homepages
 
 
 --
--- Name: mendeley_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: mendeley_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY mendeley_papers
@@ -1494,7 +1498,7 @@ ALTER TABLE ONLY mendeley_papers
 
 
 --
--- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY messages
@@ -1502,7 +1506,7 @@ ALTER TABLE ONLY messages
 
 
 --
--- Name: pgp_annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pgp_annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pgp_annotations
@@ -1510,7 +1514,7 @@ ALTER TABLE ONLY pgp_annotations
 
 
 --
--- Name: phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phenotype_comments
@@ -1518,7 +1522,7 @@ ALTER TABLE ONLY phenotype_comments
 
 
 --
--- Name: phenotype_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotype_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phenotype_sets
@@ -1526,7 +1530,7 @@ ALTER TABLE ONLY phenotype_sets
 
 
 --
--- Name: phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phenotypes
@@ -1534,7 +1538,7 @@ ALTER TABLE ONLY phenotypes
 
 
 --
--- Name: picture_phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: picture_phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY picture_phenotype_comments
@@ -1542,7 +1546,7 @@ ALTER TABLE ONLY picture_phenotype_comments
 
 
 --
--- Name: picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY picture_phenotypes
@@ -1550,7 +1554,7 @@ ALTER TABLE ONLY picture_phenotypes
 
 
 --
--- Name: plos_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: plos_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY plos_papers
@@ -1558,7 +1562,7 @@ ALTER TABLE ONLY plos_papers
 
 
 --
--- Name: snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snp_comments
@@ -1566,7 +1570,7 @@ ALTER TABLE ONLY snp_comments
 
 
 --
--- Name: snpedia_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: snpedia_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snpedia_papers
@@ -1574,7 +1578,7 @@ ALTER TABLE ONLY snpedia_papers
 
 
 --
--- Name: snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snps
@@ -1582,7 +1586,7 @@ ALTER TABLE ONLY snps
 
 
 --
--- Name: user_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_achievements
@@ -1590,7 +1594,7 @@ ALTER TABLE ONLY user_achievements
 
 
 --
--- Name: user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_phenotypes
@@ -1598,7 +1602,7 @@ ALTER TABLE ONLY user_phenotypes
 
 
 --
--- Name: user_picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_picture_phenotypes
@@ -1606,7 +1610,7 @@ ALTER TABLE ONLY user_picture_phenotypes
 
 
 --
--- Name: user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_snps
@@ -1614,7 +1618,7 @@ ALTER TABLE ONLY user_snps
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -1622,140 +1626,140 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: idx_user_snps_snp_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_user_snps_snp_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_user_snps_snp_name ON user_snps USING btree (snp_name);
 
 
 --
--- Name: index_active_admin_comments_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_active_admin_comments_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_active_admin_comments_on_author_type_and_author_id ON active_admin_comments USING btree (author_type, author_id);
 
 
 --
--- Name: index_active_admin_comments_on_namespace; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_active_admin_comments_on_namespace; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_active_admin_comments_on_namespace ON active_admin_comments USING btree (namespace);
 
 
 --
--- Name: index_admin_notes_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admin_notes_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_admin_notes_on_resource_type_and_resource_id ON active_admin_comments USING btree (resource_type, resource_id);
 
 
 --
--- Name: index_admin_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admin_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admin_users_on_email ON admin_users USING btree (email);
 
 
 --
--- Name: index_admin_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admin_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admin_users_on_reset_password_token ON admin_users USING btree (reset_password_token);
 
 
 --
--- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON friendly_id_slugs USING btree (slug, sluggable_type);
 
 
 --
--- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING btree (sluggable_id);
 
 
 --
--- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
 
 
 --
--- Name: index_snp_references_backup_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snp_references_backup_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_snp_references_backup_on_paper_id_and_paper_type ON snp_references_backup USING btree (paper_id, paper_type);
 
 
 --
--- Name: index_snp_references_backup_on_snp_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snp_references_backup_on_snp_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_snp_references_backup_on_snp_id ON snp_references_backup USING btree (snp_id);
 
 
 --
--- Name: index_snp_references_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snp_references_on_paper_id_and_paper_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_snp_references_on_paper_id_and_paper_type ON snp_references USING btree (paper_id, paper_type);
 
 
 --
--- Name: index_snp_references_on_snp_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snp_references_on_snp_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_snp_references_on_snp_id ON snp_references USING btree (snp_id);
 
 
 --
--- Name: index_snps_chromosome_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snps_chromosome_position; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_snps_chromosome_position ON snps USING btree (chromosome, "position");
 
 
 --
--- Name: index_snps_on_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snps_on_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_snps_on_id ON snps USING btree (id);
 
 
 --
--- Name: index_snps_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snps_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_snps_on_name ON snps USING btree (name);
 
 
 --
--- Name: index_snps_ranking; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_snps_ranking; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_snps_ranking ON snps USING btree (ranking);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_persistence_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_persistence_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_persistence_token ON users USING btree (persistence_token);
 
 
 --
--- Name: snps_position_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: snps_position_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX snps_position_idx ON snps USING btree ("position");
@@ -1837,7 +1841,7 @@ ALTER TABLE ONLY user_snps
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20110608000645');
 

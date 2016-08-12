@@ -59,4 +59,19 @@ class Snp < ActiveRecord::Base
   def total_alleles
     allele_frequency.values.sum
   end
+
+  def get_last_updated
+    # Gets the paper that was last updated for this SNP
+    last_updated_time = Time.new 1970
+    last_updated = nil
+    %w(snpedia mendeley genome_gov plos).each do |source|
+      klass = "#{source}_papers"
+      klass_last = self.send(klass).last
+      if !klass_last.nil? && klass_last.last_updated > last_updated_time
+        last_updated_time = klass_last.last_updated
+        last_updated = source.capitalize
+      end
+    end
+    last_updated
+  end
 end
