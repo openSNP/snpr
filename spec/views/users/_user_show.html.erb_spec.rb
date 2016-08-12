@@ -3,7 +3,7 @@ RSpec.describe 'users/show' do
     double(:snpedia_paper, url: 'http://www.snpedia.com/index.php/Rs1234(A;C)',
                            summary: 'Green hair',
                            snp_variation: 'AC',
-                           created_at: "#{Time.new 2016}" )
+                           created_at: Time.new(2016).to_s)
   end
   let(:snp) { double('snp', name: 'rs1234', snpedia_papers: [snpedia_paper]) }
 
