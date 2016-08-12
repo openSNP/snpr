@@ -82,7 +82,6 @@
             <th>SNP</th>
             <th>Ranking</th>
             <th>Updated</th>
-            <th>Updated on</th>
           </tr>
         </thead>
           <% @last_updated_snps.each do |snp| %>
@@ -90,8 +89,7 @@
             <tr>
               <td><%= link_to snp.name, snp %></td>
               <td><%= snp.ranking %></td>
-              <td>Received new data from <%= snp.get_last_updated %>!</td>
-              <td><%= snp.updated_at %></td>
+              <td>Received new data from <%= snp.get_last_updated %> on <%= snp.updated_at.to_formatted_s(:short) %>!</td>
             </tr>
             </tbody>
           <% end %>

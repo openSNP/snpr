@@ -67,8 +67,8 @@ class Snp < ActiveRecord::Base
     %w(snpedia mendeley genome_gov plos).each do |source|
       klass = "#{source}_papers"
       klass_last = self.send(klass).last
-      if !klass_last.nil? && klass_last.last_updated > last_updated_time
-        last_updated_time = klass_last.last_updated
+      if !klass_last.nil? && klass_last.created_at > last_updated_time
+        last_updated_time = klass_last.created_at
         last_updated = source.capitalize
       end
     end
