@@ -86,7 +86,7 @@
                 <th>Updated</th>
             </tr>
             </thead>
-            <% @@last_30_papers.each do |paper| %>
+            <% @last_30_papers.each do |paper| %>
                 <tbody>
                 <tr>
                 <td><% paper.snps.each do |s| %><%= link_to s.name, s %> <% end %></td>
