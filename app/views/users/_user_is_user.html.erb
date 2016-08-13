@@ -76,24 +76,26 @@
       <h2>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new") %></h2>
     <% else %>
       <h4>Your 30 last updated SNPs</h4>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>SNP</th>
-            <th>Ranking</th>
-            <th>Updated</th>
-          </tr>
-        </thead>
-          <% @last_updated_snps.each do |snp| %>
-            <tbody>
+      <% if @last_30_papers.empty? %>
+          We're sorry, it seems that nothing has been recently updated for your SNPs.
+      <% else %>
+        <table class="table table-striped">
+            <thead>
             <tr>
-              <td><%= link_to snp.name, snp %></td>
-              <td><%= snp.ranking %></td>
-              <td>Received new data from <%= snp.get_last_updated %> on <%= snp.updated_at.to_formatted_s(:short) %>!</td>
+                <th>SNPs</th>
+                <th>Updated</th>
             </tr>
-            </tbody>
-          <% end %>
-      </table>
+            </thead>
+            <% @@last_30_papers.each do |paper| %>
+                <tbody>
+                <tr>
+                <td><% paper.snps.each do |s| %><%= link_to s.name, s %> <% end %></td>
+                <td>Received new data from <%= paper.class.to_s.gsub('Paper','') %> on <%= paper.updated_at.to_formatted_s(:short) %>!</td>
+                </tr>
+                </tbody>
+            <% end %>
+        </table>
+      <% end %>
     <% end %>
   </div>
 
