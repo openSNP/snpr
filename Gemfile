@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 4.2'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
