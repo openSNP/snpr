@@ -1,4 +1,4 @@
-<div class="col-md-4 well test-new-genotype__form">
+<div class="col-md-4 well new-genotype__form">
   <%= form_for(@genotype) do |f| %>
     <h3>Provide your genotyping file</h3>
     <small class="help-block">Zipped genotypings are fine too.</small>
@@ -45,6 +45,6 @@
     <%= f.submit "Upload", :class => "btn btn-primary"  %>
     <% end %>
   </div>
-  <div class="col-md-7 col-md-offset-1 well test-new-genotype__disclaimer">=
+  <div class="col-md-7 col-md-offset-1 well new-genotype__disclaimer">=
     <%=render "static/disclaimer"%>
   </div>

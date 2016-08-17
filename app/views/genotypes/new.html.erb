@@ -1,13 +1,13 @@
 <%= render 'shared/error_messages', :target => @genotype %>
-<div class="test-general__container container">
+<div class="general__container container">
   <div class="row">
-    <h3 class="test-general__title">Upload Genotyping file</h3>
+    <h3 class="general__title">Upload Genotyping file</h3>
     <%= render 'shared/warning' %>
   </div>
   <div class="row">
     <%= render 'form' %>
   </div>
   <div class="row">
-    <%= link_to "Back to your homepage", current_user, class: "btn btn-default test-new-genotype__back-home-button" %>
+    <%= link_to "Back to your homepage", current_user, class: "btn btn-default new-genotype__back-home-button" %>
   </div>
 </div>

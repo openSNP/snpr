@@ -1,6 +1,6 @@
-<div class="test-userpage__profile-informations row">
+<div class="userpage__profile-informations row">
 	<div class="col-md-8 col-xs-12">
-	<%= image_tag @user.avatar.url(:thumb), class: "hidden-xs pull-left test-userpage__profile-picture"%>
+	<%= image_tag @user.avatar.url(:thumb), class: "hidden-xs pull-left userpage__profile-picture"%>
 		<h3>
 			<%= @user.name %>'s page
 			<%if @user.fitbit_profile != nil%>
@@ -13,13 +13,13 @@
 		<% if @user.description != nil %>
 		<p><%= @user.description %> </p>
 		<% end %>
-		<%= link_to("Send "+ @first_name + " a message", {:controller => "messages", :action => "new"}, :user_to_send => @user.id, class: "btn btn-primary test-userpage__new-messages") %>
+		<%= link_to("Send "+ @first_name + " a message", {:controller => "messages", :action => "new"}, :user_to_send => @user.id, class: "btn btn-primary userpage__new-messages") %>
   </div>
 
 	<%if current_user%>
 	<div class="col-md-4 col-xs-12 clearfix">
 		<% if @user.homepages != [] %>
-		<div class="pull-left test-userpage__homepages">
+		<div class="pull-left userpage__homepages">
 			<% @user.homepages.each do |uh| %>
 			<% if uh.description != "" and uh.url != "" %>
 			<%= link_to uh.description, uh.url, :target => "_blank", class: "btn btn-default" %><br/>
@@ -27,7 +27,7 @@
 			<% end %>
 		</div>
 		<% end %>
-		<div class="pull-right test-userpage__achievements">
+		<div class="pull-right userpage__achievements">
 			<h3>Achievements</h3>
 			<% @user.achievements.each do |a|%>
 			<a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: 																		<%=a.award%>"><%=image_tag("achievements/"+a.short_name+"_32px.png",:height=>"25px",:alt => a.award)%></a>
@@ -45,7 +45,7 @@
 </ul>
 
 <div class="tab-content">
-	<div role="tabpanel" class="tab-pane active clearfix well tabs__one-tab test-settings__general" id="genotypes">
+	<div role="tabpanel" class="tab-pane active clearfix well tabs__one-tab settings__general" id="genotypes">
 		<h3 class="tabs__one-tab-title"><%=@first_name%>'s genotype</h3>
 		<% if @user.genotypes != [] %>
 		<h4><%= @first_name %> has uploaded genotyping rawdata.</h4>

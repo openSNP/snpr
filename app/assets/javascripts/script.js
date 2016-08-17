@@ -40,10 +40,10 @@
 
       var panelHeaderCallback = function (event) {
         event.preventDefault();
-        if ($(this).siblings('.test-faq__title-extend').text() === '+') {
-          $(this).siblings('.test-faq__title-extend').text('-');
-        } else if ($(this).siblings('.test-faq__title-extend').text() === '-') {
-          $(this).siblings('.test-faq__title-extend').text('+');
+        if ($(this).siblings('.faq__title-extend').text() === '+') {
+          $(this).siblings('.faq__title-extend').text('-');
+        } else if ($(this).siblings('.faq__title-extend').text() === '-') {
+          $(this).siblings('.faq__title-extend').text('+');
         }
       };
 

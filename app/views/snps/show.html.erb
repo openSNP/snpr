@@ -1,5 +1,5 @@
-<div class="test-general__container container">
-  <h3 class="test-general__title">SNP <%= @snp.name %></h3>
+<div class="general__container container">
+  <h3 class="general__title">SNP <%= @snp.name %></h3>
   <h5 class="text-center">Basic Information</h5>
   <div class="table-responsive">
     <table class="table">
@@ -43,9 +43,10 @@
         <%end%>
       </div>
 
-    <div class="col-md-3 test-snps__graphs">
+    <div class="col-md-3 snps__graphs">
       <h4 class="text-center">
-        <a href="#" data-toggle="tooltip" data-placement="left"  data-html="true" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">Genotype Frequency
+        <a href="#" data-toggle="tooltip" data-placement="left"  data-html="true" title="How the different genetic variation at this position is distributed over all <em>openSNP</em> users.">
+          Genotype Frequency
         </a>
       </h4>
       <% if @snp.total_genotypes != 0 %>
@@ -57,9 +58,10 @@
       <%end%>
     </div>
 
-    <div class="col-md-3 test-snps__graphs">
+    <div class="col-md-3 snps__graphs">
       <h4 class="text-center">
-        <a href="#" data-toggle="tooltip" data-placement="left"  data-html="true" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">Allele Frequency
+        <a href="#" data-toggle="tooltip" data-placement="left"  data-html="true" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">
+          Allele Frequency
         </a>
       </h4>
       <% if @snp.total_alleles != 0 %>
@@ -249,7 +251,7 @@
 
   </div>
 
-  <div class="well test-snps__genome-browser">
+  <div class="well snps__genome-browser">
     <h5 class="text-center">Genome Browser</h5>
     <script type="text/javascript">
     new Browser({

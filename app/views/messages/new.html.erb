@@ -1,17 +1,17 @@
 <%= render 'shared/error_messages', :target => @message %>
-<div class="test-general__container container">
+<div class="general__container container">
   <% if @answering %>
-  <h3 class="test-general__title">Answering:</h3>
-  <div class="well test-new-message__received-message">
+  <h3 class="general__title">Answering:</h3>
+  <div class="well new-message__received-message">
     <p><b>Subject: <%= @answering.subject %></b></p>
     <p><%= @answering.body %></p>
   </div>
   <%end%>
-  <h3 class="test-general__title">Compose Message</h3>
+  <h3 class="general__title">Compose Message</h3>
   <%= form_for @message do |f| %>
   <div class="form-group">
     <%= f.label :to_id, 'To' %>
-    <%= f.select(:to_id, @users.map { |user| [user.name, user.id] },{selected: params[:user_to_send]}, {class: "test-new-message__select-input"})  %>
+    <%= f.select(:to_id, @users.map { |user| [user.name, user.id] },{selected: params[:user_to_send]}, {class: "new-message__select-input"})  %>
   </div>
   <div class="form-group">
     <%= f.label :subject %>

@@ -1,16 +1,16 @@
 <% @comments.each do |c|%>
 
 <div id="<%="comment"+c.id.to_s%>">
-  <div class="test-comments__single-comment clearfix">
-    <div class="pull-left test-comments__comment-photo-div">
+  <div class="comments__single-comment clearfix">
+    <div class="pull-left comments__comment-photo-div">
       <%if c.user != nil%>
-      <%=image_tag c.user.avatar.url(:head), class: "test-comments__comment-photo"%>
+      <%=image_tag c.user.avatar.url(:head), class: "comments__comment-photo"%>
       <%end%>
     </div>
-    <div class="test-comments__comment-text-div clearfix">
-      <p class="test-comments__comment-username"><%if c.user != nil %><%= link_to c.user.name, c.user%><%else%>Deleted User<%end%></p>
-      <p class="test-comments__comment-subject"><%= c.subject %></p>
-      <small class="test-comments__comment-date"><%= c.created_at %></small>
+    <div class="comments__comment-text-div clearfix">
+      <p class="comments__comment-username"><%if c.user != nil %><%= link_to c.user.name, c.user%><%else%>Deleted User<%end%></p>
+      <p class="comments__comment-subject"><%= c.subject %></p>
+      <small class="comments__comment-date"><%= c.created_at %></small>
       <a href="#">
         <% if c.reply_to_id != -1 and c.reply_to_id != nil%>
         <%if PicturePhenotypeComment.find_by_id(c.reply_to_id).user%>
@@ -20,8 +20,8 @@
         <%end%>
         <% end %>
       </a>
-      <%= simple_format c.comment_text, class: "test-comments__comment-text" %>
-      <%=link_to "Reply", "#", class: "btn btn-default test-comments__comment-reply-button", id: "#{c.id.to_s}", data: {js: "picture-reply-button"}%>
+      <%= simple_format c.comment_text, class: "comments__comment-text" %>
+      <%=link_to "Reply", "#", class: "btn btn-default comments__comment-reply-button", id: "#{c.id.to_s}", data: {js: "picture-reply-button"}%>
     </div>
   </div>
 </div>

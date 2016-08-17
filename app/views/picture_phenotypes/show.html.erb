@@ -1,6 +1,6 @@
-<div class="test-general__container">
+<div class="general__container">
 
-  <h3 class="test-general__title">
+  <h3 class="general__title">
     Picture phenotype: <%= @phenotype.characteristic %> <%=link_to(image_tag("rss.png"),:action =>"feed")%>
   </h3>
   <%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>

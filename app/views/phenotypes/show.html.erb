@@ -1,5 +1,5 @@
-<div class="test-general__container">
-  <h3 class="test-general__title">
+<div class="general__container">
+  <h3 class="general__title">
     Phenotype: <%= @phenotype.characteristic %>
     <%=link_to(image_tag("rss.png"),"/phenotypes/" + @phenotype.id.to_s + "/rss")%>
   </h3>
@@ -7,7 +7,7 @@
 
   <% if current_user %>
   <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
-  <div class="test-phenotype__variation-form well">
+  <div class="phenotype__variation-form well">
     <%= render 'user_phenotypes/form' %>
   </div>
   <%end%>

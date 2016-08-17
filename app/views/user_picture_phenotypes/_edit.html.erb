@@ -4,16 +4,16 @@
 	<%if @js_modal != true%>
 	<%end%>
 	<div class="row">
-		<div class="col-md-6 col-xs-12 test-pictures-phenotype__picture-div">
+		<div class="col-md-6 col-xs-12 pictures-phenotype__picture-div">
 			<p>This is your picture for this phenotype: </p>
 			<%= image_tag @user_phenotype.phenotype_picture.url(:thumb), class: "vertical-centered" %>
 		</div>
-		<div class="col-md-6 col-xs-12 test-pictures-phenotype__change-pic-div">
+		<div class="col-md-6 col-xs-12 pictures-phenotype__change-pic-div">
 			<div id="enter-order">
 				<%= f.label :phenotype_picture, "You can replace your phenotype picture"%>
 				<%= f.file_field :phenotype_picture%>
 			</div>
-			<div class="test-picture-phenotype__buttons">
+			<div class="picture-phenotype__buttons">
 				<%= f.submit "Update Picture", :class => "btn btn-primary"  %>
 				<a href="/user_picture_phenotypes/<%=@user_phenotype.id%>/delete" class="btn btn-danger">Delete</a>
 			</div>

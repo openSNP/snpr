@@ -1,5 +1,5 @@
-<div class="test-general__container container">
-  <h3 class="test-general__title">Search results</h3>
+<div class="general__container container">
+  <h3 class="general__title">Search results</h3>
     <% if @all_len != 0 %>
     <ul class="nav nav-tabs">
       <% if @users.present? %>
@@ -86,7 +86,7 @@
             </thead>
             <% @users.each do |u| %>
             <tr>
-              <td class="table-cell vertical-centered test-search__user-cell"><%= link_to(image_tag(u.avatar.url(:head), class: "img-circle", width: "32px") + " #{u.name}", u) %></td>
+              <td class="table-cell vertical-centered search__user-cell"><%= link_to(image_tag(u.avatar.url(:head), class: "img-circle", width: "32px") + " #{u.name}", u) %></td>
               <% if u.has_sequence %>
               <td class="table-cell vertical-centered">yes</td>
               <% else %>
@@ -118,7 +118,7 @@
             <tr>
               <td class="table-cell vertical-centered"><% if p.snp != nil %><%= link_to(p.snp.name,"/snps/#{p.snp.id}#comments") %><% else %>SNP was deleted<% end %></td>
               <% if p.user %>
-              <td class="table-cell vertical-centered test-search__user-cell"><%= link_to(image_tag(p.user.avatar.url(:head), class: "img-circle", width: "32px") + " #{p.user.name}", p.user) %></td>
+              <td class="table-cell vertical-centered search__user-cell"><%= link_to(image_tag(p.user.avatar.url(:head), class: "img-circle", width: "32px") + " #{p.user.name}", p.user) %></td>
               <% else %>
               <td class="table-cell vertical-centered">User deleted</td>
               <% end %>
@@ -145,7 +145,7 @@
             <tr>
               <td class="table-cell vertical-centered"><% if p.phenotype != nil %><%= link_to(p.phenotype.characteristic,"/snps/#{p.phenotype.id}#comments") %><% else %>Phenotype was deleted<% end %></td>
               <% if p.user %>
-              <td class="table-cell vertical-centered test-search__user-cell"><%= link_to(image_tag(p.user.avatar.url(:head), class: "img-circle", width: "32px") + " #{p.user.name}", p.user)%></td>
+              <td class="table-cell vertical-centered search__user-cell"><%= link_to(image_tag(p.user.avatar.url(:head), class: "img-circle", width: "32px") + " #{p.user.name}", p.user)%></td>
               <% else %>
               <td class="table-cell vertical-centered">User deleted</td>
               <% end %>

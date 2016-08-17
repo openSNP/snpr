@@ -1,17 +1,17 @@
-<div class="test-general__container container">
+<div class="general__container container">
   <div class="row">
     <div class="col-md-6">
       <h3>Listing all SNPs</h3>
     </div>
-    <div class="test-snps__download-container col-md-6">
-      <%= link_to Zipfulldata.public_path, title: "Request download", class: "btn btn-default center-block test-snps__download-button" do %>
+    <div class="snps__download-container col-md-6">
+      <%= link_to Zipfulldata.public_path, title: "Request download", class: "btn btn-default center-block snps__download-button" do %>
       Download dump
       <% end %>
-      <p class="text-center test-snps__text-download">Includes annotation for all SNPs from all sources</p>
+      <p class="text-center snps__text-download">Includes annotation for all SNPs from all sources</p>
     </div>
   </div>
   <div class="table-responsive">
-    <table class="table table-hover test-snps__table" id="no_snp_overview">
+    <table class="table table-hover snps__table" id="no_snp_overview">
       <thead>
         <tr>
           <th><%= sortable "id", "SNP-ID"%></th>

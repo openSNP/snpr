@@ -4,14 +4,14 @@ require 'open-uri'
 class PgpAnnotationjob
   include Sidekiq::Worker
   sidekiq_options :queue => :pgp, :retry => 5, :unique => true
-  
+
   def perform()
     puts "Running PgpAnnotationJob\n"
     known_snps = {}
     Snp.find_each do |s| known_snps[s.name] = true end
-      
+
     pgp_file  = open('http://evidence.personalgenomes.org/download/latest/flat/latest-flat.tsv') {|f| f.readlines }
-    
+
     puts "got pgp file"
 
     pgp_file.each do |pgp_entry|
@@ -29,14 +29,14 @@ class PgpAnnotationjob
         inheritance = pgp_entry_array[5]
         summary = pgp_entry_array[-1]
         trait = pgp_entry_array[37]
-        
+
         snp = Snp.find_by_name(snp_id)
         annotation = PgpAnnotation.find_by_snp_id(snp.id)
         if annotation == nil
           annotation = PgpAnnotation.new()
           annotation.snp_id = snp.id
         end
-        # enter all the information here and update if needed, just to keep everything fresh 
+        # enter all the information here and update if needed, just to keep everything fresh
         annotation.gene = gene
         annotation.qualified_impact = qualified_impact
         annotation.inheritance = inheritance
@@ -51,5 +51,3 @@ class PgpAnnotationjob
     end
   end
 end
-
-      

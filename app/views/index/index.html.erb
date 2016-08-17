@@ -1,13 +1,13 @@
-<div class="jumbotron test-index__jumbotron">
-  <div class="container test-index__jumbotron-container">
+<div class="jumbotron index__jumbotron">
+  <div class="container index__jumbotron-container">
     <div class="row">
       <div class="col-md-offset-1 col-md-4 clearfix">
-        <%= image_tag "opensnp-logo.png", width: "220px", class: "hidden-xs test-index__jumbotron-image pull-left" %>
+        <%= image_tag "opensnp-logo.png", width: "220px", class: "hidden-xs index__jumbotron-image pull-left" %>
       </div>
       <div class="col-md-6">
-        <h2 class="test-index__jumbotron-title">Welcome to openSNP</h2>
-        <p class="test-index__jumbotron-paragraph">openSNP allows customers of direct-to-customer genetic tests to publish their test results, find others with similar genetic variations, learn more about their results by getting the latest primary literature on their variations, and help scientists find new associations.</p>
-        <p class="test-index__jumbotron-buttons">
+        <h2 class="index__jumbotron-title">Welcome to openSNP</h2>
+        <p class="index__jumbotron-paragraph">openSNP allows customers of direct-to-customer genetic tests to publish their test results, find others with similar genetic variations, learn more about their results by getting the latest primary literature on their variations, and help scientists find new associations.</p>
+        <p class="index__jumbotron-buttons">
           <a class="btn btn-default btn-lg" href="/data/zip/opensnp_datadump.current.zip" role="button">Download data</a>
           <a class="btn btn-default btn-lg" href="/signup" role="button">Sign up</a>
         </p>
@@ -17,25 +17,25 @@
 </div>
 
 <div class="container text-center">
-  <h2 class="test-index__about-title">For genotyping users</h2>
+  <h2 class="index__about-title">For genotyping users</h2>
   <div class="row">
-    <div class="col-md-3 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-arrow-up test-index__about-text-icons"></span>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-arrow-up index__about-text-icons"></span>
       <h3>Upload Your Genotyping</h3>
       <p>Upload your raw genotyping or exome data from <%=link_to "23andMe","http://www.23andme.com"%>, <%=link_to "deCODEme","http://www.decodeme.com/"%> or <%= link_to "FamilyTreeDNA", "http://www.familytreedna.com/" %> to the openSNP database to make it available for everybody.</p>
     </div>
-    <div class="col-md-3 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-heart test-index__about-text-icons"></span>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-heart index__about-text-icons"></span>
       <h3>Share Your Phenotypes</h3>
       <p>Share your phenotype with other openSNP users and find others with similar characteristics and traits. Your data may help scientists discover new genetic associations!</p>
     </div>
-    <div class="col-md-3 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-envelope test-index__about-text-icons"></span>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-envelope index__about-text-icons"></span>
       <h3>Share your stories</h3>
       <p>With openSNP you can share stories about your genetic variations and phenotypes, and discover the stories of other users.</p>
     </div>
-    <div class="col-md-3 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-file test-index__about-text-icons"></span>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-file index__about-text-icons"></span>
       <h3>Find literature on genetic variation</h3>
       <p>openSNP gets the latest open access journal articles on genetic variations from the <%=link_to "Public Library of Science","http://www.plos.org/"%>. Popular articles are indexed via the social reference manager <%=link_to "Mendeley","http://www.mendeley.com/"%> and summaries are provided by <%=link_to "SNPedia","http://snpedia.com"%>.</p>
     </div>
@@ -43,20 +43,20 @@
 </div>
 
 <div class="container text-center">
-  <h2 class="test-index__about-title">For Scientists</h2>
+  <h2 class="index__about-title">For Scientists</h2>
   <div class="row">
-    <div class="col-md-4 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-search test-index__about-text-icons"></span>
+    <div class="col-md-4 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-search index__about-text-icons"></span>
       <h3>Search for phenotypes</h3>
       <p>Many diseases and traits are suspected to have genetical components. Genome Wide Association Studies are a simple tool find genetic markers. Easily find people with the variation you are interested in via openSNP. The variation you are looking for is not entered yet? Just add it to openSNP</p>
     </div>
-    <div class="col-md-4 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-arrow-down test-index__about-text-icons"></span>
+    <div class="col-md-4 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-arrow-down index__about-text-icons"></span>
       <h3>Easily download datasets</h3>
       <p>The mass download-function of openSNP allows you to easily download the full genotyping raw-data in the file formats that are provided by 23andMe, deCODEme and FamilyTreeDNA. As the files can be grouped by their variations for specific phenotypes it is easy to get datasets that are already usable for association studies.</p>
     </div>
-    <div class="col-md-4 col-xs-12 test-index__about-texts">
-      <span class="glyphicon glyphicon-envelope test-index__about-text-icons"></span>
+    <div class="col-md-4 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-envelope index__about-text-icons"></span>
       <h3>Get notified about new data</h3>
       <p>openSNP delivers a RSS feed for each phenotype. So you can easily get all new datasets that get available for the phenotypes of your interest, without the need to check for new entries by hand. For all data junkies that need more data: There is also a feed that carries all new datasets.</p>
     </div>
