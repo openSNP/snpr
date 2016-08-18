@@ -6,7 +6,7 @@ class LinkSnpPhenotype
   def perform(snp_id)
     @snp = Snp.find(snp_id)
     @characteristics = Phenotype.all.map { |x| x.characteristic }
-    @papers_count = 0
+    @papers_count = @snp.snp_references.length
 
     @snp.update_column(:phenotype_updated, Time.current)
     score_phenotype snp
@@ -21,11 +21,15 @@ class LinkSnpPhenotype
     genomegov = score_paper(:genome_gov_papers, 2.0)
     mendeley = score_paper(:mendeley_papers, 1.0)
 
+    # merge scores from same phenotype across all reference collections
     all_scores = [snpedia, pgp, genomegov, mendeley].reduce(plos) do |x, y|
       x.merge(y) do |k, v1, v2|
         v1 + v2
       end
     end
+
+    # normalize to total number of references
+    all_scores.each {|k, v| all_scores[k] /= @papers_count}
 
     all_scores = all_scores.sort_by {|k, v| v}
 
@@ -38,12 +42,11 @@ class LinkSnpPhenotype
   end
 
   # Score each reference based on the number of phenotype keywords found in the
-  # metadata. The score for each count is received from the calling function.
+  # metadata. The weight for each count is received from the calling function.
   def score_paper(paper_type, weight)
     score = {}
 
     papers = @snp.public_send(paper_type)
-    @papers_count += papers.length
 
     # search for each phenotype one by one in the papers' metadata
     @characteristics.each do |chr|
