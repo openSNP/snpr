@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
@@ -19,7 +19,7 @@ gem 'airbrake', '~> 4.0'
 
 # apis
 gem 'fitgem'
-gem 'mendeley', github: 'tsujigiri/mendeley', branch: 'paging_search'
+gem 'mendeley', git: 'https://github.com/tsujigiri/mendeley', branch: 'paging_search'
 gem 'plos', require: false
 
 # DB
@@ -32,12 +32,12 @@ gem 'pg_search'
 gem 'rubyzip'
 
 gem 'will_paginate'
-gem 'nested_form', github: 'ryanb/nested_form'
+gem 'nested_form', git: 'https://github.com/ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
 gem 'paperclip', '~> 4.0 '
 gem 'friendly_id'
-gem 'recommendify', github: 'paulasmuth/recommendify', ref: '34308c4'
+gem 'recommendify', git: 'https://github.com/paulasmuth/recommendify', ref: '34308c4'
 
 # background jobs
 gem 'sidekiq'

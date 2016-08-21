@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/paulasmuth/recommendify.git
+  remote: https://github.com/paulasmuth/recommendify
   revision: 34308c41800a0ea9b02842c4cf84e8bcc5dd1f63
   ref: 34308c4
   specs:
@@ -7,13 +7,13 @@ GIT
       redis (>= 2.2.2)
 
 GIT
-  remote: git://github.com/ryanb/nested_form.git
+  remote: https://github.com/ryanb/nested_form
   revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
   specs:
     nested_form (0.3.2)
 
 GIT
-  remote: git://github.com/tsujigiri/mendeley.git
+  remote: https://github.com/tsujigiri/mendeley
   revision: 03c51168872429bfa039735dfd3054faaa95868e
   branch: paging_search
   specs:
@@ -22,7 +22,7 @@ GIT
       yajl-ruby
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.2.7.1)
       actionpack (= 4.2.7.1)
