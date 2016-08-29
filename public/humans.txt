@@ -25,12 +25,25 @@
         Twitter: @helgerausch
         Location: Berlin, Germany
 
+/* GSoC 2016 Students /*
+        Graham Dyer
+        Site: https://sxibolet.2pitau.org/
+        Location: Champaign, IL, United States
+        
+        Mateus Jabour
+        Site: http://mateusjabour.github.io/
+        Location: Montreal, Canada
+        
+        Vivek Rai
+        Site: https://vivekiitkgp.github.io
+        Location: Kharagpur, India
+
 /* Contributors /*
         Calvyn82 (https://github.com/Calvyn82)
         djab (https://github.com/djab)
         Austin Davis-Richardson (https://github.com/audy)
         Stephanie Smith-Unna (https://github.com/Treblesteph)
-
+        
 /* THANKS /*
         Fabian Zimmer (designer of our first logo!)
         Elio Qoshi (@elioqoshi, who did our updated logo and sticker design!) 
