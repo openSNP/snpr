@@ -68,7 +68,7 @@
     <center><h6><a href="#" rel="tooltip" data-html="true" title="Phenotypes possibly associated with this SNP.">Phenotypes</a></h6></center>
     <% if @snp.phenotypes.count %>
       <table id="phenotype_table" class="table table-striped">
-        <% PhenotypeSnp.where(:snp_id => @snp.id).order(:score).reverse.each do |p| %>
+        <% @ordered_phenotype_snps.each do |p| %>
           <tr>
             <td> <%= Phenotype.find(p.phenotype_id).characteristic %> </td>
             <td> <%= p.score %> </td>

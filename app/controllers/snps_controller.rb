@@ -12,6 +12,9 @@ class SnpsController < ApplicationController
     @snp = Snp.includes(:snp_comments).
       where(name: params[:id].downcase).first || not_found
 
+    @ordered_phenotype_snps = PhenotypeSnp.where(:snp_id => @snp.id)
+                                          .order(:score).reverse
+
     # TODO: Let's remove this here and use Snp.update_papers from a cron job
     # instead. Shall we? - Helge
     Sidekiq::Client.enqueue(PlosSearch, @snp.id)
