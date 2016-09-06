@@ -6,7 +6,7 @@ class LinkSnpPhenotype
   def perform(snp_id)
     @snp = Snp.find(snp_id)
     @characteristics = Phenotype.all.map { |x| x.characteristic }
-    @papers_count = @snp.snp_references.length
+    @papers_count = @snp.snp_references.count
 
     @snp.update_column(:phenotype_updated, Time.current)
     score_phenotype snp
@@ -35,9 +35,9 @@ class LinkSnpPhenotype
 
     all_scores.take(10).each do |k, v|
       ph = Phenotype.find_by_characteristic(k)
-      PhenotypeSnp.find_or_create_by(:snp_id => snp.id,
-                                     :phenotype_id => ph.id)
-                  .update_attributes!(:score => v)
+      PhenotypeSnp.find_or_create_by(snp_id: snp.id,
+                                     phenotype_id: ph.id)
+                  .update_attributes!(score:  v)
     end
   end
 
@@ -51,7 +51,7 @@ class LinkSnpPhenotype
     # search for each phenotype one by one in the papers' metadata
     @characteristics.each do |chr|
       papers.each do |p|
-        title = if p.class.method_defined? :title then p.title else p.summary end
+        title = p.respond_to?(:title) ? p.title : p.summary
 
         if title.downcase.include? chr
           score[chr] = 0.0 if score[chr].nil?

@@ -12,7 +12,7 @@ class PhenotypeSnp < ActiveRecord::Base
 
     Snp.select([ :id, :ranking ]).
       where([ 'updated_at > ?', max_age]).find_each do |snp|
-      Sidekiq::Client.enqueue(LinkSnpPhenotype, snp.id)
+      LinkSnpPhenotype.perform_async(snp.id)
     end
   end
 end

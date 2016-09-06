@@ -49,7 +49,7 @@ class Snp < ActiveRecord::Base
   def self.update_phenotypes
     max_age = 31.days.ago
 
-    Snp.select([:id, :phenotype_updated]).where(phenotype_updated < max_age)
+    Snp.select(:id, :phenotype_updated).where('phenotype_updated < ?', max_age)
        .find_each do |snp|
       Sidekiq::Client.enqueue(LinkSnpPhenotype, snp.id)
     end

@@ -7,29 +7,29 @@
     <table class="table table-striped">
       <tr>
         <td><b>Name</b></td>
-        <td><%=@snp.name%> </td>
+        <td><%= @snp.name %></td>
       </tr>
       <tr>
         <td><b>Chromosome</b></td>
-        <td><%=@snp.chromosome%></td>
+        <td><%= @snp.chromosome %></td>
       </tr>
       <tr>
         <td><b>Position</b></td>
-        <td><%=@snp.position%></td>
+        <td><%= @snp.position %></td>
       </tr>
       <tr>
         <td><b><a href="#" rel="woe" data-html="true" title="The <em>Weight of Evidence</em> reflects how much information <em>openSNP</em> has mined for this SNP. An entry in <em>SNPedia</em> is worth 5 points. A paper in the <em>PLoS</em> or on <em>Genome.gov</em> or an annotation by the <em>Personal Genome Project</em> are worth 2 points. And a paper on <em>Mendeley</em> 1 point.">Weight of evidence</a></b></td>
-        <td><%=@snp.ranking%></td>
+        <td><%= @snp.ranking %></td>
       </tr>
       <tr>
         <td><b>Position</b></td>
-        <td><%=@snp.position%></td>
+        <td><%= @snp.position %></td>
       </tr>
     </table>
   </div>
 
   <div class="span3 columns">
-    <%if current_user != nil and @user_snp != nil%>
+    <% if current_user != nil and @user_snp != nil %>
 
       <center><h6><a href="#" rel="tooltip" data-html="true" title="Your genetic variation at <em><%=@snp.name%></em>.">Your Genotype</a></h6></center>
       <table class="table table-striped">
@@ -38,10 +38,10 @@
           </tr>
         </thead>
         <tr>
-          <td><center><b><%=@user_snp.local_genotype%></b></center></td>
+          <td><center><b><%= @user_snp.local_genotype %></b></center></td>
         </tr>
       </table>
-    <%end%>
+    <% end %>
   </div>
 
   <div class="span3 columns">
@@ -50,18 +50,18 @@
       <center>
         <div id="freq_chart" style="height:200px; width:200px;"></div>
       </center>
-    <%else%>
+    <% else %>
       We don't have enough users yet.
-    <%end%>
+    <% end %>
   </div>
 
   <div class="span3 columns">
     <center><h6><a href="#" rel="tooltip" data-html="true" title="How the single nucleotides on this position are distributed over all <em>openSNP</em> users.">Allele Frequency</a></h6></center>
     <% if @snp.total_alleles != 0 %>
       <div id="allele_chart" style="height:200px; width:200px;"></div>
-    <%else%>
+    <% else %>
       We don't have enough users yet.
-    <%end%>
+    <% end %>
   </div>
 
   <div class="span3 columns">
@@ -75,9 +75,9 @@
           </tr>
         <% end %>
       </table>
-    <%else%>
+    <% else %>
       We don't have enough phenotype associations yet.
-    <%end%>
+    <% end %>
   </div>
 </div>
 <h6>Additional Information</h6>
@@ -108,12 +108,12 @@
         <tbody>
           <% @snp.plos_papers.limit(100).each do |p|%>
             <tr>
-              <td><%=p.first_author%></td> 
-              <td><%=link_to(p.title.html_safe, "http://dx.doi.org/#{p.doi}")%></td>
-              <td><%=p.pub_date.to_s[6,4]%></td>
-              <td><%=p.reader%></td>
+              <td><%= p.first_author %></td>
+              <td><%= link_to(p.title.html_safe, "http://dx.doi.org/#{p.doi}") %></td>
+              <td><%= p.pub_date.to_s[6,4] %></td>
+              <td><%= p.reader %></td>
             </tr>
-          <%end%>
+          <% end %>
         </tbody>
       </table>
     <% else %>
@@ -137,22 +137,22 @@
           </tr>
         </thead>
         <tbody>
-          <%@snp.genome_gov_papers.limit(100).each do |p|%>
+          <% @snp.genome_gov_papers.limit(100).each do |p| %>
             <tr>
-              <td><%=p.first_author%></td>
-              <td><%=link_to(p.title.html_safe,p.pubmed_link)%></td>
-              <td><%=p.journal%></td>
-              <td><%=p.pub_date%></td>
-              <td><%=p.trait%></td>
-              <td><%=p.pvalue%> <%=p.pvalue_description%></td>
-              <td><%=p.confidence_interval%></td>
+              <td><%= p.first_author %></td>
+              <td><%= link_to(p.title.html_safe,p.pubmed_link) %></td>
+              <td><%= p.journal %></td>
+              <td><%= p.pub_date %></td>
+              <td><%= p.trait %></td>
+              <td><%= p.pvalue %> <%= p.pvalue_description %></td>
+              <td><%= p.confidence_interval %></td>
             </tr>
-          <%end%>
+          <% end %>
         </tbody>
       </table>
-    <%else%>
+    <% else %>
       There are no results from <em>genome.gov</em> yet. Please come back later.
-    <%end%>
+    <% end %>
   </div>
   <div id="pgp">
     <h3>Evidence compiled by the <em>Personal Genome Project</em></h3>
@@ -170,18 +170,18 @@
         <tbody>
           <%@snp.pgp_annotations.limit(100).each do |p|%>
             <tr>
-              <td><%=p.gene%></td>
-              <td><%=p.qualified_impact%></td>
-              <td><%=p.trait%></td>
-              <td><%=p.summary%></td>
-              <td><%=p.inheritance%></td>
+              <td><%= p.gene %></td>
+              <td><%= p.qualified_impact %></td>
+              <td><%= p.trait %></td>
+              <td><%= p.summary %></td>
+              <td><%= p.inheritance %></td>
             </tr>
-          <%end%>
+          <% end %>
         </tbody>
       </table>
-    <%else%>
+    <% else %>
       There are no results from the <em>Personal Genome Project</em> yet. Please come back later.
-    <%end%>
+    <% end %>
   </div>
   <div id="mendeley">
     <h3>Publications on this SNP on Mendeley</h3>
@@ -197,23 +197,23 @@
           </tr>
         </thead>
         <tbody>
-          <% @snp.mendeley_papers.limit(100).each do |p|%>
+          <% @snp.mendeley_papers.limit(100).each do |p| %>
             <tr>
-              <td><%=p.first_author%></td>
-              <td><%=link_to( p.title, p.mendeley_url)%></td>
-              <td><%=p.pub_year%></td>
-              <td><%=p.reader%></td>
-              <% if p.open_access == true and p.doi != nil%>
-                <td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%><%= image_tag("oa_logo.png") %></td>
-              <%elsif p.doi != nil%>
-                <td><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%></td>
-              <%elsif p.open_access == true%>
-                <td><%=p.doi%><%= image_tag("oa_logo.png") %></td>
-              <%else%>
+              <td><%= p.first_author %></td>
+              <td><%= link_to( p.title, p.mendeley_url) %></td>
+              <td><%= p.pub_year %></td>
+              <td><%= p.reader %></td>
+              <% if p.open_access == true and p.doi != nil %>
+                <td><%= link_to(p.doi,"http://dx.doi.org/"+p.doi) %><%= image_tag("oa_logo.png") %></td>
+              <% elsif p.doi != nil %>
+                <td><%= link_to(p.doi,"http://dx.doi.org/"+p.doi) %></td>
+              <% elsif p.open_access == true %>
+                <td><%= p.doi %><%= image_tag("oa_logo.png") %></td>
+              <% else %>
                 <td>-</td>
-              <%end%>
+              <% end %>
             </tr>
-          <%end%>
+          <% end %>
         </tbody>
       </table>
     <% else %>
@@ -230,7 +230,7 @@
         url: "/user_snps",
         data: { snp_name: '<%= @snp.name %>', local_genotype: '<%= @local_genotype %>' },
         success: function (html) { $("#user-list").append(html); }
-      }); 
+      });
     </script>
   <% else %>
     No user shares this SNP.
@@ -238,9 +238,9 @@
 </div>
 <div id="comments">
   <%= render 'snp_comments/show' %>
-  <%if current_user%>
+  <% if current_user %>
     <%= render 'snp_comments/form' %>
-  <%end%>
+  <% end %>
 </div>
 </div>
 
@@ -248,11 +248,11 @@
 
 <script language="javascript">
   new Browser({
-    chr:          '<%=@snp.chromosome%>',
-    viewStart:    <%=@snp.position.to_i-10000%>,
-    viewEnd:      <%=@snp.position.to_i+10000%>,
-    cookieKey:    '<%=@snp.name%>',
-    pageName:     '<%=@snp.name%>', 
+    chr:          '<%= @snp.chromosome %>',
+    viewStart:    <%= @snp.position.to_i-10000 %>,
+    viewEnd:      <%= @snp.position.to_i+10000 %>,
+    cookieKey:    '<%= @snp.name %>',
+    pageName:     '<%= @snp.name %>',
 
     coordSystem: {
         speciesName: 'Human',
@@ -262,10 +262,10 @@
         ucscName: 'hg38'
     },
 
-    sources:     [{name:    'Genome',      
+    sources:     [{name:    'Genome',
       twoBitURI:            'http://www.biodalliance.org/datasets/hg38.2bit',
       tier_type:            'sequence'},
-    {name:                  'Genes',     
+    {name:                  'Genes',
       desc:                 'Gene structures from GENCODE 21',
       bwgURI:               'https://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb',
       stylesheet_uri:       'https://www.biodalliance.org/stylesheets/gencode2.xml',
@@ -276,8 +276,8 @@
         ,{name:                 'Your SNPs',
           desc:                 'SNPs @ openSNP',
           uri:                  '<%= request.base_url + "/das/" +current_user.id.to_s+"/"%>'}
-      <%end%>
-    <%end%>
+      <% end %>
+    <% end %>
     ],
 
     searchEndpoint: new DASSource('https://www.biodalliance.org/das/hsa_59_37d'),
@@ -302,12 +302,12 @@
       <% if @snp.total_genotypes != 0 %>
         <% counter = 0 %>
         var freq_data=[
-        <%@snp.genotype_frequency.each do |key,value|%>
+        <% @snp.genotype_frequency.each do |key,value| %>
           <% counter += 1 %>
-          ['<%=key%>',<%=(value.to_f/@snp.total_genotypes).to_s[0,4]%>]<% if counter != @snp.genotype_frequency.length %>,<%end%>
-      <%end%>
+          ['<%= key %>',<%= (value.to_f/@snp.total_genotypes).to_s[0,4] %>]<% if counter != @snp.genotype_frequency.length %>,<% end %>
+      <% end %>
       ];
-      var plot1 = jQuery.jqplot ('freq_chart', [freq_data], 
+      var plot1 = jQuery.jqplot ('freq_chart', [freq_data],
         {
         /*seriesColors: ["#B0EDFF","#8EB5E8","#6E7CDB","#5F4DD6","#4823AD"],*/
 seriesDefaults: {
@@ -318,17 +318,17 @@ fill: false
 }
 },
 legend: { show:true, location: 'e' },
-grid: { shadow:false, 
+grid: { shadow:false,
 borderWidth: 0,
 background: '#ffffff'}
 }
 );
       <% counter = 0 %>
       var allele_data=[
-      <%@snp.allele_frequency.each do |key,value|%>
+      <% @snp.allele_frequency.each do |key,value| %>
         <% counter += 1 %>
-        ['<%=key%>', <%= (value.to_f/@snp.total_alleles).to_s[0,4] %>]<% if counter != @snp.allele_frequency.length %>,<%end%>
-    <%end%>
+        ['<%= key %>', <%= (value.to_f/@snp.total_alleles).to_s[0,4] %>]<% if counter != @snp.allele_frequency.length %>,<% end %>
+    <% end %>
     ];
     var plot2 = jQuery.jqplot ('allele_chart', [allele_data],
         {
@@ -342,11 +342,11 @@ fill: false
 }
 },
 legend: { show:true, location: 'e' },
-grid: { shadow:false, 
+grid: { shadow:false,
 borderWidth: 0,
 background: '#ffffff'}
 }
 );
-  <%end%>
+  <% end %>
   });
 </script>
