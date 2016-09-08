@@ -3,7 +3,7 @@ class PhenotypeCommentsController < ApplicationController
 
   def new
     @phenotype_comment = PhenotypeComment.new
-    @title = "Add comment"
+    @title = 'Add comment'
 
     respond_to do |format|
       format.html
@@ -17,14 +17,14 @@ class PhenotypeCommentsController < ApplicationController
       @phenotype_comment.reply_to_id = -1
     else
 
-      @potential_reply_id = @phenotype_comment.comment_text.split()[0].chomp(":").gsub("@#","").to_i
+      @potential_reply_id = @phenotype_comment.comment_text.split()[0].chomp(':').gsub('@#','').to_i
       if PhenotypeComment.find_by_id(@potential_reply_id) != nil
         @phenotype_comment.reply_to_id = @potential_reply_id
       else
         @phenotype_comment.reply_to_id = -1
       end
 
-      @phenotype_comment.comment_text = @phenotype_comment.comment_text.gsub(/\A(\@\#\d*\:)/,"")
+      @phenotype_comment.comment_text = @phenotype_comment.comment_text.gsub(/\A(\@\#\d*\:)/,'')
     end
     @phenotype_comment.user_id = current_user.id
     @phenotype_comment.phenotype_id = params[:phenotype_comment][:phenotype_id]
@@ -37,9 +37,9 @@ class PhenotypeCommentsController < ApplicationController
           end
         end
       end
-      redirect_to "/phenotypes/"+@phenotype_comment.phenotype_id.to_s+"#comments", :notice => 'Comment succesfully created.'
+      redirect_to '/phenotypes/' +@phenotype_comment.phenotype_id.to_s+'#comments', :notice => 'Comment succesfully created.'
     else
-      render :action => "new"
+      render :action => 'new'
     end
   end
 

@@ -1,7 +1,7 @@
 class SearchResultsController < ApplicationController
 
   def search
-    @title = "Search results"
+    @title = 'Search results'
     @all_len = 0
     [
       :snps, :phenotypes, :users, :snp_comments, :phenotype_comments,

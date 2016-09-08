@@ -3,7 +3,7 @@ class UserPhenotypesController < ApplicationController
 
   def new
     @user_phenotype = UserPhenotype.new
-    @title = "Add variation"
+    @title = 'Add variation'
 
     if params[:phenotype]
       @phenotype = Phenotype.find(params[:phenotype])
@@ -38,12 +38,12 @@ class UserPhenotypesController < ApplicationController
 
         #check for new achievements
         current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
-        check_and_award_additional_phenotypes(1, "Entered first phenotype")
-        check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
-        check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
-        check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
-        check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
-        check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
+        check_and_award_additional_phenotypes(1, 'Entered first phenotype')
+        check_and_award_additional_phenotypes(5, 'Entered 5 additional phenotypes')
+        check_and_award_additional_phenotypes(10, 'Entered 10 additional phenotypes')
+        check_and_award_additional_phenotypes(20, 'Entered 20 additional phenotypes')
+        check_and_award_additional_phenotypes(50, 'Entered 50 additional phenotypes')
+        check_and_award_additional_phenotypes(100, 'Entered 100 additional phenotypes')
 
 
         @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).length
@@ -52,16 +52,16 @@ class UserPhenotypesController < ApplicationController
         Sidekiq::Client.enqueue(Recommendphenotypes)
 
         if @js_modal == true
-          redirect_to "/users/"+current_user.id.to_s
+          redirect_to '/users/'+current_user.id.to_s
         else
-          redirect_to "/recommend_phenotype/"+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
+          redirect_to '/recommend_phenotype/'+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
         end
       else
-        flash[:warning] = "Please enter a variation"
-        redirect_to "/users/"+current_user.id.to_s
+        flash[:warning] = 'Please enter a variation'
+        redirect_to '/users/'+current_user.id.to_s
       end
     else
-      redirect_to "/phenotypes/"+@user_phenotype.phenotype_id.to_s, :notice => 'You already have a variation entered'
+      redirect_to '/phenotypes/'+@user_phenotype.phenotype_id.to_s, :notice => 'You already have a variation entered'
     end
   end
 

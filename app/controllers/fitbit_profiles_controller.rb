@@ -5,7 +5,7 @@ class FitbitProfilesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @title = "Listing all connected Fitbit accounts"
+    @title = 'Listing all connected Fitbit accounts'
     @fitbit_profiles = FitbitProfile
       .includes(:user)
       .order("#{sort_column} #{sort_direction}")
@@ -14,7 +14,7 @@ class FitbitProfilesController < ApplicationController
 
   def show
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
-    @title = "Fitbit profile"
+    @title = 'Fitbit profile'
 
     #grab activity measures for graphs
     if @fitbit_profile.activities
@@ -145,12 +145,12 @@ class FitbitProfilesController < ApplicationController
 
   def update
     @fitbit_profile = FitbitProfile.find_by_id(params[:fitbit_profile][:id])
-    @fitbit_profile.body = params[:fitbit_profile]["body"]
-    @fitbit_profile.activities = params[:fitbit_profile]["activities"]
-    @fitbit_profile.sleep = params[:fitbit_profile]["sleep"]
+    @fitbit_profile.body = params[:fitbit_profile]['body']
+    @fitbit_profile.activities = params[:fitbit_profile]['activities']
+    @fitbit_profile.sleep = params[:fitbit_profile]['sleep']
     @fitbit_profile.save
     FitbitEdit.perform_async(@fitbit_profile.id)
-    redirect_to "/fitbit/edit"
+    redirect_to '/fitbit/edit'
   end
 
   def start_auth
@@ -183,29 +183,29 @@ class FitbitProfilesController < ApplicationController
       begin
         access_token = @client.authorize(token, secret, { :oauth_verifier => verifier })
       rescue
-        flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again"
-        redirect_to :action => "info"
+        flash[:warning] = 'Something went wrong while authenticating your FitBit-Account. Please try again'
+        redirect_to :action => 'info'
       end
       @fitbit_profile.access_token = access_token.token
       @fitbit_profile.access_secret = access_token.secret
       @fitbit_profile.verifier = verifier
       @fitbit_profile.save
       FitbitInit.perform_async(@fitbit_profile.id)
-      flash[:notice] = "Successful login with FitBit"
-      redirect_to :action => "init"
+      flash[:notice] = 'Successful login with FitBit'
+      redirect_to :action => 'init'
     else
-      flash[:warning] = "Something went wrong while authenticating your FitBit-Account. Please try again"
-      redirect_to :action => "info"
+      flash[:warning] = 'Something went wrong while authenticating your FitBit-Account. Please try again'
+      redirect_to :action => 'info'
     end
   end
 
   def new_notification
     puts params
-    @json_object = params["updates"]
+    @json_object = params['updates']
     @json_unparsed = @json_object.read
     @notification = JSON.parse(@json_unparsed)
     puts @notification[0]
-    puts @notification[0]["collectionType"]
+    puts @notification[0]['collectionType']
     FitbitNotification.perform_async(@notification)
     render :nothing => true, :status => 204
   end
@@ -218,19 +218,19 @@ class FitbitProfilesController < ApplicationController
       if current_user
         return true
       else
-        flash[:notice] = "You need to be logged in"
-        redirect_to "/signin"
+        flash[:notice] = 'You need to be logged in'
+        redirect_to '/signin'
       end
       return false
     end
   end
 
   def sort_column
-    Genotype.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    Genotype.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 
   def sort_direction
-    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
 end

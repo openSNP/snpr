@@ -4,13 +4,13 @@ class UserSessionsController < ApplicationController
 
   def new
     @user_session = UserSession.new
-    @title = "Login"
+    @title = 'Login'
   end
 
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Login successful"
+      flash[:notice] = 'Login successful'
       redirect_to @user_session.user
     else
       render :action => :new
@@ -19,7 +19,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    flash[:notice] = "Logout successful"
+    flash[:notice] = 'Logout successful'
     redirect_to root_url
   end
 end

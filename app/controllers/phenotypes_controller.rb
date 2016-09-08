@@ -3,16 +3,16 @@ class PhenotypesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @title = "Listing all phenotypes"
-    @phenotypes = Phenotype.order(sort_column + " " + sort_direction)
+    @title = 'Listing all phenotypes'
+    @phenotypes = Phenotype.order(sort_column + ' ' + sort_direction)
     @phenotypes_paginate = @phenotypes.paginate(:page => params[:page],:per_page => 10)
     @phenotypes_json = []
     @phenotypes.each do |p|
       @phenotype = {}
-      @phenotype["id"] = p.id
-      @phenotype["characteristic"] = p.characteristic
-      @phenotype["known_variations"] = p.known_phenotypes
-      @phenotype["number_of_users"] = p.user_phenotypes.length
+      @phenotype['id'] = p.id
+      @phenotype['characteristic'] = p.characteristic
+      @phenotype['known_variations'] = p.known_phenotypes
+      @phenotype['number_of_users'] = p.user_phenotypes.length
       @phenotypes_json << @phenotype
     end
     respond_to do |format|
@@ -25,7 +25,7 @@ class PhenotypesController < ApplicationController
   def new
     @phenotype = Phenotype.new
     @user_phenotype = UserPhenotype.new
-    @title = "Create a new phenotype"
+    @title = 'Create a new phenotype'
 
     respond_to do |format|
       format.html
@@ -40,14 +40,14 @@ class PhenotypesController < ApplicationController
       # award: created one (or more) phenotypes
       current_user.update_attributes(:phenotype_creation_counter => (current_user.phenotype_creation_counter + 1)  )
 
-      check_and_award_new_phenotypes(1, "Created a new phenotype")
-      check_and_award_new_phenotypes(5, "Created 5 new phenotypes")
-      check_and_award_new_phenotypes(10, "Created 10 new phenotypes")
+      check_and_award_new_phenotypes(1, 'Created a new phenotype')
+      check_and_award_new_phenotypes(5, 'Created 5 new phenotypes')
+      check_and_award_new_phenotypes(10, 'Created 10 new phenotypes')
     end
 
     if params[:phenotype][:characteristic].blank?
-      flash[:warning] = "Phenotype characteristic may not be empty"
-      redirect_to :action => "new"
+      flash[:warning] = 'Phenotype characteristic may not be empty'
+      redirect_to :action => 'new'
     else
 
       @phenotype.save
@@ -63,29 +63,29 @@ class PhenotypesController < ApplicationController
         if @user_phenotype.save
           @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
           @phenotype.save
-          flash[:notice] = "Phenotype sucessfully saved"
+          flash[:notice] = 'Phenotype sucessfully saved'
 
           # check for additional phenotype awards
           current_user.update_attributes(:phenotype_additional_counter => (current_user.user_phenotypes.length))
 
-          check_and_award_additional_phenotypes(1, "Entered first phenotype")
-          check_and_award_additional_phenotypes(5, "Entered 5 additional phenotypes")
-          check_and_award_additional_phenotypes(10, "Entered 10 additional phenotypes")
-          check_and_award_additional_phenotypes(20, "Entered 20 additional phenotypes")
-          check_and_award_additional_phenotypes(50, "Entered 50 additional phenotypes")
-          check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
+          check_and_award_additional_phenotypes(1, 'Entered first phenotype')
+          check_and_award_additional_phenotypes(5, 'Entered 5 additional phenotypes')
+          check_and_award_additional_phenotypes(10, 'Entered 10 additional phenotypes')
+          check_and_award_additional_phenotypes(20, 'Entered 20 additional phenotypes')
+          check_and_award_additional_phenotypes(50, 'Entered 50 additional phenotypes')
+          check_and_award_additional_phenotypes(100, 'Entered 100 additional phenotypes')
 
           Sidekiq::Client.enqueue(Recommendvariations)
           Sidekiq::Client.enqueue(Recommendphenotypes)
 
           redirect_to current_user
         else
-          flash[:warning] = "Something went wrong in creating the phenotype"
-          redirect_to :action => "new"
+          flash[:warning] = 'Something went wrong in creating the phenotype'
+          redirect_to :action => 'new'
         end
       else
-        flash[:warning] = "You have already entered your variation at this phenotype"
-        redirect_to :action => "new"
+        flash[:warning] = 'You have already entered your variation at this phenotype'
+        redirect_to :action => 'new'
       end
     end
   end
@@ -135,9 +135,9 @@ class PhenotypesController < ApplicationController
     @user_phenotype = UserPhenotype.find_by_phenotype_id_and_user_id(params[:id],current_user.id)
     if @user_phenotype != nil
       @users_variation = @user_phenotype.variation
-      @variation_recommend_request = params[:id]+"=>"+@users_variation
+      @variation_recommend_request = params[:id] + '=>' + @users_variation
     else
-      @variation_recommend_request = ""
+      @variation_recommend_request = ''
     end
 
     @similar_combinations = @phenotype_recommender.for(@variation_recommend_request)
@@ -146,7 +146,7 @@ class PhenotypesController < ApplicationController
 
     @similar_combinations.each do |s|
       if @combination_counter < 3
-        @phenotype = Phenotype.find_by_id(s.item_id.split("=>")[0])
+        @phenotype = Phenotype.find_by_id(s.item_id.split('=>')[0])
         if current_user.phenotypes.include?(@phenotype) == false
           @similar_variations << s
           @combination_counter += 1
@@ -159,7 +159,7 @@ class PhenotypesController < ApplicationController
     @phenotype = Phenotype.find_by_id(params[:id])
 
     if @similar_phenotypes == [] and @similar_variations == []
-      redirect_to :action => "index"
+      redirect_to :action => 'index'
     else
       respond_to do |format|
         format.html
@@ -179,7 +179,7 @@ class PhenotypesController < ApplicationController
 
     @genotypes.sort!{ |b,a| a.created_at <=> b.created_at }
 
-    render :action => "rss", :layout => false
+    render :action => 'rss', :layout => false
   end
 
   def get_genotypes
@@ -197,17 +197,17 @@ class PhenotypesController < ApplicationController
     @result = {}
     begin
       @phenotype = Phenotype.find_by_id(params[:phenotype_id])
-      @result["id"] = @phenotype.id
-      @result["characteristic"] = @phenotype.characteristic
-      @result["description"] = @phenotype.description
-      @result["known_variations"] = @phenotype.known_phenotypes
-      @result["users"] = []
+      @result['id'] = @phenotype.id
+      @result['characteristic'] = @phenotype.characteristic
+      @result['description'] = @phenotype.description
+      @result['known_variations'] = @phenotype.known_phenotypes
+      @result['users'] = []
       @phenotype.user_phenotypes.each do |up|
-        @user_phenotype = {"user_id" => up.user_id,"variation" => up.variation}
-        @result["users"] << @user_phenotype
+        @user_phenotype = {'user_id' => up.user_id,'variation' => up.variation}
+        @result['users'] << @user_phenotype
       end
     rescue
-      @result["error"] = "Sorry, this phenotype doesn't exist"
+      @result['error'] = 'Sorry, this phenotype doesn\'t exist'
     end
 
     respond_to do |format|
@@ -217,8 +217,8 @@ class PhenotypesController < ApplicationController
   end
 
   def json
-    if params[:user_id].index(",")
-      @user_ids = params[:user_id].split(",")
+    if params[:user_id].index(',')
+      @user_ids = params[:user_id].split(',')
       @results = []
       @user_ids.each do |id|
         @new_param = {}
@@ -226,9 +226,9 @@ class PhenotypesController < ApplicationController
         @results << json_element(@new_param)
       end
 
-    elsif params[:user_id].index("-")
+    elsif params[:user_id].index('-')
       @results = []
-      @id_array = params[:user_id].split("-")
+      @id_array = params[:user_id].split('-')
       @user_ids = (@id_array[0].to_i..@id_array[1].to_i).to_a
       @user_ids.each do |id|
         @new_param = {}
@@ -251,22 +251,22 @@ class PhenotypesController < ApplicationController
       @result = {}
       @user_phenotypes = UserPhenotype.where(user_id: @user.id)
 
-      @result["user"] = {}
-      @result["user"]["name"] = @user.name
-      @result["user"]["id"] = @user.id
+      @result['user'] = {}
+      @result['user']['name'] = @user.name
+      @result['user']['id'] = @user.id
 
       @phenotype_hash = {}
 
       @user_phenotypes.each do |up|
         @phenotype_hash[up.phenotype.characteristic] = {}
-        @phenotype_hash[up.phenotype.characteristic]["phenotype_id"] = up.phenotype.id
-        @phenotype_hash[up.phenotype.characteristic]["variation"] = up.variation
+        @phenotype_hash[up.phenotype.characteristic]['phenotype_id'] = up.phenotype.id
+        @phenotype_hash[up.phenotype.characteristic]['variation'] = up.variation
       end
 
-      @result["phenotypes"] = @phenotype_hash
+      @result['phenotypes'] = @phenotype_hash
     rescue
       @result = {}
-      @result["error"] = "Sorry, we couldn't find any information for this user"
+      @result['error'] = 'Sorry, we couldn\'t find any information for this user'
     end
     return @result
   end
@@ -274,17 +274,17 @@ class PhenotypesController < ApplicationController
   private
 
   def sort_column
-    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
+    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : 'number_of_users'
   end
 
   private
 
   def sort_column
-    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
+    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : 'number_of_users'
   end
 
   def sort_direction
-    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   def check_and_award_new_phenotypes(amount, achievement_string)

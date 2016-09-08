@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @title = "Sign up"
+    @title = 'Sign up'
 
     respond_to do |format|
       format.html
@@ -18,11 +18,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if not params[:read]
-      flash[:warning] = "You must tick the box to proceed"
+      flash[:warning] = 'You must tick the box to proceed'
     end
 
     if params[:read] && verify_recaptcha(model: @user) && @user.save
-      flash[:notice] = "Account registered"
+      flash[:notice] = 'Account registered'
       UserMailer.welcome_user(@user).deliver_later
       redirect_to @user
     else
@@ -34,9 +34,9 @@ class UsersController < ApplicationController
   def index
     # showing all users
     # TODO: Refactor this. - Helge
-    @users = User.order(sort_column + " " + sort_direction)
+    @users = User.order(sort_column + ' ' + sort_direction)
     @users_paginate = @users.paginate(:page => params[:page], :per_page => 10)
-    @title = "Listing all users"
+    @title = 'Listing all users'
 
     if request.format.json?
       @result = []
@@ -44,22 +44,22 @@ class UsersController < ApplicationController
         @users = User.all
         @users.each do |u|
           @user = {}
-          @user["name"] = u.name
-          @user["id"] = u.id
-          @user["genotypes"] = []
+          @user['name'] = u.name
+          @user['id'] = u.id
+          @user['genotypes'] = []
           Genotype.where(user_id: u.id).each do |g|
             @genotype = {}
-            @genotype["id"] = g.id
-            @genotype["filetype"] = g.filetype
-            @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
-            @user["genotypes"] << @genotype
+            @genotype['id'] = g.id
+            @genotype['filetype'] = g.filetype
+            @genotype['download_url'] = 'http://opensnp.org/data/' + g.fs_filename
+            @user['genotypes'] << @genotype
           end
           @result << @user
         end
 
       rescue
         @result = {}
-        @result["error"] = "Sorry, we couldn't find any users"
+        @result['error'] = 'Sorry, we couldn\'t find any users'
       end
     end
 
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
   def show
     # showing a single user's page
     @user = User.find_by_id(params[:id]) || not_found
-    @title = @user.name + "'s page"
+    @title = @user.name + '\'s page'
     @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes
     #@snps = @user.snps.order("#{sort_column} #{sort_direction}").paginate(:page => params[:page])
@@ -135,10 +135,10 @@ class UsersController < ApplicationController
 
     if params[:user][:user_phenotypes_attributes].present?
       params[:user][:user_phenotypes_attributes].each do |p|
-        @phenotype = UserPhenotype.find(p[1]["id"]).phenotype
-        @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
+        @phenotype = UserPhenotype.find(p[1]['id']).phenotype
+        @old_variation = UserPhenotype.find_by_id(p[1]['id']).variation
         # TODO: known_phenotypes compare different now
-        if @phenotype.known_phenotypes.include?(p[1]["variation"]) == false
+        if @phenotype.known_phenotypes.include?(p[1]['variation']) == false
           @phenotype.number_of_users = UserPhenotype.where(phenotype_id: @phenotype.id).count
           @phenotype.save
         end
@@ -156,10 +156,10 @@ class UsersController < ApplicationController
       Sidekiq::Client.enqueue(Recommendvariations)
       Sidekiq::Client.enqueue(Recommendphenotypes)
 
-      flash[:notice] =  "Successfully updated"
+      flash[:notice] =  'Successfully updated'
 
       if params[:user][:password] or params[:user][:avatar]
-        redirect_to :action => "edit", :id => current_user.id
+        redirect_to :action => 'edit', :id => current_user.id
       else
         respond_to do |format|
           format.js
@@ -172,8 +172,8 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.html do
           if request.xhr?
-            flash[:warning] = "Oooops, something went wrong while editing your details"
-            render :partial => "edit"
+            flash[:warning] = 'Oooops, something went wrong while editing your details'
+            render :partial => 'edit'
           else
             render
           end
@@ -206,7 +206,7 @@ class UsersController < ApplicationController
       ug.destroy
     end
 
-    flash[:notice] = "Thank you for using openSNP. Goodbye!"
+    flash[:notice] = 'Thank you for using openSNP. Goodbye!'
 
     # disconnect from fitbit if needed
     if @user.fitbit_profile != nil
@@ -221,36 +221,36 @@ class UsersController < ApplicationController
   end
 
   def remove_help_one
-    current_user.update_attribute("help_one",true)
+    current_user.update_attribute('help_one',true)
   end
 
   def remove_help_two
-    current_user.update_attribute("help_two",true)
+    current_user.update_attribute('help_two',true)
   end
 
   def remove_help_three
-    current_user.update_attribute("help_three",true)
+    current_user.update_attribute('help_three',true)
   end
 
   private
 
   def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'name'
   end
 
   def sort_direction
-    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   def require_owner
     unless current_user == User.find(params[:id])
       store_location
       if current_user
-        flash[:notice] = "Redirected to your edit page"
-        redirect_to :controller => "users", :action => "edit", :id => current_user.id
+        flash[:notice] = 'Redirected to your edit page'
+        redirect_to :controller => 'users', :action => 'edit', :id => current_user.id
       else
-        flash[:notice] = "You need to be logged in"
-        redirect_to "/signin"
+        flash[:notice] = 'You need to be logged in'
+        redirect_to '/signin'
       end
       return false
     end

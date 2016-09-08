@@ -1,6 +1,6 @@
 class StaticController < ApplicationController
 	def index
-		@title = "Welcome"
+		@title = 'Welcome'
 		respond_to do |format|
 			format.html
 			format.xml # just for the hell of it
@@ -8,7 +8,7 @@ class StaticController < ApplicationController
 	end
 
 	def faq
-		@title = "FAQ"
+		@title = 'FAQ'
 		respond_to do |format|
 			format.html
 			format.xml
@@ -16,7 +16,7 @@ class StaticController < ApplicationController
 	end
 
     def press
-        @title = "openSNP in the press"
+        @title = 'openSNP in the press'
         respond_to do |format|
             format.html
             format.xml
