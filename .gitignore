@@ -33,5 +33,3 @@ vendor/cache
 logfile
 .env
 .DS_Store
-Vagrantfile
-serverscript
