@@ -1,0 +1,19 @@
+base: &base
+  adapter: postgresql
+  pool: 25
+
+development:
+  <<: *base
+  database: snpr_development
+
+test:
+  <<: *base
+  database: snpr_test
+
+production:
+  <<: *base
+  database: snpr_production
+
+staging:
+  <<: *base
+  database: snpr_production
