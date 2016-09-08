@@ -22,10 +22,10 @@
         $pictureReplyButton.on('click', pictureReplyButtonCallback);
 
         $snpReplyButton.on('click', snpReplyButtonCallback);
-      }
+      };
 
       var sendCommentId = function (e, text) {
-        e.value = text + e.value
+        e.value = text + e.value;
       };
 
       var searchButtonCallback = function (event) {
