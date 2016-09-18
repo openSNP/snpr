@@ -111,6 +111,7 @@ class UsersController < ApplicationController
     @phenotype_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
     @paginated_phenotype_replies = @phenotype_comment_replies
 
+    @@last_30_papers = LastUpdatedSnpsService.get_last_thirty_updated_snps
     respond_to do |format|
       format.html
     end
