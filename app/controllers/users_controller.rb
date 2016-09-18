@@ -111,24 +111,6 @@ class UsersController < ApplicationController
     @phenotype_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
     @paginated_phenotype_replies = @phenotype_comment_replies
 
-    @last_30_papers = Set.new
-    if !@user.genotypes.nil?
-      # get the last 30 updated SNPs for this user
-      # we do it the other way around - check the last 20 updated papers for each type, see if their snps are in user's collection
-      # the upper if is important since without it even users without SNPs will trigger this
-      %w(Snpedia Mendeley GenomeGov Plos).each do |source|
-        "#{source}Paper".constantize.last(30).each do |p|
-          p.snps.each do |s|
-            @last_30_papers.add(p) if s.users.include? @user
-          end
-        end
-      end
-      # convert to array, sort by updated_at, get newest update first
-      @last_30_papers = @last_30_papers.to_a.sort_by(&:updated_at).reverse
-      # in the best case we have 4*30 papers for this user now, in the worst case we have 0
-      @last_30_papers = @last_30_papers[0..30]
-    end
-
     respond_to do |format|
       format.html
     end
