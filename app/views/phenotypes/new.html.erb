@@ -1,7 +1,7 @@
 <%= render 'shared/error_messages', :target => @phenotype %>
 <div class="general__container">
   <h3 class="general__title">Create a new phenotype</h3>
-  <%= form_for @phenotype, html: {class: "phenotype__new-form form-horizontal well"} do |f| %>
+  <%= form_for @phenotype, html: {class: "phenotype__new-form form-horizontal well"} do |phenotype_form| %>
   <%phenotype_array = []%>
   <% Phenotype.all.each { |p| phenotype_array << p.characteristic } # TODO: Move to instance variable %>
       <script type="text/javascript">
@@ -9,21 +9,21 @@
         $("#phenotype_characteristic").autocomplete({
           source: <%= raw(phenotype_array.to_json) %>
         });
-      });
-      </script>
+    </script>
+
       <div class="form-group">
-        <%= f.label :characteristic, class:"col-sm-1 control-label" %>
+        <%= phenotype_form.label :characteristic, class:"col-sm-1 control-label" %>
         <div class="col-md-11 col-sm-11 col-xs-11">
-          <%= f.text_field :characteristic, class: "form-control" %>
+          <%= phenotype_form.text_field :characteristic, class: "form-control" %>
         </div>
         <div class="col-md-11 col-sm-11 col-xs-11 col-md-offset-1">
           <small class="help-block">Hair colour, Blood type, Skin colour etc. <br/>Please <b>enter only one phenotypic characteristic at once</b> and <b>make use of the auto-completion</b>, as this phenotype might be already in our database.</small>
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :description, class:"col-sm-1 control-label" %>
+        <%= phenotype_form.label :description, class:"col-sm-1 control-label" %>
         <div class="col-md-11 col-sm-11 col-xs-11">
-          <%= f.text_area :description, :rows => 5, class: "form-control"%>
+          <%= phenotype_form.text_area :description, :rows => 5, class: "form-control"%>
         </div>
         <div class="col-md-11 col-sm-11 col-xs-11 col-md-offset-1">
           <small class="help-block">Give users some more details:<ul><li>What are different variations of this phenotype?</li><li>Why this phenotype is interesting?</li><li>Some links to web resources on the topic?</li></ul></small>
@@ -40,6 +40,6 @@
           <small class="help-block">Blonde, 00, Caucasian etc.<br/><b>Only enter your variation</b> for this phenotype, don't list all possible answers (you can use the description for this). Again: <b>please use the auto-completion.</b></small>
         </div>
       </div>
-  <%= f.submit :class => "btn btn-default btn-lg center-block" %>
+  <%= phenotype_form.submit :class => "btn btn-default btn-lg center-block" %>
   <% end %>
 </div>

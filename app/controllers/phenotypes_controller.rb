@@ -27,6 +27,9 @@ class PhenotypesController < ApplicationController
     @user_phenotype = UserPhenotype.new
     @title = 'Create a new phenotype'
 
+    # Make list of phenotypes for autocomplete
+    @phenotype_list = Phenotype.pluck(:characteristic).to_json
+
     respond_to do |format|
       format.html
       format.xml
