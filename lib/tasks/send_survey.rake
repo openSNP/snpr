@@ -5,7 +5,7 @@ namespace :survey do
     # read list of users to exclude
     # should contain one user-ID per line
     if ENV['EXCLUDEFILE']
-      exclude_users = File.readlines(ENV['EXCLUDEFILE']).map { |l| l.chomp! }
+      exclude_users = File.readlines(ENV['EXCLUDEFILE']).map(&:chomp!)
     else
       exclude_users = []
     end
