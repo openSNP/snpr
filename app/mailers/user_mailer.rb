@@ -80,7 +80,7 @@ default :from => "donotreply@opensnp.org"
                          password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
                          address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
 												 port: ENV.fetch('SURVEY_EMAIL_PORT') }
-		mail(:subject => "openSNP: A one-question survey on height", :to => @user.email,:from => "survey@opensnp.org")
+		mail(:subject => "openSNP: A one-question survey on height", :to => @user.email,:from => "survey@opensnp.org",delivery_method_options: delivery_options)
 	end
 
   def dump(target_address, link)

@@ -1,11 +1,11 @@
 namespace :survey do
-  desc "send survey"
+  desc 'send survey'
   task :send => :environment do
     # invoke script with rake survey:send EXCLUDEFILE=/path/to/file.txt
     # read list of users to exclude
     # should contain one user-ID per line
     if ENV['EXCLUDEFILE']
-      exclude_users = File.readlines(ENV['EXCLUDEFILE']).each {|l| l.chomp!}
+      exclude_users = File.readlines(ENV['EXCLUDEFILE']).map { |l| l.chomp! }
     else
       exclude_users = []
     end
@@ -19,7 +19,7 @@ namespace :survey do
         if u.genotypes.length > 0
           UserMailer.survey(u).deliver_now
           # wait for one minute so we don't crash the google mail daily limit
-          sleep(1.minutes)
+          sleep(1.minute)
         end
       end
     end
