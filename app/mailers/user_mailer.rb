@@ -74,6 +74,15 @@ default :from => "donotreply@opensnp.org"
     mail(:subject => "openSNP meets crowdAI: Crowdsourcing the Prediction of Phenotypes from Genotypes", :to => @user.email)
   end
 
+	def survey(user)
+		@user = user
+		delivery_options = { user_name: ENV.fetch('SURVEY_EMAIL_USER'),
+                         password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
+                         address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
+												 port: ENV.fetch('SURVEY_EMAIL_PORT') }
+		mail(:subject => "openSNP: A one-question survey on height", :to => @user.email,:from => "survey@opensnp.org")
+	end
+
   def dump(target_address, link)
     @link = link
     mail(:subject => "openSNP.org: The data dump you requested is ready to be downloaded",:to => target_address)
