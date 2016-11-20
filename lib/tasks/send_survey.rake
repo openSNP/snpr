@@ -5,10 +5,10 @@ namespace :survey do
     # read list of users to exclude
     # should contain one user-ID per line
     exclude_users = if ENV['EXCLUDEFILE']
-      File.readlines(ENV['EXCLUDEFILE']).map(&:chomp!)
-    else
-      []
-    end
+                      File.readlines(ENV['EXCLUDEFILE']).map(&:chomp!)
+                    else
+                      []
+                    end
 
     # send survey to each user that
     # a) allows us emailing them
