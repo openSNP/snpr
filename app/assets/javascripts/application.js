@@ -13,13 +13,13 @@
 //= require jquery_nested_form
 //= require_self
 
-$(document).ready(function() { 
+$(document).ready(function() {
     $('#update_user').click(function() {
         $('#update_user').val("Updating...").addClass("disabled");
         setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
     });
 
-    //$("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
+    //$("#PaperMendeley").tablesorter({sortList: [[2,1]]});
     //$("#PaperPlos").tablesorter({sortList: [[2,1]]});
 
     $('#remove_help_one').click(function() {
@@ -55,4 +55,9 @@ $(document).ready(function() {
     var $li = $(this).parent("li").toggleClass('open');
     return false;
     });
+
+    // re-show custom text option that may have been previously hidden
+    $('.close').click(function(){
+        $('input[type=text]').show();
+    })
 });
