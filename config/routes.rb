@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'admin_constraint'
 
 Snpr::Application.routes.draw do
   root :to => 'index#index' # change this, maybe
@@ -78,5 +79,5 @@ Snpr::Application.routes.draw do
   get '/user_picture_phenotypes/:id/delete', :to => 'user_picture_phenotypes#delete'
   get '/beacon/rest/responses', :to => 'beacon#responses'
 
-  mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 end

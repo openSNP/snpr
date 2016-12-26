@@ -1,7 +1,7 @@
 module Authlogic
   module RequestSpecHelper
     def sign_in(user)
-      post user_session_path, user_session: { email: user.email, password: 'jeheim' }
+      post user_session_path, user_session: { email: user.email, password: 'strengjeheim' }
     end
   end
 
@@ -12,7 +12,7 @@ module Authlogic
       expect(page).to have_content('Login')
 
       fill_in('Email', with: user.email)
-      fill_in('Password', with: 'jeheim')
+      fill_in('Password', with: 'strengjeheim')
 
       click_on('Login')
 
