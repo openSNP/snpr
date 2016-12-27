@@ -22,3 +22,6 @@ Rails/HttpPositionalArguments:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
+
+Metrics/LineLength:
+  Max: 100

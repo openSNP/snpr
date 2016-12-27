@@ -1,7 +1,7 @@
 namespace :rubocop do
   desc 'Run rubocop'
   task :run do
-    sh("bundle exec rubocop -D") {}
+    sh('bundle exec rubocop -D') {}
   end
 
   desc "Run Rubocop, don't show TODOs"
@@ -16,6 +16,6 @@ namespace :rubocop do
 
   desc 'Generate new TODO file'
   task :generate_todos do
-    sh("bundle exec rubocop --auto-gen-config") {}
+    sh('bundle exec rubocop --auto-gen-config') {}
   end
 end
