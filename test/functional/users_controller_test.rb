@@ -7,7 +7,7 @@ class UsersControllerTest < ActionController::TestCase
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       assert_nil @controller.send(:current_user)
-      @controller.view_context.stubs(:recaptcha_tags)
+      Object.any_instance.stubs(:recaptcha_tags)
     end
 
     context "strangers" do
