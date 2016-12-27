@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'sidekiq/web'
-require 'admin_constraint'
 
 Snpr::Application.routes.draw do
   root :to => 'index#index' # change this, maybe
