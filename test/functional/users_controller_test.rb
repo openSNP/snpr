@@ -1,4 +1,3 @@
-# encoding: utf-8
 require_relative '../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
@@ -30,8 +29,13 @@ class UsersControllerTest < ActionController::TestCase
       should "not be able to create accounts when failing reCAPTCHA" do
         UsersController.any_instance.expects(:verify_recaptcha).returns(false)
         assert_no_difference 'User.count' do
-          put :create, user: { name: "Fubert Barfuß", password: 'strengjeheim',
-            password_confirmation: 'strengjeheim', email: 'fubert@example.com'}, read: 1
+          put :create, user: {
+            name: 'Fubert Barfuß',
+            password: 'strengjeheim',
+            password_confirmation: 'strengjeheim',
+            email: 'fubert@example.com'
+          },
+          read: 1
         end
         assert_response :success
         assert_template :new
@@ -39,8 +43,13 @@ class UsersControllerTest < ActionController::TestCase
 
       should "be able to create accounts" do
         assert_difference 'User.count' do
-          put :create, user: { name: "Fubert Barfuß", password: 'strengjeheim',
-            password_confirmation: 'strengjeheim', email: 'fubert@example.com'}, read: 1
+          put :create, user: {
+            name: 'Fubert Barfuß',
+            password: 'strengjeheim',
+            password_confirmation: 'strengjeheim',
+            email: 'fubert@example.com'
+          },
+          read: 1
         end
         assert_response :redirect
         assert_redirected_to user_path(User.last)
