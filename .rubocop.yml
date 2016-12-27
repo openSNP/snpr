@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 Rails:
   Enabled: true
 
@@ -12,20 +10,11 @@ Style/StringLiterals:
 Style/Documentation:
   Enabled: false
 
-#Metrics/LineLength:
-#  Max: 100
-
 Style/IfUnlessModifier:
   Enabled: false
 
 Style/TrailingCommaInLiteral:
   Enabled: false
-
-#Metrics/MethodLength:
-#  Max: 20
-
-#Metrics/AbcSize:
-#  Max: 20
 
 # Only relevant for Rails 5.
 Rails/HttpPositionalArguments:
