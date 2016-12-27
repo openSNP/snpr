@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Authlogic
   module RequestSpecHelper
     def sign_in(user)

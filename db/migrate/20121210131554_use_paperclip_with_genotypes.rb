@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UsePaperclipWithGenotypes < ActiveRecord::Migration
   def self.up
     add_attachment :genotypes, :genotype

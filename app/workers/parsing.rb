@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Parsing
   include Sidekiq::Worker
   sidekiq_options queue: :user_snps, retry: 5, unique: true

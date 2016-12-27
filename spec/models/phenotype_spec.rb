@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe Phenotype do
   describe '#known_phenotypes' do
     let(:user_phenotypes) { class_double(UserPhenotype) }

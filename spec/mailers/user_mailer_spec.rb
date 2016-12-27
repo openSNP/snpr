@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe UserMailer do
   let(:user) { double(:user, name: 'Lord Schmorgoroth', email: 'ls@example.com') }
   let(:genotype) { double('genotype', id: 1, user: user, filetype: '23andme') }

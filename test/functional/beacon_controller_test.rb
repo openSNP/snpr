@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 require_relative '../test_helper'
 # let's see how my testing skills go…
 class BeaconControllerTest < ActionController::TestCase

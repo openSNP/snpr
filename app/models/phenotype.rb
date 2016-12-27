@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Phenotype < ActiveRecord::Base
   include PgSearchCommon
 

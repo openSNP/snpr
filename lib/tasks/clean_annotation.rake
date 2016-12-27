@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 def check_to_destroy(type)
   set_to_destroy = Set.new []
   type.find_each do |m|

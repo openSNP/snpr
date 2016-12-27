@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreatePicturePhenotypes < ActiveRecord::Migration
   def self.up
 	  create_table :picture_phenotypes do |p|

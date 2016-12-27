@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe Zipgenotypingfiles do
   let!(:user) { create(:user) }
   let!(:phenotype) { create(:phenotype) }

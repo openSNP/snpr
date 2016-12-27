@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # delete broken snpedia_papers
 
 namespace :snpedia_papers do

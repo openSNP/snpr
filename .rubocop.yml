@@ -30,3 +30,6 @@ Style/TrailingCommaInLiteral:
 # Only relevant for Rails 5.
 Rails/HttpPositionalArguments:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always

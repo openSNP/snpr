@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddForeignKeyConstraints < ActiveRecord::Migration
   def up
     add_foreign_key :user_snps, :genotypes, column: :genotype_id # primary_key: defaults to :id so no need to add

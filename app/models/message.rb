@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Message < ActiveRecord::Base
   # from http://stackoverflow.com/questions/5141564/model-users-message-in-rails-3
   belongs_to :user

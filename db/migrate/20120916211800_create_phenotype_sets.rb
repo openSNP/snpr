@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreatePhenotypeSets < ActiveRecord::Migration
   def self.up
 	  create_table :phenotype_sets do |t|

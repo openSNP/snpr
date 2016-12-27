@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DeviseCreateAdminUsers < ActiveRecord::Migration
   def migrate(direction)
     super

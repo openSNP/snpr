@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MendeleyPaper < ActiveRecord::Base
   include PgSearchCommon
 

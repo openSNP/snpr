@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :all do
   desc "prints all created_at for all snps, genotypings, users, user_snps, phenotypes, user_phenotypes"
   task :print => :environment do

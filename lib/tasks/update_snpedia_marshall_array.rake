@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'media_wiki'
 
 namespace :snpedia do

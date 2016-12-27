@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :genotypes do
   desc "calculate md5sums for genotypes"
   task :update => :environment do

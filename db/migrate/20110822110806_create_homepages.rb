@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateHomepages < ActiveRecord::Migration
   def self.up
 	  create_table :homepages do |h|

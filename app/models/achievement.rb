@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Achievement < ActiveRecord::Base
   include PgSearchCommon
   has_many :user_achievements

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChangeFitbitTypes < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.connection.execute(<<-SQL)

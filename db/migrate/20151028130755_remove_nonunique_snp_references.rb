@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RemoveNonuniqueSnpReferences < ActiveRecord::Migration
   def change
     ActiveRecord::Base.connection.execute(<<-SQL)

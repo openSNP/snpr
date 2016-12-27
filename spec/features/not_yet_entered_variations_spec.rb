@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'Not-yet-entered variations list', :js do
   let!(:user) { create(:user) }
   let!(:phenotype1) { create(:phenotype, characteristic: 'Eye count') }

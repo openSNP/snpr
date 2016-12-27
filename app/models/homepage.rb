@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Homepage < ActiveRecord::Base
    belongs_to :user
    after_save :destroy_if_blank

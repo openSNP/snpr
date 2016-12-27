@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddReferences < ActiveRecord::Migration
   def change
     create_table :snp_references, id: false do |t|

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 set :application, 'snpr'
 set :repository, "git://github.com/gedankenstuecke/#{application}.git"
 set :scm, :git

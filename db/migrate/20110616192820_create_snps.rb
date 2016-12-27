@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateSnps < ActiveRecord::Migration
   def self.up
 	  create_table :snps do |t|

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AdminConstraint
   def matches?(request)
     return false unless request.cookie_jar['user_credentials'].present?
