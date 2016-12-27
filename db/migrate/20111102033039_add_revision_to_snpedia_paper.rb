@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddRevisionToSnpediaPaper < ActiveRecord::Migration
   def self.up
 		add_column :snpedia_papers, :revision, :int, :default => 0

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :newsletter do
   desc "send newsletter"
   task :send => :environment do

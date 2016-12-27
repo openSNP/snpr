@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PasswordResetsController < ApplicationController
 
 	before_filter :load_user_using_perishable_token, :only => [:edit, :update]

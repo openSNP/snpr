@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateMessages < ActiveRecord::Migration
   def self.up
     create_table :messages do |t|

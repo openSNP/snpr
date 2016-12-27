@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PicturePhenotype < ActiveRecord::Base
   include PgSearchCommon
 

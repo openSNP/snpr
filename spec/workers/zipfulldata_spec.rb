@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe Zipfulldata do
   let(:user) { create(:user) }
   let(:phenotype) { create(:phenotype, characteristic: "jump height") }

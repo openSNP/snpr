@@ -1,4 +1,5 @@
-ENV["RAILS_ENV"] = "test"
+# frozen_string_literal: true
+ENV['RAILS_ENV'] = 'test'
 unless ENV['CI']
   require 'simplecov'
   SimpleCov.start('rails')

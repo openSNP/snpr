@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe UpdatePapers do
   around { |e| Timecop.freeze(Time.current.beginning_of_minute, &e) }
 

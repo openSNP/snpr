@@ -26,3 +26,10 @@ Style/TrailingCommaInLiteral:
 
 #Metrics/AbcSize:
 #  Max: 20
+
+# Only relevant for Rails 5.
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always

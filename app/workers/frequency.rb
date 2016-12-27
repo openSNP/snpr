@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Frequency
   include Sidekiq::Worker
   sidekiq_options queue: :frequency, retry: 5, unique: true

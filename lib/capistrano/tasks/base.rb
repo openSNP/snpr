@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :deploy do
   task :set_symlinks do
     ln("#{shared_path}/secret_key_base", "#{release_path}/secret_key_base")

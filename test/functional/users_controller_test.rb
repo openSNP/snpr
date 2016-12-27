@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 require_relative '../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
@@ -7,6 +7,7 @@ class UsersControllerTest < ActionController::TestCase
       @user = FactoryGirl.create(:user, name: "The Dude")
       activate_authlogic
       assert_nil @controller.send(:current_user)
+      @controller.view_context.stubs(:recaptcha_tags)
     end
 
     context "strangers" do
@@ -30,18 +31,27 @@ class UsersControllerTest < ActionController::TestCase
       should "not be able to create accounts when failing reCAPTCHA" do
         UsersController.any_instance.expects(:verify_recaptcha).returns(false)
         assert_no_difference 'User.count' do
-          put :create, user: { name: "Fubert Barfuß", password: 'jeheim',
-            password_confirmation: 'jeheim', email: 'fubert@example.com'}, read: 1
+          put :create, user: {
+            name: 'Fubert Barfuß',
+            password: 'strengjeheim',
+            password_confirmation: 'strengjeheim',
+            email: 'fubert@example.com'
+          },
+          read: 1
         end
         assert_response :success
         assert_template :new
       end
 
       should "be able to create accounts" do
-        UsersController.any_instance.expects(:verify_recaptcha).returns(true)
         assert_difference 'User.count' do
-          put :create, user: { name: "Fubert Barfuß", password: 'jeheim',
-            password_confirmation: 'jeheim', email: 'fubert@example.com'}, read: 1
+          put :create, user: {
+            name: 'Fubert Barfuß',
+            password: 'strengjeheim',
+            password_confirmation: 'strengjeheim',
+            email: 'fubert@example.com'
+          },
+          read: 1
         end
         assert_response :redirect
         assert_redirected_to user_path(User.last)

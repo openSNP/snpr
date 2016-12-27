@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe 'snps/_snpedia_papers.html.erb' do
   let(:snpedia_paper) do
     double(:snpedia_paper, url: 'http://www.snpedia.com/index.php/Rs1234(A;C)',

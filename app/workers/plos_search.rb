@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See http://api.plos.org/solr/faq/#solr_api_recommended_usage for API limits
 require 'plos'
 

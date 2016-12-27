@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddSlugColumnToSnps < ActiveRecord::Migration
   def self.up
     add_column :snps, :slug, :string

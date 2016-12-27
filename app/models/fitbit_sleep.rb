@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FitbitSleep < ActiveRecord::Base
   belongs_to :fitbit_profile
   

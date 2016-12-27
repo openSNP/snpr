@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateMendeleyPapers < ActiveRecord::Migration
   def self.up
     create_table :mendeley_papers do |t|

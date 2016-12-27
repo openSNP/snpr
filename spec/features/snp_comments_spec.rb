@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'Commenting on SNPs' do
   let(:user) { create(:user) }
   let!(:snp) { create(:snp) }

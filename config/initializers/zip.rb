@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "zip"
 Zip.setup do |z|
   z.write_zip64_support = true

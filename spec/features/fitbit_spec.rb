@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'Fitbit profiles' do
   let!(:user) { create(:user) }
   let!(:fitbit_profile) { create(:fitbit_profile, user: user) }

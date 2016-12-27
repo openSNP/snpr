@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # some of the user-phenotypes have "::" instead of "/", fix this
 
 namespace :phenotypes do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe 'upsert_user_snps' do
   let(:genotype) { create(:genotype) }
   let(:snp) { create(:snp, name: 'rs1') }

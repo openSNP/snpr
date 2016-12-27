@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FitbitProfile < ActiveRecord::Base
   belongs_to :user
   has_many :fitbit_bodies, dependent: :destroy

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # update Phenotype.known_phenotypes to remove empty/no longer used variations
 
 namespace :phenotypes do

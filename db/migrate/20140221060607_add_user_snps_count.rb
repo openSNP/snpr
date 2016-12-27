@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddUserSnpsCount < ActiveRecord::Migration
   def up
     add_column :snps, :user_snps_count, :integer

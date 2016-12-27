@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FitbitActivity < ActiveRecord::Base
   belongs_to :fitbit_profile
 

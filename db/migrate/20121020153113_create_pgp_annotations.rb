@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreatePgpAnnotations < ActiveRecord::Migration
   def self.up
     create_table :pgp_annotations do |t|

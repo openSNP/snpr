@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 env_file_name = ARGV[0] || '.env.example'
 puts File.read(env_file_name)

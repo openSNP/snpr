@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'csv'
 namespace :snps do
   desc "Iterates over all SNPs, writes a CSV of annotation into public/"

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This is the config to talk to opensnperr.herokuapp.com
 Airbrake.configure do |config|
   config.api_key = ENV.fetch('ERRBIT_API_KEY')

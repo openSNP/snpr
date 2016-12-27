@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateGenotypes < ActiveRecord::Migration
   def self.up
     create_table :genotypes do |t|

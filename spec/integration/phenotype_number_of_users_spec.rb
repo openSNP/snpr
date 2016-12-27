@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe Phenotype do
   let!(:phenotype) { create(:phenotype) }
   subject { phenotype.number_of_users }

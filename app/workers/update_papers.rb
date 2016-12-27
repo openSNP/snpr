@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UpdatePapers
   include Sidekiq::Worker
   sidekiq_options retry: false, unique: true

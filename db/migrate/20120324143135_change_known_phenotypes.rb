@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChangeKnownPhenotypes < ActiveRecord::Migration
   def self.up
 		change_column :phenotypes, :known_phenotypes, :text

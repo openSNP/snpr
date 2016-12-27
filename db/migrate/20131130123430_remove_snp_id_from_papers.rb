@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RemoveSnpIdFromPapers < ActiveRecord::Migration
   def up
     %w(mendeley snpedia plos genome_gov).each do |source|

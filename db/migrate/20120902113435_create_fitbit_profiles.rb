@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateFitbitProfiles < ActiveRecord::Migration
   def self.up
 	  create_table :fitbit_profiles do |t|

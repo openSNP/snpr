@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 def ln(dst, src)
   run("rm -rf '#{src}'")
   run("ln -snf '#{dst}' '#{src}'")

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Requires something like this in the sudoers file:
 #
 #   snpr ALL=NOPASSWD: /usr/sbin/service sidekiq-manager *

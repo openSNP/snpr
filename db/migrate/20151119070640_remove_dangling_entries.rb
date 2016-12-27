@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RemoveDanglingEntries < ActiveRecord::Migration
   def up
     UserSnp.find_each do |us|

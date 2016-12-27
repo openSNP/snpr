@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddIndexOnMendeleySnp < ActiveRecord::Migration
   def up
     add_index :mendeley_papers, :snp_id
