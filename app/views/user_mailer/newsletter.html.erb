@@ -20,16 +20,11 @@
     <p>
       The openSNP team and the crowdAI team
     </p>
-      --
-      <br/>
-      You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team. You can change this setting really easy at https://opensnp.org/users/<%=@user.id%>/edit#notifications</br></br>
-      openSNP thanks <a href="https://www.sbgenomics.com/">Seven Bridges</a> –
-      and its biomedical data analysis platform –
-      along with <a href="https://www.patreon.com/openSNP">our Patreons</a> for supporting our
-      hosting costs.
-      <br/>
-      <a href="https://www.sbgenomics.com">
-        <%= image_tag("SBG_logo.png") %>
-      </a>
-  </body>
+    --
+  </br>
+    You received this email because you enabled the message-notification setting. To change your notification settings, you can visit <%=edit_user_url(@user)%>#notifications
+  </br></br>
+    openSNP thanks <a href="https://www.patreon.com/openSNP">our Patreons</a> for supporting our
+    hosting costs.
+</body>
 </html>
