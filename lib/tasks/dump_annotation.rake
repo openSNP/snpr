@@ -105,7 +105,7 @@ namespace :snps do
     end
 
     # now zip the CSVs and put the zip into /public
-    Zip::ZipFile.open("#{Rails.root}/public/data/annotation.zip", Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open("#{Rails.root}/public/data/annotation.zip", Zip::File::CREATE) do |zipfile|
       zipfile.add("genome_gov.csv", "#{Rails.root}/tmp/genome_gov.csv")
       zipfile.add("readme.txt", "#{Rails.root}/tmp/readme.txt")
       zipfile.add("pgp.csv", "#{Rails.root}/tmp/pgp.csv")
