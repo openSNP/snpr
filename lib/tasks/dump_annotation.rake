@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'csv'
+require 'zip'
 namespace :snps do
   desc "Iterates over all SNPs, writes a CSV of annotation into public/"
   task :dump => :environment do
