@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class GenotypesController < ApplicationController
 
   before_filter :require_user, except: [ :show, :feed,:index,:dump_download ]

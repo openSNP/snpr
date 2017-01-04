@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddMd5sumToGenotyping < ActiveRecord::Migration
   def self.up
     add_column :genotypes, :md5sum, :string

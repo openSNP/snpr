@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :snp do
     sequence(:name) { |i| "rs#{i}" }

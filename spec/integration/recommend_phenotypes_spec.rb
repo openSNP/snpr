@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe 'Recommend phenotypes' do
   subject do
     RecommenderWorker.new.perform('PhenotypeRecommender')

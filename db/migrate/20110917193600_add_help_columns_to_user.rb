@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddHelpColumnsToUser < ActiveRecord::Migration
   def self.up
     add_column :users, :help_one,    :boolean, :default => false

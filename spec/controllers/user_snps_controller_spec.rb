@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe UserSnpsController do
   let(:user_snp) { double('user_snp') }
 

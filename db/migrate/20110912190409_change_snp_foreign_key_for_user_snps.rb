@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChangeSnpForeignKeyForUserSnps < ActiveRecord::Migration
   def self.up
     add_column :user_snps, :snp_name, :string

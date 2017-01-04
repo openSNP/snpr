@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddIndexesOnSnpsAndUsersnps < ActiveRecord::Migration
   def self.up
     add_index :snps, :name

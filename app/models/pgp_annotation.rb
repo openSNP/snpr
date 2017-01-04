@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PgpAnnotation < ActiveRecord::Base
   include PgSearchCommon
 

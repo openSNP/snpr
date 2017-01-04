@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe SnpediaPaper do
   subject do
     build(:snpedia_paper, url: 'http://www.snpedia.com/index.php/Rs1234(A;C)')

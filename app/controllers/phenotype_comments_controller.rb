@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PhenotypeCommentsController < ApplicationController
   before_filter :require_user
 

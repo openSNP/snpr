@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe Parsing do
   describe '#notify_user' do
     let(:mail) { double('mail') }

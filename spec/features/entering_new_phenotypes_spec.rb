@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'Entering new phenotypes' do
   let!(:user) { create(:user) }
   let!(:other_user) do

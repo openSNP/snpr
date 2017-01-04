@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :numbers do
   desc "dump numbers for R plots"
   task :dump => :environment do

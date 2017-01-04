@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TrulyAddRevisionToSnpediaPaper < ActiveRecord::Migration
   def self.up
       if column_exists? :snpedia_papers, :revision

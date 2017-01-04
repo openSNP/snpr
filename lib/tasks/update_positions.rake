@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # get VCF first from ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b141_GRCh38/VCF/All.vcf.gz (about 1.3GB) and gunzip
 # put into /var/www/all_positions.txt
 

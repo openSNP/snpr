@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FitbitProfilesController < ApplicationController
   before_filter :require_user, except: [:new_notification, :show, :index]
   before_filter :require_user, only: [:update,:destroy,:init,:edit,:start_auth,:verify_auth,:dump]

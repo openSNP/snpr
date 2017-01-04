@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateUserAchievements < ActiveRecord::Migration
   def self.up
  	  create_table :user_achievements do |t|

@@ -1,5 +1,6 @@
 
 
+# frozen_string_literal: true
 class FitbitNotification
    include Sidekiq::Worker
    sidekiq_options :queue => :fitbit, :retry => 5, :unique => true

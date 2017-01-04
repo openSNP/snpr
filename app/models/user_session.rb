@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserSession < Authlogic::Session::Base
 
 	# rails 3 broke something, this is for fix

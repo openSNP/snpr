@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'SNP page' do
   let!(:snp) { create(:snp) }
   let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }

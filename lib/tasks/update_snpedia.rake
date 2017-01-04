@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :snpedia do
   desc "update snpedia"
   task :update => :environment do

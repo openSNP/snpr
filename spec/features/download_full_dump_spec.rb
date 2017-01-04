@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 feature 'downloading the full dump' do

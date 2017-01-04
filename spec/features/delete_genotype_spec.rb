@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'Delete a genotype', sidekiq: :inline do
   let(:user) { create(:user) }
   let!(:genotype) { create(:genotype, user: user) }

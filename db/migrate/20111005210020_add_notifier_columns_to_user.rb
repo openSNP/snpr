@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddNotifierColumnsToUser < ActiveRecord::Migration
   def self.up
     add_column :users, :message_on_message, :boolean, :default => true

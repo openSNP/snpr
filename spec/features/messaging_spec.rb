@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.feature 'Messaging' do
   let!(:alice) { create(:user, name: 'Alice') }
   let!(:bob) { create(:user, name: 'Bob') }

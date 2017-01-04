@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Mailnewphenotype
   include Sidekiq::Worker
   sidekiq_options queue: :mailnewgenotype, unique: true, retry: false # avoid spam on breakage

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreatePicturePhenotypeComments < ActiveRecord::Migration
   def self.up
 	  create_table :picture_phenotype_comments do |t|
