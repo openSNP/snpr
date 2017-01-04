@@ -15,71 +15,71 @@ namespace :snps do
     CSV.open("#{Rails.root}/tmp/mendeley.csv", "wb") do |csv|
       csv << ["Name", "Position", "Chromosome", "Year", "First author", "Title", "DOI", "Open Access status", "Link"]
       MendeleyPaper.find_each do |m|
-        parental = m.snp
-        position = parental.position.strip
-        name = parental.name
-        chrom = parental.chromosome
         first_author = m.first_author
         year = m.pub_year
         title = m.title
         doi = m.doi
         oa = m.open_access
         link = m.mendeley_url
-        csv << [name, position, chrom, year, first_author, title, doi, oa, link]
-      end 
+        m.snps.each do |snp|
+          position = snp.position.strip
+          name = snp.name
+          chrom = snp.chromosome
+          csv << [name, position, chrom, year, first_author, title, doi, oa, link]
+        end
+      end
     end
     # dump snpedia
     CSV.open("#{Rails.root}/tmp/snpedia.csv", "wb") do |csv|
       csv << ["Name", "Position", "Chromosome", "Summary", "Link"]
       SnpediaPaper.find_each do |sn|
-        parental = sn.snp
-        position = parental.position.strip
-        name = parental.name
-        chrom = parental.chromosome
         summary = sn.summary
         link = sn.url
-        csv << [name, position, chrom, summary, link]
+        sn.snps.each do |snp|
+          position = snp.position.strip
+          name = snp.name
+          chrom = snp.chromosome
+          csv << [name, position, chrom, summary, link]
+        end
       end
     end
     # dump plos
     CSV.open("#{Rails.root}/tmp/plos.csv","wb") do |csv|
       csv << ["Name", "Position", "Chromosome", "Year", "First author", "Title", "DOI"]
       PlosPaper.find_each do |sp|
-        parental = sp.snp
-        position = parental.position.strip
-        name = parental.name
-        chrom = parental.chromosome
         first_author = sp.first_author
         title = sp.title
         doi = sp.doi
         year = sp.pub_date
-        csv << [name, position, chrom, year, first_author, title, doi]
+        sp.snps.each do |snp|
+          position = snp.position.strip
+          name = snp.name
+          chrom = snp.chromosome
+          csv << [name, position, chrom, year, first_author, title, doi]
+        end
       end
     end
     # dump pgp
     CSV.open("#{Rails.root}/tmp/pgp.csv", "wb") do |csv|
       csv << ["Name", "Position", "Chromosome", "Gene", "Qualified Impact", "Inheritance", "Summary", "Trait"]
       PgpAnnotation.find_each do |spg|
-        parental = spg.snp
-        position = parental.position.strip
-        name = parental.name
-        chrom = parental.chromosome
         gene = spg.gene
         impact = spg.qualified_impact
         inheritance = spg.inheritance
         summ = spg.summary
         trait = spg.trait
-        csv << [name, position, chrom, gene, impact, inheritance, summ, trait]
+        spg.snps.each do |snp|
+          position = snp.position.strip
+          name = snp.name
+          chrom = snp.chromosome
+          csv << [name, position, chrom, gene, impact, inheritance, summ, trait]
+        end
       end
     end
     # dump genome_gov
     CSV.open("#{Rails.root}/tmp/genome_gov.csv", "wb") do |csv|
       csv << ["Name", "Position", "Chromosome", "First Author", "Title", "Pubmed link", "Year", "Journal", "Trait", "p-value", "p-value description", "Confidence Interval"]
       GenomeGovPaper.find_each do |gg|
-        parental = gg.snp
-        position = parental.position.strip
-        name = parental.name
-        chrom = parental.chromosome
         author = gg.first_author
         title = gg.title
         pubmed = gg.pubmed_link
@@ -89,7 +89,12 @@ namespace :snps do
         pvalue = gg.pvalue
         pvalue_description = gg.pvalue_description
         conf = gg.confidence_interval
-        csv << [name, position, chrom, author, title, pubmed, year, journal, trait, pvalue, pvalue_description, conf]
+        gg.snps.each do |snp|
+          position = snp.position.strip
+          name = snp.name
+          chrom = snp.chromosome
+          csv << [name, position, chrom, author, title, pubmed, year, journal, trait, pvalue, pvalue_description, conf]
+        end
       end
     end
 
