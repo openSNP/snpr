@@ -68,12 +68,11 @@ namespace :snps do
         inheritance = spg.inheritance
         summ = spg.summary
         trait = spg.trait
-        spg.snps.each do |snp|
-          position = snp.position.strip
-          name = snp.name
-          chrom = snp.chromosome
-          csv << [name, position, chrom, gene, impact, inheritance, summ, trait]
-        end
+        snp = spg.snp
+        position = snp.position.strip
+        name = snp.name
+        chrom = snp.chromosome
+        csv << [name, position, chrom, gene, impact, inheritance, summ, trait]
       end
     end
     # dump genome_gov
