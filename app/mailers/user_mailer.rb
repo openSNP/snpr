@@ -72,7 +72,7 @@ default :from => "donotreply@opensnp.org"
 
   def newsletter(user)
     @user = user
-    mail(:subject => "openSNP meets crowdAI: Crowdsourcing the Prediction of Phenotypes from Genotypes", :to => @user.email)
+    mail(:subject => "openSNP: The 2016 round-up and what's next", :to => @user.email)
   end
 
 	def survey(user)
