@@ -4,4 +4,4 @@
 	<%= link_to(u.id, Snp.find_by_id(u.snp_id)) %><br/>
 <% end %>
 
-<%= will_paginate(@user_snps) %>
+<%= will_paginate(@user_snps, page_links: false) %>
