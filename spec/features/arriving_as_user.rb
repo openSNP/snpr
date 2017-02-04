@@ -22,7 +22,7 @@ RSpec.describe 'Arriving as user' do
       expect(page).to have_content('rs1234')
 
       # Test Your last 30 updated SNPs feed
-      expect(page).to have_content('Received new data from Mendeley')
+      expect(page).to have_content('Received new data from SNPedia')
     end
   end
 end
