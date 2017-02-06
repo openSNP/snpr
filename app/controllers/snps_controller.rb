@@ -60,12 +60,12 @@ class SnpsController < ApplicationController
         @new_param[:snp_name] = params[:snp_name].downcase
         @results << json_element(@new_param)
       end
-    else 
+    else
       @results = json_element(params)
     end
 
     respond_to do |format|
-      format.json { render json: @results } 
+      format.json { render json: @results }
     end
   end
 
@@ -168,9 +168,9 @@ class SnpsController < ApplicationController
       end
     end
 
-    @result = result 
+    @result = result
     respond_to do |format|
-      format.json { render json: @result } 
+      format.json { render json: @result }
     end
   end
 
