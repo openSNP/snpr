@@ -6,9 +6,6 @@ module ApplicationHelper
     link_to title, { sort: column, direction: direction }, class: css_class
   end
 
-  class BootstrapLinkRenderer < ::WillPaginate::ActionView::LinkRenderer
-    protected
-
   def page_navigation_links(pages)
     will_paginate(pages, class: 'pagination', inner_window: 2, outer_window: 0, renderer: BootstrapLinkRenderer, previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe, page_links: false)
   end
