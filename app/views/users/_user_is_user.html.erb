@@ -34,11 +34,7 @@
         <a href="#unentered_variations">Variations you did not enter yet (<%= @unentered_phenotypes.length %>)</a>
       </li>
     <% end %>
-    <% if @user.has_sequence != true %>
-      <li>
-        <a href="#snps">Your SNPs</a>
-      </li>
-    <% end %>
+    <li><a href="#snps">Updates to your SNPs</a></li>
     <li><a href="#variations">Your variations</a></li>
     <li><a href="#messages">Your messages</a></li>
     <li><a href="#comments">Replies to your comments</a></li>
@@ -78,6 +74,28 @@
   <div id="snps">
     <% if @user.genotypes.length == 0 %>
       <h2>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new") %></h2>
+    <% else %>
+      <h4>Your 30 last updated SNPs</h4>
+      <% if @last_30_papers.empty? %>
+          We're sorry, it seems that nothing has recently been updated for your SNPs.
+      <% else %>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>SNPs</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <% @last_30_papers.each do |paper| %>
+                <tbody>
+                <tr>
+                <td><% paper.snps.each do |s| %><%= link_to s.name, s %> <% end %></td>
+                <td>Received new data from <%= paper.class.to_s.gsub('Paper','') %> on <%= paper.updated_at.to_formatted_s(:short) %>!</td>
+                </tr>
+                </tbody>
+            <% end %>
+        </table>
+      <% end %>
     <% end %>
   </div>
 
