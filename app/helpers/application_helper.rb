@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def page_navigation_links(pages)
-    will_paginate(pages, class: 'pagination', inner_window: 2, outer_window: 0, renderer: BootstrapLinkRenderer, previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe)
+    will_paginate(pages, class: 'pagination', inner_window: 2, outer_window: 0, renderer: BootstrapLinkRenderer, previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe, page_links: false)
   end
 
   def table_row_sequence_number(paginated, current_page_index)
