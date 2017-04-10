@@ -78,8 +78,8 @@ This code of conduct and its related procedures also applies to unacceptable beh
 
 **To report or discuss a suspected violation of this code of conduct by a member of the core team, you may contact any of these people in confidence**:
 
-- Kay Thaney, Director @ Mozilla Science Lab
-  - email: kay@mozillascience.org
+- Kay Thaney, Senior Fellow @ Mozilla
+  - email: kt@kaythaney.com
   - twitter: [@kaythaney](http://twitter.com/kaythaney)
   - gitter: https://gitter.im/kaythaney
 
