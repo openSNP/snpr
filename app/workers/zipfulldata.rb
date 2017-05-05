@@ -253,12 +253,8 @@ TXT
           sex = "unknown"
       end
 
-      if not File.exist? to_zip_file
-        next
-      end
-
       zipfile.add("user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
-                  to_zip_file)
+                  to_zip_file) unless ! File.exist? to_zip_file
     end
   end
 
