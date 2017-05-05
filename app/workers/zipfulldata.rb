@@ -244,14 +244,21 @@ TXT
     genotypes.each do |gen_file|
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
+      to_zip_file = "#{Rails.root}/public/data/#{gen_file.fs_filename}"
+
       if yob == "rather not say"
           yob = "unknown"
       end
       if sex == "rather not say"
           sex = "unknown"
       end
+
+      if not File.exist? to_zip_file
+        next
+      end
+
       zipfile.add("user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
-                  "#{Rails.root}/public/data/#{gen_file.fs_filename}")
+                  to_zip_file)
     end
   end
 
