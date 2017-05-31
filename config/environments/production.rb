@@ -12,7 +12,7 @@ Snpr::Application.configure do
   config.action_controller.perform_caching = true
 
   # Specifies the header that your server uses for sending files
-  #config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
   # see https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting#sidekiq-web-does-not-render-correctly-in-production-but-works-fine-in-development
@@ -55,7 +55,7 @@ Snpr::Application.configure do
   # Compress JavaScript and CSS
   config.assets.compress = true
   config.assets.js_compressor = :uglifier
-  #config.assets.css_compressor = :yui
+  # config.assets.css_compressor = :yui
 
   # Don't fallback to assets pipeline
   config.assets.compile = false
