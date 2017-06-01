@@ -45,16 +45,16 @@ class UserPhenotypesController < ApplicationController
         check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
 
         if @js_modal == true
-          redirect_to '/users/'+current_user.id.to_s
+          redirect_to '/users/' + current_user.id.to_s
         else
-          redirect_to '/recommend_phenotype/'+@user_phenotype.phenotype_id.to_s, notice: 'Variation successfully saved'
+          redirect_to '/recommend_phenotype/' + @user_phenotype.phenotype_id.to_s, notice: 'Variation successfully saved'
         end
       else
         flash[:warning] = 'Please enter a variation'
-        redirect_to '/users/'+current_user.id.to_s
+        redirect_to '/users/' + current_user.id.to_s
       end
     else
-      redirect_to '/phenotypes/'+@user_phenotype.phenotype_id.to_s, notice: 'You already have a variation entered'
+      redirect_to '/phenotypes/' + @user_phenotype.phenotype_id.to_s, notice: 'You already have a variation entered'
     end
   end
 

@@ -1,3 +1,4 @@
+ # frozen_string_literal: true
 class UpdatesController < ApplicationController
   def index
     @new_genotypes = Genotype.order('created_at DESC').limit(20)
@@ -10,7 +11,7 @@ class UpdatesController < ApplicationController
     @newest_mendeley_paper = MendeleyPaper.order('created_at DESC').limit(20)
 
     @newest_paper = @newest_mendeley_paper | @newest_plos_paper
-    @newest_paper.sort! { |a,b| b.created_at <=> a.created_at }
+    @newest_paper.sort! { |a, b| b.created_at <=> a.created_at }
 
     respond_to do |format|
       format.html
