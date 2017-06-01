@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+
+    <% if @user.present?%>
+    <b>Dear <%=@user.name%>,</b>
+    <% else %>
+    <b>Dear openSNP-user,</b>
+      <%end%>
+
+    <%= yield %>
+
+    Cheers,
+    the openSNP team
+
+    --
+    openSNP thanks our Patreons for supporting our hosting costs.
+
+    http://www.patreon.com/openSNP
+
+    <p>
+      --
+      <br/>
+      openSNP thanks <a href="https://www.patreon.com/openSNP">our Patreons</a> for supporting our
+      hosting costs.
+    </p>
+  </body>
+</html>

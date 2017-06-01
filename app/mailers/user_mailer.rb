@@ -75,7 +75,10 @@ default from: 'donotreply@opensnp.org'
 
   def newsletter(user)
     @user = user
-    mail(subject: 'openSNP: The 2016 round-up and what\'s next', to: @user.email)
+    mail(subject: 'openSNP: The 2016 round-up and what\'s next', to: @user.email) do |format|
+      format.html { render layout: 'user_mailer_no_optout.html.erb' }
+      format.text { render layout: 'user_mailer_no_optout.text.erb' }
+    end
   end
 
   def survey(user)
@@ -93,7 +96,10 @@ default from: 'donotreply@opensnp.org'
   def dump(target_address, link)
     @link = link
     mail(subject: 'openSNP.org: The data dump you requested is ready to be downloaded',
-         to: target_address)
+         to: target_address) do |format|
+           format.html { render layout: 'user_mailer_no_optout.html.erb' }
+           format.text { render layout: 'user_mailer_no_optout.text.erb' }
+         end
   end
 
   def no_dump(target_address)
