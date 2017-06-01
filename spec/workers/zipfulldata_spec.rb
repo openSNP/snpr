@@ -35,7 +35,7 @@ describe Zipfulldata do
            "#{job.tmp_dir}/dump#{job.time_str}.csv")
     job.create_user_csv([genotype, genotype2], zipfile)
     csv = CSV.read("#{job.tmp_dir}/dump#{job.time_str}.csv", job.csv_options)
-    exp_header = ["user_id", "genotype_filename", "date_of_birth", "chrom_sex",
+    exp_header = ['user_id', 'genotype_filename', 'date_of_birth', 'chrom_sex',
                   phenotype.characteristic]
     exp_row1 = [user.id.to_s, genotype.fs_filename, user.yearofbirth, user.sex,
                 user.user_phenotypes.first.variation]

@@ -259,7 +259,9 @@ TXT
   end
 
   def delete_old_zips
-    forbidden_files = [link_path, zip_fs_path, Rails.root.join("data/annotation.zip"), Rails.root.join("public/data/zip/#{dump_file_name}.zip")]
+    forbidden_files = [link_path, zip_fs_path,
+                        Rails.root.join('data','annotation.zip'),
+                        Rails.root.join('public','data','zip','#{dump_file_name}.zip')]
     Dir[Rails.root.join('public/data/zip/*.zip')].each do |f|
       if (not forbidden_files.include? f) and (File.ftype(f) == "file")
         File.delete(f)
