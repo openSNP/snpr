@@ -1,0 +1,61 @@
+.navbar-menu
+  position: relative
+  margin-bottom: 0
+  background-color: $main-color1
+  border-color: $main-color1
+  z-index: 2
+
+.container .navbar-header a.navbar-menu__brand
+  color: white
+
+.container ul li a.navbar-menu__options,
+.nav .dropdown .dropdown-menu li a.navbar-menu__options
+  color: white
+  transition: background-color .7s
+
+.navbar-default .container ul li a.navbar-menu__options:hover,
+.navbar-default .container ul li a.navbar-menu__options:active,
+.nav .dropdown .dropdown-menu li a.navbar-menu__options:hover,
+.nav .dropdown .dropdown-menu li a.navbar-menu__options:active
+  background-color: #6292b5
+  color: white
+
+.navbar-default .container ul li a.navbar-menu__options:focus,
+.nav .dropdown .dropdown-menu li a.navbar-menu__options:focus
+  color: white
+  background-color: $main-color1
+
+li a.navbar-menu__profile-option
+  padding: 9px
+
+.navbar-menu__search-input
+  width: 150px
+  position: absolute
+  top: 0px
+  left: 30%
+  margin: 0
+
+  @media #{$mobile-breakpoint}
+    width: 180px
+
+  @media #{$tablet-breakpoint}
+    width: 220px
+    left: 0
+    margin-left: 69%
+
+.navbar-menu__search-input-content
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
+  z-index: 2
+  
+  @media #{$tablet-breakpoint}
+    z-index: 1
+
+.navbar-menu__info-menu, .navbar-menu__profile-menu
+  background-color: $main-color1
+
+.container .navbar-header .navbar-menu__hamburger-menu:hover,
+.container .navbar-header .navbar-menu__hamburger-menu:focus
+  background-color: $main-color1
+
+.navbar-header .navbar-menu__hamburger-menu .navbar-menu__hamburger-menu-icon
+  background-color: #fff

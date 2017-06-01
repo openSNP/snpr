@@ -1,119 +1,137 @@
-<%= nested_form_for(@user, url: user_path, remote: true, authenticity_token: true, html: { multipart: true } ) do |f| %>
-
+<h3 class="general__title">Settings</h3>
 <%= render 'shared/error_messages', target: @user %>
-<div id="post_errors" style="display:none"></div>
-<div id="tab-container">
-  <ul class="nav nav-tabs">
-    <li><a href="#general">General</a></li>
-    <li><a href="#phenotypes">Phenotypes</a></li>
-    <li><a href="#details">Details</a></li>
-    <li><a href="#fitbit">Fitbit</a></li>
-	<li><a href="#notifications">Notifications</a></li>
-	<li><a href="#deleting">Deleting</a></li>
+<%= nested_form_for(@user, url: user_path, remote: true, authenticity_token: true, html: { multipart: true } ) do |f| %>
+  <div id="post_errors" style="display:none"></div>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
+    <li role="presentation"><a href="#phenotypes" aria-controls="phenotypes" role="tab" data-toggle="tab">Your phenotypes</a></li>
+    <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
+    <li role="presentation"><a href="#fitbit" aria-controls="fitbit" role="tab" data-toggle="tab">Fitbit</a></li>
+    <li role="presentation"><a href="#notifications" aria-controls="notifications" role="tab" data-toggle="tab">Notifications</a></li>
+    <li role="presentation"><a href="#deleting" aria-controls="deleting" role="tab" data-toggle="tab">Deleting</a></li>
   </ul>
-<div id="general">
-	<div class="well">
-		<h2>General Information</h2>
-		<%= f.label :name, "Your username" %>
-		<%= f.text_field :name %>
 
-        <%= f.label :avatar, "Your current avatar" %>
-		<%= image_tag @user.avatar.url(:thumb) %>
-		<% if @user.avatar_file_name != nil %>
-            <div class="checkbox">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active clearfix well tabs__one-tab settings__general" id="general">
+      <h2 class="tabs__one-tab-title">General settings</h2>
+      <div class="row">
+        <div class="col-md-offset-2 col-md-4 settings__general-username-div">
+          <%= f.label :name, "Your username" %>
+          <%= f.text_field :name, class: "form-control settings__general-username-input center-block", value: @user.name %>
+          <%= link_to "Change Email/Password", {controller: "users", action: "changepassword", id: @user.id }, class: "btn btn-default settings__general-change-password center-block" %>
+        </div>
+        <div class="col-md-offset-2 col-md-4 settings__general-profile-picture-div">
+          <p class="text-center settings__general-profile-text">Change your profile picture</p>
+          <%= image_tag @user.avatar.url(:thumb), class:"img-circle center-block"  %>
+          <% if @user.avatar_file_name != nil %>
+          <div class="checkbox">
             <%= f.check_box(:delete_avatar) %> Delete current avatar?
+          </div>
+          <% end %>
+          <%= f.file_field :avatar, class: "center-block settings__general-change-picture-button" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 settings__general-add-genotype-div">
+          <% if current_user.genotypes.length >= 1%><%= link_to "Add another genotyping", {controller: "genotypes", action: "new"}, class: "center-block btn btn-default settings__general-add-genotype" %><% end %>
+        </div>
+      </div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__phenotypes" id="phenotypes">
+  		<h2 class="tabs__one-tab-title">Your Phenotypes</h2>
+      <div class="row settings__phenotypes-options">
+        <div class="col-md-offset-1 col-md-4 settings__phenotypes-options-sex">
+          <h4 class="text-center"><%= f.label :sex, "Chromosomal Sex"%></h4>
+          <%= f.select :sex, options_for_select(["XX", "XY", "other", "rather not say"], selected: @user.sex), {}, {:class => "settings__phenotypes-select-input center-block"} %>
+        </div>
+        <div class=" col-md-offset-2 col-md-4 settings__phenotypes-options-birth">
+          <h4 class="text-center"><%= f.label :yearofbirth, "Year of Birth"%></h4>
+          <%= f.select :yearofbirth, options_for_select(((1900..2015).to_a << "rather not say").reverse, selected: @user.yearofbirth), {}, {:class => "settings__phenotypes-select-input center-block"} %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 settings__additional-phenotypes">
+          <h3 class="text-center general__title">Your Phenotypes</h3>
+          <%= f.fields_for :user_phenotypes do |p| %>
+          <% @phenotype = Phenotype.find_by_id(p.object.phenotype_id) %>
+          <div class="text-center clearfix settings__single-additional-phenotypes">
+
+            <script type="text/javascript">
+            $(function () {
+              $("#phenotype_<%=p.object.phenotype_id.to_json%>").autocomplete({
+                source: <%=raw(Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json)%>
+              });
+            });
+            </script>
+
+            <h4><%= Phenotype.find_by_id(p.object.phenotype_id).characteristic %></h4>
+            <%= p.text_field :variation, id: "phenotype_"+p.object.phenotype_id.to_s%><br/>
+            <%= p.link_to_remove "Remove", class: "btn btn-default settings__additional-phenotypes-remove"%>
+          </div>
+          <% end %>
+          <%= link_to "Add phenotype", {controller: "phenotypes", action: "new"}, class:"btn btn-default center-block settings__add-phenotype-button" %>
+        </div>
+      </div>
+   	</div>
+
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__details" id="details">
+      <div class="clearfix">
+        <div class="row">
+          <div class="col-md-6 settings__details-description">
+            <h2 class="tabs__one-tab-title">Details</h2>
+            <p>Add or edit a description of yourself:<br/>
+              <%= f.text_area  :description, size: "30x8" %></p>
             </div>
-		<% end %>
+            <div class="col-md-6 settings__details-homepages">
+              <h3>Add your homepages</h3>
+              <%= f.fields_for :homepages do |h| %>
+              Description <%= h.text_field :description %>
+              URL <%= h.url_field :url %><%= h.link_to_remove "Remove"%>
+              <% end %>
+              <%= f.link_to_add "+ Add a page", :homepages %>
+            </div>
+        </div>
+      </div>
+    </div>
 
-		<%= f.label :avatar, "Upload new avatar"%>
-		<%= f.file_field :avatar %>
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__fitbit" id="fitbit">
+      <h2><%=image_tag("fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
+      <%if @user.fitbit_profile != nil%>
+      <p class="lead">You have connected your <em>Fitbit</em> account with <em>openSNP</em></p>
+      <p class="lead"><%=link_to("Edit your Fitbit connection" , { controller: "fitbit_profiles", action: "edit" } )%></p>
+      <%else%>
+      <p class="lead">You haven't connected a <em>Fitbit</em> account with <em>openSNP</em> yet. <%=link_to("Do you want to learn more about how to do this?" , { controller: "fitbit_profiles", action: "info" } )%></p>
+      <%end%>
+    </div>
 
-	
-    <h5><%= link_to "Change eMail/Password", { controller: "users", action: "changepassword", id: @user.id } %></h5>
-	            
-    <% if current_user.genotypes.length >= 1%><%= link_to "Add another genotyping!", controller: "genotypes", action: "new"%><% end %>
-	</div>
-</div>
-
-<div id="phenotypes">
-	<div class="well">
-		<h2>Your Phenotypes</h2>
-		<%= f.label :sex, "Chromosomal Sex"%>
-		<%= f.select :sex, options_for_select(["XX", "XY", "other", "rather not say"], selected: @user.sex) %>
-		<%= f.label :yearofbirth, "Year of Birth"%>
-		<%= f.select :yearofbirth, options_for_select(((1900..2015).to_a << "rather not say").reverse, selected: @user.yearofbirth) %>
-       <h2>Additional phenotypes</h2>
-		<%= f.fields_for :user_phenotypes do |p| %>
-            <% @phenotype = Phenotype.find_by_id(p.object.phenotype_id) %>
-		<div class="field">
-		
-		   <script type="text/javascript">
-		     $(function () {
-		       $("#phenotype_<%=p.object.phenotype_id.to_json%>").autocomplete({
-		         source: <%=raw(Phenotype.find_by_id(p.object.phenotype_id).known_phenotypes.to_json)%>
-		       });
-		     });
-		   </script>
-		
-		 	<%= p.label Phenotype.find_by_id(p.object.phenotype_id).characteristic %><%= p.text_field :variation %> <%= p.link_to_remove "Remove"%><br/>
-	 	</div>
-<%end %>
-
- <%= link_to "Add a new phenotype", controller: "phenotypes", action: "new" %>
- 	</div>
-</div>
-
-<div id="details">
-<div class="well">
-<h2>Details</h2>
-	<p>Add or edit a description of yourself:<br/><%= f.text_area  :description, size: "1x10" %></p>
-<p>Please provide at least one homepage (or Twitter, Blog etc.) </p>
-<%= f.fields_for :homepages do |h| %>
-		Description <%= h.text_field :description %>
-		URL <%= h.url_field :url %><%= h.link_to_remove "Remove"%>
-<% end %>
-<%= f.link_to_add "Add a page", :homepages %>
-</div>
-</div>
-
-<div id="notifications">
-<div class="well">
-<h2>Notifications</h2>
-<h5>Set up mail notifications to make sure you don't miss a thing happening at openSNP</h5>
-<dl>
-    <dt><%= f.label :message_on_newsletter, "From the openSNP-team"%></dt><dd>The openSNP team may send me mails on updates, new features, things like this: <%= f.check_box :message_on_newsletter%></dd><br/>
-    <dt><%= f.label :message_on_message, "Messages"%></dt><dd>Get a mail on new messages: <%= f.check_box :message_on_message%></dd><br/>
-    <dt><%= f.label :message_on_new_phenotype, "New Phenotypes"%></dt><dd>Get a mail as soon as a new phenotype gets available: <%= f.check_box :message_on_new_phenotype%></dd><br/>
-    <dt><%= f.label :message_on_phenotype_comment_reply, "Phenotype Comments"%></dt><dd>Get a mail on each phenotype comment that is a reply to one of yours: <%= f.check_box :message_on_phenotype_comment_reply%></dd><br/>
-    <dt><%= f.label :message_on_snp_comment_reply, "SNP Comments"%></dt><dd>Get a mail on each SNP comment that is a reply to one of yours: <%= f.check_box :message_on_snp_comment_reply%></dd><br/>
-</dl>
-</div>
-</div>
-
-<div id="deleting">
-<div class="well">
-	<h2>Deleting</h2>
-	<% if not @user.genotypes.empty? %>
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__notifications" id="notifications">
+      <h2 class="tabs__one-tab-title">Notifications</h2>
+      <h4>Set up mail notifications to make sure you don't miss a thing happening at openSNP</h4>
+      <dl class="center-block settings__notifications-options">
+        <dd><%= f.check_box :message_on_newsletter%> The openSNP-team may send me mails on updates, new features, things like this</dd><br/>
+        <dd><%= f.check_box :message_on_message%> Get a mail on new messages</dd><br/>
+        <dd><%= f.check_box :message_on_new_phenotype%> Get a mail as soon as a new phenotype gets available</dd><br/>
+        <dd><%= f.check_box :message_on_phenotype_comment_reply%> Get a mail on each phenotype comment that is a reply to one of yours</dd><br/>
+        <dd><%= f.check_box :message_on_snp_comment_reply%> Get a mail on each SNP comment that is a reply to one of yours</dd><br/>
+      </dl>
+    </div>
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__deleting" id="deleting">
+      <h2 class="tabs__one-tab-title">Deleting</h2>
+      <h3>Genotypes</h3>
+      <% if not @user.genotypes.empty? %>
         <% @user.genotypes.each do |ug| %>
-            <p><%= link_to "Delete genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?" %> </p>
+          <p><%= link_to "Genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?", class: "btn btn-default settings__deleting-button" %> </p>
         <% end %>
-	<% end %>
-  <p><%= link_to "Delete this account", @user, method: "delete", data: { confirm: 'Are you sure you want to delete your account?' } %></p>
-</div>
-</div>
-<div id="fitbit">
-  <div class="well">
-  <h2><%=image_tag("fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
-  <%if @user.fitbit_profile != nil%>
-    <p class="lead">You have connected your <em>Fitbit</em> account with <em>openSNP</em></p>
-    <p class="lead"><%=link_to("Edit your Fitbit connection" , { controller: "fitbit_profiles", action: "edit" } )%></p>
-  <%else%>
-    <p class="lead">You haven't connected a <em>Fitbit</em> account with <em>openSNP</em> yet. <%=link_to("Do you want to learn more about how to do this?" , { controller: "fitbit_profiles", action: "info" } )%></p>
-  <%end%>
-  </div>
-</div>
+      <% end %>
+      <h3>Account</h3>
+      <p><%= link_to "Delete this account", @user, method: "delete", class: "btn btn-default settings__deleting-button", data: { confirm: 'Are you sure you want to delete your account?' } %></p>
+    </div>
 
-<div class="actions">
-	<%= f.submit "Update Information", class: "btn btn-primary", id: "update_user" %>
-</div>
-<% end %> 
+    <div class="actions">
+      <%= f.submit "Update Information", class: "btn btn-primary confirm-button center-block settings__confirm-changes", id: "update_user"%>
+    </div>
+
+  </div>
+<% end %>

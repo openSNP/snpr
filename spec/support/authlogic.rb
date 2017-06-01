@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Authlogic
   module RequestSpecHelper
     def sign_in(user)
@@ -18,11 +19,11 @@ module Authlogic
 
       click_on('Login')
 
-      expect(page).to have_content('Login successful!')
+      expect(page).to have_content 'Login successful'
     end
 
-    def sign_out
-      click_on('My Account')
+    def sign_out(user)
+      click_on(user.name)
       click_on('Sign out')
 
       expect(page).to have_content('Logout successful!')

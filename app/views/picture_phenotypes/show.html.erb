@@ -1,48 +1,59 @@
-<legend>Picture phenotype: <%= @phenotype.characteristic %></legend><%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>
+<div class="general__container">
 
-<% if current_user %>
+  <h3 class="general__title">
+    Picture phenotype: <%= @phenotype.characteristic %> <%=link_to(image_tag("rss.png"),:action =>"feed")%>
+  </h3>
+  <%=auto_discovery_link_tag(:rss, {:action => "feed"}, {:title => "RSS for #{@phenotype.characteristic}"})%>
+
+  <% if current_user %>
   <%if UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(current_user.id,@phenotype.id) == nil%>
-    <%= render 'user_picture_phenotypes/form' %>
+  <%= render 'user_picture_phenotypes/form' %>
   <%else%>
-    <%= render 'user_picture_phenotypes/edit'%>
+  <%= render 'user_picture_phenotypes/edit'%>
   <%end%>
-<% end %>
-<div class="container">
-<%=link_to(image_tag("rss_small.png"),:action =>"feed")%>
+  <% end %>
 
-  <div id="tab-container">
-    <ul class="nav nav-tabs">
-      <li><a href="#description">Description</a></li>
-      <li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_picture_phenotypes.length%>)</a></li>
-      <li><a href="#comments">Comments (<%=@phenotype.picture_phenotype_comments.length%>)</a></li>
-    </ul>
 
-    <div id="description">
-      <div class="well">
-        <%= simple_format(@phenotype.description) %>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+    <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users sharing this phenotype (<%=@phenotype.user_picture_phenotypes.length%>)</a></li>
+    <li><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments (<%=@phenotype.picture_phenotype_comments.length%>)</a></li>
+  </ul>
+  <div class="tab-content">
+
+    <div role="tabpanel" class=" tab-pane active well tabs__one-tab" id="description">
+      <%= simple_format(@phenotype.description) %>
+    </div>
+
+    <div role="tabpanel" class=" tab-pane well tabs__one-tab" id="users">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Variation</th>
+            </tr>
+          </thead>
+          <% @phenotype.user_picture_phenotypes.each do |up| %>
+          <tr>
+            <td class="table-cell vertical-centered"><%= link_to(image_tag(up.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{up.user.name}", up.user)%></td>
+            <td class="table-cell vertical-centered"><% if up.variation != "" %>
+              <%= link_to image_tag(up.phenotype_picture.url(:thumb), :style => "vertical-align:middle"), up.phenotype_picture.url(:maximum) %>
+              <% else %>
+              Undescribed.
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
       </div>
     </div>
-    <div id="users">
-      <table class="table table-striped">
-        <tr>
-          <th>User</th>
-          <th>Variation</th>
-        </tr>
-        <% @phenotype.user_picture_phenotypes.each do |up| %>
-          <tr>
-            <td><%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></td>
-            <td><% if up.variation != "" %><%= link_to image_tag(up.phenotype_picture.url(:thumb), :style => "vertical-align:middle"), up.phenotype_picture.url(:maximum) %><% else %>Undescribed.<% end %></td>
-          </tr>
-            <% end %>
-          </table>
-        </div>
 
-        <div id="comments">
-          <%= render 'picture_phenotype_comments/show' %>
-          <%if current_user%>
-            <%= render 'picture_phenotype_comments/form' %>
-          <%end%>
-        </div>
-
-</div>
+    <div role="tabpanel" class=" tab-pane well tabs__one-tab" id="comments">
+      <%= render 'picture_phenotype_comments/show' %>
+      <%if current_user%>
+      <%= render 'picture_phenotype_comments/form' %>
+      <%end%>
+    </div>
+  </div>
 </div>

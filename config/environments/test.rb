@@ -44,4 +44,7 @@ Snpr::Application.configure do
   config.eager_load = false
 
   config.active_support.test_order = :random
+
+  # get rid of asset pipeline errors
+  config.action_dispatch.show_exceptions = true
 end

@@ -1,22 +1,20 @@
-<h1>Message</h1>
-<h4>Date:  <%= @message.created_at %> </h4>
-<h4>From: <%if @from != "Deleted User"%><%=image_tag @from.avatar.url(:head)%><%= link_to @from.name, @from %><%else%>Deleted User<%end%></h4>
-<h4>To: <% if @to == @current_user %> You! <% else %> <% if @to != "Deleted User" %><%= image_tag @to.avatar.url(:head) %><%= link_to @to.name, @to %></h4><% else %>Deleted User<% end %><% end %>
+<div class="general__container container">
+  <h3 class="general__title">Message</h3>
+  <div class="message__message-informations">
+    <h4>From: <%if @from != "Deleted User"%><%= link_to @from.name, @from %><%else%>Deleted User<%end%></h4>
+    <h4>To: <% if @to == @current_user %> You <% else %> <% if @to != "Deleted User" %><%= link_to @to.name, @to %></h4><% else %>Deleted User<% end %><% end %></h4>
+    <span class="message__message-date"><%= @message.created_at %> </span>
 
-<div class="row">
-    <div class="span8">
-        <h3>Subject: <%=@message.subject %></h3>
-    </div><br/>
-    <div class="span2">
-        <%if @from != "Deleted User"%>
-            <%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id, :message => @message}, :class => "btn btn-primary" %>
-        <%end%>
-    </div>
-    <div class="span2">
-        <%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "btn btn-danger"%>
-    </div>
+  </div>
+  <div class="well message__message">
+    <h3 class="message__message-subject">Subject: <%=@message.subject %></h3>
+    <%=  simple_format(@message.body, class: "message__message-body") %>
+  </div>
+  <div class="message__buttons">
+    <%if @from != "Deleted User"%>
+    <%= link_to "Reply", {:controller => "messages", :action => "new", :user_to_send => @from.id, :message => @message}, :class => "btn btn-primary message__reply-button" %>
+    <%end%>
+    <%= button_to "Delete", message_path(@message.id), :method => :delete, :confirm => "Are you sure?", :class => "btn btn-danger message__delete-button"%>
+  </div>
 </div>
-
-<div class="well">
-<p><%=  simple_format(@message.body) %></p>
 </div>

@@ -6,7 +6,7 @@ RSpec.feature 'Messaging' do
   scenario 'a user sends a messages' do
     sign_in(alice)
 
-    click_on('My Account')
+    click_on('Alice')
     click_on('Messages')
     click_on('Write a new message')
 
@@ -16,11 +16,11 @@ RSpec.feature 'Messaging' do
 
     click_on('Send')
 
-    sign_out
+    sign_out(alice)
 
     sign_in(bob)
 
-    click_on('My Account')
+    click_on('Bob')
     click_on('Messages')
 
     click_on('O HAI!')

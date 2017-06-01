@@ -12,6 +12,7 @@ require 'authlogic/test_case'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }

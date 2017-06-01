@@ -1,21 +1,28 @@
-<h3>Achievement: <%=@achievement.award%> <%=image_tag("achievements/#{@achievement.short_name}_80px.png",:style => "vertical-align:middle",:height=>"70",:alt => @achievement.award)%></h3>
-
-<h6>Statistics</h6>
-<%=((@achievement.user_achievements.length.to_f / User.all.count)*100).to_s[0,5]%> % of all users received this achievement.
-<h6>Users who received this achievement</h6>
-<table class="table table-striped">
-  <tr>
-    <th>Number</th>
-    <th>User</th>
-    <th>Received on</th>
-  </tr>
-  <%@achievement.user_achievements.each do |ua|%>
-    <% if ua.user %>
+<div class="general__container container clearfix">
+  <%=image_tag("achievements/#{@achievement.short_name}_80px.png", :alt => @achievement.award, class: "achievements__image")%>
+  <h3>Achievement: <%=@achievement.award%> </h3>
+  <%=((@achievement.user_achievements.length.to_f / User.all.count)*100).to_s[0,5]%> % of all users received this achievement.
+  <div class="well achievements__table">
+    <h4 class="achievements__table-title">Users who received this achievement</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Number</th>
+            <th>Received on</th>
+          </tr>
+        </thead>
+        <%@achievement.user_achievements.each do |ua|%>
+        <% if ua.user %>
         <tr>
-        <td><%= ua.id %></td>
-        <td><%= link_to ua.user.name, ua.user %></td>
-        <td><%= ua.created_at %></td>
+          <td class="table-cell vertical-centered"><%= link_to(image_tag(ua.user.avatar.url(:thumb), class: "img-circle", width: "32px") + " #{ua.user.name}", ua.user) %></td>
+          <td class="table-cell vertical-centered"><%= ua.id %></td>
+          <td class="table-cell vertical-centered"><%= ua.created_at %></td>
         </tr>
-    <% end %>
-  <%end%>
-</table>
+        <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,214 +1,250 @@
-<h2>Search results</h2>
-<div id="tab-container">
-  <% if @all_len != 0 %>
+<div class="general__container container">
+  <h3 class="general__title">Search results</h3>
+    <% if @all_len != 0 %>
     <ul class="nav nav-tabs">
       <% if @users.present? %>
-        <li><a href="#users">Users (<%= @users.length %>)</a></li>
+      <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users (<%= @users.length %>)</a></li>
       <% end %>
       <% if @phenotypes.present? %>
-        <li><a href="#phenotypes">Phenotypes (<%= @phenotypes.length %>)</a></li>
+      <li><a href="#phenotypes" aria-controls="phenotypes" role="tab" data-toggle="tab">Phenotypes (<%= @phenotypes.length %>)</a></li>
       <% end %>
       <% if @snps.present? %>
-        <li><a href="#snps">SNPs (<%= @snps.length %>)</a></li>
+      <li><a href="#snps" aria-controls="snps" role="tab" data-toggle="tab">SNPs (<%= @snps.length %>)</a></li>
       <% end %>
       <% if @mendeley_papers.present? || @plos_papers.present? %>
-        <li><a href="#papers">Papers (<%= @plos_papers.length + @mendeley_papers.length %>)</a></li>
+      <li><a href="#papers" aria-controls="papers" role="tab" data-toggle="tab">Papers (<%= @plos_papers.length + @mendeley_papers.length %>)</a></li>
       <% end %>
       <% if @snp_comments.present? || @phenotype_comments.present? %>
-        <li><a href="#comments">Comments (<%= @snp_comments.length + @phenotype_comments.length %>)</a></li>
+      <li><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments (<%= @snp_comments.length + @phenotype_comments.length %>)</a></li>
       <% end %>
     </ul>
-  <% end %>
-  <% if @phenotypes.present? %>
-    <div id="phenotypes">
-      <table class="table table-striped">
-        <tr>
-          <th>Phenotype</th>
-          <th># of Users</th>
-          <th>Known Variation</th>
-        </tr>
-        <% @phenotypes.each do |p| %>
-          <tr>
-            <td><%= link_to p.characteristic, p %></td>
-            <td><%= p.number_of_users %></td>
-            <td>
-              <ul>
-                <% p.known_phenotypes.each do |kp| %>
+    <% end %>
+    <% if @all_len != 0 %>
+    <div class="tab-content">
+      <% if @phenotypes.present? %>
+      <div role="tabpanel" class="tab-pane well tabs__one-tab" id="phenotypes">
+        <div class="tab-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Phenotype</th>
+                <th># of Users</th>
+                <th>Known Variation</th>
+              </tr>
+            </thead>
+            <% @phenotypes.each do |p| %>
+            <tr>
+              <td class="table-cell vertical-centered"><%= link_to p.characteristic, p %></td>
+              <td class="table-cell vertical-centered"><%= p.number_of_users %></td>
+              <td class="table-cell vertical-centered">
+                <ul>
+                  <% p.known_phenotypes.each do |kp| %>
                   <li><%= kp %>: <%= link_to "Download all genotyping files of users with this variation",{:controller => "phenotypes",:action => "get_genotypes",:id => p.id, :variation => kp} %></li>
-                <% end %>
-              </ul></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-  <% end %>
-  <% if @snps.present? %>
-    <div id="snps">
-      <h5>SNPs</h5>
-      <table class="table table-striped">
-        <tr>
-          <th>SNP name</th>
-          <th>Chromosome</th>
-          <th>Position</th>
-        </tr>
-        <% @snps.each do |snp| %>
-          <tr>
-            <td><%= link_to snp.name, snp %></td>
-            <td><%= snp.chromosome %></td>
-            <td><%= snp.position %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-  <% end %>
-
-  <% if @users.present? %>
-    <div id="users">
-      <table class="table table-striped">
-        <tr>
-          <th>Name</th>
-          <th>Genotype-file?</th>
-          <th># of Phenotypes</th>
-          <th># of Achievements</th>
-        </tr>
-        <% @users.each do |u| %>
-          <tr>
-            <td><%= image_tag u.avatar.url(:head),:style => "vertical-align:middle" %> <%= link_to u.name, u %></td>
-            <% if u.has_sequence %>
-              <td>yes</td>
-            <% else %>
-              <td>no</td>
+                  <% end %>
+                </ul>
+              </td>
+            </tr>
             <% end %>
-            <td><%= u.phenotypes.length %></td>
-            <td><%= u.achievements.length %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-  <% end %>
-  <% if @snp_comments.present? || @phenotype_comments.present? %>
-    <div id="comments">
-      <% if @snp_comments.present? %>
+          </table>
+        </div>
+      </div>
+      <% end %>
+      <% if @snps.present? %>
+      <div role="tabpanel" class="tab-pane well tabs__one-tab" id="snps">
+        <div class="tab-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>SNP name</th>
+                <th>Chromosome</th>
+                <th>Position</th>
+              </tr>
+            </thead>
+            <% @snps.each do |snp| %>
+            <tr>
+              <td class="table-cell vertical-centered"><%= link_to snp.name, snp %></td>
+              <td class="table-cell vertical-centered"><%= snp.chromosome %></td>
+              <td class="table-cell vertical-centered"><%= snp.position %></td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+      <% end %>
+
+      <% if @users.present? %>
+      <div role="tabpanel" class="tab-pane well tabs__one-tab" id="users">
+        <div class="tab-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Genotype-file?</th>
+                <th># of Phenotypes</th>
+                <th># of Achievements</th>
+              </tr>
+            </thead>
+            <% @users.each do |u| %>
+            <tr>
+              <td class="table-cell vertical-centered search__user-cell"><%= link_to(image_tag(u.avatar.url(:head), class: "img-circle", width: "32px") + " #{u.name}", u) %></td>
+              <% if u.has_sequence %>
+              <td class="table-cell vertical-centered">yes</td>
+              <% else %>
+              <td class="table-cell vertical-centered">no</td>
+              <% end %>
+              <td class="table-cell vertical-centered"><%= u.phenotypes.length %></td>
+              <td class="table-cell vertical-centered"><%= u.achievements.length %></td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+      <% end %>
+      <% if @snp_comments.present? || @phenotype_comments.present? %>
+      <div role="tabpanel" class="tab-pane well tabs__one-tab" id="comments">
+        <% if @snp_comments.present? %>
         <h5>On SNPs</h5>
-        <table id="snp-comments" class="table table-striped">
-          <tr>
-            <th>SNP</th>
-            <th>From</th>
-            <th>Subject</th>
-            <th>Text</th>
-          </tr>
-          <% @snp_comments.each do |p| %>
+        <div class="table-responsive">
+          <table id="snp-comments" class="table table-hover">
+            <thead>
+              <tr>
+                <th>SNP</th>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <% @snp_comments.each do |p| %>
             <tr>
-              <td><% if p.snp != nil %><%= link_to(p.snp.name,"/snps/#{p.snp.id}#comments") %><% else %>SNP was deleted<% end %></td>
+              <td class="table-cell vertical-centered"><% if p.snp != nil %><%= link_to(p.snp.name,"/snps/#{p.snp.id}#comments") %><% else %>SNP was deleted<% end %></td>
               <% if p.user %>
-                <td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle" %> <%= link_to(p.user.name,p.user) %></td>
+              <td class="table-cell vertical-centered search__user-cell"><%= link_to(image_tag(p.user.avatar.url(:head), class: "img-circle", width: "32px") + " #{p.user.name}", p.user) %></td>
               <% else %>
-                <td>User deleted</td>
+              <td class="table-cell vertical-centered">User deleted</td>
               <% end %>
-              <td><%= p.subject %></td>
-              <td><%= p.comment_text %></td>
+              <td class="table-cell vertical-centered"><%= p.subject %></td>
+              <td class="table-cell vertical-centered"><%= p.comment_text %></td>
             </tr>
-          <% end %>
-        </table>
-      <% end %>
-      <% if @phenotype_comments.present? %>
+            <% end %>
+          </table>
+        </div>
+        <% end %>
+        <% if @phenotype_comments.present? %>
         <h5>On Phenotypes</h5>
-        <table id="phenotype-comments" class="table table-striped">
-          <tr>
-            <th>Phenotype</th>
-            <th>From</th>
-            <th>Subject</th>
-            <th>Text</th>
-          </tr>
-          <% @phenotype_comments.each do |p| %>
+        <div class="table-responsive">
+          <table id="phenotype-comments" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Phenotype</th>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Text</th>
+              </tr>
+            </thead>
+            <% @phenotype_comments.each do |p| %>
             <tr>
-              <td><% if p.phenotype != nil %><%= link_to(p.phenotype.characteristic,"/snps/#{p.phenotype.id}#comments") %><% else %>Phenotype was deleted<% end %></td>
+              <td class="table-cell vertical-centered"><% if p.phenotype != nil %><%= link_to(p.phenotype.characteristic,"/snps/#{p.phenotype.id}#comments") %><% else %>Phenotype was deleted<% end %></td>
               <% if p.user %>
-                <td><%= image_tag p.user.avatar.url(:head),:style => "vertical-align:middle" %> <%= link_to(p.user.name,p.user) %></td>
+              <td class="table-cell vertical-centered search__user-cell"><%= link_to(image_tag(p.user.avatar.url(:head), class: "img-circle", width: "32px") + " #{p.user.name}", p.user)%></td>
               <% else %>
-                <td>User deleted</td>
+              <td class="table-cell vertical-centered">User deleted</td>
               <% end %>
-              <td><%= p.subject %></td>
-              <td><%= p.comment_text %></td>
+              <td class="table-cell vertical-centered"><%= p.subject %></td>
+              <td class="table-cell vertical-centered"><%= p.comment_text %></td>
             </tr>
-          <% end %>
-        </table>
+            <% end %>
+          </table>
+        </div>
+        <% end %>
+      </div>
       <% end %>
-    </div>
-  <% end %>
-  <% if @mendeley_papers.present? || @plos_papers.present? || @snpedia_papers.present? %>
-    <div id="papers">
-      <% if @mendeley_papers.present? %>
+      <% if @mendeley_papers.present? || @plos_papers.present? || @snpedia_papers.present? %>
+      <div role="tabpanel" class="tab-pane well tabs__one-tab" id="papers">
+        <% if @mendeley_papers.present? %>
         <h5>Papers on Mendeley</h5>
-        <table id="mendeley-papers" class="table table-striped">
-          <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>SNP</th>
-            <th>Year of Publication</th>
-            <th># of Readers</th>
-            <th>DOI</th>
-          </tr>
-          <% @mendeley_papers.each do |p| %>
+        <div class="table-responsive">
+          <table id="mendeley-papers" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>SNP</th>
+                <th>Year of Publication</th>
+                <th># of Readers</th>
+                <th>DOI</th>
+              </tr>
+            </thead>
+            <% @mendeley_papers.each do |p| %>
             <tr>
-              <td><%= p.first_author %></td>
-              <td><%= link_to( p.title, p.mendeley_url) %></td>
-              <td><% p.snps.each do |s| %> <%= link_to(s.name, s) %> <% end %></td>
-              <td><%= p.pub_year %></td>
-              <td><%= p.reader %></td>
+              <td class="table-cell vertical-centered"><%= p.first_author %></td>
+              <td class="table-cell vertical-centered"><%= link_to( p.title, p.mendeley_url) %></td>
+              <td class="table-cell vertical-centered"><% p.snps.each do |s| %> <%= link_to(s.name, s) %> <% end %></td>
+              <td class="table-cell vertical-centered"><%= p.pub_year %></td>
+              <td class="table-cell vertical-centered"><%= p.reader %></td>
               <% if p.open_access && p.doi %>
-                <td><%= link_to(p.doi,"http://dx.doi.org/#{p.doi}") %><%= image_tag("oa_logo.png") %></td>
+              <td class="table-cell vertical-centered"><%= link_to(p.doi,"http://dx.doi.org/#{p.doi}") %><%= image_tag("oa_logo.png") %></td>
               <% elsif p.doi != nil %>
-                <td><%= link_to(p.doi,"http://dx.doi.org/#{p.doi}") %></td>
+              <td class="table-cell vertical-centered"><%= link_to(p.doi,"http://dx.doi.org/#{p.doi}") %></td>
               <% elsif p.open_access == true %>
-                <td><%= p.doi %><%= image_tag("oa_logo.png") %></td>
+              <td class="table-cell vertical-centered"><%= p.doi %><%= image_tag("oa_logo.png") %></td>
               <% else %>
-                <td>-</td>
+              <td class="table-cell vertical-centered">-</td>
               <% end %>
             </tr>
-          <% end %>
-        </table>
-      <% end %>
-      <% if @plos_papers.present? %>
+            <% end %>
+          </table>
+        </div>
+        <% end %>
+        <% if @plos_papers.present? %>
         <h5>Papers at the Public Library of Science</h5>
-        <table id="plos-papers" class="table table-striped">
-          <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>SNP</th>
-            <th>Year of Publication</th>
-            <th># of Readers</th>
-          </tr>
-          <% @plos_papers.each do |p| %>
+        <div class="table-responsive">
+          <table id="plos-papers" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>SNP</th>
+                <th>Year of Publication</th>
+                <th># of Readers</th>
+              </tr>
+            </thead>
+            <% @plos_papers.each do |p| %>
             <tr>
-              <td><%= p.first_author %></td>
-              <td><%= link_to( p.title.html_safe, "http://dx.doi.org/#{p.doi}") %></td>
-              <td><% p.snps.each do |x| %> <%= link_to( x.name, x) %> <% end %></td>
-              <td><%= p.pub_date.to_s[6,4] %></td>
-              <td><%= p.reader %></td>
+              <td class="table-cell vertical-centered"><%= p.first_author %></td>
+              <td class="table-cell vertical-centered"><%= link_to( p.title.html_safe, "http://dx.doi.org/#{p.doi}") %></td>
+              <td class="table-cell vertical-centered"><% p.snps.each do |x| %> <%= link_to( x.name, x) %> <% end %></td>
+              <td class="table-cell vertical-centered"><%= p.pub_date.to_s[6,4] %></td>
+              <td class="table-cell vertical-centered"><%= p.reader %></td>
             </tr>
-          <% end %>
-        </table>
-      <% end %>
-      <% if @snpedia_papers.present? %>
+            <% end %>
+          </table>
+        </div>
+        <% end %>
+        <% if @snpedia_papers.present? %>
         <h5>Entries in the SNPedia</h5>
-        <table id="snpedia-papers" class="table table-striped">
-          <tr>
-            <th>Title</th>
-            <th>Summary</th>
-          </tr>
-          <% @snpedia_papers.each do |p| %>
+        <div class="table-responsive">
+          <table id="snpedia-papers" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Summary</th>
+              </tr>
+            </thead>
+            <% @snpedia_papers.each do |p| %>
             <tr>
-              <td>
+              <td class="table-cell vertical-centered">
                 <% p.snps.each do |m| %>
-                  <%= link_to "#{m.name} #{p.url[-4]}/#{p.url[-2]}", p.url %>
+                <%= link_to "#{m.name} #{p.url[-4]}/#{p.url[-2]}", p.url %>
                 <% end %>
               </td>
-              <td><%= p.summary %></td>
+              <td class="table-cell vertical-centered"><%= p.summary %></td>
             </tr>
-          <% end %>
-        </table>
+            <% end %>
+          </table>
+        </div>
+        <% end %>
+      </div>
       <% end %>
-    </div>
+  </div>
   <% end %>
 </div>

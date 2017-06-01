@@ -3,15 +3,15 @@ class UsersController < ApplicationController
 
   helper_method :sort_column, :sort_direction
   before_filter :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
-  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_no_user, only: [:new, :create]
 
   def new
     @user = User.new
-    @title = "Sign up"
+    @title = 'Sign up'
 
     respond_to do |format|
       format.html
-      format.xml { render :xml => @user }
+      format.xml { render xml: @user }
     end
   end
 
@@ -19,11 +19,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if not params[:read]
-      flash[:warning] = "You must tick the box to proceed!"
+      flash[:warning] = 'You must tick the box to proceed'
     end
 
     if params[:read] && verify_recaptcha(model: @user) && @user.save
-      flash[:notice] = "Account registered!"
+      flash[:notice] = 'Account registered'
       UserMailer.welcome_user(@user).deliver_later
       redirect_to @user
     else
@@ -35,9 +35,9 @@ class UsersController < ApplicationController
   def index
     # showing all users
     # TODO: Refactor this. - Helge
-    @users = User.order(sort_column + " " + sort_direction)
-    @users_paginate = @users.paginate(:page => params[:page], :per_page => 10)
-    @title = "Listing all users"
+    @users = User.order(sort_column + ' ' + sort_direction)
+    @users_paginate = @users.paginate(page: params[:page], per_page: 10)
+    @title = 'Listing all users'
 
     if request.format.json?
       @result = []
@@ -45,41 +45,41 @@ class UsersController < ApplicationController
         @users = User.all
         @users.each do |u|
           @user = {}
-          @user["name"] = u.name
-          @user["id"] = u.id
-          @user["genotypes"] = []
+          @user['name'] = u.name
+          @user['id'] = u.id
+          @user['genotypes'] = []
           Genotype.where(user_id: u.id).each do |g|
             @genotype = {}
-            @genotype["id"] = g.id
-            @genotype["filetype"] = g.filetype
-            @genotype["download_url"] = 'http://opensnp.org/data/' + g.fs_filename
-            @user["genotypes"] << @genotype
+            @genotype['id'] = g.id
+            @genotype['filetype'] = g.filetype
+            @genotype['download_url'] = 'http://opensnp.org/data/' + g.fs_filename
+            @user['genotypes'] << @genotype
           end
           @result << @user
         end
 
       rescue
         @result = {}
-        @result["error"] = "Sorry, we couldn't find any users"
+        @result['error'] = 'Sorry, we couldn\'t find any users'
       end
     end
 
     respond_to do |format|
       format.html
-      format.json { render :json => @result }
+      format.json { render json: @result }
     end
   end
 
   def show
     # showing a single user's page
     @user = User.find_by_id(params[:id]) || not_found
-    @title = @user.name + "'s page"
+    @title = @user.name + '\'s page'
     @first_name = @user.name.split.first
     @user_phenotypes = @user.user_phenotypes
     @received_messages = @user.messages.where(sent: false).order('created_at DESC')
-    @sent_messages = @user.messages.where(:sent => true).order('created_at DESC')
-    @phenotype_comments = PhenotypeComment.where(:user_id => @user.id).paginate(:page => params[:page])
-    @snp_comments = SnpComment.where(:user_id => @user.id)
+    @sent_messages = @user.messages.where(sent: true).order('created_at DESC')
+    @phenotype_comments = PhenotypeComment.where(user_id: @user.id).paginate(page: params[:page])
+    @snp_comments = SnpComment.where(user_id: @user.id)
 
     # get phenotypes that current_user did not enter yet
     @unentered_phenotypes = Phenotype.all - @user.phenotypes
@@ -90,12 +90,12 @@ class UsersController < ApplicationController
     @user_snp_comment_ids = []
     @snp_comments.each do |sc| @user_snp_comment_ids << sc.id end
     @snp_comment_replies = []
-    @user_snp_comment_ids.each do |ui| 
+    @user_snp_comment_ids.each do |ui|
       @replies_for_snp = SnpComment.where(reply_to_id: ui)
       @replies_for_snp.each do |rs|
         @snp_comment_replies << rs
       end
-    end  
+    end
     @snp_comment_replies.sort! { |b,a| a.created_at <=> b.created_at }
     @paginated_snp_replies = @snp_comment_replies
 
@@ -152,21 +152,21 @@ class UsersController < ApplicationController
       flash[:notice] =  "Successfully updated"
 
       if params[:user][:password] or params[:user][:avatar]
-        redirect_to :action => "edit", :id => current_user.id
+        redirect_to action: 'edit', id: current_user.id
       else
         respond_to do |format|
-          format.js  
-          format.html 
+          format.js
+          format.html
         end
       end
 
-    else 
+    else
 
       respond_to do |format|
         format.html do
           if request.xhr?
-            flash[:warning] = "Oooops, something went wrong while editing your details"
-            render :partial => "edit"
+            flash[:warning] = 'Oooops, something went wrong while editing your details'
+            render partial: 'edit'
           else
             render
           end
@@ -185,10 +185,10 @@ class UsersController < ApplicationController
     @user_phenotype = UserPhenotype.find_by_phenotype_id(@phenotype.id)
     if @user_phenotype == nil
       # create user_phenotype if it doesn't exist
-      @user_phenotype = UserPhenotype.create(:user_id => user_id, :variation => variation, :phenotype_id => @phenotype.id)
+      @user_phenotype = UserPhenotype.create(user_id: user_id, variation: variation, phenotype_id: @phenotype.id)
     else
       # if user_phenotype exists, update
-      @user_phenotype.update_attributes(:variation => variation)
+      @user_phenotype.update_attributes(variation: variation)
     end
   end
 
@@ -199,7 +199,7 @@ class UsersController < ApplicationController
       ug.destroy
     end
 
-    flash[:notice] = "Thank you for using openSNP. Goodbye!"
+    flash[:notice] = 'Thank you for using openSNP. Goodbye!'
 
     # disconnect from fitbit if needed
     if @user.fitbit_profile != nil
@@ -231,22 +231,22 @@ class UsersController < ApplicationController
   private
 
   def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'name'
   end
 
   def sort_direction
-    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   def require_owner
     unless current_user == User.find(params[:id])
       store_location
       if current_user
-        flash[:notice] = "Redirected to your edit page"
-        redirect_to :controller => "users", :action => "edit", :id => current_user.id 
+        flash[:notice] = 'Redirected to your edit page'
+        redirect_to controller: 'users', action: 'edit', id: current_user.id
       else
-        flash[:notice] = "You need to be logged in"
-        redirect_to "/signin"
+        flash[:notice] = 'You need to be logged in'
+        redirect_to '/signin'
       end
       return false
     end

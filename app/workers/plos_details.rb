@@ -5,7 +5,7 @@ require 'json'
 
 class PlosDetails
   include Sidekiq::Worker
-  sidekiq_options :queue => :plos_details, :retry => 5, :unique => true
+  sidekiq_options queue: :plos_details, retry: 5, unique: true
 
   def perform(plos_paper)
     plos_paper_id =

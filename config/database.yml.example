@@ -1,7 +1,7 @@
 base: &base
   adapter: postgresql
   pool: 25
-  
+
 development:
   <<: *base
   database: snpr_development

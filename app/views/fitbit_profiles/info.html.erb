@@ -1,13 +1,24 @@
-<legend>Connect your <%=image_tag("fitbit_logo_dark_100px.png")%>  account to openSNP</legend>
-<p class="lead"><em><a href="http://www.fitbit.com">Fitbit</a></em> is a wearable gadget which allows you to track your activities (How many steps have you taken? How many floors have you climbed?), your sleep (How long did you sleep? How often were you awoken at night?) and also allows you to track your body-development (i.e. your weight/BMI). The data collected by and through your <em>Fitbit</em> is a valuable extension of the phenotypes you've already entered into openSNP.</p>
+<div class="general__container">
+  <h3 class="general__title">Connect your <%=image_tag("fitbit_logo_dark_100px.png")%>  account to openSNP</h3>
+  <p class="lead">
+    <em><a href="http://www.fitbit.com">Fitbit</a></em> is a wearable gadget which allows you to track your activities (How many steps have you taken? How many floors have you climbed?), your sleep (How long did you sleep? How often were you awoken at night?) and also allows you to track your body-development (i.e. your weight/BMI). The data collected by and through your <em>Fitbit</em> is a valuable extension of the phenotypes you've already entered into openSNP.
+  </p>
+  <p class="lead">
+    Once you've connected your <em>Fitbit</em> account to openSNP, we will automatically get your latest data from <em>Fitbit</em>. Each time you sync your <em>Fitbit</em> tracker or enter new data on <em>Fitbit</em> the changes will also appear on openSNP. Currently we save data about your activities, your body and your sleep.
+  </p>
+  <p class="lead">
+    The data will be public on the openSNP website, like all other phenotypes. However, you can decide which categories to connect with openSNP and which to not.
+  </p>
 
-<p class="lead">Once you've connected your <em>Fitbit</em> account to openSNP, we will automatically get your latest data from <em>Fitbit</em>. Each time you sync your <em>Fitbit</em> tracker or enter new data on <em>Fitbit</em> the changes will also appear on openSNP. Currently we save data about your activities, your body and your sleep.</p>
+  <%if current_user != nil%>
+  <h4><%=link_to("Connect your Fitbit account with openSNP",{:controller => "fitbit_profiles", :action => "start_auth"},:class => "btn btn-info")%></h4>
+  <%else%>
+  <p class="lead">
+    <%=link_to("Sign in", '/signin')%> to openSNP to connect your <em>Fitbit</em> account with us.
+  </p>
+  <%end%>
+  <small>
+    You want to learn more about the integration of <em>Fitbit</em> into openSNP or have a question? <%=link_to("Have a look at the FAQ.","/faq#enteringphenotypes")%>
+  </small>
 
-<p class="lead">The data will be public on the openSNP website, like all other phenotypes. However, you can decide which categories to connect with openSNP and which to not.</p>
-
-<%if current_user != nil%>
-<h4><%=link_to("Connect your Fitbit account with openSNP",{:controller => "fitbit_profiles", :action => "start_auth"},:class => "btn btn-info")%></h4>
-<%else%>
-<p class="lead"><%=link_to("Sign in", '/signin')%> to openSNP to connect your <em>Fitbit</em> account with us.</p>
-<%end%>
-You want to learn more about the integration of <em>Fitbit</em> into openSNP or have a question? <%=link_to("Have a look at the FAQ.","/faq#enteringphenotypes")%>
+</div>

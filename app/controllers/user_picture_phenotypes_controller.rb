@@ -4,7 +4,7 @@ class UserPicturePhenotypesController < ApplicationController
 
   def new
     @user_phenotype = UserPicturePhenotype.new
-    @title = "Add variation"
+    @title = 'Add variation'
 
     if params[:phenotype]
       @phenotype = PicturePhenotype.find(params[:picture_phenotype])
@@ -17,7 +17,7 @@ class UserPicturePhenotypesController < ApplicationController
     respond_to do |format|
       format.js
       format.html
-      format.xml { render :xml => @phenotype }
+      format.xml { render xml: @phenotype }
     end
   end
 
@@ -25,7 +25,7 @@ class UserPicturePhenotypesController < ApplicationController
     @user_phenotype = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(current_user.id,params[:user_picture_phenotype][:picture_phenotype_id])
     @user_phenotype.phenotype_picture = params[:user_picture_phenotype][:phenotype_picture]
     @user_phenotype.save()
-    redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Variation successfully updated'
+    redirect_to '/picture_phenotypes/'+@user_phenotype.picture_phenotype_id.to_s, notice: 'Variation successfully updated'
   end
 
   def delete
@@ -33,9 +33,9 @@ class UserPicturePhenotypesController < ApplicationController
     @phenotype = @user_phenotype.picture_phenotype
     if @user_phenotype.user_id == current_user.id
       @user_phenotype.delete()
-      redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Variation successfully deleted'
+      redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, notice: 'Variation successfully deleted'
     else
-      redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Whops, something went wrong!'
+      redirect_to '/picture_phenotypes/'+@user_phenotype.picture_phenotype_id.to_s, notice: 'Whops, something went wrong'
     end
   end
 
@@ -67,16 +67,16 @@ class UserPicturePhenotypesController < ApplicationController
         check_and_award_additional_phenotypes(100, "Entered 100 additional phenotypes")
 
         if @js_modal == true
-          redirect_to "/users/"+current_user.id.to_s
+          redirect_to '/users/' + current_user.id.to_s
         else
-          redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'Variation successfully saved'
+          redirect_to '/picture_phenotypes/' + @user_phenotype.picture_phenotype_id.to_s, notice: 'Variation successfully saved'
         end
       else
-        flash[:warning] = "Please enter a variation."
-        redirect_to "/users/"+current_user.id.to_s
+        flash[:warning] = 'Please enter a variation'
+        redirect_to '/users/' + current_user.id.to_s
       end
     else
-      redirect_to "/picture_phenotypes/"+@user_phenotype.picture_phenotype_id.to_s, :notice => 'You already have a variation entered'
+      redirect_to '/picture_phenotypes/' + @user_phenotype.picture_phenotype_id.to_s, notice: 'You already have a variation entered'
     end
   end
 
@@ -84,13 +84,13 @@ class UserPicturePhenotypesController < ApplicationController
 
   def check_and_award_new_phenotypes(amount, achievement_string)
     if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
-      UserAchievement.create(:achievement_id => Achievement.find_by_award(achievement_string).id, :user_id => current_user.id)
+      UserAchievement.create(achievement_id: Achievement.find_by_award(achievement_string).id, user_id: current_user.id)
     end
   end
 
   def check_and_award_additional_phenotypes(amount, achievement_string)
     if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
-      UserAchievement.create(:user_id => current_user.id, :achievement_id => Achievement.find_by_award(achievement_string).id)
+      UserAchievement.create(user_id: current_user.id, achievement_id: Achievement.find_by_award(achievement_string).id)
     end
   end
 

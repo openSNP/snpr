@@ -1,9 +1,13 @@
-<div id="<%= id %>" class="modal" style="display: none;">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">×</a>
-    <%= content_for id.to_sym%>
-  </div>
-  <div class="modal-body">
-    <%= yield %>
+<div id="<%= id %>" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close modal__text" data-dismiss="modal">×</a>
+        <%= content_for id.to_sym%>
+      </div>
+      <div class="modal-body center-block">
+        <%= yield %>
+      </div>
+    </div>
   </div>
 </div>

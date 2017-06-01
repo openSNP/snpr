@@ -1,30 +1,26 @@
-<% if @answering %>
-  <h2>Answering:</h2>
-  <div class="well">
+<%= render 'shared/error_messages', :target => @message %>
+<div class="general__container container">
+  <% if @answering %>
+  <h3 class="general__title">Answering:</h3>
+  <div class="well new-message__received-message">
     <p><b>Subject: <%= @answering.subject %></b></p>
     <p><%= @answering.body %></p>
   </div>
-<%end%>
-<h2>Compose Message</h2>
-<%= form_for @message do |f| %>
-  <%= render 'shared/error_messages', :target => @message %>
-  <div class="clearfix">
+  <%end%>
+  <h3 class="general__title">Compose Message</h3>
+  <%= form_for @message do |f| %>
+  <div class="form-group">
     <%= f.label :to_id, 'To' %>
-    <%= f.select(:to_id, @users.map { |user| [user.name, user.id] }, selected: params[:user_to_send]) %>
+    <%= f.select(:to_id, @users.map { |user| [user.name, user.id] },{selected: params[:user_to_send]}, {class: "new-message__select-input"})  %>
   </div>
-  <div class="clearfix">
+  <div class="form-group">
     <%= f.label :subject %>
-    <div class="input">
-      <%= f.text_field :subject%>
-    </div>
+    <%= f.text_field :subject, class: "form-control"%>
   </div>
-  <div class="clearfix">
+  <div class="form-group">
     <%= f.label "body"%>
-    <div class="input">
-      <%= f.text_area :body, :size => "10x10"  %>
-    </div>
+    <%= f.text_area :body, :size => "10x10", class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit "Send", :class => "btn btn-primary"%>
-  </div>
-<% end %>
+  <%= f.submit "Send", :class => "btn btn-default btn-lg"%>
+  <% end %>
+</div>

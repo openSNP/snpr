@@ -2,7 +2,7 @@
 class AddSlugColumnToSnps < ActiveRecord::Migration
   def self.up
     add_column :snps, :slug, :string
-    add_index :snps, :slug, :unique => true
+    add_index :snps, :slug, unique: true
   end
 
   def self.down

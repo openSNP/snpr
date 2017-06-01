@@ -1,251 +1,234 @@
-<div class="row">
-  <div class="span3">
-    <h1>Hello <%= @first_name %>!</h1>
+<div class="userpage__profile-informations row">
+  <div class="col-md-10 col-xs-12 clearfix">
+    <%= image_tag @user.avatar.url(:thumb), class: "hidden-xs pull-left userpage__profile-picture"%>
+    <h2>Hello, <%= @first_name %>
+      <%if @user.fitbit_profile != nil%>
+      <%=link_to(image_tag("fitbit-icon.png"), {:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id}, :data => {toggle:"tooltip", placement:"bottom"}, :title => "See your Fitbit data")%>
+      <%end%>
+    </h2>
+    <% if @user.description != nil  %>
+    <p class="userpage__description"><%= @user.description %></p>
+    <% else %>
+    <%= link_to "Add your description", "/users/" + current_user.id.to_s + "/edit"%>
+    <% end %>
+    <% if current_user.messages.where(:user_has_seen => false) != [] %>
+    <p>
+      <a href="#messages" data-toggle="tab" class="btn btn-primary userpage__new-messages">
+        <i class="glyphicon glyphicon-envelope"></i> New messages <span class="badge"><%= current_user.messages.where(:user_has_seen => false).length.to_s %></span>
+      </a>
+    </p>
+    <% end %>
   </div>
-
-  <div class="row">
-    <br/>
-    <div align="right">
-      <% unless @user.fitbit_profile.nil? %>
-        <%=link_to(image_tag("fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See your Fitbit data")%>
-      <% end %>
-      <% current_user.achievements.each do |a|%>
-        <a href='/achievements/<%= a.id %>' rel='tooltip' title='Achievement: <%= a.award %>'>
-          <%= image_tag("achievements/#{a.short_name}_32px.png", :height=> '20px', :alt => a.award) %>
-        </a>
-      <% end %>
-    </div>
+  <div class="col-md-2 col-xs-6">
+    <h3>Achievements</h3>
+    <% current_user.achievements.each do |a|%>
+    <a href="/achievements/<%= a.id %>" data-toggle="tooltip" data-placement="bottom" title="Achievement: <%=a.award%>">
+      <%=image_tag("achievements/#{a.short_name}_32px.png",:height=>"25px",:alt => a.award)%>
+    </a>
+    <%end%>
   </div>
 </div>
 
-<% unless current_user.messages.where(:user_has_seen => false).empty? %>
-  <p><a href="#messages">You have messages!</a></p>
+<%if @user.genotypes.length == 0%>
 <% end %>
 
-<% unless @user.description.nil? %>
-  <h3>Description of yourself</h3>
-  <p><%= @user.description %></p>
-<% end %>
+<ul class="nav nav-tabs" role="tablist">
+  <%if @unentered_phenotypes != []%>
+  <li role="presentation" class="active"><a href="#unentered_variations" aria-controls="unentered_variations" role="tab" data-toggle="tab">Variations you did not enter yet (<%=@unentered_phenotypes.length%>)</a></li>
+  <%end%>
+  <%if @user.genotypes.length == 0%>
+  <li role="presentation" <%if !(@unentered_phenotypes != [])%> class="active" <% end %>><a href="#snps" aria-controls="snps" role="tab" data-toggle="tab">SNP</a></li>
+  <% end %>
+  <li role="presentation" <%if !(@unentered_phenotypes != []) && !(@user.genotypes.length == 0) %> class="active" <% end %>><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
+  <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Your messages</a></li>
+  <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Replies to your comments</a></li>
+</ul>
 
-<div id="tab-container">
-  <ul class="nav nav-tabs">
-    <% unless @unentered_phenotypes.empty? %>
-      <li>
-        <a href="#unentered_variations">Variations you did not enter yet (<%= @unentered_phenotypes.length %>)</a>
-      </li>
-    <% end %>
-    <li><a href="#snps">Updates to your SNPs</a></li>
-    <li><a href="#variations">Your variations</a></li>
-    <li><a href="#messages">Your messages</a></li>
-    <li><a href="#comments">Replies to your comments</a></li>
-  </ul>
-
-  <% unless @unentered_phenotypes.empty? %>
-    <div id="unentered_variations">
-      <p>
-        <%= link_to "Go here for the full list of phenotypes!", :controller => "phenotypes", :action => "index" %>
-      </p>
-      <table class="table table-striped">
+<div class="tab-content">
+  <%if @unentered_phenotypes != []%>
+  <div role="tabpanel" class="tab-pane active clearfix well tabs__one-tab" id="unentered_variations">
+    <p><%= link_to "Full list of phenotypes", {:controller => "phenotypes", :action => "index"}, class: "btn btn-default userpage__phenotype-button" %></p>
+    <div class="table-responsive">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>Name of Phenotype</th>
-            <th>Enter variation</th>
             <th>Number of users</th>
             <th>Created at</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @unentered_phenotypes.each do |i| %>
-            <tr>
-              <td><%= link_to i.characteristic, i %></td>
-              <td>
-                <%= link_to image_tag("add_variation_small.png", :style => "vertical-align:middle"), '#new_user_phenotype_modal'+i.id.to_s, :'data-toggle' => "modal" %>
-                <%= render partial: "user_phenotypes/new", layout: "layouts/modal", locals: { id: "new_user_phenotype_modal"+i.id.to_s, phenotype: i } %>
-              </td>
-              <td><%= i.number_of_users %> </td>
-              <td><%= link_to i.created_at, i %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-
-  <div id="snps">
-    <% if @user.genotypes.length == 0 %>
-      <h2>You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new") %></h2>
-    <% else %>
-      <h4>Your 30 last updated SNPs</h4>
-      <% if @last_30_papers.empty? %>
-          We're sorry, it seems that nothing has recently been updated for your SNPs.
-      <% else %>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>SNPs</th>
-                <th>Updated</th>
-            </tr>
-            </thead>
-            <% @last_30_papers.each do |paper| %>
-                <tbody>
-                <tr>
-                <td><% paper.snps.each do |s| %><%= link_to s.name, s %> <% end %></td>
-                <td>Received new data from <%= paper.class.to_s.gsub('Paper','') %> on <%= paper.updated_at.to_formatted_s(:short) %>!</td>
-                </tr>
-                </tbody>
-            <% end %>
-        </table>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div id="variations">
-    <h3>Variations:</h3>
-    <%= render "variations" %>
-  </div>
-
-  <div id="messages">
-    <h3>Messages</h3>
-    <p>
-      <%= link_to "Write a new message", :controller => "messages", :action => "new" %>
-    </p>
-
-    <h4>Received</h4>
-    <% unless @received_messages.empty? %>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>From</th>
-            <th>Subject</th>
             <th></th>
           </tr>
         </thead>
+        <%@unentered_phenotypes.each do |i|%>
+        <tr>
+          <td class="table-cell vertical-centered"><%=link_to i.characteristic, i%> </td>
+          <td class="table-cell vertical-centered"><%= i.number_of_users %> </td>
+          <td class="table-cell vertical-centered"><%=link_to i.created_at,i%></td>
+          <td class="table-cell vertical-centered">
+            <%= link_to "Enter variation", '#new_user_phenotype_modal'+i.id.to_s, :'data-toggle' => "modal", class: "btn btn-default" %>
+            <%= render partial: "user_phenotypes/new", layout: "layouts/modal", locals: { id: "new_user_phenotype_modal"+i.id.to_s, phenotype: i } %>
+          </td>
+        </tr>
+        <%end%>
+      </table>
+    </div>
+  </div>
+  <%end%>
+
+  <%if @user.genotypes.length == 0%>
+  <div role="tabpanel" class="tab-pane  <%if !(@unentered_phenotypes != [])%> active <% end %> well tabs__one-tab" id="snps">
+    <h3 class="alert alert-info">You haven't uploaded your SNP-set. <%= link_to("Please do so", :controller => "genotypes", :action => "new")%></h3>
+  </div>
+  <% end %>
+
+  <div role="tabpanel" class="tab-pane <%if !(@unentered_phenotypes != []) && !(@user.genotypes.length == 0) %> active <% end %> well tabs__one-tab" id="variations">
+    <h3 class="tabs__one-tab-title">Variations</h3>
+    <% if @user_phenotypes.empty? %>
+      <h3>
+        You can create your own variations. <%= link_to "Just do it", "/users/"+current_user.id.to_s+"/edit" %>
+      </h3>
+    <% else %>
+      <%= render "variations" %>
+    <% end %>
+  </div>
+
+  <div role="tabpanel" class="tab-pane well tabs__one-tab" id="messages">
+    <h3 class="tabs__one-tab-title">Messages</h3>
+    <p><%= link_to "Write a new message", {:controller => "messages", :action => "new"}, class: "userpage__write-message btn btn-default" %></p>
+
+    <h4 class="userpage__received-title">Received</h4>
+    <% if @received_messages != [] %>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="userpage__user-cell">From</th>
+            <th class="userpage__subject-cell">Subject</th>
+            <th class="userpage__status-cell"></th>
+          </tr>
+        </thead>
+        <% @received_messages.each do |m| %>
         <tbody>
-          <% @received_messages.each do |m| %>
-            <tr>
-              <% unless User.find_by_id(m.from_id).nil? %>
-                <td>
-                  <%= image_tag User.find_by_id(m.from_id).avatar.url(:head), :style => "vertical-align:middle" %>
-                  <%= link_to(User.find_by_id(m.from_id).name,User.find_by_id(m.from_id)) %>
-                </td>
-              <% else %>
-                <td>Deleted User</td>
-              <% end %>
-              <td><%= link_to( m.subject, m ) %></td>
-              <td>
-                <% if m.user_has_seen == false %>
-                  <%= link_to(image_tag("email_small.png"),m)%> <b><%=link_to("Unread!", m) %></b>
-                <% else %>
-                  <%= link_to(image_tag("email_opened_small.png"),m)%> <%=link_to("Read", m) %>
-                <% end %>
+          <tr>
+            <%if User.find_by_id(m.from_id) != nil %>
+            <td class="table-cell vertical-centered">
+              <%= link_to(image_tag(User.find_by_id(m.from_id).avatar.url(:head), class: "img-circle") + " #{User.find_by_id(m.from_id).name}", User.find_by_id(m.from_id)) %>
+            </td>
+            <%else%>
+            <td class="table-cell vertical-centered">Deleted User</td>
+            <%end%>
+            <td class="table-cell vertical-centered"><%= link_to( m.subject, m ) %></td>
+            <td class="table-cell vertical-centered">
+              <% if m.user_has_seen == false %>
+              <%=link_to "Unread", m, class: "btn btn-warning" %>
+              <%else%>
+              <%=link_to "Read", m, class: "btn btn-default" %>
               <% end %>
             </td>
           </tr>
         </tbody>
+        <% end %>
       </table>
+    </div>
     <% else %>
-      <p>You haven't received any messages yet.</p>
+    <p class="userpage__no-messages">
+      You haven't received any messages yet.
+    </p>
     <% end %>
 
-    <h3>Sent</h3>
-    <% unless @sent_messages.empty? %>
-      <table class="table table-striped">
+    <h4 class="userpage__sent-title">Sent</h4>
+    <% if @sent_messages != [] %>
+    <div class="table-responsive">
+      <table class="table table-hover">
         <thead>
           <tr>
-            <th>To</th>
-            <th>Subject</th>
-            <th></th>
+            <th class="userpage__user-cell">To</th>
+            <th class="userpage__subject-cell">Subject</th>
+            <th class="userpage__status-cell"></th>
           </tr>
         </thead>
+        <% @sent_messages.each do |m| %>
         <tbody>
-          <% @sent_messages.each do |m| %>
-            <tr>
-              <% unless User.find_by_id(m.to_id).nil? %>
-                <td>
-                  <%=image_tag User.find_by_id(m.to_id).avatar.url(:head), :style => "vertical-align:middle"%>
-                  <%= User.find_by_id(m.to_id).name %>
-                </td>
-              <% else %>
-                <td>Deleted User</td>
-              <% end %>
-              <td>
-                <%= link_to( m.subject, m ) %>
-              </td>
-              <td>
-                <%= link_to(image_tag("email_opened_small.png"),m)%> <%=link_to("Read",m) %>
-              </td>
-            </tr>
-          <% end %>
+          <tr>
+            <%if User.find_by_id(m.to_id) != nil%>
+            <td class="table-cell vertical-centered">
+              <%=image_tag User.find_by_id(m.to_id).avatar.url(:head), class: "img-circle"%>
+              <%= link_to(User.find_by_id(m.to_id).name,User.find_by_id(m.to_id)) %>
+            </td>
+            <%else%>
+            <td class="table-cell vertical-centered">Deleted User</td>
+            <%end%>
+            <td class="table-cell vertical-centered"><%= link_to( m.subject, m ) %></td>
+            <td class="table-cell vertical-centered">
+              <%=link_to "Read", m, class: "btn btn-default" %>
+            </td>
+          </tr>
         </tbody>
+        <% end %>
       </table>
+    </div>
     <% else %>
+    <p class="userpage__no-messages">
       You have not sent any messages yet.
+    </p>
     <% end %>
   </div>
 
-  <div id="comments">
-    <% if @paginated_phenotype_replies.empty? and @paginated_snp_replies.empty? %>
-      <p>
-        You have not yet received replies on any comments.
-      </p>
+  <div role="tabpanel" class="tab-pane well tabs__one-tab" id="comments">
+    <% if @paginated_phenotype_replies == [] and @paginated_snp_replies == [] %>
+    <p>
+      You have not yet received replies on any comments.
+    </p>
     <% end %>
-    <% unless @paginated_phenotype_replies.empty? %>
-      <h4>Latest replies on your comments on Phenotypes</h4>
+    <% if @paginated_phenotype_replies != [] %>
+    <h4>Latest replies on your comments on Phenotypes</h4>
 
-      <table class="table table-striped" id="phenotype_reply_comments">
-        <thead>
-          <tr>
-            <th>On Phenotype</th>
-            <th>Reply from</th>
-            <th>Subject</th>
-            <th>Text</th>
-            <th>Written at</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @paginated_phenotype_replies.each do |pc|%>
-            <tr>
-              <td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
-              <td><%=image_tag User.find_by_id(pc.user_id).avatar.url(:head)%><%=User.find_by_id(pc.user_id).name%></td>
-              <td><%= pc.subject %></td>
-              <td><%= pc.comment_text %></td>
-              <td><%= pc.created_at%></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <table class="table table-hover" id="phenotype_reply_comments">
+      <thead>
+        <tr>
+        <th>On Phenotype</th>
+        <th>Reply from</th>
+        <th>Subject</th>
+        <th>Text</th>
+        <th>Written at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @paginated_phenotype_replies.each do |pc|%>
+        <tr>
+          <td><%= link_to Phenotype.find_by_id(pc.phenotype_id).characteristic, "/phenotypes/"+Phenotype.find_by_id(pc.phenotype_id).id.to_s+"#comments"%></td>
+          <td><%=image_tag User.find_by_id(pc.user_id).avatar.url(:head)%><%=User.find_by_id(pc.user_id).name%></td>
+          <td><%= pc.subject %></td>
+          <td><%= pc.comment_text %></td>
+          <td><%= pc.created_at%></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
     <% end %>
-
     <% if @paginated_snp_replies != [] %>
-      <h4>Latest replies on your comments on SNPs</h4>
-      <table class="table table-striped" id="snp_reply_comments">
+    <h4>Latest replies on your comments on SNPs</h4>
+      <table class="table table-hover" id="snp_reply_comments">
         <thead>
-          <tr>
-            <th>On SNP</th>
-            <th>Reply from</th>
-            <th>Subject</th>
-            <th>Text</th>
-            <th>Written at:</th>
-          </tr>
+        <tr>
+          <th>On SNP</th>
+          <th>Reply from</th>
+          <th>Subject</th>
+          <th>Text</th>
+          <th>Written at:</th>
+        </tr>
         </thead>
         <tbody>
-          <% @paginated_snp_replies.each do |snp|%>
-            <tr>
-              <td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).name.to_s+"/#comments" %></td>
-              <td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
-              <td><%= snp.subject %></td>
-              <td><%= snp.comment_text %></td>
-              <td><%= snp.created_at%></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <% @paginated_snp_replies.each do |snp|%>
+        <tr>
+          <td><%= link_to Snp.find_by_id(snp.snp_id).name, "/snps/"+Snp.find_by_id(snp.snp_id).name.to_s+"/#comments" %></td>
+          <td><%=image_tag User.find_by_id(snp.user_id).avatar.url(:head)%><%= User.find_by_id(snp.user_id).name%></td>
+          <td><%= snp.subject %></td>
+          <td><%= snp.comment_text %></td>
+          <td><%= snp.created_at%></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
     <% end %>
   </div>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("[rel=tooltip]").tooltip({placement:'bottom'});
-  });
-</script>

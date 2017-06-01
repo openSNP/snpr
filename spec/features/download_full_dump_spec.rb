@@ -23,7 +23,7 @@ feature 'downloading the full dump' do
 
   scenario 'sends the zip file if it exists' do
     visit('/genotypes')
-    click_link('Download the dump')
+    click_link('Download dump')
     expect(page.body).to eq(File.binread(zip_path))
     expect(page.response_headers['Content-Type']).to eq('application/zip')
   end

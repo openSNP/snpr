@@ -14,7 +14,7 @@ class PhenotypesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml 
+      format.xml
       format.json do
         phenotypes_json =
           @phenotypes.find_each.map do |p|
@@ -25,7 +25,7 @@ class PhenotypesController < ApplicationController
               number_of_users: p.number_of_users
             }
           end
-        render :json => phenotypes_json
+        render json: phenotypes_json
       end
     end
   end
@@ -33,7 +33,10 @@ class PhenotypesController < ApplicationController
   def new
     @phenotype = Phenotype.new
     @user_phenotype = UserPhenotype.new
-    @title = "Create a new phenotype"
+    @title = 'Create a new phenotype'
+
+    # Make list of phenotypes for autocomplete
+    @phenotype_list = Phenotype.pluck(:characteristic).to_json
 
     # Make list of phenotypes for autocomplete
     @phenotype_list = Phenotype.pluck(:characteristic).to_json
@@ -124,9 +127,9 @@ class PhenotypesController < ApplicationController
     @user_phenotype = UserPhenotype.find_by_phenotype_id_and_user_id(params[:id],current_user.id)
     if @user_phenotype != nil
       @users_variation = @user_phenotype.variation
-      @variation_recommend_request = params[:id]+"=>"+@users_variation
+      @variation_recommend_request = params[:id] + '=>' + @users_variation
     else
-      @variation_recommend_request = ""
+      @variation_recommend_request = ''
     end
 
     @similar_combinations = @phenotype_recommender.for(@variation_recommend_request)
@@ -135,7 +138,7 @@ class PhenotypesController < ApplicationController
 
     @similar_combinations.each do |s|
       if @combination_counter < 3
-        @phenotype = Phenotype.find_by_id(s.item_id.split("=>")[0])
+        @phenotype = Phenotype.find_by(id: s.item_id.split('=>')[0])
         if current_user.phenotypes.include?(@phenotype) == false
           @similar_variations << s
           @combination_counter += 1
@@ -145,11 +148,11 @@ class PhenotypesController < ApplicationController
       end
     end
 
-    @phenotype = Phenotype.find_by_id(params[:id])
+    @phenotype = Phenotype.find_by(id: params[:id])
 
     if @similar_phenotypes == [] and @similar_variations == []
-      redirect_to :action => "index"
-    else  
+      redirect_to action: 'index'
+    else
       respond_to do |format|
         format.html
       end
@@ -168,7 +171,7 @@ class PhenotypesController < ApplicationController
 
     @genotypes.sort!{ |b,a| a.created_at <=> b.created_at }
 
-    render :action => "rss", :layout => false
+    render action: 'rss', layout: false
   end
 
   def get_genotypes
@@ -185,29 +188,30 @@ class PhenotypesController < ApplicationController
   def json_variation
     @result = {}
     begin
-      @phenotype = Phenotype.find_by_id(params[:phenotype_id])
-      @result["id"] = @phenotype.id
-      @result["characteristic"] = @phenotype.characteristic
-      @result["description"] = @phenotype.description
-      @result["known_variations"] = @phenotype.known_phenotypes
-      @result["users"] = []
+      @phenotype = Phenotype.find_by(id: params[:phenotype_id])
+      @result['id'] = @phenotype.id
+      @result['characteristic'] = @phenotype.characteristic
+      @result['description'] = @phenotype.description
+      @result['known_variations'] = @phenotype.known_phenotypes
+      @result['users'] = []
       @phenotype.user_phenotypes.each do |up|
-        @user_phenotype = {"user_id" => up.user_id,"variation" => up.variation}
-        @result["users"] << @user_phenotype
+        @user_phenotype = { 'user_id' => up.user_id,
+                            'variation' => up.variation }
+        @result['users'] << @user_phenotype
       end
     rescue
-      @result["error"] = "Sorry, this phenotype doesn't exist"
+      @result['error'] = 'Sorry, this phenotype doesn\'t exist'
     end
 
     respond_to do |format|
-      format.json { render :json => @result } 
-    end    
+      format.json { render json: @result }
+    end
 
   end
 
   def json
-    if params[:user_id].index(",")
-      @user_ids = params[:user_id].split(",")
+    if params[:user_id].index(',')
+      @user_ids = params[:user_id].split(',')
       @results = []
       @user_ids.each do |id|
         @new_param = {}
@@ -215,9 +219,9 @@ class PhenotypesController < ApplicationController
         @results << json_element(@new_param)
       end
 
-    elsif params[:user_id].index("-")
+    elsif params[:user_id].index('-')
       @results = []
-      @id_array = params[:user_id].split("-")
+      @id_array = params[:user_id].split('-')
       @user_ids = (@id_array[0].to_i..@id_array[1].to_i).to_a
       @user_ids.each do |id|
         @new_param = {}
@@ -225,37 +229,37 @@ class PhenotypesController < ApplicationController
         @results << json_element(@new_param)
       end
 
-    else 
-      @results = json_element(params)	  
-    end   
+    else
+      @results = json_element(params)
+    end
 
     respond_to do |format|
-      format.json { render :json => @results } 
+      format.json { render json: @results }
     end
   end
 
   def json_element(params)
     begin
-      @user = User.find_by_id(params[:user_id])
+      @user = User.find_by(id: params[:user_id])
       @result = {}
       @user_phenotypes = UserPhenotype.where(user_id: @user.id)
 
-      @result["user"] = {}
-      @result["user"]["name"] = @user.name
-      @result["user"]["id"] = @user.id
+      @result['user'] = {}
+      @result['user']['name'] = @user.name
+      @result['user']['id'] = @user.id
 
       @phenotype_hash = {}
 
       @user_phenotypes.each do |up|
         @phenotype_hash[up.phenotype.characteristic] = {}
-        @phenotype_hash[up.phenotype.characteristic]["phenotype_id"] = up.phenotype.id
-        @phenotype_hash[up.phenotype.characteristic]["variation"] = up.variation
+        @phenotype_hash[up.phenotype.characteristic]['phenotype_id'] = up.phenotype.id
+        @phenotype_hash[up.phenotype.characteristic]['variation'] = up.variation
       end
 
-      @result["phenotypes"] = @phenotype_hash
+      @result['phenotypes'] = @phenotype_hash
     rescue
       @result = {}
-      @result["error"] = "Sorry, we couldn't find any information for this user"
+      @result['error'] = 'Sorry, we couldn\'t find any information for this user'
     end
     return @result
   end
@@ -263,24 +267,24 @@ class PhenotypesController < ApplicationController
   private
 
   def sort_column
-    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
+    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : 'number_of_users'
   end
 
   private
 
   def sort_column
-    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
+    Phenotype.column_names.include?(params[:sort]) ? params[:sort] : 'number_of_users'
   end
 
   def sort_direction
-    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   def check_and_award_new_phenotypes(amount, achievement_string)
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
 
-      UserAchievement.create(:achievement_id => @achievement.id, :user_id => current_user.id)
+      UserAchievement.create(achievement_id: @achievement.id, user_id: current_user.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end
@@ -288,7 +292,7 @@ class PhenotypesController < ApplicationController
   def check_and_award_additional_phenotypes(amount, achievement_string)
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
-      UserAchievement.create(:user_id => current_user.id, :achievement_id => @achievement.id)
+      UserAchievement.create(user_id: current_user.id, achievement_id: @achievement.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end

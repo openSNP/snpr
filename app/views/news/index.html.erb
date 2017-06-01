@@ -1,195 +1,61 @@
-<legend>News</legend>
-<div id="tab-container">
-  <ul class="nav nav-tabs">
-    <li><a href="#general">On openSNP</a></li>
-    <li><a href="#users">New users</a></li>
-    <li><a href="#genotypes">New genotypes</a></li>
-    <li><a href="#phenotypes">New phenotypes</a></li>
-    <li><a href="#publications">Latest publications</a></li>
-    <li><a href="#snpcomments">SNP-Comments</a></li>
-    <li><a href="#phenotypecomments">Phenotype-Comments</a></li>
+<div class="general__container container">
+  <h3 class="general__title">News</h3>
+  <ul class="list-unstyled">
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">We're joining the Google Summer of Code</h3>
+      <p>
+        Each year Google is running its Google Summer of Code (GSoC), which is aimed at students to get started with open source work. Students participating in it will get paid by Google to work on a specific open source project for 3 months.
+        The Open Bioinformatics Foundation (OBF) has put up a few of our project ideas, so if you're a currently enrolled student and you want to <a href="http://obf.github.io/GSoC/ideas/#opensnp">work on improving openSNP while earning money, our proposed projects are listed online</a>.
+        Most of the projects don't require too much specific biology knowledge but basic proficiency in Ruby (on Rails) and Web Development. And even if you're lacking the Ruby skills but know other scripting languages it might be something for you. You won't be on your own, as we will mentor successful applicants.
+        Some more general information can <a href="http://obf.github.io/GSoC/">be found on the OBF's GSoC pages</a>.
+        The application deadline for this year's Google Summer of Code (GSoC) is approaching fast (March 25th). So If you're interested in participating in this program, just reply to this newsletter or <a href="https://gitter.im/openSNP/snpr">join us on gitter</a>
+      </p>
+      <span class="news__single-news-date">2016-03-17</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">Adopting a Code of Conduct</h3>
+      <p>
+        We strive to keep openSNP a friendly community, amongst our developers as well as the community on openSNP.org. So far this hasn't been a problem and we don't expect it to become one. Thanks for being model open science citizens to everyone in the openSNP universe. In order to show our commitment to diversity, inclusion and creating safe spaces we are adopting a Code of Conduct, inspired by the team of Slidewinder.io.
+      </p>
+      <span class="news__single-news-date">2016-02-05</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">openSNP is now on Patreon</h3>
+      <p>
+        As our database has grown so much (over 2100 data sets already!), we will need to upgrade our server to keep track with the amount of data to process. <a href="https://www.patreon.com/openSNP?ty=h"> To support us in renting more computing power you can help us with a small monthly contribution on <i>Patreon</i></a>. You can <a href="https://opensnp.wordpress.com/2015/09/23/support-opensnp-on-patreon/">learn more about this on our blog!</a>
+      </p>
+      <span class="news__single-news-date">2015-09-23</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">#thedress, ethics for participant-lead research, research hack days</h3>
+      <p>
+        We have sent out one of our rare newsletters! If you haven't received your copy - which is likely since our mailing system apparently flips coins to decide whether to send out mails - the entire text is available on our blog <a href="https://opensnp.wordpress.com/2015/04/04/thedress-ethics-for-participant-lead-research-research-hack-days/">here</a>. Happy Easter!
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">3 years of openSNP and 1000 genotypings!</h3>
+      <p>
+        We support the <a href="http://wh.gov/6TH">access2research petition for Open Access</a> directed to the Obama administration. The petition wants to make Open Access publication of tax-funded publications mandatory. In total, 25,000 signatures are needed to have the petition officially reviewed by the White House. Non-US-citizens may sign the petition, too, so <a href="http://wh.gov/6TH">it would be great if you sign it</a>, too! For more information, please <a href="http://opensnp.wordpress.com/2012/05/23/a-petition-on-open-access/">read our blogpost on the petition</a>.
+        <div align="center"><%= image_tag "a2r.png", class: "hidden-xs" %></div>
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">API: JSON methods</h3>
+      <p>
+        The promised support for the <em>Distributed Annotation System</em> will take some time. But in the meantime you can access <em>openSNP</em> using some simple JSON-methods. Examples can be found for <a href="http://opensnp.org/snps/json/rs9939609/1.json">SNPs</a>, <a href="http://opensnp.org/users.json">users</a> and <a href="http://opensnp.org/phenotypes/json/1,6,8.json">phenotypes</a>. To learn more about how to use those methods you may want to <a href="http://opensnp.org/faq#api">read the FAQ</a> or this blogpost we've written about this.
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">SSL-Support</h3>
+      <p>
+        Hello everyone! We've bought a SSL-certificate so that you can safely browse this site (especially relevant if you log in to this site over an open WLAN). You can access the SSL-version of openSNP over <a href="https://opensnp.org">this link</a>. It's still experimental, so if you find anything please message <a href"http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>.
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
   </ul>
-  <div id="general">
     <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/openSNPorg" data-widget-id="738263692672782336">Tweets by @openSNPorg</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <h5> 2016-03-17: We're joining the Google Summer of Code</h5>
-    <p>
-      Each year, Google runs its Google Summer of Code (GSoC) program, which is aimed at students interested in open-source work. Participating students will get paid by Google to work on a specific open-source project for 3 months.
-    </p>
-    <p>
-      The Open Bioinformatics Foundation (OBF) has put up a few of our project ideas, so if you're a currently enrolled student and you want to <a href="http://obf.github.io/GSoC/ideas/#opensnp">work on improving openSNP while earning money, our proposed projects are listed online</a>.
-    </p>
-    <p>
-      Most of the projects don't require too much specific biology knowledge but basic proficiency in Ruby (on Rails) and Web Development. And even if you're lacking the Ruby skills but know other scripting languages it might be something for you. You won't be on your own, as we will mentor successful applicants.
-    </p>
-    <p>
-      Some more general information can <a href="http://obf.github.io/GSoC/">be found on the OBF's GSoC pages</a>.
-    </p>
-    <p>
-      The application deadline for this year's Google Summer of Code (GSoC) is approaching quickly (March 25th). So if you're interested in participating in this program, just reply to this newsletter or <a href="https://gitter.im/openSNP/snpr">join us on gitter</a>.
-    </p>
-    <h5> 2016-02-05: Adopting a Code of Conduct</h5>
-    <p>
-    We strive to keep openSNP a friendly community, amongst our developers as well as the community on openSNP.org. So far this hasn't been a problem, and we don't expect it to become one. Thanks for being model open science citizens to everyone in the openSNP universe. In order to show our commitment to diversity, inclusion and creating safe spaces <a href="https://github.com/openSNP/snpr/blob/master/CODE_OF_CONDUCT.md">we are adopting a Code of Conduct</a>, inspired by the team of <a href="http://www.slidewinder.io">Slidewinder.io</a>.
-    </p>
-    <h5> 2015-09-23: openSNP is now on Patreon </h5>
-    <p>
-    As our database has grown so much (over 2100 data sets already!), we will need to upgrade our server to keep track with the amount of data to process. <a href="https://www.patreon.com/openSNP?ty=h"> To support us in renting more computing power you can help us with a small monthly contribution on <i>Patreon</i></a>. You can <a href="https://opensnp.wordpress.com/2015/09/23/support-opensnp-on-patreon/">learn more about this on our blog!</a>
-    </p>
-    <h5> #thedress, ethics for participant-lead research, research hack days </h5>
-    <p>
-    We have sent out one of our rare newsletters! If you haven't received your copy - which is likely since our mailing system apparently flips coins to decide whether to send out mails - the entire text is available on our blog <a href="https://opensnp.wordpress.com/2015/04/04/thedress-ethics-for-participant-lead-research-research-hack-days/">here</a>. Happy Easter!
-    </p>
-    <h5>3 years of openSNP and 1000 genotypings!</h5>
-    <p>openSNP has now been running for 3 years and we recently received the 1000th genotyping. Thanks to all users and helpers who made this possible! <a href='http://opensnp.wordpress.com/2014/05/31/1000-genotypings-and-3-years-of-opensnp/'>More on the blog</a>.<p>
-    <h5>Support the Open Access petition of access2research</h5>
-    <p>We support the <a href="http://wh.gov/6TH">access2research petition for Open Access</a> directed to the Obama administration. The petition seeks to make Open Access publication of tax-funded publications mandatory. In total, 25,000 signatures are needed to have the petition officially reviewed by the White House. Non-US-citizens may sign the petition, too, so <a href="http://wh.gov/6TH">it would be great if you sign it</a>, too! For more information, please <a href="http://opensnp.wordpress.com/2012/05/23/a-petition-on-open-access/">read our blogpost on the petition</a>.
-    <div align="center"><%= image_tag("a2r.png") %></div>
-    </p>
-    <h5>API: JSON methods</h5>
-    <p>
-    The promised support for the <em>Distributed Annotation System</em> will take some time. But in the meantime, you can access <em>openSNP</em> using some simple JSON-methods. Examples can be found for <a href="http://opensnp.org/snps/json/rs9939609/1.json">SNPs</a>, <a href="http://opensnp.org/users.json">users</a>, and <a href="http://opensnp.org/phenotypes/json/1,6,8.json">phenotypes</a>. To learn more about how to use those methods you may want to <a href="http://opensnp.org/faq#api">read the FAQ</a> or this blogpost we've written about this.
-    </p>
-    <h5>SSL-Support</h5>
-    <p>
-    Hello everyone! We've bought a SSL-certificate so that you can safely browse this site (especially relevant if you log in to this site over an open WLAN). You can access the SSL-version of openSNP over <a href="https://opensnp.org">this link</a>. It's still experimental, so if you find anything please message <a href"http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>.
-    </p>
-  </div>
-
-  <div id="genotypes">
-    <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
-    <div class="row">
-      <div class="span2"><h3>Genotypes</h3></div><br/><div class="span1"><%=link_to(image_tag("rss_small.png"),"/rss")%></div>
-    </div>
-    <br/>
-    <b><%= link_to("Show All Genotypes", :controller => "genotypes", :action => "index")%></b>
-    <table class="table table-striped">
-      <tr>
-        <th>#</th>
-        <th>Genotype-ID</th>
-        <th>Uploaded by</th>
-        <th>Uploaded on</th>
-        <th>Description</th>
-        <th>Download</th>
-      </tr>
-      <% @new_genotypes.each do |ng| %>
-        <tr>
-          <td><%= Genotype.all.sort {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
-          <td><%= ng.id %></td>
-          <td><%=image_tag ng.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(User.find(ng.user_id).name, User.find(ng.user_id)) %></td>
-          <td><%= ng.created_at %></td>
-          <td><%= link_to "Click here", ng %></td>
-          <td><%= link_to "Right-click and 'Save as..'", '../data/' + ng.fs_filename  %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-  <div id="users">
-    <h3>Users</h3><br/>
-    <b><%= link_to("Show All Users", :controller => "users", :action => "index")%></b>
-    <table class="table table-striped">
-      <tr>
-        <th>#</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Joined on</th>
-        <th>Link</th>
-      </tr>
-      <% @new_users.each do |nu| %>
-        <tr>
-          <td><%= User.all.sort {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
-          <td><%= nu.id %></td>
-          <td><%=image_tag nu.avatar.url(:head),:style => "vertical-align:middle"%> <%= nu.name %></td>
-          <td><%= nu.created_at %></td>
-          <td><%= link_to "Profile", nu %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-  <div id="phenotypes">
-    <h3>Phenotypes</h3><br/>
-    <b><%= link_to("Show All Phenotypes", :controller => "phenotypes", :action => "index")%></b>
-    <table class="table table-striped">
-      <tr>
-        <th>Name</th>
-        <th>Variations</th>
-        <th># of Users</th>
-      </tr>
-      <% @new_phenotypes.each do |nu| %>
-        <tr>
-          <td><%= link_to nu.characteristic, nu %></td>
-          <td><ul><%nu.known_phenotypes.each do |kp|%><li><%= kp %></li><%end%></ul></td>
-          <td><%= nu.number_of_users %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-
-  <div id="phenotypecomments">
-    <h3>Phenotype Comments</h3><br/>
-    <table class="table table-striped">
-      <tr>
-        <th>Phenotype</th>
-        <th>Comment By</th>
-        <th>Subject</th>
-        <th>Date</th>
-      </tr>
-      <%@new_phenotype_comments.each do |pc|%>
-        <%if pc.phenotype != nil%>
-          <tr>
-            <td><%=link_to pc.phenotype.characteristic, pc.phenotype%></td>
-            <td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
-            <td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
-            <td><%=pc.created_at%></td>
-          </tr>
-        <%end%>
-      <%end%>
-    </table>
-  </div>
-
-  <div id="snpcomments">
-    <h3>SNP Comments</h3><br/>
-    <table class="table table-striped">
-      <tr>
-        <th>SNP</th>
-        <th>Comment By</th>
-        <th>Subject</th>
-        <th>Date</th>
-      </tr>
-      <%@new_snp_comments.each do |pc|%>
-        <tr>
-          <td><%=link_to pc.snp.name, pc.snp%></td>
-          <td><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
-          <td><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
-          <td><%=pc.created_at%></td>
-        </tr>
-      <%end%>
-    </table>
-  </div>
-
-  <div id="publications">
-    <div class="row">
-      <div class="span3"><h3>Latest publications</h3></div><br/><div class="span1"><%=link_to(image_tag("rss_small.png"),"/paper/rss")%></div>
-    </div>
-    <br/>
-    <table class="table table-striped">
-      <tr>
-        <th>SNPs</th>
-        <th>Author</th>
-        <th>Title</th>
-        <th>Found at</th>
-      </tr>
-      <%@newest_paper.each do |np|%>
-        <tr>
-            <td><% np.snps.each do |s| %><%=link_to s.name, s%> <% end %></td>
-          <td><%=np.first_author%></td>
-          <%if np.class == PlosPaper%>
-            <td><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
-          <%else%>
-            <td><%=link_to( np.title, np.mendeley_url)%></td>
-          <%end%>
-          <td><%=np.created_at%></td>
-        </tr>
-      <%end%>
-    </table>
-  </div>
+</div>

@@ -1,23 +1,22 @@
-<%= form_for(@user_phenotype, :url => {:controller => :user_picture_phenotypes, :action => :edit,:js_modal => @js_modal}, :html => {:class => "form-horizontal", :name => "new_user_picture_phenotype",:multipart => true}) do |f| %>
 <%= render 'shared/error_messages', :target => @phenotype %>
-<%= f.hidden_field :picture_phenotype_id, :value => @phenotype.id %>
-<%if @js_modal != true%>
-<div class="alert-message block-message info"> 
-<%end%>
-<p>This is your picture for this phenotype: </p><%= image_tag @user_phenotype.phenotype_picture.url(:thumb), :style => "vertical-align:middle" %>
-	
-	<div class="clearfix">
-	<div id="enter-order"><%= f.label :phenotype_picture, "You can replace your phenotype picture"%>&nbsp;
-	<%= f.file_field :phenotype_picture%></div>
-	
-	
-	</div><br/>
-
-
-	<div class="alert-actions"> 
-	<%= f.submit "Update Picture", :class => "btn btn-primary"  %> <a href="/user_picture_phenotypes/<%=@user_phenotype.id%>/delete" class="btn btn-danger">Delete</a>
-	</p></div>
+<%= form_for(@user_phenotype, :url => {:controller => :user_picture_phenotypes, :action => :edit,:js_modal => @js_modal}, :html => {:class => "form-horizontal", :name => "new_user_picture_phenotype",:multipart => true}) do |f| %>
+	<%= f.hidden_field :picture_phenotype_id, :value => @phenotype.id %>
+	<%if @js_modal != true%>
+	<%end%>
+	<div class="row">
+		<div class="col-md-6 col-xs-12 pictures-phenotype__picture-div">
+			<p>This is your picture for this phenotype: </p>
+			<%= image_tag @user_phenotype.phenotype_picture.url(:thumb), class: "vertical-centered" %>
+		</div>
+		<div class="col-md-6 col-xs-12 pictures-phenotype__change-pic-div">
+			<div id="enter-order">
+				<%= f.label :phenotype_picture, "You can replace your phenotype picture"%>
+				<%= f.file_field :phenotype_picture%>
+			</div>
+			<div class="picture-phenotype__buttons">
+				<%= f.submit "Update Picture", :class => "btn btn-primary"  %>
+				<a href="/user_picture_phenotypes/<%=@user_phenotype.id%>/delete" class="btn btn-danger">Delete</a>
+			</div>
+		</div>
+	</div>
 <% end %>
-</div>
-</div>
-</div>

@@ -1,17 +1,16 @@
-<h3>Comment on this phenotype</h3>
-<%= form_for  @phenotype_comment, :html => {:class => "form-stacked",:name => "new_comment"} do |f| %>
 <%= render 'shared/error_messages', :target => @phenotype %>
-<%= f.hidden_field :phenotype_id, :value => @phenotype.id %>
-<div class="well">
-<div class="clearfix">
-	<%= f.label :subject%>
-	<%= f.text_field :subject %>
-</div>
-<div class="clearfix">
-	<%= f.label :comment_text %>
-	<%= f.text_area :comment_text, :size => "20x5" %>
-</div>
-
-	<%= f.submit "Comment", :class => "btn btn-primary"  %>
-<% end %>
+<div class="comments__comment-box well">
+	<h3>Comment on this phenotype</h3>
+	<%= form_for  @phenotype_comment, :html => {:class => "comments__comment-box-form",:name => "new_comment"} do |f| %>
+	<%= f.hidden_field :phenotype_id, :value => @phenotype.id %>
+	<div class="form-group">
+		<%= f.label :subject%>
+		<%= f.text_field :subject, class: "form-control" %>
+	</div>
+	<div class="form-group">
+		<%= f.label :comment_text %>
+		<%= f.text_area :comment_text, :size => "20x5", class: "form-control" %>
+	</div>
+	<%= f.submit "Comment", :class => "btn btn-default"  %>
+	<% end %>
 </div>

@@ -1,62 +1,79 @@
-<div class="row">
-	<div class="span0">
-	<%= image_tag @user.avatar.url(:thumb),:style => "vertical-align:middle" %>
-	</div>
-	<div class="span6"><legend><%= @user.name %>'s page</legend>
-	  <%if @user.fitbit_profile != nil%>
-     <%=link_to(image_tag("fitbit-icon.png"),{:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id},:rel =>"tooltip",:title => "See Fitbit data for this user")%>
-		<%end%>
-		<% @user.achievements.each do |a|%>
-            <a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: <%=a.award%>"><%=image_tag("achievements/"+a.short_name+"_32px.png",:height=>"20px",:alt => a.award)%></a>
-		<%end%>
-    </div>
-		<%if current_user%><div align="right" class="span4"><h5><%=link_to(image_tag("sendmessage_small.png",:style => "vertical-align:middle" ), :controller => "messages", :action => "new", :user_to_send => @user.id)%> <%= link_to("Send "+ @first_name + " a message", :controller => "messages", :action => "new", :user_to_send => @user.id) %></h5></div><%end%>
-    </div>
+<div class="userpage__profile-informations row">
+	<div class="col-md-8 col-xs-12">
+	<%= image_tag @user.avatar.url(:thumb), class: "hidden-xs pull-left userpage__profile-picture"%>
+		<h3>
+			<%= @user.name %>'s page
+			<%if @user.fitbit_profile != nil%>
+			<%=link_to(image_tag("fitbit-icon.png"), {:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id}, :data => {toggle:"tooltip", placement:"bottom"}, :title => "See Fitbit data")%>
+			<%end%>
+		</h3>
+		<% if @user.description != "" and not @user.homepages.empty?%>
+		<h3>On <%= @first_name %>:</h3>
+		<%end %>
+		<% if @user.description != nil %>
+		<p><%= @user.description %> </p>
+		<% end %>
+		<%= link_to("Send "+ @first_name + " a message", {:controller => "messages", :action => "new"}, :user_to_send => @user.id, class: "btn btn-primary userpage__new-messages") %>
+  </div>
 
-<% if @user.genotypes != [] %>
-	<p><%= @first_name %> has uploaded genotyping rawdata.</p>
-	<ul>
-	<%@user.genotypes.each do |g|%>
-		<li><%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),g.genotype.url)%> <%= link_to "Download this set (#{g.filetype})", g.genotype.url%></li>
-		<%end%>
-	</ul>
-<% else %>
-	<p><%= @first_name %> has not uploaded any sequences.</p>
-<% end %>
-
-<% if @user.description != "" and not @user.homepages.empty?%><h3>On <%= @first_name %>:</h3><%end %>
-<div class="well"><h5>Description</h5><p><% if @user.description != nil %><%= simple_format(@user.description) %><% else %>This user has not entered a description yet.<% end %> </p></div>
-<% if @user.homepages != [] %>
-	<p>
-	<h3>Homepages</h3>
-	<% @user.homepages.each do |uh| %>
-        <% if uh.description != "" and uh.url != "" %>
-		<strong><%= uh.description %>:</strong> 
-		<%= link_to uh.url, uh.url, :target => "_blank" %><br/>
-        <% end %>
-	<% end %>
-    </p>
-<% end %>
-<div id="tab-container">
-	<ul class="nav nav-tabs">
-		<% if 1==2  %><li><a href="#snps"><%=@first_name%>'s SNPs</a></li><% end %>
-		<li><a href="#variations"><%= @first_name %>'s variations</a></li>
-	</ul>
-	<div id="variations">
-        <% if @user_phenotypes != []%>
-            <%= render "variations" %>
-        <% else %>
-            <p>This user has not entered any phenotypes yet.</p>
-        <% end %>
+	<%if current_user%>
+	<div class="col-md-4 col-xs-12 clearfix">
+		<% if @user.homepages != [] %>
+		<div class="pull-left userpage__homepages">
+			<% @user.homepages.each do |uh| %>
+			<% if uh.description != "" and uh.url != "" %>
+			<%= link_to uh.description, uh.url, :target => "_blank", class: "btn btn-default" %><br/>
+			<% end %>
+			<% end %>
+		</div>
+		<% end %>
+		<div class="pull-right userpage__achievements">
+			<h3>Achievements</h3>
+			<% @user.achievements.each do |a|%>
+			<a href="/achievements/<%= a.id %>" rel="tooltip" title="Achievement: 																		<%=a.award%>"><%=image_tag("achievements/"+a.short_name+"_32px.png",:height=>"25px",:alt => a.award)%></a>
+			<%end%>
+		</div>
 	</div>
-	<% if 1==2 # @user.has_sequence %>
-	<div id="snps">
-		<%= render "snps" %>
-	</div>
-	<% end %>
+	<%end%>
 </div>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $("[rel=tooltip]").tooltip({placement:'bottom'});
-    });
-  </script>
+
+
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#genotypes" aria-controls="gentypes" role="tab" data-toggle="tab">Genotypes</a></li>
+  <li role="presentation"><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
+	<li role="presentation"><a ha href="#snps" aria-controls="snps" role="tab" data-toggle="tab"><%=@first_name%>'s SNPs</a></li>
+</ul>
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane active clearfix well tabs__one-tab settings__general" id="genotypes">
+		<h3 class="tabs__one-tab-title"><%=@first_name%>'s genotype</h3>
+		<% if @user.genotypes != [] %>
+		<h4><%= @first_name %> has uploaded genotyping rawdata.</h4>
+		<ul class="list-unstyled">
+			<%@user.genotypes.each do |g|%>
+			<li>
+				<%= link_to "Download this set (#{g.filetype})", g.genotype.url, class: "btn btn-default" %>
+			</li>
+			<%end%>
+		</ul>
+		<% else %>
+		<p><%= @first_name %> has not uploaded any sequences.</p>
+		<% end %>
+	</div>
+
+	<div role="tabpanel" class="tab-pane well tabs__one-tab" id="variations">
+		<% if @user_phenotypes != []%>
+			<%= render "variations" %>
+		<% else %>
+			<p>This user has not entered any phenotypes yet.</p>
+		<% end %>
+	</div>
+
+	<div role="tabpanel" class="tab-pane well tabs__one-tab" id="snps">
+		<% if 1==2 %>
+			<%= render "snps" %>
+		<% else %>
+			<p>This user has not entered any snps yet.</p>
+		<% end %>
+	</div>
+</div>

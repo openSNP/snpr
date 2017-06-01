@@ -3,7 +3,7 @@
 # frozen_string_literal: true
 class FitbitInit
    include Sidekiq::Worker
-   sidekiq_options :queue => :fitbit, :retry => 5, :unique => true
+   sidekiq_options queue: :fitbit, retry: 5, unique: true
 
    def perform(fitbit_profile_id)
      @client = Fitgem::Client.new(consumer_key: ENV.fetch('FITBIT_CONSUMER_KEY'),

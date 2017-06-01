@@ -4,10 +4,9 @@
 #
 # Examples:
 #
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Daley', city: cities.first)
 #
-#User.create(:name => 'bla', :email => 'abc@def.com', :password => 'abc', :password_confirmation => 'abc',  :has_sequence => true)
 
 if Achievement.all.length == 0
   time = Time.now.utc
