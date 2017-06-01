@@ -56,4 +56,9 @@ $(document).ready(function() {
     var $li = $(this).parent("li").toggleClass('open');
     return false;
     });
+
+    // re-show custom text option that may have been previously hidden
+    $('.close').click(function(){
+        $('input[type=text]').show();
+    })
 });
