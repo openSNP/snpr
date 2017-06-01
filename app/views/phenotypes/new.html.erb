@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="form-group">
-        <%= fields_for @user_phenotype do |up| %>
+        <%= phenotype_form.fields_for :user_phenotypes, UserPhenotype.new do |up| %>
         <%= up.label :variation, class:"col-sm-1 control-label" %>
         <div class="col-md-11 col-sm-11 col-xs-11">
           <%= up.text_field :variation, class: "form-control" %>

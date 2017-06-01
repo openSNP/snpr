@@ -13,8 +13,7 @@ feature 'search' do
 
   scenario 'searching' do
     visit '/'
-    find(:css, '#search').set('foo')
-    click_on('Search')
+    find(:css, '#search').set('foo').send_keys(:return)
 
     within('#tab-container') do
       expect(find(:css, '#snps')).to have_content('foo123')

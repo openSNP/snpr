@@ -12,7 +12,7 @@ RSpec.feature 'Entering new phenotypes' do
 
     scenario 'the user enters a new phenotype' do
       visit('/phenotypes')
-      click_on('Add a new one!')
+      click_on('Add a new phenotype')
 
       fill_in('Characteristic', with: 'Eye count')
       fill_in('Description', with: 'How many eyes do you have?')
@@ -125,7 +125,7 @@ RSpec.feature 'Entering new phenotypes' do
   context 'a not signed-in user', :js do
     scenario 'tries to enter a phenotype' do
       visit('/phenotypes/new')
-      expect(page).to have_content('You must be logged in to access this page!')
+      expect(page).to have_content('You must be logged in to access this page')
     end
   end
 end

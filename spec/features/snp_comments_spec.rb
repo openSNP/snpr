@@ -14,7 +14,7 @@ RSpec.feature 'Commenting on SNPs' do
     fill_in('Comment text', with: 'This is a great SNP!')
     click_on('Comment')
 
-    expect(page).to have_content('Hello!')
+    expect(page).to have_content('Hello')
     expect(page).to have_content('This is a great SNP!')
 
     expect(SnpComment.last).to have_attributes(

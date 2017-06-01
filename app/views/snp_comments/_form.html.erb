@@ -2,7 +2,7 @@
 <div class="comments__comment-box well">
 	<h3>Comment on this SNP</h3>
 	<%= form_for  @snp_comment, :html => {:class => "comments__comment-box-form",:name => "new_comment"} do |f| %>
-	<%= f.hidden_field :picture_phenotype_id, :value => @snp.id %>
+	<%= f.hidden_field :snp_id, :value => @snp.id %>
 	<div class="form-group">
 		<%= f.label :subject%>
 		<%= f.text_field :subject, class: "form-control" %>
