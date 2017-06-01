@@ -1,34 +1,25 @@
-<h1><em>Fitbit</em> Settings</h1>
+<h3 class="general__title">Fitbit Settings</h3>
 
-<div class="row">
-  <div class="span6">
-<%= form_for @fitbit_profile, :url => fitbit_update_path, :method => :post, :html => {:class => "form-horizontal"} do |f|%>
-<h5> For which categories should we save data?</h5>
+<div class="fitbit__explaination">
+  <p>We will save data from three different categories: <strong>Body</strong>, <strong>Activities</strong> and <strong>Sleep</strong>.</p>
+  <p>For the <strong>Body</strong> category, we will save your Body Mass Index (BMI) and your weight (unfortunately there's currently no option to get your height through <em>Fitbit</em> but you can calculate it through BMI and weight).</p>
+  <p>For <strong>Sleep</strong>, we will save how long you have slept and how frequently you awoke, how long you've been awake and how long it took you to fall asleep.</p>
+  <p>For <strong>Activities</strong>, we will save how many steps you have taken and how many floors you have climbed.</p><p>We'll also try to save the historical data <em>Fitbit</em> has collected prior to your connecting the device with <em>openSNP</em>. You can decide which categories we should save. So, if you feel comfortable sharing your activities but neither weight nor sleep information, that's no problem.</p>
+</div>
+
+<div class="fitbit__options">
+  <%= form_for @fitbit_profile, :url => fitbit_update_path, :method => :post, :html => {:class => "fitbit__form"} do |f|%>
+  <h4> For which categories should we save data?</h4>
   <%= f.error_messages %>
   <%= f.check_box :body %> Body (Weight and Body Mass Index)<br />
   <%= f.check_box :activities %> Activities (Steps taken and Floors climbed)<br />
   <%= f.check_box :sleep %> Sleep (Duration, times awoken, time until asleep, length of wake-phases)<br />
   <%= f.hidden_field :id, :value => @fitbit_profile.id %>
-<br />
-<div class="alert alert-info">
-  If you decide to uncheck some of the categories, all data that have been saved so far will be deleted.
-</div>
-  <%= f.submit "Save Fitbit-Settings", {:class=>"btn btn-info"}%>
-<% end %>
 
-<div class="alert alert-warning">
-  If you remove your <em>Fitbit</em> account, we will stop grabbing new data and remove all the data that were already saved.
-</div> 
+  <%= f.submit "Save Fitbit-Settings", {:class=>"btn btn-info fitbit__form-submit-button"}%>
+  <small><br>If you decide to uncheck some of the categories, all data that have been saved so far will be deleted.</small>
+  <% end %>
 
-<%=link_to("Remove Fitbit account",{:controller => "fitbit_profiles", :action => "destroy"},:class => "btn btn-danger")%>
-
-  </div>
-  <div class="span6">
-    <p>We will save data from three different categories: <strong>Body</strong>, <strong>Activities</strong> and <strong>Sleep</strong>.</p>
-    <p>For the <strong>Body</strong> category, we will save your Body Mass Index (BMI) and your weight (unfortunately there's currently no option to get your height through <em>Fitbit</em> but you can calculate it through BMI and weight).</p>
-    <p>For <strong>Sleep</strong>, we will save how long you have slept and how frequently you awoke, how long you've been awake and how long it took you to fall asleep.</p>
-    <p>For <strong>Activities</strong>, we will save how many steps you have taken and how many floors you have climbed.</p><p>We'll also try to save the historical data <em>Fitbit</em> has collected prior to your connecting the device with <em>openSNP</em>. You can decide which categories we should save. So, if you feel comfortable sharing your activities but neither weight nor sleep information, that's no problem.</p>
-    
-
-  </div>
+  <%=link_to("Remove Fitbit account",{:controller => "fitbit_profiles", :action => "destroy"},:class => "btn btn-danger")%>
+  <small><br>If you remove your <em>Fitbit</em> account, we will stop grabbing new data and remove all the data that were already saved.</small>
 </div>

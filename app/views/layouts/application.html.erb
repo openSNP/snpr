@@ -4,143 +4,101 @@
     <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <title>openSNP <% if @title %>| <%= @title %><% end %></title>
     <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <div class="navbar-inverse navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="/">openSNP</a>
-          <ul class="nav">
-            <li class=""><%= link_to("News", '/news') %></li>
-            <li class=""><%= link_to("Stats", '/statistics') %></li>
-            <li class="divider-vertical"></li>
-            <li class=""><%= link_to("Genotypes", controller: "genotypes", action: "index") %></li>
-            <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Phenotypes<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li class=""><%= link_to("Phenotypes", controller: "phenotypes", action: "index") %></li>
-              <li class=""><%= link_to("Picture phenotypes", controller: "picture_phenotypes", action: "index") %></li>
-              <li class=""><%= link_to("Fitbit connections", controller: "fitbit_profiles", action: "index") %></li>
-            </ul>
-            <li class=""><%= link_to("SNPs", controller: "snps", action: "index") %></li>
-          </ul>
-          <%= form_tag "/search", method: "get", class: "navbar-search pull-left", authenticity_token: true do %>
-            <%= text_field_tag :search, nil, placeholder: "Search for Everything!", class: "search-query input-medium" %>
-            <%= submit_tag 'Search', class: 'hidden' %>
-          <% end %>
-          <ul class="nav pull-right">
-            <% if current_user %>
-              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-user icon-white"></i>
-                My Account<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><%= link_to("Settings",  :controller => "users", :action => "edit",:id => current_user) %></li>
-                <li><%= link_to("Edit Your Phenotypes", "/users/#{current_user.id}/edit#phenotypes") %></li>
-                <%if current_user.fitbit_profile != nil%><li><%= link_to("Edit Fitbit settings" , controller: "fitbit_profiles", action: "edit") %></li><%end%>
-                <li class="divider"></li>
-                <li><%= link_to("Messages (#{current_user.messages.where(:user_has_seen => false).length})", "/users/#{current_user.id}#messages", :method => "get") %></li>
-                <li class="divider"></li>
-                <li><%= link_to("Sign out", '/signout')  %></li>
-              </ul>
-              </li>
-            <% else %>
-              <li><%= link_to("Sign in", '/signin') %></li>
-            <% end %>
-            <li><%= link_to("FAQ", '/faq') %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <%= render "layouts/navbar"%>
+
     <%if current_user %>
-        <% if current_user.display_help_header? %>
-        <div class="container" id="help_block">
-          <div class ="well row-fluid">
-            <center><h3>Welcome to openSNP. Here are some first steps you could do:</h3></center><br/>
-            <%if !current_user.help_one %>
-              <div class="well span4" id="help_one">
-                <%=link_to("x",{:controller => "users", :action => "remove_help_one", :id => current_user}, :remote => true, id: "remove_help_one",:class => "close") %>
-                <h4 class="alert-heading">Upload Your Genotyping File</h4>
-                <%=link_to(image_tag("fileupload.png"), "/genotypes/new")%><br/>
-                <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em>, <em>deCODEme</em> or <em>FamilyTreeDNA</em> to the <em>openSNP</em> database to share it with other personal-genomics customers and scientists from around the world.
-              </div>
-            <%end%>
-            <%if !current_user.help_two %>
-              <div class="well span3" id="help_two">
-                <%=link_to("x",{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close")%>
-                <h4 class="alert-heading">Enter Your Variations</h4>
-                <%=link_to(image_tag("phenotypes.png"), "/users/"+current_user.id.to_s+"#unentered_variations")%><br/>
-                Let us, and the other <em>openSNP</em> users, know some of your characteristics&mdash;like hair or eye color! Or how about some diseases? <%=link_to("Whatever you feel like sharing!","/users/"+current_user.id.to_s+"#unentered_variations")%>.
-              </div>
-            <%end%>
-            <%if !current_user.help_three %>
-              <div class="well span3" id="help_three">
-                <%=link_to("x",{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close")%>
-                <h4 class="alert-heading">Enter a New Phenotype</h4>
-                <%=link_to(image_tag("addphenotype.png"), "/phenotypes/new")%><br/>
-                Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can add one","/phenotypes/new")%> to the <em>openSNP</em> database.
-              </div>
-            <%end%>
-          </div>
+    <div id="help_block" class="container">
+    <% if current_user.display_help_header? %>
+      <div class ="well row userpage__help-block">
+        <%if !current_user.help_one %>
+        <div class="col-md-4 text-center" id="help_one">
+          <%=link_to "x",{:controller => "users", :action => "remove_help_one", :id => current_user}, :remote => true, id: "remove_help_one",:class => "close" %>
+          <a href="/genotypes/new"><span class="glyphicon glyphicon-arrow-up userpage__help-text-icons"></span></a><br/>
+          <h3>Upload Your Genotyping File</h3>
+          <p>
+            <%=link_to("Upload the genotyping raw-data you got","/genotypes/new")%> from <em>23andMe</em>, <em>deCODEme</em> or <em>FamilyTreeDNA</em> to the <em>openSNP</em> database to share it with other personal-genomics customers and scientists from around the world.
+          </p>
+        </div>
+        <%end%>
+        <%if !current_user.help_two %>
+        <div class="col-md-4 text-center" id="help_two">
+          <%=link_to("x",{:controller => "users", :action => "remove_help_two", :id => current_user},:remote => true, id: "remove_help_two", :class => "close")%>
+          <a href="/users/"+current_user.id.t_s+"#unentered_variations"><span class="glyphicon glyphicon-heart userpage__help-text-icons"></span></a><br/>
+          <h3>Enter Your Variations</h3>
+          Let us, and the other <em>openSNP</em> users, know some of your characteristics&mdash;like hair or eye color! Or how about some diseases? <%=link_to("Whatever you feel like sharing!","/users/"+current_user.id.to_s+"#unentered_variations")%>.
+        </div>
+        <%end%>
+        <%if !current_user.help_three %>
+        <div class="col-md-4 text-center" id="help_three">
+          <%=link_to("x",{:controller => "users", :action => "remove_help_three", :id => current_user},:remote => true, id: "remove_help_three", :class => "close")%>
+          <a href="/phenotypes/new"><span class="glyphicon glyphicon-folder-open userpage__help-text-icons"></span></a><br/>
+          <h3>Enter a New Phenotype</h3>
+          <p>
+            Got an idea for a phenotype that has not been asked about yet and that could have genetical roots? <%=link_to("Great, you can add one","/phenotypes/new")%> to the <em>openSNP</em> database.
+          </p>
+        </div>
+        <%end%>
         </div>
       <%end%>
+    </div>
     <%end%>
-    <div class="container" id="alert-messages">
+    <div class="container-fluid warnings_container" id="alert-messages">
       <div id="flash_notice" class="alert alert-success" style="display:none"></div>
       <% if flash[:notice] %>
-        <div class="alert alert-success" data-dismiss="alert">
+        <div class="warning__alert alert alert-success text-center center-block" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:notice].html_safe %></strong>
         </div>
       <% end %>
       <% if flash[:warning] %>
-        <div class="alert alert-error" data-dismiss="alert">
+        <div class="warning__alert alert alert-danger text-center center-block" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:warning].html_safe %></strong>
         </div>
       <% end %>
       <% if flash[:achievement] %>
-        <div class="alert alert-info" data-dismiss="alert">
+        <div class="warning__alert alert alert-info text-center center-block" data-dismiss="alert">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <strong><%= flash[:achievement].html_safe %></strong>
         </div>
       <% end %>
     </div>
 
-    <% if ["phenotypes", "picture_phenotypes", "fitbit_profiles"].include? params[:controller] %>
-    </div>
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span2">
+      <% if ["phenotypes", "picture_phenotypes", "fitbit_profiles"].include? params[:controller] %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2 col-xs-6 col-xs-offset-2 col-md-offset-0">
 
-          <ul class="nav nav-tabs nav-stacked ">
-            <li class="nav-header">User-generated</li>
-            <li><a href="/phenotypes">Normal phenotypes</a></li>
-            <li><a href="/picture_phenotypes">Picture phenotypes</a></li>
-            <li class="nav-header">APIs</li>
-            <li><a href="/fitbit">Fitbit phenotypes</a></li>
-          </ul>
+            <ul class="nav nav-pills nav-stacked phenotype__side-menu">
+              <li class="nav-header">User-generated</li>
+              <li <% if params[:controller] == "phenotypes" %>class="active"<% end %>>
+                <a class="phenotype__side-menu-item" href="/phenotypes">Normal phenotypes</a>
+              </li>
+              <li <% if params[:controller] == "picture_phenotypes" %>class="active"<% end %>>
+                <a class="phenotype__side-menu-item" href="/picture_phenotypes">Picture phenotypes</a>
+              </li>
+              <li class="nav-header">APIs</li>
+              <li <% if params[:controller] == "fitbit_profiles" %>class="active"<% end %>>
+                <a class="phenotype__side-menu-item" href="/fitbit">Fitbit phenotypes</a>
+              </li>
+            </ul>
 
-        </div>
-        <div class="span8">
-          <% end # of sidebar%>
-
-          <div class="container">
-            <%= yield %>
           </div>
-
-
-          <footer class="footer">
-          <%= render "layouts/footer"%>
-          </footer>
-          <% if params[:controller] == "phenotypes" %>
+          <div class="col-md-8 col-xs-12">
+            <%= yield %>
           </div>
         </div>
       </div>
-    <% end %>
+      <% else %>
+      <%= yield %>
+      <% end # of sidebar%>
+
+    <%= render "layouts/footer"%>
   </body>
 </html>

@@ -1,34 +1,44 @@
-<legend>Listing all genotypes
-  <%=link_to(image_tag("rss_small.png"),"/rss")%>
-</legend>
-
-<%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
-
-<h4>
-<%= link_to(Zipfulldata.public_path, title: "Request download") do %>
-  <%= image_tag("filedownload_small.png", style: "vertical-align:middle") %>
-  Download the dump: Includes all genotyping files plus a CSV with all phenotypes of those users <%= Zipfulldata.gb_size %>
-<% end %>
-</h4>
-</br>
-<h4><a href="https://github.com/superbobry/snpy">Python library to parse the provided files</a>, courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
-<br/>
-<table class="table table-striped" id="all_genotypes">
-  <tr>
-    <th><%= sortable "id", "ID"%></th>
-    <th>User</th>
-    <th><%= sortable "filetype", "Type"%></th>
-    <th><%= sortable "created_at", "Created"%></th>
-    <th>Download</th>
-  </tr>
-  <% @genotypes_paginate.each do |g| %>
-    <tr>
-      <td><%= g.id %></td>
-      <td><%=image_tag g.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(g.user.name, g.user)%></td>
-      <td><%= g.filetype %></td>
-      <td><%= g.created_at%></td>
-      <td><%= link_to "Right-click and 'Save as..'", '../data/' + g.fs_filename  %></td>
-    </tr>
-  <% end %>
-</table>
-<%= page_navigation_links @genotypes_paginate %>
+<div class="general__container container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>All Genotypes <%=link_to(image_tag("rss.png"),"/rss")%></h3>
+      <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
+      <h4><a href="https://github.com/superbobry/snpy">Python library to parse the provided files,</a> courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
+    </div>
+    <div class="genotype__download-container col-md-6 ">
+      <%= link_to Zipfulldata.public_path, title: "Request download", class: "btn btn-default center-block genotype__download-button" do %>
+      Download dump
+      <% end %>
+      <p class="text-center genotype__text-download">Includes all genotyping files plus a CSV with all phenotypes of those users</p>
+    </div>
+  </div>
+  <div class="table-responsive genotype__table">
+    <table class="table table-hover" id="all_genotypes">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>#</th>
+          <th><%= sortable "id", "ID"%></th>
+          <th><%= sortable "created_at", "Created"%></th>
+          <th><%= sortable "filetype", "Type"%></th>
+          <th></th>
+        </tr>
+      </thead>
+      <% @genotypes_paginate.each do |g| %>
+      <tr>
+        <td class="table-cell vertical-centered">
+          <%= link_to(image_tag(g.user.avatar.url(:head), :class => "img-circle", :width => "50px") + " #{g.user.name}", g.user) %>
+        </td>
+        <td class="table-cell vertical-centered"><%= Genotype.all.sort { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
+        <td class="table-cell vertical-centered"><%= g.id %></td>
+        <td class="table-cell vertical-centered"><%= g.created_at%></td>
+        <td class="table-cell vertical-centered"><%= g.filetype %></td>
+        <td class="table-cell vertical-centered"><%= link_to "Download", '../data/' + g.fs_filename, class: "btn btn-default" %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="text-center">
+    <%= will_paginate @genotypes_paginate, renderer: BootstrapPagination::Rails%>
+  </div>
+</div>

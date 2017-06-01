@@ -1,26 +1,35 @@
-<legend>Listing all picture phenotypes</legend>
-<%if current_user%>
-    <h4>
-        <%=link_to(image_tag("addphenotype_small.png",:style => "vertical-align:middle" ),:action =>"new")%> <%=link_to "The picture phenotype of your interest is missing? Add a new one!",:action => "new"%>
-    </h4>
-<%end%>
-<br/>
-<table class="table table-striped" id="no_snp_overview">
-<tr>
- 	<th>#</th>
-	<th><%= sortable "id", "ID"%></th>
-	<th><%= sortable "characteristic","Phenotype"%></th>
-	<th><%= sortable "number_of_users","Number of users"%></th>
-	<th><%= sortable "created_at", "Created"%>
-</tr>
-<% @phenotypes_paginate.each do |s| %>
-	<tr>
-    <td><%= PicturePhenotype.all.sort { |a,b| a.id <=> b.id}.index(s) + 1%></td>
-    <td><%= s.id %></td>
-	<td><%= link_to(s.characteristic, s) %></td>
-	<td><%=s.number_of_users%></td>
-	<td><%=s.created_at%></td>
-</tr>
-<% end %>
-</table>
-<%= page_navigation_links @phenotypes_paginate %>
+<div class="general__container">
+
+  <h3 class="general__title" >Listing all picture phenotypes</h3>
+  <%if current_user%>
+      <h4>
+        <%=link_to " Add phenotype picture", {:action => "new"}, class: "btn btn-default pictures-phenotype__add-button" %>
+      </h4>
+  <%end%>
+  <br/>
+  <div class="table-responsive">
+    <table class="table table-hover" id="no_snp_overview">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><%= sortable "id", "ID"%></th>
+          <th><%= sortable "characteristic","Phenotype"%></th>
+          <th><%= sortable "number_of_users","Number of users"%></th>
+          <th><%= sortable "created_at", "Created"%>
+        </tr>
+      </thead>
+      <% @phenotypes_paginate.each do |s| %>
+      <tr>
+        <td class="table-cell vertical-centered"><%= PicturePhenotype.all.sort { |a,b| a.id <=> b.id}.index(s) + 1%></td>
+        <td class="table-cell vertical-centered"><%= s.id %></td>
+        <td class="table-cell vertical-centered"><%= link_to(s.characteristic, s) %></td>
+        <td class="table-cell vertical-centered"><%=s.number_of_users%></td>
+        <td class="table-cell vertical-centered"><%=s.created_at%></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="text-center">
+  <%= will_paginate @phenotypes_paginate, renderer: BootstrapPagination::Rails%>
+</div>

@@ -1,36 +1,26 @@
 <%= form_for(phenotype.user_phenotypes.new,:url => {:controller => :user_phenotypes, :action => :create,:js_modal => true}, :html => {:class => "form-horizontal"}) do |up| %>
-  <%= up.text_field :variation, :id => "phenotype_field"+phenotype.id.to_s %>
+  <%= up.text_field :variation, :id => "phenotype_field"+phenotype.id.to_s, class: "form-control modal__input-text" %>
   <%= up.hidden_field :phenotype_id, { value: phenotype.id } %>
-<br/><br/>
-<p class="help-block"><b>Phenotype Description</b>: <%=simple_format(phenotype.description)%></p>
-<p class="help-block">You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</p>
-<div class="row">
-<div class="span4">
-<div class="form-horizontal">
-<div class="control-group">
-<div class="controls">
-<% phenotype.known_phenotypes.each do |p| %>
-<label class="radio">
-<div align="left"><%= up.radio_button(:variation, p,) %> <%=p%></div>
-</label>
-<% end %>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-  <%= up.submit "Save", :class => "primary btn" %>
+  <p class="modal__text"><b>Phenotype Description</b>:<br><%= phenotype.description %></p>
+  <p class="help-block modal__text">You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</p>
+  <% phenotype.known_phenotypes.each do |p| %>
+  <div class="radio modal__radio">
+    <label class="radio modal__text">
+      <%= up.radio_button(:variation, p,) %> <%=p%>
+    </label>
+  </div>
+  <% end %>
+  <%= up.submit "Save", :class => "btn btn-default modal__save-button" %>
 <% end %>
 
 <% content_for id.to_sym do %>
-  <h3>What is your variation at phenotype <em><%=phenotype.characteristic%></em>?</h3>
+  <h3 class="modal__text">What is your variation at phenotype <em><%=phenotype.characteristic%></em>?</h3>
 <% end %>
 
 <script type="text/javascript">
 // hides the input-box when user has selected a radio-button
 $(document).ready(function() {
-        $('input[type=radio]').click(function() { 
+        $('input[type=radio]').click(function() {
             $('<%="#phenotype_field"+phenotype.id.to_s%>').hide();
             $("label[for=user_phenotype_variation]").hide();
             });

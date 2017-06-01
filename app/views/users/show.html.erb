@@ -1,5 +1,7 @@
-<% if current_user and current_user.id == @user.id %>
+<div class="general__container container">
+  <% if current_user and current_user.id == @user.id %>
   <%= render 'user_is_user'%>
-<% else %>
+  <% else %>
   <%= render 'user_is_not_user'%>
-<% end %>
+  <% end %>
+</div>

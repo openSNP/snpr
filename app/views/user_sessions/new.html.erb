@@ -1,20 +1,27 @@
-<legend>Login</legend>
-<%= form_for @user_session, html: {class: "well"}, url: {action: "create"} do |f| %>
-<%= render "shared/error_messages", target: @user_session %>
+<%= render "shared/error_messages", :target => @user_session %>
+<div class="simple-form__container container">
+  <h3 class="simple-form__title">Login</h3>
+  <%= form_for @user_session, :html => {:class => "well simple-form__form center-block"}, :url => {:action => "create"} do |f| %>
     <div class="form-group">
-        <%= f.label :email %>
-        <%= f.text_field :email %>
-        <%= f.label :password %>
-        <%= f.password_field :password %>
+      <%= f.label :email %>
+      <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "form-control", placeholder: "Password"  %>
     </div>
     <div class="checkbox">
+      <label>
         <%= f.check_box :remember_me %>
         Remember me
+      </label>
     </div>
-    <%= f.submit "Login", class: "btn btn-primary" %>
-<% end %>
-
-<div class="row">
-	<div class="span3"><%= link_to("Not registered? Click here!", '/signup') %></div>  
-	<div class="span3 offset6"><%= link_to("Forgot password? Click here!", controller: "password_resets", action: "new") %></div>
+    <%= f.submit "Login", :class => "btn btn-default btn-lg"%>
+    <div class="simple-form__links">
+      <ul class="list-unstyled">
+        <li><%= link_to("Not registered? Sign up here", '/signup') %></li>
+        <li><%= link_to("Forgot password?", :controller => "password_resets", :action => "new") %></li>
+      </ul>
+    </div>
+  <% end %>
 </div>

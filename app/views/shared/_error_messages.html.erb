@@ -1,10 +1,9 @@
 <% if target.errors.any? %>
-	<div class="alert alert-block alert-error">
-    There was one or more errors:
-            <ul>
-			<% target.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-			<% end %>
-        </ul>
+	<div class="warning__alert alert alert-danger center-block">
+    <ul class="list-unstyled text-center">
+      <li>
+				<strong><%= target.errors.full_messages.first %></strong>
+			</li>
+    </ul>
 	</div>
 <% end %>

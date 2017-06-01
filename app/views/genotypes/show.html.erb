@@ -1,5 +1,9 @@
-<h1><%=@user.name%>'s genotype</h1>
+<div class="general__container container text-center">
+  <h1 class="general__title"><%=@user.name%>'s genotype</h1>
 
-<p>Originally uploaded on: <%= @genotype.created_at %></p>
+  <div class="well phenotype__download-area">
+    <p class="phenotype__upload-date">Originally uploaded on: <%= @genotype.created_at %></p>
 
-<p>Download this set: <%= link_to "Right-click and 'Save as...'", '../data/' + @genotype.fs_filename %> </p>
+    <p><%= link_to "Download this set", '../data/' + @genotype.fs_filename, class: "btn btn-primary phenotype__download-button" %> </p>
+  </div>
+</div>

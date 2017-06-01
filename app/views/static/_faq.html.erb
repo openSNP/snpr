@@ -1,501 +1,803 @@
-<h3>Frequently Asked Questions</h3>
-<div id="tab-container">
-  <ul class="nav nav-tabs">
-    <li><a href="#dtcustomers"><%=image_tag("fileupload_small.png",:style => "vertical-align:middle" )%> Uploading data</a></li>
-    <li><a href="#scientists"><%=image_tag("filedownload_small.png",:style => "vertical-align:middle" )%> Downloading data</a></li>
-	<li><a href="#enteringphenotypes"><%=image_tag("add_variation_small.png",:style => "vertical-align:middle")%> Phenotypes & Fitbit</a></li>
-	<li><a href="#filetypes"><%=image_tag("file_info_small.png",:style => "vertical-align:middle" )%> Filetypes</a></li>
-	<li><a href="#api"><%=image_tag("api_small.png",:style => "vertical-align:middle")%> JSON-API</a></li>
-	<li><a href="#das"><%=image_tag("api_small.png",:style => "vertical-align:middle")%> Distributed Annotation System</a></li>
+<div class="general__container container">
+  <h3 class="general__title">FAQ</h3>
+  <ul class="nav nav-tabs faq__questions-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#updating-data" aria-controls="home" role="tab" data-toggle="tab">Updating data</a></li>
+    <li role="presentation"><a href="#downloading-data" aria-controls="profile" role="tab" data-toggle="tab">Downloading data</a></li>
+    <li role="presentation"><a href="#phenotype-fitbit" aria-controls="messages" role="tab" data-toggle="tab">Phenotypes & Fitbit</a></li>
+    <li role="presentation"><a href="#filetypes" aria-controls="settings" role="tab" data-toggle="tab">Filetypes</a></li>
+    <li role="presentation"><a href="#json-api" aria-controls="settings" role="tab" data-toggle="tab">JSON-API</a></li>
+    <li role="presentation"><a href="#distributed-system" aria-controls="settings" role="tab" data-toggle="tab">Distributed Annotation System</a></li>
   </ul>
-<div id="dtcustomers">
-  <div class="accordion" id="accordion2">
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-          <legend>What does OpenSNP offer me as a genotyping-customers?</legend>
-        </a>
-      </div>
-      <div id="collapseOne" class="accordion-body collapse in">
-        <div class="accordion-inner">
-          <p>If you got genotyped by <a href="http://www.23andme.com">23andMe</a>, <a href="http://www.decodeme.com/">deCODEme</a>, or <a href="http://www.familytreedna.com/">FamilyTreeDNA</a>, you can upload the raw genotype data downloaded from your DTC test provider. The data will then be openly available for the world to see and download. We also parse these SNPs and annotate them.</p><p>For annotation, we include the manually curated <a href="http://www.snpedia.com">SNPedia</a> and find open-access primary publications appearing in the journals of <a href="http://www.plos.org">The Public Library of Science</a> (PLoS), an open-access publishing group. Additionally, we screen <a href="http://www.mendeley.com/">Mendeley</a>, a crowd-sourced repository of scientific publications.</p><p>You can also publish some of your phenotypes so, someday, it might become possible to associate some SNPs with phenotypes (because of this we really would like to encourage you to do so; helping science generates this warm, fuzzy feeling inside of you).</p><p>And, of course, you can also share your knowledge about SNPs and phenotypes with other users and can socialize.</p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-          <legend>Who is behind openSNP?</legend>
-        </a>
-      </div>
-      <div id="collapseTwo" class="accordion-body collapse">
-        <div class="accordion-inner">
-          The site is hosted and was coded by <a href="http://www.twitter.com/gedankenstuecke">Bastian</a>, <a href="http://twitter.com/helgerausch">Helge</a> and <a href="http://twitter.com/#!/PhilippBayer">Philipp</a>. Bastian and Philipp did their undergraduate studies in Life Sciences and are currently doing their master-programmes. Bastian and Philipp are PhD-candidates in bioinformatics. Helge is the only “real” web developer on the team and has helped us a lot in testing much of the things we did. We have one former member: <a href="https://plus.google.com/108875984450420228123/posts">Fabian</a>, who studies Biology. We are not working full time on this project; this is more of a hobby. Please give us some time to answer your questions, fix bugs and stuff like this as we are doing this in our free time besides our studies and day jobs.
-        </div>
-      </div>
-    </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-          <legend>Why all this?</legend>
-        </a>
-      </div>
-      <div id="collapseThree" class="accordion-body collapse">
-         <div class="accordion-inner">
-           <em>openSNP</em> is a non-profit, <a href="https://github.com/openSNP/snpr">open-source</a> project that is about sharing genetical and phenotypic information. The idea to this project came to Bastian after he was genotyped by 23andMe in May 2011 and started playing around with his data. During his research he became frustrated, because it was not that easy to find more data. He started working on openSNP to fix this. To be clear: This project is not about making money, selling data or to quote Google: “We don’t wanna be evil”. We are just interested in making science more open and accessible.
-        </div>
-      </div>
-    </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-          <legend>How much does a membership in openSNP cost?</legend>
-        </a>
-      </div>
-      <div id="collapseFour" class="accordion-body collapse">
-         <div class="accordion-inner">
-           We take the "open" in openSNP serious, so everything is free of charge.
-         </div>
-       </div>
-     </div>
-     <div class="accordion-group">
-       <div class="accordion-heading">
-         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
-          <legend>Where can I download my raw data on the page of my DTC company?</legend>
-         </a>
-       </div>
-       <div id="collapseFive" class="accordion-body collapse">
-          <div class="accordion-inner">
-            <em>23andMe</em> customers can <a href="https://www.23andme.com/you/download/">download the data here</a>. <em>deCODEme</em> customers can <a href="https://www.decodeme.com/download">find the data here</a>. If you were genotyped by <em>FamilytreeDNA</em> you can <a href="https://www.familytreedna.com/my-ftdna/download-files.aspx">find your files here</a>.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
-            <legend>How long does it take until my genotyping data is available on the site after uploading?</legend>
-          </a>
-        </div>
-        <div id="collapseSix" class="accordion-body collapse">
-           <div class="accordion-inner">
-              This heavily depends on how many other users are in the queue, waiting for their data to be parsed. Right now openSNP runs on a small scale server so it may take 2-3 days until all your variations can be found on the site. But you can start using openSNP right away and others can download your raw-data right from the start. The parsing only affects the "other users sharing this SNP" and the "my genotype"-views.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">
-            <legend>Exomes?</legend>
-          </a>
-        </div>
-        <div id="collapseSeven" class="accordion-body collapse">
-           <div class="accordion-inner">
-             <em><a href="https://www.23andme.com/exome/">23andMe</a></em> has a limited exome sequencing offer. If you've got your exome sequenced through <em>23andMe</em> you can now upload the VCF (Variant Call Format, see <a href="#filetypes"> the filetypes-FAQ</a>) version of your exome as well. But there are some limitations: While users will be able to download your complete VCF-file we currently don't have the computing power to parse all of your variation. So currently we will only parse the already known SNPs out of your file. For the same reasons we currently can't offer uploads of the raw sequence data. <br/><br/>The feature is still in an early beta stage, so please notify us if something goes wrong.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">
-            <legend>I was genotyped by another DTC company, why can't I upload my data?</legend>
-          </a>
-        </div>
-        <div id="collapseEight" class="accordion-body collapse">
-           <div class="accordion-inner">
-              We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNine">
-            <legend>How open is my data?</legend>
-          </a>
-        </div>
-        <div id="collapseNine" class="accordion-body collapse">
-           <div class="accordion-inner">
-             Completely open: everyone can see everything you enter or upload (except your private messages and your password, of course). We warn every user twice about this: once during the user-creation and once before the genotyping-file-upload. You can find more information about the risks of publishing the data by <%=link_to "reading the disclaimer", "/disclaimer"%>
-           </div>
-         </div>
-       </div>
-       <div class="accordion-group">
-         <div class="accordion-heading">
-           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTen">
-             <legend>The phenotype I'm interested in is not yet in openSNP. What can I do?</legend>
-           </a>
-         </div>
-         <div id="collapseTen" class="accordion-body collapse">
-            <div class="accordion-inner">
-              You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%>, and enter a name and a description that enables other users to understand what you are interested in.
+
+  <div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane active" id="updating-data">
+
+      <ul class="list-unstyled faq__questions-list">
+
+        <li class="faq__single-question">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question1' href='#question1' class="pull-left faq__title-content" data-js="panel-header">
+                  What does OpenSNP offer me as a genotyping-customers?
+                </a>
+                <a data-toggle='collapse' data-target='#question1' href='#question1' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
             </div>
-          </div>
-        </div>
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEleven">
-              <legend>I've found a bug. What can I do?</legend>
-            </a>
-          </div>
-          <div id="collapseEleven" class="accordion-body collapse">
-             <div class="accordion-inner">
-                Just send us an <a href="mailto:info@opensnp.org">email</a>.
+            <div id='question1' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  If you got genotyped by <a href="http://www.23andme.com">23andMe</a>, <a href="http://www.decodeme.com/">deCODEme</a>, or <a href="http://www.familytreedna.com/">FamilyTreeDNA</a>, you can upload the raw genotype data downloaded from your DTC test provider. The data will then be openly available for the world to see and download. We also parse these SNPs and annotate them.</p><p>For annotation, we include the manually curated <a href="http://www.snpedia.com">SNPedia</a> and find open-access primary publications appearing in the journals of <a href="http://www.plos.org">The Public Library of Science</a> (PLoS), an open-access publishing group. Additionally, we screen <a href="http://www.mendeley.com/">Mendeley</a>, a crowd-sourced repository of scientific publications.</p><p>You can also publish some of your phenotypes so, someday, it might become possible to associate some SNPs with phenotypes (because of this we really would like to encourage you to do so; helping science generates this warm, fuzzy feeling inside of you).</p><p>And, of course, you can also share your knowledge about SNPs and phenotypes with other users and can socialize.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-</div>
+        </li>
 
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question2' href='#question2' class="pull-left faq__title-content" data-js="panel-header">
+                  Who is behind openSNP?
+                </a>
+                <a data-toggle='collapse' data-target='#question2' href='#question2' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question2' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  The site is hosted and was coded by <a href="http://www.twitter.com/gedankenstuecke">Bastian</a>, <a href="http://twitter.com/helgerausch">Helge</a> and <a href="http://twitter.com/#!/PhilippBayer">Philipp</a>. Bastian and Philipp did their undergraduate studies in Life Sciences and are currently doing their master-programmes. Bastian and Philipp are PhD-candidates in bioinformatics. Helge is the only “real” web developer on the team and has helped us a lot in testing much of the things we did. We have one former member: <a href="https://plus.google.com/108875984450420228123/posts">Fabian</a>, who studies Biology. We are not working full time on this project, this is more of a hobby. Please give us some time to answer your questions, fix bugs and stuff like this as we are doing this in our free time besides our studies and day jobs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
 
-<div id="scientists">
-  <div class="accordion" id="accordionscientists">
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciOne">
-	        <legend>What does openSNP offer me as a researcher working on human SNPs?</legend>
-        </a>
-      </div>
-      <div id="collapseSciOne" class="accordion-body collapse in">
-         <div class="accordion-inner">
-           <p>We can offer you data, hopefully someday even lots of data. <em>23andMe</em> alone genotyped already over 100.000 people, and more and more of them are sharing their SNPs, as well as their phenotypes.</p><p>	Logged-In users can search our database for users with specific phenotypes and mass-download all corresponding SNP-datasets. This allows you to get datasets like <em>"All genotyping files of openSNP-users that have Alzheimer"</em> and the corresponding control group.</p><p>	If you'd like to be informed about new genotyping results in general, or just about all new data sets for a specific phenotype, you can use the RSS-feeds we offer.</p>
-         </div>
-	    </div>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question3' href='#question3' class="pull-left faq__title-content" data-js="panel-header">Why all this?</a>
+                <a data-toggle='collapse' data-target='#question3' href='#question3' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question3' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <em>openSNP</em> is a non-profit, <a href="https://github.com/gedankenstuecke/snpr">open-source</a> project that is about sharing genetical and phenotypic information. The idea to this project came to Bastian after he was genotyped by 23andMe in May 2011 and started playing around with his data. During his research he became frustrated, because it was not that easy to find more data. He started working on openSNP to fix this. To be clear: This project is not about making money, selling data or to quote Google: “We don’t wanna be evil”. We are just interested in making science more open and accessible.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question4' href='#question4' class="pull-left faq__title-content" data-js="panel-header">How much does a membership in openSNP cost?</a>
+                <a data-toggle='collapse' data-target='#question4' href='#question4' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question4' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  We take the "open" in openSNP serious, so everything is free of charge.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question5' href='#question5' class="pull-left faq__title-content" data-js="panel-header">Where can I download my raw data on the page of my DTC company?</a>
+                <a data-toggle='collapse' data-target='#question5' href='#question5' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question5' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <em>23andMe</em> customers can <a href="https://www.23andme.com/you/download/">download the data here</a>. <em>deCODEme</em> customers can <a href="https://www.decodeme.com/download">find the data here</a>. If you were genotyped by <em>FamilytreeDNA</em> you can <a href="https://www.familytreedna.com/my-ftdna/download-files.aspx">find your files here</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question6' href='#question6' class="pull-left faq__title-content" data-js="panel-header">How long does it take until my genotyping data is available on the site after uploading?</a>
+                <a data-toggle='collapse' data-target='#question6' href='#question6' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question6' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  This heavily depends on how many other users are in the queue, waiting for their data to be parsed. Right now openSNP runs on a small scale server so it may take 2-3 days until all your variations can be found on the site. But you can start using openSNP right away and others can download your raw-data right from the start. The parsing only affects the "other users sharing this SNP" and the "my genotype"-views.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question7' href='#question7' class="pull-left faq__title-content" data-js="panel-header">Exomes?</a>
+                <a data-toggle='collapse' data-target='#question7' href='#question7' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question7' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <em><a href="https://www.23andme.com/exome/">23andMe</a></em> has a limited exome sequencing offer. If you've got your exome sequenced through <em>23andMe</em> you can now upload the VCF (Variant Call Format, see <a href="#filetypes"> the filetypes-FAQ</a>) version of your exome as well. But there are some limitations: While users will be able to download your complete VCF-file we currently don't have the computing power to parse all of your variation. So currently we will only parse the already known SNPs out of your file. For the same reasons we currently can't offer uploads of the raw sequence data. <br/><br/>The feature is still in an early beta stage, so please notify us if something goes wrong.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question8' href='#question8' class="pull-left faq__title-content" data-js="panel-header">I was genotyped by another DTC company, why can't I upload my data?</a>
+                <a data-toggle='collapse' data-target='#question8' href='#question8' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question8' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question9' href='#question9' class="pull-left faq__title-content" data-js="panel-header">How open is my data?</a>
+                <a data-toggle='collapse' data-target='#question9' href='#question9' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question9' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  Completely open: Everyone can see everything you enter or upload (except your private messages and your password, of course). We warn every user twice about this: Once during the user-creation and once before the genotyping-file-upload. You can find more information about the risks of publishing the data by <%=link_to "reading the disclaimer", "/disclaimer"%>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question10' href='#question10' class="pull-left faq__title-content" data-js="panel-header">The phenotype I'm interested in is not yet in openSNP. What can I do?</a>
+                <a data-toggle='collapse' data-target='#question10' href='#question10' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question10' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%> and enter a name and a description that enables other users to understand what you are interested in.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question11' href='#question11' class="pull-left faq__title-content" data-js="panel-header">I've found a bug, what can I do?</a>
+                <a data-toggle='collapse' data-target='#question11' href='#question11' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question11' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  Just send us an <a href="mailto:info@opensnp.org">email</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
     </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciTwo">
-          <legend>How much does a membership in openSNP cost?</legend>
-        </a>
-      </div>
-      <div id="collapseSciTwo" class="accordion-body collapse">
-         <div class="accordion-inner">
-	          We take the "open" in openSNP serious, so everything is free of charge.
-         </div>
-      </div>
+
+    <div role="tabpanel" class="tab-pane" id="downloading-data">
+      <ul class="list-unstyled faq__questions-list">
+        <li class="faq__single-question">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question12' href='#question12' class="pull-left faq__title-content" data-js="panel-header">
+                  What does openSNP offer me as a researcher working on human SNPs?
+                </a>
+                <a data-toggle='collapse' data-target='#question12' href='#question12' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question12' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <p>We can offer you data, hopefully someday even lots of data. <em>23andMe</em> alone genotyped already over 100.000 people and more and more of them are sharing their SNPs, as well as their phenotypes.</p><p>	Logged-In users can search our database for users with specific phenotypes and mass-download all corresponding SNP-datasets. This allows you to get datasets like <em>"All genotyping files of openSNP-users that have Alzheimer"</em> and the corresponding control group.</p><p>	If you'd like to be informed about new genotyping results in general, or just about all new data sets for a specific phenotype, you can use the RSS-feeds we offer.</p>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question13' href='#question13' class="pull-left faq__title-content" data-js="panel-header">
+                  How much does a membership in openSNP cost?
+                </a>
+                <a data-toggle='collapse' data-target='#question13' href='#question13' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question13' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  We take the "open" in openSNP serious, so everything is free of charge.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question14' href='#question14' class="pull-left faq__title-content" data-js="panel-header">The phenotype I'm interested in is not yet in openSNP. What can I do?</a>
+                <a data-toggle='collapse' data-target='#question14' href='#question14' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question14' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%> and enter a name and a description that enables other users to understand what you are interested in.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question15' href='#question15' class="pull-left faq__title-content" data-js="panel-header">How can i start a mass download?</a>
+                <a data-toggle='collapse' data-target='#question15' href='#question15' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question15' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  This option is only available for logged-in users. Just visit the phenotype-page of your choice and click on the download-links for the variations you are interested in. Our server will grab all the data for you, make a handy zip-file out of it and send you the download link via email, as this can be a lot of data.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question16' href='#question16' class="pull-left faq__title-content" data-js="panel-header">Is there an API for searching/downloading files?</a>
+                <a data-toggle='collapse' data-target='#question16' href='#question16' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question16' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  We are currently working on providing API-access. <a href="http://opensnp.org/faq#api">If you are interested in learning more about how you can use JSON to get access to openSNP-data you might want to read this.</a> There are also some other ways to get hands on the data: If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question17' href='#question17' class="pull-left faq__title-content" data-js="panel-header">How do I parse the files provided by openSNP?</a>
+                <a data-toggle='collapse' data-target='#question17' href='#question17' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question17' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  There's a Public Domain Python3-script located on github here: <a href="https://gist.github.com/1626642">Click this link.</a> Feel free to download and change this script.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question18' href='#question18' class="pull-left faq__title-content" data-js="panel-header">How do I cite openSNP?</a>
+                <a data-toggle='collapse' data-target='#question18' href='#question18' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question18' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  If you have used openSNP (code or data) in your work we would be really happy if you could <a href="journals.plos.org/plosone/article?id=10.1371/journal.pone.0089204">cite our paper, which was published in PLOS ONE in 2014
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciThree">
-        	<legend>The phenotype I'm interested in is not yet in openSNP. What can I do?</legend>
-      	</a>
-      </div>
-      <div id="collapseSciThree" class="accordion-body collapse">
-         <div class="accordion-inner">
-	You can easily add this phenotype as long as you are logged in. Just visit <%=link_to("the page for phenotype creation", {:controller => "phenotypes",:action => "new"})%>, and enter a name and a description that enables other users to understand what you are interested in.
-        </div>
-      </div>
+
+    <div role="tabpanel" class="tab-pane" id="phenotype-fitbit">
+      <ul class="list-unstyled faq__questions-list">
+
+        <li class="faq__single-question">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question19' href='#question19' class="pull-left faq__title-content" data-js="panel-header">
+                  What do I have to consider while entering my variation for already existing phenotypes?
+                </a>
+                <a data-toggle='collapse' data-target='#question19' href='#question19' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question19' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <strong>1.</strong>You should read the description on the phenotype you are about to enter. Often the description gives further details on which kind of answers people are interested in. You can also take a look on the answers which are given so far by other users. This should also give you a feeling about what kind of information is wanted for this phenotype. <br/><strong>2.</strong> As soon as you start to enter your own variation we will try to auto-complete your writing to avoid duplicate entries into the openSNP-database. Having multiple entries for the same thing, like "blue-green" plus "green-blue" in case of eye-colour makes it harder for (citizen) scientists to use the data for their studies. <br/><strong>3.</strong> The thing you are about to enter doesn't get auto-completed? Great. You are about to enter a variation which has not been reported so far, have fun entering your data!
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question20' href='#question20' class="pull-left faq__title-content" data-js="panel-header">
+                  What should I consider while creating a new phenotype?
+                </a>
+                <a data-toggle='collapse' data-target='#question20' href='#question20' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question20' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <strong>1.</strong> Use a reasonable name for your characteristic. Don't make it too long, but at the same time make sure that people get the general idea of what you want to know. <br/><strong>2.</strong> You should also make sure that the same phenotype is not already available in the openSNP-database. As soon as you start writing your characteristics name openSNP will try to auto-complete what you are writing. This should reduce duplicate phenotypes, so if you are about to enter "eye-colour" you will get a suggestions for the already available "eye-color" (Sorry, we can't solve the AE / BE issue here).<br/><strong>3.</strong> Write a description about the characteristic you are interested in. Give users some words why this is interesting. Maybe add what research has been done so far on this phenotype. Links to further web-resources and/or Wikipedia might also be a good idea. If you already have suggestions which different answers might apply to this phenotype: List them in the description. <br/><strong>4.</strong> Enter your own variation: The last field, "variation" is meant to carry your own variation for this phenotype. Don't enter all possible answers (You can list those in the description). Other users can easily add their own variation and take your suggestions from the description or - if you forgot to list a possible answer - give completely new answers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question21' href='#question21' class="pull-left faq__title-content" data-js="panel-header">What is <em>Fitbit</em>?</a>
+                <a data-toggle='collapse' data-target='#question21' href='#question21' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question21' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <em>Fitbit</em> is a wearable gadget which allows you to track your activities (How many steps have you taken? How many floors have you climbed?) and your sleep (How long did you sleep? How often have you awoken at night?). The tracker displays this information on the <em>Fitbit</em> website and calculates how efficient you sleep and many calories you have burned. Their website also allows you to track your body-development (i.e. your weight/BMI) and how much food you have eaten.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question22' href='#question22' class="pull-left faq__title-content" data-js="panel-header">Which data will <em>openSNP</em> save from <em>Fitbit</em>? And will it be public?</a>
+                <a data-toggle='collapse' data-target='#question22' href='#question22' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question22' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  If you connect your <em>Fitbit</em> account with <em>openSNP</em> we will save data for up to three different categories: Activities, Body and Sleep. In the activity category we will save your step-count and the number of floors you've climbed for each day. For the body category we will save your Body Mass Index and your weight for each day. In the sleep category we will save how many minutes you have slept, how many minutes you were awake while you tried to sleep, how long it took you to fall asleep and the number of times you awoke for each night.<br/><br/>If you connect your <em>Fitbit</em> account we will also save as much data of past days as it's possible to get through the API of <em>Fitbit</em>. This data is as public as are the genotyping datasets or all standard phenotypes which are entered into openSNP. So please be sure you want the world to be able to see this data.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question23' href='#question23' class="pull-left faq__title-content" data-js="panel-header">Can I choose which data <em>openSNP</em> should save and which not?</a>
+                <a data-toggle='collapse' data-target='#question23' href='#question23' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question23' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  Yes, you can choose which for which categories we should save the data. For example you can share our activity-data, so people can see the number of steps you have taken for each day, along with the floors you have climbed, but keep your body and sleep data on <em>FitBit</em>.Two things you should keep in mind: You can (de)activate the saving of data for different categories at any time. <br/><br/>1. If you deactivate a category we will delete all of your data of this category from <em>openSNP</em> (but of course not on <em>Fitbit</em>).<br/>2. If activate a category we will try to save as many data from the past as possible. So if there is past data you don't want to share you probably should not activate it (or delete the data from <em>Fitbit</em>).
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question24' href='#question24' class="pull-left faq__title-content" data-js="panel-header">Do you get write-access to my <em>Fitbit</em> account?</a>
+                <a data-toggle='collapse' data-target='#question24' href='#question24' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question24' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                   No, if you connect your <em>Fitbit</em> account with <em>openSNP</em> we only have read-access. The read-access gives us access to all data you have in your <em>Fitbit</em> account, but we will only read and save the data for which you have given us permission. We're sorry that you have to trust us in this point but the <em>Fitbit</em> API currently doesn't allow for a more granular setting.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question25' href='#question25' class="pull-left faq__title-content" data-js="panel-header">Does <em>openSNP</em> automatically get the latest data from <em>Fitbit</em>?</a>
+                <a data-toggle='collapse' data-target='#question25' href='#question25' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question25' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  Yes, once your <em>Fitbit</em> account is connected and set up we will get an notification from <em>Fitbit</em> each time you enter or change any data in their system. So each time your tracker uploads new data to <em>Fitbit</em> we will get those changes as well. This also works for past records. So if you change or delete entries on the <em>Fitbit</em> website those changes will be reflected on <em>openSNP</em> as well.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
     </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciFour">
-	        <legend>How can i start a mass download?</legend>
-	      </a>
-	    </div>
-	    <div id="collapseSciFour" class="accordion-body collapse">
-         <div class="accordion-inner">
-	         This option is only available for logged-in users. Just visit the phenotype-page of your choice, and click on the download-links for the variations you are interested in. Our server will grab all the data for you, make a handy zip-file out of it and send you the download link via email, as this can be a lot of data.
-	       </div>
-	     </div>
-     </div>
-     <div class="accordion-group">
-       <div class="accordion-heading">
-         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciFive">
-	          <legend>Is there an API for searching/downloading files?</legend>
-          </a>
-       </div>
-       <div id="collapseSciFive" class="accordion-body collapse">
-          <div class="accordion-inner">
-	            We are currently working on providing API-access. <a href="http://opensnp.org/faq#api">If you are interested in learning more about how you can use JSON to get access to openSNP-data you might want to read this.</a> There are also some other ways to get hands on the data: If you want to automate the file-downloads for a given phenotype the RSS-feeds could help you. Inside the RSS-XML there are 2 flags you could use to automatically create correct genotype-groups: <em><%=raw("&lt;")%>variation<%=raw("&gt;")%></em> gives you the variation of this user at the phenotype you are looking at and <em><%=raw("&lt;")%>dlink<%=raw("&gt;")%></em> gives you the download link.
-           </div>
- 	     </div>
+    <div role="tabpanel" class="tab-pane" id="filetypes">
+      <h4>Not sure what kind of file you've got? Take a look at our example-files</h4>
+      <ul class="list-unstyled faq__questions-list">
+        <li class="faq__single-question">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question26' href='#question26' class="pull-left faq__title-content" data-js="panel-header">
+                  23andMe
+                </a>
+                <a data-toggle='collapse' data-target='#question26' href='#question26' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question26' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <pre class="prettyprint linenums">
+                		# More Comments up here
+                		# More information on reference human assembly build 36:
+                		# http://www.ncbi.nlm.nih.gov/projects/mapview/map_search.cgi?taxid=9606&build=36
+                		#
+                		# rsid	chromosome	position	genotype
+                		rs4477212	  1	        72017	    AA
+                		rs3094315	  1	        742429	  AA
+                		rs3131972	  1	        742584	  GG
+                		rs12124819	1	        766409	  AG
+                		rs11240777	1	        788822	  AG
+                		rs6681049	  1	        789870	  CC
+                		rs4970383	  1	        828418	  CC
+                		rs4475691	  1	        836671	  CC
+                		rs7537756	  1	        844113	  AA
+	                </pre>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question27' href='#question27' class="pull-left faq__title-content" data-js="panel-header">
+                  deCODEme
+                </a>
+                <a data-toggle='collapse' data-target='#question27' href='#question27' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question27' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <pre class="prettyprint linenums">
+                    Name,Variation,Chromosome,Position,Strand,YourCode
+                    rs4477212,A/G,1,72017,+,AA
+                    rs2185539,C/T,1,556738,+,CC
+                    rs6681105,C/T,1,581938,+,TT
+                    rs11240767,C/T,1,718814,+,CC
+                    rs3094315,C/T,1,742429,-,TT
+                    rs3131972,C/T,1,742584,-,CC
+                    rs3131969,C/T,1,744045,-,CC
+                    rs1048488,C/T,1,750775,+,TT
+                    rs2905046,A/G,1,752518,-,GG
+                  </pre>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question28' href='#question28' class="pull-left faq__title-content" data-js="panel-header">FamilyTreeDNA</a>
+                <a data-toggle='collapse' data-target='#question28' href='#question28' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question28' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  <pre class="prettyprint linenums">
+                		RSID,CHROMOSOME,POSITION,RESULT
+                		"rs3094315","1","742429","AG"
+                		"rs3131972","1","742584","AG"
+                		"rs12562034","1","758311","GG"
+                		"rs12124819","1","766409","AA"
+                		"rs11240777","1","788822","GG"
+                		"rs6681049","1","789870","CC"
+                		"rs4970383","1","828418","CC"
+                		"rs4475691","1","836671","CC"
+                		"rs7537756","1","844113","AA"
+              		</pre>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question29' href='#question29' class="pull-left faq__title-content" data-js="panel-header">23andMe Exome in VCF format</a>
+                <a data-toggle='collapse' data-target='#question29' href='#question29' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question29' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <pre class="prettyprint linenums">
+                  ##fileformat=VCFv4.1
+                  ##CombineVariants=[...]
+                  ##FILTER=<ID=FSFilter200,Description="FS > 200.0">
+                  [...]
+                  ##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+                  [...]
+                  ##INFO=<ID=SNPEFF_TRANSCRIPT_ID,Number=1,Type=String,Description="Transcript ID for the highest-impact effect resulting from the current variant">
+                  [...]
+                  ##contig=<ID=1,length=249250621>
+                  ##contig=<ID=10,length=135534747>
+                  [...]
+                  #CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  USERID
+                  1       14907   rs79585140      A       G       317.34  MQFilter40 AB=0.604;AC=1;AF=0.50; [...]     GT:AD:DP:GQ:PL  0/1:32,21:54:99:347,0,514
+                  1       14930   rs75454623      A       G       351.37  MQFilter40  AB=0.61;AC=1;AF=0.50; [...]     GT:AD:DP:GQ:PL  0/1:36,23:59:99:381,0,680
+                </pre>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question30' href='#question30' class="pull-left faq__title-content" data-js="panel-header">My filetype is still missing, what can I do?</a>
+                <a data-toggle='collapse' data-target='#question30' href='#question30' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question30' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciSix">
-            <legend>How do I parse the files provided by openSNP?</legend>
-        </a>
-      </div>
-      <div id="collapseSciSix" class="accordion-body collapse">
-         <div class="accordion-inner">
-           There's a Public Domain Python3-script <a href="https://gist.github.com/1626642">on GitHub</a>. Feel free to download and change this script.
-          </div>
-	     </div>
-     </div>
-         <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionscientists" href="#collapseSciSeven">
-            <legend>How do I cite openSNP?</legend>
-        </a>
-      </div>
-      <div id="collapseSciSeven" class="accordion-body collapse">
-         <div class="accordion-inner">
-           If you have used openSNP (code or data) in your work, we would be really happy if you could <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0089204">cite our paper, which was published in PLOS ONE in 2014</a>.
-          </div>
-	     </div>
-     </div>
-   </div>
-</div>
+    <div role="tabpanel" class="tab-pane" id="json-api">
+      <ul class="list-unstyled faq__questions-list">
 
-<div id="enteringphenotypes">
-	<p class="lead"><strong>Standard Phenotypes</strong></p>
-	<div class="accordion" id="accordionphenotypes">
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionphenotypes" href="#collapsePhenoOne">
-	        <legend>What do I have to consider while entering my variation for already existing phenotypes?</legend>
-        </a>
-      </div>
-      <div id="collapsePhenoOne" class="accordion-body collapse in">
-         <div class="accordion-inner">
-	          <strong>1.</strong>You should read the description on the phenotype you are about to enter. Often the description gives further details on which kind of answers people are interested in. You can also take a look at the answers which are given so far by other users. This should also give you a feeling about what kind of information is wanted for this phenotype. <br/><strong>2.</strong> As soon as you start to enter your own variation, we will try to auto-complete your writing to avoid duplicate entries into the openSNP database. Having multiple entries for the same thing, like "blue-green" plus "green-blue" in case of eye-colour makes it harder for (citizen) scientists to use the data for their studies. <br/><strong>3.</strong> The thing you are about to enter doesn't get auto-completed? Great. You are about to enter a variation which has not been reported so far, have fun entering your data!
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question31' href='#question31' class="pull-left faq__title-content" data-js="panel-header">Using JSON</a>
+                <a data-toggle='collapse' data-target='#question31' href='#question31' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question31' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                We provide some methods to make it easier to get data back from <em>openSNP</em>. Currently we are implementing some <i><a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a></i> (short: JSON) methods that will make it easier to code some awesome <em>openSNP</em>-utilizing stuff. As you can see on the Wikipedia-page there are many JSON-parsers around for all major programming languages and it is fairly human readable as well. Plus: It is one of the de facto webstandards for APIs. The full overview of the openSNP JSON API is on <a href="https://github.com/gedankenstuecke/snpr/wiki/JSON-API">GitHub at this link</a>.
+              </div>
+            </div>
           </div>
-        </div>
-	    </div>
-	    <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionphenotypes" href="#collapsePhenoTwo">
-	            <legend>What should I consider while creating a new phenotype?</legend>
-          </a>
-        </div>
-        <div id="collapsePhenoTwo" class="accordion-body collapse">
-           <div class="accordion-inner">
-	           <strong>1.</strong> Use a reasonable name for your characteristic. Don't make it too long, but at the same time make sure that people get the general idea of what you want to know. <br/><strong>2.</strong> You should also make sure that the same phenotype is not already available in the openSNP database. As soon as you start writing your characteristics name, openSNP will try to autocomplete what you are writing. This should reduce duplicate phenotypes, so if you're about to enter "eye-colour" you will get suggestions for the already available "eye-color" (Sorry, we can't solve the AE / BE issue here).<br/><strong>3.</strong> Write a description about the characteristic you are interested in. Explain to users why this is interesting. Maybe add a note about what research has been done so far on this phenotype. Links to further web-resources and/or Wikipedia might also be a good idea. If you already have suggestions which different answers might apply to this phenotype, list them in the description. <br/><strong>4.</strong> Enter your own variation: the last field, "variation" is meant to carry your own variation for this phenotype. Don't enter all possible answers (You can list those in the description). Other users can easily add their own variation and take your suggestions from the description or, if you forgot to list a possible answer, give completely new answers.
-           </div>
-         </div>
- 	    </div>
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question32' href='#question32' class="pull-left faq__title-content" data-js="panel-header">The method I need is missing and/or I need more help!?</a>
+                <a data-toggle='collapse' data-target='#question32' href='#question32' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question32' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  There are many ways in which this problem can be fixed. First of all: If you are able to code some <em>Rails</em> and have got some basic understanding of <em>JSON</em> feel invited to help us with the development of <em>openSNP</em>. The source code is freely available at <a href="https://github.com/gedankenstuecke/snpr">GitHub</a> and we are always looking for some motivated people who want to join us. Just start coding the stuff you are interested in and make a pull request. Or what about <a href="http://groups.google.com/group/snpr-development">joining the openSNP development mailinglist/Google group and you can get to know us a bit better?</a> <br/>But don't worry if you don't feel like spending that much time with us (letting alone having that much time left): We are working on implementing more of this stuff, so if you've got a great idea that we should absolutely include just let us know: Write us at <a href="mailto:info@opensnp.org">info@opensnp.org</a> or drop <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Basti</a> a note. And the same is true if you need some more support with those methods already in place.
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-  	<p class="lead"><strong>Connecting Fitbit</strong></p>
-  	<div class="accordion" id="accordionfitbit">
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitOne">
-            <legend>What is <em>Fitbit</em>?</legend>
-          </a>
-        </div>
-        <div id="collapseFitOne" class="accordion-body collapse in">
-          <div class="accordion-inner">
-            <em>Fitbit</em> is a wearable gadget which allows you to track your activities (How many steps have you taken? How many floors have you climbed?) and your sleep (How long did you sleep? How often have you awoken at night?). The tracker displays this information on the <em>Fitbit</em> website and calculates how efficient you sleep and many calories you have burned. Their website also allows you to track your body-development (i.e. your weight/BMI) and how much food you have eaten.
+
+    <div role="tabpanel" class="tab-pane" id="distributed-system">
+      <ul class="list-unstyled faq__questions-list">
+
+        <li class="faq__single-question">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question33' href='#question33' class="pull-left faq__title-content" data-js="panel-header">
+                  DAS?
+                </a>
+                <a data-toggle='collapse' data-target='#question33' href='#question33' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question33' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  We've implemented some basic commands of the <a href="http://en.wikipedia.org/wiki/Distributed_Annotation_System"><em>Distributed Annotation System</em></a> (DAS). Those are for example used for the genome browsers on the SNP-pages in <em>openSNP</em>.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitTwo">
-            <legend>Which data will <em>openSNP</em> save from <em>Fitbit</em>? And will it be public?</legend>
-          </a>
-        </div>
-        <div id="collapseFitTwo" class="accordion-body collapse">
-          <div class="accordion-inner">
-            If you connect your <em>Fitbit</em> account with <em>openSNP</em> we will save data for up to three different categories: Activities, Body and Sleep. In the activity category, we will save your step-count and the number of floors you've climbed for each day. For the body category, we will save your Body Mass Index and your weight for each day. In the sleep category, we will save how many minutes you've slept, how many minutes you were awake while you tried to sleep, how long it took you to fall asleep, and the number of times you awoke for each night.<br/><br/>If you connect your <em>Fitbit</em> account, we will also save as much data of past days as it's possible to get through the <em>Fitbit</em> API. This data is as public as are the genotyping datasets or all standard phenotypes which are entered into openSNP. So please be sure you want the world to be able to see this data.
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question34' href='#question34' class="pull-left faq__title-content" data-js="panel-header">
+                  Where can I learn more about DAS?
+                </a>
+                <a data-toggle='collapse' data-target='#question34' href='#question34' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question34' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  If you want to learn more about the use at <em>openSNP</em> you can <a href="http://opensnp.wordpress.com/2012/02/20/videos-on-opensnp-das-support/">watch this video</a> which explains a bit about it. You can also read the <a href="http://www.biodas.org/documents/spec.html">specifications</a> or read about <a href="http://www.dasregistry.org/DASCommandExamples.jsp">example commands</a> at the <a href="http://www.dasregistry.org/"><em>DASRegistry</em></a>.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitThree">
-            <legend>Can I choose which data <em>openSNP</em> should save and which not?</legend>
-          </a>
-        </div>
-        <div id="collapseFitThree" class="accordion-body collapse">
-          <div class="accordion-inner">
-            Yes, you can choose which categories we should save. For example, you can share our activity data so people can see the number of steps you have taken for each day, along with the floors you have climbed but keep your body and sleep data on <em>FitBit</em>. Two things you should keep in mind: you can (de)activate the saving of data for different categories at any time. <br/><br/>1. If you deactivate a category we will delete all of your data of this category from <em>openSNP</em> (but of course not on <em>Fitbit</em>).<br/>2. If activate a category we will try to save as many data from the past as possible. So if there is past data you don't want to share, you probably should not activate it (or delete the data from <em>Fitbit</em>).
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question35' href='#question35' class="pull-left faq__title-content" data-js="panel-header">How can I see all DAS sources?</a>
+                <a data-toggle='collapse' data-target='#question35' href='#question35' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question35' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                <p>
+                  To find all DAS-sources you can point your browser to <a href="http://opensnp.org/das/sources"><em>http://opensnp.org/das/sources</em></a>. You should get back some XML which roughly looks like this:
+                  <pre class="prettyprint linenums">
+                    &lt;SOURCES&gt;
+                      &lt;SOURCE uri=&quot;6&quot; title=&quot;6&quot; description=&quot;6&quot;&gt;
+                        &lt;MAINTAINER email=&quot;admin@opensnp.org&quot;/&gt;
+                        &lt;VERSION created=&quot;29.09.2011 15:43&quot; uri=&quot;6&quot;&gt;
+                        &lt;COORDINATES uri=&quot;http://www.dasregistry.org/dasregistry/coordsys/CS_DS311&quot; taxid=&quot;9606&quot; source=&quot;Chromosome&quot; authority=&quot;GRCh&quot; test_range=&quot;&quot; version=&quot;37&quot;&gt;GRCh_37,Chromosome,Homo sapiens&lt;/COORDINATES&gt;
+                        &lt;CAPABILITY query_uri=&quot;http://opensnp.org/das/6/features&quot; type=&quot;das1:features&quot;/&gt;
+                        &lt;CAPABILITY type=&quot;das1:unknown-segment&quot;/&gt;
+                        &lt;/VERSION&gt;
+                      &lt;/SOURCE&gt;
+                        &lt;SOURCE uri=&quot;10&quot; title=&quot;10&quot; description=&quot;10&quot;&gt;
+                        &lt;MAINTAINER email=&quot;admin@opensnp.org&quot;/&gt;
+                        &lt;VERSION created=&quot;29.09.2011 20:54&quot; uri=&quot;10&quot;&gt;
+                        &lt;COORDINATES uri=&quot;http://www.dasregistry.org/dasregistry/coordsys/CS_DS311&quot; taxid=&quot;9606&quot; source=&quot;Chromosome&quot; authority=&quot;GRCh&quot; test_range=&quot;&quot; version=&quot;37&quot;&gt;GRCh_37,Chromosome,Homo sapiens&lt;/COORDINATES&gt;
+                        &lt;CAPABILITY query_uri=&quot;http://opensnp.org/das/10/features&quot; type=&quot;das1:features&quot;/&gt;
+                        &lt;CAPABILITY type=&quot;das1:unknown-segment&quot;/&gt;
+                        &lt;/VERSION&gt;
+                      &lt;/SOURCE&gt;
+                    &lt;/SOURCES&gt;
+                  </pre>
+                  The title of each source corresponds to a single <em>openSNP</em>-user. Even if users have provided more than one file you can query all the data available for this user through a single DAS-source.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitFour">
-            <legend>Do you get write-access to my <em>Fitbit</em> account?</legend>
-          </a>
-        </div>
-        <div id="collapseFitFour" class="accordion-body collapse">
-          <div class="accordion-inner">
-            No, if you connect your <em>Fitbit</em> account with <em>openSNP</em> we only have read-access. The read-access gives us access to all data you have in your <em>Fitbit</em> account, but we will only read and save the data for which you have given us permission. We're sorry that you have to trust us in this regard, but the <em>Fitbit</em> API currently doesn't allow for a more granular setting.
+        </li>
+
+        <li class="faq__single-question ">
+          <div class='panel panel-default faq__single-question-div'>
+            <div class='panel-heading faq__single-question-panel'>
+              <h4 class="panel-title clearfix faq__question-title">
+                <a data-toggle='collapse' data-target='#question36' href='#question36' class="pull-left faq__title-content" data-js="panel-header">How can I query a DAS source?</a>
+                <a data-toggle='collapse' data-target='#question36' href='#question36' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
+              </h4>
+            </div>
+            <div id='question36' class='panel-collapse collapse'>
+              <div class='panel-body'>
+                To query a DAS-source you can use the <em>features</em>-command and provide the chromosome and slice you are interested in. For example <a href="http://opensnp.org/das/1/features?segment=1:1,1000000"><em>http://opensnp.org/das/1/features?segment=1:1,1000000</em></a> will provide you with all SNPs which are located between base 1 and 1000000 for the user with the ID #1. It will produce a similar XML-output like shown below:
+
+                <pre class="prettyprint linenums">
+                  &lt;DASGFF&gt;
+                    &lt;GFF version=&quot;1.0&quot; href=&quot;http://opensnp.org/das/1/features?segment=1:1,1000000&quot;&gt;
+                    &lt;SEGMENT id=&quot;1&quot; version=&quot;1.0&quot; start=&quot;1&quot; stop=&quot;1000000&quot;&gt;
+                    &lt;FEATURE id=&quot;rs6681049&quot;&gt;
+                      &lt;TYPE id=&quot;CC&quot;/&gt;
+                      &lt;METHOD id=&quot;&quot;/&gt;
+                      &lt;START&gt;789870&lt;/START&gt;
+                      &lt;END&gt;789870&lt;/END&gt;
+                      &lt;LINK href=&quot;http://opensnp.org/snps/rs6681049&quot;&gt;http://opensnp.org/snps/rs6681049&lt;/LINK&gt;
+                    &lt;/FEATURE&gt;
+                    &lt;FEATURE id=&quot;rs6657048&quot;&gt;
+                      &lt;TYPE id=&quot;CC&quot;/&gt;
+                      &lt;METHOD id=&quot;&quot;/&gt;
+                      &lt;START&gt;947503&lt;/START&gt;
+                      &lt;END&gt;947503&lt;/END&gt;
+                      &lt;LINK href=&quot;http://opensnp.org/snps/rs6657048&quot;&gt;http://opensnp.org/snps/rs6657048&lt;/LINK&gt;
+                    &lt;/FEATURE&gt;
+                    &lt;FEATURE id=&quot;rs28415373&quot;&gt;
+                      &lt;TYPE id=&quot;CC&quot;/&gt;
+                      &lt;METHOD id=&quot;&quot;/&gt;
+                      &lt;START&gt;883844&lt;/START&gt;
+                      &lt;END&gt;883844&lt;/END&gt;
+                      &lt;LINK href=&quot;http://opensnp.org/snps/rs28415373&quot;&gt;http://opensnp.org/snps/rs28415373&lt;/LINK&gt;
+                    &lt;/FEATURE&gt;
+                  &lt;/DASGFF&gt;
+                </pre>
+                The general URL-schema for DAS-feature-requests is http://opensnp.org/das/$USER_ID/features?segment=$CHROMOSOME:$START_BASE,$STOP_BASE.
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionfitbit" href="#collapseFitFive">
-            <legend>Does <em>openSNP</em> automatically get the latest data from <em>Fitbit</em>?</legend>
-          </a>
-        </div>
-        <div id="collapseFitFive" class="accordion-body collapse">
-          <div class="accordion-inner">
-            Yes, once your <em>Fitbit</em> account is connected and set up, we will get an notification from <em>Fitbit</em> each time you enter or change any data in their system. So each time your tracker uploads new data to <em>Fitbit</em>, we will get those changes as well. This also works for past records. So if you change or delete entries on the <em>Fitbit</em> website, those changes will be reflected on <em>openSNP</em> as well.
-          </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
-</div>
-
-<div id="filetypes">
-	<h4>Not sure what kind of file you've got? Take a look at our example-files</h4>
-
-	<div class="row">
-	 <div class="span13 columns">
-
-	<legend>23andMe</legend>
-	<pre class="prettyprint linenums">
-		# More Comments up here
-		# More information on reference human assembly build 36:
-		# http://www.ncbi.nlm.nih.gov/projects/mapview/map_search.cgi?taxid=9606&build=36
-		#
-		# rsid	chromosome	position	genotype
-		rs4477212	1	72017	AA
-		rs3094315	1	742429	AA
-		rs3131972	1	742584	GG
-		rs12124819	1	766409	AG
-		rs11240777	1	788822	AG
-		rs6681049	1	789870	CC
-		rs4970383	1	828418	CC
-		rs4475691	1	836671	CC
-		rs7537756	1	844113	AA
-	</pre>
-
-  <legend>Genes for Good</legend>
-	<pre class="prettyprint linenums">
-    # Genes for Good v1.0: filtered, imputed genotype calls. For more information, go to: https://genesforgood.sph.umich.edu/readme/readme1.0.txt
-    # This data file generated by PLINK on: 05/03/16
-    #
-    # Below is a text version of your data.  Fields are TAB-separated.
-    # Each line corresponds to a single SNP.  For each SNP, we provide its
-    # identifier, its location on a reference human genome, and the genotype call.
-    # Human genome reference used: GRCh37/Mito:rCRS
-    #
-    # rsid  chromosome      position        genotype
-    1:762320C>T     1       762320  CC
-    1:798400A>G     1       798400  AG
-    rs11240777      1       798959  GA
-    1:845635C>T     1       845635  CC
-    1:845938G>A     1       845938  GG
-    1:846078C>T     1       846078  CC
-    1:846398G>A     1       846398  GG
-    rs4475691       1       846808  CC
-	</pre>
-
-	<legend>deCODEme</legend>
-	<pre class="prettyprint linenums">
-		Name,Variation,Chromosome,Position,Strand,YourCode
-		rs4477212,A/G,1,72017,+,AA
-		rs2185539,C/T,1,556738,+,CC
-		rs6681105,C/T,1,581938,+,TT
-		rs11240767,C/T,1,718814,+,CC
-		rs3094315,C/T,1,742429,-,TT
-		rs3131972,C/T,1,742584,-,CC
-		rs3131969,C/T,1,744045,-,CC
-		rs1048488,C/T,1,750775,+,TT
-		rs2905046,A/G,1,752518,-,GG
-		</pre>
-
-	<legend>FamilyTreeDNA</legend>
-	<pre class="prettyprint linenums">
-		RSID,CHROMOSOME,POSITION,RESULT
-		"rs3094315","1","742429","AG"
-		"rs3131972","1","742584","AG"
-		"rs12562034","1","758311","GG"
-		"rs12124819","1","766409","AA"
-		"rs11240777","1","788822","GG"
-		"rs6681049","1","789870","CC"
-		"rs4970383","1","828418","CC"
-		"rs4475691","1","836671","CC"
-		"rs7537756","1","844113","AA"
-		</pre>
-
-		<legend>23andMe Exome in VCF format</legend>
-		This feature is still an early beta version. Please let us know if it works for you.
-		<pre class="prettyprint linenums">
-##fileformat=VCFv4.1
-##CombineVariants=[...]
-##FILTER=<ID=FSFilter200,Description="FS > 200.0">
-[...]
-##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
-[...]
-##INFO=<ID=SNPEFF_TRANSCRIPT_ID,Number=1,Type=String,Description="Transcript ID for the highest-impact effect resulting from the current variant">
-[...]
-##contig=<ID=1,length=249250621>
-##contig=<ID=10,length=135534747>
-[...]
-#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  USERID
-1       14907   rs79585140      A       G       317.34  MQFilter40 AB=0.604;AC=1;AF=0.50; [...]     GT:AD:DP:GQ:PL  0/1:32,21:54:99:347,0,514
-1       14930   rs75454623      A       G       351.37  MQFilter40  AB=0.61;AC=1;AF=0.50; [...]     GT:AD:DP:GQ:PL  0/1:36,23:59:99:381,0,680
-      </pre>
-
-	<legend>My filetype is still missing, what can I do?</legend>
-	We are always interested in adding more data. If your company is missing up to now it is, because we did not have an example-file to optimize our parser on it. But if you contact us at <%=link_to "parsing@opensnp.org","mailto:parsing@opensnp.org"%> and send us your file we can fix this, so that all customers of the DTC company of your choice can participate.
-</div>
-</div>
-</div>
-<div id="das">
-<h4>Using DAS</h4>
-<legend>DAS?</legend>
-We've implemented some basic commands of the <a href="http://en.wikipedia.org/wiki/Distributed_Annotation_System"><em>Distributed Annotation System</em></a> (DAS). Those are for example used for the genome browsers on the SNP-pages in <em>openSNP</em>.
-
-<legend>Where can I learn more about DAS?</legend>
-If you want to learn more about the use at <em>openSNP</em> you can <a href="http://opensnp.wordpress.com/2012/02/20/videos-on-opensnp-das-support/">watch this video</a> which explains a bit about it. You can also read the <a href="http://www.biodas.org/documents/spec.html">specifications</a> or read about <a href="http://www.dasregistry.org/DASCommandExamples.jsp">example commands</a> at the <a href="http://www.dasregistry.org/"><em>DASRegistry</em></a>.
-
-<legend>How can I see all DAS sources?</legend>
-To find all DAS-sources you can point your browser to <a href="http://opensnp.org/das/sources"><em>http://opensnp.org/das/sources</em></a>. You should get back some XML which roughly looks like this:
-<pre class="prettyprint linenums">
-  &lt;SOURCES&gt;
-    &lt;SOURCE uri=&quot;6&quot; title=&quot;6&quot; description=&quot;6&quot;&gt;
-      &lt;MAINTAINER email=&quot;admin@opensnp.org&quot;/&gt;
-      &lt;VERSION created=&quot;29.09.2011 15:43&quot; uri=&quot;6&quot;&gt;
-      &lt;COORDINATES uri=&quot;http://www.dasregistry.org/dasregistry/coordsys/CS_DS311&quot; taxid=&quot;9606&quot; source=&quot;Chromosome&quot; authority=&quot;GRCh&quot; test_range=&quot;&quot; version=&quot;37&quot;&gt;GRCh_37,Chromosome,Homo sapiens&lt;/COORDINATES&gt;
-      &lt;CAPABILITY query_uri=&quot;http://opensnp.org/das/6/features&quot; type=&quot;das1:features&quot;/&gt;
-      &lt;CAPABILITY type=&quot;das1:unknown-segment&quot;/&gt;
-      &lt;/VERSION&gt;
-    &lt;/SOURCE&gt;
-      &lt;SOURCE uri=&quot;10&quot; title=&quot;10&quot; description=&quot;10&quot;&gt;
-      &lt;MAINTAINER email=&quot;admin@opensnp.org&quot;/&gt;
-      &lt;VERSION created=&quot;29.09.2011 20:54&quot; uri=&quot;10&quot;&gt;
-      &lt;COORDINATES uri=&quot;http://www.dasregistry.org/dasregistry/coordsys/CS_DS311&quot; taxid=&quot;9606&quot; source=&quot;Chromosome&quot; authority=&quot;GRCh&quot; test_range=&quot;&quot; version=&quot;37&quot;&gt;GRCh_37,Chromosome,Homo sapiens&lt;/COORDINATES&gt;
-      &lt;CAPABILITY query_uri=&quot;http://opensnp.org/das/10/features&quot; type=&quot;das1:features&quot;/&gt;
-      &lt;CAPABILITY type=&quot;das1:unknown-segment&quot;/&gt;
-      &lt;/VERSION&gt;
-    &lt;/SOURCE&gt;
-  &lt;/SOURCES&gt;
-</pre>
-The title of each source corresponds to a single <em>openSNP</em>-user. Even if users have provided more than one file you can query all the data available for this user through a single DAS-source.
-
-<legend>How can I query a DAS source?</legend>
-To query a DAS-source you can use the <em>features</em>-command and provide the chromosome and slice you are interested in. For example <a href="http://opensnp.org/das/1/features?segment=1:1,1000000"><em>http://opensnp.org/das/1/features?segment=1:1,1000000</em></a> will provide you with all SNPs which are located between base 1 and 1000000 for the user with the ID #1. It will produce a similar XML-output like shown below:
-
-<pre class="prettyprint linenums">
-  &lt;DASGFF&gt;
-    &lt;GFF version=&quot;1.0&quot; href=&quot;http://opensnp.org/das/1/features?segment=1:1,1000000&quot;&gt;
-    &lt;SEGMENT id=&quot;1&quot; version=&quot;1.0&quot; start=&quot;1&quot; stop=&quot;1000000&quot;&gt;
-    &lt;FEATURE id=&quot;rs6681049&quot;&gt;
-      &lt;TYPE id=&quot;CC&quot;/&gt;
-      &lt;METHOD id=&quot;&quot;/&gt;
-      &lt;START&gt;789870&lt;/START&gt;
-      &lt;END&gt;789870&lt;/END&gt;
-      &lt;LINK href=&quot;http://opensnp.org/snps/rs6681049&quot;&gt;http://opensnp.org/snps/rs6681049&lt;/LINK&gt;
-    &lt;/FEATURE&gt;
-    &lt;FEATURE id=&quot;rs6657048&quot;&gt;
-      &lt;TYPE id=&quot;CC&quot;/&gt;
-      &lt;METHOD id=&quot;&quot;/&gt;
-      &lt;START&gt;947503&lt;/START&gt;
-      &lt;END&gt;947503&lt;/END&gt;
-      &lt;LINK href=&quot;http://opensnp.org/snps/rs6657048&quot;&gt;http://opensnp.org/snps/rs6657048&lt;/LINK&gt;
-    &lt;/FEATURE&gt;
-    &lt;FEATURE id=&quot;rs28415373&quot;&gt;
-      &lt;TYPE id=&quot;CC&quot;/&gt;
-      &lt;METHOD id=&quot;&quot;/&gt;
-      &lt;START&gt;883844&lt;/START&gt;
-      &lt;END&gt;883844&lt;/END&gt;
-      &lt;LINK href=&quot;http://opensnp.org/snps/rs28415373&quot;&gt;http://opensnp.org/snps/rs28415373&lt;/LINK&gt;
-    &lt;/FEATURE&gt;
-  &lt;/DASGFF&gt;
-</pre>
-The general URL-schema for DAS-feature-requests is http://opensnp.org/das/$USER_ID/features?segment=$CHROMOSOME:$START_BASE,$STOP_BASE.
-</div>
-
-<div id="api">
-	<legend>Using JSON</legend>
-    We provide some methods to make it easier to get data back from <em>openSNP</em>. Currently we are implementing some <i><a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a></i> (short: JSON) methods that will make it easier to code some awesome <em>openSNP</em>-utilizing stuff. As you can see on the Wikipedia-page, there are many JSON-parsers around for all major programming languages, and it is fairly human readable as well. Plus: it's one of the de-facto webstandards for APIs. The full overview of the openSNP JSON API is <a href="https://github.com/openSNP/snpr/wiki/JSON-API">on GitHub</a>.
-
-	<legend>The method I need is missing and/or I need more help!?</legend>
-	There are many ways in which this problem can be fixed. First of all, if you are able to code some <em>Rails</em> and have got some basic understanding of <em>JSON</em> feel invited to help us with the development of <em>openSNP</em>. The source code is freely available at <a href="https://github.com/openSNP/snpr">GitHub</a>, and we are always looking for some motivated people who want to join us. Just start coding the stuff you are interested in and make a pull request. Or what about <a href="http://groups.google.com/group/snpr-development">joining the openSNP development mailinglist/Google group and you can get to know us a bit better?</a> <br/>But don't worry; if you don't feel like spending that much time with us (let alone having that much time left), we're working on implementing more features. So if you've got a great idea that we should absolutely include, just let us know: write us at <a href="mailto:info@opensnp.org">info@opensnp.org</a> or drop <a href="http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Basti</a> a note. And the same is true if you need some more support with those methods already in place.
-		</div>
-	</div>
+  </div>
 </div>

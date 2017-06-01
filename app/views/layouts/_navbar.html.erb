@@ -1,0 +1,66 @@
+<nav class="navbar-default navbar-menu">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to "openSNP", "/", class: "navbar-brand navbar-menu__brand"%>
+      <button type="button" class="navbar-toggle navbar-menu__hamburger-menu" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle</span>
+        <span class="navbar-menu__hamburger-menu-icon icon-bar"></span>
+        <span class="navbar-menu__hamburger-menu-icon icon-bar"></span>
+        <span class="navbar-menu__hamburger-menu-icon icon-bar"></span>
+      </button>
+    </div>
+    <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+      <li><%= link_to "News", "/news", class: "navbar-menu__options"%></li>
+      <li class="dropdown">
+        <a href="#" class="navbar-menu__options dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
+        <ul class="dropdown-menu navbar-menu__info-menu">
+          <li><%= link_to "SNP's", {:controller => "snps", :action => "index"}, class: "navbar-menu__options"%></li>
+          <li><%= link_to "Genotype", {:controller => "genotypes", :action => "index"}, class: "navbar-menu__options"%></li>
+          <li><%= link_to "Stats", "/statistics", class: "navbar-menu__options"%></li>
+          <li><%= link_to "Phenotype", {:controller => "phenotypes", :action => "index"}, class: "navbar-menu__options"%></li>
+          <li><%= link_to "Phenotypes Pictures", {:controller => "picture_phenotypes", :action => "index"}, class: "navbar-menu__options"%></li>
+          <li role="separator" class="divider"></li>
+          <li><%= link_to "Fitbit Connections", {:controller => "fitbit_profiles", :action => "index"}, class: "navbar-menu__options"%></li>
+        </ul>
+      </li>
+      <li><%= link_to "Updates", "/updates", class: "navbar-menu__options"%></li>
+      <li><%= link_to "FAQ", "/faq", class: "navbar-menu__options"%></li>
+      <% if current_user %>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle navbar-menu__options navbar-menu__profile-option" data-toggle="dropdown">
+          <%= image_tag current_user.avatar.url(:thumb), class: "img-circle", width: "32px" %>
+          &nbsp; <%= current_user.name %>
+           <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu navbar-menu__profile-menu">
+          <li><%= link_to("Settings", "/users/"+current_user.id.to_s+"/edit", class: "navbar-menu__options", :id => current_user) %></li>
+          <li><%= link_to("Edit Your Phenotypes", "/users/"+current_user.id.to_s+"/edit#phenotypes", class: "navbar-menu__options")%></li>
+          <%if current_user.fitbit_profile != nil%>
+          <li>
+            <%=link_to("Edit Fitbit settings", {:controller => "fitbit_profiles", :action => "edit"}, class: "navbar-menu__options")%>
+          </li>
+          <%end%>
+          <li class="divider"></li>
+          <li><%= link_to("Messages ("+current_user.messages.where(:user_has_seen => false).length.to_s+")","/users/" + current_user.id.to_s + "#messages", :method => "get", class: "navbar-menu__options")%></li>
+          <li class="divider"></li>
+          <li><%= link_to("Sign out", '/signout', class: "navbar-menu__options") %></li>
+        </ul>
+      </li>
+    <% else %>
+      <li><%= link_to "Sign In", "/signin", class: "navbar-menu__options"%></li>
+    <% end %>
+      <li>
+        <a class="navbar-menu__options hidden-xs" href="#" data-js="search-button">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<%= form_tag "/search", :method => "get",:class => "navbar-form navbar-left navbar-menu__search-input", data: {js: "search-form"}, :authenticity_token => true do %>
+<div class="input-group input-group-sm navbar-menu__search-input-content">
+  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+  <%= text_field_tag :search, nil, :placeholder => "Search", :class => "form-control" %>
+</div>
+<% end %>

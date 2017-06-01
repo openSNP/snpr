@@ -1,4 +1,41 @@
-<legend>Sign up</legend>
-<%= render 'shared/warning' %>
-<%= render 'form' %>
-
+<div class="general__container container">
+  <div class="row">
+    <h3 class="general__title">Sign Up</h3>
+    <%= render 'shared/error_messages', :target => @user %>
+    <%= render 'shared/warning' %>
+  </div>
+  <div class="row">
+    <div class="col-md-4 well signup__form">
+      <%= form_for @user, :html => {:class => "form"} do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name , placeholder:"Username", class:"form-control"%>
+        </div>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm your password" %>
+        </div>
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag(:read, :type => "checkbox") %>
+            I understand the warning and I am willing to take these risks.
+          </label>
+        </div>
+        <p class="signup__recaptcha"><%= recaptcha_tags %></p>
+        <%= f.submit :class => "btn btn-default btn-lg"%>
+        <% end %>
+        <p class="signup__advise">Already a user? Log in now!</p>
+    </div>
+    <div class="col-md-7 col-md-offset-1 well signup__disclaimer">
+      <%=render "static/disclaimer"%>
+    </div>
+  </div>
+</div>

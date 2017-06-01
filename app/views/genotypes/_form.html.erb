@@ -1,44 +1,50 @@
-<div class="row">
-  <div class="span6 columns">
-    <%= form_for(@genotype, html: {class: "form-horizontal", multipart: true}) do |f| %>
-      <%= render 'shared/error_messages', :target => @genotype %>
-      <div class="well">  
-          <h5>Provide your genotyping file</h5>
-          <p>Zipped genotypings are fine too.</p>
-          <p><%= f.file_field :genotype %></p>
-            <%= f.label :filetype %>
-            <div class="radio">
-              <%= f.radio_button :filetype,"23andme" %>
-              23andme-format
-            </div>
-            <div class="radio">
-              <%= f.radio_button :filetype,"genes-for-good"%>
-              Genes for Good-format
-            </div>
-            <div class="radio">
-              <%= f.radio_button :filetype,"ftdna-illumina"%>
-              FamilyTreeDNA, Illumina-Format
-            </div>
-            <div class="radio">
-              <%= f.radio_button :filetype,"ancestry"%>
-              AncestryDNA data
-            </div>
-            <div class="radio">
-              <%= f.radio_button :filetype,"23andme-exome-vcf"%>
-              23andMe-EXOME, VCF-format
-            </div>
-            <div class="radio">
-              <%= f.radio_button :filetype,"IYG"%>
-              IYG-format (EBI genotyping participants)
-            </div>
-            <div class="radio">
-              <%= f.radio_button :filetype,"decodeme"%>
-              deCODEme-format
-            </div>
-            <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>.<br/><br/>
-          <%= f.submit "Upload", :class => "btn btn-primary"  %>
-      <% end %>
+<div class="col-md-4 well new-genotype__form">
+  <%= form_for(@genotype) do |f| %>
+    <h3>Provide your genotyping file</h3>
+    <small class="help-block">Zipped genotypings are fine too.</small>
+    <%= f.file_field :genotype %>
+    </br>
+    <%= f.label :filetype %>
+    <div class="radio">
+      <label for="">
+        <%= f.radio_button :filetype,"23andme" %>
+        23andme-format
+      </label>
     </div>
+    <div class="radio">
+      <label for="">
+        <%= f.radio_button :filetype,"decodeme"%>
+        deCODEme-format
+      </label>
+    </div>
+    <div class="radio">
+      <label for="">
+        <%= f.radio_button :filetype,"ftdna-illumina"%>
+        FamilyTreeDNA, Illumina-Format
+      </label>
+    </div>
+    <div class="radio">
+      <label for="">
+        <%= f.radio_button :filetype,"ancestry"%>
+        AncestryDNA data
+      </label>
+    </div>
+    <div class="radio">
+      <label for="">
+        <%= f.radio_button :filetype,"23andme-exome-vcf"%>
+        23andMe-EXOME, VCF-format
+      </label>
+    </div>
+    <div class="radio">
+      <label for="">
+        <%= f.radio_button :filetype,"IYG"%>
+        IYG-format (EBI genotyping participants)
+      </label>
+    </div>
+    <br/>Not sure which type to choose? Take a look at our <%=link_to("FAQ","/faq#filetypes")%>.<br/><br/>
+    <%= f.submit "Upload", :class => "btn btn-primary"  %>
+    <% end %>
   </div>
-  <div class="span6"><div class="well"><%=render "static/disclaimer"%></div></div>
-</div>
+  <div class="col-md-7 col-md-offset-1 well new-genotype__disclaimer">=
+    <%=render "static/disclaimer"%>
+  </div>

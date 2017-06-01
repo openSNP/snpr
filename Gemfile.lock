@@ -425,7 +425,7 @@ DEPENDENCIES
   guard-rspec
   i18n (>= 0.6.6)
   jquery-rails
-  jquery-ui-rails
+  jquery-ui-rails (~> 4.2.1)
   json
   launchy
   lograge
@@ -462,13 +462,12 @@ DEPENDENCIES
   test-unit
   therubyracer
   timecop
-  twitter-bootstrap-rails
   uglifier
   uuidtools
   vcr
   webmock
   whenever
-  will_paginate
+  will_paginate-bootstrap
 
 BUNDLED WITH
    1.14.6

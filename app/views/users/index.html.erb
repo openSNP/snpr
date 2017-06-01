@@ -1,18 +1,26 @@
-<legend>Listing all users</legend>
-<table class="table table-striped" id="all_users">
-	<tr>
-		<th><%= sortable "id", "ID"%></th>
-		<th><%= sortable "name", "Name" %></th>
-		<th><%= sortable "has_sequence", "Has SNPs" %></th>
-		<th><%= sortable "phenotype_length", "# of Phenotypes"%></th>
-	</tr>
-	<% @users_paginate.each do |u| %>
-		<tr>
-			<td><%=link_to(u.id,u)%></td>
-			<td><%= image_tag u.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to(u.name,u) %></td>
-			<td><%= u.user_has_sequence_string %></td>
-			<td><%= u.phenotype_length %></td>
-		</tr>
-	<% end %>
-</table>
-<%= page_navigation_links @users_paginate %>
+<div class="general__container container">
+	<h3 class="general__title">Listing all users</h3>
+	<div class="table-responsive">
+		<table class="table table-hover" id="all_users">
+			<thead>
+				<tr>
+					<th><%= sortable "name", "Name" %></th>
+					<th><%= sortable "id", "ID"%></th>
+					<th><%= sortable "has_sequence", "Has SNPs" %></th>
+					<th><%= sortable "phenotype_length", "# of Phenotypes"%></th>
+				</tr>
+			</thead>
+			<% @users_paginate.each do |u| %>
+			<tr>
+				<td class="table-cell vertical-centered"><%= link_to(image_tag(u.avatar.url(:head), class: "img-circle", width: "50px") + " #{u.name}", u) %></td>
+				<td class="table-cell vertical-centered"><%=link_to(u.id,u)%></td>
+				<td class="table-cell vertical-centered"><%= u.user_has_sequence_string %></td>
+				<td class="table-cell vertical-centered"><%= u.phenotype_length %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+	<div class="text-center">
+    <%= will_paginate @users_paginate, renderer: BootstrapPagination::Rails%>
+  </div>
+</div>

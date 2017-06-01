@@ -1,13 +1,60 @@
-<legend>News</legend>
-<div id="tab-container">
-  <ul class="nav nav-tabs">
-    <li><a href="#general">On openSNP</a></li>
-    <li><a href="#users">New users</a></li>
-    <li><a href="#genotypes">New genotypes</a></li>
-    <li><a href="#phenotypes">New phenotypes</a></li>
-    <li><a href="#publications">Latest publications</a></li>
-    <li><a href="#snpcomments">SNP-Comments</a></li>
-    <li><a href="#phenotypecomments">Phenotype-Comments</a></li>
+<div class="general__container container">
+  <h3 class="general__title">News</h3>
+  <ul class="list-unstyled">
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">We're joining the Google Summer of Code</h3>
+      <p>
+        Each year Google is running its Google Summer of Code (GSoC), which is aimed at students to get started with open source work. Students participating in it will get paid by Google to work on a specific open source project for 3 months.
+        The Open Bioinformatics Foundation (OBF) has put up a few of our project ideas, so if you're a currently enrolled student and you want to <a href="http://obf.github.io/GSoC/ideas/#opensnp">work on improving openSNP while earning money, our proposed projects are listed online</a>.
+        Most of the projects don't require too much specific biology knowledge but basic proficiency in Ruby (on Rails) and Web Development. And even if you're lacking the Ruby skills but know other scripting languages it might be something for you. You won't be on your own, as we will mentor successful applicants.
+        Some more general information can <a href="http://obf.github.io/GSoC/">be found on the OBF's GSoC pages</a>.
+        The application deadline for this year's Google Summer of Code (GSoC) is approaching fast (March 25th). So If you're interested in participating in this program, just reply to this newsletter or <a href="https://gitter.im/openSNP/snpr">join us on gitter</a>
+      </p>
+      <span class="news__single-news-date">2016-03-17</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">Adopting a Code of Conduct</h3>
+      <p>
+        We strive to keep openSNP a friendly community, amongst our developers as well as the community on openSNP.org. So far this hasn't been a problem and we don't expect it to become one. Thanks for being model open science citizens to everyone in the openSNP universe. In order to show our commitment to diversity, inclusion and creating safe spaces we are adopting a Code of Conduct, inspired by the team of Slidewinder.io.
+      </p>
+      <span class="news__single-news-date">2016-02-05</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">openSNP is now on Patreon</h3>
+      <p>
+        As our database has grown so much (over 2100 data sets already!), we will need to upgrade our server to keep track with the amount of data to process. <a href="https://www.patreon.com/openSNP?ty=h"> To support us in renting more computing power you can help us with a small monthly contribution on <i>Patreon</i></a>. You can <a href="https://opensnp.wordpress.com/2015/09/23/support-opensnp-on-patreon/">learn more about this on our blog!</a>
+      </p>
+      <span class="news__single-news-date">2015-09-23</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">#thedress, ethics for participant-lead research, research hack days</h3>
+      <p>
+        We have sent out one of our rare newsletters! If you haven't received your copy - which is likely since our mailing system apparently flips coins to decide whether to send out mails - the entire text is available on our blog <a href="https://opensnp.wordpress.com/2015/04/04/thedress-ethics-for-participant-lead-research-research-hack-days/">here</a>. Happy Easter!
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">3 years of openSNP and 1000 genotypings!</h3>
+      <p>
+        We support the <a href="http://wh.gov/6TH">access2research petition for Open Access</a> directed to the Obama administration. The petition wants to make Open Access publication of tax-funded publications mandatory. In total, 25,000 signatures are needed to have the petition officially reviewed by the White House. Non-US-citizens may sign the petition, too, so <a href="http://wh.gov/6TH">it would be great if you sign it</a>, too! For more information, please <a href="http://opensnp.wordpress.com/2012/05/23/a-petition-on-open-access/">read our blogpost on the petition</a>.
+        <div align="center"><%= image_tag "a2r.png", class: "hidden-xs" %></div>
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">API: JSON methods</h3>
+      <p>
+        The promised support for the <em>Distributed Annotation System</em> will take some time. But in the meantime you can access <em>openSNP</em> using some simple JSON-methods. Examples can be found for <a href="http://opensnp.org/snps/json/rs9939609/1.json">SNPs</a>, <a href="http://opensnp.org/users.json">users</a> and <a href="http://opensnp.org/phenotypes/json/1,6,8.json">phenotypes</a>. To learn more about how to use those methods you may want to <a href="http://opensnp.org/faq#api">read the FAQ</a> or this blogpost we've written about this.
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
+    <li class="news__single-news">
+      <h3 class="news__single-news-title">SSL-Support</h3>
+      <p>
+        Hello everyone! We've bought a SSL-certificate so that you can safely browse this site (especially relevant if you log in to this site over an open WLAN). You can access the SSL-version of openSNP over <a href="https://opensnp.org">this link</a>. It's still experimental, so if you find anything please message <a href"http://opensnp.org/messages/new?user_to_send=23">Philipp</a> or <a href="http://opensnp.org/messages/new?user_to_send=1">Bastian</a>.
+      </p>
+      <span class="news__single-news-date">No date</span>
+    </li>
   </ul>
   <div id="general">
     <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/openSNPorg" data-widget-id="738263692672782336">Tweets by @openSNPorg</a>

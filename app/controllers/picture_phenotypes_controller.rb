@@ -4,8 +4,8 @@ class PicturePhenotypesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @title = "Listing all phenotypes"
-    @phenotypes = PicturePhenotype.order(sort_column + " " + sort_direction)
+    @title = 'Listing all phenotypes'
+    @phenotypes = PicturePhenotype.order(sort_column + ' ' + sort_direction)
     @phenotypes_paginate = @phenotypes.paginate(:page => params[:page],:per_page => 10)
     #@phenotypes_json = []
     #@phenotypes.each do |p|
@@ -18,15 +18,15 @@ class PicturePhenotypesController < ApplicationController
     #end
     respond_to do |format|
       format.html
-      format.xml 
-      #format.json {render :json => @phenotypes_json} 
+      format.xml
+      #format.json {render :json => @phenotypes_json}
     end
   end
 
   def new
     @phenotype = PicturePhenotype.new
     @user_phenotype = UserPicturePhenotype.new
-    @title = "Create a new picture phenotype"
+    @title = 'Create a new picture phenotype'
 
     respond_to do |format|
       format.html
@@ -42,14 +42,14 @@ class PicturePhenotypesController < ApplicationController
       # award: created one (or more) phenotypes
       current_user.update_attributes(:phenotype_creation_counter => (current_user.phenotype_creation_counter + 1)  )
 
-      check_and_award_new_phenotypes(1, "Created a new phenotype")
-      check_and_award_new_phenotypes(5, "Created 5 new phenotypes")
-      check_and_award_new_phenotypes(10, "Created 10 new phenotypes")
+      check_and_award_new_phenotypes(1, 'Created a new phenotype')
+      check_and_award_new_phenotypes(5, 'Created 5 new phenotypes')
+      check_and_award_new_phenotypes(10, 'Created 10 new phenotypes')
     end
 
-    if params[:picture_phenotype][:characteristic] == ""
-      flash[:warning] = "Phenotype characteristic may not be empty"
-      redirect_to :action => "new"
+    if params[:picture_phenotype][:characteristic] == ''
+      flash[:warning] = 'Phenotype characteristic may not be empty'
+      redirect_to :action => 'new'
     else
 
       @phenotype.save
@@ -75,19 +75,19 @@ class PicturePhenotypesController < ApplicationController
 
           redirect_to current_user
         else
-          flash[:warning] = "Something went wrong in creating the phenotype"
-          redirect_to :action => "new"
+          flash[:warning] = 'Something went wrong in creating the phenotype'
+          redirect_to :action => 'new'
         end
       else
-        flash[:warning] = "You have already entered your variation at this phenotype"
-        redirect_to :action => "new"
+        flash[:warning] = 'You have already entered your variation at this phenotype'
+        redirect_to :action => 'new'
       end
     end
   end
 
   def show
     #@phenotypes = Phenotype.where(:user_id => current_user.id).all
-    #@title = "Phenotypes"
+    #@title = 'Phenotypes'
     @phenotype = PicturePhenotype.find(params[:id]) || not_found
     @comments = PicturePhenotypeComment
       .where(:picture_phenotype_id => params[:id])
@@ -117,23 +117,23 @@ class PicturePhenotypesController < ApplicationController
 
     @genotypes.sort!{ |b,a| a.created_at <=> b.created_at }
 
-    render :action => "rss", :layout => false
+    render :action => 'rss', :layout => false
   end
 
   private
 
   def sort_column
-    PicturePhenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
+    PicturePhenotype.column_names.include?(params[:sort]) ? params[:sort] : 'number_of_users'
   end
 
   private
 
   def sort_column
-    PicturePhenotype.column_names.include?(params[:sort]) ? params[:sort] : "number_of_users"
+    PicturePhenotype.column_names.include?(params[:sort]) ? params[:sort] : 'number_of_users'
   end
 
   def sort_direction
-    %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[desc asc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   def check_and_award_new_phenotypes(amount, achievement_string)

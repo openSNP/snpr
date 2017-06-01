@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
-//= require twitter/bootstrap
+//= require jquery.ui.all
 //= require ./dalliance-compiled.js
 //= require ./jquery.jqplot.min
 //= require ./jqplot.barRenderer.min.js
@@ -11,15 +10,17 @@
 //= require ./jqplot.pieRenderer.min.js
 //= require ./jquery.easytabs
 //= require jquery_nested_form
+//= require bootstrap.min
 //= require_self
+// = require_tree .
 
-$(document).ready(function() { 
+$(document).ready(function() {
     $('#update_user').click(function() {
         $('#update_user').val("Updating...").addClass("disabled");
         setTimeout(function(){ $('#update_user').val("Update Information").removeClass("disabled");},1000);
     });
 
-    //$("#PaperMendeley").tablesorter({sortList: [[2,1]]}); 
+    //$("#PaperMendeley").tablesorter({sortList: [[2,1]]});
     //$("#PaperPlos").tablesorter({sortList: [[2,1]]});
 
     $('#remove_help_one').click(function() {

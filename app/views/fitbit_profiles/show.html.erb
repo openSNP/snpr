@@ -1,11 +1,12 @@
-<legend><%=image_tag("fitbit-icon.png",:style => "vertical-align:middle")%> <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"},:rel => "tooltip", :title => "Want to learn more about our Fitbit-integration? Click here")%></em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></legend>
-<%if current_user%>
-<p class="lead"><%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%> <%=link_to("Download a dump of the data",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id})%></p>
-<%else%>
-<p class="lead">If you log in to <em>openSNP</em>, you can download a CSV file with all the data.</p>
-<%end%>
+<div class="general__container">
+  <h3 class="general__title"><%=image_tag("fitbit-icon.png")%> <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"}, :data => { :toggle => "tooltip", :placement => "bottom"}, :title => "Want to learn more about our Fitbit-integration? Click here")%></em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></h3>
+  <%if current_user%>
+  <p class="lead"><%=link_to("Download dump",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id}, class: "btn btn-default")%></p>
+  <%else%>
+  <p class="lead">If you log in to <em>openSNP</em>, you can download a CSV file with all the data.</p>
+  <%end%>
 
-<%if @activity != nil%>
+  <%if @activity != nil%>
   <legend>Activity Measurements</legend>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -13,217 +14,218 @@
     var steps=<%=raw(@steps.to_json)%>;
     var floors=<%=raw(@floors.to_json)%>;
     var plot1 = $.jqplot('chart1', [floors,steps], {
-        title:'Activity per Day (Mean steps/day: <%=@mean_steps%>)',
-        series:[{label:'Floors' ,yaxis:'y2axis',fill: true,fillAlpha: 0.8,highlightMouseOver: false}, {label:'Steps'}],
-        axes:{
-          xaxis:{
-            renderer:$.jqplot.DateAxisRenderer,
-            tickOptions:{
-              formatString:'%b&nbsp;%#d'
-            } 
-          },
-          yaxis:{
-            tickOptions:{
-              formatString:'%i steps'
-              }
-          },
-          y2axis:{
-            tickOptions:{
-              formatString:'%i floors'
-            },
+      title:'Activity per Day (Mean steps/day: <%=@mean_steps%>)',
+      series:[{label:'Floors' ,yaxis:'y2axis',fill: true,fillAlpha: 0.8,highlightMouseOver: false}, {label:'Steps'}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          }
+        },
+        yaxis:{
+          tickOptions:{
+            formatString:'%i steps'
+          }
+        },
+        y2axis:{
+          tickOptions:{
+            formatString:'%i floors'
           },
         },
-        axesDefaults: {
-            pad: 0
-        },
-        legend: {
-                    show: true,
-                    placement: 'outsideGrid'
-                },
-        highlighter: {
-          show: true,
-          sizeAdjust: 7.5
-        },
-        cursor: {
-          show: false
-        }
+      },
+      axesDefaults: {
+        pad: 0
+      },
+      legend: {
+        show: true,
+        placement: 'outsideGrid'
+      },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
     });
     // Sum Activity Graph
     var total_steps=<%=raw(@total_steps.to_json)%>;
     var total_floors=<%=raw(@total_floors.to_json)%>;
     var plot2 = $.jqplot('chart2', [total_floors,total_steps], {
-        title:'Sum of Activity',
-        series:[{label:"Floors",yaxis:'y2axis',fill:true,fillAlpha:0.5},{label:'Steps',fill:true,fillAlpha:0.5}],
-        axes:{
-          xaxis:{
-            renderer:$.jqplot.DateAxisRenderer,
-            tickOptions:{
-              formatString:'%b&nbsp;%#d'
-            } 
-          },
-          yaxis:{
-            tickOptions:{
-              formatString:'%i steps'
-              }
-          },
-          y2axis:{
-            tickOptions:{
-              formatString:'%i floors'
-            },
+      title:'Sum of Activity',
+      series:[{label:"Floors",yaxis:'y2axis',fill:true,fillAlpha:0.5},{label:'Steps',fill:true,fillAlpha:0.5}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          }
+        },
+        yaxis:{
+          tickOptions:{
+            formatString:'%i steps'
+          }
+        },
+        y2axis:{
+          tickOptions:{
+            formatString:'%i floors'
           },
         },
-        axesDefaults: {
-            pad: 0
-        },
-        legend: {
-                    show: true,
-                    placement: 'outsideGrid'
-                },
-        highlighter: {
-          show: true,
-          sizeAdjust: 7.5
-        },
-        cursor: {
-          show: false
-        }
+      },
+      axesDefaults: {
+        pad: 0
+      },
+      legend: {
+        show: true,
+        placement: 'outsideGrid'
+      },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
     });
   });
-  </script>
-  <div id="chart1"></div>
-  <div id="chart2"></div>
+</script>
+<div id="chart1"></div>
+<div id="chart2"></div>
 <%end%>
 
 <%if @body and @body != [] %>
-  <legend>Body Measurements</legend>
-  <script type="text/javascript">
+<legend>Body Measurements</legend>
+<script type="text/javascript">
   $(document).ready(function(){
     // BMI Graph
     var bmi=<%=raw(@bmi.to_json)%>;
     var plot3 = $.jqplot('chart3', [bmi], {
-        title:'BMI per Day',
-        series:[{label:'Body Mass Index',fill:true}],
-        axes:{
-          xaxis:{
-            renderer:$.jqplot.DateAxisRenderer,
-            tickOptions:{
-              formatString:'%b&nbsp;%#d'
-            } 
-          },
-          yaxis:{
-            tickOptions:{
-              formatString:'%.2f BMI'
-              }
-          },
+      title:'BMI per Day',
+      series:[{label:'Body Mass Index',fill:true}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          }
         },
-        axesDefaults: {
+        yaxis:{
+          tickOptions:{
+            formatString:'%.2f BMI'
+          }
         },
-        legend: {
-                    show: true,
-                    placement: 'outsideGrid'
-                },
-        highlighter: {
-          show: true,
-          sizeAdjust: 7.5
-        },
-        cursor: {
-          show: false
-        }
+      },
+      axesDefaults: {
+      },
+      legend: {
+        show: true,
+        placement: 'outsideGrid'
+      },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
     });
   });
-  </script>
-  <div id="chart3"></div>
+</script>
+<div id="chart3"></div>
 <%end%>
 
 <%if @sleep and  @sleep != [] %>
-  <legend>Sleep Measurements</legend>
-  <script type="text/javascript">
+<legend>Sleep Measurements</legend>
+<script type="text/javascript">
   $(document).ready(function(){
     // Activity Graph
     var minutes_asleep=<%=raw(@minutes_asleep.to_json)%>;
     var minutes_to_sleep=<%=raw(@minutes_to_sleep.to_json)%>;
     var awakenings=<%=raw(@awakenings.to_json)%>;
     var plot4 = $.jqplot('chart4', [awakenings,minutes_asleep,minutes_to_sleep], {
-        title:'Sleep per Day (Mean sleep/day: <%=@mean_sleep%> minutes)',
-        series:[{label:'# awaken' ,yaxis:'y2axis',fill: true,highlightMouseOver: false}, {label:'Minutes asleep'},{label: 'Minutes awake',fill:true}],
-        axes:{
-          xaxis:{
-            renderer:$.jqplot.DateAxisRenderer,
-            tickOptions:{
-              formatString:'%b&nbsp;%#d'
-            } 
-          },
-          yaxis:{
-            tickOptions:{
-              formatString:'%i minutes'
-              }
-          },
-          y2axis:{
-            tickOptions:{
-              formatString:'%i times awoken'
-            },
+      title:'Sleep per Day (Mean sleep/day: <%=@mean_sleep%> minutes)',
+      series:[{label:'# awaken' ,yaxis:'y2axis',fill: true,highlightMouseOver: false}, {label:'Minutes asleep'},{label: 'Minutes awake',fill:true}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          }
+        },
+        yaxis:{
+          tickOptions:{
+            formatString:'%i minutes'
+          }
+        },
+        y2axis:{
+          tickOptions:{
+            formatString:'%i times awoken'
           },
         },
-        axesDefaults: {
-            pad: 0
-        },
-        legend: {
-                    show: true,
-                    placement: 'outsideGrid'
-                },
-        highlighter: {
-          show: true,
-          sizeAdjust: 7.5
-        },
-        cursor: {
-          show: false
-        }
+      },
+      axesDefaults: {
+        pad: 0
+      },
+      legend: {
+        show: true,
+        placement: 'outsideGrid'
+      },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
     });
     // Sum Activity Graph
     var total_minutes_asleep=<%=raw(@total_minutes_asleep.to_json)%>;
     var total_minutes_to_sleep=<%=raw(@total_minutes_to_sleep.to_json)%>;
     var plot5 = $.jqplot('chart5', [total_minutes_asleep,total_minutes_to_sleep], {
-        title:'Sum of Sleep',
-        series:[{label:'minutes asleep',fill:true,fillAlpha:0.5},{label:"minutes falling asleep",yaxis:'y2axis',fill:true,fillAlpha:0.6}],
-        axes:{
-          xaxis:{
-            renderer:$.jqplot.DateAxisRenderer,
-            tickOptions:{
-              formatString:'%b&nbsp;%#d'
-            } 
-          },
-          yaxis:{
-            tickOptions:{
-              formatString:'%i min (asleep)'
-              }
-          },
-          y2axis:{
-            tickOptions:{
-              formatString:'%i min (falling asleep)'
-            },
+      title:'Sum of Sleep',
+      series:[{label:'minutes asleep',fill:true,fillAlpha:0.5},{label:"minutes falling asleep",yaxis:'y2axis',fill:true,fillAlpha:0.6}],
+      axes:{
+        xaxis:{
+          renderer:$.jqplot.DateAxisRenderer,
+          tickOptions:{
+            formatString:'%b&nbsp;%#d'
+          }
+        },
+        yaxis:{
+          tickOptions:{
+            formatString:'%i min (asleep)'
+          }
+        },
+        y2axis:{
+          tickOptions:{
+            formatString:'%i min (falling asleep)'
           },
         },
-        axesDefaults: {
-            pad: 0
-        },
-        legend: {
-                    show: true,
-                    placement: 'outsideGrid'
-                },
-        highlighter: {
-          show: true,
-          sizeAdjust: 7.5
-        },
-        cursor: {
-          show: false
-        }
+      },
+      axesDefaults: {
+        pad: 0
+      },
+      legend: {
+        show: true,
+        placement: 'outsideGrid'
+      },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      cursor: {
+        show: false
+      }
     });
   });
-  </script>
-  <div id="chart4"></div>
-  <div id="chart5"></div>
+</script>
+<div id="chart4"></div>
+<div id="chart5"></div>
 <%end%>
 <script type="text/javascript">
   $(document).ready(function () {
     $("[rel=tooltip]").tooltip({placement:'right'});
   });
 </script>
+</div>

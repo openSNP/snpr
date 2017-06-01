@@ -1,10 +1,13 @@
-<h1>Forgot Password</h1>
+<div class="general__container container">
+  <h3 class="general__title">Forgot Password</h3>
 
-Fill out the form below, and instructions to reset your password will be emailed to you:<br />
-<br />
+  <p>Fill out the form below, and instructions to reset your password will be emailed to you:</p>
 
-<%= form_tag password_resets_path do %>
-  <label>Email:</label>
-  <%= text_field_tag "email" %>
-  <%= submit_tag "Reset my password", :class => "btn btn-primary"  %>
-<% end %>
+  <%= form_tag password_resets_path do %>
+  <div class="form-group">
+    <%= label_tag :email %>
+    <%= text_field_tag "email", "", class: "form-control" %>
+  </div>
+  <%= submit_tag "Reset my password", :class => "btn btn-primary password-reset__submit-button"  %>
+  <% end %>
+</div>

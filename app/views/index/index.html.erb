@@ -1,58 +1,64 @@
-<div class="leftside">
-	<h1>Welcome to <em>openSNP</em></h1>
-		<p><%=image_tag "microarray.png",:style => "float:left;margin: 10px"%></p>
-        <p><h7><em>openSNP</em> lets customers of direct-to-customer genetic tests publish their test results, find others with similar genetic variations, learn more about their results by getting the latest primary literature on their variations, and helps scientists find new associations.</h7></p> <center><a href="/signup" class="btn btn-primary btn-large">Sign Up!</a>  <a href="/data/zip/opensnp_datadump.current.zip" class="btn btn-primary btn-large">Download the data!</a></center><br/><br/>
-		<div id="tab-container"> 
-			<ul class="nav nav-tabs"> 
-				<li><a href="#dtcustomers">For Genotyping Users</a></li> 
-				<li><a href="#scientists">For Scientists</a></li> 
-			</ul>
-			<div id="dtcustomers">
-				<div class ="well">
-				<div class="row-fluid">
-					<div class="well span3">
-						<h4>Upload Your Genotyping File</h4>
-						<%=image_tag("fileupload.png")%><br/>
-                        Upload your raw genotyping or exome data from <em><%=link_to "23andMe","http://www.23andme.com"%></em>, <em><%=link_to "deCODEme","http://www.decodeme.com/"%></em> or <em><%= link_to "FamilyTreeDNA", "http://www.familytreedna.com/" %></em> to the <em>openSNP</em> database to make it available for everybody. 
-					</div>
-					<div class="well span3">
-					<h4>Share Your Phenotypes & Traits</h4> 
-					<%=image_tag("phenotypes.png")%><br/>
-                    Phenotypes are the observable characteristics of your body, such as height, eye color or preference for coffee.
-					Share your phenotype with other <em>openSNP</em> users, and find others with similar characteristics and traits.<br/>Your data may help scientists discover new genetic associations!
-					</div>
-					<div class="well span3">
-					<h4>Share your stories on variations & phenotypes</h4>
-					<%=image_tag("sendmessage.png")%></br>
-					With <em>openSNP</em> you can share stories about your genetic variations and phenotypes, and discover the stories of other users. 
-					</div>
-					<div class="well span3">
-					<h4>Find literature on genetic variation</h4>
-					<%=image_tag("literature.png")%></br>
-					<em>openSNP</em> gets the latest open access journal articles on genetic variations from the <em><%=link_to "Public Library of Science","http://www.plos.org/"%></em>. Popular articles are indexed via the social reference manager <em><%=link_to "Mendeley","http://www.mendeley.com/"%></em>, and summaries are provided by <em><%=link_to "SNPedia","http://snpedia.com"%></em>.
-					</div>
-			</div>
-			</div>
-			</div>
-	<div id="scientists">
-		<div class ="well">
-			<div class="row-fluid">
-				<div class="well span4">
-					<h4>Search for phenotypes</h4>
-					<%=image_tag("phenotypesearch.png")%><br/>
-					Many diseases and traits are suspected to have genetical components. Genome Wide Association Studies are a simple tool for finding genetic markers. Easily find people with the variation you are interested in via <em>openSNP</em>.<br/><br/>Is the variation for which you're looking not entered yet? Just add it to <em>openSNP</em>.
-					</div>
-					<div class="well span4">
-					<h4>Easily download datasets</h4>
-					<%=image_tag("filedownload.png")%><br/>
-                    The mass-download function of <em>openSNP</em> allows you to easily download full genotyping raw-data in the file formats that are provided by <em>23andMe</em>, <em>deCODEme</em> and <em>FamilyTreeDNA</em>.<br/><br/>As the files can be grouped by their variations for specific phenotypes, it's easy to get datasets that are already usable for association studies. 
-					</div>
-					<div class="well span4">
-					<h4>Get notified about new data</h4>
-					<%=image_tag("rss.png")%><br/>
-					<em>openSNP</em> delivers an RSS feed for each phenotype. So you can easily get all new datasets that get available for the phenotypes of your interest, without the need to check for new entries by hand.<br/><br/>For data-junkies that need more data: there's also a feed that carries all new datasets. 
-					</div>
-					</div>
-					</div>
-	</div>
+<div class="jumbotron index__jumbotron">
+  <div class="container index__jumbotron-container">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-4 clearfix">
+        <%= image_tag "opensnp-logo.png", width: "220px", class: "hidden-xs index__jumbotron-image pull-left" %>
+      </div>
+      <div class="col-md-6">
+        <h2 class="index__jumbotron-title">Welcome to openSNP</h2>
+        <p class="index__jumbotron-paragraph">openSNP allows customers of direct-to-customer genetic tests to publish their test results, find others with similar genetic variations, learn more about their results by getting the latest primary literature on their variations, and help scientists find new associations.</p>
+        <p class="index__jumbotron-buttons">
+          <a class="btn btn-default btn-lg" href="/data/zip/opensnp_datadump.current.zip" role="button">Download data</a>
+          <a class="btn btn-default btn-lg" href="/signup" role="button">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center">
+  <h2 class="index__about-title">For genotyping users</h2>
+  <div class="row">
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-arrow-up index__about-text-icons"></span>
+      <h3>Upload Your Genotyping</h3>
+      <p>Upload your raw genotyping or exome data from <%=link_to "23andMe","http://www.23andme.com"%>, <%=link_to "deCODEme","http://www.decodeme.com/"%> or <%= link_to "FamilyTreeDNA", "http://www.familytreedna.com/" %> to the openSNP database to make it available for everybody.</p>
+    </div>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-heart index__about-text-icons"></span>
+      <h3>Share Your Phenotypes</h3>
+      <p>Share your phenotype with other openSNP users and find others with similar characteristics and traits. Your data may help scientists discover new genetic associations!</p>
+    </div>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-envelope index__about-text-icons"></span>
+      <h3>Share your stories</h3>
+      <p>With openSNP you can share stories about your genetic variations and phenotypes, and discover the stories of other users.</p>
+    </div>
+    <div class="col-md-3 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-file index__about-text-icons"></span>
+      <h3>Find literature on genetic variation</h3>
+      <p>openSNP gets the latest open access journal articles on genetic variations from the <%=link_to "Public Library of Science","http://www.plos.org/"%>. Popular articles are indexed via the social reference manager <%=link_to "Mendeley","http://www.mendeley.com/"%> and summaries are provided by <%=link_to "SNPedia","http://snpedia.com"%>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center">
+  <h2 class="index__about-title">For Scientists</h2>
+  <div class="row">
+    <div class="col-md-4 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-search index__about-text-icons"></span>
+      <h3>Search for phenotypes</h3>
+      <p>Many diseases and traits are suspected to have genetical components. Genome Wide Association Studies are a simple tool find genetic markers. Easily find people with the variation you are interested in via openSNP. The variation you are looking for is not entered yet? Just add it to openSNP</p>
+    </div>
+    <div class="col-md-4 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-arrow-down index__about-text-icons"></span>
+      <h3>Easily download datasets</h3>
+      <p>The mass download-function of openSNP allows you to easily download the full genotyping raw-data in the file formats that are provided by 23andMe, deCODEme and FamilyTreeDNA. As the files can be grouped by their variations for specific phenotypes it is easy to get datasets that are already usable for association studies.</p>
+    </div>
+    <div class="col-md-4 col-xs-12 index__about-texts">
+      <span class="glyphicon glyphicon-envelope index__about-text-icons"></span>
+      <h3>Get notified about new data</h3>
+      <p>openSNP delivers a RSS feed for each phenotype. So you can easily get all new datasets that get available for the phenotypes of your interest, without the need to check for new entries by hand. For all data junkies that need more data: There is also a feed that carries all new datasets.</p>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 #/bin/bash
 
-screen -d -m -S "Server" bundle exec rails s
+screen -d -m -S "Server" bundle exec rails server
 screen -d -m -S "Redis" redis-server
 screen -d -m -S "Sidekiq" bundle exec sidekiq -C config/sidekiq.yml -e development

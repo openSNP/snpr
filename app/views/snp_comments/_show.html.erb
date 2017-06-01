@@ -1,23 +1,27 @@
-<script language="JavaScript" type="text/JavaScript"> 
-function sendCommentId(e, text) 
-{ 
-  e.value = text + e.value
-} 
-</script>
-
 <% @comments.each do |c|%>
-
-	<div id="<%="comment"+c.id.to_s%>">
-	<b><%= c.subject %></b> by user <%if User.find_by_id(c.user_id) != nil%><%= link_to User.find_by_id(c.user_id).name, User.find_by_id(c.user_id)%><%else%>Deleted User<%end%> on <%= c.created_at %><br/>
-	<div class="well">
-		<a href="#" rel="comment_tooltip" title="<%if c.reply_to_id != -1 and c.reply_to_id != nil%><%if SnpComment.find_by_id(c.reply_to_id).user != nil%><b><%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>Deleted User<%end%></b> wrote:"data-content="<%=SnpComment.find_by_id(c.reply_to_id).comment_text%><%end%>"><% if c.reply_to_id != -1 and c.reply_to_id != nil%><%if SnpComment.find_by_id(c.reply_to_id).user%>@<%=SnpComment.find_by_id(c.reply_to_id).user.name%><%else%>@Deleted User<%end%><% end %></a>
-    <%if User.find_by_id(c.user_id) != nil%><%=image_tag c.user.avatar.url(:head),:style => "vertical-align:middle;margin: 10px;float:left"%><%end%>  <%= simple_format(c.comment_text) %><br/><a onclick="sendCommentId(document.new_comment.snp_comment_comment_text,'@#<%= c.id %>: '); return false;" href="#">reply to</a>
-	</div>
+<div id="<%="comment"+c.id.to_s%>">
+  <div class="comments__single-comment clearfix">
+    <div class="pull-left comments__comment-photo-div">
+      <%if c.user != nil%>
+      <%=image_tag c.user.avatar.url(:head), class: "comments__comment-photo"%>
+      <%end%>
+    </div>
+    <div class="comments__comment-text-div clearfix">
+      <p class="comments__comment-username"><%if c.user != nil %><%= link_to c.user.name, c.user%><%else%>Deleted User<%end%></p>
+      <p class="comments__comment-subject"><%= c.subject %></p>
+      <small class="comments__comment-date"><%= c.created_at %></small>
+      <a href="#">
+        <% if c.reply_to_id != -1 and c.reply_to_id != nil%>
+        <%if SnpComment.find_by_id(c.reply_to_id).user%>
+        @<%=SnpComment.find_by_id(c.reply_to_id).user.name%>
+        <%else%>
+        @Deleted User
+        <%end%>
+        <% end %>
+      </a>
+      <%= simple_format c.comment_text, class: "comments__comment-text" %>
+      <%=link_to "Reply", "#", class: "btn btn-default comments__comment-reply-button", id: "#{c.id.to_s}", data: {js: "snp-reply-button"}%>
+    </div>
+  </div>
 </div>
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("[rel=comment_tooltip]").popover({placement:'right'});
-  });
-</script>

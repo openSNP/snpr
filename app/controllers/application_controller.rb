@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
 
   def not_found
-    raise ActionController::RoutingError.new("Not found")
+    raise ActionController::RoutingError.new('Not found')
   end
 
   private
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      flash[:warning] = "You must be logged in to access this page!"
+      flash[:warning] = 'You must be logged in to access this page'
       redirect_to root_url
       return false
     end
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   def require_no_user
     if current_user
       store_location
-      flash[:warning] = "You must be logged out to access this page"
+      flash[:warning] = 'You must be logged out to access this page'
       redirect_to current_user
       return false
     end

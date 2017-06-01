@@ -42,7 +42,7 @@ class SnpCommentsController < ApplicationController
           end
         end
       end
-      redirect_to "/snps/#{@snp_comment.snp_id}#comments", notice: 'Comment succesfully created.'
+      redirect_to "/snps/#{@snp_comment.snp_id}#comments", notice: 'Comment successfully created.'
     else
       render action: 'new'
     end

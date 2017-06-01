@@ -1,81 +1,100 @@
-<legend>Phenotype: <%= @phenotype.characteristic %></legend><%=auto_discovery_link_tag(:rss, "/rss", {:title => "RSS for #{@phenotype.characteristic}"})%>
+<div class="general__container">
+  <h3 class="general__title">
+    Phenotype: <%= @phenotype.characteristic %>
+    <%=link_to(image_tag("rss.png"),"/phenotypes/" + @phenotype.id.to_s + "/rss")%>
+  </h3>
+  <%=auto_discovery_link_tag(:rss, "/rss", {:title => "RSS for #{@phenotype.characteristic}"})%>
 
-<% if current_user %>
+  <% if current_user %>
   <%if UserPhenotype.find_by_user_id_and_phenotype_id(current_user.id,@phenotype.id) == nil%>
+  <div class="phenotype__variation-form well">
     <%= render 'user_phenotypes/form' %>
+  </div>
   <%end%>
-<% end %>
-<div class="container">
-<%=link_to(image_tag("rss_small.png"),"/phenotypes/" + @phenotype.id.to_s + "/rss")%>
-<h5>Known Phenotypes:</h5>
-<ul>
-  <%@phenotype.known_phenotypes.each do |p|%>
-    <%if p and p != ""%>
-      <li><b><%=p%></b> <%if current_user%><%=link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download")%> <%=link_to(image_tag("filedownload_small.png",:style => "vertical-align:middle"),{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p})%> <%end%></li> 
-      <%end%>
-    <%end%>
+  <% end %>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+    <li role="presentation"><a href="#similar" aria-controls="similar" role="tab" data-toggle="tab">Similar phenotypes</a></li>
+    <li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
+    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
   </ul>
 
-  <div id="tab-container">
-    <ul class="nav nav-tabs">
-      <li><a href="#description">Description</a></li>
-	  <li><a href="#similar">Similar phenotypes</a></li>
-      <li><a href="#users">Users sharing this phenotype (<%=@phenotype.user_phenotypes.length%>)</a></li>
-      <li><a href="#comments">Comments (<%=@phenotype.phenotype_comments.length%>)</a></li>
-    </ul>
+  <div class="tab-content">
 
-    <div id="description">
-      <div class="well">
-        <%= simple_format(@phenotype.description) %>
+    <div role="tabpanel" class=" tab-pane active well tabs__one-tab" id="description">
+      <%= simple_format(@phenotype.description) %>
+    </div>
+
+    <div role="tabpanel" class=" tab-pane well tabs__one-tab" id="similar">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Phenotype</th>
+              <th>Number of Users</th>
+            </tr>
+          </thead>
+          <% @similar_phenotypes.each do |s|%>
+          <tr>
+            <%if current_user and (current_user.phenotypes.include?(s) == false)%>
+            <td class="table-cell vertical-centered"><b><%=link_to(s.characteristic+"*",s)%></b></td>
+            <td class="table-cell vertical-centered"><b><%=s.number_of_users%></b></td>
+            <%else%>
+            <td class="table-cell vertical-centered"><%=link_to(s.characteristic,s)%></td>
+            <td class="table-cell vertical-centered"><%=s.number_of_users%></td>
+            <%end%>
+          <%end%>
+          </table>
+          <%if current_user %>
+          *<b>Bold</b> phenotypes are those about which you haven't provided information yet
+          <%end%>
       </div>
     </div>
-    <div id="users">
-      <table class="table table-striped">
-        <tr>
-          <th>User</th>
-          <th>Variation</th>
-        </tr>
-        <% @phenotype.user_phenotypes.each do |up| %>
+
+    <div role="tabpanel" class=" tab-pane well tabs__one-tab" id="users">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Variation</th>
+            </tr>
+          </thead>
+          <% @phenotype.user_phenotypes.each do |up| %>
           <tr>
             <%if current_user!= nil and UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id) != nil and up.variation == UserPhenotype.find_by_phenotype_id_and_user_id(up.phenotype_id,current_user.id).variation%>
-              <td><b> <%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></b></td>
-              <td><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
-              <%else%>
-                <td><%=image_tag up.user.avatar.url(:head),:style => "vertical-align:middle"%> <%= link_to up.user.name, up.user%></td>
-                <td><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
-                <%end%>
-              </tr>
-            <% end %>
-          </table>
-        </div>
+            <td class="table-cell vertical-centered"><b> <%=  %> <%= link_to(image_tag(up.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{up.user.name}", up.user) %></b></td>
+            <td class="table-cell vertical-centered"><b><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></b></td>
+            <%else%>
+            <td class="table-cell vertical-centered"><%=  %> <%= link_to(image_tag(up.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{up.user.name}", up.user) %></td>
+            <td class="table-cell vertical-centered"><% if up.variation != "" %><%= up.variation %><% else %>Undescribed.<% end %></td>
+            <%end%>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+    <div role="tabpanel" class=" tab-pane well tabs__one-tab" id="comments">
+      <%= render 'phenotype_comments/show' %>
+      <%if current_user%>
+      <%= render 'phenotype_comments/form' %>
+      <%end%>
+    </div>
+  </div>
 
-        <div id="comments">
-          <%= render 'phenotype_comments/show' %>
-          <%if current_user%>
-            <%= render 'phenotype_comments/form' %>
-          <%end%>
-        </div>
 
-<div id="similar">
-<table class="table table-striped">
-	<tr>
-		<th>Phenotype</th>
-		<th>Number of Users</th>
-	</tr>
-	<% @similar_phenotypes.each do |s|%>
-		<tr>
-		<%if current_user and (current_user.phenotypes.include?(s) == false)%>
-			<td><b><%=link_to(s.characteristic+"*",s)%></b></td>
-			<td><b><%=s.number_of_users%></b></td>
-		<%else%>
-			<td><%=link_to(s.characteristic,s)%></td>
-			<td><%=s.number_of_users%></td>
-		<%end%>
-	<%end%>
-</table>
-<%if current_user %>
-*<b>Bold</b> phenotypes are those about which you haven't provided information yet
-<%end%>
-</div>
-</div>
+  <h5>Known Phenotypes:</h5>
+  <ul>
+    <%@phenotype.known_phenotypes.each do |p|%>
+    <%if p and p != ""%>
+    <li>
+      <b><%=p%></b>
+      <%if current_user%>
+      <%= link_to("Download genotyping-files of all corresponding users",{:controller => "phenotypes", :action => "get_genotypes", :id => @phenotype.id, :variation => p}, id: "get_genotypes", :title => "Request download") %>
+      <%end%>
+    </li>
+    <%end%>
+    <%end%>
+  </ul>
 </div>

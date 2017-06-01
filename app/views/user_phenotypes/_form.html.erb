@@ -1,63 +1,56 @@
-<%= form_for(@user_phenotype, :url => {:controller => :user_phenotypes, :action => :create,:js_modal => @js_modal}, :html => {:class => "form-horizontal", :name => "new_user_phenotype"}) do |f| %>
-<%= render 'shared/error_messages', :target => @phenotype %>
-<%= f.hidden_field :phenotype_id, :value => @phenotype.id %>
-<%if @js_modal != true%>
-<div class="alert-message block-message info"> 
-<%end%>
-<p><b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP, you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b></p>
+<div class="phenotype__add-phenotype-text">
+  <p><b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP, you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b></p>
+  <p>
+    <em>You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</em>
+  </p>
+</div>
 
-    <script type="text/javascript">
-    // hides the input-box when user has selected a radio-button
-    $(document).ready(function() {
-            $('input[type=radio]').click(function() { 
-                $('#user_phenotype_variation').hide();
-                $("label[for=user_phenotype_variation]").hide();
-                });
+
+<%= form_for(@user_phenotype, :url => {:controller => :user_phenotypes, :action => :create,:js_modal => @js_modal}, :html => {:class => "form-horizontal phenotype__add-phenotype-form", :name => "new_user_phenotype"}) do |f| %>
+  <%= render 'shared/error_messages', :target => @phenotype %>
+  <%= f.hidden_field :phenotype_id, :value => @phenotype.id %>
+  <%if @js_modal != true%>
+  <%end%>
+
+  <div class="form-group">
+    <%= f.label :variation, "Enter your phenotype:", class: "col-md-2 control-label" %>
+    <div class="col-md-10">
+      <%= f.text_field :variation, :id => "phenotype_field", class: "form-control"%>
+    </div>
+  </div>
+
+  <% @phenotype.known_phenotypes.each do |p| %>
+  <div class="phenotype__add-phenotype-form-options radio">
+      <label>
+      <%= f.radio_button(:variation, p,) %> <%=p%>
+      </label>
+  </div>
+  <% end %>
+
+  <%= f.submit "Submit your variation", :class => "btn btn-default" %>
+<% end %>
+
+  <script type="text/javascript">
+  // hides the input-box when user has selected a radio-button
+  $(document).ready(function() {
+    $('input[type=radio]').click(function() {
+      $('#phenotype_field').hide();
+      $("label[for=user_phenotype_variation]").hide();
     });
-    // Autocomplete for variations in the input-box
-    $(function () {
-        $("#user_phenotype_variation").autocomplete({
-            source: <%=raw(@phenotype.known_phenotypes.to_json)%>
-        });
+  });
+  // Autocomplete for variations in the input-box
+  $(function () {
+    $("#phenotype_field").autocomplete({
+      source: <%=raw(@phenotype.known_phenotypes.to_json)%>
     });
-$('#modal').on('shown', function(e) {
-alert("hi");
+  });
+  $('#modal').on('shown', function(e) {
+    alert("hi");
     var modal = $(this);
 
     modal.css('margin-top', (modal.outerHeight() / 2) * -1)
-         .css('margin-left', (modal.outerWidth() / 2) * -1);
+    .css('margin-left', (modal.outerWidth() / 2) * -1);
 
     return this;
-});
-
-    </script>
-	
-	<div class="clearfix">
-	<div id="enter-order"><%= f.label :variation, "Enter your phenotype now:" %>&nbsp;
-	<%= f.text_field :variation %></div>
-	</div><br/>
-	<em>You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</em>
-  <div class="row">
-  <div class="span8">
-  <div class="form-horizontal">
-  <div class="control-group">
-  <div class="controls">
-  <% @phenotype.known_phenotypes.each do |p| %>
-  <label class="radio">
-  <div align="left"><%= f.radio_button(:variation, p,) %> <%=p%></div>
-  </label>
-  <% end %>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-
-
-	<div class="alert-actions"> 
-	<%= f.submit "Submit your variation", :class => "btn btn-primary"  %>
-	</p></div>
-<% end %>
-</div>
-</div>
-</div>
+  });
+  </script>

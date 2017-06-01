@@ -1,0 +1,173 @@
+<div class="general__container container">
+  <h3 class="general__title">Updates</h3>
+  <ul class="nav nav-tabs updates__tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#publications" aria-controls="publications" role="tab" data-toggle="tab">Lastest publications</a></li>
+    <li role="presentation"><a href="#newusers" aria-controls="newusers" role="tab" data-toggle="tab">New users</a></li>
+    <li role="presentation"><a href="#newgeno" aria-controls="newgeno" role="tab" data-toggle="tab">New genotypes</a></li>
+    <li role="presentation"><a href="#newpheno" aria-controls="newpheno" role="tab" data-toggle="tab">New phenotypes</a></li>
+    <li role="presentation"><a href="#snpcomments" aria-controls="snpcomments" role="tab" data-toggle="tab">SNP-comments</a></li>
+    <li role="presentation"><a href="#phenocomments" aria-controls="phenocomments" role="tab" data-toggle="tab">Phenotype comments</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane well tabs__one-tab active" id="publications">
+      <h3 class="updates__tab-title">Last Publications <%=link_to(image_tag("rss.png"),"/paper/rss")%></h3>
+      <div class="table-responsive">
+        <table class="updates__tab-table table table-hover">
+          <thead>
+            <tr>
+              <th>Author</th>
+              <th>Title</th>
+              <th>Found at</th>
+              <th>SNPs</th>
+            </tr>
+          </thead>
+          <%@newest_paper.each do |np|%>
+          <tr>
+            <td class="table-cell vertical-centered"><%=np.first_author%></td>
+            <%if np.class == PlosPaper%>
+            <td class="table-cell vertical-centered"><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
+            <%else%>
+            <td class="table-cell vertical-centered"><%=link_to( np.title, np.mendeley_url)%></td>
+            <%end%>
+            <td class="table-cell vertical-centered"><%=np.created_at%></td>
+            <td class="table-cell vertical-centered"><% np.snps.each do |s| %><%=link_to s.name, s%> <% end %></td>
+          </tr>
+          <%end%>
+        </table>
+      </div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="newusers">
+      <h3 class="updates__tab-title">Users</h3>
+      <div class="table-responsive">
+        <table class="updates__tab-table table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>ID</th>
+              <th>#</th>
+              <th>Joined on</th>
+            </tr>
+          </thead>
+          <% @new_users.each do |nu| %>
+          <tr>
+            <td class="table-cell vertical-centered"><%= link_to(image_tag(nu.avatar.url(:head), class: "img-circle", width: "50px") + " #{nu.name}", nu) %></td>
+            <td class="table-cell vertical-centered"><%= nu.id %></td>
+            <td class="table-cell vertical-centered"><%= User.all.sort {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
+            <td class="table-cell vertical-centered"><%= nu.created_at %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <%= link_to("Show All Users", {:controller => "users", :action => "index"}, class: "btn btn-default center-block updates__tab-button") %>
+    </div>
+
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="newgeno">
+      <h3 class="updates__tab-title">New genotypes <%=link_to(image_tag("rss.png"),"/rss")%></h3>
+      <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
+
+      <div class="table-responsive">
+        <table class="updates__tab-table table table-hover">
+          <thead>
+            <tr>
+              <th>Uploaded by</th>
+              <th>#</th>
+              <th>Genotype-ID</th>
+              <th>Uploaded on</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <% @new_genotypes.each do |ng| %>
+          <tr>
+            <td class="table-cell vertical-centered"><%= link_to(image_tag(ng.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{User.find(ng.user_id).name}", User.find(ng.user_id)) %></td>
+            <td class="table-cell vertical-centered"><%= Genotype.all.sort {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
+            <td class="table-cell vertical-centered"><%= ng.id %></td>
+            <td class="table-cell vertical-centered"><%= ng.created_at %></td>
+            <td class="table-cell vertical-centered"><%= link_to "Description", ng, class: "btn btn-default" %></td>
+            <td class="table-cell vertical-centered"><%= link_to "Download", '../data/' + ng.fs_filename, class: "btn btn-default"  %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <%= link_to("Show All Genotypes", {:controller => "genotypes", :action => "index"}, class: "btn btn-default btn btn-default center-block updates__tab-button")%>
+    </div>
+
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="newpheno">
+      <h3 class="updates__tab-title">Phenotypes</h3>
+      <div class="table-responsive">
+        <table class="updates__tab-table table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th style="width: 70%;">Variations</th>
+              <th style="width: 10%"># of Users</th>
+            </tr>
+          </thead>
+          <% @new_phenotypes.each do |nu| %>
+          <tr>
+            <td class="table-cell vertical-centered"><%= link_to nu.characteristic, nu %></td>
+            <td class="table-cell vertical-centered">
+              <ul><%nu.known_phenotypes.each do |kp|%>
+                <li><%= kp %></li><%end%>
+              </ul>
+            </td>
+            <td class="table-cell vertical-centered"><%= nu.number_of_users %></td>
+          </tr>
+          <% end %>
+          </table>
+        </div>
+      <%= link_to("Show All Phenotypes", {:controller => "phenotypes", :action => "index"} ,class: "btn btn-default center-block updates__tab-button")%>
+    </div>
+
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="snpcomments">
+      <h3 class="updates__tab-title">SNP comments</h3>
+      <div class="table-responsive">
+        <table class="updates__tab-table table table-hover">
+          <thead>
+            <tr>
+              <th>Comment by</th>
+              <th style="width: 50%;">Subject</th>
+              <th>Date</th>
+              <th>SNP</th>
+            </tr>
+          </thead>
+          <%@new_snp_comments.each do |pc|%>
+           <tr>
+             <td class="table-cell vertical-centered"><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
+             <td class="table-cell vertical-centered"><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
+             <td class="table-cell vertical-centered"><%=pc.created_at%></td>
+             <td class="table-cell vertical-centered"><%=link_to pc.snp.name, pc.snp%></td>
+           </tr>
+          <%end%>
+        </table>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane well tabs__one-tab" id="phenocomments">
+      <h3 class="updates__tab-title">Phenotypes comments</h3>
+      <div class="table-responsive">
+        <table class="updates__tab-table table table-hover">
+          <thead>
+            <tr>
+              <th>Comment by</th>
+              <th>Phenotype</th>
+              <th style="width: 50%;">Subject</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <%@new_phenotype_comments.each do |pc|%>
+          <%if pc.phenotype != nil%>
+          <tr>
+            <td class="table-cell vertical-centered"><%if pc.user != nil%><%=link_to pc.user.name, pc.user%><%else%>Deleted User<%end%></td>
+            <td class="table-cell vertical-centered"><%=link_to pc.phenotype.characteristic, pc.phenotype%></td>
+            <td class="table-cell vertical-centered"><%if pc.subject != ""%><%=pc.subject%><%else%>-<%end%></td>
+            <td class="table-cell vertical-centered"><%=pc.created_at%></td>
+          </tr>
+          <%end%>
+          <%end%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

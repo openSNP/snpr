@@ -7,7 +7,6 @@ gem 'rails', '~> 4.2'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
-gem 'jquery-rails'
 gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'sanitize'
 gem 'recaptcha', require: 'recaptcha/rails'
@@ -53,10 +52,9 @@ gem 'whenever', require: false
 gem 'therubyracer'
 gem 'execjs'
 gem 'uglifier'
-gem 'twitter-bootstrap-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'sass-rails'
-
 #group :production do
 #	gem 'rpm_contrib'
 #end

@@ -1,23 +1,17 @@
-<%= form_for(@user_phenotype, :url => {:controller => :user_picture_phenotypes, :action => :create,:js_modal => @js_modal}, :html => {:class => "form-horizontal", :name => "new_user_picture_phenotype",:multipart => true}) do |f| %>
 <%= render 'shared/error_messages', :target => @phenotype %>
-<%= f.hidden_field :picture_phenotype_id, :value => @phenotype.id %>
-<%if @js_modal != true%>
-<div class="alert-message block-message info"> 
-<%end%>
-<p><b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP, you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b></p>
-	
-	<div class="clearfix">
-	<div id="enter-order"><%= f.label :phenotype_picture, "Upload picture of your phenotype"%>&nbsp;
-	<%= f.file_field :phenotype_picture%></div>
-	
-	
-	</div><br/>
+<%= form_for(@user_phenotype, :url => {:controller => :user_picture_phenotypes, :action => :create,:js_modal => @js_modal}, :html => {:class => "form-horizontal", :name => "new_user_picture_phenotype",:multipart => true}) do |f| %>
+	<%= f.hidden_field :picture_phenotype_id, :value => @phenotype.id %>
+	<%if @js_modal != true%>
+	<div class="alert-message block-message info">
+	</div>
+	<%end%>
+	<p>
+		<b>Want to help?</b> You did not enter your variation at this phenotype yet. By adding your phenotypic information about <em><%=@phenotype.characteristic%></em> to openSNP, you could help (amateur-)researchers with their work and find other people with a similar variance. <b>Please make use of the auto-completion as your variation might be already in our database.</b>
+	</p>
 
+	<div class="picture-phenotype__upload-div" id="enter-order"><%= f.label :phenotype_picture, "Upload picture of your phenotype"%>&nbsp;
+		<%= f.file_field :phenotype_picture%>
+	</div>
 
-	<div class="alert-actions"> 
-	<%= f.submit "Submit your variation", :class => "btn btn-primary"  %>
-	</p></div>
-<% end %>
-</div>
-</div>
-</div>
+	<%= f.submit "Submit your variation", :class => "btn btn-primary picture-phenotype__submit-button"  %>
+	<% end %>

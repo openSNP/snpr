@@ -1,38 +1,45 @@
-<legend>Create a new picture phenotype</legend> 
-<div class="row span6">
-    <%= form_for(@phenotype,:html => { :class => "form-stacked",:multipart => true  })  do |f| %>
-    <%= render 'shared/error_messages', :target => @phenotype %>
-    <%phenotype_array = []%>
-    <%PicturePhenotype.all.each do |p| phenotype_array << p.characteristic end%>
-    <div class="clearfix">
-        <div class="inline-inputs">
-            <script type="text/javascript">
-                $(function () {
-                    $("#picture_phenotype_characteristic").autocomplete({
-                    source: <%=raw(phenotype_array.to_json)%>
-                    });
-                });
-            </script>
+<div class="general__container">
+  <h3 class="general__title">Create a new picture phenotype</h3>
+  <%= form_for(@phenotype,:html => { :class => "form-horizontal picture-phenotype__new-form well"})  do |f| %>
+  <%= render 'shared/error_messages', :target => @phenotype %>
+  <%phenotype_array = []%>
+  <%PicturePhenotype.all.each do |p| phenotype_array << p.characteristic end%>
+      <script type="text/javascript">
+      $(function () {
+        $("#picture_phenotype_characteristic").autocomplete({
+          source: <%=raw(phenotype_array.to_json)%>
+        });
+      });
+      </script>
 
-            <%= f.label :characteristic %> <%= f.text_field :characteristic %>
-            <span class="help-block">Face, skintype, form of hands etc. <br/>Please <b>enter only one phenotypic characteristic at once</b> and <b>make use of the auto-completion</b>, as this phenotype might be already in our database.</span>
-		
-            <%= f.label :description %> <%= f.text_area :description, :rows => 10%>
-            <span class="help-block">Give users some more details:<ul><li>What are different variations of this phenotype?</li><li>Why is this phenotype interesting?</li><li>Some links to web resources on the topic?</li></ul></span>
-        </div>
-    </div>
-    <div class="clearfix">
-        <div class="inline-inputs">
-            <%= fields_for @user_phenotype do |up| %>
-            <%= up.label :phenotype_picture, "Upload picture of your phenotype"%>
-            <%= up.file_field :phenotype_picture%>
-
-            <span class="help-block">Upload your picture here.</span>
-            <% end %>
-        </div>
+    <div class="form-group">
+      <%= f.label :characteristic, class: "col-sm-1 control-label" %>
+      <div class="col-md-11">
+        <%= f.text_field :characteristic, class: "form-control" %>
+      </div>
+      <div class="col-md-11 col-md-offset-1">
+        <small class="help-block">Face, skintype, form of hands etc. <br/>Please <b>enter only one phenotypic characteristic at once</b> and <b>make use of the auto-completion</b>, as this phenotype might be already in our database.</small>
+      </div>
     </div>
 
-    <%= f.submit :class => "btn btn-primary" %>
+    <div class="form-group">
+      <%= f.label :description, class: "col-sm-1 control-label" %>
+      <div class="col-md-11">
+        <%= f.text_area :description, :rows => 5, class: "form-control"%>
+      </div>
+      <div class="col-md-11 col-md-offset-1">
+        <small class="help-block">Give users some more details:<ul><li>What are different variations of this phenotype?</li><li>Why is this phenotype interesting?</li><li>Some links to web resources on the topic?</li></ul></small>
+      </div>
+    </div>
+
+    <div class="center-block">
+      <%= fields_for @user_phenotype do |up| %>
+      <%= up.label :phenotype_picture, "Upload picture of your phenotype"%>
+      <%= up.file_field :phenotype_picture%>
+      <span class="help-block">Upload your picture here.</span>
+      <% end %>
+    </div>
+
+    <%= f.submit :class => "btn btn-default btn-lg center-block" %>
+  <% end %>
 </div>
-</div>
-<% end %>
