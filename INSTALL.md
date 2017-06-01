@@ -4,6 +4,24 @@ Hello and thanks so much for your interest in running our code! Maybe even to
 contribute to the project. For more details on this see
 [CONTRIBUTING.md](https://github.com/openSNP/snpr/blob/master/CONTRIBUTING.md)
 
+## Table of Contents
+- [Installing openSNP](#installing-opensnp)
+  * [How the site works](#how-the-site-works)
+  * [Setup](#setup)
+  * [Install Dependencies](#install-dependencies)
+    + [RVM](#rvm)
+  * [Setup config](#setup-config)
+  * [Getting our Postgres database up and running](#getting-our-postgres-database-up-and-running)
+    + [Install the Database](#install-the-database)
+      - [On a Linux Machine](#on-a-linux-machine)
+      - [On MacOS](#on-macos)
+      - [On Windows](#on-windows)
+    + [Setup the Database Tables](#setup-the-database-tables)
+  * [Running the server(s)](#running-the-servers)
+  * [Talk to us](#talk-to-us)
+  * [Last words](#last-words)
+  * [FAQs](#faqs)
+
 ## How the site works
 
 The site itself is based on Ruby on Rails (RoR). We usually try to use the
