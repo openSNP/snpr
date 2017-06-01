@@ -1,5 +1,6 @@
     <p>
-      <%=@phenotype_comment.user.name%> just replied to a phenotype comment on the Phenotype <%=@phenotype_comment.phenotype.characteristic%> from you.
+      <%=@phenotype_comment.user.name%> just replied to a phenotype comment on
+      the Phenotype <%=@phenotype_comment.phenotype.characteristic%> from you.
       This is the text of the reply:
     </p>
      <p>
@@ -13,6 +14,7 @@
     </p>
     <p>
       <b>
-        PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. <a href="<%= phenotype_url(@phenotype_comment.phenotype) %>">You can read and reply to this comment by clicking this link</a>.
+        PLEASE DO NOT ANSWER THIS MAIL DIRECTLY.
+        <a href="<%= phenotype_url(@phenotype_comment.phenotype) %>">You can read and reply to this comment by clicking this link</a>.
       </b>
     </p>
