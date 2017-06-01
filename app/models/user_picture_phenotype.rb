@@ -5,13 +5,13 @@ class UserPicturePhenotype < ActiveRecord::Base
   belongs_to :picture_phenotype
   belongs_to :user
 
-  has_attached_file :phenotype_picture, :styles =>
-  { :maximum => "1000x1000>", :medium => "300x300>", :thumb => "100x100>#",
-    :head => "32x32#" },
-    :default_url => '/images/standard_picture_phenotype_:style.png'
-  validates_attachment_size :phenotype_picture, :less_than => 1.megabyte
+  has_attached_file :phenotype_picture, styles:
+  { maximum: "1000x1000>", medium: "300x300>", thumb: "100x100>#",
+    head: "32x32#" },
+    default_url: '/images/standard_picture_phenotype_:style.png'
+  validates_attachment_size :phenotype_picture, less_than: 1.megabyte
   validates_attachment_content_type :phenotype_picture ,
-    :content_type => ['image/jpeg', 'image/png', 'image/gif']
+    content_type: ['image/jpeg', 'image/png', 'image/gif']
 
   pg_search_common_scope against: :picture_phenotype_id
 

@@ -12,7 +12,7 @@ class NewsController < ApplicationController
     @newest_paper = @newest_mendeley_paper | @newest_plos_paper
     @newest_paper.sort! { |a,b| b.created_at <=> a.created_at }
 
-    render :action => 'paper_rss', :layout => false
+    render action: 'paper_rss', layout: false
   end
 
 end

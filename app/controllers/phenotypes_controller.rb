@@ -25,7 +25,7 @@ class PhenotypesController < ApplicationController
               number_of_users: p.number_of_users
             }
           end
-        render :json => phenotypes_json
+        render json: phenotypes_json
       end
     end
   end
@@ -151,7 +151,7 @@ class PhenotypesController < ApplicationController
     @phenotype = Phenotype.find_by_id(params[:id])
 
     if @similar_phenotypes == [] and @similar_variations == []
-      redirect_to :action => 'index'
+      redirect_to action: 'index'
     else
       respond_to do |format|
         format.html
@@ -171,7 +171,7 @@ class PhenotypesController < ApplicationController
 
     @genotypes.sort!{ |b,a| a.created_at <=> b.created_at }
 
-    render :action => 'rss', :layout => false
+    render action: 'rss', layout: false
   end
 
   def get_genotypes
@@ -203,7 +203,7 @@ class PhenotypesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render :json => @result }
+      format.json { render json: @result }
     end
 
   end
@@ -233,7 +233,7 @@ class PhenotypesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render :json => @results }
+      format.json { render json: @results }
     end
   end
 
@@ -283,7 +283,7 @@ class PhenotypesController < ApplicationController
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
 
-      UserAchievement.create(:achievement_id => @achievement.id, :user_id => current_user.id)
+      UserAchievement.create(achievement_id: @achievement.id, user_id: current_user.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end
@@ -291,7 +291,7 @@ class PhenotypesController < ApplicationController
   def check_and_award_additional_phenotypes(amount, achievement_string)
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
-      UserAchievement.create(:user_id => current_user.id, :achievement_id => @achievement.id)
+      UserAchievement.create(user_id: current_user.id, achievement_id: @achievement.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end

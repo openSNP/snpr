@@ -96,7 +96,7 @@ class DasController < ApplicationController
         response.headers['X-DAS-Server'] = request.env['SERVER_SOFTWARE'].split(' ')[0]
         response.headers['Access-Control-Allow-Origin'] = '*'
 
-        render :template => 'das/show.xml.erb', :layout => false
+        render template: 'das/show.xml.erb', layout: false
     end
 
     def sources
@@ -107,7 +107,7 @@ class DasController < ApplicationController
 
         response.headers['X-DAS-Server'] = request.env['SERVER_SOFTWARE'].split(' ')[0]
 
-        render :template => 'das/sources.xml.erb', :layout => false
+        render template: 'das/sources.xml.erb', layout: false
     end
 
     def startpoint
@@ -117,6 +117,6 @@ class DasController < ApplicationController
       response.headers['X-DAS-Capabilities'] = 'features/1.1; sources/1.0'
       response.headers['X-DAS-Server'] = request.env['SERVER_SOFTWARE'].split(' ')[0]
 
-      render :template => 'das/startpoint.xhtml.erb', :layout => false
+      render template: 'das/startpoint.xhtml.erb', layout: false
     end
 end

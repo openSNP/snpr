@@ -6,7 +6,7 @@ class PicturePhenotypesController < ApplicationController
   def index
     @title = 'Listing all phenotypes'
     @phenotypes = PicturePhenotype.order(sort_column + ' ' + sort_direction)
-    @phenotypes_paginate = @phenotypes.paginate(:page => params[:page],:per_page => 10)
+    @phenotypes_paginate = @phenotypes.paginate(page: params[:page],per_page: 10)
     #@phenotypes_json = []
     #@phenotypes.each do |p|
     #  @phenotype = {}
@@ -19,7 +19,7 @@ class PicturePhenotypesController < ApplicationController
     respond_to do |format|
       format.html
       format.xml
-      #format.json {render :json => @phenotypes_json}
+      #format.json {render json: @phenotypes_json}
     end
   end
 
@@ -40,7 +40,7 @@ class PicturePhenotypesController < ApplicationController
       @phenotype = PicturePhenotype.create(picture_phenotype_params)
 
       # award: created one (or more) phenotypes
-      current_user.update_attributes(:phenotype_creation_counter => (current_user.phenotype_creation_counter + 1)  )
+      current_user.update_attributes(phenotype_creation_counter: (current_user.phenotype_creation_counter + 1)  )
 
       check_and_award_new_phenotypes(1, 'Created a new phenotype')
       check_and_award_new_phenotypes(5, 'Created 5 new phenotypes')
@@ -49,7 +49,7 @@ class PicturePhenotypesController < ApplicationController
 
     if params[:picture_phenotype][:characteristic] == ''
       flash[:warning] = 'Phenotype characteristic may not be empty'
-      redirect_to :action => 'new'
+      redirect_to action: 'new'
     else
 
       @phenotype.save
@@ -76,21 +76,21 @@ class PicturePhenotypesController < ApplicationController
           redirect_to current_user
         else
           flash[:warning] = 'Something went wrong in creating the phenotype'
-          redirect_to :action => 'new'
+          redirect_to action: 'new'
         end
       else
         flash[:warning] = 'You have already entered your variation at this phenotype'
-        redirect_to :action => 'new'
+        redirect_to action: 'new'
       end
     end
   end
 
   def show
-    #@phenotypes = Phenotype.where(:user_id => current_user.id).all
+    #@phenotypes = Phenotype.where(user_id: current_user.id).all
     #@title = 'Phenotypes'
     @phenotype = PicturePhenotype.find(params[:id]) || not_found
     @comments = PicturePhenotypeComment
-      .where(:picture_phenotype_id => params[:id])
+      .where(picture_phenotype_id: params[:id])
       .order(:created_at)
     @phenotype_comment = PicturePhenotypeComment.new
     if current_user and UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(current_user.id,@phenotype.id)
@@ -117,7 +117,7 @@ class PicturePhenotypesController < ApplicationController
 
     @genotypes.sort!{ |b,a| a.created_at <=> b.created_at }
 
-    render :action => 'rss', :layout => false
+    render action: 'rss', layout: false
   end
 
   private
@@ -140,7 +140,7 @@ class PicturePhenotypesController < ApplicationController
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
 
-      UserAchievement.create(:achievement_id => @achievement.id, :user_id => current_user.id)
+      UserAchievement.create(achievement_id: @achievement.id, user_id: current_user.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end
@@ -148,7 +148,7 @@ class PicturePhenotypesController < ApplicationController
   def check_and_award_additional_phenotypes(amount, achievement_string)
     @achievement = Achievement.find_by_award(achievement_string)
     if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(@achievement.id,current_user.id) == nil
-      UserAchievement.create(:user_id => current_user.id, :achievement_id => @achievement.id)
+      UserAchievement.create(user_id: current_user.id, achievement_id: @achievement.id)
       flash[:achievement] = %(Congratulations! You've unlocked an achievement: <a href="#{url_for(@achievement)}">#{@achievement.award}</a>).html_safe
     end
   end

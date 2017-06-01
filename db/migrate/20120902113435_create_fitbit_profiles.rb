@@ -9,9 +9,9 @@ class CreateFitbitProfiles < ActiveRecord::Migration
       t.string :access_token
       t.string :access_secret
       t.string :verifier
-      t.boolean :body, :default => true 
-      t.boolean :activities, :default => true
-      t.boolean :sleep, :default => true
+      t.boolean :body, default: true 
+      t.boolean :activities, default: true
+      t.boolean :sleep, default: true
 		  t.timestamps
 	  end
   end

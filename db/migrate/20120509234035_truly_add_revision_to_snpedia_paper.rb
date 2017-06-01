@@ -6,7 +6,7 @@ class TrulyAddRevisionToSnpediaPaper < ActiveRecord::Migration
       end
 
       change_table :snpedia_papers do |s|
-          s.integer :revision, :default => 0
+          s.integer :revision, default: 0
       end
       SnpediaPaper.all.each do |sp|
           sp.update_attribute :revision, 0

@@ -7,7 +7,7 @@ class MendeleySearch
   include Sidekiq::Worker
   attr_reader :snp
 
-  sidekiq_options :queue => :mendeley, :retry => 5, :unique => true
+  sidekiq_options queue: :mendeley, retry: 5, unique: true
 
   def perform(snp_id)
     return false # until OAuth2 implementation

@@ -8,7 +8,7 @@ class PicturePhenotypeCommentsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml { render :xml => @phenotype }
+      format.xml { render xml: @phenotype }
     end
   end
 
@@ -38,9 +38,9 @@ class PicturePhenotypeCommentsController < ApplicationController
           end
         end
       end
-      redirect_to '/picture_phenotypes/' + @phenotype_comment.picture_phenotype_id.to_s + '#comments', :notice => 'Comment succesfully created.'
+      redirect_to '/picture_phenotypes/' + @phenotype_comment.picture_phenotype_id.to_s + '#comments', notice: 'Comment succesfully created.'
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 

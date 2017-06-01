@@ -3,7 +3,7 @@
 # frozen_string_literal: true
 class FitbitDump
    include Sidekiq::Worker
-   sidekiq_options :queue => :fitbit, :retry => 5, :unique => true
+   sidekiq_options queue: :fitbit, retry: 5, unique: true
 
    def perform(fitbit_profile_id,user_id)
      fp = FitbitProfile.find_by_id(fitbit_profile_id)

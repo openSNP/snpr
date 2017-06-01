@@ -38,7 +38,7 @@ class GenotypesController < ApplicationController
       end
       redirect_to(current_user, notice: 'Genotype was successfully uploaded! Parsing and annotating might take a couple of <strike>hours</strike> days.')
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -51,7 +51,7 @@ class GenotypesController < ApplicationController
   def feed
     # for rss-feeds
     @genotypes = Genotype.order('created_at DESC').limit(20)
-    render :action => 'rss', :layout => false
+    render action: 'rss', layout: false
   end
 
   def destroy

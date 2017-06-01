@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class PasswordResetsController < ApplicationController
 
-	before_filter :load_user_using_perishable_token, :only => [:edit, :update]
+	before_filter :load_user_using_perishable_token, only: [:edit, :update]
 	before_filter :require_no_user
 
 	def new
@@ -21,7 +21,7 @@ class PasswordResetsController < ApplicationController
 			flash[:notice] = 'Password successfully updated'
 			redirect_to '/'
 		else
-      render :action => :edit
+      render action: :edit
 		end
 	end
 
@@ -33,7 +33,7 @@ class PasswordResetsController < ApplicationController
 			redirect_to root_url
 		else
 			flash[:notice] = 'No user was found with that email adress'
-			render :action => :new
+			render action: :new
 		end
 	end
 

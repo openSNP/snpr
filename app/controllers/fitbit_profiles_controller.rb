@@ -2,7 +2,7 @@
 class FitbitProfilesController < ApplicationController
   before_filter :require_user, except: [:new_notification, :show, :index]
   before_filter :require_user, only: [:update,:destroy,:init,:edit,:start_auth,:verify_auth,:dump]
-  protect_from_forgery :except => :new_notification
+  protect_from_forgery except: :new_notification
   helper_method :sort_column, :sort_direction
 
   def index
@@ -182,10 +182,10 @@ class FitbitProfilesController < ApplicationController
       secret = @fitbit_profile.request_secret
       verifier = params[:oauth_verifier]
       begin
-        access_token = @client.authorize(token, secret, { :oauth_verifier => verifier })
+        access_token = @client.authorize(token, secret, { oauth_verifier: verifier })
       rescue
         flash[:warning] = 'Something went wrong while authenticating your FitBit-Account. Please try again'
-        redirect_to :action => 'info'
+        redirect_to action: 'info'
       end
       @fitbit_profile.access_token = access_token.token
       @fitbit_profile.access_secret = access_token.secret
@@ -193,10 +193,10 @@ class FitbitProfilesController < ApplicationController
       @fitbit_profile.save
       FitbitInit.perform_async(@fitbit_profile.id)
       flash[:notice] = 'Successful login with FitBit'
-      redirect_to :action => 'init'
+      redirect_to action: 'init'
     else
       flash[:warning] = 'Something went wrong while authenticating your FitBit-Account. Please try again'
-      redirect_to :action => 'info'
+      redirect_to action: 'info'
     end
   end
 
@@ -208,7 +208,7 @@ class FitbitProfilesController < ApplicationController
     puts @notification[0]
     puts @notification[0]['collectionType']
     FitbitNotification.perform_async(@notification)
-    render :nothing => true, :status => 204
+    render nothing: true, status: 204
   end
 
   private

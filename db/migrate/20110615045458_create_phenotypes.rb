@@ -4,7 +4,7 @@ class CreatePhenotypes < ActiveRecord::Migration
 	  create_table :phenotypes do |p|
 		  p.string :characteristic  # e.g. haircolor
 		  p.string :known_phenotypes
-		  p.integer :number_of_users, :default => 0
+		  p.integer :number_of_users, default: 0
 		  p.timestamps
 	  end
   end

@@ -11,7 +11,7 @@ require "mocha/setup"
 require 'rails/test_help'
 require "authlogic/test_case"
 require 'webmock'
-WebMock.disable_net_connect!(:allow_localhost => true)
+WebMock.disable_net_connect!(allow_localhost: true)
 require 'factory_girl_rails'
 require 'paperclip/matchers'
 require 'plos'

@@ -5,7 +5,7 @@ require 'media_wiki'
 
 class Snpedia
   include Sidekiq::Worker
-  sidekiq_options :queue => :snpedia, :retry => 5, :unique => true
+  sidekiq_options queue: :snpedia, retry: 5, unique: true
   attr_reader :snp, :client
 
   def perform(snp_id)

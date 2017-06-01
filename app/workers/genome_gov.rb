@@ -4,7 +4,7 @@ require 'open-uri'
 
 class GenomeGov
   include Sidekiq::Worker
-  sidekiq_options :queue => :genomegov, :retry => 5, :unique => true
+  sidekiq_options queue: :genomegov, retry: 5, unique: true
   attr_reader :known_snps
 
   def perform

@@ -17,7 +17,7 @@ class UserPhenotypesController < ApplicationController
     respond_to do |format|
       format.js
       format.html
-      format.xml { render :xml => @phenotype }
+      format.xml { render xml: @phenotype }
     end
   end
 
@@ -47,14 +47,14 @@ class UserPhenotypesController < ApplicationController
         if @js_modal == true
           redirect_to '/users/'+current_user.id.to_s
         else
-          redirect_to '/recommend_phenotype/'+@user_phenotype.phenotype_id.to_s, :notice => 'Variation successfully saved'
+          redirect_to '/recommend_phenotype/'+@user_phenotype.phenotype_id.to_s, notice: 'Variation successfully saved'
         end
       else
         flash[:warning] = 'Please enter a variation'
         redirect_to '/users/'+current_user.id.to_s
       end
     else
-      redirect_to '/phenotypes/'+@user_phenotype.phenotype_id.to_s, :notice => 'You already have a variation entered'
+      redirect_to '/phenotypes/'+@user_phenotype.phenotype_id.to_s, notice: 'You already have a variation entered'
     end
   end
 
@@ -62,13 +62,13 @@ class UserPhenotypesController < ApplicationController
 
   def check_and_award_new_phenotypes(amount, achievement_string)
     if current_user.phenotype_creation_counter >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
-      UserAchievement.create(:achievement_id => Achievement.find_by_award(achievement_string).id, :user_id => current_user.id)
+      UserAchievement.create(achievement_id: Achievement.find_by_award(achievement_string).id, user_id: current_user.id)
     end
   end
 
   def check_and_award_additional_phenotypes(amount, achievement_string)
     if current_user.phenotype_count >= amount and UserAchievement.find_by_achievement_id_and_user_id(Achievement.find_by_award(achievement_string).id,current_user.id) == nil
-      UserAchievement.create(:user_id => current_user.id, :achievement_id => Achievement.find_by_award(achievement_string).id)
+      UserAchievement.create(user_id: current_user.id, achievement_id: Achievement.find_by_award(achievement_string).id)
     end
   end
 
