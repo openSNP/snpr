@@ -40,7 +40,7 @@ RSpec.feature 'Entering new phenotypes' do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first.body.parts.first.body.raw_source)
         .to include(<<-TXT.strip_heredoc.gsub(/ +/, ' '))
-        Dear bastian,
+        Dear Max Mustermann,
 
         The new phenotype "bla " was just entered on openSNP.
         If you want to enter your variation for this phenotype, \
