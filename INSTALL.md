@@ -78,7 +78,7 @@ sudo -u postgres psql postgres
 ```
 Make your user a super user
 ```
-ALTER USER myuser WITH SUPERUSER;
+ALTER USER username WITH SUPERUSER;
 ```
 Setup the database
 ```
