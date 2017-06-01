@@ -60,7 +60,7 @@ class Zipfulldata
       FileUtils.ln_sf(
         Rails.root.join("public/data/zip/#{dump_file_name}.zip"),
         link_path)
-        
+
       # everything went OK, now delete old zips
       delete_old_zips
 
@@ -73,7 +73,7 @@ class Zipfulldata
   def create_user_csv(genotypes, zipfile)
     phenotypes = Phenotype.all
     csv_file_name = "#{tmp_dir}/dump#{time_str}.csv"
-    csv_head = %w(user_id date_of_birth chrom_sex)
+    csv_head = %w(user_id genotype_filename date_of_birth chrom_sex)
     csv_head.concat(phenotypes.map(&:characteristic))
 
     CSV.open(csv_file_name, "w", csv_options) do |csv|
@@ -82,7 +82,7 @@ class Zipfulldata
       # create lines in csv-file for each user who has uploaded his data
       genotypes.each do |genotype|
         user = genotype.user
-        row = [user.id, user.yearofbirth, user.sex]
+        row = [user.id, genotype.fs_filename, user.yearofbirth, user.sex]
 
         phenotypes.each do |phenotype|
           if up = user.user_phenotypes.where(phenotype_id: phenotype.id).first
@@ -259,7 +259,7 @@ TXT
   end
 
   def delete_old_zips
-    forbidden_files = [link_path, zip_fs_path, Rails.root.join("data/annotation.zip"), Rails.root.join("public/data/zip/#{dump_file_name}.zip")] 
+    forbidden_files = [link_path, zip_fs_path, Rails.root.join("data/annotation.zip"), Rails.root.join("public/data/zip/#{dump_file_name}.zip")]
     Dir[Rails.root.join('public/data/zip/*.zip')].each do |f|
       if (not forbidden_files.include? f) and (File.ftype(f) == "file")
         File.delete(f)
