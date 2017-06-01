@@ -46,8 +46,8 @@ Snpr::Application.routes.draw do
   get '/fitbit/show/:id', to: 'fitbit_profiles#show', as: :fitbit_show
   get '/fitbit/dump/:id', to: 'fitbit_profiles#dump', as: :fitbit_dump
   get '/fitbit/', to: 'fitbit_profiles#index', as: :fitbit_index
-  get '/phenotypesets/enter/:id', to: "phenotype_sets#enter_userphenotypes"
-  get '/phenotypesets/user_phenotypes/save', to: "phenotype_sets#save_user_phenotypes"
+  get '/phenotypesets/enter/:id', to: 'phenotype_sets#enter_userphenotypes'
+  get '/phenotypesets/user_phenotypes/save', to: 'phenotype_sets#save_user_phenotypes'
   get '/users/:id/changepassword', to: 'users#changepassword'
   get '/signup', to: 'users#new', as: :signup
   get '/signin', to: 'user_sessions#new', as: :login
@@ -56,7 +56,7 @@ Snpr::Application.routes.draw do
   get '/disclaimer', to: 'static#disclaimer'
   get '/statistics', to: 'static#statistics'
   get '/user_index', to: 'users#index'
-  get '/rss', to: 'genotypes#feed', as: :feed, defaults: {format: 'rss' }
+  get '/rss', to: 'genotypes#feed', as: :feed, defaults: { format: 'rss' }
   get '/search', to: 'search_results#search'
   get '/users/:id/remove_help_one', to: 'users#remove_help_one'
   get '/users/:id/remove_help_two', to: 'users#remove_help_two'
@@ -75,7 +75,7 @@ Snpr::Application.routes.draw do
   get '/paper/rss', to: 'news#paper_rss', defaults: { format: 'rss' }
   get '/recommend_phenotype/:id/', to: 'phenotypes#recommend_phenotype'
   get '/press', to: 'static#press'
-  get '/blog' => redirect("http://opensnp.wordpress.com")
+  get '/blog' => redirect('http://opensnp.wordpress.com')
   get '/user_picture_phenotypes/:id/edit', to: 'user_picture_phenotypes#edit'
   get '/user_picture_phenotypes/:id/delete', to: 'user_picture_phenotypes#delete'
   get '/beacon/rest/responses', to: 'beacon#responses'

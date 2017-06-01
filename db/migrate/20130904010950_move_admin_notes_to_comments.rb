@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class MoveAdminNotesToComments < ActiveRecord::Migration
   def self.up
-    remove_index  :admin_notes, [:admin_user_type, :admin_user_id]
+    remove_index  :admin_notes, %i(admin_user_type admin_user_id)
     rename_table  :admin_notes, :active_admin_comments
     rename_column :active_admin_comments, :admin_user_type, :author_type
     rename_column :active_admin_comments, :admin_user_id, :author_id
@@ -21,12 +21,12 @@ class MoveAdminNotesToComments < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index  :active_admin_comments, column: [:author_type, :author_id]
-    remove_index  :active_admin_comments, column: [:namespace]
+    remove_index  :active_admin_comments, column: %i(author_type, author_id)
+    remove_index  :active_admin_comments, column: %i(namespace)
     remove_column :active_admin_comments, :namespace
     rename_column :active_admin_comments, :author_id, :admin_user_id
     rename_column :active_admin_comments, :author_type, :admin_user_type
     rename_table  :active_admin_comments, :admin_notes
-    add_index     :admin_notes, [:admin_user_type, :admin_user_id]
+    add_index     :admin_notes, %i(admin_user_type admin_user_id)
   end
 end
