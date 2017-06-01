@@ -66,7 +66,7 @@ default from: 'donotreply@opensnp.org'
   def new_message(user_id, message_id)
     @user = User.find_by_id(user_id)
     @message = Message.find_by_id(message_id)
-    @optout = "messages"
+    @optout = 'messages'
     mail(subject: "openSNP.org: You've got a new mail from #{User.find_by_id(@message.from_id).name}",
          to: @user.email) do |format|
            format.html { render layout: 'user_mailer.html.erb' }
@@ -77,7 +77,7 @@ default from: 'donotreply@opensnp.org'
   def new_snp_comment(snp_comment, to_user)
     @user = to_user
     @snp_comment = snp_comment
-    @output = "messages"
+    @optout = 'messages'
     mail(subject: 'openSNP.org: You have a reply to one of your SNP-comments', to: @user.email) do |format|
       format.html { render layout: 'user_mailer.html.erb' }
       format.text { render layout: 'user_mailer.text.erb' }
@@ -87,7 +87,7 @@ default from: 'donotreply@opensnp.org'
   def new_phenotype_comment(phenotype_comment, to_user)
     @user = to_user
     @phenotype_comment = phenotype_comment
-    @optout = "messages"
+    @optout = 'messages'
     mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments', to: @user.email) do |format|
       format.html { render layout: 'user_mailer.html.erb' }
       format.text { render layout: 'user_mailer.text.erb' }
@@ -97,7 +97,7 @@ default from: 'donotreply@opensnp.org'
   def new_picture_phenotype_comment(phenotype_comment, to_user)
     @user = to_user
     @phenotype_comment = phenotype_comment
-    @output = "messages"
+    @optout = 'messages'
     mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments', to: @user.email) do |format|
       format.html { render layout: 'user_mailer.html.erb' }
       format.text { render layout: 'user_mailer.text.erb' }
@@ -107,7 +107,7 @@ default from: 'donotreply@opensnp.org'
   def new_phenotype(phenotype, user)
     @user = user
     @phenotype = phenotype
-    @optout = "messages"
+    @optout = 'messages'
     mail(subject: 'openSNP.org: A new phenotype was entered on the platform', to: @user.email) do |format|
       format.html { render layout: 'user_mailer.html.erb' }
       format.text { render layout: 'user_mailer.text.erb' }
@@ -116,7 +116,7 @@ default from: 'donotreply@opensnp.org'
 
   def newsletter(user)
     @user = user
-    @optout = "newsletter"
+    @optout = 'newsletter'
     mail(subject: 'openSNP: The 2016 round-up and what\'s next', to: @user.email) do |format|
       format.html { render layout: 'user_mailer.html.erb' }
       format.text { render layout: 'user_mailer.text.erb' }
@@ -125,7 +125,7 @@ default from: 'donotreply@opensnp.org'
 
   def survey(user)
     @user = user
-    @optout = "newsletter"
+    @optout = 'newsletter'
     delivery_options = { user_name: ENV.fetch('SURVEY_EMAIL_USER'),
                           password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
                           address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
