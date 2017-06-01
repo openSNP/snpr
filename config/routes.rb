@@ -55,6 +55,7 @@ Snpr::Application.routes.draw do
   get '/faq', to: 'static#faq'
   get '/disclaimer', to: 'static#disclaimer'
   get '/statistics', to: 'static#statistics'
+  get '/about-us', to: 'static#about_us'
   get '/user_index', to: 'users#index'
   get '/rss', to: 'genotypes#feed', as: :feed, defaults: { format: 'rss' }
   get '/search', to: 'search_results#search'

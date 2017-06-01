@@ -5,7 +5,10 @@
     <%= render 'shared/warning' %>
   </div>
   <div class="row">
-    <div class="col-md-4 well signup__form">
+    <div class="col-md-7  well signup__disclaimer">
+      <%=render "static/disclaimer"%>
+    </div>
+    <div class="col-md-4 col-md-offset-1 well signup__form">
       <%= form_for @user, :html => {:class => "form"} do |f| %>
         <div class="form-group">
           <%= f.label :name %>
@@ -33,9 +36,6 @@
         <%= f.submit :class => "btn btn-default btn-lg"%>
         <% end %>
         <p class="signup__advise">Already a user? Log in now!</p>
-    </div>
-    <div class="col-md-7 col-md-offset-1 well signup__disclaimer">
-      <%=render "static/disclaimer"%>
     </div>
   </div>
 </div>
