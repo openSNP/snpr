@@ -32,6 +32,7 @@ gem 'pg_search'
 gem 'rubyzip'
 
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 gem 'nested_form', git: 'https://github.com/ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
