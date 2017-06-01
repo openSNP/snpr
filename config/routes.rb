@@ -42,28 +42,28 @@ Snpr::Application.routes.draw do
   get '/fitbit/init', to: 'fitbit_profiles#init'
   post '/fitbit/update/', to: 'fitbit_profiles#update'
   get '/fitbit/delete/', to: 'fitbit_profiles#destroy'
-  get '/fitbit/show/:id', to: 'fitbit_profiles#show', :as => :fitbit_show
-  get '/fitbit/dump/:id', to: 'fitbit_profiles#dump', :as => :fitbit_dump
-  get '/fitbit/', to: 'fitbit_profiles#index', :as => :fitbit_index
-  get '/phenotypesets/enter/:id', to: "phenotype_sets#enter_userphenotypes"
-  get '/phenotypesets/user_phenotypes/save', to: "phenotype_sets#save_user_phenotypes"
+  get '/fitbit/show/:id', to: 'fitbit_profiles#show', as: :fitbit_show
+  get '/fitbit/dump/:id', to: 'fitbit_profiles#dump', as: :fitbit_dump
+  get '/fitbit/', to: 'fitbit_profiles#index', as: :fitbit_index
+  get '/phenotypesets/enter/:id', to: 'phenotype_sets#enter_userphenotypes'
+  get '/phenotypesets/user_phenotypes/save', to: 'phenotype_sets#save_user_phenotypes'
   get '/users/:id/changepassword', to: 'users#changepassword'
   get '/signup', to: 'users#new', as: :signup
-  get '/signin', to: 'user_sessions#new', :as => :login
-  get '/signout', to: 'user_sessions#destroy', :as => :logout
+  get '/signin', to: 'user_sessions#new', as: :login
+  get '/signout', to: 'user_sessions#destroy', as: :logout
   get '/faq', to: 'static#faq'
   get '/disclaimer', to: 'static#disclaimer'
   get '/statistics', to: 'static#statistics'
   get '/about-us', to: 'static#about_us'
   get '/user_index', to: 'users#index'
-  get '/rss', to: 'genotypes#feed', :as => :feed, :defaults => {:format => 'rss' }
+  get '/rss', to: 'genotypes#feed', as: :feed, defaults: { format: 'rss' }
   get '/search', to: 'search_results#search'
   get '/users/:id/remove_help_one', to: 'users#remove_help_one'
   get '/users/:id/remove_help_two', to: 'users#remove_help_two'
   get '/users/:id/remove_help_three', to: 'users#remove_help_three'
   get '/phenotypes/get_genotypes/:phenotype_id/:variation', to: 'phenotypes#get_genotypes'
   get 'get_dump', to: 'genotypes#get_dump'
-  get '/phenotypes/:id/rss', to: 'phenotypes#feed', :defaults => { :format => 'rss' }
+  get '/phenotypes/:id/rss', to: 'phenotypes#feed', defaults: { format: 'rss' }
   get '/dump_download', to: 'genotypes#dump_download'
   get '/snps/json/annotation/:snp_name', to: 'snps#json_annotation'
   get '/snps/json/:snp_name/:user_id', to: 'snps#json'
@@ -72,7 +72,7 @@ Snpr::Application.routes.draw do
   get '/das/:id/features', to: 'das#show'
   get '/das/sources', to: 'das#sources'
   get '/das/:id/', to: 'das#startpoint'
-  get '/paper/rss', to: 'news#paper_rss', :defaults => { :format => 'rss' }
+  get '/paper/rss', to: 'news#paper_rss', defaults: { format: 'rss' }
   get '/recommend_phenotype/:id/', to: 'phenotypes#recommend_phenotype'
   get '/press', to: 'static#press'
   get '/blog' => redirect("http://opensnp.wordpress.com")
