@@ -14,11 +14,10 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :finished_snp_parsing, default: false
       t.integer :phenotype_creation_counter, default: 0
       t.integer :phenotype_additional_counter, default: 0
-      
       t.timestamps
     end
 
-    add_index :users, ['email'], name: 'index_users_on_email', unique: true 
+    add_index :users, ['email'], name: 'index_users_on_email', unique: true
     add_index :users, ['persistence_token'], name: 'index_users_on_persistence_token', unique: true
   end
 

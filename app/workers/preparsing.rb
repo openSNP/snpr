@@ -4,7 +4,8 @@ require 'digest'
 
 class Preparsing
   include Sidekiq::Worker
-  sidekiq_options queue: :preparse, retry: 10, unique: true # only retry 10 times - after that, the genotyping probably has already been deleted
+  # only retry 10 times - after that, the genotyping probably has already been deleted
+  sidekiq_options queue: :preparse, retry: 10, unique: true
 
   def perform(genotype_id)
     genotype = Genotype.find(genotype_id)
