@@ -64,7 +64,7 @@ configuration. You may have to configure the postgres installation to provide
 necessary user privileges for creating database.
 
 ## Initialize Database
-Before you can setup the database you need to initialize it
+Before the setup you need initialize the database
 ```
 sudo postgresql-setup --initdb --unit postgresql
 ```
@@ -84,7 +84,8 @@ Setup the database
 ```
 bundle exec rake db:setup
 ```
-If you want to login to the database
+After the setup the database is already for use.
+If you want login to the database and have a look you can use
 ```
 psql snpr_development username
 ```
