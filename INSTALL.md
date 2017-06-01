@@ -4,6 +4,24 @@ Hello and thanks so much for your interest in running our code! Maybe even to
 contribute to the project. For more details on this see
 [CONTRIBUTING.md](https://github.com/openSNP/snpr/blob/master/CONTRIBUTING.md)
 
+## Table of Contents
+- [Installing openSNP](#installing-opensnp)
+  * [How the site works](#how-the-site-works)
+  * [Setup](#setup)
+  * [Install Dependencies](#install-dependencies)
+    + [RVM](#rvm)
+  * [Setup config](#setup-config)
+  * [Getting our Postgres database up and running](#getting-our-postgres-database-up-and-running)
+    + [Install the Database](#install-the-database)
+      - [On a Linux Machine](#on-a-linux-machine)
+      - [On MacOS](#on-macos)
+      - [On Windows](#on-windows)
+    + [Setup the Database Tables](#setup-the-database-tables)
+  * [Running the server(s)](#running-the-servers)
+  * [Talk to us](#talk-to-us)
+  * [Last words](#last-words)
+  * [FAQs](#faqs)
+
 ## How the site works
 
 The site itself is based on Ruby on Rails (RoR). We usually try to use the
@@ -61,15 +79,50 @@ and set the environment variables.
 Copy `config/database.yml.example` to `config/database.yml` and adapt to your
 database setup. Specially, pay attention to the database username and password
 configuration. You may have to configure the postgres installation to provide
-necessary user privileges for creating database (see FAQs).
+necessary user privileges for creating database.
 
-## Initialize Database
+## Getting our Postgres database up and running
+
+### Install the Database
+
+#### On a Linux Machine
+
+Before the setup you need initialize the database. These steps have been tested on *Fedora 25* but should be roughly the same for all other Linux distributions as well.
+
+```
+sudo postgresql-setup --initdb --unit postgresql
+```
+Add an user to postgres
+```
+sudo -u postgres createuser username
+```
+Get into the postgres console
+```
+sudo -u postgres psql postgres
+```
+Make your user a super user
+```
+ALTER USER username WITH SUPERUSER;
+```
+#### On MacOS
+One of the easiest ways to get a *Postgres* installation is to use [*homebrew*](https://brew.sh/). Here's [a handy step-by-step guide on how to get Homebrew and Postgres installed](https://www.codementor.io/devops/tutorial/getting-started-postgresql-server-mac-osx). 
+
+#### On Windows
+Uh, we actually don't know that one yet. If you've done Postgres on Windows, please add to this section!
+
+### Setup the Database Tables
+Before you can run *openSNP* you need to initialize the database tables that it will need. This can be done by running
 
 ```
 bundle exec rake db:setup
 ```
+After the setup the database is already for use.
+If you want login to the database and have a look you can use
+```
+psql snpr_development username
+```
 
-## Running the server
+## Running the server(s)
 
 For development there's a small bash script called `serverscript` which starts
 the Rails server, the Redis server as well as the Sidekiq workers and
