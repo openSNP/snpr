@@ -1,7 +1,7 @@
 # Installing openSNP
 
-Hello and thanks so much for your interest in running our code! Maybe even to
-contribute to the project. For more details on this see
+Hello and thanks so much for your interest in running our code! And maybe even
+contributing to the project. For more details on this see
 [CONTRIBUTING.md](https://github.com/openSNP/snpr/blob/master/CONTRIBUTING.md)
 
 ## Table of Contents
@@ -25,7 +25,7 @@ contribute to the project. For more details on this see
 ## How the site works
 
 The site itself is based on Ruby on Rails (RoR). We usually try to use the
-newest version, but after major changes in new version RoR it may sometimes take
+newest version, but after major changes in a new version of RoR it may sometimes take
 a while for the switch to happen.
 
 ## Setup
@@ -53,7 +53,7 @@ different ways.
 
 ### RVM
 
-It's easier to use [RVM](https://rvm.io/)  to handle different Ruby versions,
+It's easier to use [RVM](https://rvm.io/) to handle different Ruby versions,
 and the repository has all necessary files so that a new installation of RVM
 should find what it needs to download and install. There is an installation
 manual on the RVM homepage. After a successful installation and once you cd into
@@ -79,7 +79,7 @@ and set the environment variables.
 Copy `config/database.yml.example` to `config/database.yml` and adapt to your
 database setup. Specially, pay attention to the database username and password
 configuration. You may have to configure the postgres installation to provide
-necessary user privileges for creating database.
+necessary user privileges for creating the database.
 
 ## Getting our Postgres database up and running
 
@@ -92,7 +92,7 @@ Before the setup you need initialize the database. These steps have been tested 
 ```
 sudo postgresql-setup --initdb --unit postgresql
 ```
-Add an user to postgres
+Add a user to postgres
 ```
 sudo -u postgres createuser username
 ```
