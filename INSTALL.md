@@ -61,12 +61,32 @@ and set the environment variables.
 Copy `config/database.yml.example` to `config/database.yml` and adapt to your
 database setup. Specially, pay attention to the database username and password
 configuration. You may have to configure the postgres installation to provide
-necessary user privileges for creating database (see FAQs).
+necessary user privileges for creating database.
 
 ## Initialize Database
-
+Before you can setup the database you need to initialize it
+```
+sudo postgresql-setup --initdb --unit postgresql
+```
+Add an user to postgres
+```
+sudo -u postgres createuser username
+```
+Get into the postgres console
+```
+sudo -u postgres psql postgres
+```
+Make your user a super user
+```
+ALTER USER myuser WITH SUPERUSER;
+```
+Setup the database
 ```
 bundle exec rake db:setup
+```
+If you want to login to the database
+```
+psql snpr_development username
 ```
 
 ## Running the server
