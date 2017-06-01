@@ -42,7 +42,7 @@ RSpec.feature 'Entering new phenotypes' do
         .to include(<<-TXT.strip_heredoc.gsub(/ +/, ' '))
         Dear Max Mustermann,
 
-        The new phenotype "bla " was just entered on openSNP.
+        The new phenotype "Eye count" was just entered on openSNP.
         If you want to enter your variation for this phenotype, \
         you can visit http://opensnp.org/phenotypes/1
 
