@@ -217,7 +217,7 @@ class SnpsController < ApplicationController
       @result['user']['genotypes'] = @genotypes_array
     rescue
       @result = {}
-      @result['error'] = 'Sorry, we couldn't find any information for SNP "+params[:snp_name].to_s+" and user "+params[:user_id].to_s"
+      @result['error'] = "Sorry, we couldn't find any information for SNP "+params[:snp_name].to_s+" and user "+params[:user_id].to_s
     end
     return @result
   end
