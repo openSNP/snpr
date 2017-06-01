@@ -14,7 +14,7 @@ class PhenotypesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml 
+      format.xml
       format.json do
         phenotypes_json =
           @phenotypes.find_each.map do |p|
@@ -138,7 +138,7 @@ class PhenotypesController < ApplicationController
 
     @similar_combinations.each do |s|
       if @combination_counter < 3
-        @phenotype = Phenotype.find_by_id(s.item_id.split('=>')[0])
+        @phenotype = Phenotype.find_by(id: s.item_id.split('=>')[0])
         if current_user.phenotypes.include?(@phenotype) == false
           @similar_variations << s
           @combination_counter += 1
@@ -148,7 +148,7 @@ class PhenotypesController < ApplicationController
       end
     end
 
-    @phenotype = Phenotype.find_by_id(params[:id])
+    @phenotype = Phenotype.find_by(id: params[:id])
 
     if @similar_phenotypes == [] and @similar_variations == []
       redirect_to action: 'index'
@@ -188,14 +188,15 @@ class PhenotypesController < ApplicationController
   def json_variation
     @result = {}
     begin
-      @phenotype = Phenotype.find_by_id(params[:phenotype_id])
+      @phenotype = Phenotype.find_by(id: params[:phenotype_id])
       @result['id'] = @phenotype.id
       @result['characteristic'] = @phenotype.characteristic
       @result['description'] = @phenotype.description
       @result['known_variations'] = @phenotype.known_phenotypes
       @result['users'] = []
       @phenotype.user_phenotypes.each do |up|
-        @user_phenotype = {'user_id' => up.user_id,'variation' => up.variation}
+        @user_phenotype = { 'user_id' => up.user_id,
+                            'variation' => up.variation }
         @result['users'] << @user_phenotype
       end
     rescue
@@ -239,7 +240,7 @@ class PhenotypesController < ApplicationController
 
   def json_element(params)
     begin
-      @user = User.find_by_id(params[:user_id])
+      @user = User.find_by(id: params[:user_id])
       @result = {}
       @user_phenotypes = UserPhenotype.where(user_id: @user.id)
 

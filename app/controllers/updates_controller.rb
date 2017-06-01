@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UpdatesController < ApplicationController
   def index
     @new_genotypes = Genotype.order('created_at DESC').limit(20)
