@@ -1,0 +1,25 @@
+<% if @user.present?%>
+Dear <%=@user.name%>,
+<% else %>
+Dear openSNP-user,
+  <%end%>
+
+<%=yield%>
+
+Cheers,
+the openSNP team
+
+--
+<%if @optout.present?%>
+  <%if @optout == "newsletter"%>
+    You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team.
+    You can change this setting really easily on the website: https://opensnp.org/users/<%=@user.id%>/edit#notifications
+  <%else%>
+    You received this email because you enabled the notifications for website updates.
+    You can easily change these on the website: https://opensnp.org/users/<%=@user.id%>/edit#notifications
+  <%end%>
+<%end%>
+
+openSNP thanks our Patreons for supporting our hosting costs.
+
+http://www.patreon.com/openSNP

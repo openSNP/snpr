@@ -1,5 +1,3 @@
-
-Hello <%=@user.name%>,
 you just got a new message from <%=User.find_by_id(@message.from_id).name%> with the following subject: <%=@message.subject%>
 Below you find the text of the message:
 
@@ -11,13 +9,3 @@ Below you find the text of the message:
 --- SNAP ---
 
 PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. You can read and reply to this message by clicking this link: <%= message_url(@message) %>
-
-Cheers,
-the openSNP team
-
---
-You received this email because you enabled the message-notification setting. To change your notification settings, you can visit <%=edit_user_url(@user)%>#notifications
-
-openSNP thanks our Patreons for supporting our hosting costs.
-
-http://www.patreon.com/openSNP

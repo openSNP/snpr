@@ -1,4 +1,3 @@
-Hello <%=@user.name%>,
 <%=@phenotype_comment.user.name%> just replied to a phenotype comment on the Picture Phenotype <%=@phenotype_comment.picture_phenotype.characteristic%> from you.
 
 This is the text of the reply:
@@ -11,13 +10,3 @@ This is the text of the reply:
 --- SNAP ---
 
 You can read and reply to this comment by clicking this link: <%=picture_phenotype_url(@phenotype_comment.picture_phenotype)%>#comments
-
-Cheers,
-the openSNP team
-
---
-You received this email because you enabled the phenotype-notification setting. To change your notification settings, you can visit <%=edit_user_url(@user)%>#notifications
-
-openSNP thanks our Patreons for supporting our hosting costs.
-
-http://www.patreon.com/openSNP
