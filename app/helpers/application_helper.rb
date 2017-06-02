@@ -7,20 +7,10 @@ module ApplicationHelper
     link_to title, { sort: column, direction: direction }, class: css_class
   end
 
-  class BootstrapLinkRenderer < ::WillPaginate::ActionView::LinkRenderer
-    protected
-
-    def html_container(html)
-      tag :div, tag(:ul, html), container_attributes
-    end
-
-    def previous_or_next_page(page, text, classname)
-      tag :li, link(text, page || '#'), class: [classname[0..3], classname, ('disabled' unless page)].join(' ')
-    end
-  end
-
   def page_navigation_links(pages)
-    will_paginate(pages, class: 'pagination pagination-centered', inner_window: 2, outer_window: 0, renderer: BootstrapLinkRenderer, previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe, page_links: false)
+    will_paginate(pages, renderer: BootstrapPagination::Rails,
+      previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe,
+      page_links: false)
   end
 
   def table_row_sequence_number(paginated, current_page_index)
