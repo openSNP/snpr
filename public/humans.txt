@@ -43,6 +43,10 @@
         djab (https://github.com/djab)
         Austin Davis-Richardson (https://github.com/audy)
         Stephanie Smith-Unna (https://github.com/Treblesteph)
+        Brent Verpaalen (https://github.com/bverpaalen)
+        Armin Scheben (https://github.com/mariusschwarz)
+        Andrea Bedini (https://github.com/andreabedini)
+        Amie Fairs (https://github.com/amiefairs)
         
 /* THANKS /*
         Fabian Zimmer (designer of our first logo!)
@@ -81,6 +85,6 @@
 
 /* SITE /*
         Where: https://opensnp.org
-        Last Update: 2016-02-07
+        Last Update: 2017-06-02
         Standards: HTML5, CSS
         Components: Ruby on Rails, Bootstrap, jQuery
