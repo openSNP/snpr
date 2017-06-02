@@ -1,11 +1,11 @@
 <%= form_for(phenotype.user_phenotypes.new,:url => {:controller => :user_phenotypes, :action => :create,:js_modal => true}, :html => {:class => "form-horizontal"}) do |up| %>
   <%= up.text_field :variation, :id => "phenotype_field"+phenotype.id.to_s, class: "form-control modal__input-text" %>
   <%= up.hidden_field :phenotype_id, { value: phenotype.id } %>
-  <p class="modal__text"><b>Phenotype Description</b>:<br><%= phenotype.description %></p>
-  <p class="help-block modal__text">You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</p>
+  <p><b>Phenotype Description</b>:<br><%= phenotype.description %></p>
+  <p>You can either enter your variation using the text-field (including auto-completion) above or just choose one of the already known variations below.</p>
   <% phenotype.known_phenotypes.each do |p| %>
   <div class="radio modal__radio">
-    <label class="radio modal__text">
+    <label class="radio">
       <%= up.radio_button(:variation, p,) %> <%=p%>
     </label>
   </div>
@@ -14,7 +14,7 @@
 <% end %>
 
 <% content_for id.to_sym do %>
-  <h3 class="modal__text">What is your variation at phenotype <em><%=phenotype.characteristic%></em>?</h3>
+  <h3 class="modal_title">What is your variation at phenotype <em><%=phenotype.characteristic%></em>?</h3>
 <% end %>
 
 <script type="text/javascript">
