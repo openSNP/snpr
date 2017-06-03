@@ -1,5 +1,6 @@
 /*
   *= require bootstrap.min
+  *= require jquery.jqplot
   *= require_self
   *= require style
  */

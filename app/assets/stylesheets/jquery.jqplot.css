@@ -134,7 +134,7 @@ table.jqplot-table-legend {
 
 table.jqplot-table-legend, table.jqplot-cursor-legend {
     background-color: rgba(255,255,255,0.6);
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     position: absolute;
     font-size: 0.75em;
 }
@@ -168,7 +168,7 @@ td.jqplot-seriesToggle:hover, td.jqplot-seriesToggle:active {
 }
 
 div.jqplot-table-legend-swatch-outline {
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     padding:1px;
 }
 
@@ -218,7 +218,7 @@ table.jqplot-cursor-tooltip {
     font-size: 0.75em;
     z-index: 2;
 }
-      
+
 td.jqplot-cursor-legend-swatch {
     vertical-align: middle;
     text-align: center;
@@ -365,7 +365,7 @@ div.jqplot-noData-container {
  *
  * http://docs.jquery.com/UI/Autocomplete#theming
  */
-.ui-autocomplete { position: absolute; cursor: default; }	
+.ui-autocomplete { position: absolute; cursor: default; }
 
 /* workarounds */
 * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
