@@ -55,7 +55,7 @@ module Snpr
     config.assets.version = '1.0'
 
     # Pick up the fonts in the fonts folder
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     config.generators do |g|
       g.test_framework :rspec
