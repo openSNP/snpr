@@ -50,11 +50,11 @@
               <th>Joined on</th>
             </tr>
           </thead>
-          <% @new_users.each do |nu| %>
+          <% @new_users.each_with_index do |nu, index| %>
           <tr>
             <td class="table-cell vertical-centered"><%= link_to(image_tag(nu.avatar.url(:head), class: "img-circle", width: "50px") + " #{nu.name}", nu) %></td>
             <td class="table-cell vertical-centered"><%= nu.id %></td>
-            <td class="table-cell vertical-centered"><%= User.all.sort {|a,b| a.id <=> b.id}.index(nu) + 1 %></td>
+            <td class="table-cell vertical-centered"><%= @user_count - index %></td>
             <td class="table-cell vertical-centered"><%= nu.created_at %></td>
           </tr>
           <% end %>
@@ -79,10 +79,10 @@
               <th></th>
             </tr>
           </thead>
-          <% @new_genotypes.each do |ng| %>
+          <% @new_genotypes.each_with_index do |ng, index| %>
           <tr>
             <td class="table-cell vertical-centered"><%= link_to(image_tag(ng.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{User.find(ng.user_id).name}", User.find(ng.user_id)) %></td>
-            <td class="table-cell vertical-centered"><%= Genotype.all.sort {|a,b| a.id <=> b.id}.index(ng) + 1 %></td>
+            <td class="table-cell vertical-centered"><%= @genotype_count - index %></td>
             <td class="table-cell vertical-centered"><%= ng.id %></td>
             <td class="table-cell vertical-centered"><%= ng.created_at %></td>
             <td class="table-cell vertical-centered"><%= link_to "Description", ng, class: "btn btn-default" %></td>
