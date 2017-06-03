@@ -2,6 +2,9 @@
 
 class UpdatesController < ApplicationController
   def index
+    @user_count = User.count
+    @genotype_count = Genotype.count
+
     @new_genotypes = Genotype.order('id DESC').limit(20)
     @new_users = User.order('id DESC').limit(20)
     @new_phenotypes = Phenotype.order('id DESC').limit(20)
