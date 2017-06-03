@@ -41,7 +41,6 @@
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#genotypes" aria-controls="gentypes" role="tab" data-toggle="tab">Genotypes</a></li>
   <li role="presentation"><a href="#variations" aria-controls="variations" role="tab" data-toggle="tab">Variations</a></li>
-	<li role="presentation"><a ha href="#snps" aria-controls="snps" role="tab" data-toggle="tab"><%=@first_name%>'s SNPs</a></li>
 </ul>
 
 <div class="tab-content">
@@ -69,11 +68,4 @@
 		<% end %>
 	</div>
 
-	<div role="tabpanel" class="tab-pane well tabs__one-tab" id="snps">
-		<% if 1==2 %>
-			<%= render "snps" %>
-		<% else %>
-			<p>This user has not entered any snps yet.</p>
-		<% end %>
-	</div>
 </div>

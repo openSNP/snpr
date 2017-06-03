@@ -17,7 +17,6 @@
       <thead>
         <tr>
           <th>User</th>
-          <th>#</th>
           <th><%= sortable "id", "ID"%></th>
           <th><%= sortable "created_at", "Created"%></th>
           <th><%= sortable "filetype", "Type"%></th>
@@ -29,7 +28,6 @@
         <td class="table-cell vertical-centered">
           <%= link_to(image_tag(g.user.avatar.url(:head), :class => "img-circle", :width => "50px") + " #{g.user.name}", g.user) %>
         </td>
-        <td class="table-cell vertical-centered"><%= Genotype.all.sort { |a,b| a.id <=> b.id }.index(g) + 1 %></td>
         <td class="table-cell vertical-centered"><%= g.id %></td>
         <td class="table-cell vertical-centered"><%= g.created_at%></td>
         <td class="table-cell vertical-centered"><%= g.filetype %></td>
