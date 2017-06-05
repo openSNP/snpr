@@ -6,6 +6,8 @@ addons:
     packages:
     - libhiredis-dev
   postgresql: '9.3'
+  code_climate:
+    repo_token: 36f12cb2208a523bb0c98b6724018ce5b79abe4e4741b129192414e279a79183
 services:
   - redis-server
 rvm:
@@ -29,3 +31,5 @@ notifications:
     on_success: change  # options: [always|never|change] default: always
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always
+after_success:
+  - bundle exec codeclimate-test-reporter

@@ -402,7 +402,7 @@ DEPENDENCIES
   bcrypt-ruby
   capistrano (~> 2.0)
   capybara
-  codeclimate-test-reporter
+  codeclimate-test-reporter (~> 1.0.0)
   composite_primary_keys (~> 8.0)
   database_cleaner
   dotenv-rails

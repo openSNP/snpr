@@ -74,7 +74,7 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'timecop'
-  gem 'codeclimate-test-reporter', require: false
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
 end
 
 group :development, :test do
