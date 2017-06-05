@@ -73,8 +73,8 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
-  gem 'timecop'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
+  gem 'timecop'
 end
 
 group :development, :test do
