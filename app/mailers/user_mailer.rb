@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class UserMailer < ActionMailer::Base
-default from: 'donotreply@opensnp.org'
-layout 'user_mailer'
+  default from: 'donotreply@opensnp.org'
+  layout 'user_mailer'
 
   def password_reset_instructions(user)
     @user = user
