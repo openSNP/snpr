@@ -2,13 +2,14 @@
 RSpec.feature 'SNP page' do
   let!(:snp) { create(:snp) }
   let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }
-  let!(:user) {create(:user, name: 'Alice')}
-  let!(:user_snp) {create(:user_snp, snp: snp, user: user, local_genotype: 'AA')}
-  let!(:another_user) {create(:user, name: 'Bob')}
+  let!(:user) { create(:user, name: 'Alice') }
+  let!(:user_snp) do
+    create(:user_snp, snp: snp, user: user, local_genotype: 'AA')
+  end
+  let!(:another_user) { create(:user, name: 'Bob') }
   let!(:another_user_snp) do
     create(:user_snp, snp: snp, user: another_user, local_genotype: 'TT')
   end
-
 
   context 'as a signed-in user' do
     before do
