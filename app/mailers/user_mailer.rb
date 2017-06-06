@@ -29,25 +29,26 @@ class UserMailer < ActionMailer::Base
   end
 
   def parsing_error(user_id)
-    @user = User.find_by_id(user_id)
+    @user = User.find_by(id: user_id)
     mail(subject: 'openSNP.org: Something went wrong while parsing', to: @user.email)
   end
 
   def duplicate_file(user_id)
-    @user = User.find_by_id(user_id)
+    @user = User.find_by(id: user_id)
     mail(subject: 'openSNP.org: You uploaded a duplicate genotyping', to: @user.email)
   end
 
   def file_has_mails(user_id)
-    @user = User.find_by_id(user_id)
+    @user = User.find_by(id: user_id)
     mail(subject: 'openSNP.org: You uploaded a genotyping with email addresses', to: @user.email)
   end
 
   def new_message(user_id, message_id)
-    @user = User.find_by_id(user_id)
-    @message = Message.find_by_id(message_id)
+    @user = User.find_by(id: user_id)
+    @message = Message.find_by(id: message_id)
     @optout = 'messages'
-    mail(subject: "openSNP.org: You've got a new mail from #{User.find_by_id(@message.from_id).name}",
+    mail(subject: "openSNP.org: You've got a new mail from "\
+                  "#{User.find_by(id: @message.from_id).name}",
          to: @user.email)
   end
 
@@ -55,28 +56,32 @@ class UserMailer < ActionMailer::Base
     @user = to_user
     @snp_comment = snp_comment
     @optout = 'messages'
-    mail(subject: 'openSNP.org: You have a reply to one of your SNP-comments', to: @user.email)
+    mail(subject: 'openSNP.org: You have a reply to one of your SNP-comments',
+         to: @user.email)
   end
 
   def new_phenotype_comment(phenotype_comment, to_user)
     @user = to_user
     @phenotype_comment = phenotype_comment
     @optout = 'messages'
-    mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments', to: @user.email)
+    mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments',
+         to: @user.email)
   end
 
   def new_picture_phenotype_comment(phenotype_comment, to_user)
     @user = to_user
     @phenotype_comment = phenotype_comment
     @optout = 'messages'
-    mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments', to: @user.email)
+    mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments',
+         to: @user.email)
   end
 
   def new_phenotype(phenotype, user)
     @user = user
     @phenotype = phenotype
     @optout = 'messages'
-    mail(subject: 'openSNP.org: A new phenotype was entered on the platform', to: @user.email)
+    mail(subject: 'openSNP.org: A new phenotype was entered on the platform',
+         to: @user.email)
   end
 
   def newsletter(user)
@@ -89,9 +94,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     @optout = 'newsletter'
     delivery_options = { user_name: ENV.fetch('SURVEY_EMAIL_USER'),
-                          password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
-                          address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
-                          port: ENV.fetch('SURVEY_EMAIL_PORT') }
+                         password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
+                         address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
+                         port: ENV.fetch('SURVEY_EMAIL_PORT') }
     mail(subject: 'openSNP: Read our survey results and meet Open Humans',
          to: @user.email,
          from: 'survey@opensnp.org',
