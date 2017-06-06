@@ -129,6 +129,6 @@ layout 'user_mailer'
       'genes-for-good' => 'Genes for Good'
     }.fetch(genotype.filetype)
 
-    mail(to: @user.email, subject: 'Finished parsing your genotyping') 
+    mail(to: @user.email, subject: 'Finished parsing your genotyping')
   end
 end
