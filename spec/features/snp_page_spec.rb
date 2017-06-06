@@ -9,11 +9,4 @@ RSpec.feature 'SNP page' do
     expect(page).to have_content("SNP #{snp.name}")
     expect(page).to have_content("#{snp.name} A/C")
   end
-
-  scenario 'json API is requested' do
-    visit "/snps/#{snp.to_param}.json"
-
-    json_page = page.to_json
-    puts page
-  end
 end
