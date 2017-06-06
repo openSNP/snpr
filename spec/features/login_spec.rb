@@ -24,6 +24,7 @@ RSpec.describe 'Arriving at openSNP' do
       expect(page).to have_content('Download data')
       expect(page).to have_content('Sign In')
     end
+
     scenario 'user forgot their password' do
       visit root_path
       click_on('Sign In')
