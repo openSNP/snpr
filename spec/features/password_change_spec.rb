@@ -12,27 +12,27 @@ RSpec.describe 'Password changing' do
       visit "/users/#{user.id}/changepassword"
       fill_in('Password', with: '1710')
       fill_in('Confirmation', with: '1710')
-      click_on("Update Information")
+      click_on('Update Information')
       expect(page).not_to have_content("Password confirmation doesn't match Password")
-      expect(page).to have_content("Password is too short")
+      expect(page).to have_content('Password is too short')
     end
 
     scenario 'confirmation doesnt match' do
       visit "/users/#{user.id}/changepassword"
       fill_in('Password', with: 'yetanothermary')
       fill_in('Confirmation', with: 'yetanothermarry')
-      click_on("Update Information")
+      click_on('Update Information')
       expect(page).to have_content("Password confirmation doesn't match Password")
-      expect(page).not_to have_content("Password is too short")
+      expect(page).not_to have_content('Password is too short')
     end
 
     scenario 'finally got it right' do
       visit "/users/#{user.id}/changepassword"
       fill_in('Password', with: 'QueenAnnesRevenge')
       fill_in('Confirmation', with: 'QueenAnnesRevenge')
-      click_on("Update Information")
+      click_on('Update Information')
       expect(page).not_to have_content("Password confirmation doesn't match Password")
-      expect(page).not_to have_content("Password is too short")
+      expect(page).not_to have_content('Password is too short')
     end
   end
 end
