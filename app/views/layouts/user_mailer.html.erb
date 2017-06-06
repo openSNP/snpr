@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+
+    <% if @user.present?%>
+    <b>Dear <%=@user.name%>,</b>
+    <% else %>
+    <b>Dear openSNP-user,</b>
+      <%end%>
+
+    <%= yield %>
+
+    Cheers,<br/>
+    the openSNP team
+
+    --
+    openSNP thanks our Patreons for supporting our hosting costs.
+
+    http://www.patreon.com/openSNP
+
+    <p>
+      --
+      <br/>
+
+      <%if @optout.present?%>
+        <%if @optout == "newsletter"%>
+          You're receiving this email as your openSNP-settings say that you're okay with getting some emails from the openSNP-team.
+          <a href="https://opensnp.org/users/<%=@user.id%>/edit#notifications">You can change this setting really easily on the website</a></br></br>
+        <%else%>
+          You received this email because you enabled the notifications for website updates. <a href="https://opensnp.org/users/<%=@user.id%>/edit#notifications">You can easily change these on the website</a>.</br></br>
+        <%end%>
+      <%end%>
+
+
+      openSNP thanks <a href="https://www.patreon.com/openSNP">our Patreons</a> for supporting our
+      hosting costs.
+    </p>
+  </body>
+</html>

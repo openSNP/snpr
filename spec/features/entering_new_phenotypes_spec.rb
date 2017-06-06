@@ -40,19 +40,22 @@ RSpec.feature 'Entering new phenotypes' do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first.body.parts.first.body.raw_source)
         .to include(<<-TXT.strip_heredoc.gsub(/ +/, ' '))
-          Hello Max Mustermann,
+          Dear Max Mustermann,
 
-          The new phenotype "Eye count" was just entered on openSNP. If you want \
-          to enter your variation for this phenotype, you can visit \
-          http://opensnp.org/phenotypes/#{phenotype.id}
+          The new phenotype "Eye count" was just entered on openSNP.
+          If you want to enter your variation for this phenotype, you can visit http://opensnp.org/phenotypes/#{phenotype.id}
+
 
           Cheers,
           the openSNP team
 
           --
-          You received this email because you enabled the phenotype-notification \
-          setting. To change your notification settings, you can visit \
-          http://opensnp.org/users/#{other_user.id}/edit#notifications
+          You received this email because you enabled the notifications for website updates.
+          You can easily change these on the website: https://opensnp.org/users/#{other_user.id}/edit#notifications
+
+          openSNP thanks our Patreons for supporting our hosting costs.
+
+          http://www.patreon.com/openSNP
         TXT
     end
 

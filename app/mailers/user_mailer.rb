@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class UserMailer < ActionMailer::Base
-default from: 'donotreply@opensnp.org'
+  default from: 'donotreply@opensnp.org'
+  layout 'user_mailer'
 
   def password_reset_instructions(user)
     @user = user
@@ -45,6 +46,7 @@ default from: 'donotreply@opensnp.org'
   def new_message(user_id, message_id)
     @user = User.find_by_id(user_id)
     @message = Message.find_by_id(message_id)
+    @optout = 'messages'
     mail(subject: "openSNP.org: You've got a new mail from #{User.find_by_id(@message.from_id).name}",
          to: @user.email)
   end
@@ -52,34 +54,40 @@ default from: 'donotreply@opensnp.org'
   def new_snp_comment(snp_comment, to_user)
     @user = to_user
     @snp_comment = snp_comment
+    @optout = 'messages'
     mail(subject: 'openSNP.org: You have a reply to one of your SNP-comments', to: @user.email)
   end
 
   def new_phenotype_comment(phenotype_comment, to_user)
     @user = to_user
     @phenotype_comment = phenotype_comment
+    @optout = 'messages'
     mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments', to: @user.email)
   end
 
   def new_picture_phenotype_comment(phenotype_comment, to_user)
     @user = to_user
     @phenotype_comment = phenotype_comment
+    @optout = 'messages'
     mail(subject: 'openSNP.org: You have a reply to one of your phenotype-comments', to: @user.email)
   end
 
   def new_phenotype(phenotype, user)
     @user = user
     @phenotype = phenotype
+    @optout = 'messages'
     mail(subject: 'openSNP.org: A new phenotype was entered on the platform', to: @user.email)
   end
 
   def newsletter(user)
     @user = user
+    @optout = 'newsletter'
     mail(subject: 'openSNP: The 2016 round-up and what\'s next', to: @user.email)
   end
 
   def survey(user)
     @user = user
+    @optout = 'newsletter'
     delivery_options = { user_name: ENV.fetch('SURVEY_EMAIL_USER'),
                           password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
                           address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
@@ -103,7 +111,8 @@ default from: 'donotreply@opensnp.org'
   def fitbit_dump(link, user_id)
     @link = link
     @user = User.find(user_id)
-    mail(subject: 'openSNP.org: The Fitbit-data you requested is now ready for download', to: @user.email)
+    mail(subject: 'openSNP.org: The Fitbit-data you requested is now ready for download',
+         to: @user.email)
   end
 
   def finished_parsing(genotype_id, stats)

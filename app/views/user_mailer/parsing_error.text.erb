@@ -1,15 +1,14 @@
-Hello <%=@user.name%>,
+We are sorry to inform you that there was at least one line in your genotyping
+file, excluding the header, that could not be parsed correctly.
+This may be a minor problem or not. If you can't see your local genotypes for
+the SNPs or you encounter any other problems, you could try deleting your
+genotyping file at <%=edit_user_url(@user)%>.
 
-We are sorry to inform you that there was at least one line in your genotyping file, excluding the header, that could not be parsed correctly. This may be a minor problem or not. If you can't see your local genotypes for the SNPs or you encounter any other problems, you could try deleting your genotyping file at <%=edit_user_url(@user)%>. Afterwards, you can re-upload your genotyping file.
+Afterwards, you can re-upload your genotyping file.
 
-If this bug persists and you're sure that you set the correct filetype and the file is valid, please let us know. It's possible your DTC company changed the file-format they use.
+If this bug persists and you're sure that you set the correct filetype and the
+file is valid, please let us know.
+
+It's possible your DTC company changed the file-format they use.
 
 If you need some help, you can read the FAQ <%=faq_url()%> or email us at info@opensnp.org.
-
-Cheers,
-the openSNP team
-
---
-openSNP thanks our Patreons for supporting our hosting costs.
-
-http://www.patreon.com/openSNP

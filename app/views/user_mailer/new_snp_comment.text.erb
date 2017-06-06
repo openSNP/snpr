@@ -1,4 +1,3 @@
-Hello <%=@user.name%>,
 <%=@snp_comment.user.name%> just replied to a SNP comment on the SNP <%=@snp_comment.snp.name%> from you.
 
 This is the text of the reply:
@@ -11,13 +10,3 @@ This is the text of the reply:
 --- SNAP ---
 
 PLEASE DO NOT ANSWER THIS MAIL DIRECTLY. You can read and reply to this message by clicking this link: <%= snp_url(@snp) %>
-
-Cheers,
-the openSNP team
-
---
-You receive this email because you enabled the SNP-comment-notification setting. To change your notification settings, you can visit <%=edit_user_url(@user)%>#notifications
-
-openSNP thanks our Patreons for supporting our hosting costs.
-
-http://www.patreon.com/openSNP
