@@ -33,6 +33,13 @@ RSpec.describe 'Password changing' do
       click_on('Update Information')
       expect(page).not_to have_content("Password confirmation doesn't match Password")
       expect(page).not_to have_content('Password is too short')
+      click_on('Queen Anne')
+      click_on('Sign out')
+      visit '/signin'
+      fill_in('Email', with: 'anne@the.uk')
+      fill_in('Password', with: 'QueenAnnesRevenge')
+      click_on('Login')
+      expect(page).to have_content('Login successful!')
     end
   end
 end
