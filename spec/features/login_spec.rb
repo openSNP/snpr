@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Arriving at openSNP' do
-  let!(:user) { create(:user, name: 'Potato Bill', email: 'potato@example.com')}
-  let!(:phenotype) {create(:phenotype, characteristic: 'Eye color')}
+  let!(:user) { create(:user, name: 'Potato Bill', email: 'potato@example.com') }
+  let!(:phenotype) { create(:phenotype, characteristic: 'Eye color') }
 
   context 'as a signed-in user' do
     before do
