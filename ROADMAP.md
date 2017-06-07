@@ -18,7 +18,6 @@ These are issues that should be done rather soon, either because they are urgent
 - [ ] [Fix Mediawiki integration](https://github.com/openSNP/snpr/issues/258) We're using an outdated Gem for connecting to the Mediawiki of SNPedia, so that may break in the near future. (Required Knowledge: Ruby/Rails gems, APIs)
 - [ ] [Fix broken autocomplete](https://github.com/openSNP/snpr/issues/223) The UI breaks when entering phenotypes. This makes it harder/more frustrating for people to enter new data. (Required Knowledge: JavaScript)
 - [ ] [Fix broken variations not entered](https://github.com/openSNP/snpr/issues/176) Same thing as for the autocomplete. (Required Knowledge: JavaScript)
-- [ ] [Overhaul CSS](https://github.com/openSNP/snpr/issues/264) Right now we're using Bootstrap 2 for the CSS, it's outdated and does not play nicely with mobile devices. We should go responsive and allow people to do genetics on their phones. (Required Knowledge: CSS, JavaScript)
 
 ## Long Term (~6 months)
 These issues are up next to be worked on! This is a good place to jump in if you want to help with some of our heavier tasks:
