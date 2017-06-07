@@ -3,6 +3,40 @@ RSpec.feature 'Messaging' do
   let!(:alice) { create(:user, name: 'Alice') }
   let!(:bob) { create(:user, name: 'Bob') }
 
+  let!(:to_alice) do
+    create(:message, id: 1,
+                     user: bob,
+                     from_id: bob.id,
+                     to_id: alice.id,
+                     sent: true,
+                     subject: "Delete Me")
+  end
+
+  let!(:from_bob) do
+    create(:message, user: alice,
+                     from_id: bob.id,
+                     to_id: alice.id,
+                     subject: "Delete Me")
+  end
+
+  scenario 'user successfully deletes message' do
+    sign_in(alice)
+
+    click_on('Alice')
+    click_on('Messages')
+    click_on('Delete Me')
+    click_on('Delete')
+
+    expect(page).to have_content('Message deleted')
+  end
+
+  scenario 'user tries reading other ppls messages' do
+    sign_in(alice)
+    visit '/messages/1'
+
+    expect(page).to have_content('Oops! Thats none of your business')
+  end
+
   scenario 'a user sends a messages' do
     sign_in(alice)
 

@@ -44,13 +44,14 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    message = Message.where(from_id: current_user.id, id: params[:id]).first
+    message = Message.find_by(id: params[:id])
     if message
       message.destroy
       flash[:notice] = 'Message deleted'
       redirect_to '/users/' + current_user.id.to_s + '#messages'
     else
-      render text: 'Unauthorized', status: :unauthorized
+      flash[:warning] = 'Something went wrong!'
+      redirect_to '/users/' + current_user.id.to_s + '#messages'
     end
   end
 
