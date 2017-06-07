@@ -4,19 +4,18 @@ RSpec.feature 'Messaging' do
   let!(:bob) { create(:user, name: 'Bob') }
 
   let!(:to_alice) do
-    create(:message, id: 1,
-                     user: bob,
+    create(:message, user: bob,
                      from_id: bob.id,
                      to_id: alice.id,
                      sent: true,
-                     subject: "Delete Me")
+                     subject: 'Delete Me')
   end
 
   let!(:from_bob) do
     create(:message, user: alice,
                      from_id: bob.id,
                      to_id: alice.id,
-                     subject: "Delete Me")
+                     subject: 'Delete Me')
   end
 
   scenario 'user successfully deletes message' do
@@ -32,7 +31,7 @@ RSpec.feature 'Messaging' do
 
   scenario 'user tries reading other ppls messages' do
     sign_in(alice)
-    visit '/messages/1'
+    visit "/messages/#{to_alice.id}"
 
     expect(page).to have_content('Oops! Thats none of your business')
   end

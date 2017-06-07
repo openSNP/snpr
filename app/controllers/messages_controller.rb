@@ -48,11 +48,10 @@ class MessagesController < ApplicationController
     if message
       message.destroy
       flash[:notice] = 'Message deleted'
-      redirect_to '/users/' + current_user.id.to_s + '#messages'
     else
       flash[:warning] = 'Something went wrong!'
-      redirect_to '/users/' + current_user.id.to_s + '#messages'
     end
+    redirect_to '/users/' + current_user.id.to_s + '#messages'
   end
 
   private
