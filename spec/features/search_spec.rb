@@ -17,7 +17,7 @@ feature 'search' do
     visit '/'
     fill_in 'search', with: 'foo'
 
-    form = page.find("form")
+    form = page.find('form')
     class << form
       def submit!
         Capybara::RackTest::Form.new(driver, native).submit({})
