@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
       store_location
       flash[:warning] = 'You must be logged out to access this page'
       redirect_to current_user
-      #return false
+      return false
     end
   end
 
