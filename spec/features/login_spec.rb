@@ -15,6 +15,11 @@ RSpec.describe 'Arriving at openSNP' do
       expect(page).to have_content('Hello, Potato')
       expect(page).to have_content('Eye color')
     end
+
+    scenario 'tries to register' do
+      visit '/signup/'
+      expect(page).to have_content('You must be logged out to access this page')
+    end
   end
 
   context 'as a signed-out user' do
