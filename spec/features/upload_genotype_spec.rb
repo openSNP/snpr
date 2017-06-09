@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.feature 'Upload a genotype' do
   let(:user) { create(:user, name: 'Gregor Mendel') }
 
