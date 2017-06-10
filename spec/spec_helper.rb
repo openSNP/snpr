@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-require 'simplecov'
-SimpleCov.start
-
 ENV["RAILS_ENV"] ||= 'test'
+require 'simplecov'
+SimpleCov.start('rails') do
+  coverage_dir('coverage/rspec')
+end
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'sidekiq/testing'

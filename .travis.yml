@@ -16,6 +16,9 @@ before_script:
   - cp config/database.yml.ci config/database.yml
   - cp .env.example .env
   - bundle exec rake db:setup
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > bin/cc-test-reporter
+  - chmod +x bin/cc-test-reporter
+  - bin/cc-test-reporter before-build
 script: bundle exec rake
 deploy:
   provider: script
@@ -30,4 +33,7 @@ notifications:
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always
 after_success:
-  - bundle exec codeclimate-test-reporter
+  - bin/cc-test-reporter format-coverage -t simplecov -o ./coverage/test-unit/codeclimate.json coverage/test-unit/.resultset.json
+  - bin/cc-test-reporter format-coverage -t simplecov -o ./coverage/rspec/codeclimate.json coverage/rspec/.resultset.json
+  - bin/cc-test-reporter sum-coverage --parts 2 coverage/test-unit/codeclimate.json coverage/rspec/codeclimate.json
+  - bin/cc-test-reporter upload-coverage
