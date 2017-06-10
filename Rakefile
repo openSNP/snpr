@@ -7,5 +7,4 @@ require 'rake'
 
 Snpr::Application.load_tasks
 
-task test: :spec
-task default: :test
+task default: [:spec, :test]

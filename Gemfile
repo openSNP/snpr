@@ -62,7 +62,6 @@ gem 'sass-rails'
 #end
 
 group :test do
-  gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'test-unit' # TODO: Remove me
   gem 'minitest' # TODO: Remove me
   gem 'rspec-rails'

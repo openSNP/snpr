@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 ENV['RAILS_ENV'] = 'test'
-unless ENV['CI']
-  require 'simplecov'
-  SimpleCov.start('rails')
+require 'simplecov'
+SimpleCov.start('rails') do
+  coverage_dir('coverage/test-unit')
 end
 require File.expand_path('../../config/environment', __FILE__)
 require "test/unit"
