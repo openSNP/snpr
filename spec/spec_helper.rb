@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 ENV["RAILS_ENV"] ||= 'test'
 require 'simplecov'
-SimpleCov.start do
+SimpleCov.start('rails') do
   coverage_dir('coverage/rspec')
 end
 require File.expand_path("../../config/environment", __FILE__)
