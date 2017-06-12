@@ -7,11 +7,12 @@ RSpec.describe 'SNP-API', type: :request do
   let!(:snp) { create(:snp, name: 'rs2345') }
   let!(:user) { create(:user, name: 'API-Hacker', id: 1) }
   let!(:user_two) { create(:user, name: 'Dataless User', id: 2) }
-  let!(:user_snp) { create(:user_snp, user: User.first, snp: Snp.first) }
+  let!(:user_snp) { create(:user_snp, user: user, snp: snp) }
   let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }
 
   it 'GET /snps/:id/1-3.json' do
-    get '/snps/json/rs2345/1-3.json'
+    search = "#{user.id},#{user_two.id},#{User.last.id+1}"
+    get "/snps/json/rs2345/#{search}.json"
     assert_response :success
     data = JSON.parse(response.body)
     expect(data).to_not be_empty
