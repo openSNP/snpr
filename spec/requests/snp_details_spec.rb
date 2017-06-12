@@ -2,17 +2,16 @@
 
 require 'spec_helper'
 
-RSpec.describe "Widget management", :type => :request do
+RSpec.describe 'SNP-API', type: :request do
 
   let!(:snp) { create(:snp, name: 'rs2345') }
-  let!(:user) { create(:user, name: 'API-Hacker',id: 1) }
+  let!(:user) { create(:user, name: 'API-Hacker', id: 1) }
   let!(:user_two) { create(:user, name: 'Dataless User', id: 2) }
   let!(:user_snp) { create(:user_snp, user: User.first, snp: Snp.first) }
   let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }
 
-
   it 'GET /snps/:id/1-3.json' do
-    get "/snps/json/rs2345/1-3.json"
+    get '/snps/json/rs2345/1-3.json'
     assert_response :success
     data = JSON.parse(response.body)
     expect(data).to_not be_empty
@@ -26,11 +25,11 @@ RSpec.describe "Widget management", :type => :request do
       expect(data_user1['user'].keys).to include(property)
     end
     expect(data_user2['user']['genotypes']).to be_empty
-    expect(error_data['error']).to include("Sorry, we couldn't find any information for SNP rs2345 and user 3")
+    expect(error_data['error']).to include("Sorry, we couldn't find any")
   end
 
   it 'GET annotations' do
-    get "/snps/json/annotation/rs2345.json"
+    get '/snps/json/annotation/rs2345.json'
     assert_response :success
     data = JSON.parse(response.body)
     expect(data).to_not be_empty
