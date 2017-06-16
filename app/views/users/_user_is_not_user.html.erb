@@ -13,7 +13,7 @@
 		<% if @user.description != nil %>
 		<p><%= @user.description %> </p>
 		<% end %>
-		<%= link_to("Send "+ @first_name + " a message", {:controller => "messages", :action => "new"}, :user_to_send => @user.id, class: "btn btn-primary userpage__new-messages") %>
+		<%= link_to("Send "+ @first_name + " a message", {:controller => "messages", :action => "new", :user_to_send => @user.id}, class: "btn btn-primary userpage__new-messages") %>
   </div>
 
 	<%if current_user%>
