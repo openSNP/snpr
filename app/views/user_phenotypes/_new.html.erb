@@ -25,6 +25,15 @@ $(document).ready(function() {
             $("label[for=user_phenotype_variation]").hide();
             });
 });
+
+// show the input-box when closing the modal
+$('#<%=id%>').on('hidden.bs.modal', function (e) {
+          $('<%="#phenotype_field"+phenotype.id.to_s%>').show();
+          $("label[for=user_phenotype_variation]").show();
+          $("#<%=id%>").find("input:radio").prop("checked", false).end()
+           .buttonset("refresh");
+});
+
 // Autocomplete for variations in the input-box
 $(function () {
     $('<%="#phenotype_field"+phenotype.id.to_s%>').autocomplete({
