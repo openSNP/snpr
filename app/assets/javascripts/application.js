@@ -8,7 +8,6 @@
 //= require ./jqplot.dateAxisRenderer.min.js
 //= require ./jqplot.highlighter.min.js
 //= require ./jqplot.pieRenderer.min.js
-//= require ./jquery.easytabs
 //= require jquery_nested_form
 //= require bootstrap.min
 //= require_self
@@ -48,12 +47,20 @@ $(document).ready(function() {
         };
     });
 
-    $('#tab-container').easytabs();
+    // Jump to tab if link like rs7412080#plos is opened
+    $(function(){
+        var hash = window.location.hash;
+        var anchor = $('a[href$="'+hash+'"]');
+        if (anchor.length > 0){
+            anchor.click();
+        }
+    });
+
     $("body").bind("click", function (e) {
-    $('.dropdown-toggle, .menu').parent("li").removeClass("open");
+        $('.dropdown-toggle, .menu').parent("li").removeClass("open");
     });
     $(".dropdown-toggle, .menu").click(function (e) {
-    var $li = $(this).parent("li").toggleClass('open');
-    return false;
+        var $li = $(this).parent("li").toggleClass('open');
+        return false;
     });
 });
