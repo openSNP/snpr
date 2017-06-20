@@ -4,3 +4,6 @@
   *= require_self
   *= require style
  */
+ .ui-autocomplete{
+     z-index:1050;
+ }
