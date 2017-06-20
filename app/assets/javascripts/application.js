@@ -8,7 +8,6 @@
 //= require ./jqplot.dateAxisRenderer.min.js
 //= require ./jqplot.highlighter.min.js
 //= require ./jqplot.pieRenderer.min.js
-//= require ./jquery.easytabs
 //= require jquery_nested_form
 //= require bootstrap.min
 //= require_self
