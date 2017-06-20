@@ -47,6 +47,7 @@
         Armin Scheben (https://github.com/mariusschwarz)
         Andrea Bedini (https://github.com/andreabedini)
         Amie Fairs (https://github.com/amiefairs)
+        Gerrit (https://github.com/gvd)
         
 /* THANKS /*
         Fabian Zimmer (designer of our first logo!)
@@ -85,6 +86,6 @@
 
 /* SITE /*
         Where: https://opensnp.org
-        Last Update: 2017-06-02
+        Last Update: 2017-06-20
         Standards: HTML5, CSS
         Components: Ruby on Rails, Bootstrap, jQuery
