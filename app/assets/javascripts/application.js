@@ -48,12 +48,13 @@ $(document).ready(function() {
         };
     });
 
-    $('#tab-container').easytabs();
-    $("body").bind("click", function (e) {
-    $('.dropdown-toggle, .menu').parent("li").removeClass("open");
+    // Jump to tab if link like rs7412080#plos is opened
+    $(function(){
+        var hash = window.location.hash;
+        var anchor = $('a[href$="'+hash+'"]');
+        if (anchor.length > 0){
+            anchor.click();
+        }
     });
-    $(".dropdown-toggle, .menu").click(function (e) {
-    var $li = $(this).parent("li").toggleClass('open');
-    return false;
-    });
+
 });
