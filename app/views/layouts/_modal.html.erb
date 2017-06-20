@@ -2,7 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
+        <button id="modal_close_<%= id %>" type="button" class="close" data-dismiss="modal">×</button>
         <%= content_for id.to_sym%>
       </div>
       <div class="modal-body">
