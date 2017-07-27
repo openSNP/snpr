@@ -52,6 +52,7 @@
 /* THANKS /*
         Fabian Zimmer (designer of our first logo!)
         Elio Qoshi (@elioqoshi, who did our updated logo and sticker design!) 
+        Ian Logan
         Madeleine Ball
         John Wilbanks
         Julia Reda
