@@ -27,7 +27,7 @@ end
 
 every :day do
   rake 'papers:update'
-  command "/home/app/snpr/bin/ssl_cert.sh"
+  command '/home/app/snpr/bin/ssl_cert.sh'
 end
 
 every :week do
