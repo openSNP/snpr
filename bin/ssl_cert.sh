@@ -2,7 +2,7 @@
 
 echo 'Cloning dehydrated...'
 cd /home
-git clone https://github.com/lukas2511/dehydrated.git
+git clone https://github.com/lukas2511/dehydrated.git --branch=v0.4.0 --depth=1
 cd dehydrated
 
 cp docs/examples/config config
