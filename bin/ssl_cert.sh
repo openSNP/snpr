@@ -12,7 +12,6 @@ mkdir -p /home/app/snpr/public/.well-known/acme-challenge
 echo 'WELLKNOWN=/home/app/snpr/public/.well-known/acme-challenge' >> config
 
 echo 'opensnp.org www.opensnp.org' > domains.txt
-echo 'opensnp.net www.opensnp.net' >> domains.txt
 
 echo 'Starting dehydrated...'
 
@@ -21,9 +20,9 @@ echo 'Starting dehydrated...'
 
 echo 'Done, now copying keys'
 cp /etc/ssl/private/opensnp.org.key /etc/ssl/private/opensnp.org.key.old
-cp privkey.pem /etc/ssl/private/opensnp.org.key
+cp /home/dehydrated/certs/opensnp.org/privkey.pem /etc/ssl/private/opensnp.org.key
 cp /etc/ssl/certs/opensnp.org.crt /etc/ssl/certs/opensnp.org.crt.old
-cp fullchain.pem /etc/ssl/certs/opensnp.org.crt
+cp /home/dehydrated/certs/opensnp.org/fullchain.pem /etc/ssl/certs/opensnp.org.crt
 
 service nginx restart
 

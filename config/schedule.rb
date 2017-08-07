@@ -27,9 +27,14 @@ end
 
 every :day do
   rake 'papers:update'
-  command '/home/app/snpr/bin/ssl_cert.sh'
 end
 
 every :week do
   rake 'recommender:update_all'
+end
+
+# The let's encrypt updater stops if the cert is younger than 30 days.
+# it's valid for 90 days, so let's ask for the middle.
+every 60.days do
+  command '/home/app/snpr/bin/ssl_cert.sh'
 end
