@@ -72,7 +72,7 @@ This code of conduct and its related procedures also applies to unacceptable beh
 
 **To report or discuss a suspected violation of this code of conduct by a community member, you may contact any of the team directly and in confidence**:
 
-- Bastian Greshake
+- Bastian Greshake Tzovaras
 - Philipp Bayer
 - Helge Rausch
 
