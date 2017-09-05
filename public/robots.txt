@@ -4,3 +4,5 @@
 # User-Agent: *
 # Disallow: /
 Disallow: /user_snps
+Disallow: /*sort=
+Disallow: /*direction=
