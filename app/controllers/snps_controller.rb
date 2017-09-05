@@ -176,7 +176,7 @@ class SnpsController < ApplicationController
   end
 
   private
-  
+
   def json_element(params)
     # TODO: Refactor this. - Helge
     @result = {}
