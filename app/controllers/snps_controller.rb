@@ -178,7 +178,6 @@ class SnpsController < ApplicationController
 
   private
 
-
   def sort_column
     Snp.column_names.include?(params[:sort]) ? params[:sort] : 'ranking'
   end
