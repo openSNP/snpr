@@ -14,12 +14,12 @@
     <table class="table table-hover snps__table" id="no_snp_overview">
       <thead>
         <tr>
-          <th><%= sortable "id", "SNP-ID"%></th>
-          <th><%= sortable "name","Name"%></th>
-          <th><%= sortable "position","Position"%></th>
-          <th><%= sortable "chromosome","Chromosome"%></th>
+          <th>SNP-ID</th>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Chromosome</th>
           <th>Your Genotype</th>
-          <th><%= sortable "ranking","Ranking*"%></th>
+          <th>Ranking*</th>
         </tr>
       </thead>
       <% @snps_paginate.each do |s| %>
