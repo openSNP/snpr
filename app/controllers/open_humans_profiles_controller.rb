@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class OpenHumansProfilesController < ApplicationController
   before_filter :require_user, except: [:index]
 
@@ -43,7 +44,7 @@ class OpenHumansProfilesController < ApplicationController
                        'redirect_uri' => "http://localhost:3000/openhumans/authorize"
                        })
     http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = (url.scheme == "https")
+    http.use_ssl = (url.scheme == 'https')
     response = http.request(req)
     response_json = JSON.parse(response.body)
     return response_json
@@ -62,11 +63,11 @@ class OpenHumansProfilesController < ApplicationController
     @user = current_user
     user_info = generate_json
     metadata = user_info
-    metadata["tags"] = ['opensnp']
-    metadata["description"] = "links to openSNP user #{@user.id}"
+    metadata['tags'] = ['opensnp']
+    metadata['description'] = "links to openSNP user #{@user.id}"
 
     uri = URI.parse("https://www.openhumans.org/api/direct-sharing/project/files/upload/?access_token=#{@user.open_humans_profile.access_token}")
-    @boundary = "111222XXX222111"
+    @boundary = '111222XXX222111'
 
     post_body = []
     post_body << "--#{@boundary}\r\n"
@@ -81,15 +82,15 @@ class OpenHumansProfilesController < ApplicationController
     post_body << "\r\n\r\n--#{@boundary}--\r\n"
 
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = (uri.scheme == "https")
+    http.use_ssl = (uri.scheme == 'https')
     http.set_debug_output($stdout)
     upload = Net::HTTP::Post.new(uri.request_uri)
     upload.content_type = "multipart/form-data; boundary=#{@boundary}"
     upload.body = post_body.join
-    response = http.request(upload)
+    http.request(upload)
   end
 
-  def generate_json()
+  def generate_json
     @user = current_user
     json = {user_name: @user.name,
             user_id: @user.id,
