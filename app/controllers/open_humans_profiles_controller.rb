@@ -58,18 +58,15 @@ class OpenHumansProfilesController < ApplicationController
     return res_json
   end
 
-  def upload_opensnp_id()
+  def upload_opensnp_id
     @user = current_user
     user_info = generate_json
     metadata = user_info
     metadata["tags"] = ['opensnp']
     metadata["description"] = "links to openSNP user #{@user.id}"
 
-    uri = URI.parse("https://www.openhumans.org/api/project/upload/?access_token=#{@user.open_humans_profile.access_token}")
-    puts uri
-    @boundary = "AaB03x"
-
-    header = {"Content-Type": "multipart/form-data; boundary=#{@boundary}"}
+    uri = URI.parse("https://www.openhumans.org/api/direct-sharing/project/files/upload/?access_token=#{@user.open_humans_profile.access_token}")
+    @boundary = "111222XXX222111"
 
     post_body = []
     post_body << "--#{@boundary}\r\n"
@@ -79,19 +76,17 @@ class OpenHumansProfilesController < ApplicationController
     post_body << "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
     post_body << metadata.to_json
     post_body << "\r\n--#{@boundary}\r\n"
-    post_body << "Content-Disposition: form-data; name=\"data_file\"; filename=\"#{@user.id}\"\r\n\r\n"
+    post_body << "Content-Disposition: form-data; name=\"data_file\"; filename=\"#{@user.id}.json\"\r\n\r\n"
     post_body << user_info.to_json
-    post_body << "\r\n--#{@boundary}--\r\n"
+    post_body << "\r\n\r\n--#{@boundary}--\r\n"
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
     http.set_debug_output($stdout)
-    upload = Net::HTTP::Post.new(uri.request_uri, header)
+    upload = Net::HTTP::Post.new(uri.request_uri)
+    upload.content_type = "multipart/form-data; boundary=#{@boundary}"
     upload.body = post_body.join
-    puts upload.to_s
-    puts upload.body
     response = http.request(upload)
-    puts response
   end
 
   def generate_json()
