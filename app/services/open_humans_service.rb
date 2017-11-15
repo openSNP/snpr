@@ -11,7 +11,7 @@ class OpenHumansService
     req.basic_auth ENV.fetch('OH_client_id'), ENV.fetch('OH_client_secret')
     req.set_form_data('grant_type' => 'authorization_code',
                       'code' => code,
-                      'redirect_uri' => "http://localhost:3000/openhumans/authorize")
+                      'redirect_uri' => 'http://localhost:3000/openhumans/authorize')
     # set up request to use https
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == 'https')
@@ -35,7 +35,7 @@ class OpenHumansService
 
   def set_open_humans_ids(oh_profile)
     uri = URI.parse('https://www.openhumans.org/api/direct-sharing/project/exchange-member/')
-    uri_params = {:access_token => oh_profile.access_token}
+    uri_params = { access_token: oh_profile.access_token }
     uri.query = URI.encode_www_form(uri_params)
     res = Net::HTTP.get_response(uri)
     res_json = JSON.parse(res.body)
