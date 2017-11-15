@@ -35,6 +35,7 @@ Snpr::Application.routes.draw do
   resources :user_achievements
   resources :index
 
+  get '/openhumans/', to: 'open_humans_profiles#index'
   get '/openhumans/new', to: 'open_humans_profiles#start_auth'
   get '/openhumans/authorize', to: 'open_humans_profiles#authorize'
   post '/fitbit/notification/', to: 'fitbit_profiles#new_notification'
