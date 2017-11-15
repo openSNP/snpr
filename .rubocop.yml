@@ -1,6 +1,9 @@
 Rails:
   Enabled: true
 
+AllCops:
+  TargetRubyVersion: 2.3
+
 Style/DotPosition:
   EnforcedStyle: leading
 
