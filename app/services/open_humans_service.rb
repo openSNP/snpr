@@ -7,31 +7,29 @@ class OpenHumansService
     url = URI.parse('https://www.openhumans.org/oauth2/token/')
     req = Net::HTTP::Post.new(url.request_uri)
     req.basic_auth ENV.fetch('OH_client_id'), ENV.fetch('OH_client_secret')
-    req.set_form_data({'grant_type' => 'authorization_code',
-                       'code' => code,
-                       'redirect_uri' => "http://localhost:3000/openhumans/authorize"
-                       })
+    req.set_form_data({ 'grant_type' => 'authorization_code',
+                        'code' => code,
+                        'redirect_uri' => "http://localhost:3000/openhumans/authorize" })
     # set up request to use https
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == 'https')
     # do actual request, get the json it returns
     response = http.request(req)
     response_json = JSON.parse(response.body)
-    update_tokens(user.open_humans_profile,response_json)
+    update_tokens(user.open_humans_profile, response_json)
   end
 
   def refresh_token(user)
     oh_profile = user.open_humans_profile
     url = URI.parse('https://www.openhumans.org/oauth2/token/')
     req = Net::HTTP::Post.new(url.request_uri)
-    req.set_form_data({'grant_type' => 'refresh_token',
-                       'refresh_token' => oh_profile.refresh_token
-                       })
+    req.set_form_data({ 'grant_type' => 'refresh_token',
+                        'refresh_token' => oh_profile.refresh_token })
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == 'https')
     response = http.request(req)
     response_json = JSON.parse(response.body)
-    update_tokens(oh_profile,response_json)
+    update_tokens(oh_profile, response_json)
   end
 
 
@@ -41,8 +39,8 @@ class OpenHumansService
     uri.query = URI.encode_www_form(uri_params)
     res = Net::HTTP.get_response(uri)
     res_json = JSON.parse(res.body)
-    oh_profile.project_member_id = res_json["project_member_id"]
-    oh_profile.open_humans_user_id = res_json["username"]
+    oh_profile.project_member_id = res_json['project_member_id']
+    oh_profile.open_humans_user_id = res_json['username']
     oh_profile.save
   end
 
@@ -71,7 +69,7 @@ class OpenHumansService
                       })
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == 'https')
-    http.set_debug_output($stdout)
+    #http.set_debug_output($stdout)
     http.request(req)
   end
 
@@ -88,8 +86,7 @@ class OpenHumansService
     json = { user_name: user.name,
              user_id: user.id,
              has_sequence: user.has_sequence,
-             user_uri: "https://opensnp.org/users/#{user.id}"
-           }
+             user_uri: "https://opensnp.org/users/#{user.id}" }
   end
 
   def generate_metadata(user)
