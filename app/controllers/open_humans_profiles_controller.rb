@@ -5,9 +5,9 @@ class OpenHumansProfilesController < ApplicationController
 
   def index
     @oh_profiles = OpenHumansProfile
-    .includes(:user)
-    .order(created_at: :desc)
-    .paginate(page: params[:page], per_page: 15)
+                   .includes(:user)
+                   .order(created_at: :desc)
+                   .paginate(page: params[:page], per_page: 15)
     if current_user
       @user = current_user
     end
