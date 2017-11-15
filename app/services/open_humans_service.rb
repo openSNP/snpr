@@ -85,7 +85,7 @@ class OpenHumansService
   end
 
   def generate_metadata
-    metadata = generate_json()
+    metadata = generate_json
     metadata['tags'] = ['opensnp']
     metadata['description'] = "links to openSNP user #{@user.id}"
     return metadata
