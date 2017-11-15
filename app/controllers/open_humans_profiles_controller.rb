@@ -19,18 +19,8 @@ class OpenHumansProfilesController < ApplicationController
     # does the user have an OH profile on openSNP? if not, create one
     if @user.open_humans_profile.nil?
       @user.open_humans_profile = OpenHumansProfile.new
-      @user.save
     end
-
     oh_service = OpenHumansService.new(@user)
-
-    # lets convert
-    oh_service.get_access_tokens(@code)
-    oh_service.set_open_humans_ids
-    # delete old files if there are any
-    begin
-      oh_service.delete_opensnp_id
-    end
-    oh_service.upload_opensnp_id
+    oh_service.authenticate(@code)
   end
 end

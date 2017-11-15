@@ -2,12 +2,23 @@
 
 class OpenHumansService
   # used to do the interfacing w/ Open Humans
-  BASE_API_URL = 'https://www.openhumans.org/api/direct-sharing/project'
-  BOUNDARY = '0P3NSNPH34RT50PENHUM4N5'
+  BASE_API_URL = 'https://www.openhumans.org/api/direct-sharing/project'.freeze
+  BOUNDARY = '0P3NSNPH34RT50PENHUM4N5'.freeze
 
   def initialize(user)
     @user = user
     @oh_profile = @user.open_humans_profile
+  end
+
+  def authenticate(code)
+    # lets convert
+    get_access_tokens(code)
+    set_open_humans_ids
+    # delete old files if there are any
+    begin
+      delete_opensnp_id
+    end
+    upload_opensnp_id
   end
 
   def get_access_tokens(code)
