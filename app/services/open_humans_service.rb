@@ -47,7 +47,8 @@ class OpenHumansService
   end
 
   def upload_opensnp_id(user)
-    uri = URI.parse("https://www.openhumans.org/api/direct-sharing/project/files/upload/?access_token=#{user.open_humans_profile.access_token}")
+    base_url = 'https://www.openhumans.org/api/direct-sharing/project/files/upload/?access_token='
+    uri = URI.parse(base_url + user.open_humans_profile.access_token)
     boundary = '0P3NSNPH34RT50PENHUM4N5'
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == 'https')
@@ -60,13 +61,14 @@ class OpenHumansService
   end
 
   def delete_opensnp_id(user)
-    url = URI.parse("https://www.openhumans.org/api/direct-sharing/project/files/delete/?access_token=#{user.open_humans_profile.access_token}")
+    base_url = 'https://www.openhumans.org/api/direct-sharing/project/files/delete/?access_token='
+    url = URI.parse(base_url + user.open_humans_profile.access_token)
     req = Net::HTTP::Post.new(url.request_uri)
     oh_profile = user.open_humans_profile
     req.set_form_data({
-                project_member_id: oh_profile.project_member_id,
-                all_files: true
-                })
+                        project_member_id: oh_profile.project_member_id,
+                        all_files: true
+                      })
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == 'https')
     http.set_debug_output($stdout)
@@ -76,18 +78,17 @@ class OpenHumansService
   private
 
   def update_tokens(oh_profile,tokens)
-    oh_profile.expires_in = Time.now + tokens["expires_in"]
-    oh_profile.access_token = tokens["access_token"]
-    oh_profile.refresh_token = tokens["refresh_token"]
+    oh_profile.expires_in = Time.current + tokens['expires_in']
+    oh_profile.access_token = tokens['access_token']
+    oh_profile.refresh_token = tokens['refresh_token']
     oh_profile.save
   end
 
   def generate_json(user)
-    json = {
-            user_name: user.name,
-            user_id: user.id,
-            has_sequence: user.has_sequence,
-            user_uri: "https://opensnp.org/users/#{user.id}"
+    json = { user_name: user.name,
+             user_id: user.id,
+             has_sequence: user.has_sequence,
+             user_uri: "https://opensnp.org/users/#{user.id}"
            }
   end
 
@@ -98,7 +99,7 @@ class OpenHumansService
     return metadata
   end
 
-  def generate_form_body(user,boundary)
+  def generate_form_body(user, boundary)
     metadata = generate_metadata(user)
     file_content = generate_json(user)
     post_body = []
@@ -109,7 +110,8 @@ class OpenHumansService
     post_body << "Content-Disposition: form-data; name=\"metadata\"\r\n\r\n"
     post_body << metadata.to_json
     post_body << "\r\n--#{boundary}\r\n"
-    post_body << "Content-Disposition: form-data; name=\"data_file\"; filename=\"#{user.id}.json\"\r\n\r\n"
+    post_body << "Content-Disposition: form-data; "
+    post_body << "name=\"data_file\"; filename=\"#{user.id}.json\"\r\n\r\n"
     post_body << file_content.to_json
     post_body << "\r\n\r\n--#{boundary}--\r\n"
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateOpenHumansProfiles < ActiveRecord::Migration
   def self.up
     create_table :open_humans_profiles do |t|
@@ -15,5 +16,4 @@ class CreateOpenHumansProfiles < ActiveRecord::Migration
   def self.down
     drop_table :open_humans_profiles
   end
-
 end
