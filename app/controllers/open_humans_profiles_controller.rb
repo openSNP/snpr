@@ -28,13 +28,8 @@ class OpenHumansProfilesController < ApplicationController
     if @user.open_humans_profile.nil?
       @user.open_humans_profile = OpenHumansProfile.new
     end
-    begin
-      oh_service = OpenHumansService.new(@user)
-      oh_service.authenticate(@code)
-    rescue
-      flash[:warning] = 'Something went wrong. Please try again'
-      redirect_to '/openhumans'
-    end
+    oh_service = OpenHumansService.new(@user)
+    oh_service.authenticate(@code)
     flash[:achievement] = 'Connected your account to Open Humans'
     redirect_to @user
   end
