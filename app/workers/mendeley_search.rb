@@ -19,7 +19,7 @@ class MendeleySearch
     if update_mendeley?
       search
     else
-      logger.info("mendeley papers for #{snp.name} do not need to be updated")
+      logger.info("mendeley papers for #{snp.name} do not need to be updated") 
     end
   end
 
@@ -32,7 +32,7 @@ class MendeleySearch
       process_documents(result['documents'])
       page += 1
       sleep 1
-    end while result['total_pages'].to_i.positive? &&
+    end while result['total_pages'].to_i > 0 &&
       result['total_pages'].to_i > result['current_page'].to_i
 
     snp.mendeley_updated = Time.now
