@@ -8,9 +8,7 @@ class OpenHumansProfilesController < ApplicationController
                    .includes(:user)
                    .order(created_at: :desc)
                    .paginate(page: params[:page], per_page: 15)
-    if current_user
-      @user = current_user
-    end
+    @user = current_user if current_user
   end
 
   def start_auth
