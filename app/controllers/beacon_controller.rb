@@ -15,7 +15,7 @@ class BeaconController < ApplicationController
       # if found the allele: return yes & break
       @snps = Snp.where(position: @position, chromosome: @chromosome)
       @snps.each do |s|
-        if (s.allele_frequency[@allele]).positive?
+        if s.allele_frequency[@allele].positive?
           render text: 'YES' and return
           break
         end
