@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class OpenHumansService
   # used to do the interfacing w/ Open Humans
 
-  def get_access_tokens(user,code)
+  def get_access_tokens(user, code)
     # authenticate w/ our client id/secret against API
     # post with the key the user provided us with.
     url = URI.parse('https://www.openhumans.org/oauth2/token/')
@@ -50,9 +52,8 @@ class OpenHumansService
     http.use_ssl = (uri.scheme == 'https')
     upload = Net::HTTP::Post.new(uri.request_uri)
     upload.content_type = "multipart/form-data; boundary=#{boundary}"
-    post_body = generate_form_body(user,boundary)
+    post_body = generate_form_body(user, boundary)
     upload.body = post_body.join
-    puts post_body.join
     http.request(upload)
   end
 
