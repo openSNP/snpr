@@ -2,8 +2,8 @@
 
 class OpenHumansService
   # used to do the interfacing w/ Open Humans
-  BASE_API_URL = 'https://www.openhumans.org/api/direct-sharing/project'.freeze
-  BOUNDARY = '0P3NSNPH34RT50PENHUM4N5'.freeze
+  BASE_API_URL = 'https://www.openhumans.org/api/direct-sharing/project'
+  BOUNDARY = '0P3NSNPH34RT50PENHUM4N5'
 
   def initialize(user)
     @user = user
