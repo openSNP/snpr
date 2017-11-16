@@ -73,7 +73,7 @@ class Zipfulldata
   def create_user_csv(genotypes, zipfile)
     phenotypes = Phenotype.all
     csv_file_name = "#{tmp_dir}/dump#{time_str}.csv"
-    csv_head = %w(user_id genotype_filename date_of_birth chrom_sex)
+    csv_head = %w(user_id genotype_filename date_of_birth chrom_sex openhumans_name)
     csv_head.concat(phenotypes.map(&:characteristic))
 
     CSV.open(csv_file_name, "w", csv_options) do |csv|
@@ -82,7 +82,12 @@ class Zipfulldata
       # create lines in csv-file for each user who has uploaded his data
       genotypes.each do |genotype|
         user = genotype.user
-        row = [user.id, genotype.fs_filename, user.yearofbirth, user.sex]
+        if user.open_humans_profile.nil?
+          oh_name = '-'
+        else
+          oh_name = user.open_humans_profile.open_humans_user_id
+        end
+        row = [user.id, genotype.fs_filename, user.yearofbirth, user.sex, oh_name]
 
         phenotypes.each do |phenotype|
           if up = user.user_phenotypes.where(phenotype_id: phenotype.id).first

@@ -33,4 +33,11 @@ class OpenHumansProfilesController < ApplicationController
     flash[:achievement] = 'Connected your account to Open Humans'
     redirect_to @user
   end
+
+  def destroy
+    oh_profile = current_user.open_humans_profile
+    oh_profile.delete
+    flash[:notice] = 'Your Open Humans connection was deleted.'
+    redirect_to current_user
+  end
 end

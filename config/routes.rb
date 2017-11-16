@@ -38,14 +38,7 @@ Snpr::Application.routes.draw do
   get '/openhumans/', to: 'open_humans_profiles#index'
   get '/openhumans/new', to: 'open_humans_profiles#start_auth'
   get '/openhumans/authorize', to: 'open_humans_profiles#authorize'
-  post '/fitbit/notification/', to: 'fitbit_profiles#new_notification'
-  get '/fitbit/start_auth', to: 'fitbit_profiles#start_auth'
-  get '/fitbit/verify', to: 'fitbit_profiles#verify_auth'
-  get '/fitbit/info', to: 'fitbit_profiles#info'
-  get '/fitbit/edit', to: 'fitbit_profiles#edit'
-  get '/fitbit/init', to: 'fitbit_profiles#init'
-  post '/fitbit/update/', to: 'fitbit_profiles#update'
-  get '/fitbit/delete/', to: 'fitbit_profiles#destroy'
+  get '/openhumans/destroy/:id', to: 'open_humans_profiles#destroy'
   get '/fitbit/show/:id', to: 'fitbit_profiles#show', as: :fitbit_show
   get '/fitbit/dump/:id', to: 'fitbit_profiles#dump', as: :fitbit_dump
   get '/fitbit/', to: 'fitbit_profiles#index', as: :fitbit_index

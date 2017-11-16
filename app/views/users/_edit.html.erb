@@ -7,7 +7,7 @@
     <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
     <li role="presentation"><a href="#phenotypes" aria-controls="phenotypes" role="tab" data-toggle="tab">Your phenotypes</a></li>
     <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
-    <li role="presentation"><a href="#fitbit" aria-controls="fitbit" role="tab" data-toggle="tab">Fitbit</a></li>
+    <li role="presentation"><a href="#openhumans" aria-controls="openhumans" role="tab" data-toggle="tab">Open Humans</a></li>
     <li role="presentation"><a href="#notifications" aria-controls="notifications" role="tab" data-toggle="tab">Notifications</a></li>
     <li role="presentation"><a href="#deleting" aria-controls="deleting" role="tab" data-toggle="tab">Deleting</a></li>
   </ul>
@@ -96,13 +96,13 @@
       </div>
     </div>
 
-    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__fitbit" id="fitbit">
-      <h2><%=image_tag("fitbit-icon.png")%> <em>Fitbit</em> Settings</h2>
-      <%if @user.fitbit_profile != nil%>
-      <p class="lead">You have connected your <em>Fitbit</em> account with <em>openSNP</em></p>
-      <p class="lead"><%=link_to("Edit your Fitbit connection" , { controller: "fitbit_profiles", action: "edit" } )%></p>
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__openhumans" id="openhumans">
+      <h2><%=image_tag("open_humans_logo.png", size: '32x32')%> <em>Open Humans</em> Settings</h2>
+      <%if @user.open_humans_profile != nil%>
+      <p class="lead">You have connected your <em>Open Humans</em> account with <em>openSNP</em></p>
+      <p class="lead"><%=link_to("Delete your Open Humans connection" , { controller: "open_humans_profiles", action: "destroy" } )%></p>
       <%else%>
-      <p class="lead">You haven't connected a <em>Fitbit</em> account with <em>openSNP</em> yet. <%=link_to("Do you want to learn more about how to do this?" , { controller: "fitbit_profiles", action: "info" } )%></p>
+      <%= render 'open_humans_profiles/connect' %>
       <%end%>
     </div>
 

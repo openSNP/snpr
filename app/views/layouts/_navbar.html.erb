@@ -43,11 +43,6 @@
         <ul class="dropdown-menu navbar-menu__profile-menu">
           <li><%= link_to("Settings", "/users/"+current_user.id.to_s+"/edit", class: "navbar-menu__options", :id => current_user) %></li>
           <li><%= link_to("Edit Your Phenotypes", "/users/"+current_user.id.to_s+"/edit#phenotypes", class: "navbar-menu__options")%></li>
-          <%if current_user.fitbit_profile != nil%>
-          <li>
-            <%=link_to("Edit Fitbit settings", {:controller => "fitbit_profiles", :action => "edit"}, class: "navbar-menu__options")%>
-          </li>
-          <%end%>
           <li class="divider"></li>
           <li><%= link_to("Messages ("+current_user.messages.where(:user_has_seen => false).length.to_s+")","/users/" + current_user.id.to_s + "#messages", :method => "get", class: "navbar-menu__options")%></li>
           <li class="divider"></li>
