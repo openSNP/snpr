@@ -11,7 +11,6 @@ User-agent: AhrefsBot
 Disallow: /
 
 User-agent: *
-Disallow: /snps
 Disallow: /users
 Crawl-delay:10
 Disallow: /user_snps
