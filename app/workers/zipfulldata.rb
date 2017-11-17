@@ -82,11 +82,7 @@ class Zipfulldata
       # create lines in csv-file for each user who has uploaded his data
       genotypes.each do |genotype|
         user = genotype.user
-        if user.open_humans_profile.nil?
-          oh_name = '-'
-        else
-          oh_name = user.open_humans_profile.open_humans_user_id
-        end
+        oh_name = user.open_humans_profile&.open_humans_user_id || '-'
         row = [user.id, genotype.fs_filename, user.yearofbirth, user.sex, oh_name]
 
         phenotypes.each do |phenotype|

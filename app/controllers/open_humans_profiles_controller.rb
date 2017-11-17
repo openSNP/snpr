@@ -21,12 +21,7 @@ class OpenHumansProfilesController < ApplicationController
 
   def authorize
     # let's get the current user and their code
-    user = current_user
-
-    # does the user have an OH profile on openSNP? if not, create one
-    if user.open_humans_profile.nil?
-      user.open_humans_profile = OpenHumansProfile.new
-    end
+    user = current_user    
     oh_service = OpenHumansService.new(user)
     oh_service.authenticate(params[:code])
     flash[:achievement] = 'Connected your account to Open Humans'
