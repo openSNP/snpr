@@ -3,6 +3,16 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-Agent: *
 # Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: *
+Disallow: /users
+Crawl-delay:10
 Disallow: /user_snps
 Disallow: /*sort=
 Disallow: /*direction=

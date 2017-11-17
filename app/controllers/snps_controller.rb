@@ -3,8 +3,6 @@ class SnpsController < ApplicationController
   before_filter :find_snp, except: [:index, :json,:json_annotation]
 
   def index
-    params.delete(:sort)
-    params.delete(:direction)
     @snps = Snp.order(ranking: :desc)
     @snps_paginate = @snps.paginate(page: params[:page], per_page: 10)
     @title = 'Listing all SNPs'

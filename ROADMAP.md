@@ -10,11 +10,10 @@ For each task we list the knowledge needed to solve the task at the end in paren
 These are tasks that have no fixed end and that can always be worked on, and should always be somewhat on our mind.
 
 * Getting more contributors (that might be you!)
-* [Fixing our bad spelling and grammar](https://github.com/openSNP/snpr/issues/239)
 
 ## Near future (~1-2 months)
 These are issues that should be done rather soon, either because they are urgent or because they can be solved rather easily.
-- [ ] [Fitbit-API will break](https://github.com/openSNP/snpr/issues/252) **urgent** We've had Fitbit-support for a couple of years now. But they will change their API, breaking our integration. As it's a valuable data source we should make sure we keep it running. (Required Knowledge: Ruby/Rails gems, APIs, OAuth)
+- [ ] [Fitbit-API will break](https://github.com/openSNP/snpr/issues/252) **urgent** We've had Fitbit-support for a couple of years now. But they will changed their API, breaking our integration. To make up for this we want to remove Fitbit and instead [integrate with Open Humans](https://github.com/openSNP/snpr/issues/392)
 - [ ] [Fix Mediawiki integration](https://github.com/openSNP/snpr/issues/258) We're using an outdated Gem for connecting to the Mediawiki of SNPedia, so that may break in the near future. (Required Knowledge: Ruby/Rails gems, APIs)
 - [ ] [Fix broken autocomplete](https://github.com/openSNP/snpr/issues/223) The UI breaks when entering phenotypes. This makes it harder/more frustrating for people to enter new data. (Required Knowledge: JavaScript)
 - [ ] [Fix broken variations not entered](https://github.com/openSNP/snpr/issues/176) Same thing as for the autocomplete. (Required Knowledge: JavaScript)
