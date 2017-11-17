@@ -6,7 +6,7 @@ RSpec.feature 'OpenHumans page' do
   context 'as not signed in user' do
     scenario 'visit open humans index' do
       visit '/openhumans'
-      expect(page).to have_content("Accounts with an Open Humans connection")
+      expect(page).to have_content('Accounts with an Open Humans connection')
       expect(page).not_to have_content('Connect to Open Humans')
     end
 
@@ -30,6 +30,5 @@ RSpec.feature 'OpenHumans page' do
       visit '/openhumans/new'
       expect(page).not_to have_content('You must be logged in to access this page')
     end
-
   end
 end
