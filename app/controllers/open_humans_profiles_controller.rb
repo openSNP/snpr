@@ -21,7 +21,7 @@ class OpenHumansProfilesController < ApplicationController
 
   def authorize
     # let's get the current user and their code
-    user = current_user    
+    user = current_user
     oh_service = OpenHumansService.new(user)
     oh_service.authenticate(params[:code])
     flash[:achievement] = 'Connected your account to Open Humans'

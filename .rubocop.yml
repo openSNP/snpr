@@ -1,3 +1,6 @@
+AllCops:
+  TargetRubyVersion: 2.3.0
+
 Rails:
   Enabled: true
 

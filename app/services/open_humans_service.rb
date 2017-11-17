@@ -7,10 +7,7 @@ class OpenHumansService
 
   def initialize(user)
     @user = user
-    if @user.open_humans_profile.nil?
-      @user.open_humans_profile = OpenHumansProfile.new
-    end
-    @oh_profile = @user.open_humans_profile
+    @oh_profile = @user.open_humans_profile || OpenHumansProfile.new(user_id: @user.id)
   end
 
   def authenticate(code)
