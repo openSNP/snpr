@@ -99,7 +99,7 @@ class OpenHumansService
     metadata = generate_json
     metadata['tags'] = ['opensnp']
     metadata['description'] = "links to openSNP user #{@user.id}"
-    return metadata
+    metadata
   end
 
   def generate_form_body

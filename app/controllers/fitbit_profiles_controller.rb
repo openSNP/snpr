@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class FitbitProfilesController < ApplicationController
-  before_filter :require_user, except: [:show, :index]
+  before_action :require_user, except: [:show, :index]
   helper_method :sort_column, :sort_direction
 
   def index

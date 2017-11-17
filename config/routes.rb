@@ -37,7 +37,7 @@ Snpr::Application.routes.draw do
 
   get '/openhumans/', to: 'open_humans_profiles#index'
   get '/openhumans/new', to: 'open_humans_profiles#start_auth'
-  get '/openhumans/authorize', to: 'open_humans_profiles#authorize'
+  get '/openhumans/authorize', to: 'open_humans_profiles#authorize', as: :openhumans_authorize
   get '/openhumans/destroy/:id', to: 'open_humans_profiles#destroy'
   get '/fitbit/show/:id', to: 'fitbit_profiles#show', as: :fitbit_show
   get '/fitbit/dump/:id', to: 'fitbit_profiles#dump', as: :fitbit_dump
