@@ -97,7 +97,8 @@ class UserMailer < ActionMailer::Base
                          password: ENV.fetch('SURVEY_EMAIL_PASSWORD'),
                          address: ENV.fetch('SURVEY_EMAIL_ADDRESS'),
                          port: ENV.fetch('SURVEY_EMAIL_PORT') }
-    mail(subject: 'openSNP: A fresh design and a plea for help',
+    mail(subject: 'openSNP: Winner of the CrowdAI machine learning competition'\
+                  ' & a survey on genetic raw data usage',
          to: @user.email,
          from: 'survey@opensnp.org',
          delivery_method_options: delivery_options)

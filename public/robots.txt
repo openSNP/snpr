@@ -15,3 +15,5 @@ Disallow: /snps
 Disallow: /users
 Crawl-delay:10
 Disallow: /user_snps
+Disallow: /*sort=
+Disallow: /*direction=

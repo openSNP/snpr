@@ -14,7 +14,7 @@
         Twitter: @philippbayer
         Location: Perth, Australia
 
-        Bastian Greshake
+        Bastian Greshake Tzovaras
         Contact: bgreshake@gmail.com
         Site: ruleofthirds.de
         Twitter: @gedankenstuecke
@@ -29,11 +29,11 @@
         Graham Dyer
         Site: https://sxibolet.2pitau.org/
         Location: Champaign, IL, United States
-        
+
         Mateus Jabour
         Site: http://mateusjabour.github.io/
         Location: Montreal, Canada
-        
+
         Vivek Rai
         Site: https://vivekiitkgp.github.io
         Location: Kharagpur, India
@@ -48,10 +48,11 @@
         Andrea Bedini (https://github.com/andreabedini)
         Amie Fairs (https://github.com/amiefairs)
         Gerrit (https://github.com/gvd)
-        
+
 /* THANKS /*
         Fabian Zimmer (designer of our first logo!)
-        Elio Qoshi (@elioqoshi, who did our updated logo and sticker design!) 
+        Elio Qoshi (@elioqoshi, who did our updated logo and sticker design!)
+        Ian Logan
         Madeleine Ball
         John Wilbanks
         Julia Reda

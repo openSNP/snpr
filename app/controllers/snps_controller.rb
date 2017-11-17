@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 class SnpsController < ApplicationController
-  helper_method :sort_column, :sort_direction
   before_filter :find_snp, except: [:index, :json,:json_annotation]
 
   def index
-    @snps = Snp.order(sort_column + ' ' + sort_direction)
+    @snps = Snp.order(ranking: :desc)
     @snps_paginate = @snps.paginate(page: params[:page], per_page: 10)
     @title = 'Listing all SNPs'
   end
@@ -175,14 +174,6 @@ class SnpsController < ApplicationController
   end
 
   private
-
-  def sort_column
-    Snp.column_names.include?(params[:sort]) ? params[:sort] : 'ranking'
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  end
 
   def json_element(params)
     # TODO: Refactor this. - Helge
