@@ -123,8 +123,6 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    fitgem (0.12.1)
-      oauth
     formatador (0.2.5)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
@@ -199,7 +197,6 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oauth (0.5.2)
     paperclip (4.3.7)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -406,7 +403,6 @@ DEPENDENCIES
   dynamic_form
   execjs
   factory_girl_rails
-  fitgem
   friendly_id
   guard-rspec
   i18n (>= 0.6.6)
@@ -460,4 +456,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.15.1
+   1.16.0

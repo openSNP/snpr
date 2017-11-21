@@ -1,5 +1,5 @@
 <div class="general__container">
-  <h3 class="general__title"><%=image_tag("fitbit-icon.png")%> <em><%=link_to("Fitbit",{:controller => "fitbit_profiles",:action => "info"}, :data => { :toggle => "tooltip", :placement => "bottom"}, :title => "Want to learn more about our Fitbit-integration? Click here")%></em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></h3>
+  <h3 class="general__title"><%=image_tag("fitbit-icon.png")%> <em>"Fitbit"</em> profile for <%= link_to(@fitbit_profile.user.name, @fitbit_profile.user)%></h3>
   <%if current_user%>
   <p class="lead"><%=link_to("Download dump",{:controller => "fitbit_profiles", :action => "dump", :id => @fitbit_profile.id}, class: "btn btn-default")%></p>
   <%else%>
