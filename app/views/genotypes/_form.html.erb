@@ -4,7 +4,7 @@
 <div class="col-md-4 col-md-offset-1 well new-genotype__form">
   <%= form_for(@genotype) do |f| %>
     <h3>Provide your genotyping file</h3>
-    <small class="help-block">Zipped genotypings are fine too.</small>
+    <small class="help-block">Zipped genotypings (currently only <code>*.zip</code>) are fine too.</small>
     <%= f.file_field :genotype %>
     </br>
     <%= f.label :filetype %>
