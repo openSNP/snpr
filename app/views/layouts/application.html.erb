@@ -70,7 +70,7 @@
       <% end %>
     </div>
 
-      <% if ["phenotypes", "picture_phenotypes", "fitbit_profiles"].include? params[:controller] %>
+      <% if ["phenotypes", "picture_phenotypes", "fitbit_profiles", "open_humans_profiles"].include? params[:controller] %>
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-2 col-xs-6 col-xs-offset-2 col-md-offset-0">
@@ -84,6 +84,9 @@
                 <a class="phenotype__side-menu-item" href="/picture_phenotypes">Picture phenotypes</a>
               </li>
               <li class="nav-header">APIs</li>
+              <li <% if params[:controller] == "open_humans_profiles" %>class="active"<% end %>>
+                <a class="phenotype__side-menu-item" href="/openhumans">Open Humans</a>
+              </li>
               <li <% if params[:controller] == "fitbit_profiles" %>class="active"<% end %>>
                 <a class="phenotype__side-menu-item" href="/fitbit">Fitbit phenotypes</a>
               </li>

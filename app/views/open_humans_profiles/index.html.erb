@@ -1,0 +1,29 @@
+<div class="general__container">
+<% if @user %>
+  <% if @user.open_humans_profile == nil %>
+    <%= render 'open_humans_profiles/connect' %>
+  <%end%>
+<%end%>
+  <div class="row">
+    <h3>Accounts with an <i>Open Humans</i> connection</i></h3>
+    <table class="table table-hover" id="open_humans_connection">
+      <thead>
+        <tr>
+          <th><i>openSNP</i> user name</th>
+          <th><i>Open Humans</i> user name</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <% @oh_profiles.each do |o| %>
+      <tr>
+        <td class="table-cell vertical-centered"><%= link_to(image_tag(o.user.avatar.url(:head), class: "img-circle", width: "50px") + " #{o.user.name}", o.user) %></td>
+        <td class="table-cell vertical-centered"><%= link_to o.open_humans_user_id, "https://www.openhumans.org/member/#{o.open_humans_user_id}"%></td>
+        <td class="table-cell vertical-centered"><%= o.created_at %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="text-center">
+    <%= page_navigation_links @oh_profiles %>
+  </div>
+</div>

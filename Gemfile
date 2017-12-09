@@ -19,7 +19,6 @@ gem 'slop'
 gem 'airbrake', '~> 4.0'
 
 # apis
-gem 'fitgem'
 gem 'mendeley', git: 'https://github.com/tsujigiri/mendeley', branch: 'paging_search'
 gem 'plos', require: false
 
