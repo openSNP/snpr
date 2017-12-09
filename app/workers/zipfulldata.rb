@@ -48,8 +48,8 @@ class Zipfulldata
       Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
         create_fitbit_csv(zipfile)
-        list_of_pics = create_picture_phenotype_csv(zipfile)
-        create_picture_zip(list_of_pics, zipfile)
+        # list_of_pics = create_picture_phenotype_csv(zipfile)
+        # create_picture_zip(list_of_pics, zipfile)
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
