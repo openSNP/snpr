@@ -26,7 +26,7 @@ class Zipfulldata
     @csv_options = { col_sep: ';' }
     @dump_file_name = "opensnp_datadump.#{time_str}"
     @zip_public_path = "/data/zip/#{dump_file_name}.zip"
-    @zip_fs_path = "/tmp/#{dump_file_name}.zip" 
+    @zip_fs_path = "/tmp/#{dump_file_name}.zip"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
     @link_path = Rails.root.join('public/data/zip/opensnp_datadump.current.zip')
   end
