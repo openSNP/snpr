@@ -26,7 +26,7 @@ class Zipfulldata
     @csv_options = { col_sep: ';' }
     @dump_file_name = "opensnp_datadump.#{time_str}"
     @zip_public_path = "/data/zip/#{dump_file_name}.zip"
-    @zip_fs_path = "#{Rails.root}/public#{zip_public_path}"
+    @zip_fs_path = "/tmp/#{dump_file_name}.zip"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
     @link_path = Rails.root.join('public/data/zip/opensnp_datadump.current.zip')
   end
@@ -53,6 +53,8 @@ class Zipfulldata
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
+      # move from local storage to network storage
+      FileUtils.mv(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
 
       FileUtils.chmod(0644, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
       logger.info('created zip-file')
@@ -260,7 +262,7 @@ TXT
   end
 
   def delete_old_zips
-    forbidden_files = [link_path, zip_fs_path,
+    forbidden_files = [link_path,
                       Rails.root.join('data', 'annotation.zip'),
                       Rails.root.join('public', 'data', 'zip', "#{dump_file_name}.zip")]
     Dir[Rails.root.join('public/data/zip/*.zip')].each do |f|
