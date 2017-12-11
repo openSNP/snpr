@@ -125,7 +125,7 @@ Thanks for using openSNP!
     expect(job).to receive(:create_readme).with(zipfile)
     expect(job).to receive(:zip_genotype_files).with([genotype], zipfile)
     expect(FileUtils).to receive(:chmod).
-      with(0644, "#{Rails.root}/public/data/zip/#{job.dump_file_name}.zip")
+      with(0644, "/tmp/#{job.dump_file_name}.zip")
     expect(FileUtils).to receive(:ln_sf).with(
       Rails.root.join("public/data/zip/#{job.dump_file_name}.zip"),
       Rails.root.join("public/data/zip/opensnp_datadump.current.zip"))
