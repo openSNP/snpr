@@ -18,6 +18,7 @@ describe Zipfulldata do
     tmp_dir = job.instance_variable_get(:@tmp_dir) + '_test_' +
       Digest::SHA1.hexdigest("#{Time.now.to_i}#{rand}")
     job.instance_variable_set(:@tmp_dir, tmp_dir)
+    FileUtils.touch "#{job.zip_fs_path}"
     Dir.mkdir(tmp_dir)
     genotype
   end
@@ -25,6 +26,8 @@ describe Zipfulldata do
   after do
     link = Rails.root.join("public/data/zip/opensnp_datadump.current.zip")
     FileUtils.rm(link) if File.exist?(link)
+    FileUtils.rm(job.zip_fs_path) if File.exist?(job.zip_fs_path)
+    FileUtils.rm(job.zip_public_path) if File.exist?(job.zip_public_path)
   end
 
   it "creates user CSVs" do
@@ -125,7 +128,7 @@ Thanks for using openSNP!
     expect(job).to receive(:create_readme).with(zipfile)
     expect(job).to receive(:zip_genotype_files).with([genotype], zipfile)
     expect(FileUtils).to receive(:chmod).
-      with(0644, "/tmp/#{job.dump_file_name}.zip")
+      with(0o644, "/tmp/#{job.dump_file_name}.zip")
     expect(FileUtils).to receive(:ln_sf).with(
       Rails.root.join("public/data/zip/#{job.dump_file_name}.zip"),
       Rails.root.join("public/data/zip/opensnp_datadump.current.zip"))
