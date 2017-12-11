@@ -53,7 +53,7 @@ class Zipfulldata
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
-      FileUtils.chmod(0644, @zip_fs_path)
+      FileUtils.chmod(0o644, @zip_fs_path)
       # move from local storage to network storage
       FileUtils.mv(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
 
