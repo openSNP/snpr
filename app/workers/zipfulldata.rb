@@ -56,6 +56,7 @@ class Zipfulldata
       FileUtils.chmod(0o644, @zip_fs_path)
       # move from local storage to network storage
       FileUtils.mv(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
+
       logger.info('created zip-file')
 
       FileUtils.ln_sf(
