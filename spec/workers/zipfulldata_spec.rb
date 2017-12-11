@@ -18,7 +18,7 @@ describe Zipfulldata do
     tmp_dir = job.instance_variable_get(:@tmp_dir) + '_test_' +
       Digest::SHA1.hexdigest("#{Time.now.to_i}#{rand}")
     job.instance_variable_set(:@tmp_dir, tmp_dir)
-    FileUtils.touch "#{job.zip_fs_path}"
+    FileUtils.touch job.zip_fs_path.to_s
     Dir.mkdir(tmp_dir)
     genotype
   end
