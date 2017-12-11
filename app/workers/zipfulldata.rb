@@ -54,7 +54,8 @@ class Zipfulldata
         zip_genotype_files(genotypes, zipfile)
       end
       # move from local storage to network storage
-      FileUtils.mv(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
+      FileUtils.cp(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
+      FileUtils.rm(@zip_fs_path)
       logger.info('created zip-file')
 
       FileUtils.ln_sf(
