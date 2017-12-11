@@ -48,8 +48,8 @@ class Zipfulldata
       Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
         create_fitbit_csv(zipfile)
-        # list_of_pics = create_picture_phenotype_csv(zipfile)
-        # create_picture_zip(list_of_pics, zipfile)
+        list_of_pics = create_picture_phenotype_csv(zipfile)
+        create_picture_zip(list_of_pics, zipfile)
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
@@ -182,7 +182,7 @@ class Zipfulldata
         picture_phenotypes.each do |pp|
 
           # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-          logger.info("Looking for this picture #{pp.id}")
+          # logger.info("Looking for this picture #{pp.id}")
           picture = pp.user_picture_phenotypes.where(user_id: u.id).first
           # does this user have this pic?
           if picture.present? && picture.phenotype_picture.present?
