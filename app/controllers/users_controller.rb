@@ -269,7 +269,7 @@ class UsersController < ApplicationController
       :message_on_new_phenotype,
       :message_on_phenotype_comment_reply,
       :message_on_snp_comment_reply,
-      user_phenotypes_attributes: [:id, :variation, :_destroy]
+      user_phenotypes_attributes: %i(id variation _destroy destroy)
     )
   end
 end
