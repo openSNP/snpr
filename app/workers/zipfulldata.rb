@@ -25,7 +25,7 @@ class Zipfulldata
     @time_str = time.strftime("%Y%m%d%H%M")
     @csv_options = { col_sep: ';' }
     @dump_file_name = "opensnp_datadump.#{time_str}"
-    @zip_public_path = "/data/zip/#{dump_file_name}.zip"
+    @zip_public_path = "public/data/zip/#{dump_file_name}.zip"
     @zip_fs_path = "/tmp/#{dump_file_name}.zip"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
     @link_path = Rails.root.join('public/data/zip/opensnp_datadump.current.zip')
@@ -48,15 +48,14 @@ class Zipfulldata
       Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
         create_fitbit_csv(zipfile)
-        # list_of_pics = create_picture_phenotype_csv(zipfile)
-        # create_picture_zip(list_of_pics, zipfile)
+        list_of_pics = create_picture_phenotype_csv(zipfile)
+        create_picture_zip(list_of_pics, zipfile)
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
+      FileUtils.chmod(0o644, @zip_fs_path)
       # move from local storage to network storage
       FileUtils.mv(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
-
-      FileUtils.chmod(0644, "#{Rails.root}/public/data/zip/#{dump_file_name}.zip")
       logger.info('created zip-file')
 
       FileUtils.ln_sf(
@@ -182,7 +181,7 @@ class Zipfulldata
         picture_phenotypes.each do |pp|
 
           # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-          logger.info("Looking for this picture #{pp.id}")
+          # logger.info("Looking for this picture #{pp.id}")
           picture = pp.user_picture_phenotypes.where(user_id: u.id).first
           # does this user have this pic?
           if picture.present? && picture.phenotype_picture.present?
@@ -263,8 +262,8 @@ TXT
 
   def delete_old_zips
     forbidden_files = [link_path,
-                      Rails.root.join('data', 'annotation.zip'),
-                      Rails.root.join('public', 'data', 'zip', "#{dump_file_name}.zip")]
+                       Rails.root.join('data', 'annotation.zip').to_s,
+                       Rails.root.join('public', 'data', 'zip', "#{dump_file_name}.zip").to_s]
     Dir[Rails.root.join('public/data/zip/*.zip')].each do |f|
       if (not forbidden_files.include? f) and (File.ftype(f) == "file")
         File.delete(f)
