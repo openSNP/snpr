@@ -73,7 +73,7 @@ Snpr::Application.routes.draw do
   get '/recommend_phenotype/:id/', to: 'phenotypes#recommend_phenotype'
   get '/press', to: 'static#press'
   get '/blog' => redirect('http://opensnp.wordpress.com')
-  post '/user_picture_phenotypes/:id/edit', to: 'user_picture_phenotypes#edit'
+  patch '/user_picture_phenotypes/:id/edit', to: 'user_picture_phenotypes#edit'
   get '/user_picture_phenotypes/:id/delete', to: 'user_picture_phenotypes#delete'
   get '/beacon/rest/responses', to: 'beacon#responses'
 
