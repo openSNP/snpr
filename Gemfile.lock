@@ -62,9 +62,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    airbrake (4.3.8)
-      builder
-      multi_json
     arel (6.0.4)
     ast (2.3.0)
     authlogic (3.6.0)
@@ -180,7 +177,6 @@ GEM
     minitest (5.10.2)
     mocha (1.2.1)
       metaclass (~> 0.0.1)
-    multi_json (1.12.1)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -392,7 +388,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import (>= 0.4.0)
-  airbrake (~> 4.0)
   authlogic
   bcrypt-ruby
   capistrano (~> 2.0)
