@@ -15,9 +15,6 @@ gem 'dynamic_form'
 gem 'lograge'
 gem 'slop'
 
-# for errbit
-gem 'airbrake', '~> 4.0'
-
 # apis
 gem 'mendeley', git: 'https://github.com/tsujigiri/mendeley', branch: 'paging_search'
 gem 'plos', require: false
