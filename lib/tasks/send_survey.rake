@@ -13,15 +13,15 @@ namespace :survey do
 
     # send survey to each user that
     # a) allows us emailing them
-    # b) has genetic data
+    # b) has genetic data <- not right now used
     # c) is not already in the DB
     User.where(:message_on_newsletter => true).find_each do |u|
       unless exclude_users.include?u.id.to_s
-        unless u.genotypes.empty?
-          UserMailer.survey(u).deliver_now
-          # wait for one minute so we don't crash the google mail daily limit
-          sleep(1.minute)
-        end
+        # unless u.genotypes.empty?
+        UserMailer.survey(u).deliver_now
+        # wait for one minute so we don't crash the google mail daily limit
+        sleep(1.minute)
+        # end
       end
     end
   end
