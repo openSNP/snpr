@@ -17,4 +17,14 @@ class PhenotypeRecommender < Recommendify::Base
 
     process!
   end
+
+  def recommendations_for(id, count)
+    phenotype_ids = self.class
+                        .new
+                        .for(id)
+                        .take(count)
+                        .map(&:item_id)
+    return [] if phenotype_ids.empty?
+    Phenotype.find(phenotype_ids)
+  end
 end

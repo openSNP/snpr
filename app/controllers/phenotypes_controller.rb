@@ -83,81 +83,32 @@ class PhenotypesController < ApplicationController
   end
 
   def show
-    @phenotype = Phenotype.find(params[:id]) || not_found
-    @comments = PhenotypeComment
-      .where(phenotype_id: params[:id])
-      .order('created_at ASC')
+    @phenotype = Phenotype.find(params[:id])
+    @comments = @phenotype
+                .phenotype_comments
+                .order('created_at ASC')
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
-
-    recommender = PhenotypeRecommender.new
-    similar_ids = recommender.for(params[:id])
-    # For some reason, Recommendify sometimes returns items of class Integer,
-    # sometimes of class Recommendify.
-    if similar_ids[0].is_a?(Recommendify::Neighbor)
-      similar_ids = similar_ids.map(&:item_id)
-    end
-    @similar_phenotypes = Phenotype
-                          .where('id in (?)', similar_ids)
-                          .limit(6)
+    @similar_phenotypes =
+      PhenotypeRecommender.new.recommendations_for(@phenotype.id, 6)
   end
 
   def recommend_phenotype
-    # init the recommendation-engines
-    @phenotype_recommender = PhenotypeRecommender.new
-    @variation_recommender = VariationRecommender.new
+    @phenotype = Phenotype.find(params[:id])
 
     # get up to three similar phenotypes regardless of variation
-
-    @similar_ids = @phenotype_recommender.for(params[:id])
-    @similar_phenotypes = []
-    @item_counter = 0
-
-    @similar_ids.each do |s|
-      if @item_counter < 3
-        @phenotype = Phenotype.find(s.item_id)
-        if current_user.phenotypes.include?(@phenotype) == false
-          @similar_phenotypes << @phenotype
-          @item_counter += 1
-        end
-      else
-        break
-      end
-    end
+    @similar_phenotypes =
+      PhenotypeRecommender.new.recommendations_for(@phenotype.id, 3)
 
     # get up to three similar combinations of phenotype and variation
-    @user_phenotype = UserPhenotype.find_by_phenotype_id_and_user_id(params[:id],current_user.id)
-    if @user_phenotype != nil
-      @users_variation = @user_phenotype.variation
-      @variation_recommend_request = params[:id] + '=>' + @users_variation
-    else
-      @variation_recommend_request = ''
-    end
+    @user_phenotype = @phenotype
+                      .user_phenotypes
+                      .find_by(user_id: current_user.id)
+    @similar_variations =
+      VariationRecommender.new.recommendations_for(@user_phenotype, 3)
 
-    @similar_combinations = @phenotype_recommender.for(@variation_recommend_request)
-    @similar_variations = []
-    @combination_counter = 0
-
-    @similar_combinations.each do |s|
-      if @combination_counter < 3
-        @phenotype = Phenotype.find_by(id: s.item_id.split('=>')[0])
-        if current_user.phenotypes.include?(@phenotype) == false
-          @similar_variations << s
-          @combination_counter += 1
-        end
-      else
-        break
-      end
-    end
-
-    @phenotype = Phenotype.find_by(id: params[:id])
-
-    if @similar_phenotypes == [] and @similar_variations == []
+    if @similar_phenotypes.none? && @similar_variations.none?
       redirect_to action: 'index'
-    else
-      respond_to do |format|
-        format.html
-      end
     end
   end
 
