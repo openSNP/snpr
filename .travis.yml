@@ -14,7 +14,6 @@ env: DB=postgres CI=1
 bundler_args: --without development debug
 before_script:
   - cp config/database.yml.ci config/database.yml
-  - cp .env.example .env
   - bundle exec rake db:setup
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > bin/cc-test-reporter
   - chmod +x bin/cc-test-reporter
