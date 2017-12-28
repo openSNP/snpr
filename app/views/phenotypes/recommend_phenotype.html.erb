@@ -8,9 +8,9 @@
   <%= @similar_variations.count %>
   <% if @similar_variations.size > 1 %>
     phenotypes and the answers which are
-  <%else%>
+  <% else %>
     phenotype and the answer which is
-  <%end%>
+  <% end %>
   most-often entered by users who also gave
   <em><%= @user_phenotype.variation %></em> as their variation for
   <em><%= @phenotype.characteristic %></em>. You haven't entered information
@@ -26,36 +26,36 @@
         phenotype. What about you?
         </div>
       </div>
-    <%end%>
+    <% end %>
   </div> 
-<%end%>
+<% end %>
 
 <% if @similar_phenotypes.any? %>
   <h2>Similar Phenotypes</h2>
-  Below you can find <%=@similar_phenotypes.size%>
+  Below you can find <%=@similar_phenotypes.size %>
   <% if @similar_phenotypes.count > 1 %>
     phenotypes
-  <%else%>
+  <% else %>
     phenotype
-  <%end%>
+  <% end %>
   which
   <% if @similar_phenotypes.count > 1 %>
     are
-  <%else%>
+  <% else %>
     is
-  <%end%>
+  <% end %>
   often entered by users who provided us with any information about
   <em><strong><%= @phenotype.characteristic %></strong></em>. This list ignores
   the specific answers that have been given about phenotypes. Maybe you also
   want to enter information about this?<br/><br/>
   <div class="row">
-  <%@similar_phenotypes.each do |p|%>
+  <% @similar_phenotypes.each do |p| %>
     <div class="span<%= 16 / @similar_phenotypes.count %> columns">
       <div class="alert alert-block alert-success" data-alert="alert">
       <h5><%= link_to(p.characteristic, p) %></h5>
       Description: <em><%= simple_format(p.description) %></em>
       </div>
     </div>
-  <%end%>
+  <% end %>
   </div>
-<%end%>
+<% end %>
