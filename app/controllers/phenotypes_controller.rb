@@ -90,6 +90,7 @@ class PhenotypesController < ApplicationController
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
     @similar_phenotypes = PhenotypeRecommender
+                          .new
                           .recommendations_for(@phenotype.id, 6)
   end
 
@@ -98,6 +99,7 @@ class PhenotypesController < ApplicationController
 
     # get up to three similar phenotypes regardless of variation
     @similar_phenotypes = PhenotypeRecommender
+                          .new
                           .recommendations_for(@phenotype.id, 3)
 
     # get up to three similar combinations of phenotype and variation
@@ -105,6 +107,7 @@ class PhenotypesController < ApplicationController
                       .user_phenotypes
                       .find_by(user_id: current_user.id)
     @similar_variations = VariationRecommender
+                          .new
                           .recommendations_for(@user_phenotype, 3)
 
     if @similar_phenotypes.none? && @similar_variations.none?

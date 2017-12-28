@@ -18,8 +18,8 @@ class PhenotypeRecommender < Recommendify::Base
     process!
   end
 
-  def self.recommendations_for(id, count)
-    phenotype_ids = new
+  def recommendations_for(id, count)
+    phenotype_ids = self.class.new
                     .for(id)
                     .take(count)
                     .map(&:item_id)
