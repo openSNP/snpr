@@ -31,5 +31,5 @@ tmp/pids/server.pid
 vendor/bundle
 vendor/cache
 logfile
-.env
+.env*.local
 .DS_Store
