@@ -35,8 +35,6 @@ class VariationRecommender < Recommendify::Base
     neighbor.item_id.split('=>').first.to_i
   end
 
-  private
-
   class Recommendation
     attr_reader :phenotype
 
