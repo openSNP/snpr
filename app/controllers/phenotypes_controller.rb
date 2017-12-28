@@ -94,7 +94,7 @@ class PhenotypesController < ApplicationController
     similar_ids = recommender.for(params[:id])
     # For some reason, Recommendify sometimes returns items of class Integer,
     # sometimes of class Recommendify.
-    if similar_ids[0].is_a?(Recommendify)
+    if similar_ids[0].is_a?(Recommendify::Neighbor)
       similar_ids = similar_ids.map(&:item_id)
     end
     @similar_phenotypes = Phenotype
