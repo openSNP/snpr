@@ -19,9 +19,10 @@ class VariationRecommender < Recommendify::Base
   end
 
   def recommendations_for(user_phenotype, count)
-    neighbors = self.class.new
-                .for("#{user_phenotype.phenotype_id}=>#{user_phenotype.variation}")
-                .take(count)
+    neighbors = self.class
+                    .new
+                    .for("#{user_phenotype.phenotype_id}=>#{user_phenotype.variation}")
+                    .take(count)
     phenotype_ids = neighbors.map(&method(:phenotype_id_from_neighbor))
     phenotypes = Phenotype.find(phenotype_ids).index_by(&:id)
 
