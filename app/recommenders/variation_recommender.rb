@@ -18,4 +18,39 @@ class VariationRecommender < Recommendify::Base
     process!
   end
 
+  def self.recommendations_for(user_phenotype, count)
+    neighbors = new
+                .for("#{user_phenotype.phenotype_id}=>#{user_phenotype.variation}")
+                .take(count)
+    phenotype_ids = neighbors.map(&method(:phenotype_id_from_neighbor))
+    phenotypes = Phenotype.find(phenotype_ids).index_by(&:id)
+
+    neighbors.map do |neighbor|
+      phenotype = phenotypes.fetch(phenotype_id_from_neighbor(neighbor))
+      Recommendation.new(neighbor, phenotype)
+    end
+  end
+
+  def self.phenotype_id_from_neighbor(neighbor)
+    neighbor.item_id.split('=>').first.to_i
+  end
+
+  private
+
+  class Recommendation
+    attr_reader :phenotype
+
+    def initialize(neighbor, phenotype)
+      @neighbor = neighbor
+      @phenotype = phenotype
+    end
+
+    def variation
+      neighbor.item_id.split('=>').last
+    end
+
+    private
+
+    attr_reader :neighbor
+  end
 end
