@@ -102,7 +102,8 @@ class PhenotypesController < ApplicationController
 
     # get up to three similar combinations of phenotype and variation
     @user_phenotype = @phenotype
-                      .user_phenotypes.find_by(user_id: current_user.id)
+                      .user_phenotypes
+                      .find_by(user_id: current_user.id)
     @similar_variations = VariationRecommender
                           .recommendations_for(@user_phenotype, 3)
 
