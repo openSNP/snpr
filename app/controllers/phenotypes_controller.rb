@@ -89,26 +89,23 @@ class PhenotypesController < ApplicationController
                 .order('created_at ASC')
     @phenotype_comment = PhenotypeComment.new
     @user_phenotype = UserPhenotype.new
-    @similar_phenotypes = PhenotypeRecommender
-                          .new
-                          .recommendations_for(@phenotype.id, 6)
+    @similar_phenotypes =
+      PhenotypeRecommender.new.recommendations_for(@phenotype.id, 6)
   end
 
   def recommend_phenotype
     @phenotype = Phenotype.find(params[:id])
 
     # get up to three similar phenotypes regardless of variation
-    @similar_phenotypes = PhenotypeRecommender
-                          .new
-                          .recommendations_for(@phenotype.id, 3)
+    @similar_phenotypes =
+      PhenotypeRecommender.new.recommendations_for(@phenotype.id, 3)
 
     # get up to three similar combinations of phenotype and variation
     @user_phenotype = @phenotype
                       .user_phenotypes
                       .find_by(user_id: current_user.id)
-    @similar_variations = VariationRecommender
-                          .new
-                          .recommendations_for(@user_phenotype, 3)
+    @similar_variations =
+      VariationRecommender.new.recommendations_for(@user_phenotype, 3)
 
     if @similar_phenotypes.none? && @similar_variations.none?
       redirect_to action: 'index'
