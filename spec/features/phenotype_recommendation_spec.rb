@@ -60,4 +60,15 @@ RSpec.feature 'Phenotype recommendation' do
       'Beard color Description: What is the color of your beard?'
     )
   end
+
+  scenario 'the user looks at a phenotype' do
+    visit "/phenotypes/#{phenotype1.id}"
+
+    click_on('Similar phenotypes')
+
+    within('#similar') do
+      expect(page).to have_content(phenotype2.characteristic)
+      expect(page).to have_content(phenotype3.characteristic)
+    end
+  end
 end

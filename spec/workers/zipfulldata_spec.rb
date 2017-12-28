@@ -14,7 +14,7 @@ describe Zipfulldata do
   let(:zipfile) { double('zipfile') }
 
   before do
-    allow(Sidekiq::Client).to receive(:enqueue).with(Preparsing, instance_of(Fixnum))
+    allow(Sidekiq::Client).to receive(:enqueue).with(Preparsing, instance_of(Integer))
     tmp_dir = job.instance_variable_get(:@tmp_dir) + '_test_' +
       Digest::SHA1.hexdigest("#{Time.now.to_i}#{rand}")
     job.instance_variable_set(:@tmp_dir, tmp_dir)
