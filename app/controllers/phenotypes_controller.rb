@@ -98,8 +98,8 @@ class PhenotypesController < ApplicationController
       similar_ids = similar_ids.map(&:item_id)
     end
     @similar_phenotypes = Phenotype
-      .where('id in (?)', similar_ids.map(&:item_id))
-      .limit(6)
+                          .where('id in (?)', similar_ids.map(&:item_id))
+                          .limit(6)
   end
 
   def recommend_phenotype
