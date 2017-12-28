@@ -76,7 +76,7 @@ and `.env.development`). The [dotenv](https://github.com/bkeepers/dotenv) gem
 will pick them up and set the environment variables. If you need to override
 variables locally, click
 [here](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use) for
-instrutions
+instructions.
 
 Copy `config/database.yml.example` to `config/database.yml` and adapt to your
 database setup. Specially, pay attention to the database username and password
