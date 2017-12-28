@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-env_file_name = ARGV[0] || '.env.example'
+env_file_name = ARGV[0] || '.env.development'
 puts File.read(env_file_name)
          .split(/ |=/)
          .grep(/\A[_A-Z0-9]+\z/)
