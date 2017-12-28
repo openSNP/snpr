@@ -70,11 +70,13 @@ bundle install
 
 ## Setup config
 
-All configuration is done via environment variables. A file with a
-working environment for development can be found at `.env.example`.
-Simply copy it to `.env` to use it as is. The
-[dotenv](https://github.com/bkeepers/dotenv) gem will pick it up
-and set the environment variables.
+All configuration is done via environment variables. Files for setting up
+working environments for testing and development are included (i.e. `.env.test`
+and `.env.development`). The [dotenv](https://github.com/bkeepers/dotenv) gem
+will pick them up and set the environment variables. If you need to override
+variables locally, click
+[here](https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use) for
+instrutions
 
 Copy `config/database.yml.example` to `config/database.yml` and adapt to your
 database setup. Specially, pay attention to the database username and password
