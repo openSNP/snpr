@@ -94,7 +94,7 @@ class PhenotypesController < ApplicationController
   end
 
   def recommend_phenotype
-    @phenotype = Phenotype.find_by(id: params[:id])
+    @phenotype = Phenotype.find(params[:id])
 
     # get up to three similar phenotypes regardless of variation
     @similar_phenotypes = PhenotypeRecommender
