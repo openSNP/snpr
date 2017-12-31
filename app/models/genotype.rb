@@ -5,6 +5,8 @@ class Genotype < ActiveRecord::Base
   belongs_to :user
   has_many :user_snps, dependent: :delete_all
   validates_presence_of :user
+  validates :parse_status, inclusion: { in: %w[queued parsing done error] },
+                           allow_nil: true
 
   has_attached_file :genotype, url: '/data/:fs_filename',
                                path: "#{Rails.root}/public/data/:fs_filename"
