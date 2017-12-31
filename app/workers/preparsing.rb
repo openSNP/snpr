@@ -9,6 +9,7 @@ class Preparsing
 
   def perform(genotype_id)
     genotype = Genotype.find(genotype_id)
+    genotype.update!(parse_status: 'parsing')
 
     logger.info "Starting preparse"
     biggest = ''
@@ -134,5 +135,7 @@ class Preparsing
 
       Parsing.perform_async(genotype.id)
     end
+  rescue => e
+    genotype.update!(parse_status: 'error')
   end
 end

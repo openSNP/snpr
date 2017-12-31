@@ -21,11 +21,13 @@ class Parsing
       send_logged(:insert_into_snps)
       send_logged(:insert_into_user_snps)
     end
+    genotype.update!(parse_status: 'done')
     send_logged(:notify_user)
 
     stats[:duration] = "#{(Time.current - start_time).round(3)}s"
     logger.info("Finished parsing: #{stats.to_a.map { |s| s.join('=') }.join(', ')}")
   rescue => e
+    genotype.update!(parse_status: 'error') unless genotype.parse_status == 'done'
     logger.error("Failed with #{e.class}: #{e.message}")
     raise
   end

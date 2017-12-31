@@ -21,6 +21,7 @@ class GenotypesController < ApplicationController
   def create
     @genotype = Genotype.create(genotype_params)
     @genotype.user = current_user
+    @genotype.parse_status = 'queued'
     if @genotype.valid? && @genotype.save
       Preparsing.perform_async(@genotype.id)
       # award for genotyping-upload
