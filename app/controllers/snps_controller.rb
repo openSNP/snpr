@@ -63,9 +63,7 @@ class SnpsController < ApplicationController
       @results = json_element(params)
     end
 
-    respond_to do |format|
-      format.json { render json: @results }
-    end
+    render json: @results
   end
 
   def make_annotation(result, snp, name)
@@ -168,9 +166,7 @@ class SnpsController < ApplicationController
     end
 
     @result = result
-    respond_to do |format|
-      format.json { render json: @result }
-    end
+    render json: @result
   end
 
   private
