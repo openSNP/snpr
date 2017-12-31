@@ -19,7 +19,7 @@ class GenotypesController < ApplicationController
   end
 
   def create
-    @genotype = Genotype.create(genotype_params)
+    @genotype = Genotype.new(genotype_params)
     @genotype.user = current_user
     @genotype.parse_status = 'queued'
     if @genotype.valid? && @genotype.save
