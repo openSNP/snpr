@@ -16,9 +16,5 @@ class UpdatesController < ApplicationController
 
     @newest_paper = @newest_mendeley_paper | @newest_plos_paper
     @newest_paper.sort! { |a, b| b.id <=> a.id }
-
-    respond_to do |format|
-      format.html
-    end
   end
 end

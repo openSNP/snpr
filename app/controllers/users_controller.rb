@@ -113,18 +113,10 @@ class UsersController < ApplicationController
     @paginated_phenotype_replies = @phenotype_comment_replies
 
     @last_30_papers = LastUpdatedSnpsService.get_last_thirty_updated_snps(@user)
-    respond_to do |format|
-      format.html
-    end
   end
 
   def edit
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.xml
-    end
   end
 
   def changepassword
@@ -153,15 +145,8 @@ class UsersController < ApplicationController
 
       if params[:user][:password] or params[:user][:avatar]
         redirect_to action: 'edit', id: current_user.id
-      else
-        respond_to do |format|
-          format.js
-          format.html
-        end
       end
-
     else
-
       respond_to do |format|
         format.html do
           if request.xhr?
