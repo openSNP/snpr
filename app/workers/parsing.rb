@@ -60,6 +60,7 @@ class Parsing
       row[3].is_a?(String) && (1..2).include?(row[3].length)
     end
     @normalized_csv = csv.map { |row| row.join(',') }.join("\n")
+    raise(ParseError, 'No data found in file') if @normalized_csv.empty?
     stats[:rows_after_parsing] = csv.length
   end
 
@@ -236,4 +237,6 @@ class Parsing
     logger.info("calling of method `#{method}` took #{took} s")
     ret
   end
+
+  ParseError = Class.new(RuntimeError)
 end

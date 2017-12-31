@@ -1,18 +1,51 @@
 # frozen_string_literal: true
 describe Parsing do
-  describe '#notify_user' do
-    let(:mail) { double('mail') }
-    let(:genotype) { double('genotype', id: 1) }
-    let(:stats) { { foos: 7 } }
+  let(:genotype) do
+    create(
+      :genotype,
+      genotype: File.open(File.absolute_path('test/data/23andMe_test.csv')),
+      filetype: '23andme',
+      parse_status: 'parsing'
+    )
+  end
 
-    it 'sends an email to the user' do
-      subject.instance_variable_set(:@stats, stats)
-      subject.instance_variable_set(:@genotype, genotype)
-      expect(UserMailer).to receive(:finished_parsing).with(genotype.id, stats)
-        .and_return(mail)
-      expect(mail).to receive(:deliver_later)
+  let(:emails) do
+    ActionMailer::Base.deliveries
+  end
 
-      subject.notify_user
-    end
+  it 'parses a genotype file' do
+    described_class.new.perform(genotype.id)
+
+    genotype.reload
+
+    expect(genotype.user_snps.count).to eq(5)
+    expect(
+      genotype
+      .user_snps
+      .order(:snp_name)
+      .pluck(:genotype_id, :snp_name, :local_genotype)
+    ).to eq(
+      [
+        [genotype.id, 'rs11240777', 'AG'],
+        [genotype.id, 'rs12124819', 'AG'],
+        [genotype.id, 'rs3094315', 'AA'],
+        [genotype.id, 'rs3131972', 'GG'],
+        [genotype.id, 'rs4477212', 'AA']
+      ]
+    )
+    expect(genotype.parse_status).to eq('done')
+
+    expect(emails.count).to eq(1)
+    expect(emails.first.subject).to eq('Finished parsing your genotyping')
+  end
+
+  it 'sets the parse status to "error" if parsing failed' do
+    genotype.update!(genotype: StringIO.new('💥'))
+
+    expect do
+      described_class.new.perform(genotype.id)
+    end.to raise_error(Parsing::ParseError, 'No data found in file')
+
+    expect(genotype.reload.parse_status).to eq('error')
   end
 end
