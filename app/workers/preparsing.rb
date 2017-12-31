@@ -29,8 +29,8 @@ class Preparsing
         logger.info "copied file"
       end
 
-    rescue
-      logger.info "nothing to unzip, seems to be a text-file in the first place"
+    rescue Zip::Error
+      logger.info 'nothing to unzip, seems to be a text-file in the first place'
     end
 
     # now that they are unzipped, check if they're actually proper files
@@ -137,5 +137,6 @@ class Preparsing
     end
   rescue => e
     genotype.update!(parse_status: 'error')
+    raise
   end
 end
