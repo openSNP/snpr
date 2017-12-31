@@ -502,7 +502,8 @@ CREATE TABLE genotypes (
     genotype_content_type character varying(255),
     genotype_file_size integer,
     genotype_updated_at timestamp without time zone,
-    parse_status character varying
+    parse_status character varying,
+    parse_error_message character varying
 );
 
 
@@ -2171,4 +2172,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161226175703');
 INSERT INTO schema_migrations (version) VALUES ('20171113104813');
 
 INSERT INTO schema_migrations (version) VALUES ('20171231121548');
+
+INSERT INTO schema_migrations (version) VALUES ('20171231144834');
 
