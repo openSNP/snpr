@@ -135,7 +135,7 @@ class Preparsing
 
       Parsing.perform_async(genotype.id)
     end
-  rescue => e
+  rescue
     genotype.update!(parse_status: 'error')
     raise
   end
