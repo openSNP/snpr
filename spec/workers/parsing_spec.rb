@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# TODO: Add test cases for different filetypes.
 describe Parsing do
   let(:genotype) do
     create(
@@ -13,7 +14,7 @@ describe Parsing do
     ActionMailer::Base.deliveries
   end
 
-  it 'parses a genotype file' do
+  it 'parses a 23andme file' do
     described_class.new.perform(genotype.id)
 
     genotype.reload
