@@ -20,9 +20,22 @@ RSpec.feature 'Upload a genotype' do
       expect(page).to have_content("You've unlocked an achievement:")
     end
 
-    expect(genotype.reload.parse_status).to eq('queued')
+    expect(page).to have_content('Your genotypes')
+
+    within('#genotypes') do
+      expect(find_all('table tbody tr td').map(&:text)).to eq(
+        [genotype.id.to_s, '23andme', genotype.created_at.to_s, 'queued', '0']
+      )
+    end
+
     Preparsing.perform_async(genotype.id)
-    expect(genotype.reload.parse_status).to eq('done')
-    expect(genotype.user_snps).to be_present
+
+    visit current_url
+
+    within('#genotypes') do
+      expect(find_all('table tbody tr td').map(&:text)).to eq(
+        [genotype.id.to_s, '23andme', genotype.created_at.to_s, 'done', '5']
+      )
+    end
   end
 end
