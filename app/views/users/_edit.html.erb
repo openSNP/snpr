@@ -5,6 +5,7 @@
 
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
+    <li role="presentation"><a href="#genotypes" aria-controls="genotypes" role="tab" data-toggle="tab">Your genotypes</a></li>
     <li role="presentation"><a href="#phenotypes" aria-controls="phenotypes" role="tab" data-toggle="tab">Your phenotypes</a></li>
     <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
     <li role="presentation"><a href="#openhumans" aria-controls="openhumans" role="tab" data-toggle="tab">Open Humans</a></li>
@@ -41,12 +42,27 @@
 
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__genotypes" id="genotypes">
   		<h2 class="tabs__one-tab-title">Your Genotypes</h2>
-      <table>
+      <table class="table">
         <thead>
           <tr>
-            <th>File</th>
+            <th>ID</th>
+            <th>Source</th>
+            <th>Uploaded at</th>
+            <th>Parse status</th>
+            <th>Imported SNPs</th>
           </tr>
         </thead>
+        <tbody>
+          <% @user.genotypes.order('created_at DESC').each do |genotype| %>
+            <tr>
+              <td><%= genotype.id %></td>
+              <td><%= genotype.filetype %></td>
+              <td><%= genotype.created_at %></td>
+              <td><%= display_parse_status(genotype) %></td>
+              <td><%= genotype.user_snps.count %></td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
 
