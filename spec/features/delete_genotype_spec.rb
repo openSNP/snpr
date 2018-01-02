@@ -18,9 +18,9 @@ RSpec.feature 'Delete a genotype', :js, sidekiq: :inline do
     click_on('Settings')
     click_on('Your genotypes')
     within('#genotypes') do
-      page.accept_confirm do
-        click_on('Delete')
-      end
+      page.accept_confirm(
+        "Are you sure you want to delete genotype #{genotype.genotype_file_name}"
+      ) { find('[title="delete"]').click }
     end
 
     expect(page).to have_content('Your Genotyping will be deleted. ' \

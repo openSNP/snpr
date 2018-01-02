@@ -30,7 +30,7 @@ RSpec.feature 'Upload a genotype' do
           genotype.created_at.to_s,
           'queued',
           '0',
-          'Delete'
+          ''
         ]
       )
     end
@@ -47,7 +47,7 @@ RSpec.feature 'Upload a genotype' do
           genotype.created_at.to_s,
           'done',
           '5',
-          'Delete'
+          ''
         ]
       )
     end

@@ -10,3 +10,6 @@ en:
           attributes:
             phenotype:
               taken: 'has already been entered.'
+  confirm_delete: 'Are you sure?'
+  delete: 'delete'
+  download: 'download'

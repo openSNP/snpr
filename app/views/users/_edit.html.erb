@@ -89,7 +89,15 @@
               <td><%= genotype.created_at %></td>
               <td><%= display_parse_status(genotype) %></td>
               <td><%= genotype.user_snps.count %></td>
-              <td><%= delete_genotype_button(genotype) %></td>
+              <td class="pull-right">
+                <%= download_button(download_genotype_path(genotype)) %>
+                <%= delete_button(
+                  genotype,
+                  data: {
+                    confirm: t('.genotypes.confirm_delete', file_name: genotype.genotype_file_name)
+                  }
+                ) %>
+              </td>
             </tr>
           <% end %>
         </tbody>

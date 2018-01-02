@@ -66,6 +66,14 @@ class GenotypesController < ApplicationController
     redirect_to current_user
   end
 
+  def download
+    genotype = Genotype.find(params[:id])
+    send_data(
+      File.open(genotype.genotype.path),
+      filename: genotype.genotype_file_name
+    )
+  end
+
   private
 
   def sort_column
