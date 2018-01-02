@@ -116,14 +116,11 @@ class Preparsing
       genotype.update!(parse_status: 'error')
       if file_is_duplicate
         UserMailer.duplicate_file(genotype.user_id).deliver_later
-        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
       elsif file_has_mails
         UserMailer.file_has_mails(genotype.user_id).deliver
-        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
       else
         UserMailer.parsing_error(genotype.user_id).deliver_later
         logger.info "file is not ok, sending email"
-        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
       end
     else
       logger.info "Updating genotype with md5sum #{md5}"
