@@ -73,21 +73,23 @@
       <table class="table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Source</th>
+            <th>Type</th>
+            <th>Filename</th>
             <th>Uploaded at</th>
             <th>Parse status</th>
             <th>Imported SNPs</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <% @user.genotypes.order('created_at DESC').each do |genotype| %>
             <tr>
-              <td><%= genotype.id %></td>
               <td><%= genotype.filetype %></td>
+              <td><%= genotype.genotype_file_name %></td>
               <td><%= genotype.created_at %></td>
               <td><%= display_parse_status(genotype) %></td>
               <td><%= genotype.user_snps.count %></td>
+              <td><%= delete_genotype_button(genotype) %></td>
             </tr>
           <% end %>
         </tbody>
@@ -173,14 +175,7 @@
       </dl>
     </div>
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__deleting" id="deleting">
-      <h2 class="tabs__one-tab-title">Deleting</h2>
-      <h3>Genotypes</h3>
-      <% if not @user.genotypes.empty? %>
-        <% @user.genotypes.each do |ug| %>
-          <p><%= link_to "Genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?", class: "btn btn-default settings__deleting-button" %> </p>
-        <% end %>
-      <% end %>
-      <h3>Account</h3>
+      <h2 class="tabs__one-tab-title">Delete account</h2>
       <p><%= link_to "Delete this account", @user, method: "delete", class: "btn btn-default settings__deleting-button", data: { confirm: 'Are you sure you want to delete your account?' } %></p>
     </div>
 

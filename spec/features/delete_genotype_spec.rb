@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-RSpec.feature 'Delete a genotype', sidekiq: :inline do
+RSpec.feature 'Delete a genotype', :js, sidekiq: :inline do
   let(:user) { create(:user, name: 'Gregor Mendel') }
   let!(:genotype) { create(:genotype, user: user, genotype_file_name: 'test.txt') }
   let(:award) { Achievement.find_by(award: 'Published genotyping') }
@@ -16,8 +16,12 @@ RSpec.feature 'Delete a genotype', sidekiq: :inline do
 
     click_on('Gregor Mendel')
     click_on('Settings')
-    click_on('Deleting')
-    click_on('Genotype test.txt')
+    click_on('Your genotypes')
+    within('#genotypes') do
+      page.accept_confirm do
+        click_on('Delete')
+      end
+    end
 
     expect(page).to have_content('Your Genotyping will be deleted. ' \
                                  'This may take a few minutes.')
