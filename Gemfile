@@ -71,7 +71,8 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'selenium-webdriver', require: false
+  gem 'chromedriver-helper'
   gem 'database_cleaner'
   gem 'timecop'
 end
