@@ -4,3 +4,4 @@ en:
       genotypes:
         confirm_delete: 'Are you sure you want to delete genotype %{file_name}?'
         imported_snps: 'Imported SNPs'
+        upload_new: 'Upload new genotype'

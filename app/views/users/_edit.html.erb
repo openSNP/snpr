@@ -70,6 +70,7 @@
 
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__genotypes" id="genotypes">
       <h2 class="tabs__one-tab-title">Your Genotypes</h2>
+      <%= link_to(t('.genotypes.upload_new'), new_genotype_path, class: 'btn btn-default pull-right') %>
       <table class="table">
         <thead>
           <tr>
