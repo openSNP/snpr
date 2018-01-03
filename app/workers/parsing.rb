@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Parsing
   include Sidekiq::Worker
-  sidekiq_options queue: :user_snps, retry: 5, unique: true
+  sidekiq_options queue: :user_snps, retry: false, unique: true
 
   attr_reader :genotype, :temp_table_name, :normalized_csv, :stats, :start_time
 
