@@ -73,11 +73,11 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Type</th>
-            <th>Filename</th>
-            <th>Uploaded at</th>
-            <th>Parse status</th>
-            <th>Imported SNPs</th>
+            <th><%= Genotype.human_attribute_name(:filetype) %></th>
+            <th><%= Genotype.human_attribute_name(:filename) %></th>
+            <th><%= Genotype.human_attribute_name(:created_at) %></th>
+            <th><%= Genotype.human_attribute_name(:parse_status) %></th>
+            <th><%= t('.genotypes.imported_snps') %></th>
             <th></th>
           </tr>
         </thead>

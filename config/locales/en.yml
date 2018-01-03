@@ -4,6 +4,9 @@
 en:
   hello: "Hello world"
   activerecord:
+    attributes:
+      genotype:
+        created_at: 'Uploaded at'
     errors:
       models:
         user_phenotype:
