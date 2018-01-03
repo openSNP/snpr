@@ -5,3 +5,8 @@ en:
         confirm_delete: 'Are you sure you want to delete genotype %{file_name}?'
         imported_snps: 'Imported SNPs'
         upload_new: 'Upload new genotype'
+        parse_error_info: >
+          If the parse status shows %{error_label}, check if your uploaded file
+          looks alright and try again. Note: While zipped files (.zip) work,
+          gzipped ones (.gz) do not for now. If it still does not work,
+          <a href="/about-us">contact us</a>.

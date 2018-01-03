@@ -88,7 +88,7 @@
               <td><%= genotype.filetype %></td>
               <td><%= genotype.genotype_file_name %></td>
               <td><%= genotype.created_at %></td>
-              <td><%= display_parse_status(genotype) %></td>
+              <td><%= genotype_parse_status_label(genotype.parse_status) %></td>
               <td><%= genotype.user_snps.count %></td>
               <td class="pull-right">
                 <%= download_button(download_genotype_path(genotype)) %>
@@ -103,6 +103,9 @@
           <% end %>
         </tbody>
       </table>
+      <div class="well well-sm">
+        <%= t('.genotypes.parse_error_info', error_label: genotype_parse_status_label('error')).html_safe %>
+      </div>
     </div>
 
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__phenotypes" id="phenotypes">
