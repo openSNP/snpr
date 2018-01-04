@@ -107,15 +107,9 @@ class FitbitProfilesController < ApplicationController
   def dump
     @fitbit_profile = FitbitProfile.find_by_id(params[:id]) || not_found
     FitbitDump.perform_async(@fitbit_profile.id,current_user.id)
-    respond_to do |format|
-      format.html
-    end
   end
 
   def info
-    respond_to do |format|
-      format.html
-    end
   end
 
   private

@@ -27,11 +27,6 @@ class PicturePhenotypesController < ApplicationController
     @phenotype = PicturePhenotype.new
     @user_phenotype = UserPicturePhenotype.new
     @title = 'Create a new picture phenotype'
-
-    respond_to do |format|
-      format.html
-      format.xml
-    end
   end
 
   def create
@@ -97,11 +92,6 @@ class PicturePhenotypesController < ApplicationController
       @user_phenotype = UserPicturePhenotype.find_by_user_id_and_picture_phenotype_id(current_user.id,@phenotype.id)
     else
       @user_phenotype = UserPicturePhenotype.new
-    end
-
-    respond_to do |format|
-      format.html
-      format.xml
     end
   end
 

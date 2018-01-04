@@ -40,11 +40,6 @@ class PhenotypesController < ApplicationController
 
     # Make list of phenotypes for autocomplete
     @phenotype_list = Phenotype.pluck(:characteristic).to_json
-
-    respond_to do |format|
-      format.html
-      format.xml
-    end
   end
 
   def create
@@ -132,10 +127,6 @@ class PhenotypesController < ApplicationController
                             params[:variation], current_user.email)
     @phenotype = Phenotype.find(params[:id])
     @variation = params[:variation]
-    respond_to do |format|
-      format.html
-      format.xml
-    end
   end
 
   def json_variation
@@ -156,10 +147,7 @@ class PhenotypesController < ApplicationController
       @result['error'] = 'Sorry, this phenotype doesn\'t exist'
     end
 
-    respond_to do |format|
-      format.json { render json: @result }
-    end
-
+    render json: @result
   end
 
   def json
@@ -186,9 +174,7 @@ class PhenotypesController < ApplicationController
       @results = json_element(params)
     end
 
-    respond_to do |format|
-      format.json { render json: @results }
-    end
+    render json: @results
   end
 
   def json_element(params)
