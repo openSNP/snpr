@@ -5,6 +5,8 @@ class Genotype < ActiveRecord::Base
   belongs_to :user
   has_many :user_snps, dependent: :delete_all
   validates_presence_of :user
+  validates :parse_status, inclusion: { in: %w[queued parsing done error] },
+                           allow_nil: true
 
   has_attached_file :genotype, url: '/data/:fs_filename',
                                path: "#{Rails.root}/public/data/:fs_filename"
@@ -13,6 +15,10 @@ class Genotype < ActiveRecord::Base
     presence: true,
     size: { in: 0..400.megabytes }
   do_not_validate_attachment_file_type :genotype
+
+  def self.successfully_parsed
+    where("parse_status IS NULL OR parse_status = 'done'")
+  end
 
   def is_image?
     false

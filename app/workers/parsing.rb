@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Parsing
   include Sidekiq::Worker
-  sidekiq_options queue: :user_snps, retry: 5, unique: true
+  sidekiq_options queue: :user_snps, retry: false, unique: true
 
   attr_reader :genotype, :temp_table_name, :normalized_csv, :stats, :start_time
 
@@ -21,11 +21,13 @@ class Parsing
       send_logged(:insert_into_snps)
       send_logged(:insert_into_user_snps)
     end
+    genotype.update!(parse_status: 'done')
     send_logged(:notify_user)
 
     stats[:duration] = "#{(Time.current - start_time).round(3)}s"
     logger.info("Finished parsing: #{stats.to_a.map { |s| s.join('=') }.join(', ')}")
   rescue => e
+    genotype.update!(parse_status: 'error') unless genotype.parse_status == 'done'
     logger.error("Failed with #{e.class}: #{e.message}")
     raise
   end
@@ -58,6 +60,7 @@ class Parsing
       row[3].is_a?(String) && (1..2).include?(row[3].length)
     end
     @normalized_csv = csv.map { |row| row.join(',') }.join("\n")
+    raise(ParseError, 'No data found in file') if @normalized_csv.empty?
     stats[:rows_after_parsing] = csv.length
   end
 
@@ -234,4 +237,6 @@ class Parsing
     logger.info("calling of method `#{method}` took #{took} s")
     ret
   end
+
+  ParseError = Class.new(RuntimeError)
 end

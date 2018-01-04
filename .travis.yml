@@ -5,6 +5,7 @@ addons:
   apt:
     packages:
     - libhiredis-dev
+  chrome: stable
   postgresql: '9.3'
 services:
   - redis-server

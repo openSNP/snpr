@@ -7,12 +7,49 @@ RSpec.feature 'Upload a genotype' do
     sign_in(user)
   end
 
+  let(:genotype) { Genotype.last }
+
   scenario 'uploads first genotype' do
     visit '/genotypes/new'
+
     attach_file('genotype[genotype]', File.absolute_path('test/data/23andMe_test.csv'))
     choose '23andme-format'
-    click_on 'Upload'
-    expect(page).to have_content('Genotype was successfully uploaded!')
-    expect(page).to have_content("You've unlocked an achievement:")
+    Sidekiq::Testing.disable! do
+      click_on 'Upload'
+      expect(page).to have_content('Genotype was successfully uploaded!')
+      expect(page).to have_content("You've unlocked an achievement:")
+    end
+
+    expect(page).to have_content('Your genotypes')
+
+    within('#genotypes') do
+      expect(find_all('table tbody tr td').map(&:text)).to eq(
+        [
+          '23andme',
+          genotype.genotype_file_name,
+          genotype.created_at.to_s,
+          'queued',
+          '0',
+          ''
+        ]
+      )
+    end
+
+    Preparsing.perform_async(genotype.id)
+
+    visit current_url
+
+    within('#genotypes') do
+      expect(find_all('table tbody tr td').map(&:text)).to eq(
+        [
+          '23andme',
+          genotype.genotype_file_name,
+          genotype.created_at.to_s,
+          'done',
+          '5',
+          ''
+        ]
+      )
+    end
   end
 end

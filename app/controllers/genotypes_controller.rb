@@ -6,10 +6,10 @@ class GenotypesController < ApplicationController
 
   def index
     @title = "Listing all genotypings"
-    @genotypes =
-      Genotype
-      .includes(:user)
-      .order("#{sort_column} #{sort_direction}")
+    @genotypes = Genotype
+                 .successfully_parsed
+                 .includes(:user)
+                 .order("#{sort_column} #{sort_direction}")
     @genotypes_paginate = @genotypes.paginate(page: params[:page], per_page: 20)
   end
 
@@ -19,8 +19,9 @@ class GenotypesController < ApplicationController
   end
 
   def create
-    @genotype = Genotype.create(genotype_params)
+    @genotype = Genotype.new(genotype_params)
     @genotype.user = current_user
+    @genotype.parse_status = 'queued'
     if @genotype.valid? && @genotype.save
       Preparsing.perform_async(@genotype.id)
       # award for genotyping-upload
@@ -36,7 +37,11 @@ class GenotypesController < ApplicationController
       if current_user.has_sequence == false
         current_user.toggle!(:has_sequence)
       end
-      redirect_to(current_user, notice: 'Genotype was successfully uploaded! Parsing and annotating might take a couple of <strike>hours</strike> days.')
+
+      redirect_to(
+        edit_user_path(current_user, anchor: 'genotypes'),
+        notice: t('.uploaded_successfully')
+      )
     else
       render action: 'new'
     end
@@ -61,6 +66,14 @@ class GenotypesController < ApplicationController
     redirect_to current_user
   end
 
+  def download
+    genotype = Genotype.find(params[:id])
+    send_data(
+      File.open(genotype.genotype.path),
+      filename: genotype.genotype_file_name
+    )
+  end
+
   private
 
   def sort_column
@@ -74,5 +87,4 @@ class GenotypesController < ApplicationController
   def genotype_params
     params.require(:genotype).permit(:genotype, :filetype)
   end
-
 end

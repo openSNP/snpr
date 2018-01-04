@@ -31,7 +31,7 @@
         <td class="table-cell vertical-centered"><%= g.id %></td>
         <td class="table-cell vertical-centered"><%= g.created_at%></td>
         <td class="table-cell vertical-centered"><%= g.filetype %></td>
-        <td class="table-cell vertical-centered"><%= link_to "Download", '../data/' + g.fs_filename, class: "btn btn-default" %></td>
+        <td class="table-cell vertical-centered"><%= download_button(download_genotype_path(g)) %></td>
       </tr>
       <% end %>
     </table>

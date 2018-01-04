@@ -4,11 +4,11 @@ require 'digest'
 
 class Preparsing
   include Sidekiq::Worker
-  # only retry 10 times - after that, the genotyping probably has already been deleted
-  sidekiq_options queue: :preparse, retry: 10, unique: true
+  sidekiq_options queue: :preparse, retry: false, unique: true
 
   def perform(genotype_id)
     genotype = Genotype.find(genotype_id)
+    genotype.update!(parse_status: 'parsing')
 
     logger.info "Starting preparse"
     biggest = ''
@@ -28,8 +28,8 @@ class Preparsing
         logger.info "copied file"
       end
 
-    rescue
-      logger.info "nothing to unzip, seems to be a text-file in the first place"
+    rescue Zip::Error
+      logger.info 'nothing to unzip, seems to be a text-file in the first place'
     end
 
     # now that they are unzipped, check if they're actually proper files
@@ -112,19 +112,14 @@ class Preparsing
 
     # not proper file!
     if not file_is_ok
+      genotype.update!(parse_status: 'error')
       if file_is_duplicate
         UserMailer.duplicate_file(genotype.user_id).deliver_later
-        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
-        Genotype.find_by_id(genotype.id).delete
       elsif file_has_mails
         UserMailer.file_has_mails(genotype.user_id).deliver
-        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
-        Genotype.find_by_id(genotype.id).delete
       else
         UserMailer.parsing_error(genotype.user_id).deliver_later
         logger.info "file is not ok, sending email"
-        system("rm #{Rails.root}/public/data/#{genotype.fs_filename}")
-        Genotype.find_by_id(genotype.id).delete
       end
     else
       logger.info "Updating genotype with md5sum #{md5}"
@@ -134,5 +129,8 @@ class Preparsing
 
       Parsing.perform_async(genotype.id)
     end
+  rescue StandardError
+    genotype.update!(parse_status: 'error')
+    raise
   end
 end

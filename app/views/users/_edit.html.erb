@@ -4,12 +4,41 @@
   <div id="post_errors" style="display:none"></div>
 
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
-    <li role="presentation"><a href="#phenotypes" aria-controls="phenotypes" role="tab" data-toggle="tab">Your phenotypes</a></li>
-    <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
-    <li role="presentation"><a href="#openhumans" aria-controls="openhumans" role="tab" data-toggle="tab">Open Humans</a></li>
-    <li role="presentation"><a href="#notifications" aria-controls="notifications" role="tab" data-toggle="tab">Notifications</a></li>
-    <li role="presentation"><a href="#deleting" aria-controls="deleting" role="tab" data-toggle="tab">Deleting</a></li>
+    <li role="presentation" class="active">
+      <a href="#general" aria-controls="general" role="tab" data-toggle="tab">
+        General
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#genotypes" aria-controls="genotypes" role="tab" data-toggle="tab">
+        Your genotypes
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#phenotypes" aria-controls="phenotypes" role="tab" data-toggle="tab">
+        Your phenotypes
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#details" aria-controls="details" role="tab" data-toggle="tab">
+        Details
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#openhumans" aria-controls="openhumans" role="tab" data-toggle="tab">
+        Open Humans
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#notifications" aria-controls="notifications" role="tab" data-toggle="tab">
+        Notifications
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#deleting" aria-controls="deleting" role="tab" data-toggle="tab">
+        Deleting
+      </a>
+    </li>
   </ul>
 
   <div class="tab-content">
@@ -39,8 +68,48 @@
       </div>
     </div>
 
+    <div role="tabpanel" class="tab-pane well tabs__one-tab settings__genotypes" id="genotypes">
+      <h2 class="tabs__one-tab-title">Your Genotypes</h2>
+      <%= link_to(t('.genotypes.upload_new'), new_genotype_path, class: 'btn btn-default pull-right') %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th><%= Genotype.human_attribute_name(:filetype) %></th>
+            <th><%= Genotype.human_attribute_name(:filename) %></th>
+            <th><%= Genotype.human_attribute_name(:created_at) %></th>
+            <th><%= Genotype.human_attribute_name(:parse_status) %></th>
+            <th><%= t('.genotypes.imported_snps') %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.genotypes.order('created_at DESC').each do |genotype| %>
+            <tr>
+              <td><%= genotype.filetype %></td>
+              <td><%= genotype.genotype_file_name %></td>
+              <td><%= genotype.created_at %></td>
+              <td><%= genotype_parse_status_label(genotype.parse_status) %></td>
+              <td><%= genotype.user_snps.count %></td>
+              <td class="pull-right">
+                <%= download_button(download_genotype_path(genotype)) %>
+                <%= delete_button(
+                  genotype,
+                  data: {
+                    confirm: t('.genotypes.confirm_delete', file_name: genotype.genotype_file_name)
+                  }
+                ) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="well well-sm">
+        <%= t('.genotypes.parse_error_info', error_label: genotype_parse_status_label('error')).html_safe %>
+      </div>
+    </div>
+
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__phenotypes" id="phenotypes">
-  		<h2 class="tabs__one-tab-title">Your Phenotypes</h2>
+      <h2 class="tabs__one-tab-title">Your Phenotypes</h2>
       <div class="row settings__phenotypes-options">
         <div class="col-md-offset-1 col-md-4 settings__phenotypes-options-sex">
           <h4 class="text-center"><%= f.label :sex, "Chromosomal Sex"%></h4>
@@ -74,7 +143,7 @@
           <%= link_to "Add phenotype", {controller: "phenotypes", action: "new"}, class:"btn btn-default center-block settings__add-phenotype-button" %>
         </div>
       </div>
-   	</div>
+    </div>
 
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__details" id="details">
       <div class="clearfix">
@@ -118,14 +187,7 @@
       </dl>
     </div>
     <div role="tabpanel" class="tab-pane well tabs__one-tab settings__deleting" id="deleting">
-      <h2 class="tabs__one-tab-title">Deleting</h2>
-      <h3>Genotypes</h3>
-      <% if not @user.genotypes.empty? %>
-        <% @user.genotypes.each do |ug| %>
-          <p><%= link_to "Genotype #{ug.genotype_file_name}", ug, method: "delete", confirm: "Are you sure you want to delete genotype #{ug.genotype_file_name.to_s}?", class: "btn btn-default settings__deleting-button" %> </p>
-        <% end %>
-      <% end %>
-      <h3>Account</h3>
+      <h2 class="tabs__one-tab-title">Delete account</h2>
       <p><%= link_to "Delete this account", @user, method: "delete", class: "btn btn-default settings__deleting-button", data: { confirm: 'Are you sure you want to delete your account?' } %></p>
     </div>
 

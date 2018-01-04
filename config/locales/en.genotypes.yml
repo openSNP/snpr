@@ -1,0 +1,4 @@
+en:
+  genotypes:
+    create:
+      uploaded_successfully: 'Genotype was successfully uploaded! Parsing and annotating might take a couple of minutes.'

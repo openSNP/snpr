@@ -62,7 +62,7 @@ class GenotypesControllerTest < ActionController::TestCase
               { genotype: genotype_file, filetype: "23andme"}
           end
         end
-        assert_redirected_to user_path(@user)
+        assert_redirected_to edit_user_path(@user, anchor: 'genotypes')
         assert_equal @publishing_award.id, UserAchievement.last.achievement_id
         FileUtils.rm("#{Rails.root}/test/fixtures/testdatensatz1_23andme.txt")
       end
