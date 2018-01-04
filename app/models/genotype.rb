@@ -16,6 +16,10 @@ class Genotype < ActiveRecord::Base
     size: { in: 0..400.megabytes }
   do_not_validate_attachment_file_type :genotype
 
+  def self.successfully_parsed
+    where("parse_status IS NULL OR parse_status = 'done'")
+  end
+
   def is_image?
     false
   end

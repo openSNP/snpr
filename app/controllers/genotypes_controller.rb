@@ -6,10 +6,10 @@ class GenotypesController < ApplicationController
 
   def index
     @title = "Listing all genotypings"
-    @genotypes =
-      Genotype
-      .includes(:user)
-      .order("#{sort_column} #{sort_direction}")
+    @genotypes = Genotype
+                 .successfully_parsed
+                 .includes(:user)
+                 .order("#{sort_column} #{sort_direction}")
     @genotypes_paginate = @genotypes.paginate(page: params[:page], per_page: 20)
   end
 
@@ -87,5 +87,4 @@ class GenotypesController < ApplicationController
   def genotype_params
     params.require(:genotype).permit(:genotype, :filetype)
   end
-
 end
