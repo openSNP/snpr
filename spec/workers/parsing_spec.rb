@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # TODO: Add test cases for different filetypes.
 describe Parsing do
   let(:genotype) do

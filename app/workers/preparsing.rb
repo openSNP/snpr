@@ -129,7 +129,7 @@ class Preparsing
 
       Parsing.perform_async(genotype.id)
     end
-  rescue
+  rescue StandardError
     genotype.update!(parse_status: 'error')
     raise
   end

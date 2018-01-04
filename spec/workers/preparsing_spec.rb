@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Preparsing do
   context 'when the genotype is valid' do
     let(:genotype) do

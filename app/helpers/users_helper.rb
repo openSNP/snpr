@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UsersHelper
   def genotype_parse_status_label(parse_status)
     label_class = case parse_status
