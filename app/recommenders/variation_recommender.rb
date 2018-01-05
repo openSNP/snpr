@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class VariationRecommender < Recommendify::Base
   include RecommenderDeleteItems
 
@@ -24,7 +25,7 @@ class VariationRecommender < Recommendify::Base
                     .for("#{user_phenotype.phenotype_id}=>#{user_phenotype.variation}")
                     .take(count)
     phenotype_ids = neighbors.map(&method(:phenotype_id_from_neighbor))
-    phenotypes = Phenotype.find(phenotype_ids).index_by(&:id)
+    phenotypes = Phenotype.where(id: phenotype_ids).index_by(&:id)
 
     neighbors.map do |neighbor|
       phenotype = phenotypes.fetch(phenotype_id_from_neighbor(neighbor))
