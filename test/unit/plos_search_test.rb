@@ -12,7 +12,7 @@ class PlosSearchTest < ActiveSupport::TestCase
       with(body: { 'api_key' => 'xxx', 'q' => @snp.name, 'rows' => '999', 'start' => '0' }).
       to_return(status: 200, body: response)
     PlosSearch.stubs(:api_key).returns('xxx')
-    Sidekiq::Client.expects(:enqueue).with(PlosDetails, instance_of(Integer))
+    Sidekiq::Client.expects(:enqueue).with(PlosDetails, instance_of(Fixnum))
     assert_difference(-> { PlosPaper.count }) do
       PlosSearch.new.perform(@snp.id)
     end
