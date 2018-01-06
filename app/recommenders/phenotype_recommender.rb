@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PhenotypeRecommender < Recommendify::Base
   include RecommenderDeleteItems
 
@@ -25,6 +26,6 @@ class PhenotypeRecommender < Recommendify::Base
                         .take(count)
                         .map(&:item_id)
     return [] if phenotype_ids.empty?
-    Phenotype.find(phenotype_ids)
+    Phenotype.where(id: phenotype_ids)
   end
 end
