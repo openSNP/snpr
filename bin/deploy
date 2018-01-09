@@ -6,4 +6,4 @@ curl -s -X POST \
   -H 'Travis-API-Version: 3' \
   -H "Authorization: token ${TRAVIS_API_TOKEN}" \
   -d '{"request":{"branch":"master"}}' \
-  https://api.travis-ci.org/repo/opensnp%2Fopsnsnp.org-docker/requests
+  https://api.travis-ci.org/repo/opensnp%2Fopensnp.org-docker/requests
