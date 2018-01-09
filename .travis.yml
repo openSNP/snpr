@@ -37,7 +37,8 @@ after_success:
   - bin/cc-test-reporter sum-coverage --parts 2 coverage/test-unit/codeclimate.json coverage/rspec/codeclimate.json
   - bin/cc-test-reporter upload-coverage
 
-  - if [ "$TRAVIS_BRANCH" == 'master' -a "$TRAVIS_PULL_REQUEST" == 'false' ]; then
+  - |
+    if [ "$TRAVIS_BRANCH" == 'master' -a "$TRAVIS_PULL_REQUEST" == 'false' ]; then
       curl -s -X POST \
         -H 'Content-Type: application/json' \
         -H 'Accept: application/json' \
