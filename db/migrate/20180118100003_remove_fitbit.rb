@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RemoveFitbit < ActiveRecord::Migration
   def self.up
     drop_table :fitbit_activities
