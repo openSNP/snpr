@@ -1,9 +1,24 @@
-#!/usr/bin/env sh
+#!/usr/bin/env ruby
 
-curl -s -X POST \
+require 'json'
+
+snpr_rev = `git rev-parse HEAD`.strip
+body = {
+  'request' => {
+    'branch' => 'master',
+    'config' => {
+      'merge_mode' => 'deep_merge',
+      'env' => {
+        'SNPR_REV' => snpr_rev
+      }
+    }
+  }
+}
+
+`curl -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   -H 'Travis-API-Version: 3' \
-  -H "Authorization: token ${TRAVIS_API_TOKEN}" \
-  -d '{"request":{"branch":"master"}}' \
-  https://api.travis-ci.org/repo/openSNP%2Fopensnp.org-docker/requests
+  -H 'Authorization: token #{ENV['TRAVIS_API_TOKEN']}' \
+  -d '#{body.to_json}' \
+  https://api.travis-ci.org/repo/openSNP%2Fopensnp.org-docker/requests`
