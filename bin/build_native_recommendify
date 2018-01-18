@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+TMP_PATH='/tmp/recommendify-bundle'
+
+recommendiy_path=$(bundle show recommendify)
+cd $recommendiy_path
+bundle install --path $TMP_PATH
+bundle exec rake build_native
+rm -rf $TMP_PATH
