@@ -33,8 +33,6 @@ docker run -d \
            -e POSTGRES_URL='postgres://postgres@postgres/postgres' \
            -e SECRET_KEY_BASE=foo \
            -e SECRET_TOKEN=bar \
-           -e FITBIT_CONSUMER_KEY=foo \
-           -e FITBIT_CONSUMER_SECRET=bar \
            -e PLOS_API_KEY=foo \
            -e RECAPTCHA_PRIVATE_KEY=foo \
            -e RECAPTCHA_PUBLIC_KEY=bar \

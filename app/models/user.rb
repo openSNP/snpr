@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
   has_many :snp_comments # these shouldn't be deleted, but orphaned
   has_many :phenotype_comments, dependent: :destroy
   has_many :picture_phenotype_comments, dependent: :destroy
-  has_one :fitbit_profile, dependent: :destroy
   has_one :open_humans_profile, dependent: :destroy
 
   # needed to edit several user_phenotypes at once, add and delete, and not empty

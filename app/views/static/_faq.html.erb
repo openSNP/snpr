@@ -3,7 +3,7 @@
   <ul class="nav nav-tabs faq__questions-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#updating-data" aria-controls="home" role="tab" data-toggle="tab">Uploading data</a></li>
     <li role="presentation"><a href="#downloading-data" aria-controls="profile" role="tab" data-toggle="tab">Downloading data</a></li>
-    <li role="presentation"><a href="#phenotype-fitbit" aria-controls="messages" role="tab" data-toggle="tab">Phenotypes & Fitbit</a></li>
+    <li role="presentation"><a href="#phenotype-fitbit" aria-controls="messages" role="tab" data-toggle="tab">Phenotypes</a></li>
     <li role="presentation"><a href="#filetypes" aria-controls="settings" role="tab" data-toggle="tab">Filetypes</a></li>
     <li role="presentation"><a href="#json-api" aria-controls="settings" role="tab" data-toggle="tab">JSON-API</a></li>
     <li role="presentation"><a href="#distributed-system" aria-controls="settings" role="tab" data-toggle="tab">Distributed Annotation System</a></li>
@@ -386,96 +386,6 @@
               <div class='panel-body'>
                 <p>
                   <strong>1.</strong> Use a reasonable name for your characteristic. Don't make it too long, but at the same time make sure that people get the general idea of what you want to know. <br/><strong>2.</strong> You should also make sure that the same phenotype is not already available in the openSNP-database. As soon as you start writing your characteristics name openSNP will try to auto-complete what you are writing. This should reduce duplicate phenotypes, so if you are about to enter "eye-colour" you will get a suggestions for the already available "eye-color" (Sorry, we can't solve the AE / BE issue here).<br/><strong>3.</strong> Write a description about the characteristic you are interested in. Give users some words why this is interesting. Maybe add what research has been done so far on this phenotype. Links to further web-resources and/or Wikipedia might also be a good idea. If you already have suggestions which different answers might apply to this phenotype: List them in the description. <br/><strong>4.</strong> Enter your own variation: The last field, "variation" is meant to carry your own variation for this phenotype. Don't enter all possible answers (You can list those in the description). Other users can easily add their own variation and take your suggestions from the description or - if you forgot to list a possible answer - give completely new answers.
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="faq__single-question ">
-          <div class='panel panel-default faq__single-question-div'>
-            <div class='panel-heading faq__single-question-panel'>
-              <h4 class="panel-title clearfix faq__question-title">
-                <a data-toggle='collapse' data-target='#question21' href='#question21' class="pull-left faq__title-content" data-js="panel-header">What is <em>Fitbit</em>?</a>
-                <a data-toggle='collapse' data-target='#question21' href='#question21' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
-              </h4>
-            </div>
-            <div id='question21' class='panel-collapse collapse'>
-              <div class='panel-body'>
-                <p>
-                  <em>Fitbit</em> is a wearable gadget which allows you to track your activities (How many steps have you taken? How many floors have you climbed?) and your sleep (How long did you sleep? How often have you awoken at night?). The tracker displays this information on the <em>Fitbit</em> website and calculates how efficient you sleep and many calories you have burned. Their website also allows you to track your body-development (i.e. your weight/BMI) and how much food you have eaten.
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="faq__single-question ">
-          <div class='panel panel-default faq__single-question-div'>
-            <div class='panel-heading faq__single-question-panel'>
-              <h4 class="panel-title clearfix faq__question-title">
-                <a data-toggle='collapse' data-target='#question22' href='#question22' class="pull-left faq__title-content" data-js="panel-header">Which data will <em>openSNP</em> save from <em>Fitbit</em>? And will it be public?</a>
-                <a data-toggle='collapse' data-target='#question22' href='#question22' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
-              </h4>
-            </div>
-            <div id='question22' class='panel-collapse collapse'>
-              <div class='panel-body'>
-                <p>
-                  If you connect your <em>Fitbit</em> account with <em>openSNP</em> we will save data for up to three different categories: Activities, Body and Sleep. In the activity category we will save your step-count and the number of floors you've climbed for each day. For the body category we will save your Body Mass Index and your weight for each day. In the sleep category we will save how many minutes you have slept, how many minutes you were awake while you tried to sleep, how long it took you to fall asleep and the number of times you awoke for each night.<br/><br/>If you connect your <em>Fitbit</em> account we will also save as much data of past days as it's possible to get through the API of <em>Fitbit</em>. This data is as public as are the genotyping datasets or all standard phenotypes which are entered into openSNP. So please be sure you want the world to be able to see this data.
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="faq__single-question ">
-          <div class='panel panel-default faq__single-question-div'>
-            <div class='panel-heading faq__single-question-panel'>
-              <h4 class="panel-title clearfix faq__question-title">
-                <a data-toggle='collapse' data-target='#question23' href='#question23' class="pull-left faq__title-content" data-js="panel-header">Can I choose which data <em>openSNP</em> should save and which not?</a>
-                <a data-toggle='collapse' data-target='#question23' href='#question23' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
-              </h4>
-            </div>
-            <div id='question23' class='panel-collapse collapse'>
-              <div class='panel-body'>
-                <p>
-                  Yes, you can choose which for which categories we should save the data. For example you can share our activity-data, so people can see the number of steps you have taken for each day, along with the floors you have climbed, but keep your body and sleep data on <em>FitBit</em>.Two things you should keep in mind: You can (de)activate the saving of data for different categories at any time. <br/><br/>1. If you deactivate a category we will delete all of your data of this category from <em>openSNP</em> (but of course not on <em>Fitbit</em>).<br/>2. If activate a category we will try to save as many data from the past as possible. So if there is past data you don't want to share you probably should not activate it (or delete the data from <em>Fitbit</em>).
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="faq__single-question ">
-          <div class='panel panel-default faq__single-question-div'>
-            <div class='panel-heading faq__single-question-panel'>
-              <h4 class="panel-title clearfix faq__question-title">
-                <a data-toggle='collapse' data-target='#question24' href='#question24' class="pull-left faq__title-content" data-js="panel-header">Do you get write-access to my <em>Fitbit</em> account?</a>
-                <a data-toggle='collapse' data-target='#question24' href='#question24' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
-              </h4>
-            </div>
-            <div id='question24' class='panel-collapse collapse'>
-              <div class='panel-body'>
-                <p>
-                   No, if you connect your <em>Fitbit</em> account with <em>openSNP</em> we only have read-access. The read-access gives us access to all data you have in your <em>Fitbit</em> account, but we will only read and save the data for which you have given us permission. We're sorry that you have to trust us in this point but the <em>Fitbit</em> API currently doesn't allow for a more granular setting.
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="faq__single-question ">
-          <div class='panel panel-default faq__single-question-div'>
-            <div class='panel-heading faq__single-question-panel'>
-              <h4 class="panel-title clearfix faq__question-title">
-                <a data-toggle='collapse' data-target='#question25' href='#question25' class="pull-left faq__title-content" data-js="panel-header">Does <em>openSNP</em> automatically get the latest data from <em>Fitbit</em>?</a>
-                <a data-toggle='collapse' data-target='#question25' href='#question25' class="hidden-xs faq__title-extend pull-right" data-js="extend-button">+</a>
-              </h4>
-            </div>
-            <div id='question25' class='panel-collapse collapse'>
-              <div class='panel-body'>
-                <p>
-                  Yes, once your <em>Fitbit</em> account is connected and set up we will get an notification from <em>Fitbit</em> each time you enter or change any data in their system. So each time your tracker uploads new data to <em>Fitbit</em> we will get those changes as well. This also works for past records. So if you change or delete entries on the <em>Fitbit</em> website those changes will be reflected on <em>openSNP</em> as well.
                 </p>
               </div>
             </div>

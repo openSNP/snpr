@@ -2,9 +2,6 @@
   <div class="col-md-10 col-xs-12 clearfix">
     <%= image_tag @user.avatar.url(:thumb), class: "hidden-xs pull-left userpage__profile-picture"%>
     <h2>Hello, <%= @first_name %>
-      <%if @user.fitbit_profile != nil%>
-      <%=link_to(image_tag("fitbit-icon.png"), {:controller => "fitbit_profiles", :action => "show", :id => @user.fitbit_profile.id}, :data => {toggle:"tooltip", placement:"bottom"}, :title => "See your Fitbit data")%>
-      <%end%>
       <%if @user.open_humans_profile != nil%>
       <%=link_to(image_tag("open_humans_logo.png", size: '32x32'), {:controller => "open_humans_profiles", :action => "index"}, :data => {toggle:"tooltip", placement:"bottom"}, :title => "Linked to an Open Humans Account")%>
       <%end%>
