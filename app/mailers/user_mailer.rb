@@ -114,13 +114,6 @@ class UserMailer < ActionMailer::Base
     mail(subject: 'openSNP.org: Sorry, there is no data to be dumped', to: target_address)
   end
 
-  def fitbit_dump(link, user_id)
-    @link = link
-    @user = User.find(user_id)
-    mail(subject: 'openSNP.org: The Fitbit-data you requested is now ready for download',
-         to: @user.email)
-  end
-
   def finished_parsing(genotype_id, stats)
     genotype = Genotype.find(genotype_id)
     @user = genotype.user

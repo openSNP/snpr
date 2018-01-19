@@ -47,7 +47,6 @@ class Zipfulldata
       logger.info("Starting zipfile #{zip_fs_path}")
       Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
-        create_fitbit_csv(zipfile)
         list_of_pics = create_picture_phenotype_csv(zipfile)
         create_picture_zip(list_of_pics, zipfile)
         create_readme(zipfile)
@@ -98,64 +97,6 @@ class Zipfulldata
     end
     logger.info('created user csv')
     zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
-  end
-
-  def create_fitbit_csv(zipfile)
-    # Create a file of fitbit-data for each user with fitbit-data
-    fitbit_profiles = FitbitProfile.
-      includes(:fitbit_activities, :fitbit_bodies, :fitbit_sleeps)
-    fitbit_profiles.each do |fp|
-      csv_file_name =
-        "#{tmp_dir}/dump_user#{fp.user.id}_fitbit_data_#{time_str}.csv"
-      csv_header = ['date', 'steps', 'floors', 'weight', 'bmi',
-                    'minutes asleep', 'minutes awake', 'times awaken',
-                    'minutes until fell asleep']
-      CSV.open(csv_file_name, "w", csv_options) do |csv|
-        csv << csv_header
-        bodies = fp.fitbit_bodies.group_by(&:date_logged)
-        sleeps = fp.fitbit_sleeps.group_by(&:date_logged)
-        activities = fp.fitbit_activities.group_by(&:date_logged)
-
-        # get all dates which have to be included in the csv
-        time_array = []
-        time_array.concat(bodies.keys)
-        time_array.concat(sleeps.keys)
-        time_array.concat(activities.keys)
-        time_array = time_array.uniq.sort
-
-        time_array.each do |d|
-          row = [d]
-
-          activity = activities[d]
-          if activity.present?
-            activity = activity.first
-            row.concat([activity.steps, activity.floors])
-          else
-            row.concat(%w(- -))
-          end
-
-          body = bodies[d]
-          if body.present?
-            body = body.first
-            row.concat([body.weight, body.bmi])
-          else
-            row.concat(%w(- -))
-          end
-
-          sleep = sleeps[d]
-          if sleep.present?
-            sleep = sleep.first
-            row.concat([sleep.minutes_asleep, sleep.minutes_awake,
-                        sleep.number_awakenings, sleep.minutes_to_sleep])
-          else
-            row.concat(%w(- - - -))
-          end
-          csv << row
-        end
-      end
-      zipfile.add("user#{fp.user.id}_fitbit_data_#{time_str}.csv", csv_file_name)
-      logger.info('Saved fibit-date for ')
-    end
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype

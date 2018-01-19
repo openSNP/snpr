@@ -39,9 +39,6 @@ Snpr::Application.routes.draw do
   get '/openhumans/new', to: 'open_humans_profiles#start_auth'
   get '/openhumans/authorize', to: 'open_humans_profiles#authorize', as: :openhumans_authorize
   get '/openhumans/destroy/:id', to: 'open_humans_profiles#destroy'
-  get '/fitbit/show/:id', to: 'fitbit_profiles#show', as: :fitbit_show
-  get '/fitbit/dump/:id', to: 'fitbit_profiles#dump', as: :fitbit_dump
-  get '/fitbit/', to: 'fitbit_profiles#index', as: :fitbit_index
   get '/phenotypesets/enter/:id', to: 'phenotype_sets#enter_userphenotypes'
   get '/phenotypesets/user_phenotypes/save', to: 'phenotype_sets#save_user_phenotypes'
   get '/users/:id/changepassword', to: 'users#changepassword'

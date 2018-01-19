@@ -10,7 +10,6 @@
   - [zipgenotyping,5]
   - [zipfulldata,5]
   - [recommend,5]
-  - [fitbit,3]
   - [frequency,1]
   - [fixphenotypes,1]
   - [default, 1]
@@ -29,7 +28,6 @@
   recommend: 1
   zipgenotyping: 1
   zipfulldata: 1
-  fitbit: 3
   frequency: 1
   fixphenotypes: 1
   mailnewgenotype: 1

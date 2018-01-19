@@ -127,7 +127,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if params[:user][:user_phenotypes_attributes].present?
-      params[:user][:user_phenotypes_attributes].each do |p|  
+      params[:user][:user_phenotypes_attributes].each do |p|
         @phenotype = UserPhenotype.find(p[1]["id"]).phenotype
         @old_variation = UserPhenotype.find_by_id(p[1]["id"]).variation
       end
@@ -186,10 +186,6 @@ class UsersController < ApplicationController
 
     flash[:notice] = 'Thank you for using openSNP. Goodbye!'
 
-    # disconnect from fitbit if needed
-    if @user.fitbit_profile != nil
-      Sidekiq::Client.enqueue(FitbitEndSubscription, @user.fitbit_profile.id)
-    end
 
     @user.destroy
 

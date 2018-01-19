@@ -48,29 +48,6 @@ describe Zipfulldata do
     expect(csv).to eq([exp_header, exp_row1, exp_row2])
   end
 
-  it "creates fitbit CSVs" do
-    file_name =
-      "#{job.tmp_dir}/dump_user#{user.id}_fitbit_data_#{job.time_str}.csv"
-    fp = create(:fitbit_profile, user: user)
-    expect(zipfile).to receive(:add).
-      with("user#{fp.user.id}_fitbit_data_#{job.time_str}.csv", file_name)
-    job.create_fitbit_csv(zipfile)
-    csv = CSV.read(file_name, job.csv_options)
-    exp_header = ["date", "steps", "floors", "weight", "bmi",
-                  "minutes asleep", "minutes awake", "times awaken",
-                  "minutes until fell asleep"]
-    exp_row = [fp.fitbit_activities.first.date_logged.to_s,
-               fp.fitbit_activities.first.steps.to_s,
-               fp.fitbit_activities.first.floors.to_s,
-               fp.fitbit_bodies.first.weight.to_s,
-               fp.fitbit_bodies.first.bmi.to_s,
-               fp.fitbit_sleeps.first.minutes_asleep.to_s,
-               fp.fitbit_sleeps.first.minutes_awake.to_s,
-               fp.fitbit_sleeps.first.number_awakenings.to_s,
-               fp.fitbit_sleeps.first.minutes_to_sleep.to_s]
-    expect(csv).to eq([exp_header, exp_row])
-  end
-
   it "creates picture phenotype CSVs" do
     user2 = create(:user)
     pp = create(:picture_phenotype)
@@ -122,7 +99,6 @@ Thanks for using openSNP!
     expect(Zip::File).to receive(:open).with(job.zip_fs_path, Zip::File::CREATE).
       and_yield(zipfile)
     expect(job).to receive(:create_user_csv).with([genotype], zipfile)
-    expect(job).to receive(:create_fitbit_csv).with(zipfile)
     expect(job).to receive(:create_picture_phenotype_csv).with(zipfile).and_return([upp])
     expect(job).to receive(:create_picture_zip).with([upp], zipfile)
     expect(job).to receive(:create_readme).with(zipfile)
