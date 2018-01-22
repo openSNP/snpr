@@ -173,7 +173,7 @@ GEM
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (2.99.3)
-    mimemagic (0.3.0)
+    mimemagic (0.3.2)
     mini_portile2 (2.3.0)
     minitest (5.10.2)
     mocha (1.2.1)
@@ -195,12 +195,12 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    paperclip (4.3.7)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
+    paperclip (5.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
       cocaine (~> 0.5.5)
       mime-types
-      mimemagic (= 0.3.0)
+      mimemagic (~> 0.3.0)
     pg (0.20.0)
     pg_search (2.0.1)
       activerecord (>= 4.2)
@@ -402,7 +402,7 @@ DEPENDENCIES
   minitest
   mocha
   nested_form!
-  paperclip (~> 4.0)
+  paperclip (~> 5.1.0)
   pg
   pg_search
   plos
