@@ -32,7 +32,7 @@ gem 'will_paginate-bootstrap'
 gem 'nested_form', git: 'https://github.com/ryanb/nested_form'
 gem 'json'
 gem 'mediawiki-gateway'
-gem 'paperclip', '~> 5.1.0'
+gem 'paperclip'
 gem 'friendly_id'
 gem 'recommendify', git: 'https://github.com/paulasmuth/recommendify', ref: '34308c4'
 
