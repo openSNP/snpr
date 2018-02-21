@@ -26,7 +26,7 @@
           <tr>
             <td class="table-cell vertical-centered"><%=np.first_author%></td>
             <%if np.class == PlosPaper%>
-            <td class="table-cell vertical-centered"><%= link_to( np.title.html_safe, "http://dx.doi.org/"+np.doi)%></td>
+            <td class="table-cell vertical-centered"><%= link_to( np.title.html_safe, "https://doi.org/"+np.doi)%></td>
             <%else%>
             <td class="table-cell vertical-centered"><%=link_to( np.title, np.mendeley_url)%></td>
             <%end%>

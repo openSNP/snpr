@@ -96,7 +96,7 @@ class SnpsController < ApplicationController
       @plos['title'] = mp.title
       @plos['publication_date'] = mp.pub_date
       @plos['number_of_readers'] = mp.reader
-      @plos['url'] = 'http://dx.doi.org/'+mp.doi
+      @plos['url'] = 'https://doi.org/' + mp.doi
       @plos['doi'] = mp.doi
       result[name]['annotations']['plos'] << @plos
     end
