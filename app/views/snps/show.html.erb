@@ -105,7 +105,7 @@
             <% @snp.plos_papers.limit(100).each do |p|%>
             <tr>
               <td class="table-cell vertical-centered"><%=p.first_author%></td>
-              <td class="table-cell vertical-centered"><%=link_to(p.title.html_safe, "http://dx.doi.org/#{p.doi}")%></td>
+              <td class="table-cell vertical-centered"><%=link_to(p.title.html_safe, "https://doi.org/#{p.doi}")%></td>
               <td class="table-cell vertical-centered"><%=p.pub_date.to_s[6,4]%></td>
               <td class="table-cell vertical-centered"><%=p.reader%></td>
             </tr>
@@ -140,9 +140,9 @@
               <td class="table-cell vertical-centered"><%=p.pub_year%></td>
               <td class="table-cell vertical-centered"><%=p.reader%></td>
               <% if p.open_access == true and p.doi != nil%>
-              <td class="table-cell vertical-centered"><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%><%= image_tag("oa_logo.png") %></td>
+              <td class="table-cell vertical-centered"><%=link_to(p.doi,"https://doi.org/"+p.doi)%><%= image_tag("oa_logo.png") %></td>
               <%elsif p.doi != nil%>
-              <td class="table-cell vertical-centered"><%=link_to(p.doi,"http://dx.doi.org/"+p.doi)%></td>
+              <td class="table-cell vertical-centered"><%=link_to(p.doi,"https://doi.org/"+p.doi)%></td>
               <%elsif p.open_access == true%>
               <td class="table-cell vertical-centered"><%=p.doi%><%= image_tag("oa_logo.png") %></td>
               <%else%>
