@@ -84,6 +84,7 @@
         Brian Degger
         Malin
         Joerg Rings
+        Katrin Leinweber
 
 /* SITE /*
         Where: https://opensnp.org
