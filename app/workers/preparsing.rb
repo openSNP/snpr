@@ -29,7 +29,7 @@ class Preparsing
       logger.info 'file is gz'
       is_collection = false
     when /gzip compressed data, last modified/
-      reader = -> (zipfile) { Gem::Package::TarReader.new(Zlib::GzipReader.open(zipfile)) }
+      reader = ->(zipfile){ Gem::Package::TarReader.new(Zlib::GzipReader.open(zipfile)) }
       is_collection = true
     when /POSIX tar archive/
       logger.info 'File is tar'
@@ -55,11 +55,13 @@ class Preparsing
         end
 
         zipfile.extract(biggest, Rails.root.join('tmp', "#{genotype.fs_filename}.csv"))
-        system("mv #{Rails.root.join('tmp', "#{genotype.fs_filename}.csv")} #{Rails.root.join('public', 'data',genotype.fs_filename)}")
+        system("mv #{Rails.root.join('tmp', "#{genotype.fs_filename}.csv")} \
+               #{Rails.root.join('public', 'data',genotype.fs_filename)}")
         logger.info 'Copied file'
       end
     else
-      system("cp #{genotype.genotype.path} #{Rails.root.join('public', 'data', genotype.fs_filename)}")
+      system("cp #{genotype.genotype.path} \
+             #{Rails.root.join('public', 'data', genotype.fs_filename)}")
     end
 
     # now that they are unzipped, check if they're actually proper files
