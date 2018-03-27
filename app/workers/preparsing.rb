@@ -18,29 +18,28 @@ class Preparsing
     #
     # There are two possible outcomes - file is a collection of files (tar, tar.gz, zip)
     # or file is a single file (ASCII, gz)
-    filetype = %x{file #{genotype.genotype.path}}
+    filetype = `file #{genotype.genotype.path}`
     case filetype
     when /ASCII text/
-      logger.info "File is flat text"
-      reader = File.method("open")
+      logger.info 'File is flat text'
+      reader = File.method('open')
       is_collection = false
     when /gzip compressed data, was/
-      reader = Zlib::GzipReader.method("open")
-      logger.info "File is gz"
+      reader = Zlib::GzipReader.method('open')
+      logger.info 'file is gz'
       is_collection = false
     when /gzip compressed data, last modified/
-      reader = lambda { |zipfile| Gem::Package::TarReader.new(Zlib::GzipReader.open(zipfile)) }
+      reader = -> (zipfile) { Gem::Package::TarReader.new(Zlib::GzipReader.open(zipfile)) }
       is_collection = true
     when /POSIX tar archive/
-      logger.info "File is tar"
-      reader = Gem::Package::TarReader.method("new")
+      logger.info 'File is tar'
+      reader = Gem::Package::TarReader.method('new')
       is_collection = true
     when /Zip archive data/
-      logger.info "File is zip"
-      reader = Zip::File.method("open")
+      logger.info 'File is zip'
+      reader = Zip::File.method('open')
       is_collection = true
     end
-
 
     if is_collection
       # Find the biggest file in the archive
@@ -55,17 +54,17 @@ class Preparsing
           end
         end
 
-        zipfile.extract(biggest,"#{Rails.root}/tmp/#{genotype.fs_filename}.csv")
-        system("mv #{Rails.root}/tmp/#{genotype.fs_filename}.csv #{Rails.root}/public/data/#{genotype.fs_filename}")
-        logger.info "copied file"
+        zipfile.extract(biggest, Rails.root.join('tmp', "#{genotype.fs_filename}.csv"))
+        system("mv #{Rails.root.join('tmp', "#{genotype.fs_filename}.csv")} #{Rails.root.join('public', 'data',genotype.fs_filename)}")
+        logger.info 'Copied file'
       end
     else
-      system("cp #{genotype.genotype.path} #{Rails.root}/public/data/#{genotype.fs_filename}")
+      system("cp #{genotype.genotype.path} #{Rails.root.join('public', 'data', genotype.fs_filename)}")
     end
 
     # now that they are unzipped, check if they're actually proper files
     file_is_ok = false
-    fh = File.open "#{Rails.root}/public/data/#{genotype.fs_filename}"
+    fh = File.open Rails.root.join('public', 'data', genotype.fs_filename)
     l = fh.readline()
     # some files, for some reason, start with the UTF-BOM-marker
     l = l.sub("\uFEFF","")
