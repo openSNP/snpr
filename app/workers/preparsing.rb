@@ -28,22 +28,22 @@ class Preparsing
     when /ASCII text/
       logger.info "File is flat text"
       reader = File.method("open")
-      is_collection = False
+      is_collection = false
     when /gzip compressed data, was/
       reader = Zlib::GzipReader.method("open")
       logger.info "File is gz"
-      is_collection = False
+      is_collection = false
     when /gzip compressed data, last modified/
       reader = lambda { |zipfile| Gem::Package::TarReader.new(Zlib::GzipReader.open(zipfile)) }
-      is_collection = True
+      is_collection = true
     when /POSIX tar archive/
       logger.info "File is tar"
       reader = Gem::Package::TarReader.method("new")
-      is_collection = True
+      is_collection = true
     when /Zip archive data/
       logger.info "File is zip"
       reader = Zip::File.method("open")
-      is_collection = True
+      is_collection = true
     end
 
 
