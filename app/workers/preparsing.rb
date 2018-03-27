@@ -4,11 +4,6 @@ require 'zlib'
 require 'rubygems/package'
 require 'digest'
 
-class Nested
-  # a weird hack to get a nested method call working like I want it to
-  def myreader(zipfile)
-
-
 class Preparsing
   include Sidekiq::Worker
   # only retry 10 times - after that, the genotyping probably has already been deleted
