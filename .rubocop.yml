@@ -4,7 +4,7 @@ AllCops:
 Rails:
   Enabled: true
 
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: leading
 
 Style/StringLiterals:
