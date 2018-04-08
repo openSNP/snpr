@@ -16,9 +16,6 @@ Style/Documentation:
 Style/IfUnlessModifier:
   Enabled: false
 
-Style/TrailingCommaInLiteral:
-  Enabled: false
-
 # Only relevant for Rails 5.
 Rails/HttpPositionalArguments:
   Enabled: false
