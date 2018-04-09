@@ -4,7 +4,7 @@ AllCops:
 Rails:
   Enabled: true
 
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: leading
 
 Style/StringLiterals:
@@ -14,9 +14,6 @@ Style/Documentation:
   Enabled: false
 
 Style/IfUnlessModifier:
-  Enabled: false
-
-Style/TrailingCommaInLiteral:
   Enabled: false
 
 # Only relevant for Rails 5.

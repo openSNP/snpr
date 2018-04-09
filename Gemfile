@@ -19,7 +19,7 @@ gem 'mendeley', git: 'https://github.com/tsujigiri/mendeley', branch: 'paging_se
 gem 'plos', require: false
 
 # DB
-gem 'pg'
+gem 'pg', '<1' # Unpin when updating Rails to 5.x
 gem 'activerecord-import', '>= 0.4.0'
 gem 'composite_primary_keys', '~> 8.0'
 gem 'pg_search'
