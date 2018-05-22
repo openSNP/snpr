@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddEncryptedBodyToMessage < ActiveRecord::Migration
   def up
     add_column :messages, :encrypted_body, :text
