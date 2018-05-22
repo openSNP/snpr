@@ -63,6 +63,8 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
+    attr_encrypted (3.1.0)
+      encryptor (~> 3.0.0)
     authlogic (4.0.1)
       activerecord (>= 4.2, < 5.3)
       activesupport (>= 4.2, < 5.3)
@@ -106,6 +108,7 @@ GEM
       dotenv (= 2.2.1)
       railties (>= 3.2, < 5.2)
     dynamic_form (1.1.4)
+    encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.9.0)
@@ -387,6 +390,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import (>= 0.4.0)
+  attr_encrypted
   authlogic
   bcrypt-ruby
   capistrano (~> 2.0)
@@ -447,4 +451,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
