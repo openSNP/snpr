@@ -2,12 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.4
--- Dumped by pg_dump version 10.4
+-- Dumped from database version 9.5.13
+-- Dumped by pg_dump version 9.5.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -513,7 +512,6 @@ CREATE TABLE public.open_humans_profiles (
 --
 
 CREATE SEQUENCE public.open_humans_profiles_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1096,182 +1094,182 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: achievements id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.achievements ALTER COLUMN id SET DEFAULT nextval('public.achievements_id_seq'::regclass);
 
 
 --
--- Name: active_admin_comments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_admin_comments ALTER COLUMN id SET DEFAULT nextval('public.active_admin_comments_id_seq'::regclass);
 
 
 --
--- Name: admin_users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_users ALTER COLUMN id SET DEFAULT nextval('public.admin_users_id_seq'::regclass);
 
 
 --
--- Name: file_links id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.file_links ALTER COLUMN id SET DEFAULT nextval('public.file_links_id_seq'::regclass);
 
 
 --
--- Name: friendly_id_slugs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
 
 
 --
--- Name: genome_gov_papers id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genome_gov_papers ALTER COLUMN id SET DEFAULT nextval('public.genome_gov_papers_id_seq'::regclass);
 
 
 --
--- Name: genotypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genotypes ALTER COLUMN id SET DEFAULT nextval('public.genotypes_id_seq'::regclass);
 
 
 --
--- Name: homepages id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.homepages ALTER COLUMN id SET DEFAULT nextval('public.homepages_id_seq'::regclass);
 
 
 --
--- Name: mendeley_papers id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.mendeley_papers ALTER COLUMN id SET DEFAULT nextval('public.mendeley_papers_id_seq'::regclass);
 
 
 --
--- Name: messages id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.messages ALTER COLUMN id SET DEFAULT nextval('public.messages_id_seq'::regclass);
 
 
 --
--- Name: open_humans_profiles id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.open_humans_profiles ALTER COLUMN id SET DEFAULT nextval('public.open_humans_profiles_id_seq'::regclass);
 
 
 --
--- Name: pgp_annotations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pgp_annotations ALTER COLUMN id SET DEFAULT nextval('public.pgp_annotations_id_seq'::regclass);
 
 
 --
--- Name: phenotype_comments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_comments ALTER COLUMN id SET DEFAULT nextval('public.phenotype_comments_id_seq'::regclass);
 
 
 --
--- Name: phenotype_sets id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_sets ALTER COLUMN id SET DEFAULT nextval('public.phenotype_sets_id_seq'::regclass);
 
 
 --
--- Name: phenotypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotypes ALTER COLUMN id SET DEFAULT nextval('public.phenotypes_id_seq'::regclass);
 
 
 --
--- Name: picture_phenotype_comments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotype_comments ALTER COLUMN id SET DEFAULT nextval('public.picture_phenotype_comments_id_seq'::regclass);
 
 
 --
--- Name: picture_phenotypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotypes ALTER COLUMN id SET DEFAULT nextval('public.picture_phenotypes_id_seq'::regclass);
 
 
 --
--- Name: plos_papers id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.plos_papers ALTER COLUMN id SET DEFAULT nextval('public.plos_papers_id_seq'::regclass);
 
 
 --
--- Name: snp_comments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snp_comments ALTER COLUMN id SET DEFAULT nextval('public.snp_comments_id_seq'::regclass);
 
 
 --
--- Name: snpedia_papers id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snpedia_papers ALTER COLUMN id SET DEFAULT nextval('public.snpedia_papers_id_seq'::regclass);
 
 
 --
--- Name: snps id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snps ALTER COLUMN id SET DEFAULT nextval('public.snps_id_seq'::regclass);
 
 
 --
--- Name: user_achievements id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_achievements ALTER COLUMN id SET DEFAULT nextval('public.user_achievements_id_seq'::regclass);
 
 
 --
--- Name: user_phenotypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_phenotypes ALTER COLUMN id SET DEFAULT nextval('public.user_phenotypes_id_seq'::regclass);
 
 
 --
--- Name: user_picture_phenotypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_picture_phenotypes ALTER COLUMN id SET DEFAULT nextval('public.user_picture_phenotypes_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Name: achievements achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.achievements
@@ -1279,7 +1277,7 @@ ALTER TABLE ONLY public.achievements
 
 
 --
--- Name: active_admin_comments admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_admin_comments
@@ -1287,7 +1285,7 @@ ALTER TABLE ONLY public.active_admin_comments
 
 
 --
--- Name: admin_users admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_users
@@ -1295,7 +1293,7 @@ ALTER TABLE ONLY public.admin_users
 
 
 --
--- Name: file_links file_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: file_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.file_links
@@ -1303,7 +1301,7 @@ ALTER TABLE ONLY public.file_links
 
 
 --
--- Name: friendly_id_slugs friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.friendly_id_slugs
@@ -1311,7 +1309,7 @@ ALTER TABLE ONLY public.friendly_id_slugs
 
 
 --
--- Name: genome_gov_papers genome_gov_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: genome_gov_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genome_gov_papers
@@ -1319,7 +1317,7 @@ ALTER TABLE ONLY public.genome_gov_papers
 
 
 --
--- Name: genotypes genotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: genotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genotypes
@@ -1327,7 +1325,7 @@ ALTER TABLE ONLY public.genotypes
 
 
 --
--- Name: homepages homepages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: homepages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.homepages
@@ -1335,7 +1333,7 @@ ALTER TABLE ONLY public.homepages
 
 
 --
--- Name: mendeley_papers mendeley_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: mendeley_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.mendeley_papers
@@ -1343,7 +1341,7 @@ ALTER TABLE ONLY public.mendeley_papers
 
 
 --
--- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.messages
@@ -1351,7 +1349,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- Name: open_humans_profiles open_humans_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: open_humans_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.open_humans_profiles
@@ -1359,7 +1357,7 @@ ALTER TABLE ONLY public.open_humans_profiles
 
 
 --
--- Name: pgp_annotations pgp_annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pgp_annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pgp_annotations
@@ -1367,7 +1365,7 @@ ALTER TABLE ONLY public.pgp_annotations
 
 
 --
--- Name: phenotype_comments phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_comments
@@ -1375,7 +1373,7 @@ ALTER TABLE ONLY public.phenotype_comments
 
 
 --
--- Name: phenotype_sets phenotype_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotype_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_sets
@@ -1383,7 +1381,7 @@ ALTER TABLE ONLY public.phenotype_sets
 
 
 --
--- Name: phenotypes phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotypes
@@ -1391,7 +1389,7 @@ ALTER TABLE ONLY public.phenotypes
 
 
 --
--- Name: picture_phenotype_comments picture_phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: picture_phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotype_comments
@@ -1399,7 +1397,7 @@ ALTER TABLE ONLY public.picture_phenotype_comments
 
 
 --
--- Name: picture_phenotypes picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotypes
@@ -1407,7 +1405,7 @@ ALTER TABLE ONLY public.picture_phenotypes
 
 
 --
--- Name: plos_papers plos_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: plos_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.plos_papers
@@ -1415,7 +1413,7 @@ ALTER TABLE ONLY public.plos_papers
 
 
 --
--- Name: snp_comments snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snp_comments
@@ -1423,7 +1421,7 @@ ALTER TABLE ONLY public.snp_comments
 
 
 --
--- Name: snpedia_papers snpedia_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snpedia_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snpedia_papers
@@ -1431,7 +1429,7 @@ ALTER TABLE ONLY public.snpedia_papers
 
 
 --
--- Name: snps snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snps
@@ -1439,7 +1437,7 @@ ALTER TABLE ONLY public.snps
 
 
 --
--- Name: user_achievements user_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_achievements
@@ -1447,7 +1445,7 @@ ALTER TABLE ONLY public.user_achievements
 
 
 --
--- Name: user_phenotypes user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_phenotypes
@@ -1455,7 +1453,7 @@ ALTER TABLE ONLY public.user_phenotypes
 
 
 --
--- Name: user_picture_phenotypes user_picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_picture_phenotypes
@@ -1463,7 +1461,7 @@ ALTER TABLE ONLY public.user_picture_phenotypes
 
 
 --
--- Name: user_snps user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_snps
@@ -1471,7 +1469,7 @@ ALTER TABLE ONLY public.user_snps
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -1619,7 +1617,21 @@ CREATE INDEX snps_position_idx ON public.snps USING btree ("position");
 
 
 --
--- Name: genotypes genotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_phenotypes_phenotype_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX user_phenotypes_phenotype_id_idx ON public.user_phenotypes USING btree (phenotype_id);
+
+
+--
+-- Name: user_phenotypes_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX user_phenotypes_user_id_idx ON public.user_phenotypes USING btree (user_id);
+
+
+--
+-- Name: genotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genotypes
@@ -1627,7 +1639,7 @@ ALTER TABLE ONLY public.genotypes
 
 
 --
--- Name: homepages homepages_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: homepages_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.homepages
@@ -1635,7 +1647,7 @@ ALTER TABLE ONLY public.homepages
 
 
 --
--- Name: phenotype_comments phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_comments
@@ -1643,7 +1655,7 @@ ALTER TABLE ONLY public.phenotype_comments
 
 
 --
--- Name: picture_phenotype_comments picture_phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: picture_phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotype_comments
@@ -1651,7 +1663,7 @@ ALTER TABLE ONLY public.picture_phenotype_comments
 
 
 --
--- Name: user_achievements user_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_achievements
@@ -1659,7 +1671,7 @@ ALTER TABLE ONLY public.user_achievements
 
 
 --
--- Name: user_phenotypes user_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_phenotypes
@@ -1667,7 +1679,7 @@ ALTER TABLE ONLY public.user_phenotypes
 
 
 --
--- Name: user_picture_phenotypes user_picture_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_picture_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_picture_phenotypes
@@ -1675,7 +1687,7 @@ ALTER TABLE ONLY public.user_picture_phenotypes
 
 
 --
--- Name: user_snps user_snps_genotype_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_snps_genotype_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_snps
@@ -1690,269 +1702,135 @@ SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20110608000645');
 
-INSERT INTO schema_migrations (version) VALUES ('20110608000645');
-
 INSERT INTO schema_migrations (version) VALUES ('20110615045458');
-
-INSERT INTO schema_migrations (version) VALUES ('20110615045458');
-
-INSERT INTO schema_migrations (version) VALUES ('20110615173154');
 
 INSERT INTO schema_migrations (version) VALUES ('20110615173154');
 
 INSERT INTO schema_migrations (version) VALUES ('20110616192820');
 
-INSERT INTO schema_migrations (version) VALUES ('20110616192820');
-
 INSERT INTO schema_migrations (version) VALUES ('20110617144145');
-
-INSERT INTO schema_migrations (version) VALUES ('20110617144145');
-
-INSERT INTO schema_migrations (version) VALUES ('20110819233120');
 
 INSERT INTO schema_migrations (version) VALUES ('20110819233120');
 
 INSERT INTO schema_migrations (version) VALUES ('20110820195410');
 
-INSERT INTO schema_migrations (version) VALUES ('20110820195410');
-
 INSERT INTO schema_migrations (version) VALUES ('20110821112909');
-
-INSERT INTO schema_migrations (version) VALUES ('20110821112909');
-
-INSERT INTO schema_migrations (version) VALUES ('20110822071221');
 
 INSERT INTO schema_migrations (version) VALUES ('20110822071221');
 
 INSERT INTO schema_migrations (version) VALUES ('20110822110806');
 
-INSERT INTO schema_migrations (version) VALUES ('20110822110806');
-
 INSERT INTO schema_migrations (version) VALUES ('20110823032055');
-
-INSERT INTO schema_migrations (version) VALUES ('20110823032055');
-
-INSERT INTO schema_migrations (version) VALUES ('20110824164934');
 
 INSERT INTO schema_migrations (version) VALUES ('20110824164934');
 
 INSERT INTO schema_migrations (version) VALUES ('20110830134100');
 
-INSERT INTO schema_migrations (version) VALUES ('20110830134100');
-
 INSERT INTO schema_migrations (version) VALUES ('20110912190409');
-
-INSERT INTO schema_migrations (version) VALUES ('20110912190409');
-
-INSERT INTO schema_migrations (version) VALUES ('20110914100443');
 
 INSERT INTO schema_migrations (version) VALUES ('20110914100443');
 
 INSERT INTO schema_migrations (version) VALUES ('20110914100516');
 
-INSERT INTO schema_migrations (version) VALUES ('20110914100516');
-
 INSERT INTO schema_migrations (version) VALUES ('20110914151105');
-
-INSERT INTO schema_migrations (version) VALUES ('20110914151105');
-
-INSERT INTO schema_migrations (version) VALUES ('20110917193600');
 
 INSERT INTO schema_migrations (version) VALUES ('20110917193600');
 
 INSERT INTO schema_migrations (version) VALUES ('20110926092220');
 
-INSERT INTO schema_migrations (version) VALUES ('20110926092220');
-
 INSERT INTO schema_migrations (version) VALUES ('20110926172905');
-
-INSERT INTO schema_migrations (version) VALUES ('20110926172905');
-
-INSERT INTO schema_migrations (version) VALUES ('20111005210020');
 
 INSERT INTO schema_migrations (version) VALUES ('20111005210020');
 
 INSERT INTO schema_migrations (version) VALUES ('20111006133700');
 
-INSERT INTO schema_migrations (version) VALUES ('20111006133700');
-
 INSERT INTO schema_migrations (version) VALUES ('20111006163700');
-
-INSERT INTO schema_migrations (version) VALUES ('20111006163700');
-
-INSERT INTO schema_migrations (version) VALUES ('20111007141500');
 
 INSERT INTO schema_migrations (version) VALUES ('20111007141500');
 
 INSERT INTO schema_migrations (version) VALUES ('20111007145000');
 
-INSERT INTO schema_migrations (version) VALUES ('20111007145000');
-
 INSERT INTO schema_migrations (version) VALUES ('20111018040633');
-
-INSERT INTO schema_migrations (version) VALUES ('20111018040633');
-
-INSERT INTO schema_migrations (version) VALUES ('20111028190606');
 
 INSERT INTO schema_migrations (version) VALUES ('20111028190606');
 
 INSERT INTO schema_migrations (version) VALUES ('20111028212506');
 
-INSERT INTO schema_migrations (version) VALUES ('20111028212506');
-
 INSERT INTO schema_migrations (version) VALUES ('20111029180506');
-
-INSERT INTO schema_migrations (version) VALUES ('20111029180506');
-
-INSERT INTO schema_migrations (version) VALUES ('20111102033039');
 
 INSERT INTO schema_migrations (version) VALUES ('20111102033039');
 
 INSERT INTO schema_migrations (version) VALUES ('20111212063354');
 
-INSERT INTO schema_migrations (version) VALUES ('20111212063354');
-
 INSERT INTO schema_migrations (version) VALUES ('20120208020405');
-
-INSERT INTO schema_migrations (version) VALUES ('20120208020405');
-
-INSERT INTO schema_migrations (version) VALUES ('20120324143135');
 
 INSERT INTO schema_migrations (version) VALUES ('20120324143135');
 
 INSERT INTO schema_migrations (version) VALUES ('20120509234035');
 
-INSERT INTO schema_migrations (version) VALUES ('20120509234035');
-
 INSERT INTO schema_migrations (version) VALUES ('20120902113435');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902113435');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902174500');
 
 INSERT INTO schema_migrations (version) VALUES ('20120902174500');
 
 INSERT INTO schema_migrations (version) VALUES ('20120902175000');
 
-INSERT INTO schema_migrations (version) VALUES ('20120902175000');
-
 INSERT INTO schema_migrations (version) VALUES ('20120902175500');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902175500');
-
-INSERT INTO schema_migrations (version) VALUES ('20120916211800');
 
 INSERT INTO schema_migrations (version) VALUES ('20120916211800');
 
 INSERT INTO schema_migrations (version) VALUES ('20120916212700');
 
-INSERT INTO schema_migrations (version) VALUES ('20120916212700');
-
 INSERT INTO schema_migrations (version) VALUES ('20121006230458');
-
-INSERT INTO schema_migrations (version) VALUES ('20121006230458');
-
-INSERT INTO schema_migrations (version) VALUES ('20121020153113');
 
 INSERT INTO schema_migrations (version) VALUES ('20121020153113');
 
 INSERT INTO schema_migrations (version) VALUES ('20121023032404');
 
-INSERT INTO schema_migrations (version) VALUES ('20121023032404');
-
 INSERT INTO schema_migrations (version) VALUES ('20121123234958');
-
-INSERT INTO schema_migrations (version) VALUES ('20121123234958');
-
-INSERT INTO schema_migrations (version) VALUES ('20121123235228');
 
 INSERT INTO schema_migrations (version) VALUES ('20121123235228');
 
 INSERT INTO schema_migrations (version) VALUES ('20121124201111');
 
-INSERT INTO schema_migrations (version) VALUES ('20121124201111');
-
 INSERT INTO schema_migrations (version) VALUES ('20121210131554');
-
-INSERT INTO schema_migrations (version) VALUES ('20121210131554');
-
-INSERT INTO schema_migrations (version) VALUES ('20121213120010');
 
 INSERT INTO schema_migrations (version) VALUES ('20121213120010');
 
 INSERT INTO schema_migrations (version) VALUES ('20130124085042');
 
-INSERT INTO schema_migrations (version) VALUES ('20130124085042');
-
 INSERT INTO schema_migrations (version) VALUES ('20130608135719');
-
-INSERT INTO schema_migrations (version) VALUES ('20130608135719');
-
-INSERT INTO schema_migrations (version) VALUES ('20130904010945');
 
 INSERT INTO schema_migrations (version) VALUES ('20130904010945');
 
 INSERT INTO schema_migrations (version) VALUES ('20130904010949');
 
-INSERT INTO schema_migrations (version) VALUES ('20130904010949');
-
 INSERT INTO schema_migrations (version) VALUES ('20130904010950');
-
-INSERT INTO schema_migrations (version) VALUES ('20130904010950');
-
-INSERT INTO schema_migrations (version) VALUES ('20131117101353');
 
 INSERT INTO schema_migrations (version) VALUES ('20131117101353');
 
 INSERT INTO schema_migrations (version) VALUES ('20131130123430');
 
-INSERT INTO schema_migrations (version) VALUES ('20131130123430');
-
 INSERT INTO schema_migrations (version) VALUES ('20140120005457');
-
-INSERT INTO schema_migrations (version) VALUES ('20140120005457');
-
-INSERT INTO schema_migrations (version) VALUES ('20140221060607');
 
 INSERT INTO schema_migrations (version) VALUES ('20140221060607');
 
 INSERT INTO schema_migrations (version) VALUES ('20140509001806');
 
-INSERT INTO schema_migrations (version) VALUES ('20140509001806');
-
 INSERT INTO schema_migrations (version) VALUES ('20140820071334');
-
-INSERT INTO schema_migrations (version) VALUES ('20140820071334');
-
-INSERT INTO schema_migrations (version) VALUES ('20150524081137');
 
 INSERT INTO schema_migrations (version) VALUES ('20150524081137');
 
 INSERT INTO schema_migrations (version) VALUES ('20150916070052');
 
-INSERT INTO schema_migrations (version) VALUES ('20150916070052');
-
 INSERT INTO schema_migrations (version) VALUES ('20151019160643');
-
-INSERT INTO schema_migrations (version) VALUES ('20151019160643');
-
-INSERT INTO schema_migrations (version) VALUES ('20151028130755');
 
 INSERT INTO schema_migrations (version) VALUES ('20151028130755');
 
 INSERT INTO schema_migrations (version) VALUES ('20151119070640');
 
-INSERT INTO schema_migrations (version) VALUES ('20151119070640');
-
-INSERT INTO schema_migrations (version) VALUES ('20160207043305');
-
 INSERT INTO schema_migrations (version) VALUES ('20160207043305');
 
 INSERT INTO schema_migrations (version) VALUES ('20160626121340');
-
-INSERT INTO schema_migrations (version) VALUES ('20160626121340');
-
-INSERT INTO schema_migrations (version) VALUES ('20160806143618');
 
 INSERT INTO schema_migrations (version) VALUES ('20160806143618');
 
