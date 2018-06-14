@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 class Message < ActiveRecord::Base
+  attr_encrypted :body, key: ENV.fetch('USER_DATA_SECRET_KEY')
+  attr_encrypted :subject, key: ENV.fetch('USER_DATA_SECRET_KEY')
+
   # from http://stackoverflow.com/questions/5141564/model-users-message-in-rails-3
   belongs_to :user
 
