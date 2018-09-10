@@ -1,4 +1,5 @@
 api_key.txt
+.env
 .bundle
 config/app_config.yml
 config/database.yml
