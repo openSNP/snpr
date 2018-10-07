@@ -111,10 +111,10 @@ GEM
     encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
@@ -400,7 +400,7 @@ DEPENDENCIES
   dotenv-rails
   dynamic_form
   execjs
-  factory_girl_rails
+  factory_bot_rails
   friendly_id
   guard-rspec
   i18n (>= 0.6.6)
@@ -451,4 +451,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.16.2
+   1.16.6

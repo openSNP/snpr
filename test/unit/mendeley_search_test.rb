@@ -4,7 +4,7 @@ require_relative '../test_helper'
 class MendeleySearchTest < ActiveSupport::TestCase
   context "worker" do
     setup do
-      @snp = FactoryGirl.create(:snp)
+      @snp = FactoryBot.create(:snp)
       @worker = MendeleySearch.new
       @document = {
         "uuid"         => UUIDTools::UUID.random_create.to_s,
@@ -98,8 +98,8 @@ class MendeleySearchTest < ActiveSupport::TestCase
 
       should "not update existing valid papers" do
         uuid = @document["uuid"]
-        existing_mendeley_paper = FactoryGirl.
-          build_stubbed(:mendeley_paper, uuid: uuid, snps: [@snp])
+        existing_mendeley_paper = FactoryBot
+                                   .build_stubbed(:mendeley_paper, uuid: uuid, snps: [@snp])
         MendeleyPaper.expects(:find_or_initialize_by).with(uuid: uuid).
           returns(existing_mendeley_paper)
         MendeleyPaper.any_instance.expects(:save).never
@@ -110,7 +110,7 @@ class MendeleySearchTest < ActiveSupport::TestCase
 
       should "update existing invalid papers" do
         uuid = @document["uuid"]
-        existing_mendeley_paper = FactoryGirl.create(:mendeley_paper, uuid: uuid)
+        existing_mendeley_paper = FactoryBot.create(:mendeley_paper, uuid: uuid)
         existing_mendeley_paper.update_column(:title, nil)
         Sidekiq::Client.expects(:enqueue)
         assert_difference(lambda { SnpReference.count }) do

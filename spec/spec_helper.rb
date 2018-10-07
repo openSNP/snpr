@@ -7,7 +7,7 @@ end
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'sidekiq/testing'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'pry-rails' unless ENV['CI']
 require 'authlogic/test_case'
 require 'capybara/poltergeist'
@@ -21,7 +21,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Authlogic::TestCase
 
   # ## Mock Framework

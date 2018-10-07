@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+
+FactoryBot.define do
   factory :fitbit_sleep do
     minutes_asleep 480
     minutes_awake 10

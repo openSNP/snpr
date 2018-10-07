@@ -4,7 +4,7 @@ require_relative '../test_helper'
 class UsersControllerTest < ActionController::TestCase
   context "Users" do
     setup do
-      @user = FactoryGirl.create(:user, name: "The Dude")
+      @user = FactoryBot.create(:user, name: 'The Dude')
       activate_authlogic
       assert_nil @controller.send(:current_user)
       Object.any_instance.stubs(:recaptcha_tags)
@@ -81,7 +81,7 @@ class UsersControllerTest < ActionController::TestCase
     context "other users" do
       setup do
         @controller = UsersController.new
-        @other_user = FactoryGirl.create(:user, name: "The Nihilist")
+        @other_user = FactoryBot.create(:user, name: 'The Nihilist')
         @session = UserSession.create(@other_user)
         assert_equal @other_user, @controller.send(:current_user)
       end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+
+FactoryBot.define do
   factory :mendeley_paper do
     title 'Musterstudie'
     uuid { UUIDTools::UUID.random_create.to_s }

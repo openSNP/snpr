@@ -4,7 +4,7 @@ require_relative '../test_helper'
 class GenotypesControllerTest < ActionController::TestCase
   context "Genotypes" do
     setup do
-      @genotype = FactoryGirl.create(:genotype)
+      @genotype = FactoryBot.create(:genotype)
       UserAchievement.delete_all
     end
 
@@ -40,7 +40,7 @@ class GenotypesControllerTest < ActionController::TestCase
     context "authenticated users" do
       setup do
         activate_authlogic
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
         UserSession.create(@user)
         @publishing_award = Achievement.find_by!(award: 'Published genotyping')
       end

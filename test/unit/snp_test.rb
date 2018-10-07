@@ -4,7 +4,7 @@ require_relative '../test_helper'
 class SnpTest < ActiveSupport::TestCase
   context "Snp" do
     setup do
-      @snp = FactoryGirl.create(:snp)
+      @snp = FactoryBot.create(:snp)
     end
 
     should 'sum up genotype frequencies' do

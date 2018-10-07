@@ -7,8 +7,8 @@ class BeaconControllerTest < ActionController::TestCase
     setup do
       activate_authlogic
       Sidekiq::Client.stubs(:enqueue)
-      @user = FactoryGirl.create(:user)
-      @snp = FactoryGirl.create(:snp)
+      @user = FactoryBot.create(:user)
+      @snp = FactoryBot.create(:snp)
       @snp.allele_frequency['A'] = 2
       @snp.save
       @controller.send(:reset_session)
