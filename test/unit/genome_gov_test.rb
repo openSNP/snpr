@@ -3,7 +3,7 @@ require_relative '../test_helper'
 
 class GenomeGovTest < ActiveSupport::TestCase
   setup do
-    @snp = FactoryGirl.create(:snp, name: 'rs9277554')
+    @snp = FactoryBot.create(:snp, name: 'rs9277554')
   end
 
   should 'create GenomeGovPapers' do
@@ -29,7 +29,7 @@ class GenomeGovTest < ActiveSupport::TestCase
   end
 
   should 'update existing GenomeGovPapers' do
-    paper = FactoryGirl.create(:genome_gov_paper,
+    paper = FactoryBot.create(:genome_gov_paper,
       title: "Association of granulomatosis with polyangiitis (Wegener's) with HLA-DPB1*04 and SEMA6A gene variants: evidence from genome-wide analysis.",
       pubmed_link: 'http://www.ncbi.nlm.nih.gov/pubmed/23740775')
     paper.snps << @snp

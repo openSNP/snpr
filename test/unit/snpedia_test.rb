@@ -3,7 +3,7 @@ require_relative '../test_helper'
 
 class SnpediaTest < ActiveSupport::TestCase
   setup do
-    @snp = FactoryGirl.create(:snp, name: 'rs12979860',
+    @snp = FactoryBot.create(:snp, name: 'rs12979860',
                               snpedia_updated: 32.days.ago)
   end
 
@@ -27,7 +27,7 @@ class SnpediaTest < ActiveSupport::TestCase
   end
 
   should 'skip existing papers' do
-    FactoryGirl.create(:snpedia_paper,
+    FactoryBot.create(:snpedia_paper,
                        revision: 445428,
                        url: "http://www.snpedia.com/index.php/Rs12979860(C;C)",
                        snps: [@snp])

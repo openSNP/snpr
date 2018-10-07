@@ -7,18 +7,18 @@ class SnpsControllerTest < ActionController::TestCase
     setup do
       activate_authlogic
       Sidekiq::Client.stubs(:enqueue)
-      @user = FactoryGirl.create(:user)
-      @snp = FactoryGirl.create(:snp)
-      @snp_comment = FactoryGirl.create(:snp_comment, snp: @snp, user: @user)
-      @user_snp = FactoryGirl.create(:user_snp, snp: @snp, user: @user)
+      @user = FactoryBot.create(:user)
+      @snp = FactoryBot.create(:snp)
+      @snp_comment = FactoryBot.create(:snp_comment, snp: @snp, user: @user)
+      @user_snp = FactoryBot.create(:user_snp, snp: @snp, user: @user)
       @controller.send(:reset_session)
     end
 
     should "be shown" do
-      FactoryGirl.create(:mendeley_paper, snps: [@snp])
-      FactoryGirl.create(:plos_paper, snps: [@snp])
-      FactoryGirl.create(:snpedia_paper, snps: [@snp])
-      FactoryGirl.create(:genome_gov_paper, snps: [@snp])
+      FactoryBot.create(:mendeley_paper, snps: [@snp])
+      FactoryBot.create(:plos_paper, snps: [@snp])
+      FactoryBot.create(:snpedia_paper, snps: [@snp])
+      FactoryBot.create(:genome_gov_paper, snps: [@snp])
       get(:show, id: @snp.name)
       assert_response :success
     end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :snp_comment do
     comment_text 'This is a great SNP!'
     subject 'Great!'

@@ -3,7 +3,7 @@ require_relative '../test_helper'
 
 class PlosSearchTest < ActiveSupport::TestCase
   setup do
-    @snp = FactoryGirl.create(:snp)
+    @snp = FactoryBot.create(:snp)
   end
 
   should "create new PlosPapers for results from PLOS API" do
@@ -27,7 +27,7 @@ class PlosSearchTest < ActiveSupport::TestCase
   end
 
   should "update existing PlosPapers" do
-    plos_paper = FactoryGirl.create(:plos_paper, doi: 'x')
+    plos_paper = FactoryBot.create(:plos_paper, doi: 'x')
     article = mock(
       authors:      ['Max Mustermann'],
       id:           'x',
