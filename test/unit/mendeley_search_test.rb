@@ -98,8 +98,8 @@ class MendeleySearchTest < ActiveSupport::TestCase
 
       should "not update existing valid papers" do
         uuid = @document["uuid"]
-        existing_mendeley_paper = FactoryBot.
-          build_stubbed(:mendeley_paper, uuid: uuid, snps: [@snp])
+        existing_mendeley_paper = FactoryBot
+          .build_stubbed(:mendeley_paper, uuid: uuid, snps: [@snp])
         MendeleyPaper.expects(:find_or_initialize_by).with(uuid: uuid).
           returns(existing_mendeley_paper)
         MendeleyPaper.any_instance.expects(:save).never
