@@ -48,6 +48,14 @@
       <%end%>
     </div>
     <%end%>
+    <noscript>
+    <div class="container-fluid warnings_container" id="alert-messages">
+        <div class="warning__alert alert alert-danger text-center center-block" data-dismiss="alert">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          <strong>It seems like you have JavaScript disabled. This will make some features of openSNP.org, like the drop-down menus, break.</strong>
+    </div>
+    </noscript>
+
     <div class="container-fluid warnings_container" id="alert-messages">
       <div id="flash_notice" class="alert alert-success" style="display:none"></div>
       <% if flash[:notice] %>
