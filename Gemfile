@@ -77,10 +77,10 @@ group :test do
 end
 
 group :development, :test do
-  gem 'uuidtools'
-  gem 'pry-rails', require: 'pry' unless ENV['CI']
   gem 'factory_bot_rails'
   gem 'launchy'
+  gem 'pry-rails', require: 'pry' unless ENV['CI']
+  gem 'uuidtools'
 end
 
 group :development do
