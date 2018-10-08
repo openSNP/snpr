@@ -9,7 +9,6 @@
 //= require ./jqplot.highlighter.min.js
 //= require ./jqplot.pieRenderer.min.js
 //= require jquery_nested_form
-//= require bootstrap.min
 //= require_self
 // = require_tree .
 
