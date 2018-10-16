@@ -43,7 +43,7 @@
           <li><%= link_to("Settings", "/users/"+current_user.id.to_s+"/edit", class: "navbar-menu__options", :id => current_user) %></li>
           <li><%= link_to("Edit Your Phenotypes", "/users/"+current_user.id.to_s+"/edit#phenotypes", class: "navbar-menu__options")%></li>
           <li class="divider"></li>
-          <li><%= link_to("Messages ("+current_user.messages.where(:user_has_seen => false).length.to_s+")","/users/" + current_user.id.to_s + "#messages", :method => "get", class: "navbar-menu__options")%></li>
+          <li><%= link_to "Messages (#{current_user.messages.where(:user_has_seen => false).length})", user_path(current_user, anchor: 'messages'), class: 'navbar-menu__options' %></li>
           <li class="divider"></li>
           <li><%= link_to("Sign out", '/signout', class: "navbar-menu__options") %></li>
         </ul>

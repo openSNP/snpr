@@ -46,7 +46,6 @@ $(document).ready(function() {
             $('#help_three').hide('slow');
         };
     });
-
     // Jump to tab if link like rs7412080#plos is opened
     $(function(){
         var hash = window.location.hash;
@@ -54,6 +53,6 @@ $(document).ready(function() {
         if (anchor.length > 0){
             anchor.click();
         }
-    });
+});
 
 });
