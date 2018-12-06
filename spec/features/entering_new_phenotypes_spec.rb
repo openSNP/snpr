@@ -38,7 +38,7 @@ RSpec.feature 'Entering new phenotypes' do
         .to match_array(['Created a new phenotype', 'Entered first phenotype'])
 
       expect(ActionMailer::Base.deliveries.count).to eq(1)
-      expect(ActionMailer::Base.deliveries.first.body.parts.first.body.raw_source)
+      expect(ActionMailer::Base.deliveries.first.text_part.decoded)
         .to include(<<-TXT.strip_heredoc.gsub(/ +/, ' '))
           Dear Max Mustermann,
 
