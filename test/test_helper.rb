@@ -6,7 +6,6 @@ SimpleCov.start('rails') do
 end
 require File.expand_path('../../config/environment', __FILE__)
 require "test/unit"
-require "shoulda-context"
 require "mocha/setup"
 require 'rails/test_help'
 require "authlogic/test_case"
