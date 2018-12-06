@@ -65,7 +65,6 @@ group :test do
   gem 'test-unit' # TODO: Remove me
   gem 'minitest' # TODO: Remove me
   gem 'rspec-rails'
-  gem 'shoulda-context'
   gem 'mocha', require: false
   gem 'simplecov', require: false
   gem 'webmock'
