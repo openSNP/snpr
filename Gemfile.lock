@@ -179,7 +179,7 @@ GEM
     mime-types (2.99.3)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
     mocha (1.5.0)
       metaclass (~> 0.0.1)
@@ -193,8 +193,8 @@ GEM
     net-ssh-gateway (2.0.0)
       net-ssh (>= 4.0.0)
     netrc (0.11.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
     nokogumbo (1.5.0)
       nokogiri
     notiffany (0.1.1)
@@ -451,4 +451,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
