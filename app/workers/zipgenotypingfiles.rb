@@ -1,37 +1,82 @@
 # frozen_string_literal: true
-require 'zip'
 
 class Zipgenotypingfiles
   include Sidekiq::Worker
   sidekiq_options queue: :zipgenotyping, retry: 5, unique: true
 
   def perform(phenotype_id, variation, target_address)
-    @user_phenotypes = UserPhenotype
-      .where(phenotype_id: phenotype_id)
-      .search(variation)
-    @genotyping_files = []
-    @user_phenotypes.each do |up|
-      @user = User.find_by_id(up.user_id)
-      if @user.genotypes.length != 0
-        @user.genotypes.each do |g|
-          @genotyping_files << g
-        end
-      end
-    end
+    @phenotype = Phenotype.find(phenotype_id)
+    @variation = variation
+    @target_address = target_address
+    @time = Time.now.to_s.gsub(':', '_')
 
-    if @genotyping_files != []
-      @time = Time.now.to_s.gsub(':', '_')
-      if File.exist?(::Rails.root.to_s + '/public/data/zip/' + phenotype_id.to_s + '.' + @time.to_s.gsub(' ', '_') + '.zip') == false
-        Zip::File.open(::Rails.root.to_s + '/public/data/zip/' + phenotype_id.to_s + '.' + @time.to_s.gsub(' ', '_') + '.zip', Zip::File::CREATE) do |zipfile|
-          @genotyping_files.each do |gen_file|
-            zipfile.add('user' + gen_file.user_id.to_s + '_file' + gen_file.id.to_s + '_yearofbirth' + gen_file.user.yearofbirth + '_sex' + gen_file.user.sex + '.' + gen_file.filetype + '.txt', ::Rails.root.to_s + '/public/data/' + gen_file.fs_filename)
-          end
-        end
-      end
-      system('chmod 777 ' + ::Rails.root.to_s + '/public/data/zip/' + phenotype_id.to_s + '.' + @time.to_s.gsub(' ', '_') + '.zip')
-      UserMailer.genotyping_results(target_address, '/data/zip/' + phenotype_id.to_s + '.' + @time.to_s.gsub(' ', '_') + '.zip', Phenotype.find_by_id(phenotype_id).characteristic, variation).deliver_later
+    if genotypes.empty?
+      send_no_results
+      return
     else
-      UserMailer.no_genotyping_results(target_address, Phenotype.find_by_id(phenotype_id).characteristic, variation).deliver_later
+      zip_genotypes
+      send_results
     end
+  end
+
+  def zip_genotypes
+    return if File.exist?(zip_file_path)
+
+    Zip::File.open(zip_file_path, Zip::File::CREATE) do |zipfile|
+      genotypes.each do |genotype|
+        zipfile.add(
+          zipped_file_name(genotype),
+          Rails.root.join('public', 'data', genotype.fs_filename)
+        )
+      end
+    end
+    File.chmod(0777, zip_file_path)
+  end
+
+  def send_results
+    UserMailer.genotyping_results(
+      target_address,
+      zip_file_path.to_s,
+      phenotype.characteristic,
+      variation
+    ).deliver_later
+  end
+
+  def zipped_file_name(genotype)
+    "user#{genotype.user_id}_file#{genotype.id}_yearofbirth" \
+      "#{genotype.user.yearofbirth}_sex#{genotype.user.sex}.#{genotype.filetype}.txt"
+  end
+
+  def send_no_results
+    UserMailer.no_genotyping_results(
+      target_address,
+      phenotype.characteristic,
+      variation
+    ).deliver_later
+  end
+
+  private
+
+  attr_reader :phenotype, :variation, :target_address, :time
+
+  def genotypes
+    @genotypes ||= user_phenotypes.includes(:user).flat_map do |user_phenotype|
+      user_phenotype.user.genotypes
+    end
+  end
+
+  def user_phenotypes
+    UserPhenotype
+      .where(phenotype_id: phenotype.id)
+      .search(variation)
+  end
+
+  def zip_file_path
+    @zip_file_path ||= Rails.root.join(
+      'public',
+      'data',
+      'zip',
+      "#{phenotype.id}.#{time.to_s.gsub(' ', '_')}.zip"
+    )
   end
 end
