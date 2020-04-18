@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Zipgenotypingfiles do
+RSpec.describe ZipGenotypingFiles do
   subject(:worker) { described_class.new }
 
   let!(:tentacle) { create(:phenotype, characteristic: 'tentacle') }

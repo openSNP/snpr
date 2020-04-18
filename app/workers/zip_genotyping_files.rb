@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Zipgenotypingfiles
+class ZipGenotypingFiles
   include Sidekiq::Worker
   sidekiq_options queue: :zipgenotyping, retry: 5, unique: true
 

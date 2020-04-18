@@ -123,8 +123,11 @@ class PhenotypesController < ApplicationController
   end
 
   def get_genotypes
-    Sidekiq::Client.enqueue(Zipgenotypingfiles, params[:id],
-                            params[:variation], current_user.email)
+    ZipGenotypingFiles.perform_async(
+      params[:id],
+      params[:variation],
+      current_user.email
+    )
     @phenotype = Phenotype.find(params[:id])
     @variation = params[:variation]
   end
