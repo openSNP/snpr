@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :picture_phenotype do
-    characteristic 'Eye color'
+    characteristic { 'Eye color' }
   end
 end

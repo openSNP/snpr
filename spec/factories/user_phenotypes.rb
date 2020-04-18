@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :user_phenotype do
     association :user
     association :phenotype
-    variation 'pink'
+    variation { 'pink' }
   end
 end
