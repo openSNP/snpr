@@ -8,7 +8,7 @@ class ZipGenotypingFiles
     @phenotype = Phenotype.find(phenotype_id)
     @variation = variation
     @target_address = target_address
-    @time = Time.now.to_s.gsub(':', '_')
+    @time = Time.current.to_s.tr(':', '_')
 
     if genotypes.empty?
       send_no_results
@@ -30,7 +30,7 @@ class ZipGenotypingFiles
         )
       end
     end
-    File.chmod(0777, zip_file_path)
+    File.chmod(0o777, zip_file_path)
   end
 
   def send_results
