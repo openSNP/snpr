@@ -12,7 +12,6 @@ class ZipGenotypingFiles
 
     if genotypes.empty?
       send_no_results
-      return
     else
       zip_genotypes
       send_results
@@ -76,7 +75,7 @@ class ZipGenotypingFiles
       'public',
       'data',
       'zip',
-      "#{phenotype.id}.#{time.to_s.gsub(' ', '_')}.zip"
+      "#{phenotype.id}.#{time.to_s.tr(' ', '_')}.zip"
     )
   end
 end
