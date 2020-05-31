@@ -19,16 +19,15 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
 
-    if verify_recaptcha(model: @user)
+    if not verify_recaptcha(model: @user)
+      redirect_to "/users/#{current_user.id}#messages" and return
+    end
 
-      if @message.save && @message.send_message(@message.from_id, @message.to_id)
-        flash[:notice] = 'Message sent'
-        redirect_to "/users/#{current_user.id}#messages"
-      else
-        render action: 'new'
-      end
-    else
+    if @message.save && @message.send_message(@message.from_id, @message.to_id)
+      flash[:notice] = 'Message sent'
       redirect_to "/users/#{current_user.id}#messages"
+    else
+      render action: 'new'
     end
   end
 
