@@ -20,7 +20,8 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
 
     if !verify_recaptcha(model: @user)
-      (redirect_to "/users/#{current_user.id}#messages") && return
+      redirect_to "/users/#{current_user.id}#messages"
+      return
     end
 
     if @message.save && @message.send_message(@message.from_id, @message.to_id)
