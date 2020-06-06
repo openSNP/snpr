@@ -21,6 +21,7 @@
     <%= f.label "body"%>
     <%= f.text_area :body, :size => "10x10", class: "form-control" %>
   </div>
+  <p class="signup__recaptcha"><%= recaptcha_tags %></p>
   <%= f.submit "Send", :class => "btn btn-default btn-lg"%>
   <% end %>
 </div>

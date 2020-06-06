@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :achievement do
-    award 'Foooooooo'
+    award { 'Foooooooo' }
   end
 end
