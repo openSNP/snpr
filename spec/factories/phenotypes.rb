@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :phenotype do
-    characteristic 'Penis length'
+    characteristic { 'Penis length' }
 
     factory :phenotype_with_users do
       after :create do |t|
