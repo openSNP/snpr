@@ -153,7 +153,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
-    json (2.1.0)
+    json (2.3.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.19)
