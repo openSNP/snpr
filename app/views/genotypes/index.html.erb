@@ -3,7 +3,13 @@
     <div class="col-md-6">
       <h3>All Genotypes <%=link_to(image_tag("rss.png"),"/rss")%></h3>
       <%=auto_discovery_link_tag(:rss,"/rss", {:title => "RSS for all genotypes"})%>
-      <h4><a href="https://github.com/superbobry/snpy">Python library to parse the provided files,</a> courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></h4>
+      <div>
+        <p>Python libraries to parse the provided files:</p>
+          <ul>
+            <li><a href="https://github.com/superbobry/snpy">SNPy</a> courtesy of <a href="https://github.com/superbobry/">Sergei Lebedev</a></li>
+            <li><a href="https://pypi.org/project/snps/">snps</a> courtesy of <a href="https://github.com/apriha">Andrew Riha</a></li>
+          </ul>
+      </div>
     </div>
     <div class="genotype__download-container col-md-6 ">
       <%= link_to Zipfulldata.public_path, title: "Request download", class: "btn btn-default center-block genotype__download-button" do %>
