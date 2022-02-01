@@ -1,30 +1,54 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  ruby: circleci/ruby@1.4.0
+app-container: &app-container circleci/ruby:2.7
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.0
-    executor: ruby/default
+      - image: *app-container
     steps:
       - checkout
+      - ruby/install-deps
+  checking:
+    docker:
+      - image: *app-container
+    steps:
+      - checkout
+      - ruby/install-deps
+  test:
+    docker:
+      - image: *app-container
+      - environment:
+          POSTGRES_DB: snpr
+          POSTGRES_PASSWORD: ''
+          POSTGRES_USER: snpr
+        image: 'circleci/postgres:9.6-alpine'
+    environment:
+      BUNDLE_JOBS: '3'
+      BUNDLE_RETRY: '3'
+      PGHOST: 127.0.0.1
+      PGPASSWORD: ''
+      PGUSER: snpr
+      RAILS_ENV: test
+    parallelism: 3
+    steps:
+      - checkout
+      - ruby/install-deps
       - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+          command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
+          name: Wait for DB
+      - run:
+          command: 'bundle exec rails db:schema:load --trace'
+          name: Database setup
+      - ruby/rspec-test:
+          include: spec/**/*_spec.rb
+orbs:
+  ruby: circleci/ruby@1.4
 workflows:
-  build: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  build_and_test:
     jobs:
       - build
+      - checking
+      - test:
+          requires:
+            - build
