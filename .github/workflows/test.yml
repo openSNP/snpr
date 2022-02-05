@@ -41,6 +41,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Setup database
+        run: bundle exec rake db:setup
+
       - name: Run tests
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost/snpr
