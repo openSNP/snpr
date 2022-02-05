@@ -29,6 +29,9 @@ jobs:
         ports:
           - 5432:5432
 
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost/snpr
+
     steps:
       - name: Install hiredis
         run: |
@@ -45,7 +48,5 @@ jobs:
         run: bundle exec rake db:setup
 
       - name: Run tests
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost/snpr
         run: bundle exec rake
 
