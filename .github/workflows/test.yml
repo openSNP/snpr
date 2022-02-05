@@ -16,7 +16,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: ubuntu
+    container: ubuntu-latest
     services:
       postgres:
         image: postgres
