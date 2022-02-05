@@ -39,9 +39,6 @@ jobs:
       with:
         bundler-cache: true
 
-    - name: Configure database connection
-      run: cp config/database.yml.ci config/database.yml
-
     - name: Run tests
       env:
         DATABASE_URL: postgres://postgres:postgres@postgres/snpr
