@@ -18,6 +18,8 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+    - name: Install hiredis
+      run: sudo apt-get install -y libhiredis-dev
     - uses: actions/checkout@v2
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
