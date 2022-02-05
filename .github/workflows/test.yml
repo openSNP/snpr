@@ -29,6 +29,11 @@ jobs:
         ports:
           - 5432:5432
 
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
     env:
       DATABASE_URL: postgres://postgres:postgres@localhost/snpr
 
