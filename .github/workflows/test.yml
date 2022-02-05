@@ -30,8 +30,7 @@ jobs:
     steps:
     - name: Install hiredis
       run: |
-        apt-get update
-        apt-get install -y libhiredis-dev
+        sudo apt-get install -y libhiredis-dev
 
     - uses: actions/checkout@v2
 
