@@ -25,5 +25,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
+    - name: Configure database connection
+      run: cp config/database.yml.ci config/database.yml
     - name: Run tests
       run: bundle exec rake
