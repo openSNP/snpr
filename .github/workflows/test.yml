@@ -15,17 +15,35 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - name: Install hiredis
       run: sudo apt-get install -y libhiredis-dev
+
     - uses: actions/checkout@v2
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
+
     - name: Configure database connection
       run: cp config/database.yml.ci config/database.yml
+
     - name: Run tests
+      env:
+        DATABASE_URL: postgres://postgres:postgres@postgres/snpr
       run: bundle exec rake
+
