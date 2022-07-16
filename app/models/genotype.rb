@@ -13,6 +13,7 @@ class Genotype < ActiveRecord::Base
   validates_attachment :genotype,
     presence: true,
     size: { in: 0..400.megabytes }
+  do_not_validate_attachment_file_type :genotype
 
   def is_image?
     false
