@@ -7,7 +7,7 @@ class Genotype < ActiveRecord::Base
   validates_presence_of :user
 
   has_attached_file :genotype, url: '/data/:fs_filename',
-                               path: "#{Rails.root}/public/data/:fs_filename",
+                               path: Rails.root.join('public/data/:fs_filename').to_s,
                                validate_media_type: false
   before_post_process :is_image?
   validates_attachment :genotype,
