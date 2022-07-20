@@ -8,7 +8,7 @@ class SnpediaTest < ActiveSupport::TestCase
   end
 
   should 'create SnpediaPapers' do
-    VCR.use_cassette('snpedia_worker') do
+    VCR.use_cassette('SnpediaWorker create SnpediaPapers') do
       assert_difference(-> { SnpediaPaper.count }, 3) do
         Snpedia.new.perform(@snp.id)
       end
@@ -31,7 +31,7 @@ class SnpediaTest < ActiveSupport::TestCase
                        revision: 445428,
                        url: "http://www.snpedia.com/index.php/Rs12979860(C;C)",
                        snps: [@snp])
-    VCR.use_cassette('snpedia_worker') do
+    VCR.use_cassette('SnpediaWorker skip existing papers') do
       assert_difference(-> { SnpediaPaper.count }, 2) do
         Snpedia.new.perform(@snp.id)
       end
@@ -42,7 +42,7 @@ class SnpediaTest < ActiveSupport::TestCase
 
   should 'put a placeholder text into the summary if there is none' do
     MediaWiki::Gateway.any_instance.stubs(:get).returns('')
-    VCR.use_cassette('snpedia_worker') do
+    VCR.use_cassette('SnpediaWorker put a placeholder text into the summary if there is none') do
       Snpedia.new.perform(@snp.id)
     end
     SnpediaPaper.find_each do |sp|
@@ -52,7 +52,7 @@ class SnpediaTest < ActiveSupport::TestCase
 
   should 'skip links that are redirects' do
     MediaWiki::Gateway.any_instance.stubs(:get).returns('#REDIRECT')
-    VCR.use_cassette('snpedia_worker') do
+    VCR.use_cassette('SnpediaWorker skip links that are redirects') do
       assert_no_difference(-> { SnpediaPaper.count }) do
         Snpedia.new.perform(@snp.id)
       end
