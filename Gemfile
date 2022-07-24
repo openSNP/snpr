@@ -32,7 +32,7 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'nested_form', git: 'https://github.com/ryanb/nested_form'
 gem 'json'
-gem 'mediawiki-gateway'
+gem 'mediawiki-gateway', git: 'https://github.com/MusikAnimal/mediawiki-gateway'
 gem 'paperclip'
 gem 'friendly_id'
 gem 'recommendify', git: 'https://github.com/paulasmuth/recommendify', ref: '34308c4'
@@ -79,7 +79,7 @@ end
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'launchy'
-  gem 'pry-rails', require: 'pry' unless ENV['CI']
+  gem 'pry-rails', require: 'pry'
   gem 'uuidtools'
 end
 

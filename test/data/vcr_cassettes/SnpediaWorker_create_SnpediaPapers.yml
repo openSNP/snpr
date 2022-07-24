@@ -1,0 +1,568 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&meta=siteinfo&siprop=namespaces
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:39 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '3284'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=fXpfr8fifIUjIs9UfoeN50ak0Xe39rnHTfkWxrY+x1ynqO4WgZ5YptkaDAsrM3BJ0aGlMF/2znQtxrovqIEOmfQ51xqba0REmB8wl12i1R2DPYUVOGgqkrdSvzwO;
+        Expires=Wed, 27 Jul 2022 06:24:39 GMT; Path=/
+      - AWSALBCORS=fXpfr8fifIUjIs9UfoeN50ak0Xe39rnHTfkWxrY+x1ynqO4WgZ5YptkaDAsrM3BJ0aGlMF/2znQtxrovqIEOmfQ51xqba0REmB8wl12i1R2DPYUVOGgqkrdSvzwO;
+        Expires=Wed, 27 Jul 2022 06:24:39 GMT; Path=/; SameSite=None; Secure
+      - incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        path=/; Domain=.snpedia.com
+      - nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; path=/; Domain=.snpedia.com
+      - visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9;
+        expires=Wed, 19 Jul 2023 22:59:58 GMT; HttpOnly; path=/; Domain=.snpedia.com
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 4-63944762-63944767 NNNY CT(99 201 0) RT(1658298279119 22) q(0 0 0 0) r(2
+        2) U2
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api batchcomplete=""><query><namespaces><ns _idx="-2"
+        id="-2" case="first-letter" canonical="Media" xml:space="preserve">Media</ns><ns
+        _idx="-1" id="-1" case="first-letter" canonical="Special" xml:space="preserve">Special</ns><ns
+        _idx="0" id="0" case="first-letter" subpages="" content="" xml:space="preserve"
+        /><ns _idx="1" id="1" case="first-letter" subpages="" canonical="Talk" xml:space="preserve">Talk</ns><ns
+        _idx="2" id="2" case="first-letter" subpages="" canonical="User" xml:space="preserve">User</ns><ns
+        _idx="3" id="3" case="first-letter" subpages="" canonical="User talk" xml:space="preserve">User
+        talk</ns><ns _idx="4" id="4" case="first-letter" subpages="" canonical="Project"
+        xml:space="preserve">SNPedia</ns><ns _idx="5" id="5" case="first-letter" subpages=""
+        canonical="Project talk" xml:space="preserve">SNPedia talk</ns><ns _idx="6"
+        id="6" case="first-letter" canonical="File" xml:space="preserve">File</ns><ns
+        _idx="7" id="7" case="first-letter" subpages="" canonical="File talk" xml:space="preserve">File
+        talk</ns><ns _idx="8" id="8" case="first-letter" subpages="" canonical="MediaWiki"
+        xml:space="preserve">MediaWiki</ns><ns _idx="9" id="9" case="first-letter"
+        subpages="" canonical="MediaWiki talk" xml:space="preserve">MediaWiki talk</ns><ns
+        _idx="10" id="10" case="first-letter" subpages="" canonical="Template" xml:space="preserve">Template</ns><ns
+        _idx="11" id="11" case="first-letter" subpages="" canonical="Template talk"
+        xml:space="preserve">Template talk</ns><ns _idx="12" id="12" case="first-letter"
+        subpages="" canonical="Help" xml:space="preserve">Help</ns><ns _idx="13" id="13"
+        case="first-letter" subpages="" canonical="Help talk" xml:space="preserve">Help
+        talk</ns><ns _idx="14" id="14" case="first-letter" canonical="Category" xml:space="preserve">Category</ns><ns
+        _idx="15" id="15" case="first-letter" subpages="" canonical="Category talk"
+        xml:space="preserve">Category talk</ns><ns _idx="102" id="102" case="first-letter"
+        canonical="Property" xml:space="preserve">Property</ns><ns _idx="103" id="103"
+        case="first-letter" subpages="" canonical="Property talk" xml:space="preserve">Property
+        talk</ns><ns _idx="106" id="106" case="first-letter" canonical="Form" xml:space="preserve">Form</ns><ns
+        _idx="107" id="107" case="first-letter" subpages="" canonical="Form talk"
+        xml:space="preserve">Form talk</ns><ns _idx="108" id="108" case="first-letter"
+        canonical="Concept" content="" xml:space="preserve">Concept</ns><ns _idx="109"
+        id="109" case="first-letter" subpages="" canonical="Concept talk" xml:space="preserve">Concept
+        talk</ns><ns _idx="112" id="112" case="first-letter" canonical="smw/schema"
+        defaultcontentmodel="smw/schema" xml:space="preserve">smw/schema</ns><ns _idx="113"
+        id="113" case="first-letter" canonical="smw/schema talk" xml:space="preserve">smw/schema
+        talk</ns><ns _idx="114" id="114" case="first-letter" canonical="Rule" xml:space="preserve">Rule</ns><ns
+        _idx="115" id="115" case="first-letter" canonical="Rule talk" xml:space="preserve">Rule
+        talk</ns><ns _idx="828" id="828" case="first-letter" subpages="" canonical="Module"
+        xml:space="preserve">Module</ns><ns _idx="829" id="829" case="first-letter"
+        subpages="" canonical="Module talk" xml:space="preserve">Module talk</ns></namespaces></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:39 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&aplimit=500&apnamespace=0&apprefix=rs12979860(&format=xml&list=allpages&maxlag=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=fXpfr8fifIUjIs9UfoeN50ak0Xe39rnHTfkWxrY+x1ynqO4WgZ5YptkaDAsrM3BJ0aGlMF/2znQtxrovqIEOmfQ51xqba0REmB8wl12i1R2DPYUVOGgqkrdSvzwO;
+        AWSALBCORS=fXpfr8fifIUjIs9UfoeN50ak0Xe39rnHTfkWxrY+x1ynqO4WgZ5YptkaDAsrM3BJ0aGlMF/2znQtxrovqIEOmfQ51xqba0REmB8wl12i1R2DPYUVOGgqkrdSvzwO;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:40 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '238'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=2fQJ97ByHhwrTwZcn8nzgAamCko2ldSa05aZSEOZ0dTz2wttXtSYowkWUj1zt+2lf1cm0caB0TsDsztIEythEEfeY0FtmtULPOiJCMdkxKLxwL94cqN/e0MLnUjV;
+        Expires=Wed, 27 Jul 2022 06:24:39 GMT; Path=/
+      - AWSALBCORS=2fQJ97ByHhwrTwZcn8nzgAamCko2ldSa05aZSEOZ0dTz2wttXtSYowkWUj1zt+2lf1cm0caB0TsDsztIEythEEfeY0FtmtULPOiJCMdkxKLxwL94cqN/e0MLnUjV;
+        Expires=Wed, 27 Jul 2022 06:24:39 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 5-87366984-87365689 PNNy RT(1658298279442 20) q(0 0 0 -1) r(3 3) U2
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api batchcomplete=""><query><allpages><p pageid="15929"
+        ns="0" title="Rs12979860(C;C)" /><p pageid="15930" ns="0" title="Rs12979860(C;T)"
+        /><p pageid="15931" ns="0" title="Rs12979860(T;T)" /></allpages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:40 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BC)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=2fQJ97ByHhwrTwZcn8nzgAamCko2ldSa05aZSEOZ0dTz2wttXtSYowkWUj1zt+2lf1cm0caB0TsDsztIEythEEfeY0FtmtULPOiJCMdkxKLxwL94cqN/e0MLnUjV;
+        AWSALBCORS=2fQJ97ByHhwrTwZcn8nzgAamCko2ldSa05aZSEOZ0dTz2wttXtSYowkWUj1zt+2lf1cm0caB0TsDsztIEythEEfeY0FtmtULPOiJCMdkxKLxwL94cqN/e0MLnUjV;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:40 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '258'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=1uTjVSGx+DjrbBmkPPtpv3fMocdh19zI/cgVAAjiYyjgfaGfPOQJKj6VqDBdPsoLLhyxixjqtUumi/fMJILnshbldR2Iumb2ytRrBRnL30zvuKman0nfGjquOJ1x;
+        Expires=Wed, 27 Jul 2022 06:24:40 GMT; Path=/
+      - AWSALBCORS=1uTjVSGx+DjrbBmkPPtpv3fMocdh19zI/cgVAAjiYyjgfaGfPOQJKj6VqDBdPsoLLhyxixjqtUumi/fMJILnshbldR2Iumb2ytRrBRnL30zvuKman0nfGjquOJ1x;
+        Expires=Wed, 27 Jul 2022 06:24:40 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 6-17771498-17771499 NNNY CT(99 200 0) RT(1658298279798 22) q(0 0 0 -1) r(2
+        2) U2
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><continue rvcontinue="20091206225019|131458"
+        continue="||" /><query><pages><page _idx="15929" pageid="15929" ns="0" title="Rs12979860(C;C)"><revisions><rev
+        revid="445428" parentid="131458" /></revisions></page></pages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:40 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&rvslots=*&titles=Rs12979860(C%3BC)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=1uTjVSGx+DjrbBmkPPtpv3fMocdh19zI/cgVAAjiYyjgfaGfPOQJKj6VqDBdPsoLLhyxixjqtUumi/fMJILnshbldR2Iumb2ytRrBRnL30zvuKman0nfGjquOJ1x;
+        AWSALBCORS=1uTjVSGx+DjrbBmkPPtpv3fMocdh19zI/cgVAAjiYyjgfaGfPOQJKj6VqDBdPsoLLhyxixjqtUumi/fMJILnshbldR2Iumb2ytRrBRnL30zvuKman0nfGjquOJ1x;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:40 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '438'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=NwWevpa3Gqb5gYmUhDUERwrVKse3uH8AvrFpiQ3w28dAseKvlTUJvCqGta+6oaY/Xj/wXM7ZgaSpBG8UV+jQEIpHq/GOcY4INBCzgV1PCVhTEgMvDMjEIiBKpqvZ;
+        Expires=Wed, 27 Jul 2022 06:24:40 GMT; Path=/
+      - AWSALBCORS=NwWevpa3Gqb5gYmUhDUERwrVKse3uH8AvrFpiQ3w28dAseKvlTUJvCqGta+6oaY/Xj/wXM7ZgaSpBG8UV+jQEIpHq/GOcY4INBCzgV1PCVhTEgMvDMjEIiBKpqvZ;
+        Expires=Wed, 27 Jul 2022 06:24:40 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 10-83959738-83958113 PNNy RT(1658298280142 23) q(0 0 0 -1) r(3 3) U2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?><api batchcomplete=""><query><pages><page _idx="15929" pageid="15929" ns="0" title="Rs12979860(C;C)"><revisions><rev><slots><slot contentmodel="wikitext" contentformat="text/x-wiki" role="main" xml:space="preserve">{{Genotype
+        |allele1=C
+        |allele2=C
+        |rsid=12979860
+        |magnitude=2
+        |repute=Good
+        |summary=~80% of such hepatitis C patients respond to treatment
+        }}</slot></slots></rev></revisions></page></pages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:40 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(C%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=NwWevpa3Gqb5gYmUhDUERwrVKse3uH8AvrFpiQ3w28dAseKvlTUJvCqGta+6oaY/Xj/wXM7ZgaSpBG8UV+jQEIpHq/GOcY4INBCzgV1PCVhTEgMvDMjEIiBKpqvZ;
+        AWSALBCORS=NwWevpa3Gqb5gYmUhDUERwrVKse3uH8AvrFpiQ3w28dAseKvlTUJvCqGta+6oaY/Xj/wXM7ZgaSpBG8UV+jQEIpHq/GOcY4INBCzgV1PCVhTEgMvDMjEIiBKpqvZ;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:41 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '258'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=EANGxf2LFw1Y5rrnUMsPJVzWmvXMAnjripNLBhLvKCsbWQfqdMwkTMq0UU1HCOPU2/CZoQKc1LpMNV+WLU7OQ4aJ6F0p7sdFPL9LNXtd9QuJ9BU+7mkuOKUzWUv/;
+        Expires=Wed, 27 Jul 2022 06:24:41 GMT; Path=/
+      - AWSALBCORS=EANGxf2LFw1Y5rrnUMsPJVzWmvXMAnjripNLBhLvKCsbWQfqdMwkTMq0UU1HCOPU2/CZoQKc1LpMNV+WLU7OQ4aJ6F0p7sdFPL9LNXtd9QuJ9BU+7mkuOKUzWUv/;
+        Expires=Wed, 27 Jul 2022 06:24:41 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 3-42847746-42846617 PNNN RT(1658298280498 24) q(0 0 0 -1) r(2 2) U2
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><continue rvcontinue="20111204155633|445430"
+        continue="||" /><query><pages><page _idx="15930" pageid="15930" ns="0" title="Rs12979860(C;T)"><revisions><rev
+        revid="872819" parentid="445430" /></revisions></page></pages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:41 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&rvslots=*&titles=Rs12979860(C%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=EANGxf2LFw1Y5rrnUMsPJVzWmvXMAnjripNLBhLvKCsbWQfqdMwkTMq0UU1HCOPU2/CZoQKc1LpMNV+WLU7OQ4aJ6F0p7sdFPL9LNXtd9QuJ9BU+7mkuOKUzWUv/;
+        AWSALBCORS=EANGxf2LFw1Y5rrnUMsPJVzWmvXMAnjripNLBhLvKCsbWQfqdMwkTMq0UU1HCOPU2/CZoQKc1LpMNV+WLU7OQ4aJ6F0p7sdFPL9LNXtd9QuJ9BU+7mkuOKUzWUv/;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:41 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '720'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=vag5pqq0w34ugjeBIFb8xei27N0dj4hsmDQ20qZ9nPCJOJ9u1rywvnIsYNSHDjbDoPqHSTkL4a5WEC1BH+i1TxQ9GRjh73pMUigFXBGPzagRudejG0hxlMi6kfdb;
+        Expires=Wed, 27 Jul 2022 06:24:41 GMT; Path=/
+      - AWSALBCORS=vag5pqq0w34ugjeBIFb8xei27N0dj4hsmDQ20qZ9nPCJOJ9u1rywvnIsYNSHDjbDoPqHSTkL4a5WEC1BH+i1TxQ9GRjh73pMUigFXBGPzagRudejG0hxlMi6kfdb;
+        Expires=Wed, 27 Jul 2022 06:24:41 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 8-44826803-44826805 NNNN CT(98 101 0) RT(1658298280861 22) q(0 0 2 -1) r(5
+        5) U2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?><api batchcomplete=""><query><pages><page _idx="15930" pageid="15930" ns="0" title="Rs12979860(C;T)"><revisions><rev><slots><slot contentmodel="wikitext" contentformat="text/x-wiki" role="main" xml:space="preserve">{{Genotype
+        |allele1=C
+        |allele2=T
+        |rsid=12979860
+        |magnitude=2.5
+        |repute=Bad
+        |summary=~20-40% of such hepatitis C patients respond to treatment
+        }}
+
+        This is considered an unfavorable response genotype for hepatitis C patients considering the use of PEG-interferon-alpha containing therapeutic treatment. This basically means the odds of a successful response are lower than for patients with the [[rs12979860]](C;C) genotype.</slot></slots></rev></revisions></page></pages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:41 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvlimit=1&rvprop=ids&titles=Rs12979860(T%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=vag5pqq0w34ugjeBIFb8xei27N0dj4hsmDQ20qZ9nPCJOJ9u1rywvnIsYNSHDjbDoPqHSTkL4a5WEC1BH+i1TxQ9GRjh73pMUigFXBGPzagRudejG0hxlMi6kfdb;
+        AWSALBCORS=vag5pqq0w34ugjeBIFb8xei27N0dj4hsmDQ20qZ9nPCJOJ9u1rywvnIsYNSHDjbDoPqHSTkL4a5WEC1BH+i1TxQ9GRjh73pMUigFXBGPzagRudejG0hxlMi6kfdb;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:42 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '258'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=/pSHuxblM14sWle8MMXEccVpvgvjrofz7nndn3XelTGNcwMxeNfgdicWCpn505pLjnmbiGo1Jv8LD1Ao8p7UZqGV7j7LxskrA7RmSAq4h2Dy3Xf8GdTV2vJvbc8q;
+        Expires=Wed, 27 Jul 2022 06:24:41 GMT; Path=/
+      - AWSALBCORS=/pSHuxblM14sWle8MMXEccVpvgvjrofz7nndn3XelTGNcwMxeNfgdicWCpn505pLjnmbiGo1Jv8LD1Ao8p7UZqGV7j7LxskrA7RmSAq4h2Dy3Xf8GdTV2vJvbc8q;
+        Expires=Wed, 27 Jul 2022 06:24:41 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 10-83960100-83958113 PNNy RT(1658298281423 22) q(0 0 0 -1) r(3 3) U2
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><api><continue rvcontinue="20111204155607|445429"
+        continue="||" /><query><pages><page _idx="15931" pageid="15931" ns="0" title="Rs12979860(T;T)"><revisions><rev
+        revid="872820" parentid="445429" /></revisions></page></pages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:42 GMT
+- request:
+    method: get
+    uri: https://bots.snpedia.com/api.php?action=query&format=xml&maxlag=5&prop=revisions&rvprop=content&rvslots=*&titles=Rs12979860(T%3BT)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - MediaWiki::Gateway/1.1.0
+      Accept-Encoding:
+      - ''
+      Cookie:
+      - AWSALB=/pSHuxblM14sWle8MMXEccVpvgvjrofz7nndn3XelTGNcwMxeNfgdicWCpn505pLjnmbiGo1Jv8LD1Ao8p7UZqGV7j7LxskrA7RmSAq4h2Dy3Xf8GdTV2vJvbc8q;
+        AWSALBCORS=/pSHuxblM14sWle8MMXEccVpvgvjrofz7nndn3XelTGNcwMxeNfgdicWCpn505pLjnmbiGo1Jv8LD1Ao8p7UZqGV7j7LxskrA7RmSAq4h2Dy3Xf8GdTV2vJvbc8q;
+        incap_ses_471_1799283=J+8oAZmwkSNCCoQguVSJBqef12IAAAAAhAFqmv3Ok05NFHp1NqfOrg==;
+        nlbi_1799283=kOZJIisqqXaQbj/fZzUZVgAAAAA1xtFNATzk3sa/6vuSyEZ/; visid_incap_1799283=upown0g2RMuMRAMchCmsvaef12IAAAAAQUIPAAAAAAD8gS4gc+Jp+L0rA8XFleJ9
+      Host:
+      - bots.snpedia.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 20 Jul 2022 06:24:42 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '718'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - AWSALB=9E5Nm0NjkMZHJySD+zONSLj3IvebgcH23sF0VFMIbfSrXv6a5JGtF4KqaLbDwo2x1aBK2FQg1sRMpt/xdTd0QdXtvOn1PwBBSQaNausII54hTVZf6jjr9LB5uhAT;
+        Expires=Wed, 27 Jul 2022 06:24:42 GMT; Path=/
+      - AWSALBCORS=9E5Nm0NjkMZHJySD+zONSLj3IvebgcH23sF0VFMIbfSrXv6a5JGtF4KqaLbDwo2x1aBK2FQg1sRMpt/xdTd0QdXtvOn1PwBBSQaNausII54hTVZf6jjr9LB5uhAT;
+        Expires=Wed, 27 Jul 2022 06:24:42 GMT; Path=/; SameSite=None; Secure
+      Server:
+      - Apache/2.4.52 (Amazon) PHP/7.2.24 mod_qos/11.64
+      X-Powered-By:
+      - PHP/7.2.24
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.xml
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      X-Cdn:
+      - Imperva
+      X-Iinfo:
+      - 7-33345472-33345475 NNNY CT(99 101 0) RT(1658298281759 19) q(0 0 0 -1) r(3
+        3) U2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?><api batchcomplete=""><query><pages><page _idx="15931" pageid="15931" ns="0" title="Rs12979860(T;T)"><revisions><rev><slots><slot contentmodel="wikitext" contentformat="text/x-wiki" role="main" xml:space="preserve">{{Genotype
+        |allele1=T
+        |allele2=T
+        |rsid=12979860
+        |magnitude=3
+        |repute=Bad
+        |summary=~20-25% of such hepatitis C patients respond to treatment
+        }}
+
+        This is considered an unfavorable response genotype for hepatitis C patients considering the use of PEG-interferon-alpha containing therapeutic treatment. This basically means the odds of a successful response are lower than for patients with the [[rs12979860]](C;C) genotype.</slot></slots></rev></revisions></page></pages></query></api>
+    http_version:
+  recorded_at: Wed, 20 Jul 2022 06:24:42 GMT
+recorded_with: VCR 4.0.0
