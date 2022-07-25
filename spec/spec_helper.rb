@@ -53,6 +53,10 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation, except: %w(achievements))
+  end
+
   config.before(:example) do
     DatabaseCleaner.strategy = :transaction
   end
