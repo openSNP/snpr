@@ -8,10 +8,9 @@
 name: Ruby
 
 on:
-  push:
-    branches: [ master ]
+  push: {}
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   tests:
