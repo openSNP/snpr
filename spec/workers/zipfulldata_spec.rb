@@ -1,7 +1,7 @@
 describe Zipfulldata do
   subject(:worker) { described_class.new(output_dir: output_dir) }
 
-  let(:output_dir) { Rails.root.join('tmp/test/zipfulldata') }
+  let(:output_dir) { Rails.root.join('tmp', 'test', 'zipfulldata') }
   let(:symlink) { output_dir.join('opensnp_datadump.current.zip') }
   let(:picture_zip) { Dir[output_dir.join('opensnp_picturedump.*.zip')].last }
 
