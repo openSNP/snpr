@@ -1,112 +1,249 @@
-# frozen_string_literal: true
 describe Zipfulldata do
-  let(:user) { create(:user) }
-  let(:phenotype) { create(:phenotype, characteristic: "jump height") }
-  let!(:user_phenotype) do
-    create(:user_phenotype, phenotype_id: phenotype.id, variation: '1km', user: user)
-  end
-  let(:genotype) do
-    create(:genotype, user_id: user.id,
-           genotype: File.open("#{Rails.root}/test/data/23andMe_test.csv"))
-  end
-  let(:job) { Zipfulldata.new }
-  let(:csv_options) { { col_sep: ';' } }
-  let(:zipfile) { double('zipfile') }
+  subject(:worker) { described_class.new(output_dir: output_dir) }
+
+  let(:output_dir) { Rails.root.join('tmp/test/zipfulldata') }
+  let(:symlink) { output_dir.join('opensnp_datadump.current.zip') }
+  let(:picture_zip) { Dir[output_dir.join('opensnp_picturedump.*.zip')].last }
 
   before do
-    allow(Sidekiq::Client).to receive(:enqueue).with(Preparsing, instance_of(Integer))
-    tmp_dir = job.instance_variable_get(:@tmp_dir) + '_test_' +
-      Digest::SHA1.hexdigest("#{Time.now.to_i}#{rand}")
-    job.instance_variable_set(:@tmp_dir, tmp_dir)
-    FileUtils.touch job.zip_fs_path.to_s
-    Dir.mkdir(tmp_dir)
-    genotype
+    FileUtils.mkdir_p(output_dir)
   end
 
   after do
-    link = Rails.root.join("public/data/zip/opensnp_datadump.current.zip")
-    FileUtils.rm(link) if File.exist?(link)
-    FileUtils.rm(job.zip_fs_path) if File.exist?(job.zip_fs_path)
-    FileUtils.rm(job.zip_public_path) if File.exist?(job.zip_public_path)
+    FileUtils.rm_rf(output_dir)
   end
 
-  it "creates user CSVs" do
-    user2 = create(:user)
-    genotype2 = create(:genotype, user_id: user2.id)
-    expect(zipfile).to receive(:add).
-      with("phenotypes_#{job.time_str}.csv",
-           "#{job.tmp_dir}/dump#{job.time_str}.csv")
-    job.create_user_csv([genotype, genotype2], zipfile)
-    csv = CSV.read("#{job.tmp_dir}/dump#{job.time_str}.csv", job.csv_options)
-    exp_header = ['user_id', 'genotype_filename', 'date_of_birth', 'chrom_sex',
-                  'openhumans_name', phenotype.characteristic]
-    exp_row1 = [user.id.to_s, genotype.fs_filename, user.yearofbirth, user.sex,
-                '-', user.user_phenotypes.first.variation]
-    exp_row2 = [user2.id.to_s, genotype2.fs_filename, user2.yearofbirth,
-                user2.sex, '-', '-']
-    expect(user.user_phenotypes.first.phenotype).to eq(phenotype)
-    expect(csv).to eq([exp_header, exp_row1, exp_row2])
+  it 'creates a new dump file and symlink' do
+    worker.perform
+
+    expect(File.symlink?(symlink)).to be(true)
+    expect(File.exists?(File.readlink(symlink)))
   end
 
-  it "creates picture phenotype CSVs" do
-    user2 = create(:user)
-    pp = create(:picture_phenotype)
-    upp = create(:user_picture_phenotype, picture_phenotype: pp,
-                             user: user)
-    pic = double('picture')
-    expect(pic).to receive(:path).and_return("#{Rails.root}/foo/bar.png")
-    allow_any_instance_of(UserPicturePhenotype).to receive(:phenotype_picture).
-      and_return(pic)
-    expect(zipfile).to receive(:add).
-      with("picture_phenotypes_#{job.time_str}.csv",
-           "#{job.tmp_dir}/picture_dump#{job.time_str}.csv")
-    job.create_picture_phenotype_csv(zipfile)
-    csv = CSV.read("#{job.tmp_dir}/picture_dump#{job.time_str}.csv", csv_options)
-    expect(csv).to eq(
-      [["user_id", "date_of_birth", "chrom_sex", "Eye color"],
-       [user.id.to_s, user.yearofbirth, user.sex, "#{upp.id}.png"],
-       [user2.id.to_s, user2.yearofbirth, user2.sex, '-']]
-    )
+  it 'adds a README' do
+    worker.perform
+
+    Zip::File.open(symlink) do |zip|
+      readme = zip.read('readme.txt')
+      expect(readme).to include('This archive was generated')
+    end
   end
 
-  it "creates a readme file" do
-    expect(Phenotype).to receive(:count).and_return(42)
-    expect(Genotype).to receive(:count).and_return(23)
-    expect(PicturePhenotype).to receive(:count).and_return(5)
-    expect(zipfile).to receive(:add).
-      with("readme.txt", "#{job.tmp_dir}/dump#{job.time_str}.txt")
-    job.create_readme(zipfile)
-    readme = File.read("#{job.tmp_dir}/dump#{job.time_str}.txt")
-    exp_text = <<-TXT
-This archive was generated on #{job.time.ctime} UTC. It contains 42 phenotypes, 23 genotypes and 5 picture phenotypes.
+  context 'when deleting files' do
+    let(:unrelated_file_path) { output_dir.join('do_not_delete_me.zip') }
+    let(:old_dump_file_path) { output_dir.join('opensnp_datadump.197001010000.zip') }
 
-Thanks for using openSNP!
-    TXT
+    before do
+      [unrelated_file_path, old_dump_file_path].each do |path|
+        FileUtils.touch(path)
+      end
+    end
+
+    it 'deletes old dump files' do
+      worker.perform
+
+      expect(File.exists?(old_dump_file_path)).to be(false)
+    end
+
+    it 'does not delete unrelated files' do
+      worker.perform
+
+      expect(File.exists?(unrelated_file_path)).to be(true)
+    end
+
+    after do
+      [unrelated_file_path, old_dump_file_path].each do |path|
+        FileUtils.rm(path) if File.exists?(path)
+      end
+    end
   end
 
-  it "zips genotype files" do
-    expect(zipfile).to receive(:add).with(
-      "user#{user.id}_file#{genotype.id}_yearofbirth_#{user.yearofbirth}" +
-      "_sex_#{user.sex}.#{genotype.filetype}.txt",
-      "#{Rails.root}/public/data/#{genotype.fs_filename}")
-    job.zip_genotype_files([genotype], zipfile)
+  context 'for existing data' do
+    let!(:user_1) { create(:user, yearofbirth: 1970, sex: 'why not') }
+    let!(:genotype_1) { create(:genotype, user: user_1) }
+    let!(:open_humans_profile) do
+      create(:open_humans_profile, user: user_1, open_humans_user_id: 'oh-user')
+    end
+
+    let!(:user_2) { create(:user, yearofbirth: 1994, sex: 'no') }
+    let!(:genotype_2) { create(:genotype, user: user_2) }
+
+    let!(:user_3) { create(:user) }
+
+    let!(:phenotype_1) { create(:phenotype, characteristic: 'number of eyes') }
+    let!(:phenotype_2) { create(:phenotype, characteristic: 'length of tongue') }
+
+    let!(:user_phenotype_1) do
+      create(:user_phenotype, phenotype: phenotype_1, user: user_1, variation: '5')
+    end
+    let!(:user_phenotype_2) do
+      create(:user_phenotype, phenotype: phenotype_1, user: user_2, variation: '1')
+    end
+    let!(:user_phenotype_3) do
+      create(:user_phenotype, phenotype: phenotype_2, user: user_1, variation: '59 cm')
+    end
+
+    it 'adds a CSV with user data to the zip file' do
+      worker.perform
+
+      Zip::File.open(symlink) do |zip|
+        phenotypes_csv = zip.glob('phenotypes_*.csv').first
+        expect(CSV.parse(zip.read(phenotypes_csv.name), col_sep: ';')).to eq(
+          [
+            [
+              'user_id',
+              'genotype_filename',
+              'date_of_birth',
+              'chrom_sex',
+              'openhumans_name',
+              'number of eyes',
+              'length of tongue'
+            ],
+            [
+              user_1.id.to_s,
+              genotype_1.fs_filename,
+              '1970',
+              'why not',
+              'oh-user',
+              '5',
+              '59 cm'
+            ],
+            [
+              user_2.id.to_s,
+              genotype_2.fs_filename,
+              '1994',
+              'no',
+              '-',
+              '1',
+              '-'
+            ]
+          ]
+        )
+      end
+    end
+
+    it 'adds genotype files to the ZIP file' do
+      worker.perform
+
+      Zip::File.open(symlink) do |zip|
+        expect(zip.glob('user*.txt').map(&:name)).to eq(
+          [
+            "user#{user_1.id}_file#{genotype_1.id}_yearofbirth_1970_sex_why not.23andme.txt",
+            "user#{user_2.id}_file#{genotype_2.id}_yearofbirth_1994_sex_no.23andme.txt"
+          ]
+        )
+
+        expect(zip.read(zip.glob('user*.txt').first.name))
+          .to eq("assorted genotype data\n")
+      end
+    end
   end
 
-  it "runs the job" do
-    upp = double('user_picture_phenotype')
-    expect(Dir).to receive(:exists?).with(job.tmp_dir).and_return(false)
-    expect(Dir).to receive(:mkdir).with(job.tmp_dir)
-    expect(Zip::File).to receive(:open).with(job.zip_fs_path, Zip::File::CREATE).
-      and_yield(zipfile)
-    expect(job).to receive(:create_user_csv).with([genotype], zipfile)
-    expect(job).to receive(:create_picture_phenotype_csv).with(zipfile).and_return([upp])
-    expect(job).to receive(:create_picture_zip).with([upp], zipfile)
-    expect(job).to receive(:create_readme).with(zipfile)
-    expect(job).to receive(:zip_genotype_files).with([genotype], zipfile)
-    expect(FileUtils).to receive(:ln_sf).with(
-      Rails.root.join("public/data/zip/#{job.dump_file_name}.zip"),
-      Rails.root.join("public/data/zip/opensnp_datadump.current.zip"))
-    expect(FileUtils).to receive(:rm_rf).with(job.tmp_dir)
-    expect(job.run).to be(true)
+  context 'for images' do
+    let!(:user_1) { create(:user, yearofbirth: 1970, sex: 'why not') }
+    let!(:genotype_1) { create(:genotype, user: user_1) }
+    let!(:open_humans_profile) do
+      create(:open_humans_profile, user: user_1, open_humans_user_id: 'oh-user')
+    end
+
+    let!(:user_2) { create(:user, yearofbirth: 1994, sex: 'no') }
+    let!(:genotype_2) { create(:genotype, user: user_2) }
+
+    let!(:user_3) { create(:user, yearofbirth: 1922, sex: 'male') }
+
+    let!(:picture_phenotype_1) do
+      create(:picture_phenotype, characteristic: 'number of eyes')
+    end
+    let!(:picture_phenotype_2) do
+      create(:picture_phenotype, characteristic: 'length of tongue')
+    end
+
+    let!(:user_picture_phenotype_1) do
+      create(
+        :user_picture_phenotype,
+        picture_phenotype: picture_phenotype_1,
+        user: user_1, variation: '5'
+      )
+    end
+    let!(:user_picture_phenotype_2) do
+      create(
+        :user_picture_phenotype,
+        picture_phenotype: picture_phenotype_1,
+        user: user_2,
+        variation: '1'
+      )
+    end
+    let!(:user_picture_phenotype_3) do
+      create(
+        :user_picture_phenotype,
+        picture_phenotype: picture_phenotype_2,
+        user: user_1,
+        variation: '59 cm'
+      )
+    end
+
+    it 'adds a CSV with image data to the zip file' do
+      worker.perform
+
+      Zip::File.open(symlink) do |zip|
+        picture_phenotypes_csv = zip.glob('picture_phenotypes_*.csv').first
+        expect(CSV.parse(zip.read(picture_phenotypes_csv.name), col_sep: ';')).to eq(
+          [
+            [
+              "user_id",
+              "date_of_birth",
+              "chrom_sex",
+              "number of eyes",
+              "length of tongue"
+            ],
+            [
+              user_1.id.to_s,
+              "1970",
+              "why not",
+              "#{user_picture_phenotype_1.id}.png",
+              "#{user_picture_phenotype_3.id}.png"
+            ],
+            [
+              user_2.id.to_s,
+              "1994",
+              "no",
+              "#{user_picture_phenotype_2.id}.png",
+              "-"
+            ],
+            # TODO: Should users without picture phenotypes show up?
+            [
+              user_3.id.to_s,
+              "1922",
+              "male",
+              "-",
+              "-"
+            ]
+          ]
+        )
+      end
+    end
+
+    it 'creates a ZIP file with phenotype images to the ZIP file' do
+      worker.perform
+
+      Zip::File.open(symlink) do |zip|
+        zip.extract(
+          zip.glob('picture_phenotypes_*_all_pics.zip').last.name,
+          output_dir.join('picture_phenotypes_all_pics.zip')
+        )
+      end
+
+      Zip::File.open(output_dir.join('picture_phenotypes_all_pics.zip')) do |zip|
+
+        expect(zip.glob('*').map(&:name).sort).to eq(
+          [
+            user_picture_phenotype_1,
+            user_picture_phenotype_2,
+            user_picture_phenotype_3
+          ].map(&:id).sort.map { |id| "#{id}.png" }
+        )
+      end
+    end
   end
 end
+

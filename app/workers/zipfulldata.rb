@@ -11,8 +11,10 @@ class Zipfulldata
   # Note with retry disabled, Sidekiq will not track or save any error data for the worker's jobs.
   # dead => false means don't send dead job to the dead queue, we don't care about that
 
+  DEFAULT_OUTPUT_DIR = Rails.root.join('public/data/zip')
+
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
-    :zip_fs_path, :tmp_dir, :link_path
+    :zip_fs_path, :tmp_dir, :link_path, :output_dir
 
   def perform
     logger.info('job started')
@@ -20,15 +22,16 @@ class Zipfulldata
     logger.info('job done')
   end
 
-  def initialize
+  def initialize(output_dir: nil)
+    @output_dir = output_dir || DEFAULT_OUTPUT_DIR
     @time = Time.now.utc
     @time_str = time.strftime("%Y%m%d%H%M")
     @csv_options = { col_sep: ';' }
     @dump_file_name = "opensnp_datadump.#{time_str}"
-    @zip_public_path = "public/data/zip/#{dump_file_name}.zip"
+    @zip_public_path = @output_dir.join("#{dump_file_name}.zip")
     @zip_fs_path = "/tmp/#{dump_file_name}.zip"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
-    @link_path = Rails.root.join('public/data/zip/opensnp_datadump.current.zip')
+    @link_path = output_dir.join('opensnp_datadump.current.zip')
   end
 
   def run
@@ -53,19 +56,16 @@ class Zipfulldata
         zip_genotype_files(genotypes, zipfile)
       end
       # move from local storage to network storage
-      FileUtils.cp(@zip_fs_path, Rails.root.join("public/data/zip/#{dump_file_name}.zip"))
+      FileUtils.cp(@zip_fs_path, zip_public_path)
       FileUtils.rm(@zip_fs_path)
       logger.info('created zip-file')
 
-      FileUtils.ln_sf(
-        Rails.root.join("public/data/zip/#{dump_file_name}.zip"),
-        link_path)
+      FileUtils.ln_sf(zip_public_path, link_path)
 
       # everything went OK, now delete old zips
       delete_old_zips
-
-      ensure
-        FileUtils.rm_rf(tmp_dir)
+    ensure
+      FileUtils.rm_rf(tmp_dir)
     end
     true
   end
@@ -147,8 +147,8 @@ class Zipfulldata
   end
 
   def create_picture_zip(list_of_pics, zipfile)
-    pic_zipname = "/data/zip/opensnp_picturedump."+time_str+".zip"
-    Zip::File.open("#{Rails.root}/public/#{pic_zipname}", Zip::File::CREATE) do |z|
+    pic_zipname = output_dir.join("opensnp_picturedump.#{time_str}.zip")
+    Zip::File.open(pic_zipname, Zip::File::CREATE) do |z|
       list_of_pics.each do |tmp|
         begin
           file_name = tmp.phenotype_picture.path
@@ -162,8 +162,7 @@ class Zipfulldata
         end
       end
     end
-    zipfile.add("picture_phenotypes_#{time_str}_all_pics.zip",
-                "#{Rails.root}/public/#{pic_zipname}")
+    zipfile.add("picture_phenotypes_#{time_str}_all_pics.zip", pic_zipname)
     logger.info('created picture zip file')
   end
 
@@ -185,9 +184,11 @@ TXT
 
   def zip_genotype_files(genotypes, zipfile)
     genotypes.each do |gen_file|
+      next unless File.exists?(gen_file.genotype.path)
+
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
-      to_zip_file = "#{Rails.root}/public/data/#{gen_file.fs_filename}"
+      to_zip_file = gen_file.genotype.path
 
       if yob == "rather not say"
           yob = "unknown"
@@ -196,30 +197,23 @@ TXT
           sex = "unknown"
       end
 
-      zipfile.add("user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
-                  to_zip_file) unless !File.exist? to_zip_file
+      zipfile.add(
+        "user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
+        to_zip_file
+      )
     end
   end
 
   def delete_old_zips
-    forbidden_files = [link_path,
-                       Rails.root.join('data', 'annotation.zip').to_s,
-                       Rails.root.join('public', 'data', 'zip', "#{dump_file_name}.zip").to_s]
-    Dir[Rails.root.join('public/data/zip/*.zip')].each do |f|
-      if (not forbidden_files.include? f) and (File.ftype(f) == "file")
-        File.delete(f)
-      end
+    forbidden_files = [link_path, output_dir.join("#{dump_file_name}.zip")].map(&:to_s)
+    Dir[output_dir.join('opensnp_datadump.*.zip')].each do |f|
+      File.delete(f) unless forbidden_files.include?(f)
     end
   end
 
-  def self.public_path
-    '/data/zip/opensnp_datadump.current.zip'
-  end
-
   def self.gb_size
-    file = Rails.root.join('public', self.public_path)
-    if File.file? file
-      "(Size: #{(File.size(file).to_f / (2**30)).round(2)})"
+    if File.file?(zip_public_path)
+      "(Size: #{(File.size(zip_public_path).to_f / (2**30)).round(2)})"
     else
       ""
     end
