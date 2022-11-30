@@ -190,33 +190,33 @@ describe Zipfulldata do
         expect(CSV.parse(zip.read(picture_phenotypes_csv.name), col_sep: ';')).to eq(
           [
             [
-              "user_id",
-              "date_of_birth",
-              "chrom_sex",
-              "number of eyes",
-              "length of tongue"
+              'user_id',
+              'date_of_birth',
+              'chrom_sex',
+              'number of eyes',
+              'length of tongue'
             ],
             [
               user_1.id.to_s,
-              "1970",
-              "why not",
+              '1970',
+              'why not',
               "#{user_picture_phenotype_1.id}.png",
               "#{user_picture_phenotype_3.id}.png"
             ],
             [
               user_2.id.to_s,
-              "1994",
-              "no",
+              '1994',
+              'no',
               "#{user_picture_phenotype_2.id}.png",
-              "-"
+              '-'
             ],
             # TODO: Should users without picture phenotypes show up?
             [
               user_3.id.to_s,
-              "1922",
-              "male",
-              "-",
-              "-"
+              '1922',
+              'male',
+              '-',
+              '-'
             ]
           ]
         )
@@ -234,7 +234,6 @@ describe Zipfulldata do
       end
 
       Zip::File.open(output_dir.join('picture_phenotypes_all_pics.zip')) do |zip|
-
         expect(zip.glob('*').map(&:name).sort).to eq(
           [
             user_picture_phenotype_1,
@@ -246,4 +245,3 @@ describe Zipfulldata do
     end
   end
 end
-

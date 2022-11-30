@@ -11,10 +11,10 @@ class Zipfulldata
   # Note with retry disabled, Sidekiq will not track or save any error data for the worker's jobs.
   # dead => false means don't send dead job to the dead queue, we don't care about that
 
-  DEFAULT_OUTPUT_DIR = Rails.root.join('public/data/zip')
+  DEFAULT_OUTPUT_DIR = Rails.root.join('public', 'data', 'zip')
 
   attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
-    :zip_fs_path, :tmp_dir, :link_path, :output_dir
+              :zip_fs_path, :tmp_dir, :link_path, :output_dir
 
   def perform
     logger.info('job started')
@@ -184,7 +184,7 @@ TXT
 
   def zip_genotype_files(genotypes, zipfile)
     genotypes.each do |gen_file|
-      next unless File.exists?(gen_file.genotype.path)
+      next unless File.exist?(gen_file.genotype.path)
 
       yob = gen_file.user.yearofbirth
       sex = gen_file.user.sex
@@ -198,7 +198,8 @@ TXT
       end
 
       zipfile.add(
-        "user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_sex_#{sex}.#{gen_file.filetype}.txt",
+        "user#{gen_file.user_id}_file#{gen_file.id}_yearofbirth_#{yob}_" \
+          "sex_#{sex}.#{gen_file.filetype}.txt",
         to_zip_file
       )
     end
