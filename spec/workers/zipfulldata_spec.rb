@@ -17,7 +17,7 @@ describe Zipfulldata do
     worker.perform
 
     expect(File.symlink?(symlink)).to be(true)
-    expect(File.exists?(File.readlink(symlink)))
+    expect(File.exist?(File.readlink(symlink)))
   end
 
   it 'adds a README' do
@@ -42,18 +42,18 @@ describe Zipfulldata do
     it 'deletes old dump files' do
       worker.perform
 
-      expect(File.exists?(old_dump_file_path)).to be(false)
+      expect(File.exist?(old_dump_file_path)).to be(false)
     end
 
     it 'does not delete unrelated files' do
       worker.perform
 
-      expect(File.exists?(unrelated_file_path)).to be(true)
+      expect(File.exist?(unrelated_file_path)).to be(true)
     end
 
     after do
       [unrelated_file_path, old_dump_file_path].each do |path|
-        FileUtils.rm(path) if File.exists?(path)
+        FileUtils.rm(path) if File.exist?(path)
       end
     end
   end
