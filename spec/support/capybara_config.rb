@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # from https://www.railsagency.com/blog/2020/03/11/how-to-configure-full-stack-integration-testing-with-selenium-and-ruby-on-rails/
 # lots of options, but gets around 'exit code 1' on github
 Capybara.register_driver :chrome_headless do |app|
