@@ -71,7 +71,7 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'capybara'
-  #gem 'poltergeist'
+  gem 'poltergeist'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'timecop'
