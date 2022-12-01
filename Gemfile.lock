@@ -1,17 +1,17 @@
 GIT
+  remote: https://github.com/Kinoba/recommendify
+  revision: d8c252fb0a2496904ba46b3206a0db66ef25166f
+  ref: d8c252f
+  specs:
+    recommendify (0.3.8)
+      redis (>= 2.2.2)
+
+GIT
   remote: https://github.com/MusikAnimal/mediawiki-gateway
   revision: 26b225f7374cdc94ea97effb5042e893d956c987
   specs:
     mediawiki-gateway (1.2.7)
       rest-client (~> 2.0)
-
-GIT
-  remote: https://github.com/paulasmuth/recommendify
-  revision: 34308c41800a0ea9b02842c4cf84e8bcc5dd1f63
-  ref: 34308c4
-  specs:
-    recommendify (0.3.6)
-      redis (>= 2.2.2)
 
 GIT
   remote: https://github.com/ryanb/nested_form
