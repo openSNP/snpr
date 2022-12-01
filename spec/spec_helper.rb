@@ -10,8 +10,9 @@ require 'sidekiq/testing'
 require 'factory_bot_rails'
 require 'pry-rails' unless ENV['CI']
 require 'authlogic/test_case'
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+# commenting out poltergeist as phantomjs breaks Github tests
+#require 'capybara/poltergeist'
+#Capybara.javascript_driver = :poltergeist
 
 
 # Requires supporting ruby files with custom matchers and macros, etc,

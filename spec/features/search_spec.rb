@@ -18,11 +18,11 @@ feature 'search' do
     fill_in 'search', with: 'foo'
 
     form = page.find('form')
-    class << form
-      def submit!
-        Capybara::RackTest::Form.new(driver, native).submit({})
-      end
-    end
+    #class << form
+    #  def submit!
+    #    Capybara::RackTest::Form.new(driver, native).submit({})
+    #  end
+    #end
     form.submit!
 
     expect(page).to have_content('foo123')
