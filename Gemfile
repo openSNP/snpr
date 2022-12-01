@@ -72,6 +72,7 @@ group :test do
   gem 'vcr'
   gem 'capybara'
   #gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'timecop'
 end
