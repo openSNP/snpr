@@ -35,7 +35,7 @@ gem 'json'
 gem 'mediawiki-gateway', git: 'https://github.com/MusikAnimal/mediawiki-gateway'
 gem 'paperclip'
 gem 'friendly_id'
-gem 'recommendify', git: 'https://github.com/paulasmuth/recommendify', ref: '34308c4'
+gem 'recommendify', git: 'https://github.com/Kinoba/recommendify', ref: 'd8c252f'
 
 # background jobs
 gem 'sidekiq'
