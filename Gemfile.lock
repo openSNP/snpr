@@ -379,7 +379,7 @@ GEM
     thread_safe (0.3.6)
     tilt (1.4.1)
     timecop (0.9.1)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
