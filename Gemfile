@@ -75,7 +75,7 @@ group :test do
   gem 'shoulda-context'
   gem 'mocha', require: false
   gem 'simplecov', require: false
-  gem 'webmock'
+  gem 'webmock', '>= 3.5.0' # need at least 3.5.0 for Ruby 2.6
   gem 'vcr'
   gem 'capybara'
   gem 'poltergeist'
