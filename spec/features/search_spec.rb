@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'spec_helper'
-
 feature 'search' do
   let!(:snp) { create(:snp, name: 'foo123') }
   let!(:phenotype) { create(:phenotype, characteristic: 'foonotype') }
