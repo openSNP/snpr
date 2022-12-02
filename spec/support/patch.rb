@@ -67,7 +67,6 @@ if rb_version >= Gem::Version.new('2.6') && Gem::Version.new(Rails.version) < Ge
       end
     end
 
-  else
   end
 else
   puts "#{__FILE__} no longer needed."
