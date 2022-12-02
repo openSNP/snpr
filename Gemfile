@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 6.0'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
@@ -21,7 +21,7 @@ gem 'plos', require: false
 # DB
 gem 'activerecord-import', '>= 0.4.0'
 gem 'attr_encrypted'
-gem 'composite_primary_keys', '~> 8.0'
+gem 'composite_primary_keys', '~> 12.0'
 gem 'pg', '<1' # Unpin when updating Rails to 5.x
 gem 'pg_search'
 
@@ -40,7 +40,7 @@ gem 'recommendify', git: 'https://github.com/Kinoba/recommendify', ref: 'd8c252f
 # background jobs
 gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
-gem 'slim', '~> 1.3.8'
+gem 'slim', '~> 4.1.0'
 gem 'sinatra', require: false
 
 # cron jobs
@@ -51,7 +51,7 @@ gem 'therubyracer'
 gem 'execjs'
 gem 'uglifier'
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 4.2.1'
+gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'sass-rails'
 
 # monitoring
