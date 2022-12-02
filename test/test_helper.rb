@@ -15,7 +15,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 require 'factory_bot_rails'
 require 'paperclip/matchers'
 require 'plos'
-require '../spec/support/patch.rb'
+require 'spec/support/patch.rb'
 
 Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
 
