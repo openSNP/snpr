@@ -29,6 +29,15 @@ if rb_version >= Gem::Version.new('2.6') && Gem::Version.new(Rails.version) < Ge
       end
     end
 
+    class ActionController::TestCase < ActiveSupport::TestCase
+      def recycle!
+        @body = nil
+        @mon_data = nil
+        @mon_data_owner_object_id = nil
+        initialize
+      end
+    end
+
   else
     puts "Using #{__FILE__} for Ruby 2.6."
 
@@ -49,6 +58,16 @@ if rb_version >= Gem::Version.new('2.6') && Gem::Version.new(Rails.version) < Ge
       end
     end
 
+    class ActionController::TestCase < ActiveSupport::TestCase
+      def recycle!
+        @body = nil
+        @mon_data = nil
+        @mon_data_owner_object_id = nil
+        initialize
+      end
+    end
+
+  else
   end
 else
   puts "#{__FILE__} no longer needed."
