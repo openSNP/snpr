@@ -31,7 +31,7 @@ class Zipfulldata
     @zip_public_path = @output_dir.join("#{dump_file_name}.zip")
     @zip_fs_path = "/tmp/#{dump_file_name}.zip"
     @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
-    @link_path = output_dir.join('opensnp_datadump.current.zip')
+    @link_path = @output_dir.join('opensnp_datadump.current.zip')
   end
 
   def run
@@ -239,9 +239,14 @@ TXT
     end
   end
 
+  def self.public_path
+    '/data/zip/opensnp_datadump.current.zip'
+  end
+
   def self.gb_size
-    if File.file?(zip_public_path)
-      "(Size: #{(File.size(zip_public_path).to_f / (2**30)).round(2)})"
+    path = DEFAULT_OUTPUT_DIR.join('opensnp_datadump.current.zip')
+    if File.exist?(path) && File.exist?(File.readlink(path))
+      "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
     else
       ""
     end
