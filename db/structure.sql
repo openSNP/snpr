@@ -2,30 +2,19 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.13
--- Dumped by pg_dump version 9.5.12
+-- Dumped from database version 9.5.11
+-- Dumped by pg_dump version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
@@ -53,6 +42,20 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
+-- Name: tablefunc; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS tablefunc WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION tablefunc; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, including crosstab';
 
 
 --
@@ -126,8 +129,6 @@ CREATE FUNCTION public.upsert_user_snps(current_genotype_id integer) RETURNS voi
 
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: achievements; Type: TABLE; Schema: public; Owner: -
@@ -1093,182 +1094,182 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: achievements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.achievements ALTER COLUMN id SET DEFAULT nextval('public.achievements_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: active_admin_comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_admin_comments ALTER COLUMN id SET DEFAULT nextval('public.active_admin_comments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_users ALTER COLUMN id SET DEFAULT nextval('public.admin_users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: file_links id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.file_links ALTER COLUMN id SET DEFAULT nextval('public.file_links_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: friendly_id_slugs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: genome_gov_papers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genome_gov_papers ALTER COLUMN id SET DEFAULT nextval('public.genome_gov_papers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: genotypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genotypes ALTER COLUMN id SET DEFAULT nextval('public.genotypes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: homepages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.homepages ALTER COLUMN id SET DEFAULT nextval('public.homepages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: mendeley_papers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.mendeley_papers ALTER COLUMN id SET DEFAULT nextval('public.mendeley_papers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.messages ALTER COLUMN id SET DEFAULT nextval('public.messages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: open_humans_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.open_humans_profiles ALTER COLUMN id SET DEFAULT nextval('public.open_humans_profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pgp_annotations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pgp_annotations ALTER COLUMN id SET DEFAULT nextval('public.pgp_annotations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: phenotype_comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_comments ALTER COLUMN id SET DEFAULT nextval('public.phenotype_comments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: phenotype_sets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_sets ALTER COLUMN id SET DEFAULT nextval('public.phenotype_sets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: phenotypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotypes ALTER COLUMN id SET DEFAULT nextval('public.phenotypes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: picture_phenotype_comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotype_comments ALTER COLUMN id SET DEFAULT nextval('public.picture_phenotype_comments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: picture_phenotypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotypes ALTER COLUMN id SET DEFAULT nextval('public.picture_phenotypes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: plos_papers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.plos_papers ALTER COLUMN id SET DEFAULT nextval('public.plos_papers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: snp_comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snp_comments ALTER COLUMN id SET DEFAULT nextval('public.snp_comments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: snpedia_papers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snpedia_papers ALTER COLUMN id SET DEFAULT nextval('public.snpedia_papers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: snps id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snps ALTER COLUMN id SET DEFAULT nextval('public.snps_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_achievements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_achievements ALTER COLUMN id SET DEFAULT nextval('public.user_achievements_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_phenotypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_phenotypes ALTER COLUMN id SET DEFAULT nextval('public.user_phenotypes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_picture_phenotypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_picture_phenotypes ALTER COLUMN id SET DEFAULT nextval('public.user_picture_phenotypes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Name: achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: achievements achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.achievements
@@ -1276,7 +1277,7 @@ ALTER TABLE ONLY public.achievements
 
 
 --
--- Name: admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: active_admin_comments admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_admin_comments
@@ -1284,7 +1285,7 @@ ALTER TABLE ONLY public.active_admin_comments
 
 
 --
--- Name: admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_users admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_users
@@ -1292,7 +1293,7 @@ ALTER TABLE ONLY public.admin_users
 
 
 --
--- Name: file_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: file_links file_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.file_links
@@ -1300,7 +1301,7 @@ ALTER TABLE ONLY public.file_links
 
 
 --
--- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: friendly_id_slugs friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.friendly_id_slugs
@@ -1308,7 +1309,7 @@ ALTER TABLE ONLY public.friendly_id_slugs
 
 
 --
--- Name: genome_gov_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: genome_gov_papers genome_gov_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genome_gov_papers
@@ -1316,7 +1317,7 @@ ALTER TABLE ONLY public.genome_gov_papers
 
 
 --
--- Name: genotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: genotypes genotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genotypes
@@ -1324,7 +1325,7 @@ ALTER TABLE ONLY public.genotypes
 
 
 --
--- Name: homepages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: homepages homepages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.homepages
@@ -1332,7 +1333,7 @@ ALTER TABLE ONLY public.homepages
 
 
 --
--- Name: mendeley_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: mendeley_papers mendeley_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.mendeley_papers
@@ -1340,7 +1341,7 @@ ALTER TABLE ONLY public.mendeley_papers
 
 
 --
--- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.messages
@@ -1348,7 +1349,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- Name: open_humans_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: open_humans_profiles open_humans_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.open_humans_profiles
@@ -1356,7 +1357,7 @@ ALTER TABLE ONLY public.open_humans_profiles
 
 
 --
--- Name: pgp_annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pgp_annotations pgp_annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pgp_annotations
@@ -1364,7 +1365,7 @@ ALTER TABLE ONLY public.pgp_annotations
 
 
 --
--- Name: phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotype_comments phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_comments
@@ -1372,7 +1373,7 @@ ALTER TABLE ONLY public.phenotype_comments
 
 
 --
--- Name: phenotype_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotype_sets phenotype_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_sets
@@ -1380,7 +1381,7 @@ ALTER TABLE ONLY public.phenotype_sets
 
 
 --
--- Name: phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotypes phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotypes
@@ -1388,7 +1389,7 @@ ALTER TABLE ONLY public.phenotypes
 
 
 --
--- Name: picture_phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: picture_phenotype_comments picture_phenotype_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotype_comments
@@ -1396,7 +1397,7 @@ ALTER TABLE ONLY public.picture_phenotype_comments
 
 
 --
--- Name: picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: picture_phenotypes picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotypes
@@ -1404,7 +1405,7 @@ ALTER TABLE ONLY public.picture_phenotypes
 
 
 --
--- Name: plos_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: plos_papers plos_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.plos_papers
@@ -1412,7 +1413,7 @@ ALTER TABLE ONLY public.plos_papers
 
 
 --
--- Name: snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snp_comments snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snp_comments
@@ -1420,7 +1421,7 @@ ALTER TABLE ONLY public.snp_comments
 
 
 --
--- Name: snpedia_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snpedia_papers snpedia_papers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snpedia_papers
@@ -1428,7 +1429,7 @@ ALTER TABLE ONLY public.snpedia_papers
 
 
 --
--- Name: snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snps snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.snps
@@ -1436,7 +1437,7 @@ ALTER TABLE ONLY public.snps
 
 
 --
--- Name: user_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_achievements user_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_achievements
@@ -1444,7 +1445,7 @@ ALTER TABLE ONLY public.user_achievements
 
 
 --
--- Name: user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_phenotypes user_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_phenotypes
@@ -1452,7 +1453,7 @@ ALTER TABLE ONLY public.user_phenotypes
 
 
 --
--- Name: user_picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_picture_phenotypes user_picture_phenotypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_picture_phenotypes
@@ -1460,7 +1461,7 @@ ALTER TABLE ONLY public.user_picture_phenotypes
 
 
 --
--- Name: user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_snps user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_snps
@@ -1468,7 +1469,7 @@ ALTER TABLE ONLY public.user_snps
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -1630,7 +1631,7 @@ CREATE INDEX user_phenotypes_user_id_idx ON public.user_phenotypes USING btree (
 
 
 --
--- Name: genotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: genotypes genotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.genotypes
@@ -1638,7 +1639,7 @@ ALTER TABLE ONLY public.genotypes
 
 
 --
--- Name: homepages_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: homepages homepages_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.homepages
@@ -1646,7 +1647,7 @@ ALTER TABLE ONLY public.homepages
 
 
 --
--- Name: phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: phenotype_comments phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.phenotype_comments
@@ -1654,7 +1655,7 @@ ALTER TABLE ONLY public.phenotype_comments
 
 
 --
--- Name: picture_phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: picture_phenotype_comments picture_phenotype_comments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.picture_phenotype_comments
@@ -1662,7 +1663,7 @@ ALTER TABLE ONLY public.picture_phenotype_comments
 
 
 --
--- Name: user_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_achievements user_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_achievements
@@ -1670,7 +1671,7 @@ ALTER TABLE ONLY public.user_achievements
 
 
 --
--- Name: user_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_phenotypes user_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_phenotypes
@@ -1678,7 +1679,7 @@ ALTER TABLE ONLY public.user_phenotypes
 
 
 --
--- Name: user_picture_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_picture_phenotypes user_picture_phenotypes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_picture_phenotypes
@@ -1686,7 +1687,7 @@ ALTER TABLE ONLY public.user_picture_phenotypes
 
 
 --
--- Name: user_snps_genotype_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_snps user_snps_genotype_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_snps
