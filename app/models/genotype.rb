@@ -20,7 +20,7 @@ class Genotype < ActiveRecord::Base
   end
 
   def fs_filename
-    "#{user.id}.#{filetype}.#{id}"
+    "#{user_id}.#{filetype}.#{id}"
   end
 
   Paperclip.interpolates :fs_filename do |attachment, style|

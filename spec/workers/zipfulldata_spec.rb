@@ -162,7 +162,8 @@ describe Zipfulldata do
       create(
         :user_picture_phenotype,
         picture_phenotype: picture_phenotype_1,
-        user: user_1, variation: '5'
+        user: user_1,
+        variation: '5'
       )
     end
     let!(:user_picture_phenotype_2) do
@@ -181,6 +182,9 @@ describe Zipfulldata do
         variation: '59 cm'
       )
     end
+
+    # There needs to be at least one Phenotype for the CROSSTAB query to work.
+    let!(:phenotype) { create(:phenotype) }
 
     it 'adds a CSV with image data to the zip file' do
       worker.perform

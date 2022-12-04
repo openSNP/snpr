@@ -70,30 +70,57 @@ class Zipfulldata
     true
   end
 
+  # Create a CSV with a row for each genotype, with user data and phenotypes as
+  # columns.
   def create_user_csv(genotypes, zipfile)
-    phenotypes = Phenotype.all
+    phenotypes = Phenotype.select(:characteristic).order(:id)
+    characteristics = phenotypes.pluck(:characteristic)
+
     csv_file_name = "#{tmp_dir}/dump#{time_str}.csv"
     csv_head = %w(user_id genotype_filename date_of_birth chrom_sex openhumans_name)
-    csv_head.concat(phenotypes.map(&:characteristic))
+    csv_head += characteristics
 
     CSV.open(csv_file_name, "w", csv_options) do |csv|
       csv << csv_head
 
-      # create lines in csv-file for each user who has uploaded his data
-      genotypes.each do |genotype|
-        user = genotype.user
-        oh_name = user.open_humans_profile&.open_humans_user_id || '-'
-        row = [user.id, genotype.fs_filename, user.yearofbirth, user.sex, oh_name]
-
-        phenotypes.each do |phenotype|
-          if up = user.user_phenotypes.where(phenotype_id: phenotype.id).first
-            row << up.variation
-          else
-            row << "-"
-          end
+      # Build a pivot table with characteristics and user IDs as dimensions and
+      # variations as values, join with genotypes so the users'
+      # characteristic-variation pairs show up as attributes of each respective
+      # Genotype.
+      Genotype
+        .select(
+          'genotypes.*',
+          'users.yearofbirth AS user_yob',
+          'users.sex AS user_sex',
+          'open_humans_profiles.open_humans_user_id AS oh_user_id',
+          'ct_variations.*',
+          'genotypes.user_id'
+        )
+        .joins(:user)
+        .joins('LEFT JOIN open_humans_profiles ON open_humans_profiles.user_id = users.id')
+        .joins(<<-SQL)
+          LEFT JOIN (
+            SELECT * FROM CROSSTAB(
+             'SELECT user_phenotypes.user_id, phenotypes.characteristic, user_phenotypes.variation
+              FROM user_phenotypes JOIN phenotypes ON user_phenotypes.phenotype_id = phenotypes.id
+              ORDER BY 1, phenotypes.id',
+             '#{phenotypes.to_sql}'
+            ) AS ct_variations(
+              #{(['user_id integer'] + characteristics.map { |c| "\"#{c}\" text" }).join(', ')}
+            )
+          ) ct_variations
+          ON ct_variations.user_id = genotypes.user_id
+        SQL
+        .order('genotypes.id')
+        .each do |genotype|
+          csv << [
+            genotype.user_id,
+            genotype.fs_filename,
+            genotype.user_yob,
+            genotype.user_sex,
+            genotype.oh_user_id || '-'
+          ] + characteristics.map { |c| genotype[c] || '-' }
         end
-        csv << row
-      end
     end
     logger.info('created user csv')
     zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
