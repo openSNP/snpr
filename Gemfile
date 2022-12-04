@@ -35,7 +35,7 @@ gem 'json'
 gem 'mediawiki-gateway', git: 'https://github.com/MusikAnimal/mediawiki-gateway'
 gem 'paperclip'
 gem 'friendly_id'
-gem 'recommendify', git: 'https://github.com/paulasmuth/recommendify', ref: '34308c4'
+gem 'recommendify', git: 'https://github.com/Kinoba/recommendify', ref: 'd8c252f'
 
 # background jobs
 gem 'sidekiq'
@@ -57,6 +57,13 @@ gem 'sass-rails'
 # monitoring
 gem 'sentry-raven'
 
+# get rid of Ruby 2.7.7 error
+# bigdecimal is required by ActiveSupport, and bigdecimal 2
+# introduces some breaking changes (You cannot use BigDecimal.new)
+gem 'bigdecimal', '1.3.5'
+# Ruby 2.7.0 does not include scanf
+gem 'scanf'
+
 #group :production do
 #	gem 'rpm_contrib'
 #end
@@ -68,10 +75,11 @@ group :test do
   gem 'shoulda-context'
   gem 'mocha', require: false
   gem 'simplecov', require: false
-  gem 'webmock'
+  gem 'webmock', '>= 3.5.0' # need at least 3.5.0 for Ruby 2.6
   gem 'vcr'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'timecop'
 end
