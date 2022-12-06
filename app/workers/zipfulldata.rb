@@ -88,30 +88,33 @@ class Zipfulldata
       # characteristic-variation pairs show up as attributes of each respective
       # Genotype.
       Genotype
-        .select(
-          'genotypes.*',
-          'users.yearofbirth AS user_yob',
-          'users.sex AS user_sex',
-          'open_humans_profiles.open_humans_user_id AS oh_user_id',
-          'ct_variations.*',
-          'genotypes.user_id'
-        )
-        .joins(:user)
-        .joins('LEFT JOIN open_humans_profiles ON open_humans_profiles.user_id = users.id')
-        .joins(<<-SQL)
-          LEFT JOIN (
-            SELECT * FROM CROSSTAB(
-             'SELECT user_phenotypes.user_id, phenotypes.characteristic, user_phenotypes.variation
-              FROM user_phenotypes JOIN phenotypes ON user_phenotypes.phenotype_id = phenotypes.id
-              ORDER BY 1, phenotypes.id',
-             '#{phenotypes.to_sql}'
-            ) AS ct_variations(
-              #{(['user_id integer'] + characteristics.map { |c| "\"#{c}\" text" }).join(', ')}
-            )
-          ) ct_variations
-          ON ct_variations.user_id = genotypes.user_id
+        .find_by_sql(<<-SQL)
+          SELECT * FROM CROSSTAB(
+           'SELECT genotypes.user_id, -- must be first
+                   users.yearofbirth,
+                   users.sex,
+                   open_humans_profiles.open_humans_user_id,
+                   genotypes.id,
+                   genotypes.filetype,
+                   phenotypes.characteristic, -- must be second to last
+                   user_phenotypes.variation -- must be last
+            FROM genotypes
+            JOIN users ON users.id = genotypes.user_id
+            JOIN user_phenotypes ON user_phenotypes.user_id = genotypes.user_id
+            JOIN phenotypes ON phenotypes.id = user_phenotypes.phenotype_id
+            LEFT JOIN open_humans_profiles ON open_humans_profiles.user_id = users.id
+            ORDER BY user_id',
+           '#{phenotypes.to_sql}'
+          ) AS ct_variations(
+            user_id integer,
+            user_yob integer,
+            user_sex varchar,
+            oh_user_id varchar,
+            id integer,
+            filetype varchar,
+            #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
+          )
         SQL
-        .order('genotypes.id')
         .each do |genotype|
           csv << [
             genotype.user_id,
