@@ -137,6 +137,16 @@ describe Zipfulldata do
           .to eq("assorted genotype data\n")
       end
     end
+
+    context 'when a phenotype characteristic clashes with another column name' do
+      before do
+        create(:phenotype, characteristic: 'user_yob')
+      end
+
+      it 'fails' do
+        expect { worker.perform }.to raise_error(ActiveRecord::StatementInvalid)
+      end
+    end
   end
 
   context 'for images' do
