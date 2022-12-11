@@ -131,7 +131,6 @@ class Zipfulldata
 
   # make a CSV describing all of them - which filename is for which user's phenotype
   def create_picture_phenotype_csv(zipfile)
-
     file_name = "#{tmp_dir}/picture_dump#{time_str}.csv"
     logger.info("Writing picture-CSV to #{file_name}")
 
@@ -169,14 +168,14 @@ class Zipfulldata
             #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
           )
         SQL
-      .each do |user_picture_phenotype|
-        logger.info('Putting a line into CSV')
-        csv << [
-          user_picture_phenotype.user_id,
-          user_picture_phenotype.user_yob,
-          user_picture_phenotype.user_sex
-        ] + characteristics.map { |c| user_picture_phenotype[c] || '-' }
-      end
+        .each do |user_picture_phenotype|
+          logger.info('Putting a line into CSV')
+          csv << [
+            user_picture_phenotype.user_id,
+            user_picture_phenotype.user_yob,
+            user_picture_phenotype.user_sex
+          ] + characteristics.map { |c| user_picture_phenotype[c] || '-' }
+        end
     end
     logger.info('created picture handle csv-file')
     zipfile.add("picture_phenotypes_#{time_str}.csv", file_name)
