@@ -131,44 +131,51 @@ class Zipfulldata
 
   # make a CSV describing all of them - which filename is for which user's phenotype
   def create_picture_phenotype_csv(zipfile)
+
     file_name = "#{tmp_dir}/picture_dump#{time_str}.csv"
     logger.info("Writing picture-CSV to #{file_name}")
 
     list_of_pics = [] # need this for the zip-file-later
 
-    picture_phenotypes = PicturePhenotype.all
+    picture_phenotypes = PicturePhenotype.order(:id)
+    characteristics = picture_phenotypes.pluck(:characteristic)
+
     csv_head = %w(user_id date_of_birth chrom_sex)
-    csv_head.concat(picture_phenotypes.map(&:characteristic))
+    csv_head.concat(characteristics)
 
     CSV.open(file_name, "w", csv_options) do |csv|
-
       csv << csv_head
 
       # create lines in csv-file for each user who has uploaded his data
 
-      User.includes(:user_picture_phenotypes).order(:id).each do |u|
-        logger.info("Looking at user #{u.id}")
-        row = [u.id, u.yearofbirth, u.sex]
-        picture_phenotypes.each do |pp|
-
-          # copy the picture with name to +user_id+_+pic_phenotype_id+.png
-          # logger.info("Looking for this picture #{pp.id}")
-          picture = pp.user_picture_phenotypes.where(user_id: u.id).first
-          # does this user have this pic?
-          if picture.present? && picture.phenotype_picture.present?
-            picture_path = picture.phenotype_picture.path
-            basename = picture_path.split("/")[-1]
-            filetype = basename.split(".")[-1]
-            logger.info("FOUND file #{picture_path}, basename is #{basename}")
-
-            list_of_pics << picture
-            row << "#{picture.id}.#{filetype}"
-          else
-            row << '-'
-          end
-        end
+      UserPicturePhenotype
+        .find_by_sql(<<-SQL)
+          SELECT * FROM CROSSTAB(
+            'SELECT DISTINCT ON (users.id, picture_phenotypes.id)
+               users.id,
+               users.yearofbirth,
+               users.sex,
+               picture_phenotypes.characteristic,
+               user_picture_phenotypes.id::text || ''.'' || reverse(split_part(reverse(user_picture_phenotypes.phenotype_picture_file_name), ''.'', 1))
+             FROM users
+             LEFT JOIN user_picture_phenotypes ON user_picture_phenotypes.user_id = users.id
+             LEFT JOIN picture_phenotypes ON picture_phenotypes.id = user_picture_phenotypes.picture_phenotype_id
+             ORDER BY users.id, picture_phenotypes.id, user_picture_phenotypes.id',
+            '#{picture_phenotypes.select(:characteristic).to_sql}'
+          ) AS user_picture_phenotypes(
+            user_id integer,
+            user_yob integer,
+            user_sex varchar,
+            #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
+          )
+        SQL
+      .each do |user_picture_phenotype|
         logger.info('Putting a line into CSV')
-        csv << row
+        csv << [
+          user_picture_phenotype.user_id,
+          user_picture_phenotype.user_yob,
+          user_picture_phenotype.user_sex
+        ] + characteristics.map { |c| user_picture_phenotype[c] || '-' }
       end
     end
     logger.info('created picture handle csv-file')
