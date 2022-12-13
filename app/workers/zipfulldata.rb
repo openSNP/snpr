@@ -154,17 +154,21 @@ class Zipfulldata
                users.id,
                users.yearofbirth,
                users.sex,
+               user_picture_phenotypes.phenotype_picture_content_type,
                picture_phenotypes.characteristic,
-               user_picture_phenotypes.id::text || ''.'' || reverse(split_part(reverse(user_picture_phenotypes.phenotype_picture_file_name), ''.'', 1))
+               user_picture_phenotypes.id
              FROM users
-             LEFT JOIN user_picture_phenotypes ON user_picture_phenotypes.user_id = users.id
-             LEFT JOIN picture_phenotypes ON picture_phenotypes.id = user_picture_phenotypes.picture_phenotype_id
-             ORDER BY users.id, picture_phenotypes.id, user_picture_phenotypes.id',
+             LEFT JOIN user_picture_phenotypes
+               ON user_picture_phenotypes.user_id = users.id
+             LEFT JOIN picture_phenotypes
+               ON picture_phenotypes.id = user_picture_phenotypes.picture_phenotype_id
+             ORDER BY users.id, picture_phenotypes.id',
             '#{picture_phenotypes.select(:characteristic).to_sql}'
           ) AS user_picture_phenotypes(
             user_id integer,
-            user_yob integer,
+            user_yob varchar,
             user_sex varchar,
+            phenotype_picture_content_type varchar,
             #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
           )
         SQL
@@ -174,12 +178,21 @@ class Zipfulldata
             user_picture_phenotype.user_id,
             user_picture_phenotype.user_yob,
             user_picture_phenotype.user_sex
-          ] + characteristics.map { |c| user_picture_phenotype[c] || '-' }
+          ] + characteristics.map do |c|
+            if user_picture_phenotype[c]
+              user_picture_phenotype_ids << user_picture_phenotype[c]
+              extension = user_picture_phenotype.phenotype_picture.content_type.split('/').last
+              extension = 'jpg' if extension == 'jpeg'
+              "#{user_picture_phenotype[c]}.#{extension}"
+            else
+              '-'
+            end
+          end
         end
     end
     logger.info('created picture handle csv-file')
     zipfile.add("picture_phenotypes_#{time_str}.csv", file_name)
-    list_of_pics
+    user_picture_phenotype_ids
   end
 
   def create_picture_zip(list_of_pics, zipfile)
