@@ -7,6 +7,10 @@ describe Zipfulldata do
 
   before do
     FileUtils.mkdir_p(output_dir)
+    # Add dummy phenotypes and picture phenotypes so the CROSSTAB queries don't
+    # trip.
+    create(:phenotype, characteristic: 'affinity for filling out online questionaires')
+    create(:picture_phenotype, characteristic: 'hair color')
   end
 
   after do
@@ -96,6 +100,7 @@ describe Zipfulldata do
               'date_of_birth',
               'chrom_sex',
               'openhumans_name',
+              'affinity for filling out online questionaires',
               'number of eyes',
               'length of tongue'
             ],
@@ -105,6 +110,7 @@ describe Zipfulldata do
               '1970',
               'why not',
               'oh-user',
+              '-',
               '5',
               '59 cm'
             ],
@@ -113,6 +119,7 @@ describe Zipfulldata do
               genotype_2.fs_filename,
               '1994',
               'no',
+              '-',
               '-',
               '1',
               '-'
@@ -207,6 +214,7 @@ describe Zipfulldata do
               'user_id',
               'date_of_birth',
               'chrom_sex',
+              'hair color',
               'number of eyes',
               'length of tongue'
             ],
@@ -214,6 +222,7 @@ describe Zipfulldata do
               user_1.id.to_s,
               '1970',
               'why not',
+              '-',
               "#{user_picture_phenotype_1.id}.png",
               "#{user_picture_phenotype_3.id}.png"
             ],
@@ -221,6 +230,7 @@ describe Zipfulldata do
               user_2.id.to_s,
               '1994',
               'no',
+              '-',
               "#{user_picture_phenotype_2.id}.png",
               '-'
             ],
@@ -230,6 +240,7 @@ describe Zipfulldata do
               '1922',
               'male',
               '-',
+              '-',
               '-'
             ]
           ]
@@ -237,8 +248,19 @@ describe Zipfulldata do
       end
     end
 
-    it 'creates a ZIP file with phenotype images to the ZIP file' do
+    it 'creates a ZIP file with phenotype images and adds it to the ZIP file' do
       worker.perform
+
+      picture_zip = Dir[output_dir.join('opensnp_picturedump.*.zip')].last
+      Zip::File.open(picture_zip) do |zip|
+        expect(zip.glob('*').map(&:name).sort).to eq(
+          [
+            user_picture_phenotype_1,
+            user_picture_phenotype_2,
+            user_picture_phenotype_3
+          ].map(&:id).sort.map { |id| "#{id}.png" }
+        )
+      end
 
       Zip::File.open(symlink) do |zip|
         zip.extract(

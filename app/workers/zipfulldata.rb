@@ -50,8 +50,7 @@ class Zipfulldata
       logger.info("Starting zipfile #{zip_fs_path}")
       Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
         create_user_csv(genotypes, zipfile)
-        list_of_pics = create_picture_phenotype_csv(zipfile)
-        create_picture_zip(list_of_pics, zipfile)
+        zip_user_phenotype_pictures_and_csv(zipfile)
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
@@ -130,89 +129,58 @@ class Zipfulldata
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype
-  def create_picture_phenotype_csv(zipfile)
-    file_name = "#{tmp_dir}/picture_dump#{time_str}.csv"
-    logger.info("Writing picture-CSV to #{file_name}")
-
-    list_of_pics = [] # need this for the zip-file-later
-
+  def zip_user_phenotype_pictures_and_csv(zipfile)
+    csv_path = "#{tmp_dir}/picture_dump#{time_str}.csv"
     picture_phenotypes = PicturePhenotype.order(:id)
-    characteristics = picture_phenotypes.pluck(:characteristic)
-
     csv_head = %w(user_id date_of_birth chrom_sex)
-    csv_head.concat(characteristics)
+    csv_head.concat(picture_phenotypes.pluck(:characteristic))
+    picture_zip = Zip::File.open(
+      output_dir.join("opensnp_picturedump.#{time_str}.zip"),
+      Zip::File::CREATE
+    )
 
-    CSV.open(file_name, "w", csv_options) do |csv|
+    CSV.open(csv_path, "w", csv_options) do |csv|
       csv << csv_head
 
-      # create lines in csv-file for each user who has uploaded his data
-
-      UserPicturePhenotype
-        .find_by_sql(<<-SQL)
-          SELECT * FROM CROSSTAB(
-            'SELECT DISTINCT ON (users.id, picture_phenotypes.id)
-               users.id,
-               users.yearofbirth,
-               users.sex,
-               user_picture_phenotypes.phenotype_picture_content_type,
-               picture_phenotypes.characteristic,
-               user_picture_phenotypes.id
-             FROM users
-             LEFT JOIN user_picture_phenotypes
-               ON user_picture_phenotypes.user_id = users.id
-             LEFT JOIN picture_phenotypes
-               ON picture_phenotypes.id = user_picture_phenotypes.picture_phenotype_id
-             ORDER BY users.id, picture_phenotypes.id',
-            '#{picture_phenotypes.select(:characteristic).to_sql}'
-          ) AS user_picture_phenotypes(
-            user_id integer,
-            user_yob varchar,
-            user_sex varchar,
-            phenotype_picture_content_type varchar,
-            #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
-          )
-        SQL
-        .each do |user_picture_phenotype|
-          logger.info('Putting a line into CSV')
-          csv << [
-            user_picture_phenotype.user_id,
-            user_picture_phenotype.user_yob,
-            user_picture_phenotype.user_sex
-          ] + characteristics.map do |c|
-            if user_picture_phenotype[c]
-              user_picture_phenotype_ids << user_picture_phenotype[c]
-              extension = user_picture_phenotype.phenotype_picture.content_type.split('/').last
-              extension = 'jpg' if extension == 'jpeg'
-              "#{user_picture_phenotype[c]}.#{extension}"
-            else
-              '-'
-            end
-          end
-        end
-    end
-    logger.info('created picture handle csv-file')
-    zipfile.add("picture_phenotypes_#{time_str}.csv", file_name)
-    user_picture_phenotype_ids
-  end
-
-  def create_picture_zip(list_of_pics, zipfile)
-    pic_zipname = output_dir.join("opensnp_picturedump.#{time_str}.zip")
-    Zip::File.open(pic_zipname, Zip::File::CREATE) do |z|
-      list_of_pics.each do |tmp|
-        begin
-          file_name = tmp.phenotype_picture.path
-          basename = file_name.split("/")[-1]
-          filetype = basename.split(".")[-1]
-          logger.info("Adding file to zip named #{tmp.id.to_s + "." + filetype}")
-          z.add(tmp.id.to_s+"."+filetype, file_name)
-          logger.info("Added #{tmp.id.to_s + "." + filetype}")
-        rescue => e
-          logger.info("create_picture_zip: #{e.class}: #{e.message}")
+      User
+        .order(:id)
+        .includes(:user_picture_phenotypes)
+        .find_each do |user|
+          csv << build_user_picture_phenotype_row(user, picture_phenotypes, picture_zip)
         end
       end
+
+    picture_zip.close
+
+    zipfile.add("picture_phenotypes_#{time_str}.csv", csv_path)
+    zipfile.add("picture_phenotypes_#{time_str}_all_pics.zip", picture_zip.name)
+  end
+
+  def build_user_picture_phenotype_row(user, picture_phenotypes, picture_zip)
+    user_picture_phenotypes = user
+      .user_picture_phenotypes
+      .index_by(&:picture_phenotype_id)
+
+    [
+      user.id,
+      user.yearofbirth,
+      user.sex
+    ] + picture_phenotypes.map do |picture_phenotype|
+      user_picture_phenotype = user_picture_phenotypes[picture_phenotype.id]
+      if user_picture_phenotype
+        extension = user_picture_phenotype
+          .phenotype_picture
+          .content_type
+          .split('/')
+          .last
+        extension = 'jpg' if extension == 'jpeg'
+        file_name = "#{user_picture_phenotype.id}.#{extension}"
+        picture_zip.add(file_name, user_picture_phenotype.phenotype_picture.path)
+        file_name
+      else
+        '-'
+      end
     end
-    zipfile.add("picture_phenotypes_#{time_str}_all_pics.zip", pic_zipname)
-    logger.info('created picture zip file')
   end
 
   def create_readme(zipfile)
