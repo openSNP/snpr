@@ -139,7 +139,7 @@ class Zipfulldata
       Zip::File::CREATE
     )
 
-    CSV.open(csv_path, "w", csv_options) do |csv|
+    CSV.open(csv_path, 'w', csv_options) do |csv|
       csv << csv_head
 
       User
@@ -158,8 +158,8 @@ class Zipfulldata
 
   def build_user_picture_phenotype_row(user, picture_phenotypes, picture_zip)
     user_picture_phenotypes = user
-      .user_picture_phenotypes
-      .index_by(&:picture_phenotype_id)
+                              .user_picture_phenotypes
+                              .index_by(&:picture_phenotype_id)
 
     [
       user.id,
@@ -169,10 +169,10 @@ class Zipfulldata
       user_picture_phenotype = user_picture_phenotypes[picture_phenotype.id]
       if user_picture_phenotype
         extension = user_picture_phenotype
-          .phenotype_picture
-          .content_type
-          .split('/')
-          .last
+                    .phenotype_picture
+                    .content_type
+                    .split('/')
+                    .last
         extension = 'jpg' if extension == 'jpeg'
         file_name = "#{user_picture_phenotype.id}.#{extension}"
         picture_zip.add(file_name, user_picture_phenotype.phenotype_picture.path)
