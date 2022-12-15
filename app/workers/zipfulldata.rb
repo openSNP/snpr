@@ -186,17 +186,17 @@ class Zipfulldata
   def create_readme(zipfile)
     # make a README containing time of zip - this way, users can compare with page-status
     # and see how old the data is
-    phenotype_count = Phenotype.count
-    genotype_count = Genotype.count
-    picture_count = PicturePhenotype.count
-    File.open("#{tmp_dir}/dump#{time_str}.txt", "w") do |readme|
-      readme.puts(<<-TXT)
-This archive was generated on #{time.ctime} UTC. It contains #{phenotype_count} phenotypes, #{genotype_count} genotypes and #{picture_count} picture phenotypes.
-
-Thanks for using openSNP!
-TXT
+    zipfile.get_output_stream('readme.txt') do |f|
+      f.write(
+        I18n.t(
+          'zipfulldata.readme',
+          time: time.ctime,
+          phenotype_count: Phenotype.count,
+          genotype_count: Genotype.count,
+          picture_count: PicturePhenotype.count
+        )
+      )
     end
-    zipfile.add("readme.txt", "#{tmp_dir}/dump#{time_str}.txt")
   end
 
   def zip_genotype_files(genotypes, zipfile)

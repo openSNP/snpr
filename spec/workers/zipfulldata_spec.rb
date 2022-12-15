@@ -29,7 +29,12 @@ describe Zipfulldata do
 
     Zip::File.open(symlink) do |zip|
       readme = zip.read('readme.txt')
-      expect(readme).to include('This archive was generated')
+      expect(readme).to eq(<<-README)
+This archive was generated on #{worker.time.ctime} UTC. \
+It contains 1 phenotypes, 0 genotypes and 1 picture phenotypes.
+
+Thanks for using openSNP!
+      README
     end
   end
 
