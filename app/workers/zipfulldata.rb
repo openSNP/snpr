@@ -17,12 +17,6 @@ class Zipfulldata
   attr_reader :time, :time_str, :zip_public_path, :zip_tmp_path, :tmp_dir,
               :link_path, :output_dir
 
-  def perform
-    logger.info('job started')
-    run
-    logger.info('job done')
-  end
-
   def initialize(output_dir: nil)
     @output_dir = output_dir || DEFAULT_OUTPUT_DIR
     @time = Time.now.utc
@@ -34,22 +28,9 @@ class Zipfulldata
     @link_path = @output_dir.join('opensnp_datadump.current.zip')
   end
 
-  def self.public_path
-    '/data/zip/opensnp_datadump.current.zip'
-  end
+  def perform
+    logger.info('job started')
 
-  def self.gb_size
-    path = DEFAULT_OUTPUT_DIR.join('opensnp_datadump.current.zip')
-    if File.exist?(path) && File.exist?(File.readlink(path))
-      "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
-    else
-      ""
-    end
-  end
-
-  private
-
-  def run
     # only create a new file if in the current minute none has been created yet
     if Dir.exists?(tmp_dir)
       logger.info("Directory #{tmp_dir} already exists. Exiting...")
@@ -78,8 +59,24 @@ class Zipfulldata
     ensure
       FileUtils.rm_rf(tmp_dir)
     end
+    logger.info('job done')
     true
   end
+
+  def self.public_path
+    '/data/zip/opensnp_datadump.current.zip'
+  end
+
+  def self.gb_size
+    path = DEFAULT_OUTPUT_DIR.join('opensnp_datadump.current.zip')
+    if File.exist?(path) && File.exist?(File.readlink(path))
+      "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
+    else
+      ""
+    end
+  end
+
+  private
 
   # Create a CSV with a row for each genotype, with user data and phenotypes as
   # columns.
