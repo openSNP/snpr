@@ -25,9 +25,9 @@ class Zipfulldata
 
   def initialize(output_dir: nil)
     @output_dir = output_dir || DEFAULT_OUTPUT_DIR
-    @tmp_dir = Rails.root.join('tmp', "opensnp_datadump.#{time_str}")
     @time = Time.now.utc
     @time_str = time.strftime("%Y%m%d%H%M")
+    @tmp_dir = Rails.root.join('tmp', "opensnp_datadump.#{time_str}")
     zip_file_name = "opensnp_datadump.#{time_str}.zip"
     @zip_public_path = @output_dir.join(zip_file_name)
     @zip_tmp_path = Rails.root.join('tmp', zip_file_name)
