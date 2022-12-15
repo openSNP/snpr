@@ -12,9 +12,10 @@ class Zipfulldata
   # dead => false means don't send dead job to the dead queue, we don't care about that
 
   DEFAULT_OUTPUT_DIR = Rails.root.join('public', 'data', 'zip')
+  CSV_OPTIONS = { col_sep: ';' }
 
-  attr_reader :time, :time_str, :csv_options, :dump_file_name, :zip_public_path,
-              :zip_fs_path, :tmp_dir, :link_path, :output_dir
+  attr_reader :time, :time_str, :zip_public_path, :zip_tmp_path, :tmp_dir,
+              :link_path, :output_dir
 
   def perform
     logger.info('job started')
@@ -24,13 +25,12 @@ class Zipfulldata
 
   def initialize(output_dir: nil)
     @output_dir = output_dir || DEFAULT_OUTPUT_DIR
+    @tmp_dir = Rails.root.join('tmp',  "opensnp_datadump.#{time_str}")
     @time = Time.now.utc
     @time_str = time.strftime("%Y%m%d%H%M")
-    @csv_options = { col_sep: ';' }
-    @dump_file_name = "opensnp_datadump.#{time_str}"
-    @zip_public_path = @output_dir.join("#{dump_file_name}.zip")
-    @zip_fs_path = "/tmp/#{dump_file_name}.zip"
-    @tmp_dir = "#{Rails.root}/tmp/#{dump_file_name}"
+    zip_file_name = "opensnp_datadump.#{time_str}.zip"
+    @zip_public_path = @output_dir.join(zip_file_name)
+    @zip_tmp_path = Rails.root.join('tmp', zip_file_name)
     @link_path = @output_dir.join('opensnp_datadump.current.zip')
   end
 
@@ -47,16 +47,16 @@ class Zipfulldata
     begin
       logger.info("Making tmpdir #{tmp_dir}")
       Dir.mkdir(tmp_dir)
-      logger.info("Starting zipfile #{zip_fs_path}")
-      Zip::File.open(zip_fs_path, Zip::File::CREATE) do |zipfile|
-        create_user_csv(genotypes, zipfile)
-        zip_user_phenotype_pictures_and_csv(zipfile)
+      logger.info("Starting zipfile #{zip_tmp_path}")
+      Zip::File.open(zip_tmp_path, Zip::File::CREATE) do |zipfile|
+        zip_user_phenotypes(genotypes, zipfile)
+        zip_user_picture_phenotypes(zipfile)
         create_readme(zipfile)
         zip_genotype_files(genotypes, zipfile)
       end
       # move from local storage to network storage
-      FileUtils.cp(@zip_fs_path, zip_public_path)
-      FileUtils.rm(@zip_fs_path)
+      FileUtils.cp(zip_tmp_path, zip_public_path)
+      FileUtils.rm(zip_tmp_path)
       logger.info('created zip-file')
 
       FileUtils.ln_sf(zip_public_path, link_path)
@@ -71,15 +71,15 @@ class Zipfulldata
 
   # Create a CSV with a row for each genotype, with user data and phenotypes as
   # columns.
-  def create_user_csv(genotypes, zipfile)
+  def zip_user_phenotypes(genotypes, zipfile)
     phenotypes = Phenotype.select(:characteristic).order(:id)
     characteristics = phenotypes.pluck(:characteristic)
 
-    csv_file_name = "#{tmp_dir}/dump#{time_str}.csv"
+    csv_file_name = tmp_dir.join("dump#{time_str}.csv")
     csv_head = %w(user_id genotype_filename date_of_birth chrom_sex openhumans_name)
     csv_head += characteristics
 
-    CSV.open(csv_file_name, "w", csv_options) do |csv|
+    CSV.open(csv_file_name, "w", CSV_OPTIONS) do |csv|
       csv << csv_head
 
       # Build a pivot table with characteristics and user IDs as dimensions and
@@ -129,8 +129,8 @@ class Zipfulldata
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype
-  def zip_user_phenotype_pictures_and_csv(zipfile)
-    csv_path = "#{tmp_dir}/picture_dump#{time_str}.csv"
+  def zip_user_picture_phenotypes(zipfile)
+    csv_path = tmp_dir.join("picture_dump#{time_str}.csv")
     picture_phenotypes = PicturePhenotype.order(:id)
     csv_head = %w(user_id date_of_birth chrom_sex)
     csv_head.concat(picture_phenotypes.pluck(:characteristic))
@@ -139,7 +139,7 @@ class Zipfulldata
       Zip::File::CREATE
     )
 
-    CSV.open(csv_path, 'w', csv_options) do |csv|
+    CSV.open(csv_path, 'w', CSV_OPTIONS) do |csv|
       csv << csv_head
 
       User
@@ -223,7 +223,7 @@ TXT
   end
 
   def delete_old_zips
-    forbidden_files = [link_path, output_dir.join("#{dump_file_name}.zip")].map(&:to_s)
+    forbidden_files = [link_path, zip_public_path].map(&:to_s)
     Dir[output_dir.join('opensnp_datadump.*.zip')].each do |f|
       File.delete(f) unless forbidden_files.include?(f)
     end
