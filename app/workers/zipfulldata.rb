@@ -34,6 +34,21 @@ class Zipfulldata
     @link_path = @output_dir.join('opensnp_datadump.current.zip')
   end
 
+  def self.public_path
+    '/data/zip/opensnp_datadump.current.zip'
+  end
+
+  def self.gb_size
+    path = DEFAULT_OUTPUT_DIR.join('opensnp_datadump.current.zip')
+    if File.exist?(path) && File.exist?(File.readlink(path))
+      "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
+    else
+      ""
+    end
+  end
+
+  private
+
   def run
     # only create a new file if in the current minute none has been created yet
     if Dir.exists?(tmp_dir)
@@ -225,19 +240,6 @@ class Zipfulldata
     forbidden_files = [link_path, zip_public_path].map(&:to_s)
     Dir[output_dir.join('opensnp_datadump.*.zip')].each do |f|
       File.delete(f) unless forbidden_files.include?(f)
-    end
-  end
-
-  def self.public_path
-    '/data/zip/opensnp_datadump.current.zip'
-  end
-
-  def self.gb_size
-    path = DEFAULT_OUTPUT_DIR.join('opensnp_datadump.current.zip')
-    if File.exist?(path) && File.exist?(File.readlink(path))
-      "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
-    else
-      ""
     end
   end
 end
