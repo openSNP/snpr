@@ -12,7 +12,7 @@ class Zipfulldata
   # dead => false means don't send dead job to the dead queue, we don't care about that
 
   DEFAULT_OUTPUT_DIR = Rails.root.join('public', 'data', 'zip')
-  CSV_OPTIONS = { col_sep: ';' }
+  CSV_OPTIONS = { col_sep: ';' }.freeze
 
   attr_reader :time, :time_str, :zip_public_path, :zip_tmp_path, :tmp_dir,
               :link_path, :output_dir
@@ -25,7 +25,7 @@ class Zipfulldata
 
   def initialize(output_dir: nil)
     @output_dir = output_dir || DEFAULT_OUTPUT_DIR
-    @tmp_dir = Rails.root.join('tmp',  "opensnp_datadump.#{time_str}")
+    @tmp_dir = Rails.root.join('tmp', "opensnp_datadump.#{time_str}")
     @time = Time.now.utc
     @time_str = time.strftime("%Y%m%d%H%M")
     zip_file_name = "opensnp_datadump.#{time_str}.zip"
@@ -35,9 +35,6 @@ class Zipfulldata
   end
 
   def run
-    genotypes = Genotype.includes(user: :user_phenotypes)
-    logger.info("Got #{genotypes.length} genotypes")
-
     # only create a new file if in the current minute none has been created yet
     if Dir.exists?(tmp_dir)
       logger.info("Directory #{tmp_dir} already exists. Exiting...")
@@ -49,10 +46,10 @@ class Zipfulldata
       Dir.mkdir(tmp_dir)
       logger.info("Starting zipfile #{zip_tmp_path}")
       Zip::File.open(zip_tmp_path, Zip::File::CREATE) do |zipfile|
-        zip_user_phenotypes(genotypes, zipfile)
+        zip_user_phenotypes(zipfile)
         zip_user_picture_phenotypes(zipfile)
         create_readme(zipfile)
-        zip_genotype_files(genotypes, zipfile)
+        zip_genotype_files(zipfile)
       end
       # move from local storage to network storage
       FileUtils.cp(zip_tmp_path, zip_public_path)
@@ -71,7 +68,7 @@ class Zipfulldata
 
   # Create a CSV with a row for each genotype, with user data and phenotypes as
   # columns.
-  def zip_user_phenotypes(genotypes, zipfile)
+  def zip_user_phenotypes(zipfile)
     phenotypes = Phenotype.select(:characteristic).order(:id)
     characteristics = phenotypes.pluck(:characteristic)
 
@@ -79,7 +76,8 @@ class Zipfulldata
     csv_head = %w(user_id genotype_filename date_of_birth chrom_sex openhumans_name)
     csv_head += characteristics
 
-    CSV.open(csv_file_name, "w", CSV_OPTIONS) do |csv|
+    # rubocop:disable Metrics/BlockLength
+    CSV.open(csv_file_name, 'w', CSV_OPTIONS) do |csv|
       csv << csv_head
 
       # Build a pivot table with characteristics and user IDs as dimensions and
@@ -124,6 +122,7 @@ class Zipfulldata
           ] + characteristics.map { |c| genotype[c] || '-' }
         end
     end
+    # rubocop:enable Metrics/BlockLength
     logger.info('created user csv')
     zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
   end
@@ -199,8 +198,8 @@ class Zipfulldata
     end
   end
 
-  def zip_genotype_files(genotypes, zipfile)
-    genotypes.each do |gen_file|
+  def zip_genotype_files(zipfile)
+    Genotype.find_each do |gen_file|
       next unless File.exist?(gen_file.genotype.path)
 
       yob = gen_file.user.yearofbirth
