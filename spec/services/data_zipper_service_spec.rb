@@ -1,9 +1,12 @@
-describe Zipfulldata do
-  subject(:worker) { described_class.new(output_dir: output_dir) }
+# frozen_string_literal: true
+
+describe DataZipperService do
+  subject(:service) { described_class.new(output_dir: output_dir, logger: logger) }
 
   let(:output_dir) { Rails.root.join('tmp', 'test', 'zipfulldata') }
   let(:symlink) { output_dir.join('opensnp_datadump.current.zip') }
   let(:picture_zip) { Dir[output_dir.join('opensnp_picturedump.*.zip')].last }
+  let(:logger) { instance_double(Logger) }
 
   before do
     FileUtils.mkdir_p(output_dir)
@@ -11,6 +14,7 @@ describe Zipfulldata do
     # trip.
     create(:phenotype, characteristic: 'affinity for filling out online questionaires')
     create(:picture_phenotype, characteristic: 'hair color')
+    allow(logger).to receive(:info)
   end
 
   after do
@@ -18,19 +22,19 @@ describe Zipfulldata do
   end
 
   it 'creates a new dump file and symlink' do
-    worker.perform
+    service.call
 
     expect(File.symlink?(symlink)).to be(true)
     expect(File.exist?(File.readlink(symlink)))
   end
 
   it 'adds a README' do
-    worker.perform
+    service.call
 
     Zip::File.open(symlink) do |zip|
       readme = zip.read('readme.txt')
       expect(readme).to eq(<<~README)
-        This archive was generated on #{worker.time.ctime} UTC. \
+        This archive was generated on #{service.time.ctime} UTC. \
         It contains 1 phenotypes, 0 genotypes and 1 picture phenotypes.
 
         Thanks for using openSNP!
@@ -49,13 +53,13 @@ describe Zipfulldata do
     end
 
     it 'deletes old dump files' do
-      worker.perform
+      service.call
 
       expect(File.exist?(old_dump_file_path)).to be(false)
     end
 
     it 'does not delete unrelated files' do
-      worker.perform
+      service.call
 
       expect(File.exist?(unrelated_file_path)).to be(true)
     end
@@ -93,7 +97,7 @@ describe Zipfulldata do
     end
 
     it 'adds a CSV with user data to the zip file' do
-      worker.perform
+      service.call
 
       Zip::File.open(symlink) do |zip|
         phenotypes_csv = zip.glob('phenotypes_*.csv').first
@@ -135,7 +139,7 @@ describe Zipfulldata do
     end
 
     it 'adds genotype files to the ZIP file' do
-      worker.perform
+      service.call
 
       Zip::File.open(symlink) do |zip|
         expect(zip.glob('user*.txt').map(&:name)).to eq(
@@ -156,7 +160,7 @@ describe Zipfulldata do
       end
 
       it 'fails' do
-        expect { worker.perform }.to raise_error(PG::DuplicateColumn)
+        expect { service.call }.to raise_error(PG::DuplicateColumn)
       end
     end
   end
@@ -209,7 +213,7 @@ describe Zipfulldata do
     let!(:phenotype) { create(:phenotype) }
 
     it 'adds a CSV with image data to the zip file' do
-      worker.perform
+      service.call
 
       Zip::File.open(symlink) do |zip|
         picture_phenotypes_csv = zip.glob('picture_phenotypes_*.csv').first
@@ -254,7 +258,7 @@ describe Zipfulldata do
     end
 
     it 'creates a ZIP file with phenotype images and adds it to the ZIP file' do
-      worker.perform
+      service.call
 
       picture_zip = Dir[output_dir.join('opensnp_picturedump.*.zip')].last
       Zip::File.open(picture_zip) do |zip|
@@ -299,7 +303,7 @@ describe Zipfulldata do
     end
 
     it 'returns the size of the zip file' do
-      worker.perform
+      service.call
 
       expect(described_class.gb_size).to eq('(Size: 0.0)')
     end
