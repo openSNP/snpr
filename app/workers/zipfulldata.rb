@@ -129,7 +129,6 @@ class Zipfulldata
 
   # make a CSV describing all of them - which filename is for which user's phenotype
   def zip_user_picture_phenotypes(zipfile)
-    csv_path = tmp_dir.join("picture_dump#{time_str}.csv")
     picture_phenotypes = PicturePhenotype.order(:id)
     csv_head = %w(user_id date_of_birth chrom_sex)
     csv_head.concat(picture_phenotypes.pluck(:characteristic))
