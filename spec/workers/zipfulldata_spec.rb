@@ -156,7 +156,7 @@ describe Zipfulldata do
       end
 
       it 'fails' do
-        expect { worker.perform }.to raise_error(ActiveRecord::StatementInvalid)
+        expect { worker.perform }.to raise_error(PG::DuplicateColumn)
       end
     end
   end

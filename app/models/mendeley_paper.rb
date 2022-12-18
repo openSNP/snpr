@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class MendeleyPaper < ActiveRecord::Base
+class MendeleyPaper < ApplicationRecord
   include PgSearchCommon
 
   has_many :snp_references, as: :paper

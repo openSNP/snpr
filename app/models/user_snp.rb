@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserSnp < ActiveRecord::Base
+class UserSnp < ApplicationRecord
   self.primary_keys = [:genotype_id, :snp_name]
   belongs_to :snp, foreign_key: :snp_name, primary_key: :name, counter_cache: true
   has_one :user, through: :genotype

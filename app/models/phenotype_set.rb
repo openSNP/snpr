@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class PhenotypeSet < ActiveRecord::Base
+class PhenotypeSet < ApplicationRecord
   include PgSearchCommon
 
   has_and_belongs_to_many :phenotypes

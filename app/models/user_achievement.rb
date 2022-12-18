@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserAchievement < ActiveRecord::Base
+class UserAchievement < ApplicationRecord
    belongs_to :achievement
    belongs_to :user
 end

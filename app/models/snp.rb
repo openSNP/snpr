@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Snp < ActiveRecord::Base
+class Snp < ApplicationRecord
   include PgSearchCommon
 
   has_many :user_snps, foreign_key: :snp_name, primary_key: :name

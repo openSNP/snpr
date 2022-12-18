@@ -84,59 +84,48 @@ class Zipfulldata
     phenotypes = Phenotype.select(:characteristic).order(:id)
     characteristics = phenotypes.pluck(:characteristic)
 
-    csv_file_name = tmp_dir.join("dump#{time_str}.csv")
-    csv_head = %w(user_id genotype_filename date_of_birth chrom_sex openhumans_name)
-    csv_head += characteristics
+    # Build a pivot table with characteristics and user IDs as dimensions and
+    # variations as values.
+    csv = ApplicationRecord.copy_csv(<<-SQL)
+      SELECT
+        user_id,
+        fs_filename AS genotype_filename,
+        user_yob AS date_of_birth,
+        user_sex AS chrom_sex,
+        oh_user_name AS openhumans_name,
+        #{characteristics.map { |c| "COALESCE(\"#{c}\", '-') AS \"#{c}\"" }.join(', ')}
+      FROM CROSSTAB(
+       'SELECT genotypes.user_id, -- vertical dimension, must be first
+               genotypes.user_id || ''.'' || genotypes.filetype || ''.'' || genotypes.id,
+               users.yearofbirth,
+               users.sex,
+               COALESCE(open_humans_profiles.open_humans_user_id, ''-''),
+               phenotypes.characteristic, -- column headers, must be second to last
+               user_phenotypes.variation -- values, must be last
+        FROM genotypes
+        JOIN users ON users.id = genotypes.user_id
+        JOIN user_phenotypes ON user_phenotypes.user_id = genotypes.user_id
+        JOIN phenotypes ON phenotypes.id = user_phenotypes.phenotype_id
+        LEFT JOIN open_humans_profiles ON open_humans_profiles.user_id = users.id
+        ORDER BY user_id',
+       '#{phenotypes.to_sql}'
+      ) AS ct_variations(
+        user_id integer,
+        fs_filename text,
+        user_yob integer,
+        user_sex text,
+        oh_user_name text,
+        #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
+      )
+    SQL
 
-    # rubocop:disable Metrics/BlockLength
-    CSV.open(csv_file_name, 'w', CSV_OPTIONS) do |csv|
-      csv << csv_head
-
-      # Build a pivot table with characteristics and user IDs as dimensions and
-      # variations as values, join with genotypes so the users'
-      # characteristic-variation pairs show up as attributes of each respective
-      # Genotype.
-      Genotype
-        .find_by_sql(<<-SQL)
-          SELECT * FROM CROSSTAB(
-           'SELECT genotypes.user_id, -- must be first
-                   users.yearofbirth,
-                   users.sex,
-                   open_humans_profiles.open_humans_user_id,
-                   genotypes.id,
-                   genotypes.filetype,
-                   phenotypes.characteristic, -- must be second to last
-                   user_phenotypes.variation -- must be last
-            FROM genotypes
-            JOIN users ON users.id = genotypes.user_id
-            JOIN user_phenotypes ON user_phenotypes.user_id = genotypes.user_id
-            JOIN phenotypes ON phenotypes.id = user_phenotypes.phenotype_id
-            LEFT JOIN open_humans_profiles ON open_humans_profiles.user_id = users.id
-            ORDER BY user_id',
-           '#{phenotypes.to_sql}'
-          ) AS ct_variations(
-            user_id integer,
-            user_yob integer,
-            user_sex varchar,
-            oh_user_id varchar,
-            id integer,
-            filetype varchar,
-            #{characteristics.map { |c| "\"#{c}\" text" }.join(', ')}
-          )
-        SQL
-        .each do |genotype|
-          csv << [
-            genotype.user_id,
-            genotype.fs_filename,
-            genotype.user_yob,
-            genotype.user_sex,
-            genotype.oh_user_id || '-'
-          ] + characteristics.map { |c| genotype[c] || '-' }
-        end
+    zipfile.get_output_stream("phenotypes_#{time_str}.csv") do |f|
+      csv.each do |row|
+        f.write(row)
+      end
     end
-    # rubocop:enable Metrics/BlockLength
+
     logger.info('created user csv')
-    zipfile.add("phenotypes_#{time_str}.csv", csv_file_name)
   end
 
   # make a CSV describing all of them - which filename is for which user's phenotype

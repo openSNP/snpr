@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'fileutils'
 
-class Genotype < ActiveRecord::Base
+class Genotype < ApplicationRecord
   belongs_to :user
   has_many :user_snps, dependent: :delete_all
   validates_presence_of :user

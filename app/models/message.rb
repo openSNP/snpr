@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   attr_encrypted :body, key: ENV.fetch('USER_DATA_SECRET_KEY')
   attr_encrypted :subject, key: ENV.fetch('USER_DATA_SECRET_KEY')
 
