@@ -260,17 +260,6 @@ describe DataZipperService do
     it 'creates a ZIP file with phenotype images and adds it to the ZIP file' do
       service.call
 
-      picture_zip = Dir[output_dir.join('opensnp_picturedump.*.zip')].last
-      Zip::File.open(picture_zip) do |zip|
-        expect(zip.glob('*').map(&:name).sort).to eq(
-          [
-            user_picture_phenotype_1,
-            user_picture_phenotype_2,
-            user_picture_phenotype_3
-          ].map(&:id).sort.map { |id| "#{id}.png" }
-        )
-      end
-
       Zip::File.open(symlink) do |zip|
         zip.extract(
           zip.glob('picture_phenotypes_*_all_pics.zip').last.name,

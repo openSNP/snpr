@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'csv'
+
 require 'zip'
 require_relative 'data_zipper_service/generate_user_phenotype_csv'
 require_relative 'data_zipper_service/zip_user_picture_phenotypes'
@@ -81,9 +81,7 @@ class DataZipperService
 
   # make a CSV describing all of them - which filename is for which user's phenotype
   def zip_user_picture_phenotypes(zipfile)
-    ZipUserPicturePhenotypes
-      .new(zipfile, tmp_dir, time_str, output_dir)
-      .call
+    ZipUserPicturePhenotypes.new(zipfile, tmp_dir, time_str).call
   end
 
   def zip_readme(zipfile)

@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class DataZipperService
   class ZipUserPicturePhenotypes
     CSV_BASE_HEADER = %w(user_id date_of_birth chrom_sex)
 
-    def initialize(zipfile, tmp_dir, time_str, output_dir)
+    def initialize(zipfile, tmp_dir, time_str)
       @zipfile = zipfile
       @tmp_dir = tmp_dir
       @time_str = time_str
-      @output_dir = output_dir
     end
 
-    attr_reader :zipfile, :tmp_dir, :time_str, :output_dir
+    attr_reader :zipfile, :tmp_dir, :time_str
 
     def call
-      csv_path = tmp_dir.join("picture_dump#{time_str}.csv")
       picture_phenotypes = PicturePhenotype.order(:id)
       csv_head = CSV_BASE_HEADER + picture_phenotypes.pluck(:characteristic)
       picture_zip = Zip::File.open(
-        output_dir.join("opensnp_picturedump.#{time_str}.zip"),
+        tmp_dir.join("opensnp_picturedump.#{time_str}.zip"),
         Zip::File::CREATE
       )
 
