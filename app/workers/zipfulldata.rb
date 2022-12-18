@@ -138,7 +138,7 @@ class Zipfulldata
       Zip::File::CREATE
     )
 
-    CSV.open(csv_path, 'w', CSV_OPTIONS) do |csv|
+    user_picture_phenotypes_csv = CSV.generate(CSV_OPTIONS) do |csv|
       csv << csv_head
 
       User
@@ -147,11 +147,13 @@ class Zipfulldata
         .find_each do |user|
           csv << build_user_picture_phenotype_row(user, picture_phenotypes, picture_zip)
         end
-      end
+    end
 
     picture_zip.close
 
-    zipfile.add("picture_phenotypes_#{time_str}.csv", csv_path)
+    zipfile.get_output_stream("picture_phenotypes_#{time_str}.csv") do |f|
+      f.write(user_picture_phenotypes_csv)
+    end
     zipfile.add("picture_phenotypes_#{time_str}_all_pics.zip", picture_zip.name)
   end
 
