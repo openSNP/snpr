@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserSession < Authlogic::Session::Base
   after_persisting :raven_set_user_context
   after_destroy :raven_clear_user_context

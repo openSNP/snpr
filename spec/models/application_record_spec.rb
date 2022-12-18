@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe ApplicationRecord do
   describe '.copy_csv' do
     it 'returns an enumerator' do

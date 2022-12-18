@@ -1,8 +1,7 @@
-
 # frozen_string_literal: true
+
 require 'csv'
 require 'zip'
-
 
 class Zipfulldata
   include Sidekiq::Worker
@@ -72,7 +71,7 @@ class Zipfulldata
     if File.exist?(path) && File.exist?(File.readlink(path))
       "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
     else
-      ""
+      ''
     end
   end
 

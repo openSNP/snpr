@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PgpAnnotation < ApplicationRecord
   include PgSearchCommon
 

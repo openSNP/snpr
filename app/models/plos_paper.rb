@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PlosPaper < ApplicationRecord
   include PgSearchCommon
 

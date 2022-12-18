@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Homepage < ApplicationRecord
    belongs_to :user
    after_save :destroy_if_blank

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SnpReference < ApplicationRecord
   self.primary_keys = :snp_id, :paper_id, :paper_type
   belongs_to :snp
