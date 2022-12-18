@@ -13,8 +13,8 @@ class DataZipperService
         next unless File.exist?(genotype.genotype.path)
 
         user = genotype.user
-        yob = user.yearofbirth == "rather not say" ? "unknown" : user.yearofbirth
-        sex = user.sex == "rather not say" ? "unknown" : user.sex
+        yob = user.yearofbirth == 'rather not say' ? 'unknown' : user.yearofbirth
+        sex = user.sex == 'rather not say' ? 'unknown' : user.sex
 
         zipfile.add(
           "user#{genotype.user_id}_file#{genotype.id}_yearofbirth_#{yob}_" \

@@ -4,7 +4,7 @@ require 'csv'
 
 class DataZipperService
   class ZipUserPicturePhenotypes
-    CSV_BASE_HEADER = %w(user_id date_of_birth chrom_sex)
+    CSV_BASE_HEADER = %w(user_id date_of_birth chrom_sex).freeze
 
     def initialize(zipfile, tmp_dir, time_str)
       @zipfile = zipfile
@@ -31,7 +31,7 @@ class DataZipperService
           .find_each do |user|
             csv << build_user_picture_phenotype_row(user, picture_phenotypes, picture_zip)
           end
-        end
+      end
 
       picture_zip.close
 

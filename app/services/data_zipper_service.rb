@@ -13,7 +13,7 @@ class DataZipperService
   def initialize(output_dir: nil, logger: Logger.new(STDOUT))
     @output_dir = output_dir
     @time = Time.now.utc
-    @time_str = time.strftime("%Y%m%d%H%M")
+    @time_str = time.strftime('%Y%m%d%H%M')
     @tmp_dir = Rails.root.join('tmp', "opensnp_datadump.#{time_str}")
     zip_file_name = "opensnp_datadump.#{time_str}.zip"
     @zip_public_path = @output_dir.join(zip_file_name)
@@ -24,7 +24,7 @@ class DataZipperService
 
   def call
     # only create a new file if in the current minute none has been created yet
-    if Dir.exists?(tmp_dir)
+    if Dir.exist?(tmp_dir)
       logger.info("Directory #{tmp_dir} already exists. Exiting...")
       return false
     end
@@ -62,7 +62,7 @@ class DataZipperService
     if File.exist?(path) && File.exist?(File.readlink(path))
       "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
     else
-      ""
+      ''
     end
   end
 

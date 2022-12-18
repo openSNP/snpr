@@ -48,4 +48,3 @@ class DataZipperService
     end
   end
 end
-
