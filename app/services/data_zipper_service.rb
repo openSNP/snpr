@@ -25,7 +25,7 @@ class DataZipperService
   def call
     # only create a new file if in the current minute none has been created yet
     if Dir.exist?(tmp_dir)
-      logger.info("Directory #{tmp_dir} already exists. Exiting...")
+      logger.error("Directory #{tmp_dir} already exists. Exiting...")
       return false
     end
 
@@ -39,16 +39,19 @@ class DataZipperService
         zip_readme(zipfile)
         zip_genotype_files(zipfile)
       end
-      # move from local storage to network storage
-      FileUtils.cp(zip_tmp_path, zip_public_path)
-      FileUtils.rm(zip_tmp_path)
-      logger.info('created zip-file')
 
+      # move from local storage to network storage
+      logger.info("Copying #{zip_tmp_path} to #{zip_public_path}")
+      FileUtils.cp(zip_tmp_path, zip_public_path)
+      logger.info("Deleting #{zip_tmp_path}")
+      FileUtils.rm(zip_tmp_path)
+      logger.info("Creating symlink #{link_path} to #{zip_public_path}")
       FileUtils.ln_sf(zip_public_path, link_path)
 
       # everything went OK, now delete old zips
       delete_old_zips
     ensure
+      logger.info("Deleting #{tmp_dir}")
       FileUtils.rm_rf(tmp_dir)
     end
   end
@@ -71,7 +74,7 @@ class DataZipperService
   # Create a CSV with a row for each genotype, with user data and phenotypes as
   # columns.
   def zip_user_phenotypes(zipfile)
-    logger.info('Adding user phenotypes CSV')
+    logger.info('Zipping user phenotypes')
     zipfile.get_output_stream("phenotypes_#{time_str}.csv") do |f|
       GenerateUserPhenotypeCsv.new.call.each do |row|
         f.write(row)
@@ -81,10 +84,12 @@ class DataZipperService
 
   # make a CSV describing all of them - which filename is for which user's phenotype
   def zip_user_picture_phenotypes(zipfile)
+    logger.info('Zipping user picture phenotypes')
     ZipUserPicturePhenotypes.new(zipfile, tmp_dir, time_str).call
   end
 
   def zip_readme(zipfile)
+    logger.info('Zipping readme')
     # make a README containing time of zip - this way, users can compare with page-status
     # and see how old the data is
     zipfile.get_output_stream('readme.txt') do |f|
@@ -101,13 +106,16 @@ class DataZipperService
   end
 
   def zip_genotype_files(zipfile)
+    logger.info('Zipping genotype files')
     ZipGenotypeFiles.new(zipfile).call
   end
 
   def delete_old_zips
     forbidden_files = [link_path, zip_public_path].map(&:to_s)
     Dir[output_dir.join('opensnp_datadump.*.zip')].each do |f|
-      File.delete(f) unless forbidden_files.include?(f)
+      next if forbidden_files.include?(f)
+      logger.info("Deleting #{f}")
+      File.delete(f)
     end
   end
 end
