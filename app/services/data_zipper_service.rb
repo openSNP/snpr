@@ -6,11 +6,13 @@ require_relative 'data_zipper_service/zip_user_picture_phenotypes'
 
 class DataZipperService
   CSV_OPTIONS = { col_sep: ';' }.freeze
+  PUBLIC_PATH = '/data/zip/opensnp_datadump.current.zip'.freeze
+  DEFAULT_OUTPUT_DIR = Rails.root.join('public', 'data', 'zip').freeze
 
   attr_reader :time, :time_str, :zip_public_path, :zip_tmp_path, :tmp_dir,
               :link_path, :output_dir, :logger
 
-  def initialize(output_dir: nil, logger: Logger.new(STDOUT))
+  def initialize(output_dir: DEFAULT_OUTPUT_DIR, logger: Logger.new(STDOUT))
     @output_dir = output_dir
     @time = Time.now.utc
     @time_str = time.strftime('%Y%m%d%H%M')
@@ -57,7 +59,7 @@ class DataZipperService
   end
 
   def self.public_path
-    '/data/zip/opensnp_datadump.current.zip'
+    PUBLIC_PATH
   end
 
   private

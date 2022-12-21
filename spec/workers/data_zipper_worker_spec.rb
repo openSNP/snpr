@@ -9,7 +9,7 @@ RSpec.describe DataZipperWorker do
     it 'calls DataZipperService' do
       expect(DataZipperService)
         .to receive(:new)
-        .with(output_dir: DataZipperWorker::OUTPUT_DIR, logger: worker.logger)
+        .with(logger: worker.logger)
         .and_return(data_zipper_service)
       expect(data_zipper_service).to receive(:call)
 
