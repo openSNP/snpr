@@ -96,7 +96,7 @@ describe DataZipperService do
       create(:user_phenotype, phenotype: phenotype_2, user: user_1, variation: '59 cm')
     end
 
-    it 'adds a CSV with user data to the zip file' do
+    it 'adds a CSV with phenotype data to the zip file' do
       service.call
 
       Zip::File.open(symlink) do |zip|
