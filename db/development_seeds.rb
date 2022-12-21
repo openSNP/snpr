@@ -34,5 +34,5 @@ PROPERTIES = %w{
 }.freeze
 
 100.times do
-  Phenotype.create! characteristic: "#{BODY_PARTS.sample} #{PROPERTIES.sample}"
+  Phenotype.find_or_create_by(characteristic: "#{BODY_PARTS.sample} #{PROPERTIES.sample}")
 end
