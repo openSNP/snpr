@@ -285,16 +285,4 @@ describe DataZipperService do
         .to eq('/data/zip/opensnp_datadump.current.zip')
     end
   end
-
-  describe '.gb_size' do
-    before do
-      stub_const("#{described_class}::DEFAULT_OUTPUT_DIR", output_dir)
-    end
-
-    it 'returns the size of the zip file' do
-      service.call
-
-      expect(described_class.gb_size).to eq('(Size: 0.0)')
-    end
-  end
 end

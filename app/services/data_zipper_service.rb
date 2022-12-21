@@ -60,15 +60,6 @@ class DataZipperService
     '/data/zip/opensnp_datadump.current.zip'
   end
 
-  def self.gb_size
-    path = DEFAULT_OUTPUT_DIR.join('opensnp_datadump.current.zip')
-    if File.exist?(path) && File.exist?(File.readlink(path))
-      "(Size: #{(File.size(File.readlink(path)).to_f / (2**30)).round(2)})"
-    else
-      ''
-    end
-  end
-
   private
 
   # Create a CSV with a row for each genotype, with user data and phenotypes as
