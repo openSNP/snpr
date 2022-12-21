@@ -27,13 +27,13 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
 
   it 'includes a header in the CSV' do
     expect(parsed_result.headers).to match(
-      [
-        'user_id',
-        'genotype_filename',
-        'date_of_birth',
-        'chrom_sex',
-        'openhumans_name',
-      ] + Phenotype.count.times.map { an_instance_of(String) }
+      %w[
+        user_id
+        genotype_filename
+        date_of_birth
+        chrom_sex
+        openhumans_name
+      ] + Array.new(Phenotype.count) { an_instance_of(String) }
     )
   end
 
@@ -49,7 +49,7 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
     end
 
     it 'does not include their phenotypes in the CSV' do
-      expect(parsed_result['user_id']).not_to include((user.id.to_s))
+      expect(parsed_result['user_id']).not_to include(user.id.to_s)
     end
   end
 
