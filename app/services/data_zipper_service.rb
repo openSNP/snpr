@@ -6,7 +6,7 @@ require_relative 'data_zipper_service/zip_user_picture_phenotypes'
 
 class DataZipperService
   CSV_OPTIONS = { col_sep: ';' }.freeze
-  PUBLIC_PATH = '/data/zip/opensnp_datadump.current.zip'.freeze
+  PUBLIC_PATH = '/data/zip/opensnp_datadump.current.zip'
   DEFAULT_OUTPUT_DIR = Rails.root.join('public', 'data', 'zip').freeze
 
   attr_reader :time, :time_str, :zip_public_path, :zip_tmp_path, :tmp_dir,
