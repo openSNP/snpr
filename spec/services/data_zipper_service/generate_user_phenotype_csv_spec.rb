@@ -143,4 +143,14 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
       expect(result.to_a.last.last).to eq('yes')
     end
   end
+
+  context 'when a phenotype characteristic clashes with another column name' do
+    before do
+      create(:phenotype, characteristic: 'user_yob')
+    end
+
+    it 'fails' do
+      expect { service.call.to_a }.to raise_error(PG::DuplicateColumn)
+    end
+  end
 end

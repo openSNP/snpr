@@ -52,7 +52,7 @@ class DataZipperService
         user.sex
       ] + picture_phenotypes.map do |picture_phenotype|
         user_picture_phenotype = user_picture_phenotypes[picture_phenotype.id]
-        if user_picture_phenotype
+        if user_picture_phenotype && user_picture_phenotype.phenotype_picture.present?
           extension = user_picture_phenotype
                       .phenotype_picture
                       .content_type

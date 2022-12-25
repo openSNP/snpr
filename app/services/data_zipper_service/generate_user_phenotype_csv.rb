@@ -33,7 +33,7 @@ class DataZipperService
           genotype_id integer,
           user_id integer,
           fs_filename text,
-          user_yob integer,
+          user_yob text,
           user_sex text,
           oh_user_name text,
           #{characteristics_types}
