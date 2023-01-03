@@ -5,6 +5,8 @@ class DataZipperService
     def call
       # Build a pivot table with characteristics and user genotype IDs as dimensions and
       # variations as values.
+      #
+      # PostgreSQL docs: https://www.postgresql.org/docs/9.6/tablefunc.html#AEN145056
       ApplicationRecord.copy_csv(<<-SQL)
         SELECT
           user_id,
@@ -24,8 +26,8 @@ class DataZipperService
                  user_phenotypes.variation -- values, must be last
           FROM genotypes
           JOIN users ON users.id = genotypes.user_id
-          JOIN user_phenotypes ON user_phenotypes.user_id = genotypes.user_id
-          JOIN phenotypes ON phenotypes.id = user_phenotypes.phenotype_id
+          LEFT JOIN user_phenotypes ON user_phenotypes.user_id = genotypes.user_id
+          LEFT JOIN phenotypes ON phenotypes.id = user_phenotypes.phenotype_id
           LEFT JOIN open_humans_profiles ON open_humans_profiles.user_id = users.id
           ORDER BY genotypes.id, phenotypes.id',
          '#{phenotypes.to_sql}'

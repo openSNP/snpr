@@ -53,6 +53,15 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
     end
   end
 
+  context 'for users without any phenotypes entered' do
+    let!(:user) { create(:user) }
+    let!(:genotype) { create(:genotype, user: user) }
+
+    it 'includes them in the CSV' do
+      expect(parsed_result['user_id']).to include(user.id.to_s)
+    end
+  end
+
   context 'for users with genotypes' do
     let!(:user_1) { create(:user, sex: 'why not', yearofbirth: 1990) }
     let!(:user_2) { create(:user, sex: 'female', yearofbirth: 1970) }
