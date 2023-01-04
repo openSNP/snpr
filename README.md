@@ -1,6 +1,6 @@
 # openSNP
 
-[![Build Status](https://travis-ci.org/openSNP/snpr.svg?branch=master)](https://travis-ci.org/openSNP/snpr) [![Code Climate](https://codeclimate.com/github/openSNP/snpr/badges/gpa.svg)](https://codeclimate.com/github/openSNP/snpr) [![Test Coverage](https://codeclimate.com/github/openSNP/snpr/badges/coverage.svg)](https://codeclimate.com/github/openSNP/snpr/coverage) [![Join the chat at https://gitter.im/openSNP/snpr](https://badges.gitter.im/openSNP/snpr.svg)](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://github.com/openSNP/snpr/actions/workflows/build.yml/badge.svg)](https://github.com/openSNP/snpr/actions/workflows/build.yml)  [![Join the chat at https://gitter.im/openSNP/snpr](https://badges.gitter.im/openSNP/snpr.svg)](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Hello! [openSNP.org](https://opensnp.org) is a repository to which users can upload their SNP-sets (and exome-VCFs) from
 23andme, deCODEme, FamilyTreeDNA, AncestryDNA and IYG-format (for participants
