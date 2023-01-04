@@ -10,3 +10,8 @@ en:
           attributes:
             phenotype:
               taken: 'has already been entered.'
+  zipfulldata:
+    readme: |
+      This archive was generated on %{time} UTC. It contains %{phenotype_count} phenotypes, %{genotype_count} genotypes and %{picture_count} picture phenotypes.
+
+      Thanks for using openSNP!

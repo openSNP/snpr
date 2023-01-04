@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class UserPhenotype < ActiveRecord::Base
+
+class UserPhenotype < ApplicationRecord
   include PgSearchCommon
 
   belongs_to :phenotype

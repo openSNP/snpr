@@ -4,7 +4,7 @@
       <h3>Listing all SNPs</h3>
     </div>
     <div class="snps__download-container col-md-6">
-      <%= link_to Zipfulldata.public_path, title: "Request download", class: "btn btn-default center-block snps__download-button" do %>
+      <%= link_to DataZipperService.public_path, title: "Request download", class: "btn btn-default center-block snps__download-button" do %>
       Download dump
       <% end %>
       <p class="text-center snps__text-download">Includes annotation for all SNPs from all sources</p>

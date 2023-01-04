@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class User < ActiveRecord::Base
+
+class User < ApplicationRecord
   include PgSearchCommon
 
   has_attached_file :avatar,

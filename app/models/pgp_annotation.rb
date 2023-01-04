@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class PgpAnnotation < ActiveRecord::Base
+
+class PgpAnnotation < ApplicationRecord
   include PgSearchCommon
 
    belongs_to :snp

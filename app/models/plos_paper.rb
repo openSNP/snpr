@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class PlosPaper < ActiveRecord::Base
+
+class PlosPaper < ApplicationRecord
   include PgSearchCommon
 
   has_many :snp_references, as: :paper

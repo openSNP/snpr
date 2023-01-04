@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class Phenotype < ActiveRecord::Base
+
+class Phenotype < ApplicationRecord
   include PgSearchCommon
 
   has_many :user_phenotypes, dependent: :destroy

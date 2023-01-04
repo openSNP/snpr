@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class OpenHumansProfile < ActiveRecord::Base
+class OpenHumansProfile < ApplicationRecord
   belongs_to :user
 end

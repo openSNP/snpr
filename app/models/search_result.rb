@@ -1,3 +1,4 @@
 # frozen_string_literal: true
-class SearchResult < ActiveRecord::Base
+
+class SearchResult < ApplicationRecord
 end

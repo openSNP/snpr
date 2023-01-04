@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class PicturePhenotype < ActiveRecord::Base
+
+class PicturePhenotype < ApplicationRecord
   include PgSearchCommon
 
   has_many :user_picture_phenotypes, dependent: :destroy

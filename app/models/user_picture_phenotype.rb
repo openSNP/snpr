@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class UserPicturePhenotype < ActiveRecord::Base
+
+class UserPicturePhenotype < ApplicationRecord
   include PgSearchCommon
 
   belongs_to :picture_phenotype

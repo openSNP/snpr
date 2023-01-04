@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class PhenotypeComment < ActiveRecord::Base
+
+class PhenotypeComment < ApplicationRecord
   include PgSearchCommon
 
   belongs_to :phenotype

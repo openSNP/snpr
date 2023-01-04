@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class SnpComment < ActiveRecord::Base
+
+class SnpComment < ApplicationRecord
   include PgSearchCommon
 
   belongs_to :snp

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class SnpediaPaper < ActiveRecord::Base
+
+class SnpediaPaper < ApplicationRecord
   include PgSearchCommon
 
   has_many :snp_references, as: :paper

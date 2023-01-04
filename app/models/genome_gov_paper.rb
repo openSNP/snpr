@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class GenomeGovPaper < ActiveRecord::Base
+
+class GenomeGovPaper < ApplicationRecord
   include PgSearchCommon
 
   has_many :snp_references, as: :paper
