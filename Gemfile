@@ -16,7 +16,9 @@ gem 'slop'
 
 # apis
 gem 'mendeley', git: 'https://github.com/tsujigiri/mendeley', branch: 'paging_search'
-gem 'plos', require: false
+gem 'plos', git: 'https://github.com/tsujigiri/plos',
+            branch: 'fix-http-redirect-error',
+            require: false
 
 # DB
 gem 'activerecord-import', '>= 0.4.0'
