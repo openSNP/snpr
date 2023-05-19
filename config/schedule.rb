@@ -25,9 +25,9 @@ every :day, at: '1am' do
   rake 'dump:full', environment: 'production'
 end
 
-every :day do
-  rake 'papers:update'
-end
+# every :day do
+#   rake 'papers:update'
+# end
 
 every :week do
   rake 'recommender:update_all'
