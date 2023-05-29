@@ -12,8 +12,10 @@ require 'pry-rails' unless ENV['CI']
 require 'authlogic/test_case'
 require 'capybara/poltergeist'
 # commenting out poltergeist as phantomjs breaks Github tests
-Capybara.javascript_driver = :selenium
-
+# Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :selenium_chrome_headless
+# TODO: Use puma?
+Capybara.server = :webrick
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -24,6 +26,8 @@ Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Authlogic::TestCase
+
+  config.example_status_persistence_file_path = Rails.root.join('tmp/rspec_failures.txt')
 
   # ## Mock Framework
   #

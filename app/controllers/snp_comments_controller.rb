@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class SnpCommentsController < ApplicationController
-  before_filter :require_user
+  before_action :require_user
 
   def new
     @snp_comment = SnpComment.new

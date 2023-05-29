@@ -31,14 +31,10 @@ Snpr::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  # Configure static asset server for tests with Cache-Control for performance
-  config.static_cache_control = "public, max-age=3600"
-
-  # Serve files from /public directory
-  config.serve_static_files = true
-
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
+
+  config.assets.check_precompiled_asset = false
 
   # Do not eager load code on boot.
   config.eager_load = false

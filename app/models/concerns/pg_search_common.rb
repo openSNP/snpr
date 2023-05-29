@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module PgSearchCommon
   extend ActiveSupport::Concern
-  include PgSearch
+  include PgSearch::Model
 
   module ClassMethods
     def pg_search_common_scope(config = {})
@@ -10,8 +10,8 @@ module PgSearchCommon
 
     def pg_search_common_config
       {
-        using: { 
-          tsearch: { 
+        using: {
+          tsearch: {
             prefix: true
           }
         }

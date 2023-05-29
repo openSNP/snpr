@@ -36,4 +36,6 @@ Snpr::Application.configure do
 
   # Serve files from /public directory
   config.serve_static_files = true
+
+  config.assets.check_precompiled_asset = false
 end

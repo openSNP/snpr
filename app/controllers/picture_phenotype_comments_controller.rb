@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PicturePhenotypeCommentsController < ApplicationController
-  before_filter :require_user
+  before_action :require_user
 
   def new
     @phenotype_comment = PicturePhenotypeComment.new

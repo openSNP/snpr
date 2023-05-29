@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-RSpec.feature 'SNP page' do
+RSpec.feature 'SNP page', :js do
   let!(:snp) { create(:snp) }
   let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }
   let!(:user) { create(:user, name: 'Alice') }
@@ -16,7 +16,7 @@ RSpec.feature 'SNP page' do
       sign_in(user)
     end
 
-    scenario 'is requested' do
+    it 'is requested' do
       visit "/snps/#{snp.to_param}"
 
       expect(page).to have_content("SNP #{snp.name}")
@@ -24,7 +24,7 @@ RSpec.feature 'SNP page' do
       expect(page).to have_content('AA')
     end
 
-    scenario 'visit index page' do
+    it 'visit index page' do
       visit '/snps/'
 
       expect(page).to have_content(snp.name)
@@ -32,12 +32,30 @@ RSpec.feature 'SNP page' do
   end
 
   context 'as not signed in user' do
-    scenario 'is requested' do
+    it 'displays SNP info' do
       visit "/snps/#{snp.to_param}"
 
       expect(page).to have_content("SNP #{snp.name}")
       expect(page).to have_content("#{snp.name} A/C")
-      expect(page).not_to have_content('AA')
+    end
+
+    it 'displays genotype and allele frequency graphs' do
+      visit "/snps/#{snp.to_param}"
+
+      expect(page).to have_content('Genotype Frequency')
+      expect(page).to have_content('Allele Frequency')
+      within('#frequencies') do
+        expect(page).to have_content(user_snp.local_genotype)
+      end
+    end
+
+    it 'shows users who share the SNP' do
+      visit "/snps/#{snp.to_param}"
+
+      click_on('Other users')
+
+      expect(page).to have_content('Users who share this SNP')
+      expect(page).to have_content(user_snp.local_genotype)
     end
   end
 end

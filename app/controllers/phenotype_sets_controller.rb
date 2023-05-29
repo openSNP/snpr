@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PhenotypeSetsController < ApplicationController
-  before_filter :require_user
+  before_action :require_user
 
   def enter_userphenotypes
     puts params

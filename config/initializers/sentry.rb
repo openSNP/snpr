@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-if Rails.env.production?
-  Raven.configure do |config|
-    config.dsn = ENV.fetch('SENTRY_DSN')
-    config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
-  end
+Sentry.init do |config|
+  config.dsn = ENV['SENTRY_DSN']
+  config.breadcrumbs_logger = [:active_support_logger, :http_logger]
 
-  # Notify Sentry of a new release.
-  Net::HTTP.post(
-    URI.parse(ENV.fetch('SENTRY_RELEASE_WEBHOOK')),
-    { 'version' => File.read('REVISION').strip }.to_json,
-    'Content-Type' => 'application/json'
-  )
+  # To activate performance monitoring, set one of these options.
+  # We recommend adjusting the value in production:
+  config.traces_sample_rate = 1.0
+  # or
+  config.traces_sampler = lambda do |context|
+    true
+  end
 end

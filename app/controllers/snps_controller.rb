@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class SnpsController < ApplicationController
-  before_filter :find_snp, except: [:index, :json,:json_annotation]
+  before_action :find_snp, except: [:index, :json,:json_annotation]
 
   def index
     @snps = Snp.order(ranking: :desc)

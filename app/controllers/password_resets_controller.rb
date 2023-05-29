@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class PasswordResetsController < ApplicationController
 
-	before_filter :load_user_using_perishable_token, only: [:edit, :update]
-	before_filter :require_no_user
+	before_action :load_user_using_perishable_token, only: [:edit, :update]
+	before_action :require_no_user
 
 	def new
 		@title = 'password reset'

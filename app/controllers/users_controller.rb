@@ -2,8 +2,8 @@
 class UsersController < ApplicationController
 
   helper_method :sort_column, :sort_direction
-  before_filter :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
-  before_filter :require_no_user, only: [:new, :create]
+  before_action :require_owner, only: [ :update, :destroy, :edit, :changepassword ]
+  before_action :require_no_user, only: [:new, :create]
 
   def new
     @user = User.new

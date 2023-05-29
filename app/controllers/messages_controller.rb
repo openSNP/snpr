@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class MessagesController < ApplicationController
-  before_filter :require_user
-  before_filter :require_owner, only: [:show, :destroy]
+  before_action :require_user
+  before_action :require_owner, only: [:show, :destroy]
 
   def new
     @title = 'New message'

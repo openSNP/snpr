@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 5.0.7'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
@@ -21,7 +21,7 @@ gem 'plos', require: false
 # DB
 gem 'activerecord-import', '>= 0.4.0'
 gem 'attr_encrypted'
-gem 'composite_primary_keys', '~> 8.0'
+gem 'composite_primary_keys', '~> 9.0'
 gem 'pg', '<1' # Unpin when updating Rails to 5.x
 gem 'pg_search'
 
@@ -35,10 +35,10 @@ gem 'json'
 gem 'mediawiki-gateway', git: 'https://github.com/MusikAnimal/mediawiki-gateway'
 gem 'paperclip'
 gem 'friendly_id'
-gem 'recommendify', git: 'https://github.com/Kinoba/recommendify', ref: 'd8c252f'
+gem 'recommendify', git: 'https://github.com/Kinoba/recommendify'
 
 # background jobs
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.1.3' # TODO: Update me!
 gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra', require: false
@@ -55,7 +55,8 @@ gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'sass-rails'
 
 # monitoring
-gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 # get rid of Ruby 2.7.7 error
 # bigdecimal is required by ActiveSupport, and bigdecimal 2
@@ -79,7 +80,7 @@ group :test do
   gem 'vcr'
   gem 'capybara'
   gem 'poltergeist'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '< 4.9' # TODO: Unpin when updating Ruby
   gem 'database_cleaner'
   gem 'timecop'
 end
@@ -95,6 +96,4 @@ group :development do
   gem 'guard-rspec'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'capistrano', '~> 2.0'
-  gem 'rvm-capistrano', '1.4.4', require: false
 end
