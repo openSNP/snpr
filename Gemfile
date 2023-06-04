@@ -20,7 +20,7 @@ gem 'plos', require: false
 
 # DB
 gem 'activerecord-import', '>= 0.4.0'
-gem 'attr_encrypted'
+gem 'attr_encrypted', '< 4'
 gem 'composite_primary_keys', '~> 9.0'
 gem 'pg', '<1' # Unpin when updating Rails to 5.x
 gem 'pg_search'
@@ -79,7 +79,6 @@ group :test do
   gem 'webmock', '>= 3.5.0' # need at least 3.5.0 for Ruby 2.6
   gem 'vcr'
   gem 'capybara'
-  gem 'poltergeist'
   gem 'selenium-webdriver', '< 4.9' # TODO: Unpin when updating Ruby
   gem 'database_cleaner'
   gem 'timecop'

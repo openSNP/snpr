@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Arriving at openSNP' do
+RSpec.describe 'Arriving at openSNP', sidekiq: :inline do
   let!(:user) { create(:user, name: 'Potato Bill', email: 'potato@example.com') }
   let!(:phenotype) { create(:phenotype, characteristic: 'Eye color') }
 
@@ -35,8 +35,10 @@ RSpec.describe 'Arriving at openSNP' do
       click_on('Sign In')
       click_on('Forgot password?')
       fill_in('Email', with: 'potato@example.com')
-      click_on('Reset my password')
-      expect(page).to have_content('Instructions to reset your password')
+      perform_enqueued_jobs do
+        click_on('Reset my password')
+        expect(page).to have_content('Instructions to reset your password')
+      end
       mail = ActionMailer::Base.deliveries.last
       expect(mail.subject).to include('openSNP.org Password Reset Instructions')
       mail.parts.each do |p|

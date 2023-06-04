@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-RSpec.feature 'Messaging' do
+RSpec.feature 'Messaging', :js do
   let!(:alice) { create(:user, name: 'Alice') }
   let!(:bob) { create(:user, name: 'Bob') }
 
@@ -22,7 +22,7 @@ RSpec.feature 'Messaging' do
     sign_in(alice)
 
     click_on('Alice')
-    click_on('Messages')
+    click_on('Your messages')
     click_on('Delete Me')
     click_on('Delete')
 
@@ -46,7 +46,7 @@ RSpec.feature 'Messaging' do
     sign_in(alice)
 
     click_on('Alice')
-    click_on('Messages')
+    click_on('Your messages')
     click_on('Write a new message')
 
     select('Bob', from: 'To')
@@ -60,7 +60,7 @@ RSpec.feature 'Messaging' do
     sign_in(bob)
 
     click_on('Bob')
-    click_on('Messages')
+    click_on('Your messages')
 
     click_on('O HAI!')
 
