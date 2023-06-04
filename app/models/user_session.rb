@@ -10,14 +10,14 @@ class UserSession < Authlogic::Session::Base
   end
 
   def raven_set_user_context
-    Raven.user_context(
-      'id' => user.id,
-      'email' => user.email,
-      'username' => user.name
+    Sentry.set_user(
+      id: user.id,
+      email: user.email,
+      username: user.name
     )
   end
 
   def raven_clear_user_context
-    Raven.user_context({})
+    Sentry.set_user({})
   end
 end

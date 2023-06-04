@@ -11,4 +11,6 @@ Sentry.init do |config|
   config.traces_sampler = lambda do |context|
     true
   end
+  config.enabled_environments = %w[production]
+  config.release = ENV.fetch('SNPR_REV', '')[0, 7]
 end
