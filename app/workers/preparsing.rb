@@ -110,6 +110,7 @@ class Preparsing
       file_has_mails = true
     end
 
+  ensure
     # not proper file!
     if not file_is_ok
       if file_is_duplicate
