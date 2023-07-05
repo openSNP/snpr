@@ -10,12 +10,14 @@ RSpec.describe Preparsing do
     )
   end
 
-  it 'handles errors' do
-    expect { worker.perform(genotype.id) }
-      .to raise_error(ArgumentError, 'invalid byte sequence in UTF-8')
+  context 'when there is an exception' do
+    it 'still sends emails ' do
+      expect { worker.perform(genotype.id) }
+        .to raise_error(ArgumentError, 'invalid byte sequence in UTF-8')
 
-    expect(ActionMailer::Base.deliveries.count).to eq(1)
-    expect(ActionMailer::Base.deliveries.last.subject)
-      .to eq('openSNP.org: Something went wrong while parsing')
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect(ActionMailer::Base.deliveries.last.subject)
+        .to eq('openSNP.org: Something went wrong while parsing')
+    end
   end
 end
