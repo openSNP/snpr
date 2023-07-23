@@ -3,8 +3,15 @@
 module Authlogic
   module RequestSpecHelper
     def sign_in(user)
-      post user_session_path, user_session: { email: user.email,
-                                              password: 'strengjeheim' }
+      post(
+        user_session_path,
+        params: {
+          user_session: {
+            email: user.email,
+            password: 'strengjeheim'
+          }
+        },
+      )
     end
   end
 

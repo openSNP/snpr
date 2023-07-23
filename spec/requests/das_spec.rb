@@ -12,8 +12,8 @@ RSpec.describe 'DAS-API', type: :request do
 
   it 'GET /das/:id/' do
     get "/das/#{user.id}/features?segment=1:10,11",
-        nil,
-        'SERVER_SOFTWARE' => 'faked for test'
+        params: { segment: '1:10,11' },
+        headers: { 'SERVER_SOFTWARE' => 'faked for test' }
     assert_response :success
     expect(response.body).to include('rs2345')
     expect(response.body).not_to include('rs1234')
