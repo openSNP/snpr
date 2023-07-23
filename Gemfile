@@ -82,6 +82,7 @@ group :test do
   gem 'selenium-webdriver', '< 4.9' # TODO: Unpin when updating Ruby
   gem 'database_cleaner'
   gem 'timecop'
+  gem 'rails-controller-testing'
 end
 
 group :development, :test do

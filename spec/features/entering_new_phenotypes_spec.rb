@@ -10,14 +10,17 @@ RSpec.feature 'Entering new phenotypes' do
       sign_in(user)
     end
 
-    scenario 'the user enters a new phenotype' do
+    scenario 'the user enters a new phenotype', sidekiq: :inline do
       visit('/phenotypes')
       click_on('Add a new phenotype')
 
       fill_in('Characteristic', with: 'Eye count')
       fill_in('Description', with: 'How many eyes do you have?')
       fill_in('Variation', with: 10)
-      click_on('Create Phenotype')
+
+      perform_enqueued_jobs do
+        click_on('Create Phenotype')
+      end
 
       expect(page).to have_content('Phenotype successfully created.')
       expect(page).to have_content(

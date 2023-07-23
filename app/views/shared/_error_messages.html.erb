@@ -1,9 +1,9 @@
 <% if target.errors.any? %>
-	<div class="warning__alert alert alert-danger center-block">
+  <div class="warning__alert alert alert-danger center-block">
     <ul class="list-unstyled text-center">
-      <li>
-				<strong><%= target.errors.full_messages.first %></strong>
-			</li>
+      <% target.errors.to_a.each do |error_message| %>
+        <li><strong><%= error_message %></strong></li>
+      <% end %>
     </ul>
-	</div>
+  </div>
 <% end %>

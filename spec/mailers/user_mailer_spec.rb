@@ -7,7 +7,9 @@ describe UserMailer do
   describe '#finished_parsing' do
     it 'notifies the user about his genotype having been parsed' do
       expect(Genotype).to receive(:find).with(genotype.id).and_return(genotype)
-      described_class.finished_parsing(genotype.id, stats).deliver_later
+      perform_enqueued_jobs do
+        described_class.finished_parsing(genotype.id, stats).deliver_later
+      end
       mail = ActionMailer::Base.deliveries.last
       mail.parts.each do |p|
         expect(p.body.raw_source).to include(user.name)

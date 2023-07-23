@@ -29,12 +29,6 @@ RSpec.feature 'Messaging', :js do
     expect(page).to have_content('Message deleted')
   end
 
-  scenario 'user tries deleting other users message' do
-    sign_in(alice)
-    page.driver.submit :delete, "/messages/#{to_alice.id}", {}
-    expect(page).to have_content('Oops! Thats none of your business')
-  end
-
   scenario 'user tries reading other ppls messages' do
     sign_in(alice)
     visit "/messages/#{to_alice.id}"

@@ -82,7 +82,7 @@
     <li><a href="#mendeley" aria-controls="mendeley" role="tab" data-toggle="tab">Mendeley (<%= @snp.mendeley_papers.count %>)</a></li>
     <li><a href="#pgp" aria-controls="pgp" role="tab" data-toggle="tab">Personal Genome Project (<%= @snp.pgp_annotations.count %>)</a></li>
     <li><a href="#genomegov" aria-controls="genomegov" role="tab" data-toggle="tab">Genome.gov (<%= @snp.genome_gov_papers.count %>)</a></li>
-    <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Other users (<%= @snp.user_snps.size %>)</a></li>
+    <li><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Other users (<%= @snp.user_snps.count %>)</a></li>
     <li><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments (<%= @snp.snp_comments.count %>)</a></li>
   </ul>
   <div class="tab-content">
@@ -228,7 +228,7 @@
 
     <div id="users" class="tab-pane clearfix well tabs__one-tab">
       <h3>Users who share this SNP:</h3>
-      <% if @snp.user_snps.size > 0 %>
+      <% if @snp.user_snps.count > 0 %>
       <div id="user-list"></div>
       <script type="text/javascript">
         $.ajax({

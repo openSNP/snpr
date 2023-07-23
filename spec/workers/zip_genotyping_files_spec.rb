@@ -77,11 +77,13 @@ RSpec.describe ZipGenotypingFiles do
     end
 
     it 'zips genotyping files' do
-      worker.perform(
-        tentacle.id,
-        user_phenotype_1.variation,
-        'user@example.com'
-      )
+      perform_enqueued_jobs do
+        worker.perform(
+          tentacle.id,
+          user_phenotype_1.variation,
+          'user@example.com'
+        )
+      end
 
       mail = ActionMailer::Base.deliveries.last
       expect(mail.subject)
@@ -101,11 +103,13 @@ RSpec.describe ZipGenotypingFiles do
 
   context 'when there are no genotypes found' do
     it 'tells the user' do
-      worker.perform(
-        tentacle.id,
-        'blue',
-        'user@example.com'
-      )
+      perform_enqueued_jobs do
+        worker.perform(
+          tentacle.id,
+          'blue',
+          'user@example.com'
+        )
+      end
 
       expect(ActionMailer::Base.deliveries.last.subject)
         .to eq('openSNP.org: No genotyping files match your search')

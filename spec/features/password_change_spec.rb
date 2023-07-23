@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Password changing' do
+RSpec.describe 'Password changing', :js do
   let!(:user) { create(:user, name: 'Queen Anne', email: 'anne@the.uk') }
 
   context 'as a signed-in user' do
