@@ -118,7 +118,6 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    dynamic_form (1.2.0)
     encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.8.1)
@@ -413,7 +412,6 @@ DEPENDENCIES
   composite_primary_keys (~> 9.0)
   database_cleaner
   dotenv-rails
-  dynamic_form
   execjs
   factory_bot_rails
   friendly_id
