@@ -73,7 +73,7 @@ group :test do
   gem 'minitest' # TODO: Remove me
   gem 'rspec-rails'
   gem 'shoulda-context'
-  gem 'mocha', '< 2', require: false
+  gem 'mocha', '< 1.6', require: false
   gem 'simplecov', require: false
   gem 'webmock', '>= 3.5.0' # need at least 3.5.0 for Ruby 2.6
   gem 'vcr'
