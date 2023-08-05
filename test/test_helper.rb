@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 ENV['RAILS_ENV'] = 'test'
 require 'simplecov'
-SimpleCov.start('rails') do
-  coverage_dir('coverage/test-unit')
-end
 require File.expand_path('../../config/environment', __FILE__)
 require "test/unit"
 require "shoulda-context"
