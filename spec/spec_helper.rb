@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 ENV["RAILS_ENV"] ||= 'test'
 require 'simplecov'
+SimpleCov.command_name 'rspec'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'sidekiq/testing'
