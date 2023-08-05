@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 ENV['RAILS_ENV'] = 'test'
 require 'simplecov'
-SimpleCov.command_name 'test-unit'
+SimpleCov.command_name 'test:unit'
 require File.expand_path('../../config/environment', __FILE__)
 require "test/unit"
 require "shoulda-context"
