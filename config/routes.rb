@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'sidekiq/web'
 
-Snpr::Application.routes.draw do
+Rails.application.routes.draw do
   root to: 'index#index' # change this, maybe
 
   resources :static

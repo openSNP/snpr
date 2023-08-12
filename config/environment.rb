@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-# Load the rails application
-require File.expand_path('../application', __FILE__)
+# Load the Rails application.
+require_relative 'application'
 
-# Initialize the rails application
-Snpr::Application.initialize!
+# Initialize the Rails application.
+Rails.application.initialize!
