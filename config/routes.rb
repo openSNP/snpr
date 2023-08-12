@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'sidekiq/web'
+require './lib/admin_constraint'
 
 Rails.application.routes.draw do
   root to: 'index#index' # change this, maybe
