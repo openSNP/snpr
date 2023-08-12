@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 5.0.7'
+gem 'rails', '~> 5.1.7'
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
@@ -20,7 +20,7 @@ gem 'plos', require: false
 # DB
 gem 'activerecord-import', '>= 0.4.0'
 gem 'attr_encrypted', '< 4'
-gem 'composite_primary_keys', '~> 9.0'
+gem 'composite_primary_keys', '~> 10.0'
 gem 'pg', '<1' # Unpin when updating Rails to 5.x
 gem 'pg_search'
 
@@ -73,7 +73,7 @@ group :test do
   gem 'minitest' # TODO: Remove me
   gem 'rspec-rails'
   gem 'shoulda-context'
-  gem 'mocha', '< 1.6', require: false
+  gem 'mocha', require: false
   gem 'simplecov', require: false
   gem 'webmock', '>= 3.5.0' # need at least 3.5.0 for Ruby 2.6
   gem 'vcr'

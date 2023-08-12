@@ -5,7 +5,6 @@ SimpleCov.command_name 'test:unit'
 require File.expand_path('../../config/environment', __FILE__)
 require "test/unit"
 require "shoulda-context"
-require "mocha/setup"
 require 'rails/test_help'
 require "authlogic/test_case"
 require 'webmock'
@@ -13,8 +12,11 @@ WebMock.disable_net_connect!(allow_localhost: true)
 require 'factory_bot_rails'
 require 'paperclip/matchers'
 require 'plos'
+require 'sidekiq/testing'
+require 'mocha/minitest'
 
 Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
+Sidekiq::Testing.fake!
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/data/vcr_cassettes'

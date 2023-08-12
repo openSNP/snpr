@@ -16,14 +16,14 @@ class UsersControllerTest < ActionController::TestCase
         assert_response :success
         assert_equal [@user], assigns(:users)
       end
- 
+
       should "be able to register" do
         get :new
         assert_response :success
       end
- 
+
       should "see users" do
-        get :show, id: @user.id
+        get(:show, params: { id: @user.id })
         assert_response :success
         assert_equal @user, assigns(:user)
       end
@@ -33,13 +33,15 @@ class UsersControllerTest < ActionController::TestCase
         assert_no_difference 'User.count' do
           put(
             :create,
-            user: {
-              name: 'Fubert Barfuß',
-              password: 'strengjeheim',
-              password_confirmation: 'strengjeheim',
-              email: 'fubert@example.com'
-            },
-            read: 1
+            params: {
+              user: {
+                name: 'Fubert Barfuß',
+                password: 'strengjeheim',
+                password_confirmation: 'strengjeheim',
+                email: 'fubert@example.com',
+              },
+              read: 1,
+            }
           )
         end
         assert_response :success
@@ -50,13 +52,15 @@ class UsersControllerTest < ActionController::TestCase
         assert_difference 'User.count' do
           put(
             :create,
-            user: {
-              name: 'Fubert Barfuß',
-              password: 'strengjeheim',
-              password_confirmation: 'strengjeheim',
-              email: 'fubert@example.com'
-            },
-            read: 1
+            params: {
+              user: {
+                name: 'Fubert Barfuß',
+                password: 'strengjeheim',
+                password_confirmation: 'strengjeheim',
+                email: 'fubert@example.com',
+              },
+              read: 1,
+            }
           )
         end
         assert_response :redirect
@@ -64,15 +68,21 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "not be able to update" do
-        post :update, id: @user.id, user: { name: "Blah Keks", user_phenotypes_attributes: [] }
+        post(
+          :update,
+          params: {
+            id: @user.id,
+            user: { name: "Blah Keks", user_phenotypes_attributes: [] },
+          }
+        )
         assert_redirected_to login_path
         @user.reload
         assert_not_equal "Blah Keks", @user.name
       end
- 
+
       should "not be able to destroy" do
         assert_no_difference 'User.count' do
-          post :destroy, id: @user.id
+          post(:destroy, params: { id: @user.id })
         end
         assert_redirected_to login_path
       end
@@ -91,21 +101,27 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "not edit" do
-        get :edit, id: @user.id
+        get(:edit, params: { id: @user.id })
         assert_redirected_to edit_user_path(@other_user)
       end
 
       should "not update" do
         old_name = @user.name.dup
-        post :update, id: @user.id, user: { name: "Blah Keks", user_phenotypes_attributes: [] }
+        post(
+          :update,
+          params: {
+            id: @user.id,
+            user: { name: "Blah Keks", user_phenotypes_attributes: [] },
+          }
+        )
         assert_redirected_to edit_user_path(@other_user)
         @user.reload
         assert_equal old_name, @user.name
       end
-     
+
       should "not destroy" do
         assert_no_difference 'User.count' do
-          post :destroy, id: @user.id
+          post(:destroy, params: { id: @user.id })
         end
         assert_redirected_to edit_user_path(@other_user)
       end
@@ -123,24 +139,32 @@ class UsersControllerTest < ActionController::TestCase
       end
 
       should "be able to edit" do
-        get :edit, id: @user.id
+        get(:edit, params: { id: @user.id })
         assert_response :success
       end
 
       should "be able to update" do
-        post :update, id: @user.id, user:
-          { name: "Blah Keks", user_phenotypes_attributes: [],
-            homepages_attributes: { new_123: { url: "" }}}
+        post(
+          :update,
+          params: {
+            id: @user.id,
+            user: {
+              name: "Blah Keks",
+              user_phenotypes_attributes: [],
+              homepages_attributes: { new_123: { url: "" } },
+            },
+          }
+        )
         assert_response :success
         @user.reload
         assert_equal "Blah Keks", @user.name
         assert_equal [], @user.homepages
       end
-         
+
       should "be able to destroy" do
         Sidekiq::Client.expects(:enqueue).with(Fixphenotypes)
         assert_difference 'User.count', -1 do
-          post :destroy, id: @user.id
+          post(:destroy, params: { id: @user.id })
         end
         assert_redirected_to :root
       end

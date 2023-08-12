@@ -6,7 +6,6 @@ class SnpsControllerTest < ActionController::TestCase
   context "Snps" do
     setup do
       activate_authlogic
-      Sidekiq::Client.stubs(:enqueue)
       @user = FactoryBot.create(:user)
       @snp = FactoryBot.create(:snp)
       @snp_comment = FactoryBot.create(:snp_comment, snp: @snp, user: @user)
@@ -19,7 +18,7 @@ class SnpsControllerTest < ActionController::TestCase
       FactoryBot.create(:plos_paper, snps: [@snp])
       FactoryBot.create(:snpedia_paper, snps: [@snp])
       FactoryBot.create(:genome_gov_paper, snps: [@snp])
-      get(:show, id: @snp.name)
+      get(:show, params: { id: @snp.name })
       assert_response :success
     end
 
@@ -30,7 +29,7 @@ class SnpsControllerTest < ActionController::TestCase
       end
 
       should "be shown" do
-        get(:show, id: @snp.name)
+        get(:show, params: { id: @snp.name })
       end
     end
   end

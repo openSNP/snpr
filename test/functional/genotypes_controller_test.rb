@@ -20,7 +20,7 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "see genotypes from any user" do
-        get :show, id: @genotype.id
+        get(:show, params: { id: @genotype.id })
         assert_response :success
         assert_equal @genotype, assigns(:genotype)
       end
@@ -32,7 +32,7 @@ class GenotypesControllerTest < ActionController::TestCase
       end
 
       should "not be able to destroy" do
-        post :destroy, id: @genotype.id
+        post(:destroy, params: { id: @genotype.id })
         assert_redirected_to :root
       end
     end
@@ -58,8 +58,13 @@ class GenotypesControllerTest < ActionController::TestCase
         genotype_file.content_type = 'text/plain'
         assert_difference 'UserAchievement.count' do
           assert_difference 'Genotype.count' do
-            put :create, commit: "Upload", genotype:
-              { genotype: genotype_file, filetype: "23andme"}
+            put(
+              :create,
+              params: {
+                commit: "Upload",
+                genotype: { genotype: genotype_file, filetype: "23andme"}
+              }
+            )
           end
         end
         assert_redirected_to user_path(@user)
