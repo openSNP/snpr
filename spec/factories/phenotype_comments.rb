@@ -2,5 +2,7 @@
 
 FactoryBot.define do
   factory :phenotype_comment do
+    phenotype
+    user
   end
 end

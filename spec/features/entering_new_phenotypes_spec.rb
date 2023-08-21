@@ -42,7 +42,7 @@ RSpec.feature 'Entering new phenotypes' do
 
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(ActionMailer::Base.deliveries.first.text_part.decoded)
-        .to include(<<-TXT.strip_heredoc.gsub(/ +/, ' '))
+        .to include(<<~TXT)
           Dear Max Mustermann,
 
           The new phenotype "Eye count" was just entered on openSNP.

@@ -8,7 +8,11 @@ RSpec.describe 'SNP-API', type: :request do
   let!(:user) { create(:user, name: 'API-Hacker') }
   let!(:user_two) { create(:user, name: 'Dataless User') }
   let!(:user_snp) { create(:user_snp, user: user, snp: snp) }
-  let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }
+  let!(:snpedia_paper) do
+    paper = create(:snpedia_paper)
+    paper.update!(snps: [snp])
+  end
+
 
   it 'GET /snps/:id/1-3.json' do
     search = "#{user.id},#{user_two.id},#{User.last.id + 1}"

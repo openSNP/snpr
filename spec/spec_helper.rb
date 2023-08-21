@@ -11,6 +11,8 @@ require 'authlogic/test_case'
 Capybara.javascript_driver = :selenium_chrome_headless
 # TODO: Use puma?
 Capybara.server = :webrick
+# TODO: Remove this!
+Capybara.raise_server_errors = false
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

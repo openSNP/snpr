@@ -24,7 +24,7 @@ RSpec.feature 'OpenHumans page' do
       expect(page).to have_content('Connect to Open Humans')
     end
 
-    scenario 'visit open humans connector' do
+    scenario 'visit open humans connector', :js do
       visit '/openhumans/new'
       expect(page).not_to have_content('You must be logged in to access this page')
     end

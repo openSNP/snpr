@@ -1,7 +1,11 @@
 # frozen_string_literal: true
+
 RSpec.feature 'SNP page', :js do
   let!(:snp) { create(:snp) }
-  let!(:snpedia_paper) { create(:snpedia_paper, snps: [snp]) }
+  let!(:snpedia_paper) do
+    paper = create(:snpedia_paper)
+    paper.update!(snps: [snp])
+  end
   let!(:user) { create(:user, name: 'Alice') }
   let!(:user_snp) do
     create(:user_snp, snp: snp, user: user, local_genotype: 'AA')

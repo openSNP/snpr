@@ -6,7 +6,7 @@ feature 'search', :js do
   let!(:snp) { create(:snp, name: 'foo123') }
   let!(:phenotype) { create(:phenotype, characteristic: 'foonotype') }
   let!(:user) { create(:user, name: 'foobert') }
-  let!(:snp_comment) { create(:snp_comment, subject: 'foo1A SNP') }
+  let!(:snp_comment) { create(:snp_comment, subject: 'foo1A SNP', snp: snp, user: user) }
   let!(:phenotype_comment) { create(:phenotype_comment, subject: 'foo blubb') }
   let!(:mendeley_paper) { create(:mendeley_paper, title: 'foo_elsevier_content') }
   let!(:plos_paper) { create(:plos_paper, title: 'foo_OA_content') }

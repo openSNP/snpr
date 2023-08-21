@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.assets.check_precompiled_asset = false
+  config.action_mailer.default_url_options = { host: 'opensnp.org' }
 end

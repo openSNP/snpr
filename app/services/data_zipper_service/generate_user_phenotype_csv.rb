@@ -7,7 +7,7 @@ class DataZipperService
       # variations as values.
       #
       # PostgreSQL docs: https://www.postgresql.org/docs/9.6/tablefunc.html#AEN145056
-      ApplicationRecord.copy_csv(<<-SQL)
+      ApplicationRecord.copy_csv(<<~SQL)
         SELECT
           user_id,
           fs_filename AS genotype_filename,

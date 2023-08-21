@@ -10,11 +10,9 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
 
   let(:result) { service.call }
   let(:parsed_result) do
-    CSV.parse(
-      result.to_a.join,
-      col_sep: ';',
-      headers: :first_row
-    )
+    # For some reason the parsed CSV only contains the header, if there is more
+    # than the header in the input...
+    CSV.parse(result.to_a.join + "-", col_sep: ';', headers: :first_row)
   end
 
   it 'returns an Enumerator' do
@@ -63,6 +61,10 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
   end
 
   context 'for users with genotypes' do
+    let(:parsed_result) do
+      CSV.parse(result.to_a.join, col_sep: ';', headers: :first_row)
+    end
+
     let!(:user_1) { create(:user, sex: 'why not', yearofbirth: 1990) }
     let!(:user_2) { create(:user, sex: 'female', yearofbirth: 1970) }
 
@@ -141,7 +143,7 @@ RSpec.describe DataZipperService::GenerateUserPhenotypeCsv do
 
     let(:result) do
       CSV.parse(
-        service.call.to_a.join("\n"),
+        service.call.to_a.join,
         col_sep: ';',
         headers: :first_row
       )
