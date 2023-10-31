@@ -72,7 +72,7 @@ class MendeleySearch
           doi:          document["doi"].presence,
         )
         if !(mendeley_paper.valid? && mendeley_paper.save)
-          logger.error("MendeleyPaper for #{snp.name} invalid.\n" <<
+          logger.error("MendeleyPaper for #{snp.name} invalid.\n" +
                        mendeley_paper.errors.full_messages.join(", "))
         else
           mendeley_paper.snps << snp unless mendeley_paper.snps.include? snp

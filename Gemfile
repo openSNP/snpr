@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 5.1.7'
+gem 'rails', '~> 5.2.0'
+gem 'bootsnap', require: false
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
 gem 'rails3-generators'
@@ -20,7 +21,7 @@ gem 'plos', require: false
 # DB
 gem 'activerecord-import', '>= 0.4.0'
 gem 'attr_encrypted', '< 4'
-gem 'composite_primary_keys', '~> 10.0'
+gem 'composite_primary_keys', '~> 11.0'
 gem 'pg', '<1' # Unpin when updating Rails to 5.x
 gem 'pg_search'
 

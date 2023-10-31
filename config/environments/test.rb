@@ -1,4 +1,6 @@
 Rails.application.configure do
+  ## Generated config (custom settings at the bottom)
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
@@ -15,7 +17,7 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
+    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
   # Show full error reports and disable caching.
@@ -27,6 +29,10 @@ Rails.application.configure do
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
+
+  # Store uploaded files on the local file system in a temporary directory
+  config.active_storage.service = :test
+
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
@@ -40,6 +46,10 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  ## Custom settings
+
+  # Don't complain about assets not being pre-compiled.
   config.assets.check_precompiled_asset = false
-  config.action_mailer.default_url_options = { host: 'opensnp.org' }
+
+  config.action_mailer.default_url_options = { host: "example.com" }
 end

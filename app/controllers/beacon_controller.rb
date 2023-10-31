@@ -16,12 +16,12 @@ class BeaconController < ApplicationController
       @snps = Snp.where(position: @position, chromosome: @chromosome)
       @snps.each do |s|
         if s.allele_frequency[@allele].positive?
-          render(plain: 'YES' and return)
+          render(plain: 'YES') and return
           break
         end
       end
       # not found? return no
-      render(plain: 'NO' and return)
+      render(plain: 'NO') and return
     rescue
       # did something break: return none (not useful, but the API standard…)
       render(plain: 'NONE')

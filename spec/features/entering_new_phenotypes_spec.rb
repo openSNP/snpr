@@ -41,25 +41,16 @@ RSpec.feature 'Entering new phenotypes' do
         .to match_array(['Created a new phenotype', 'Entered first phenotype'])
 
       expect(ActionMailer::Base.deliveries.count).to eq(1)
-      expect(ActionMailer::Base.deliveries.first.text_part.decoded)
-        .to include(<<~TXT)
-          Dear Max Mustermann,
+      expect(ActionMailer::Base.deliveries.first.text_part.decoded).to include(<<~TXT)
+        Dear Max Mustermann,
 
-          The new phenotype "Eye count" was just entered on openSNP.
-          If you want to enter your variation for this phenotype, you can visit http://opensnp.org/phenotypes/#{phenotype.id}
+        The new phenotype "Eye count" was just entered on openSNP.
+        If you want to enter your variation for this phenotype, you can visit http://example.com/phenotypes/1
 
 
-          Cheers,
-          the openSNP team
-
-          --
-          You received this email because you enabled the notifications for website updates.
-          You can easily change these on the website: https://opensnp.org/users/#{other_user.id}/edit#notifications
-
-          openSNP thanks our Patreons for supporting our hosting costs.
-
-          http://www.patreon.com/openSNP
-        TXT
+        Cheers,
+        the openSNP team
+      TXT
     end
 
     scenario 'with missing fields' do

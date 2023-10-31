@@ -50,8 +50,8 @@ class GenomeGov
       pub_date:            pub_date,
       journal:             journal,
       trait:               trait,
-      snps:                [snp],
     )
+    paper.update!(snps: [snp])
     snp.update_ranking
     snp.save
   end

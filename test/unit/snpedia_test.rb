@@ -27,10 +27,12 @@ class SnpediaTest < ActiveSupport::TestCase
   end
 
   should 'skip existing papers' do
-    FactoryBot.create(:snpedia_paper,
-                       revision: 445428,
-                       url: "http://www.snpedia.com/index.php/Rs12979860(C;C)",
-                       snps: [@snp])
+    paper = FactoryBot.create(
+      :snpedia_paper,
+      revision: 445428,
+      url: "http://www.snpedia.com/index.php/Rs12979860(C;C)",
+    )
+    paper.update!(snps: [@snp])
     VCR.use_cassette('SnpediaWorker skip existing papers') do
       assert_difference(-> { SnpediaPaper.count }, 2) do
         Snpedia.new.perform(@snp.id)
