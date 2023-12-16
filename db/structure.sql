@@ -34,7 +34,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -49,6 +49,76 @@ CREATE EXTENSION IF NOT EXISTS tablefunc WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, including crosstab';
+
+
+--
+-- Name: find_bad_row(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.find_bad_row(tablename text) RETURNS tid
+    LANGUAGE plpgsql
+    AS $_$
+DECLARE
+result tid;
+curs REFCURSOR;
+row1 RECORD;
+row2 RECORD;
+tabName TEXT;
+count BIGINT := 0;
+BEGIN
+SELECT reverse(split_part(reverse($1), '.', 1)) INTO tabName;
+OPEN curs FOR EXECUTE 'SELECT ctid FROM ' || tableName;
+count := 1;
+FETCH curs INTO row1;
+WHILE row1.ctid IS NOT NULL LOOP
+result = row1.ctid;
+count := count + 1;
+FETCH curs INTO row1;
+EXECUTE 'SELECT (each(hstore(' || tabName || '))).* FROM '
+|| tableName || ' WHERE ctid = $1' INTO row2
+USING row1.ctid;
+IF count % 100000 = 0 THEN
+RAISE NOTICE 'rows processed: %', count;
+END IF;
+END LOOP;
+CLOSE curs;
+RETURN row1.ctid;
+EXCEPTION
+WHEN OTHERS THEN
+RAISE NOTICE 'LAST CTID: %', result;
+RAISE NOTICE '%: %', SQLSTATE, SQLERRM;
+RETURN result;
+END
+$_$;
+
+
+--
+-- Name: upsert_user_snps(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.upsert_user_snps(current_genotype_id integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+        DECLARE
+          temp_table_name VARCHAR := CONCAT('user_snps_temp_', current_genotype_id::varchar);
+          query VARCHAR := FORMAT('SELECT snp_name, local_genotype from %s', temp_table_name);
+          temp_record RECORD;
+        BEGIN
+          FOR temp_record IN EXECUTE(query) LOOP
+            BEGIN
+              INSERT INTO user_snps (snp_name, genotype_id, local_genotype)
+              VALUES (temp_record.snp_name,
+                      current_genotype_id,
+                      temp_record.local_genotype);
+            EXCEPTION WHEN unique_violation THEN
+              UPDATE user_snps
+              SET local_genotype = temp_record.local_genotype
+              WHERE snp_name = temp_record.snp_name
+                    AND user_snps.genotype_id = current_genotype_id;
+            END;
+          END LOOP;
+        END;
+      $$;
 
 
 SET default_tablespace = '';
@@ -73,7 +143,6 @@ CREATE TABLE public.achievements (
 --
 
 CREATE SEQUENCE public.achievements_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -110,7 +179,6 @@ CREATE TABLE public.active_admin_comments (
 --
 
 CREATE SEQUENCE public.active_admin_comments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -151,7 +219,6 @@ CREATE TABLE public.admin_users (
 --
 
 CREATE SEQUENCE public.admin_users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -196,7 +263,6 @@ CREATE TABLE public.file_links (
 --
 
 CREATE SEQUENCE public.file_links_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -229,7 +295,6 @@ CREATE TABLE public.friendly_id_slugs (
 --
 
 CREATE SEQUENCE public.friendly_id_slugs_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -269,7 +334,6 @@ CREATE TABLE public.genome_gov_papers (
 --
 
 CREATE SEQUENCE public.genome_gov_papers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -307,7 +371,6 @@ CREATE TABLE public.genotypes (
 --
 
 CREATE SEQUENCE public.genotypes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -341,7 +404,6 @@ CREATE TABLE public.homepages (
 --
 
 CREATE SEQUENCE public.homepages_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -380,7 +442,6 @@ CREATE TABLE public.mendeley_papers (
 --
 
 CREATE SEQUENCE public.mendeley_papers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -422,7 +483,6 @@ CREATE TABLE public.messages (
 --
 
 CREATE SEQUENCE public.messages_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -459,7 +519,6 @@ CREATE TABLE public.open_humans_profiles (
 --
 
 CREATE SEQUENCE public.open_humans_profiles_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -496,7 +555,6 @@ CREATE TABLE public.pgp_annotations (
 --
 
 CREATE SEQUENCE public.pgp_annotations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -532,7 +590,6 @@ CREATE TABLE public.phenotype_comments (
 --
 
 CREATE SEQUENCE public.phenotype_comments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -566,7 +623,6 @@ CREATE TABLE public.phenotype_sets (
 --
 
 CREATE SEQUENCE public.phenotype_sets_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -610,7 +666,6 @@ CREATE TABLE public.phenotypes (
 --
 
 CREATE SEQUENCE public.phenotypes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -646,7 +701,6 @@ CREATE TABLE public.picture_phenotype_comments (
 --
 
 CREATE SEQUENCE public.picture_phenotype_comments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -680,7 +734,6 @@ CREATE TABLE public.picture_phenotypes (
 --
 
 CREATE SEQUENCE public.picture_phenotypes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -716,7 +769,6 @@ CREATE TABLE public.plos_papers (
 --
 
 CREATE SEQUENCE public.plos_papers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -736,7 +788,7 @@ ALTER SEQUENCE public.plos_papers_id_seq OWNED BY public.plos_papers.id;
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying NOT NULL
+    version character varying(255) NOT NULL
 );
 
 
@@ -761,7 +813,6 @@ CREATE TABLE public.snp_comments (
 --
 
 CREATE SEQUENCE public.snp_comments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -817,7 +868,6 @@ CREATE TABLE public.snpedia_papers (
 --
 
 CREATE SEQUENCE public.snpedia_papers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -851,13 +901,14 @@ C: 0
 '::character varying,
     ranking integer DEFAULT 0,
     number_of_users integer DEFAULT 0,
-    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
-    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
-    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
+    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459467'::timestamp without time zone,
+    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459582'::timestamp without time zone,
+    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459627'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_snps_count integer
-);
+)
+WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
 
 
 --
@@ -865,7 +916,6 @@ C: 0
 --
 
 CREATE SEQUENCE public.snps_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -898,7 +948,6 @@ CREATE TABLE public.user_achievements (
 --
 
 CREATE SEQUENCE public.user_achievements_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -932,7 +981,6 @@ CREATE TABLE public.user_phenotypes (
 --
 
 CREATE SEQUENCE public.user_phenotypes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -970,7 +1018,6 @@ CREATE TABLE public.user_picture_phenotypes (
 --
 
 CREATE SEQUENCE public.user_picture_phenotypes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -992,8 +1039,9 @@ ALTER SEQUENCE public.user_picture_phenotypes_id_seq OWNED BY public.user_pictur
 CREATE TABLE public.user_snps (
     snp_name character varying(32) NOT NULL,
     genotype_id integer NOT NULL,
-    local_genotype character varying
-);
+    local_genotype bpchar
+)
+WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
 
 
 --
@@ -1038,7 +1086,6 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1237,11 +1284,11 @@ ALTER TABLE ONLY public.achievements
 
 
 --
--- Name: active_admin_comments active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: active_admin_comments admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_admin_comments
-    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT admin_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1381,14 +1428,6 @@ ALTER TABLE ONLY public.plos_papers
 
 
 --
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
 -- Name: snp_comments snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1437,11 +1476,11 @@ ALTER TABLE ONLY public.user_picture_phenotypes
 
 
 --
--- Name: user_snps user_snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_snps user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_snps
-    ADD CONSTRAINT user_snps_pkey PRIMARY KEY (genotype_id, snp_name);
+    ADD CONSTRAINT user_snps_new_pkey PRIMARY KEY (genotype_id, snp_name);
 
 
 --
@@ -1736,6 +1775,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20140221060607'),
 ('20140509001806'),
 ('20140820071334'),
+('20150524081137'),
+('20150916070052'),
 ('20151019160643'),
 ('20151028130755'),
 ('20151119070640'),
