@@ -45,7 +45,7 @@ RSpec.feature 'Entering new phenotypes' do
         Dear Max Mustermann,
 
         The new phenotype "Eye count" was just entered on openSNP.
-        If you want to enter your variation for this phenotype, you can visit http://example.com/phenotypes/1
+        If you want to enter your variation for this phenotype, you can visit http://example.org/phenotypes/1
 
 
         Cheers,

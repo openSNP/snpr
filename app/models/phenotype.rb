@@ -25,12 +25,9 @@ class Phenotype < ApplicationRecord
   end
 
   def self.with_number_of_users
-    from(
-      select('phenotypes.*, count(user_phenotypes.*) as number_of_users')
-        .joins('LEFT JOIN user_phenotypes ON user_phenotypes.phenotype_id = phenotypes.id')
-        .group(1)
-        .as('phenotypes')
-    )
+    select('phenotypes.*, count(user_phenotypes.*) as number_of_users')
+      .left_joins(:user_phenotypes)
+      .group('phenotypes.id')
   end
 
   def number_of_users

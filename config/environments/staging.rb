@@ -50,4 +50,6 @@ Snpr::Application.configure do
 
   # Eager load code on boot.
   config.eager_load = true
+
+  config.action_mailer.default_url_options = { host: 'example.org' }
 end

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :avatar,
     content_type: %r(\Aimage/.*\Z)
 
+  ## Authlogic
   # call on authlogic
   acts_as_authentic do |c|
     # replace SHA512 by bcrypt
@@ -20,6 +21,53 @@ class User < ApplicationRecord
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
   #after_create :make_standard_phenotypes
+
+  EMAIL = /
+    \A
+    [A-Z0-9_.&%+\-']+   # mailbox
+    @
+    (?:[A-Z0-9\-]+\.)+  # subdomains
+    (?:[A-Z]{2,25})     # TLD
+    \z
+  /ix
+  LOGIN = /\A[a-zA-Z0-9_][a-zA-Z0-9\.+\-_@ ]+\z/
+
+  validates(
+    :email,
+    format: {
+      with: EMAIL,
+      message: proc {
+        ::Authlogic::I18n.t(
+          "error_messages.email_invalid",
+          default: "should look like an email address."
+        )
+      }
+    },
+    length: { maximum: 100 },
+    uniqueness: {
+      case_sensitive: false,
+      if: :will_save_change_to_email?
+    }
+  )
+
+  validates(
+    :password,
+    confirmation: { if: :require_password? },
+    length: {
+      minimum: 8,
+      if: :require_password?
+    }
+  )
+
+  validates(
+    :password_confirmation,
+    length: {
+      minimum: 8,
+      if: :require_password?
+    }
+  )
+
+  ## End Authlogic
 
   # dependent so stuff gets destroyed on delete
   has_many :user_phenotypes, dependent: :destroy

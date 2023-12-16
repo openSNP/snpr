@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.11
--- Dumped by pg_dump version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -41,7 +34,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
 
 
 --
@@ -58,77 +51,9 @@ CREATE EXTENSION IF NOT EXISTS tablefunc WITH SCHEMA public;
 COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, including crosstab';
 
 
---
--- Name: find_bad_row(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.find_bad_row(tablename text) RETURNS tid
-    LANGUAGE plpgsql
-    AS $_$
-DECLARE
-result tid;
-curs REFCURSOR;
-row1 RECORD;
-row2 RECORD;
-tabName TEXT;
-count BIGINT := 0;
-BEGIN
-SELECT reverse(split_part(reverse($1), '.', 1)) INTO tabName;
-OPEN curs FOR EXECUTE 'SELECT ctid FROM ' || tableName;
-count := 1;
-FETCH curs INTO row1;
-WHILE row1.ctid IS NOT NULL LOOP
-result = row1.ctid;
-count := count + 1;
-FETCH curs INTO row1;
-EXECUTE 'SELECT (each(hstore(' || tabName || '))).* FROM '
-|| tableName || ' WHERE ctid = $1' INTO row2
-USING row1.ctid;
-IF count % 100000 = 0 THEN
-RAISE NOTICE 'rows processed: %', count;
-END IF;
-END LOOP;
-CLOSE curs;
-RETURN row1.ctid;
-EXCEPTION
-WHEN OTHERS THEN
-RAISE NOTICE 'LAST CTID: %', result;
-RAISE NOTICE '%: %', SQLSTATE, SQLERRM;
-RETURN result;
-END
-$_$;
-
-
---
--- Name: upsert_user_snps(integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.upsert_user_snps(current_genotype_id integer) RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-        DECLARE
-          temp_table_name VARCHAR := CONCAT('user_snps_temp_', current_genotype_id::varchar);
-          query VARCHAR := FORMAT('SELECT snp_name, local_genotype from %s', temp_table_name);
-          temp_record RECORD;
-        BEGIN
-          FOR temp_record IN EXECUTE(query) LOOP
-            BEGIN
-              INSERT INTO user_snps (snp_name, genotype_id, local_genotype)
-              VALUES (temp_record.snp_name,
-                      current_genotype_id,
-                      temp_record.local_genotype);
-            EXCEPTION WHEN unique_violation THEN
-              UPDATE user_snps
-              SET local_genotype = temp_record.local_genotype
-              WHERE snp_name = temp_record.snp_name
-                    AND user_snps.genotype_id = current_genotype_id;
-            END;
-          END LOOP;
-        END;
-      $$;
-
-
 SET default_tablespace = '';
+
+SET default_table_access_method = heap;
 
 --
 -- Name: achievements; Type: TABLE; Schema: public; Owner: -
@@ -148,6 +73,7 @@ CREATE TABLE public.achievements (
 --
 
 CREATE SEQUENCE public.achievements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -184,6 +110,7 @@ CREATE TABLE public.active_admin_comments (
 --
 
 CREATE SEQUENCE public.active_admin_comments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -224,6 +151,7 @@ CREATE TABLE public.admin_users (
 --
 
 CREATE SEQUENCE public.admin_users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -236,6 +164,18 @@ CREATE SEQUENCE public.admin_users_id_seq
 --
 
 ALTER SEQUENCE public.admin_users_id_seq OWNED BY public.admin_users.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
 
 
 --
@@ -256,6 +196,7 @@ CREATE TABLE public.file_links (
 --
 
 CREATE SEQUENCE public.file_links_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -288,6 +229,7 @@ CREATE TABLE public.friendly_id_slugs (
 --
 
 CREATE SEQUENCE public.friendly_id_slugs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -327,6 +269,7 @@ CREATE TABLE public.genome_gov_papers (
 --
 
 CREATE SEQUENCE public.genome_gov_papers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -364,6 +307,7 @@ CREATE TABLE public.genotypes (
 --
 
 CREATE SEQUENCE public.genotypes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -397,6 +341,7 @@ CREATE TABLE public.homepages (
 --
 
 CREATE SEQUENCE public.homepages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -435,6 +380,7 @@ CREATE TABLE public.mendeley_papers (
 --
 
 CREATE SEQUENCE public.mendeley_papers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -476,6 +422,7 @@ CREATE TABLE public.messages (
 --
 
 CREATE SEQUENCE public.messages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -512,6 +459,7 @@ CREATE TABLE public.open_humans_profiles (
 --
 
 CREATE SEQUENCE public.open_humans_profiles_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -548,6 +496,7 @@ CREATE TABLE public.pgp_annotations (
 --
 
 CREATE SEQUENCE public.pgp_annotations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -583,6 +532,7 @@ CREATE TABLE public.phenotype_comments (
 --
 
 CREATE SEQUENCE public.phenotype_comments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -616,6 +566,7 @@ CREATE TABLE public.phenotype_sets (
 --
 
 CREATE SEQUENCE public.phenotype_sets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -659,6 +610,7 @@ CREATE TABLE public.phenotypes (
 --
 
 CREATE SEQUENCE public.phenotypes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -694,6 +646,7 @@ CREATE TABLE public.picture_phenotype_comments (
 --
 
 CREATE SEQUENCE public.picture_phenotype_comments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -727,6 +680,7 @@ CREATE TABLE public.picture_phenotypes (
 --
 
 CREATE SEQUENCE public.picture_phenotypes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -762,6 +716,7 @@ CREATE TABLE public.plos_papers (
 --
 
 CREATE SEQUENCE public.plos_papers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -781,7 +736,7 @@ ALTER SEQUENCE public.plos_papers_id_seq OWNED BY public.plos_papers.id;
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -806,6 +761,7 @@ CREATE TABLE public.snp_comments (
 --
 
 CREATE SEQUENCE public.snp_comments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -861,6 +817,7 @@ CREATE TABLE public.snpedia_papers (
 --
 
 CREATE SEQUENCE public.snpedia_papers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -894,14 +851,13 @@ C: 0
 '::character varying,
     ranking integer DEFAULT 0,
     number_of_users integer DEFAULT 0,
-    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459467'::timestamp without time zone,
-    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459582'::timestamp without time zone,
-    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32.459627'::timestamp without time zone,
+    mendeley_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
+    plos_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
+    snpedia_updated timestamp without time zone DEFAULT '2011-08-24 03:44:32'::timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_snps_count integer
-)
-WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
+);
 
 
 --
@@ -909,6 +865,7 @@ WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
 --
 
 CREATE SEQUENCE public.snps_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -941,6 +898,7 @@ CREATE TABLE public.user_achievements (
 --
 
 CREATE SEQUENCE public.user_achievements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -974,6 +932,7 @@ CREATE TABLE public.user_phenotypes (
 --
 
 CREATE SEQUENCE public.user_phenotypes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1011,6 +970,7 @@ CREATE TABLE public.user_picture_phenotypes (
 --
 
 CREATE SEQUENCE public.user_picture_phenotypes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1032,9 +992,8 @@ ALTER SEQUENCE public.user_picture_phenotypes_id_seq OWNED BY public.user_pictur
 CREATE TABLE public.user_snps (
     snp_name character varying(32) NOT NULL,
     genotype_id integer NOT NULL,
-    local_genotype bpchar
-)
-WITH (autovacuum_enabled='false', toast.autovacuum_enabled='false');
+    local_genotype character varying
+);
 
 
 --
@@ -1079,6 +1038,7 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1277,11 +1237,11 @@ ALTER TABLE ONLY public.achievements
 
 
 --
--- Name: active_admin_comments admin_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: active_admin_comments active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_admin_comments
-    ADD CONSTRAINT admin_notes_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1290,6 +1250,14 @@ ALTER TABLE ONLY public.active_admin_comments
 
 ALTER TABLE ONLY public.admin_users
     ADD CONSTRAINT admin_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
 --
@@ -1413,6 +1381,14 @@ ALTER TABLE ONLY public.plos_papers
 
 
 --
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: snp_comments snp_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1461,11 +1437,11 @@ ALTER TABLE ONLY public.user_picture_phenotypes
 
 
 --
--- Name: user_snps user_snps_new_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_snps user_snps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_snps
-    ADD CONSTRAINT user_snps_new_pkey PRIMARY KEY (genotype_id, snp_name);
+    ADD CONSTRAINT user_snps_pkey PRIMARY KEY (genotype_id, snp_name);
 
 
 --
@@ -1700,145 +1676,76 @@ ALTER TABLE ONLY public.user_snps
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20110608000645');
+INSERT INTO "schema_migrations" (version) VALUES
+('20110608000645'),
+('20110615045458'),
+('20110615173154'),
+('20110616192820'),
+('20110617144145'),
+('20110819233120'),
+('20110820195410'),
+('20110821112909'),
+('20110822071221'),
+('20110822110806'),
+('20110823032055'),
+('20110824164934'),
+('20110830134100'),
+('20110912190409'),
+('20110914100443'),
+('20110914100516'),
+('20110914151105'),
+('20110917193600'),
+('20110926092220'),
+('20110926172905'),
+('20111005210020'),
+('20111006133700'),
+('20111006163700'),
+('20111007141500'),
+('20111007145000'),
+('20111018040633'),
+('20111028190606'),
+('20111028212506'),
+('20111029180506'),
+('20111102033039'),
+('20111212063354'),
+('20120208020405'),
+('20120324143135'),
+('20120509234035'),
+('20120902113435'),
+('20120902174500'),
+('20120902175000'),
+('20120902175500'),
+('20120916211800'),
+('20120916212700'),
+('20121006230458'),
+('20121020153113'),
+('20121023032404'),
+('20121123234958'),
+('20121123235228'),
+('20121124201111'),
+('20121210131554'),
+('20121213120010'),
+('20130124085042'),
+('20130608135719'),
+('20130904010945'),
+('20130904010949'),
+('20130904010950'),
+('20131117101353'),
+('20131130123430'),
+('20140120005457'),
+('20140221060607'),
+('20140509001806'),
+('20140820071334'),
+('20151019160643'),
+('20151028130755'),
+('20151119070640'),
+('20160207043305'),
+('20160626121340'),
+('20160806143618'),
+('20161226175703'),
+('20171113104813'),
+('20180118100003'),
+('20180521160808'),
+('20231111103851');
 
-INSERT INTO schema_migrations (version) VALUES ('20110615045458');
-
-INSERT INTO schema_migrations (version) VALUES ('20110615173154');
-
-INSERT INTO schema_migrations (version) VALUES ('20110616192820');
-
-INSERT INTO schema_migrations (version) VALUES ('20110617144145');
-
-INSERT INTO schema_migrations (version) VALUES ('20110819233120');
-
-INSERT INTO schema_migrations (version) VALUES ('20110820195410');
-
-INSERT INTO schema_migrations (version) VALUES ('20110821112909');
-
-INSERT INTO schema_migrations (version) VALUES ('20110822071221');
-
-INSERT INTO schema_migrations (version) VALUES ('20110822110806');
-
-INSERT INTO schema_migrations (version) VALUES ('20110823032055');
-
-INSERT INTO schema_migrations (version) VALUES ('20110824164934');
-
-INSERT INTO schema_migrations (version) VALUES ('20110830134100');
-
-INSERT INTO schema_migrations (version) VALUES ('20110912190409');
-
-INSERT INTO schema_migrations (version) VALUES ('20110914100443');
-
-INSERT INTO schema_migrations (version) VALUES ('20110914100516');
-
-INSERT INTO schema_migrations (version) VALUES ('20110914151105');
-
-INSERT INTO schema_migrations (version) VALUES ('20110917193600');
-
-INSERT INTO schema_migrations (version) VALUES ('20110926092220');
-
-INSERT INTO schema_migrations (version) VALUES ('20110926172905');
-
-INSERT INTO schema_migrations (version) VALUES ('20111005210020');
-
-INSERT INTO schema_migrations (version) VALUES ('20111006133700');
-
-INSERT INTO schema_migrations (version) VALUES ('20111006163700');
-
-INSERT INTO schema_migrations (version) VALUES ('20111007141500');
-
-INSERT INTO schema_migrations (version) VALUES ('20111007145000');
-
-INSERT INTO schema_migrations (version) VALUES ('20111018040633');
-
-INSERT INTO schema_migrations (version) VALUES ('20111028190606');
-
-INSERT INTO schema_migrations (version) VALUES ('20111028212506');
-
-INSERT INTO schema_migrations (version) VALUES ('20111029180506');
-
-INSERT INTO schema_migrations (version) VALUES ('20111102033039');
-
-INSERT INTO schema_migrations (version) VALUES ('20111212063354');
-
-INSERT INTO schema_migrations (version) VALUES ('20120208020405');
-
-INSERT INTO schema_migrations (version) VALUES ('20120324143135');
-
-INSERT INTO schema_migrations (version) VALUES ('20120509234035');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902113435');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902174500');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902175000');
-
-INSERT INTO schema_migrations (version) VALUES ('20120902175500');
-
-INSERT INTO schema_migrations (version) VALUES ('20120916211800');
-
-INSERT INTO schema_migrations (version) VALUES ('20120916212700');
-
-INSERT INTO schema_migrations (version) VALUES ('20121006230458');
-
-INSERT INTO schema_migrations (version) VALUES ('20121020153113');
-
-INSERT INTO schema_migrations (version) VALUES ('20121023032404');
-
-INSERT INTO schema_migrations (version) VALUES ('20121123234958');
-
-INSERT INTO schema_migrations (version) VALUES ('20121123235228');
-
-INSERT INTO schema_migrations (version) VALUES ('20121124201111');
-
-INSERT INTO schema_migrations (version) VALUES ('20121210131554');
-
-INSERT INTO schema_migrations (version) VALUES ('20121213120010');
-
-INSERT INTO schema_migrations (version) VALUES ('20130124085042');
-
-INSERT INTO schema_migrations (version) VALUES ('20130608135719');
-
-INSERT INTO schema_migrations (version) VALUES ('20130904010945');
-
-INSERT INTO schema_migrations (version) VALUES ('20130904010949');
-
-INSERT INTO schema_migrations (version) VALUES ('20130904010950');
-
-INSERT INTO schema_migrations (version) VALUES ('20131117101353');
-
-INSERT INTO schema_migrations (version) VALUES ('20131130123430');
-
-INSERT INTO schema_migrations (version) VALUES ('20140120005457');
-
-INSERT INTO schema_migrations (version) VALUES ('20140221060607');
-
-INSERT INTO schema_migrations (version) VALUES ('20140509001806');
-
-INSERT INTO schema_migrations (version) VALUES ('20140820071334');
-
-INSERT INTO schema_migrations (version) VALUES ('20150524081137');
-
-INSERT INTO schema_migrations (version) VALUES ('20150916070052');
-
-INSERT INTO schema_migrations (version) VALUES ('20151019160643');
-
-INSERT INTO schema_migrations (version) VALUES ('20151028130755');
-
-INSERT INTO schema_migrations (version) VALUES ('20151119070640');
-
-INSERT INTO schema_migrations (version) VALUES ('20160207043305');
-
-INSERT INTO schema_migrations (version) VALUES ('20160626121340');
-
-INSERT INTO schema_migrations (version) VALUES ('20160806143618');
-
-INSERT INTO schema_migrations (version) VALUES ('20161226175703');
-
-INSERT INTO schema_migrations (version) VALUES ('20171113104813');
-
-INSERT INTO schema_migrations (version) VALUES ('20180118100003');
-
-INSERT INTO schema_migrations (version) VALUES ('20180521160808');
 
