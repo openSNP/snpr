@@ -35,6 +35,7 @@ jobs:
 
     env:
       DATABASE_URL: postgres://postgres:postgres@localhost/snpr
+      COVERAGE: '1'
 
     steps:
       - name: Install hiredis
