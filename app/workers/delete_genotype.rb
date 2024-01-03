@@ -10,7 +10,7 @@ class DeleteGenotype
 
       if user.genotypes.count == 1
         # update user-attributes
-        user.update_attributes(has_sequence: false, sequence_link: nil)
+        user.update!(has_sequence: false, sequence_link: nil)
 
         # delete Uploaded Genotyping-achievement
         achievement = Achievement.where(award: 'Published genotyping')

@@ -25,6 +25,6 @@ class Message < ApplicationRecord
     if User.find_by_id(recipient).try(:message_on_message) == true
       UserMailer.new_message(recipient,msg.id).deliver_later
     end
-    self.update_attributes from_id: from, sent: true, to_id: recipient, user_has_seen: true
+    self.update(from_id: from, sent: true, to_id: recipient, user_has_seen: true)
   end
 end

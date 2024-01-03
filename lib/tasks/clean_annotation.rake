@@ -11,7 +11,7 @@ def check_to_destroy(type)
     if parental.name.start_with? "vg"
       set_to_destroy.add(m)
     end
-  end 
+  end
   set_to_destroy
 end
 
@@ -19,7 +19,7 @@ def destroy(set, type)
   set.each do |s|
     if s.parental != nil and s.parental.name.start_with? "vg"
       # has to be a vg-SNP, we don't want annotation for these right now as they are mostly bogus
-      s.parental.update_attributes(:ranking => 0)
+      s.parental.update(ranking: 0)
     end
     # delete
     puts "Want to destroy: #{s.inspect}"

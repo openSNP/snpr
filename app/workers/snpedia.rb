@@ -30,15 +30,14 @@ class Snpedia
       to_parse = client.get(page)
       next if to_parse.to_s.include?('#REDIRECT')
       /summary=(?<summary>.*)\}\}/m =~ to_parse
-      snpedia_paper.update_attributes!(
-        url: url, summary: summary, revision: rev_id)
+      snpedia_paper.update!(url: url, summary: summary, revision: rev_id)
       snpedia_paper.snps << snp unless snpedia_paper.snps.include? snp
       snpedia_updated = true
     end
     snp.snpedia_updated! if snpedia_updated
     if Rails.env == 'production'
       # Increase this value if the following error keeps on showing up
-      # 'MediaWiki::APIError: API error: code 'internal_api_error_DBConnectionError', 
+      # 'MediaWiki::APIError: API error: code 'internal_api_error_DBConnectionError',
       # info 'Exception Caught: DB connection error: Too many connections'
       sleep(10)
     end

@@ -11,7 +11,7 @@ namespace :genotypes do
         md5 = Digest::MD5.file(filename).to_s
         puts "Md5 is"
         puts md5
-        g.update_attributes(:md5sum => md5)
+        g.update(md5sum: md5)
         puts "Updated!"
     end
   end

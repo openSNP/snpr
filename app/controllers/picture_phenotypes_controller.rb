@@ -35,7 +35,7 @@ class PicturePhenotypesController < ApplicationController
       @phenotype = PicturePhenotype.create(picture_phenotype_params)
 
       # award: created one (or more) phenotypes
-      current_user.update_attributes(phenotype_creation_counter: (current_user.phenotype_creation_counter + 1)  )
+      current_user.increment!(:phenotype_creation_counter)
 
       check_and_award_new_phenotypes(1, 'Created a new phenotype')
       check_and_award_new_phenotypes(5, 'Created 5 new phenotypes')

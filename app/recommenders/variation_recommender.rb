@@ -11,7 +11,10 @@ class VariationRecommender < Recommendify::Base
 
     User.joins(user_phenotypes: :phenotype)
         .group('users.id')
-        .pluck('users.id', "array_agg(CONCAT(phenotypes.id, '=>', user_phenotypes.variation))")
+        .pluck(
+          'users.id',
+          Arel.sql("array_agg(CONCAT(phenotypes.id, '=>', user_phenotypes.variation))")
+        )
         .each do |user_id, phenotype_array|
           users_to_variations.add_set(user_id, phenotype_array)
         end

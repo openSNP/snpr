@@ -129,7 +129,7 @@ class Preparsing
     else
       logger.info "Updating genotype with md5sum #{md5}"
       logger.info "Updating genotype #{genotype.id}"
-      status = genotype.update_attributes(md5sum: md5)
+      status = genotype.update(md5sum: md5)
       logger.info "Md5-updating-status is #{status}"
 
       Parsing.perform_async(genotype.id)

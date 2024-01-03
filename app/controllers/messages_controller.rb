@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
     else
       @to = 'Deleted User'
     end
-    @message.update_attributes user_has_seen: true
+    @message.update(user_has_seen: true)
   end
 
   def destroy

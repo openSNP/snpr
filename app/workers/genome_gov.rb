@@ -38,9 +38,11 @@ class GenomeGov
     if pvalue < 1e-100
       pvalue = 1e-100
     end
-    paper = GenomeGovPaper.
-      first_or_initialize(title: title, pubmed_link: pubmed_link)
-    paper.update_attributes!(
+    paper = GenomeGovPaper.find_or_initialize_by(
+      title: title,
+      pubmed_link: pubmed_link,
+    )
+    paper.update!(
       title:               title,
       pubmed_link:         pubmed_link,
       confidence_interval: confidence_interval,
@@ -53,7 +55,7 @@ class GenomeGov
     )
     paper.update!(snps: [snp])
     snp.update_ranking
-    snp.save
+    snp.save!
   end
 end
 

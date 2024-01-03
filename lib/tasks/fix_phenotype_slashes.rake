@@ -8,7 +8,7 @@ namespace :phenotypes do
       puts "Updating #{up.phenotype.characteristic}, #{up.variation}"
       # replace :: by /
       new_variation = up.variation.gsub("::","/")
-      up.update_attributes(:variation => new_variation)
+      up.update(variation: new_variation)
     end
   end
 end

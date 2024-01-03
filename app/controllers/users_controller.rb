@@ -137,7 +137,7 @@ class UsersController < ApplicationController
       params[:user][:description] = Sanitize.clean(params[:user][:description], Sanitize::Config::RESTRICTED)
     end
 
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       @empty_websites = Homepage.where(user_id: current_user.id, url: '')
       @empty_websites.each do |ew| ew.delete end
 
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
       @user_phenotype = UserPhenotype.create(user_id: user_id, variation: variation, phenotype_id: @phenotype.id)
     else
       # if user_phenotype exists, update
-      @user_phenotype.update_attributes(variation: variation)
+      @user_phenotype.update(variation: variation)
     end
   end
 

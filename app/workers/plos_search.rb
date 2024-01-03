@@ -33,7 +33,7 @@ class PlosSearch
       title:        article.title,
     }
     plos_paper = PlosPaper.find_or_initialize_by(doi: plos_paper_attributes[:doi])
-    plos_paper.update_attributes!(plos_paper_attributes)
+    plos_paper.update!(plos_paper_attributes)
     plos_paper.snps << snp unless plos_paper.snps.include? snp
     Sidekiq::Client.enqueue(PlosDetails, plos_paper.id)
   end
@@ -41,7 +41,7 @@ class PlosSearch
   def perform_search
     # honoring API limits
     result = nil
-    begin 
+    begin
       Timeout.timeout(5) do
         result = client.search(snp.name, 0, 999)
       end
