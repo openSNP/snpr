@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 gem 'bootsnap', require: false
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
@@ -13,6 +13,7 @@ gem 'sanitize'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'lograge'
 gem 'slop'
+gem "webrick"
 
 # apis
 gem 'mendeley', git: 'https://github.com/tsujigiri/mendeley', branch: 'paging_search'
@@ -21,8 +22,8 @@ gem 'plos', require: false
 # DB
 gem 'activerecord-import', '>= 0.4.0'
 gem 'attr_encrypted', '< 4'
-gem 'composite_primary_keys', '~> 12.0'
-gem 'pg', '<1' # Unpin when updating Rails to 5.x
+gem 'composite_primary_keys', '~> 13.0'
+gem 'pg'
 gem 'pg_search'
 
 # so we can create zip-files for genotypes

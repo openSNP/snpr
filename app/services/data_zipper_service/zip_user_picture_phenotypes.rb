@@ -22,7 +22,7 @@ class DataZipperService
         Zip::File::CREATE
       )
 
-      user_picture_phenotypes_csv = CSV.generate(CSV_OPTIONS) do |csv|
+      user_picture_phenotypes_csv = CSV.generate(**CSV_OPTIONS) do |csv|
         csv << csv_head
 
         User
