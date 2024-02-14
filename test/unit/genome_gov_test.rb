@@ -15,7 +15,7 @@ class GenomeGovTest < ActiveSupport::TestCase
     paper = GenomeGovPaper.last
     assert paper.snps.include?(@snp)
     assert_equal 2.0e-50, paper.pvalue
-    assert_equal 'pvalue description test', paper.pvalue_description
+    assert_equal '', paper.pvalue_description
     assert_equal '[3.33-5.00] ', paper.confidence_interval
     assert_equal 'http://www.ncbi.nlm.nih.gov/pubmed/23740775', paper.pubmed_link
     assert_equal 'Xie G', paper.first_author

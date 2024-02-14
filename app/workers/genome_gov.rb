@@ -10,7 +10,7 @@ class GenomeGov
   def perform
     @known_snps = Snp.pluck(:name).to_set
 
-    gwas_catalog  = open('http://www.genome.gov/admin/gwascatalog.txt') do |f|
+    gwas_catalog  = File.open(Rails.root.join('lib/gwascatalog.txt')) do |f|
       f.readlines
     end
     gwas_catalog.shift # remove CSV header
