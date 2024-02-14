@@ -54,7 +54,7 @@ class GenotypesControllerTest < ActionController::TestCase
         Preparsing.expects(:perform_async)
         FileUtils.cp("#{Rails.root}/testdata/testdatensatz1_23andme.txt",
                      "#{Rails.root}/test/fixtures")
-        genotype_file = fixture_file_upload('testdatensatz1_23andme.txt')
+        genotype_file = fixture_file_upload('../testdatensatz1_23andme.txt')
         genotype_file.content_type = 'text/plain'
         assert_difference 'UserAchievement.count' do
           assert_difference 'Genotype.count' do
