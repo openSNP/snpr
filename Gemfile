@@ -59,10 +59,6 @@ gem 'sass-rails'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
-# get rid of Ruby 2.7.7 error
-# bigdecimal is required by ActiveSupport, and bigdecimal 2
-# introduces some breaking changes (You cannot use BigDecimal.new)
-gem 'bigdecimal', '1.3.5'
 # Ruby 2.7.0 does not include scanf
 gem 'scanf'
 

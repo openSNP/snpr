@@ -104,7 +104,6 @@ GEM
     bcrypt (3.1.20)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
-    bigdecimal (1.3.5)
     bootsnap (1.17.1)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -430,7 +429,6 @@ DEPENDENCIES
   attr_encrypted (< 4)
   authlogic
   bcrypt-ruby
-  bigdecimal (= 1.3.5)
   bootsnap
   capybara
   composite_primary_keys (~> 13.0)
