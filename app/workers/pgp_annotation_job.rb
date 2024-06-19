@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 require 'open-uri'
 
-class PgpAnnotationjob
+class PgpAnnotationJob
   include Sidekiq::Worker
   sidekiq_options queue: :pgp, retry: 5, unique: true
 
