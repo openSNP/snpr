@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 gem 'bootsnap', require: false
 gem 'authlogic' # lots of user-related magic
 gem 'i18n', '>= 0.6.6'
@@ -21,8 +21,8 @@ gem 'plos', require: false
 
 # DB
 gem 'activerecord-import', '>= 0.4.0'
-gem 'attr_encrypted', '< 4'
-gem 'composite_primary_keys', '~> 13.0'
+gem 'attr_encrypted'
+gem 'composite_primary_keys', '~> 14.0'
 gem 'pg'
 gem 'pg_search'
 

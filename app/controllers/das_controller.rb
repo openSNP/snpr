@@ -95,8 +95,6 @@ class DasController < ApplicationController
         # Put in the servername and version
         response.headers['X-DAS-Server'] = request.env['SERVER_SOFTWARE'].split(' ')[0]
         response.headers['Access-Control-Allow-Origin'] = '*'
-
-        render template: 'das/show.xml.erb', layout: false
     end
 
     def sources

@@ -11,7 +11,7 @@ RSpec.describe 'DAS-API', type: :request do
   let!(:user_snp_two) { create(:user_snp, user: user, snp: snp_two, genotype: genotype) }
 
   it 'GET /das/:id/' do
-    get "/das/#{user.id}/features?segment=1:10,11",
+    get "/das/#{user.id}/features.xml?segment=1:10,11",
         params: { segment: '1:10,11' },
         headers: { 'SERVER_SOFTWARE' => 'faked for test' }
     assert_response :success
