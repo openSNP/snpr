@@ -47,9 +47,6 @@ gem 'sinatra', require: false
 gem 'whenever', require: false
 
 # assets
-gem 'therubyracer'
-gem 'execjs'
-gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'sass-rails'
