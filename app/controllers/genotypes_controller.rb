@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class GenotypesController < ApplicationController
 
-  before_action :require_user, except: [ :show, :feed,:index,:dump_download ]
+  before_action :require_user, except: %i[show feed index]
   helper_method :sort_column, :sort_direction
 
   def index

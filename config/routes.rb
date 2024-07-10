@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'sidekiq/web'
+# TODO: Make Sidekiq Web work
+# require 'sidekiq/web'
 require './lib/admin_constraint'
 
 Rails.application.routes.draw do
@@ -75,5 +76,5 @@ Rails.application.routes.draw do
   get '/user_picture_phenotypes/:id/delete', to: 'user_picture_phenotypes#delete'
   get '/beacon/rest/responses', to: 'beacon#responses'
 
-  mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+  # mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 end
