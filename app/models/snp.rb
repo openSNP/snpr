@@ -9,8 +9,8 @@ class Snp < ApplicationRecord
   has_many :snp_references
   has_many :snp_comments
 
-  serialize :allele_frequency
-  serialize :genotype_frequency
+  serialize :allele_frequency, YAML
+  serialize :genotype_frequency, YAML
 
   extend FriendlyId
   friendly_id :name, use: :history, slug_column: :name
