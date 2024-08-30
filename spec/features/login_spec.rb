@@ -45,4 +45,26 @@ RSpec.describe 'Arriving at openSNP' do
       end
     end
   end
+
+  context "for existing users" do
+    let!(:user) do
+      create(
+        :user,
+        email: "user@example.com",
+        password_salt: "r138v6Tx3iqYNPPdfWnV",
+        crypted_password: "$2a$10$8kSlpLxvB/psmMrmpIWmYOnM2wu/R8XUn8XvBaCTl6Tcu80LFudLe",
+        persistence_token: "d078ab6ddb7375ca7fe652b2beef3e2dd2308c5c5a5cec803378436e710e201bc088d3f55f6858c187ed6ba30e7f2282ebb68b1cdddd36c7d8f607f5f178e51a",
+        perishable_token: "lk8z9uiBMhJWoYx3syIM",
+      )
+    end
+
+    it "allows them to log in" do
+      visit(root_path)
+      click_on("Sign In")
+      fill_in('Email', with: 'user@example.com')
+      fill_in('Password', with: 'secretly')
+      click_on('Login')
+      expect(page).to have_content('Login successful!')
+    end
+  end
 end
