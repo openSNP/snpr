@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ENV["RAILS_ENV"] ||= 'test'
+ENV['USER_DATA_SECRET_KEY'] = "0123456789abcdef0123456789abcdef"
+
 require 'simplecov'
 SimpleCov.command_name 'rspec'
 require File.expand_path("../../config/environment", __FILE__)
