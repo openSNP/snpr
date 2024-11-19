@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-require 'net/http'
-require 'rexml/document'
-require 'media_wiki'
 
 class Snpedia
   include Sidekiq::Worker
