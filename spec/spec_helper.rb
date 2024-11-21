@@ -20,8 +20,6 @@ Capybara.raise_server_errors = false
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-Sidekiq::Logging.logger = Logger.new('log/sidekiq-test.log')
-
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Authlogic::TestCase

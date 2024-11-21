@@ -38,7 +38,7 @@ gem 'friendly_id'
 gem 'recommendify', git: 'https://github.com/Kinoba/recommendify'
 
 # background jobs
-gem 'sidekiq', '~> 5.1.3' # TODO: Update me!
+gem 'sidekiq'
 gem 'sidekiq-limit_fetch'
 gem 'slim', '~> 1.3.8'
 gem 'sinatra', require: false

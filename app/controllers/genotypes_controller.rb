@@ -56,7 +56,7 @@ class GenotypesController < ApplicationController
 
   def destroy
     genotype = current_user.genotypes.find(params[:id])
-    DeleteGenotype.perform_async(genotype_id: genotype.id)
+    DeleteGenotype.perform_async('genotype_id' => genotype.id)
     flash[:notice] = 'Your Genotyping will be deleted. This may take a few minutes...'
     redirect_to current_user
   end
