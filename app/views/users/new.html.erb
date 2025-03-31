@@ -9,33 +9,9 @@
       <%=render "static/disclaimer"%>
     </div>
     <div class="col-md-4 col-md-offset-1 well signup__form">
-      <%= form_for @user, :html => {:class => "form"} do |f| %>
-        <div class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name , placeholder:"Username", class:"form-control"%>
-        </div>
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password %>
-          <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password_confirmation, "Confirmation" %>
-          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm your password" %>
-        </div>
-        <div class="checkbox">
-          <label>
-            <%= check_box_tag(:read, :type => "checkbox") %>
-            I understand the warning and I am willing to take these risks.
-          </label>
-        </div>
-        <p class="signup__recaptcha"><%= recaptcha_tags %></p>
-        <%= f.submit :class => "btn btn-default btn-lg"%>
-        <% end %>
-        <p class="signup__advise">Already a user? Log in now!</p>
+      <b>
+        openSNP will sunset on April 30, 2025. Due to this we already now don't allow new registrations any longer. Existing users can log in as before.
+      </b>
     </div>
   </div>
 </div>
