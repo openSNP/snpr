@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 require 'zip'
+require 'zlib'
+require 'rubygems/package'
 require 'digest'
 
 class Preparsing
@@ -10,11 +12,40 @@ class Preparsing
   def perform(genotype_id)
     genotype = Genotype.find(genotype_id)
 
-    logger.info "Starting preparse"
-    biggest = ''
-    biggest_size = 0
-    begin
-      Zip::File.open(genotype.genotype.path) do |zipfile|
+    logger.info "Starting preparse on #{genotype.genotype.path}"
+    # First, we need to find out which archive or flat text our uploaded file is!
+    # We use the bash tool file for that
+    #
+    # There are two possible outcomes - file is a collection of files (tar, tar.gz, zip)
+    # or file is a single file (ASCII, gz)
+    filetype = `file #{genotype.genotype.path}`
+    case filetype
+    when /ASCII text/
+      logger.info 'File is flat text'
+      reader = File.method('open')
+      is_collection = false
+    when /gzip compressed data, was/
+      reader = Zlib::GzipReader.method('open')
+      logger.info 'file is gz'
+      is_collection = false
+    when /gzip compressed data, last modified/
+      reader = ->(zipfile){ Gem::Package::TarReader.new(Zlib::GzipReader.open(zipfile)) }
+      is_collection = true
+    when /POSIX tar archive/
+      logger.info 'File is tar'
+      reader = Gem::Package::TarReader.method('new')
+      is_collection = true
+    when /Zip archive data/
+      logger.info 'File is zip'
+      reader = Zip::File.method('open')
+      is_collection = true
+    end
+
+    if is_collection
+      # Find the biggest file in the archive
+      biggest = ''
+      biggest_size = 0
+      reader.call genotype.genotype.path do |zipfile|
         # find the biggest file, since that's going to be the genotyping
         zipfile.each do |entry|
           if entry.size > biggest_size
@@ -23,18 +54,19 @@ class Preparsing
           end
         end
 
-        zipfile.extract(biggest,"#{Rails.root}/tmp/#{genotype.fs_filename}.csv")
-        system("mv #{Rails.root}/tmp/#{genotype.fs_filename}.csv #{Rails.root}/public/data/#{genotype.fs_filename}")
-        logger.info "copied file"
+        zipfile.extract(biggest, Rails.root.join('tmp', "#{genotype.fs_filename}.csv"))
+        system("mv #{Rails.root.join('tmp', "#{genotype.fs_filename}.csv")} \
+               #{Rails.root.join('public', 'data',genotype.fs_filename)}")
+        logger.info 'Copied file'
       end
-
-    rescue
-      logger.info "nothing to unzip, seems to be a text-file in the first place"
+    else
+      system("cp #{genotype.genotype.path} \
+             #{Rails.root.join('public', 'data', genotype.fs_filename)}")
     end
 
     # now that they are unzipped, check if they're actually proper files
     file_is_ok = false
-    fh = File.open(genotype.genotype.path)
+    fh = File.open Rails.root.join('public', 'data', genotype.fs_filename)
     l = fh.readline()
     # some files, for some reason, start with the UTF-BOM-marker
     l = l.sub("\uFEFF","")
