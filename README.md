@@ -1,5 +1,7 @@
 # openSNP
 
+**Note: We have decided to shut down openSNP. Read about the reasons [here](https://tzovar.as/sunsetting-opensnp/).**
+ 
 [![Build Status](https://github.com/openSNP/snpr/actions/workflows/build.yml/badge.svg)](https://github.com/openSNP/snpr/actions/workflows/build.yml)  [![Join the chat at https://gitter.im/openSNP/snpr](https://badges.gitter.im/openSNP/snpr.svg)](https://gitter.im/openSNP/snpr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Hello! [openSNP.org](https://opensnp.org) is a repository to which users can upload their SNP-sets (and exome-VCFs) from
